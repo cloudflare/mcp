@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "cloudflare-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-01-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "logs": { "enabled": true },
+    "traces": { "enabled": true }
+  },
+  "vars": {
+    "CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4"
+  },
+  "worker_loaders": [{ "binding": "LOADER" }]
+}
