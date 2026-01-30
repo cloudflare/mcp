@@ -2,7 +2,7 @@
 
 > A smol MCP server for the complete Cloudflare API.
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/mattzcarey/cloudflare-mcp)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/mcp)
 
 Uses codemode to avoid dumping too much context to your agent.
 
@@ -14,16 +14,16 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 
 Both **user tokens** and **account tokens** are supported:
 
-| Token Type | Description | Requirements |
-|------------|-------------|--------------|
-| User Token | Created at user level, can access multiple accounts | Requires `account_id` parameter on each execute call |
-| Account Token | Scoped to single account | `account_id` auto-detected, no parameter needed |
+| Token Type    | Description                                         | Requirements                                         |
+| ------------- | --------------------------------------------------- | ---------------------------------------------------- |
+| User Token    | Created at user level, can access multiple accounts | Requires `account_id` parameter on each execute call |
+| Account Token | Scoped to single account                            | `account_id` auto-detected, no parameter needed      |
 
 For account tokens, include the **Account Resources : Read** permission so the server can auto-detect your account ID.
 
 ### Add to Agent
 
-MCP URL: `https://cloudflare-mcp.mattzcarey.workers.dev/mcp`
+MCP URL: `https://mcp.cloudflare.com/mcp`
 Bearer Token: Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens)
 
 #### Claude Code
@@ -34,7 +34,7 @@ Bearer Token: Your [Cloudflare API Token](https://dash.cloudflare.com/profile/ap
 ```bash
 export CLOUDFLARE_API_TOKEN="your-token-here"
 
-claude mcp add --transport http cloudflare-api https://cloudflare-mcp.mattzcarey.workers.dev/mcp \
+claude mcp add --transport http cloudflare-api https://mcp.cloudflare.com/mcp \
   --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
@@ -58,7 +58,7 @@ Then add to your `opencode.json`:
   "mcp": {
     "cloudflare-api": {
       "type": "remote",
-      "url": "https://cloudflare-mcp.mattzcarey.workers.dev/mcp",
+      "url": "https://mcp.cloudflare.com/mcp",
       "headers": {
         "Authorization": "Bearer {env:CLOUDFLARE_API_TOKEN}"
       }
@@ -68,6 +68,11 @@ Then add to your `opencode.json`:
 ```
 
 </details>
+
+### Resources
+
+- [Build your own remote MCP server](https://developers.cloudflare.com/agents/guides/remote-mcp-server/)
+- [Cloudflare MCP Servers](https://github.com/cloudflare/mcp-server-cloudflare)
 
 ## The Problem
 
