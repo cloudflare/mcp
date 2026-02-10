@@ -27,7 +27,6 @@
 	"kv_namespaces": [
 		{
 			"binding": "OAUTH_KV",
-			"id": "cd658e2801ac4ae6b18082e375f176a3"
 		}
 	],
 	"dev": {
@@ -49,7 +48,8 @@
 			],
 			"kv_namespaces": [
 				{
-					"binding": "OAUTH_KV"
+					"binding": "OAUTH_KV",
+					"id":"cd658e2801ac4ae6b18082e375f176a3"
 				}
 			],
 			"vars": {
@@ -71,7 +71,8 @@
 			],
 			"kv_namespaces": [
 				{
-					"binding": "OAUTH_KV"
+					"binding": "OAUTH_KV",
+					"id": "c7d4e4f11dfe41e6a22228aa838a14f1"
 				}
 			],
 			"vars": {
