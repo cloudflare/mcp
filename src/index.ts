@@ -1,94 +1,85 @@
-import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
-import { createServer } from "./server";
+import OAuthProvider from '@cloudflare/workers-oauth-provider'
+import { Hono } from 'hono'
+import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
+import { createServer } from './server'
+import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
+import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
+import type { AuthProps } from './auth/types'
 
-interface CloudflareResponse<T = unknown> {
-  success: boolean;
-  result?: T;
-  errors?: Array<{ code: number; message: string }>;
+type McpContext = {
+  Bindings: Env
 }
 
-interface Account {
-  id: string;
-  name: string;
+/**
+ * Create MCP response for a given token and optional account ID
+ */
+async function createMcpResponse(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+  token: string,
+  accountId?: string
+): Promise<Response> {
+  const server = createServer(env, token, accountId)
+  const transport = new WebStandardStreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
+    enableJsonResponse: true,
+  })
+
+  await server.connect(transport)
+  const response = await transport.handleRequest(request)
+  ctx.waitUntil(transport.close())
+
+  return response
 }
 
-async function verifyToken(token: string): Promise<{ valid: boolean; accountId?: string; error?: string }> {
-  const headers = { Authorization: `Bearer ${token}` };
+/**
+ * Create MCP API handler using Hono
+ */
+function createMcpHandler() {
+  const app = new Hono<McpContext>()
 
-  try {
-    // Run user token verification and accounts fetch in parallel
-    const [userResponse, accountsResponse] = await Promise.all([
-      fetch("https://api.cloudflare.com/client/v4/user/tokens/verify", { headers }),
-      fetch("https://api.cloudflare.com/client/v4/accounts", { headers }),
-    ]);
-
-    const [userData, accountsData] = await Promise.all([
-      userResponse.json() as Promise<CloudflareResponse>,
-      accountsResponse.json() as Promise<CloudflareResponse<Account[]>>,
-    ]);
-
-    // User token is valid
-    if (userData.success) {
-      return { valid: true };
+  app.post('/mcp', async (c) => {
+    // Props are passed via ExecutionContext by workers-oauth-provider
+    const ctx = c.executionCtx as ExecutionContext & { props?: AuthProps }
+    const props = ctx.props
+    if (!props || !props.accessToken) {
+      return new Response(JSON.stringify({ error: 'Not authenticated' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      })
     }
+    const accountId = props.type === 'account_token' ? props.account.id : undefined
+    return createMcpResponse(c.req.raw, c.env, ctx, props.accessToken, accountId)
+  })
 
-    // Try account token path
-    if (!accountsData.success || !accountsData.result?.length) {
-      const errorMsg = userData.errors?.map(e => e.message).join(", ") || "Invalid token";
-      return { valid: false, error: errorMsg };
-    }
-
-    if (accountsData.result.length > 1) {
-      return { valid: false, error: "Token has access to multiple accounts - use a single-account token" };
-    }
-
-    // /accounts succeeded, token is valid - use the account ID
-    return { valid: true, accountId: accountsData.result[0].id };
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    return { valid: false, error: `Failed to verify token: ${message}` };
-  }
-}
-
-function extractToken(authHeader: string): string | null {
-  const match = authHeader.match(/Bearer\s+(\S+)/);
-  return match ? match[1] : null;
-}
-
-function jsonError(message: string, status: number = 401): Response {
-  return new Response(JSON.stringify({ error: message }), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  });
+  return app
 }
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) {
-      return jsonError("Authorization header required");
+    // Check for direct API token first (like GitHub MCP's PAT support)
+    if (isDirectApiToken(request)) {
+      const response = await handleApiTokenRequest(request, (token, accountId) =>
+        createMcpResponse(request, env, ctx, token, accountId)
+      )
+      if (response) return response
     }
 
-    const token = extractToken(authHeader);
-    if (!token) {
-      return jsonError("Invalid Authorization header format");
-    }
-
-    const verification = await verifyToken(token);
-    if (!verification.valid) {
-      return jsonError(verification.error || "Token verification failed");
-    }
-
-    const server = createServer(env, token, verification.accountId);
-    const transport = new WebStandardStreamableHTTPServerTransport({
-      sessionIdGenerator: undefined,
-      enableJsonResponse: true,
-    });
-
-    await server.connect(transport);
-    const response = await transport.handleRequest(request);
-    ctx.waitUntil(transport.close());
-
-    return response;
+    // OAuth mode - handle via workers-oauth-provider
+    return new OAuthProvider({
+      apiHandlers: {
+        // @ts-ignore - Hono apps are compatible with ExportedHandler at runtime
+        '/mcp': createMcpHandler(),
+      },
+      // @ts-ignore - Hono apps are compatible with ExportedHandler at runtime
+      defaultHandler: createAuthHandlers(),
+      authorizeEndpoint: '/authorize',
+      tokenEndpoint: '/token',
+      clientRegistrationEndpoint: '/register',
+      tokenExchangeCallback: (options) =>
+        handleTokenExchangeCallback(options, env.CLOUDFLARE_CLIENT_ID, env.CLOUDFLARE_CLIENT_SECRET),
+      accessTokenTTL: 3600,
+    }).fetch(request, env, ctx)
   },
-};
+}
