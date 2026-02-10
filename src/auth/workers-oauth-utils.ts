@@ -32,6 +32,20 @@ export class OAuthError extends Error {
       }
     )
   }
+
+  toHtmlResponse(): Response {
+    const titles: Record<string, string> = {
+      invalid_request: 'Invalid Request',
+      unauthorized_client: 'Unauthorized Client',
+      access_denied: 'Access Denied',
+      unsupported_response_type: 'Unsupported Response Type',
+      invalid_scope: 'Invalid Scope',
+      server_error: 'Server Error',
+      temporarily_unavailable: 'Temporarily Unavailable',
+    }
+    const title = titles[this.code] || 'Authorization Error'
+    return renderErrorPage(title, this.description, `Error code: ${this.code}`)
+  }
 }
 
 /**
@@ -235,220 +249,457 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${clientName} | Authorization Request</title>
+  <title>Authorize ${clientName} | Cloudflare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-color: #f6821f;
-      --primary-hover: #e5750f;
-      --border-color: rgba(255,255,255,0.1);
-      --text-color: #e0e0e0;
-      --text-muted: #888;
-      --background-color: #1a1a2e;
-      --card-bg: rgba(255,255,255,0.05);
+      --cf-orange: #f6821f;
+      --cf-orange-hover: #e5750f;
+      --cf-orange-light: rgba(246, 130, 31, 0.08);
+      --cf-brown: #3c2415;
+      --cf-brown-light: #6b4c3a;
+      --cf-cream: #fbf8f3;
+      --cf-cream-dark: #f5f0e8;
+      --cf-border: rgba(60, 36, 21, 0.1);
+      --cf-border-dark: rgba(60, 36, 21, 0.15);
+      --cf-text: #3c2415;
+      --cf-text-muted: #6b5c52;
+      --cf-text-light: #9a8a7c;
+      --border-radius: 8px;
+      --border-radius-lg: 12px;
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      color: var(--text-color);
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      margin: 0;
-      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      color: var(--cf-text);
+      background: var(--cf-cream);
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .container { max-width: 600px; margin: 2rem auto; padding: 1rem; }
-    .precard { padding: 2rem; text-align: center; }
-    .card {
-      background: var(--card-bg);
-      border-radius: 16px;
+
+    /* Header */
+    .header {
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--cf-border);
+      background: white;
+    }
+    .cf-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .cf-logo svg { height: 32px; width: auto; }
+    .cf-logo-text {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--cf-text);
+    }
+    .cf-logo-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--cf-border-dark);
+      margin: 0 0.5rem;
+    }
+    .cf-logo-product {
+      font-size: 0.9rem;
+      color: var(--cf-text-muted);
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 2rem;
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-color);
     }
-    .header { display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
-    .logo { width: 48px; height: 48px; margin-right: 1rem; border-radius: 8px; }
-    .title { margin: 0; font-size: 1.5rem; font-weight: 600; color: #fff; }
-    .alert { font-size: 1.1rem; margin: 1rem 0 0.5rem; text-align: center; color: #fff; }
-    .client-info {
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      margin: 1rem 0;
-      background: rgba(0,0,0,0.2);
+    .card {
+      background: white;
+      border: 1px solid var(--cf-border);
+      border-radius: var(--border-radius-lg);
+      width: 100%;
+      max-width: 480px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(60, 36, 21, 0.06);
     }
-    .client-name { font-weight: 600; font-size: 1.1rem; color: #fff; }
-    .description { color: var(--text-muted); margin-top: 0.5rem; font-size: 0.9rem; }
+    .card-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--cf-border);
+      text-align: center;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--cf-text);
+      margin-bottom: 0.5rem;
+    }
+    .card-subtitle {
+      font-size: 0.875rem;
+      color: var(--cf-text-muted);
+    }
+    .card-body { padding: 1.5rem 2rem; }
+
+    /* Client Info */
+    .client-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--cf-cream);
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--cf-border);
+    }
+    .client-badge-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--cf-orange);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .client-badge-icon svg { width: 12px; height: 12px; }
 
     /* Scope Selection */
-    .scope-section { margin: 1.5rem 0; }
-    .scope-section-title {
-      font-size: 0.9rem;
-      color: #fff;
-      margin-bottom: 0.75rem;
+    .scope-section { margin-bottom: 1.5rem; }
+    .scope-label {
+      font-size: 0.75rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--cf-text-muted);
+      margin-bottom: 0.75rem;
     }
-
-    /* Template Selection */
     .template-options { display: flex; flex-direction: column; gap: 0.5rem; }
     .template-option {
       display: flex;
       align-items: flex-start;
-      padding: 0.75rem;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
+      padding: 1rem;
+      border: 1px solid var(--cf-border);
+      border-radius: var(--border-radius);
       cursor: pointer;
-      transition: all 0.2s;
-      background: rgba(0,0,0,0.1);
+      transition: all 0.15s ease;
+      background: transparent;
     }
-    .template-option:hover { border-color: var(--primary-color); }
-    .template-option.selected { border-color: var(--primary-color); background: rgba(246, 130, 31, 0.1); }
-    .template-option input { margin-right: 0.75rem; margin-top: 0.25rem; accent-color: var(--primary-color); }
-    .template-content { display: flex; flex-direction: column; }
-    .template-name { font-weight: 500; color: #fff; }
-    .template-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+    .template-option:hover { border-color: var(--cf-border-dark); background: var(--cf-cream); }
+    .template-option.selected {
+      border-color: var(--cf-orange);
+      background: var(--cf-orange-light);
+    }
+    .template-option input[type="radio"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--cf-border-dark);
+      border-radius: 50%;
+      margin-right: 0.75rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+      background: white;
+    }
+    .template-option input[type="radio"]:checked {
+      border-color: var(--cf-orange);
+      background: var(--cf-orange);
+    }
+    .template-option input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+    }
+    .template-content { flex: 1; }
+    .template-name {
+      font-weight: 500;
+      color: var(--cf-text);
+      font-size: 0.9rem;
+    }
+    .template-desc {
+      font-size: 0.8rem;
+      color: var(--cf-text-muted);
+      margin-top: 0.25rem;
+      line-height: 1.4;
+    }
 
-    /* Advanced Scope Selection */
+    /* Advanced Toggle */
     .advanced-toggle {
       background: none;
       border: none;
-      color: var(--primary-color);
+      color: var(--cf-orange);
       cursor: pointer;
-      font-size: 0.85rem;
-      padding: 0.5rem 0;
-      display: flex;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0;
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
     }
     .advanced-toggle:hover { text-decoration: underline; }
-    .advanced-section { display: none; margin-top: 1rem; }
-    .advanced-section.open { display: block; }
-    .scope-groups {
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 0.5rem;
-      background: rgba(0,0,0,0.2);
+    .advanced-toggle svg {
+      width: 12px;
+      height: 12px;
+      transition: transform 0.2s ease;
     }
-    .scope-group { margin-bottom: 1rem; }
-    .scope-group:last-child { margin-bottom: 0; }
+    .advanced-toggle.open svg { transform: rotate(90deg); }
+    .advanced-section {
+      display: none;
+      margin-bottom: 1.5rem;
+      animation: fadeIn 0.2s ease;
+    }
+    .advanced-section.open { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .scope-groups {
+      max-height: 240px;
+      overflow-y: auto;
+      border: 1px solid var(--cf-border);
+      border-radius: var(--border-radius);
+      background: var(--cf-cream);
+    }
+    .scope-groups::-webkit-scrollbar { width: 6px; }
+    .scope-groups::-webkit-scrollbar-track { background: transparent; }
+    .scope-groups::-webkit-scrollbar-thumb {
+      background: var(--cf-border-dark);
+      border-radius: 3px;
+    }
+    .scope-group { padding: 0.5rem; }
+    .scope-group + .scope-group { border-top: 1px solid var(--cf-border); }
     .scope-group-header {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      color: var(--primary-color);
+      color: var(--cf-text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       padding: 0.5rem;
       position: sticky;
       top: 0;
-      background: rgba(26, 26, 46, 0.95);
+      background: var(--cf-cream);
     }
     .scope-item {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       padding: 0.4rem 0.5rem;
       cursor: pointer;
       border-radius: 4px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
-    .scope-item:hover { background: rgba(255,255,255,0.05); }
-    .scope-item input { margin-right: 0.5rem; margin-top: 0.15rem; accent-color: var(--primary-color); }
-    .scope-name { font-family: monospace; color: #fff; min-width: 180px; }
-    .scope-desc { color: var(--text-muted); font-size: 0.8rem; }
+    .scope-item:hover { background: white; }
+    .scope-item input[type="checkbox"] {
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--cf-border-dark);
+      border-radius: 3px;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      background: white;
+    }
+    .scope-item input[type="checkbox"]:checked {
+      background: var(--cf-orange);
+      border-color: var(--cf-orange);
+    }
+    .scope-item input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 4px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .scope-name {
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 0.75rem;
+      color: var(--cf-text);
+      min-width: 140px;
+    }
+    .scope-desc {
+      color: var(--cf-text-light);
+      font-size: 0.75rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-    .actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
+    /* Info Text */
+    .info-text {
+      font-size: 0.8rem;
+      color: var(--cf-text-muted);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .info-text svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--cf-text-light);
+    }
+
+    /* Actions */
+    .actions {
+      display: flex;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--cf-border);
+    }
     .button {
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
+      flex: 1;
+      padding: 0.75rem 1.25rem;
+      border-radius: 100px;
       font-weight: 500;
       cursor: pointer;
       border: none;
-      font-size: 1rem;
-      transition: all 0.2s;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: all 0.15s ease;
+      text-align: center;
     }
-    .button-primary { background-color: var(--primary-color); color: white; }
-    .button-primary:hover { background-color: var(--primary-hover); }
+    .button-primary {
+      background: var(--cf-orange);
+      color: white;
+    }
+    .button-primary:hover { background: var(--cf-orange-hover); transform: translateY(-1px); }
     .button-secondary {
       background: transparent;
-      border: 1px solid rgba(255,255,255,0.2);
-      color: var(--text-color);
+      border: 1px solid var(--cf-orange);
+      color: var(--cf-orange);
     }
-    .button-secondary:hover { border-color: rgba(255,255,255,0.4); }
+    .button-secondary:hover {
+      background: var(--cf-orange-light);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--cf-text-light);
+      border-top: 1px solid var(--cf-border);
+      background: white;
+    }
+    .footer a { color: var(--cf-text-muted); text-decoration: none; }
+    .footer a:hover { color: var(--cf-orange); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="precard">
-      <div class="header">
-        ${logoUrl ? `<img src="${logoUrl}" alt="${serverName} Logo" class="logo">` : ''}
-        <h1 class="title">${serverName}</h1>
-      </div>
-      ${serverDescription ? `<p class="description">${serverDescription}</p>` : ''}
-    </div>
+  <header class="header">
+    <a href="https://cloudflare.com" class="cf-logo">
+      <img src="https://www.cloudflare.com/img/logo-cloudflare-dark.svg" alt="Cloudflare" height="32">
+    </a>
+    <div class="cf-logo-divider"></div>
+    <span class="cf-logo-product">MCP Server</span>
+  </header>
+
+  <main class="main">
     <div class="card">
-      <h2 class="alert"><strong>${clientName}</strong> is requesting access</h2>
-      <div class="client-info">
-        <div class="client-name">${clientName}</div>
-        <p class="description">This MCP client wants to access the Cloudflare API on your behalf.</p>
+      <div class="card-header">
+        <h1 class="card-title">Authorize Application</h1>
+        <p class="card-subtitle">Grant access to Cloudflare API</p>
       </div>
 
-      <form method="post" action="${new URL(request.url).pathname}" id="authForm">
-        <input type="hidden" name="state" value="${encodedState}">
-        <input type="hidden" name="csrf_token" value="${csrfToken}">
+      <div class="card-body">
+        <div class="client-badge">
+          <span class="client-badge-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </span>
+          ${clientName}
+        </div>
 
-        ${
-          scopeTemplates
-            ? `
-        <div class="scope-section">
-          <div class="scope-section-title">Choose access level</div>
-          <div class="template-options">
-            ${templateOptionsHtml}
+        <form method="post" action="${new URL(request.url).pathname}" id="authForm">
+          <input type="hidden" name="state" value="${encodedState}">
+          <input type="hidden" name="csrf_token" value="${csrfToken}">
+
+          ${
+            scopeTemplates
+              ? `
+          <div class="scope-section">
+            <div class="scope-label">Access Level</div>
+            <div class="template-options">
+              ${templateOptionsHtml}
+            </div>
           </div>
-        </div>
-        `
-            : ''
-        }
+          `
+              : ''
+          }
 
-        ${
-          allScopes
-            ? `
-        <button type="button" class="advanced-toggle" onclick="toggleAdvanced()">
-          <span id="advancedArrow">▶</span> Customize permissions
-        </button>
-        <div class="advanced-section" id="advancedSection">
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
-            Select individual scopes to customize access. This overrides the template selection above.
-          </p>
-          <div class="scope-groups">
-            ${scopeGroupsHtml}
+          ${
+            allScopes
+              ? `
+          <button type="button" class="advanced-toggle" id="advancedToggle" onclick="toggleAdvanced()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+            Advanced: Select individual permissions
+          </button>
+          <div class="advanced-section" id="advancedSection">
+            <div class="scope-groups">
+              ${scopeGroupsHtml}
+            </div>
           </div>
-        </div>
-        `
-            : ''
-        }
+          `
+              : ''
+          }
 
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">
-          After approval, you will be redirected to Cloudflare to complete authentication.
-        </p>
+          <div class="info-text">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 16v-4M12 8h.01"/>
+            </svg>
+            <span>You'll be redirected to Cloudflare to sign in and confirm access.</span>
+          </div>
 
-        <div class="actions">
-          <button type="button" class="button button-secondary" onclick="window.history.back()">Cancel</button>
-          <button type="submit" class="button button-primary">Authorize</button>
-        </div>
-      </form>
+          <div class="actions">
+            <button type="button" class="button button-secondary" onclick="window.close()">Cancel</button>
+            <button type="submit" class="button button-primary">Continue</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+  </main>
+
+  <footer class="footer">
+    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
+    <a href="https://cloudflare.com/terms">Terms</a> ·
+    <a href="https://developers.cloudflare.com">Docs</a>
+  </footer>
 
   <script>
     const templates = ${scopeTemplates ? JSON.stringify(Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.scopes]))) : '{}'};
 
-    // Handle template selection
     document.querySelectorAll('input[name="scope_template"]').forEach(radio => {
       radio.addEventListener('change', function() {
         document.querySelectorAll('.template-option').forEach(opt => opt.classList.remove('selected'));
         this.closest('.template-option').classList.add('selected');
-
-        // Update checkboxes to match template
         const selectedScopes = templates[this.value] || [];
         document.querySelectorAll('.scope-checkbox').forEach(cb => {
           cb.checked = selectedScopes.includes(cb.value);
@@ -456,7 +707,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       });
     });
 
-    // Initialize checkboxes based on default template
     const defaultTemplate = '${defaultTemplate || ''}';
     if (defaultTemplate && templates[defaultTemplate]) {
       document.querySelectorAll('.scope-checkbox').forEach(cb => {
@@ -464,19 +714,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       });
     }
 
-    // Handle individual scope changes
-    document.querySelectorAll('.scope-checkbox').forEach(cb => {
-      cb.addEventListener('change', function() {
-        // When user manually changes scopes, we keep the form submission working
-        // The backend will read either template or individual scopes
-      });
-    });
-
     function toggleAdvanced() {
       const section = document.getElementById('advancedSection');
-      const arrow = document.getElementById('advancedArrow');
+      const toggle = document.getElementById('advancedToggle');
       section.classList.toggle('open');
-      arrow.textContent = section.classList.contains('open') ? '▼' : '▶';
+      toggle.classList.toggle('open');
     }
   </script>
 </body>
@@ -622,6 +864,179 @@ const StoredOAuthStateSchema = z.object({
   codeVerifier: z.string().min(1),
 })
 
+/**
+ * Renders a styled error page matching Cloudflare's design system
+ */
+export function renderErrorPage(
+  title: string,
+  message: string,
+  details?: string
+): Response {
+  const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${sanitizeHtml(title)} | Cloudflare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cf-orange: #f6821f;
+      --cf-brown: #3c2415;
+      --cf-cream: #fbf8f3;
+      --cf-border: rgba(60, 36, 21, 0.1);
+      --cf-text: #3c2415;
+      --cf-text-muted: #6b5c52;
+      --cf-text-light: #9a8a7c;
+      --cf-red: #d63031;
+      --cf-red-light: rgba(214, 48, 49, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      color: var(--cf-text);
+      background: var(--cf-cream);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--cf-border);
+      background: white;
+    }
+    .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .cf-logo-divider { width: 1px; height: 24px; background: rgba(60, 36, 21, 0.15); margin: 0 0.5rem; }
+    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-muted); }
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--cf-border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 440px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(60, 36, 21, 0.06);
+      text-align: center;
+      padding: 2.5rem 2rem;
+    }
+    .error-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--cf-red-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .error-icon svg { width: 28px; height: 28px; color: var(--cf-red); }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--cf-text);
+      margin-bottom: 0.75rem;
+    }
+    .card-message {
+      font-size: 0.95rem;
+      color: var(--cf-text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .error-details {
+      background: var(--cf-cream);
+      border: 1px solid var(--cf-border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: var(--cf-text-muted);
+      text-align: left;
+      word-break: break-word;
+      margin-bottom: 1.5rem;
+    }
+    .button {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 100px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+      font-family: inherit;
+      text-decoration: none;
+      background: var(--cf-orange);
+      color: white;
+      transition: all 0.15s ease;
+    }
+    .button:hover { background: #e5750f; transform: translateY(-1px); }
+    .footer {
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--cf-text-light);
+      border-top: 1px solid var(--cf-border);
+      background: white;
+    }
+    .footer a { color: var(--cf-text-muted); text-decoration: none; }
+    .footer a:hover { color: var(--cf-orange); }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="https://cloudflare.com" class="cf-logo">
+      <img src="https://www.cloudflare.com/img/logo-cloudflare-dark.svg" alt="Cloudflare" height="32">
+    </a>
+    <div class="cf-logo-divider"></div>
+    <span class="cf-logo-product">MCP Server</span>
+  </header>
+
+  <main class="main">
+    <div class="card">
+      <div class="error-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="15" y1="9" x2="9" y2="15"/>
+          <line x1="9" y1="9" x2="15" y2="15"/>
+        </svg>
+      </div>
+      <h1 class="card-title">${sanitizeHtml(title)}</h1>
+      <p class="card-message">${sanitizeHtml(message)}</p>
+      ${details ? `<div class="error-details">${sanitizeHtml(details)}</div>` : ''}
+      <a href="javascript:window.close()" class="button" onclick="window.close(); return false;">Close Window</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
+    <a href="https://cloudflare.com/terms">Terms</a> ·
+    <a href="https://developers.cloudflare.com">Docs</a>
+  </footer>
+</body>
+</html>
+`
+
+  return new Response(htmlContent, {
+    status: 400,
+    headers: {
+      'Content-Security-Policy': "frame-ancestors 'none'",
+      'Content-Type': 'text/html; charset=utf-8',
+      'X-Frame-Options': 'DENY',
+    },
+  })
+}
 /**
  * Validate OAuth state from request
  */

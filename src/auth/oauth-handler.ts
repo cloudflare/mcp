@@ -12,6 +12,7 @@ import {
   generateCSRFProtection,
   parseRedirectApproval,
   renderApprovalDialog,
+  renderErrorPage,
   validateOAuthState,
   OAuthError,
 } from './workers-oauth-utils'
@@ -164,7 +165,7 @@ export function createAuthHandlers() {
       oauthReqInfo.scope = defaultScopes
 
       if (!oauthReqInfo.clientId) {
-        return new OAuthError('invalid_request', 'Missing client_id').toResponse()
+        return new OAuthError('invalid_request', 'Missing client_id').toHtmlResponse()
       }
 
       // Check if client was previously approved - skip consent if so
@@ -196,9 +197,9 @@ export function createAuthHandlers() {
         defaultTemplate: DEFAULT_TEMPLATE,
       })
     } catch (e) {
-      if (e instanceof OAuthError) return e.toResponse()
+      if (e instanceof OAuthError) return e.toHtmlResponse()
       console.error('Authorize error:', e)
-      return new Response('Internal error', { status: 500 })
+      return renderErrorPage('Server Error', 'An unexpected error occurred. Please try again.', e instanceof Error ? e.message : undefined)
     }
   })
 
@@ -211,7 +212,7 @@ export function createAuthHandlers() {
       )
 
       if (!state.oauthReqInfo) {
-        return new OAuthError('invalid_request', 'Missing OAuth request info').toResponse()
+        return new OAuthError('invalid_request', 'Missing OAuth request info').toHtmlResponse()
       }
 
       const oauthReqInfo = state.oauthReqInfo as AuthRequest
@@ -247,9 +248,9 @@ export function createAuthHandlers() {
 
       return redirectResponse
     } catch (e) {
-      if (e instanceof OAuthError) return e.toResponse()
+      if (e instanceof OAuthError) return e.toHtmlResponse()
       console.error('Authorize POST error:', e)
-      return new Response('Internal error', { status: 500 })
+      return renderErrorPage('Server Error', 'An unexpected error occurred. Please try again.', e instanceof Error ? e.message : undefined)
     }
   })
 
@@ -258,14 +259,14 @@ export function createAuthHandlers() {
     try {
       const code = c.req.query('code')
       if (!code) {
-        return new OAuthError('invalid_request', 'Missing code').toResponse()
+        return new OAuthError('invalid_request', 'Missing code').toHtmlResponse()
       }
 
       // Validate state using dual validation (KV + session cookie)
       const { oauthReqInfo, codeVerifier, clearCookie } = await validateOAuthState(c.req.raw, env.OAUTH_KV)
 
       if (!oauthReqInfo.clientId) {
-        return new OAuthError('invalid_request', 'Invalid OAuth request info').toResponse()
+        return new OAuthError('invalid_request', 'Invalid OAuth request info').toHtmlResponse()
       }
 
       // Exchange code for tokens and ensure client is registered
@@ -287,7 +288,7 @@ export function createAuthHandlers() {
       const { user, accounts } = await getUserAndAccounts(access_token)
 
       if (!user) {
-        return new OAuthError('server_error', 'Failed to fetch user').toResponse()
+        return new OAuthError('server_error', 'Failed to fetch user information from Cloudflare').toHtmlResponse()
       }
 
       // Complete authorization
@@ -313,9 +314,9 @@ export function createAuthHandlers() {
         },
       })
     } catch (e) {
-      if (e instanceof OAuthError) return e.toResponse()
+      if (e instanceof OAuthError) return e.toHtmlResponse()
       console.error('Callback error:', e)
-      return new Response('Internal error', { status: 500 })
+      return renderErrorPage('Server Error', 'An unexpected error occurred during authorization.', e instanceof Error ? e.message : undefined)
     }
   })
 

@@ -1,14 +1,32 @@
 # cloudflare-mcp
 
-> A smol MCP server for the complete Cloudflare API.
+> A token-efficient MCP server for the entire Cloudflare API.
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/mcp)
-
-Uses codemode to avoid dumping too much context to your agent.
+Uses [Code Mode](https://blog.cloudflare.com/code-mode/) to avoid overloading your context window.
 
 ## Get Started
 
-### Create API Token
+MCP URL: `https://mcp.cloudflare.com/mcp`
+
+### Option 1: OAuth (Recommended)
+
+Just connect to the MCP server URL - you'll be redirected to Cloudflare to authorize and select permissions.
+
+#### Example JSON Configuration
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "url": "https://mcp.cloudflare.com/mcp"
+    }
+  }
+}
+```
+
+### Option 2: API Token
+
+For CI/CD, automation, or if you prefer managing tokens yourself.
 
 Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) with the permissions you need.
 
