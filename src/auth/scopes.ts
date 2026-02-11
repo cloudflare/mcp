@@ -5,9 +5,7 @@
  */
 export const ALL_SCOPES = {
   // Core (required for basic functionality)
-  'openid': 'OpenID Connect authentication',
-  'offline': 'Offline access',
-  'offline_access': 'Grants refresh tokens for long-lived access',
+  offline_access: 'Grants refresh tokens for long-lived access',
   'user:read': 'See your user info such as name, email address, and account memberships',
   'account:read': 'See your account info such as account details, analytics, and memberships',
 
@@ -18,7 +16,6 @@ export const ALL_SCOPES = {
   // Workers Platform
   'workers:read': 'See Cloudflare Workers data',
   'workers:write': 'Create and modify Cloudflare Workers',
-  'workers:edit': 'Edit Cloudflare Workers',
   'workers_scripts:write': 'Upload and modify Worker scripts',
   'workers_kv:write': 'Create and modify KV namespaces and data',
   'workers_routes:write': 'Configure Worker routes',
@@ -115,10 +112,6 @@ export const ALL_SCOPES = {
   'url_scanner:write': 'Configure URL Scanner',
   'radar:read': 'View Radar threat intelligence',
 
-  // Images
-  'images:read': 'View Cloudflare Images',
-  'images:write': 'Upload and modify images',
-
   // Billing
   'billing:read': 'View billing information',
   'billing:write': 'Modify billing settings',
@@ -138,14 +131,19 @@ export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'acc
 
 /** All read-only scopes (ending in :read) */
 export const READ_ONLY_SCOPES: ScopeName[] = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (scope) => scope.endsWith(':read')
+  (scope) => scope.endsWith(':read'),
 )
 
 /** All write/edit scopes */
 export const WRITE_SCOPES: ScopeName[] = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (scope) => scope.endsWith(':write') || scope.endsWith(':edit') || scope.endsWith(':run') ||
-             scope.endsWith(':setup') || scope.endsWith(':admin') || scope.endsWith(':bind') ||
-             scope.endsWith(':pii')
+  (scope) =>
+    scope.endsWith(':write') ||
+    scope.endsWith(':edit') ||
+    scope.endsWith(':run') ||
+    scope.endsWith(':setup') ||
+    scope.endsWith(':admin') ||
+    scope.endsWith(':bind') ||
+    scope.endsWith(':pii'),
 )
 
 /** Scope templates for quick selection */
@@ -167,11 +165,19 @@ export const SCOPE_TEMPLATES = {
     scopes: [
       ...REQUIRED_SCOPES,
       'account:read',
-      'workers:read', 'workers:write',
-      'workers_scripts:write', 'workers_kv:write', 'workers_routes:write', 'workers_tail:read',
-      'workers_builds:read', 'workers_builds:write',
-      'd1:write', 'r2_catalog:write', 'queues:write',
-      'pages:read', 'pages:write',
+      'workers:read',
+      'workers:write',
+      'workers_scripts:write',
+      'workers_kv:write',
+      'workers_routes:write',
+      'workers_tail:read',
+      'workers_builds:read',
+      'workers_builds:write',
+      'd1:write',
+      'r2_catalog:write',
+      'queues:write',
+      'pages:read',
+      'pages:write',
     ] as ScopeName[],
   },
   'dns-full': {
@@ -179,9 +185,12 @@ export const SCOPE_TEMPLATES = {
     description: 'Full access to DNS records and zone settings.',
     scopes: [
       ...REQUIRED_SCOPES,
-      'account:read', 'zone:read',
-      'dns_records:read', 'dns_records:edit',
-      'dns_settings:read', 'dns_analytics:read',
+      'account:read',
+      'zone:read',
+      'dns_records:read',
+      'dns_records:edit',
+      'dns_settings:read',
+      'dns_analytics:read',
     ] as ScopeName[],
   },
   'full-access': {
