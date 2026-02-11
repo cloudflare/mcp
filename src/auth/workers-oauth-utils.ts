@@ -24,11 +24,11 @@ export class OAuthError extends Error {
     return new Response(
       JSON.stringify({
         error: this.code,
-        error_description: this.description,
+        error_description: this.description
       }),
       {
         status: this.statusCode,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' }
       }
     )
   }
@@ -41,7 +41,7 @@ export class OAuthError extends Error {
       unsupported_response_type: 'Unsupported Response Type',
       invalid_scope: 'Invalid Scope',
       server_error: 'Server Error',
-      temporarily_unavailable: 'Temporarily Unavailable',
+      temporarily_unavailable: 'Temporarily Unavailable'
     }
     const title = titles[this.code] || 'Authorization Error'
     return renderErrorPage(title, this.description, `Error code: ${this.code}`)
@@ -56,10 +56,13 @@ async function importKey(secret: string): Promise<CryptoKey> {
     throw new Error('Cookie secret is not defined')
   }
   const enc = new TextEncoder()
-  return crypto.subtle.importKey('raw', enc.encode(secret), { hash: 'SHA-256', name: 'HMAC' }, false, [
-    'sign',
-    'verify',
-  ])
+  return crypto.subtle.importKey(
+    'raw',
+    enc.encode(secret),
+    { hash: 'SHA-256', name: 'HMAC' },
+    false,
+    ['sign', 'verify']
+  )
 }
 
 /**
@@ -76,10 +79,16 @@ async function signData(key: CryptoKey, data: string): Promise<string> {
 /**
  * Verifies an HMAC-SHA256 signature.
  */
-async function verifySignature(key: CryptoKey, signatureHex: string, data: string): Promise<boolean> {
+async function verifySignature(
+  key: CryptoKey,
+  signatureHex: string,
+  data: string
+): Promise<boolean> {
   const enc = new TextEncoder()
   try {
-    const signatureBytes = new Uint8Array(signatureHex.match(/.{1,2}/g)!.map((byte) => Number.parseInt(byte, 16)))
+    const signatureBytes = new Uint8Array(
+      signatureHex.match(/.{1,2}/g)!.map((byte) => Number.parseInt(byte, 16))
+    )
     return await crypto.subtle.verify('HMAC', key, signatureBytes.buffer, enc.encode(data))
   } catch {
     return false
@@ -115,7 +124,10 @@ async function getApprovedClientsFromCookie(
 
   try {
     const approvedClients = JSON.parse(payload)
-    if (!Array.isArray(approvedClients) || !approvedClients.every((item) => typeof item === 'string')) {
+    if (
+      !Array.isArray(approvedClients) ||
+      !approvedClients.every((item) => typeof item === 'string')
+    ) {
       return null
     }
     return approvedClients as string[]
@@ -181,13 +193,10 @@ function sanitizeHtml(unsafe: string): string {
  * Renders an approval dialog for OAuth authorization with scope selection
  */
 export function renderApprovalDialog(request: Request, options: ApprovalDialogOptions): Response {
-  const { client, server, state, csrfToken, setCookie, scopeTemplates, allScopes, defaultTemplate } = options
+  const { client, state, csrfToken, setCookie, scopeTemplates, allScopes, defaultTemplate } =
+    options
   const encodedState = btoa(JSON.stringify(state))
-
-  const serverName = sanitizeHtml(server.name)
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
-  const serverDescription = server.description ? sanitizeHtml(server.description) : ''
-  const logoUrl = server.logo ? sanitizeHtml(server.logo) : ''
 
   // Build scope template options HTML
   let templateOptionsHtml = ''
@@ -730,8 +739,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       'Content-Security-Policy': "frame-ancestors 'none'",
       'Content-Type': 'text/html; charset=utf-8',
       'Set-Cookie': setCookie,
-      'X-Frame-Options': 'DENY',
-    },
+      'X-Frame-Options': 'DENY'
+    }
   })
 }
 
@@ -790,7 +799,9 @@ export async function parseRedirectApproval(
   // Update approved clients cookie
   const existingApprovedClients =
     (await getApprovedClientsFromCookie(request.headers.get('Cookie'), cookieSecret)) || []
-  const updatedApprovedClients = Array.from(new Set([...existingApprovedClients, state.oauthReqInfo.clientId]))
+  const updatedApprovedClients = Array.from(
+    new Set([...existingApprovedClients, state.oauthReqInfo.clientId])
+  )
 
   const payload = JSON.stringify(updatedApprovedClients)
   const key = await importKey(cookieSecret)
@@ -800,10 +811,10 @@ export async function parseRedirectApproval(
   return {
     state,
     headers: {
-      'Set-Cookie': `${APPROVED_CLIENTS_COOKIE}=${newCookieValue}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=${ONE_YEAR_IN_SECONDS}`,
+      'Set-Cookie': `${APPROVED_CLIENTS_COOKIE}=${newCookieValue}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=${ONE_YEAR_IN_SECONDS}`
     },
     selectedScopes: selectedScopes.length > 0 ? selectedScopes : undefined,
-    selectedTemplate: typeof selectedTemplate === 'string' ? selectedTemplate : undefined,
+    selectedTemplate: typeof selectedTemplate === 'string' ? selectedTemplate : undefined
   }
 }
 
@@ -825,11 +836,9 @@ export async function createOAuthState(
   codeVerifier: string
 ): Promise<string> {
   const stateToken = crypto.randomUUID()
-  await kv.put(
-    `oauth:state:${stateToken}`,
-    JSON.stringify({ oauthReqInfo, codeVerifier }),
-    { expirationTtl: 600 }
-  )
+  await kv.put(`oauth:state:${stateToken}`, JSON.stringify({ oauthReqInfo, codeVerifier }), {
+    expirationTtl: 600
+  })
   return stateToken
 }
 
@@ -844,7 +853,7 @@ export async function bindStateToSession(stateToken: string): Promise<{ setCooki
     .join('')
 
   return {
-    setCookie: `${STATE_COOKIE}=${hashHex}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=600`,
+    setCookie: `${STATE_COOKIE}=${hashHex}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=600`
   }
 }
 
@@ -858,20 +867,16 @@ const StoredOAuthStateSchema = z.object({
       scope: z.array(z.string()).optional(),
       state: z.string().optional(),
       responseType: z.string().optional(),
-      redirectUri: z.string().optional(),
+      redirectUri: z.string().optional()
     })
     .passthrough(),
-  codeVerifier: z.string().min(1),
+  codeVerifier: z.string().min(1)
 })
 
 /**
  * Renders a styled error page matching Cloudflare's design system
  */
-export function renderErrorPage(
-  title: string,
-  message: string,
-  details?: string
-): Response {
+export function renderErrorPage(title: string, message: string, details?: string): Response {
   const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -1033,8 +1038,8 @@ export function renderErrorPage(
     headers: {
       'Content-Security-Policy': "frame-ancestors 'none'",
       'Content-Type': 'text/html; charset=utf-8',
-      'X-Frame-Options': 'DENY',
-    },
+      'X-Frame-Options': 'DENY'
+    }
   })
 }
 /**
@@ -1106,6 +1111,6 @@ export async function validateOAuthState(
   return {
     oauthReqInfo: parseResult.data.oauthReqInfo as AuthRequest,
     codeVerifier: parseResult.data.codeVerifier,
-    clearCookie: `${STATE_COOKIE}=; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=0`,
+    clearCookie: `${STATE_COOKIE}=; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=0`
   }
 }

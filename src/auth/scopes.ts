@@ -121,7 +121,7 @@ export const ALL_SCOPES = {
   'notebook-managed:read': 'View managed notebooks',
 
   // Other
-  'firstpartytags:write': 'Configure first-party tags',
+  'firstpartytags:write': 'Configure first-party tags'
 } as const
 
 export type ScopeName = keyof typeof ALL_SCOPES
@@ -131,7 +131,7 @@ export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'acc
 
 /** All read-only scopes (ending in :read) */
 export const READ_ONLY_SCOPES: ScopeName[] = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (scope) => scope.endsWith(':read'),
+  (scope) => scope.endsWith(':read')
 )
 
 /** All write/edit scopes */
@@ -143,7 +143,7 @@ export const WRITE_SCOPES: ScopeName[] = (Object.keys(ALL_SCOPES) as ScopeName[]
     scope.endsWith(':setup') ||
     scope.endsWith(':admin') ||
     scope.endsWith(':bind') ||
-    scope.endsWith(':pii'),
+    scope.endsWith(':pii')
 )
 
 /** Scope templates for quick selection */
@@ -156,8 +156,8 @@ export const SCOPE_TEMPLATES = {
       'zone:read',
       'workers:read',
       'workers_tail:read',
-      'pages:read',
-    ] as ScopeName[],
+      'pages:read'
+    ] as ScopeName[]
   },
   'workers-full': {
     name: 'Workers Full Access',
@@ -177,8 +177,8 @@ export const SCOPE_TEMPLATES = {
       'r2_catalog:write',
       'queues:write',
       'pages:read',
-      'pages:write',
-    ] as ScopeName[],
+      'pages:write'
+    ] as ScopeName[]
   },
   'dns-full': {
     name: 'DNS Full Access',
@@ -190,14 +190,14 @@ export const SCOPE_TEMPLATES = {
       'dns_records:read',
       'dns_records:edit',
       'dns_settings:read',
-      'dns_analytics:read',
-    ] as ScopeName[],
+      'dns_analytics:read'
+    ] as ScopeName[]
   },
   'full-access': {
     name: 'Full Access',
     description: 'Complete access to all Cloudflare APIs. Use with caution.',
-    scopes: Object.keys(ALL_SCOPES) as ScopeName[],
-  },
+    scopes: Object.keys(ALL_SCOPES) as ScopeName[]
+  }
 } as const
 
 export type TemplateName = keyof typeof SCOPE_TEMPLATES

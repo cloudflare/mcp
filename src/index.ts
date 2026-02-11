@@ -23,7 +23,7 @@ async function createMcpResponse(
   const server = createServer(env, token, accountId)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
-    enableJsonResponse: true,
+    enableJsonResponse: true
   })
 
   await server.connect(transport)
@@ -46,7 +46,7 @@ function createMcpHandler() {
     if (!props || !props.accessToken) {
       return new Response(JSON.stringify({ error: 'Not authenticated' }), {
         status: 401,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' }
       })
     }
     const accountId = props.type === 'account_token' ? props.account.id : undefined
@@ -70,7 +70,7 @@ export default {
     return new OAuthProvider({
       apiHandlers: {
         // @ts-ignore - Hono apps are compatible with ExportedHandler at runtime
-        '/mcp': createMcpHandler(),
+        '/mcp': createMcpHandler()
       },
       // @ts-ignore - Hono apps are compatible with ExportedHandler at runtime
       defaultHandler: createAuthHandlers(),
@@ -78,8 +78,12 @@ export default {
       tokenEndpoint: '/token',
       clientRegistrationEndpoint: '/register',
       tokenExchangeCallback: (options) =>
-        handleTokenExchangeCallback(options, env.CLOUDFLARE_CLIENT_ID, env.CLOUDFLARE_CLIENT_SECRET),
-      accessTokenTTL: 3600,
+        handleTokenExchangeCallback(
+          options,
+          env.CLOUDFLARE_CLIENT_ID,
+          env.CLOUDFLARE_CLIENT_SECRET
+        ),
+      accessTokenTTL: 3600
     }).fetch(request, env, ctx)
-  },
+  }
 }

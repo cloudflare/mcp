@@ -1,31 +1,25 @@
-import spec from "./data/spec.json";
+import spec from './data/spec.json'
 
 interface CodeExecutorEntrypoint {
-  evaluate(
-    apiToken: string
-  ): Promise<{ result: unknown; err?: string; stack?: string }>;
+  evaluate(apiToken: string): Promise<{ result: unknown; err?: string; stack?: string }>
 }
 
 interface SearchExecutorEntrypoint {
-  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>;
+  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
 }
 
 export function createCodeExecutor(env: Env) {
-  const apiBase = env.CLOUDFLARE_API_BASE;
+  const apiBase = env.CLOUDFLARE_API_BASE
 
-  return async (
-    code: string,
-    accountId: string,
-    apiToken: string
-  ): Promise<unknown> => {
-    const workerId = `cloudflare-api-${crypto.randomUUID()}`;
+  return async (code: string, accountId: string, apiToken: string): Promise<unknown> => {
+    const workerId = `cloudflare-api-${crypto.randomUUID()}`
 
     const worker = env.LOADER.get(workerId, () => ({
-      compatibilityDate: "2026-01-12",
-      compatibilityFlags: ["nodejs_compat"],
-      mainModule: "worker.js",
+      compatibilityDate: '2026-01-12',
+      compatibilityFlags: ['nodejs_compat'],
+      mainModule: 'worker.js',
       modules: {
-        "worker.js": `
+        'worker.js': `
 import { WorkerEntrypoint } from "cloudflare:workers";
 
 const apiBase = ${JSON.stringify(apiBase)};
@@ -99,34 +93,33 @@ export default class CodeExecutor extends WorkerEntrypoint {
     }
   }
 }
-        `,
-      },
-    }));
+        `
+      }
+    }))
 
-    const entrypoint =
-      worker.getEntrypoint() as unknown as CodeExecutorEntrypoint;
-    const response = await entrypoint.evaluate(apiToken);
+    const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
+    const response = await entrypoint.evaluate(apiToken)
 
     if (response.err) {
-      throw new Error(response.err);
+      throw new Error(response.err)
     }
 
-    return response.result;
-  };
+    return response.result
+  }
 }
 
 export function createSearchExecutor(env: Env) {
-  const specJson = JSON.stringify(spec);
+  const specJson = JSON.stringify(spec)
 
   return async (code: string): Promise<unknown> => {
-    const workerId = `cloudflare-search-${crypto.randomUUID()}`;
+    const workerId = `cloudflare-search-${crypto.randomUUID()}`
 
     const worker = env.LOADER.get(workerId, () => ({
-      compatibilityDate: "2026-01-12",
-      compatibilityFlags: ["nodejs_compat"],
-      mainModule: "worker.js",
+      compatibilityDate: '2026-01-12',
+      compatibilityFlags: ['nodejs_compat'],
+      mainModule: 'worker.js',
       modules: {
-        "worker.js": `
+        'worker.js': `
 import { WorkerEntrypoint } from "cloudflare:workers";
 
 const spec = ${specJson};
@@ -141,18 +134,17 @@ export default class SearchExecutor extends WorkerEntrypoint {
     }
   }
 }
-        `,
-      },
-    }));
+        `
+      }
+    }))
 
-    const entrypoint =
-      worker.getEntrypoint() as unknown as SearchExecutorEntrypoint;
-    const response = await entrypoint.evaluate();
+    const entrypoint = worker.getEntrypoint() as unknown as SearchExecutorEntrypoint
+    const response = await entrypoint.evaluate()
 
     if (response.err) {
-      throw new Error(response.err);
+      throw new Error(response.err)
     }
 
-    return response.result;
-  };
+    return response.result
+  }
 }

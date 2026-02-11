@@ -79,7 +79,7 @@ describe('buildAuthProps', () => {
   const mockUser = { id: 'user-1', email: 'test@example.com' }
   const mockAccounts = [
     { id: 'acc-1', name: 'Account One' },
-    { id: 'acc-2', name: 'Account Two' },
+    { id: 'acc-2', name: 'Account Two' }
   ]
 
   it('should build user_token props when user is provided', () => {
@@ -89,7 +89,7 @@ describe('buildAuthProps', () => {
       type: 'user_token',
       accessToken: mockToken,
       user: mockUser,
-      accounts: mockAccounts,
+      accounts: mockAccounts
     })
   })
 
@@ -100,7 +100,7 @@ describe('buildAuthProps', () => {
       type: 'user_token',
       accessToken: mockToken,
       user: mockUser,
-      accounts: [],
+      accounts: []
     })
   })
 
@@ -110,7 +110,7 @@ describe('buildAuthProps', () => {
     expect(props).toEqual({
       type: 'account_token',
       accessToken: mockToken,
-      account: mockAccounts[0], // Uses first account
+      account: mockAccounts[0] // Uses first account
     })
   })
 

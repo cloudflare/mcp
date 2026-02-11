@@ -1,8 +1,8 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
-import { createCodeExecutor, createSearchExecutor } from "./executor";
-import { truncateResponse } from "./truncate";
-import { PRODUCTS } from "./data/products";
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { z } from 'zod'
+import { createCodeExecutor, createSearchExecutor } from './executor'
+import { truncateResponse } from './truncate'
+import { PRODUCTS } from './data/products'
 
 const CLOUDFLARE_TYPES = `
 interface CloudflareRequestOptions {
@@ -33,12 +33,11 @@ declare const cloudflare: {
 };
 
 declare const accountId: string;
-`;
+`
 
 function formatError(error: unknown): string {
-  return error instanceof Error ? error.message : String(error);
+  return error instanceof Error ? error.message : String(error)
 }
-
 
 const SPEC_TYPES = `
 interface OperationInfo {
@@ -61,23 +60,23 @@ interface PathItem {
 declare const spec: {
   paths: Record<string, PathItem>;
 };
-`;
+`
 
 export function createServer(env: Env, apiToken: string, accountId?: string): McpServer {
   const server = new McpServer({
-    name: "cloudflare-api",
-    version: "0.1.0",
-  });
+    name: 'cloudflare-api',
+    version: '0.1.0'
+  })
 
-  const executeCode = createCodeExecutor(env);
-  const executeSearch = createSearchExecutor(env);
+  const executeCode = createCodeExecutor(env)
+  const executeSearch = createSearchExecutor(env)
 
   server.registerTool(
-    "search",
+    'search',
     {
       description: `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline.
 
-Products: ${PRODUCTS.slice(0, 30).join(", ")}... (${PRODUCTS.length} total)
+Products: ${PRODUCTS.slice(0, 30).join(', ')}... (${PRODUCTS.length} total)
 
 Types:
 ${SPEC_TYPES}
@@ -109,25 +108,21 @@ async () => {
   return op?.parameters;
 }`,
       inputSchema: {
-        code: z
-          .string()
-          .describe(
-            "JavaScript async arrow function to search the OpenAPI spec"
-          ),
-      },
+        code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec')
+      }
     },
     async ({ code }) => {
       try {
-        const result = await executeSearch(code);
-        return { content: [{ type: "text", text: truncateResponse(result) }] };
+        const result = await executeSearch(code)
+        return { content: [{ type: 'text', text: truncateResponse(result) }] }
       } catch (error) {
         return {
-          content: [{ type: "text", text: `Error: ${formatError(error)}` }],
-          isError: true,
-        };
+          content: [{ type: 'text', text: `Error: ${formatError(error)}` }],
+          isError: true
+        }
       }
     }
-  );
+  )
 
   const executeDescription = `Execute JavaScript code against the Cloudflare API. First use the 'search' tool to find the right endpoints, then write code using the cloudflare.request() function.
 
@@ -143,54 +138,56 @@ async () => {
   const b = \`--F\${Date.now()}\`;
   const body = [\`--\${b}\`, 'Content-Disposition: form-data; name="metadata"', 'Content-Type: application/json', '', JSON.stringify(metadata), \`--\${b}\`, 'Content-Disposition: form-data; name="script"', 'Content-Type: application/javascript', '', code, \`--\${b}--\`].join("\\r\\n");
   return cloudflare.request({ method: "PUT", path: \`/accounts/\${accountId}/workers/scripts/my-worker\`, body, contentType: \`multipart/form-data; boundary=\${b}\`, rawBody: true });
-}`;
+}`
 
   if (accountId) {
     // Account token mode: account_id is fixed, not a parameter
     server.registerTool(
-      "execute",
+      'execute',
       {
         description: executeDescription,
         inputSchema: {
-          code: z.string().describe("JavaScript async arrow function to execute"),
-        },
+          code: z.string().describe('JavaScript async arrow function to execute')
+        }
       },
       async ({ code }) => {
         try {
-          const result = await executeCode(code, accountId, apiToken);
-          return { content: [{ type: "text", text: truncateResponse(result) }] };
+          const result = await executeCode(code, accountId, apiToken)
+          return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return {
-            content: [{ type: "text", text: `Error: ${formatError(error)}` }],
-            isError: true,
-          };
+            content: [{ type: 'text', text: `Error: ${formatError(error)}` }],
+            isError: true
+          }
         }
       }
-    );
+    )
   } else {
     // User token mode: account_id is required
     server.registerTool(
-      "execute",
+      'execute',
       {
         description: executeDescription,
         inputSchema: {
-          code: z.string().describe("JavaScript async arrow function to execute"),
-          account_id: z.string().describe("Your Cloudflare account ID (call GET /accounts to list available accounts)"),
-        },
+          code: z.string().describe('JavaScript async arrow function to execute'),
+          account_id: z
+            .string()
+            .describe('Your Cloudflare account ID (call GET /accounts to list available accounts)')
+        }
       },
       async ({ code, account_id }) => {
         try {
-          const result = await executeCode(code, account_id, apiToken);
-          return { content: [{ type: "text", text: truncateResponse(result) }] };
+          const result = await executeCode(code, account_id, apiToken)
+          return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return {
-            content: [{ type: "text", text: `Error: ${formatError(error)}` }],
-            isError: true,
-          };
+            content: [{ type: 'text', text: `Error: ${formatError(error)}` }],
+            isError: true
+          }
         }
       }
-    );
+    )
   }
 
-  return server;
+  return server
 }

@@ -45,7 +45,7 @@ export async function handleApiTokenRequest(
   if (!token) {
     return new Response(JSON.stringify({ error: 'Authorization header required' }), {
       status: 401,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     })
   }
 
@@ -57,12 +57,14 @@ export async function handleApiTokenRequest(
       if (accounts.length === 0) {
         return new Response(JSON.stringify({ error: 'Invalid token' }), {
           status: 401,
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' }
         })
       }
       if (accounts.length > 1) {
         return new Response(
-          JSON.stringify({ error: 'Token has access to multiple accounts - use account_id parameter' }),
+          JSON.stringify({
+            error: 'Token has access to multiple accounts - use account_id parameter'
+          }),
           { status: 400, headers: { 'Content-Type': 'application/json' } }
         )
       }
@@ -75,7 +77,7 @@ export async function handleApiTokenRequest(
     const message = err instanceof Error ? err.message : 'Token verification failed'
     return new Response(JSON.stringify({ error: message }), {
       status: 401,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     })
   }
 }
@@ -93,7 +95,7 @@ export function buildAuthProps(
       type: 'user_token',
       accessToken: token,
       user,
-      accounts: accounts || [],
+      accounts: accounts || []
     }
   }
 
@@ -104,6 +106,6 @@ export function buildAuthProps(
   return {
     type: 'account_token',
     accessToken: token,
-    account: accounts[0],
+    account: accounts[0]
   }
 }

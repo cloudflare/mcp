@@ -55,11 +55,11 @@ export async function getAuthorizationURL(params: {
     state: btoa(JSON.stringify(params.state)),
     code_challenge: params.codeChallenge,
     code_challenge_method: 'S256',
-    scope: params.scopes.join(' '),
+    scope: params.scopes.join(' ')
   })
 
   return {
-    authUrl: `https://dash.cloudflare.com/oauth2/auth?${urlParams.toString()}`,
+    authUrl: `https://dash.cloudflare.com/oauth2/auth?${urlParams.toString()}`
   }
 }
 
@@ -68,7 +68,7 @@ const AuthorizationToken = z.object({
   expires_in: z.number(),
   refresh_token: z.string(),
   scope: z.string(),
-  token_type: z.string(),
+  token_type: z.string()
 })
 
 export type AuthorizationToken = z.infer<typeof AuthorizationToken>
@@ -88,16 +88,16 @@ export async function getAuthToken(params: {
     client_id: params.client_id,
     redirect_uri: params.redirect_uri,
     code: params.code,
-    code_verifier: params.code_verifier,
+    code_verifier: params.code_verifier
   })
 
   const resp = await fetch('https://dash.cloudflare.com/oauth2/token', {
     method: 'POST',
     headers: {
       Authorization: `Basic ${btoa(`${params.client_id}:${params.client_secret}`)}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: body.toString(),
+    body: body.toString()
   })
 
   if (!resp.ok) {
@@ -119,16 +119,16 @@ export async function refreshAuthToken(params: {
   const body = new URLSearchParams({
     grant_type: 'refresh_token',
     client_id: params.client_id,
-    refresh_token: params.refresh_token,
+    refresh_token: params.refresh_token
   })
 
   const resp = await fetch('https://dash.cloudflare.com/oauth2/token', {
     method: 'POST',
     headers: {
       Authorization: `Basic ${btoa(`${params.client_id}:${params.client_secret}`)}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: body.toString(),
+    body: body.toString()
   })
 
   if (!resp.ok) {

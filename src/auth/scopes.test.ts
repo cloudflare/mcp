@@ -6,8 +6,6 @@ import { ALL_SCOPES, SCOPE_TEMPLATES, REQUIRED_SCOPES, DEFAULT_TEMPLATE } from '
  * If you need to add a new scope, first register it with the OAuth provider, then add it here and to ALL_SCOPES.
  */
 const REGISTERED_SCOPES = [
-  'openid',
-  'offline',
   'offline_access',
   'user:read',
   'account:read',
@@ -15,7 +13,6 @@ const REGISTERED_SCOPES = [
   'access:write',
   'workers:read',
   'workers:write',
-  'workers:edit',
   'workers_scripts:write',
   'workers_kv:write',
   'workers_routes:write',
@@ -85,13 +82,11 @@ const REGISTERED_SCOPES = [
   'url_scanner:read',
   'url_scanner:write',
   'radar:read',
-  'images:read',
-  'images:write',
   'billing:read',
   'billing:write',
   'notebook-examples:read',
   'notebook-managed:read',
-  'firstpartytags:write',
+  'firstpartytags:write'
 ] as const
 
 describe('scopes', () => {
@@ -108,16 +103,9 @@ describe('scopes', () => {
     it('should contain all registered scopes', () => {
       const allScopeKeys = new Set(Object.keys(ALL_SCOPES))
 
-      const missingScopes = REGISTERED_SCOPES.filter(
-        (scope) => !allScopeKeys.has(scope)
-      )
+      const missingScopes = REGISTERED_SCOPES.filter((scope) => !allScopeKeys.has(scope))
 
-      // Note: Some scopes like 'openid' and 'offline' might not be in ALL_SCOPES
-      // if they're handled specially. Update this list if intentionally omitted.
-      const intentionallyOmitted = ['openid', 'offline']
-      const actuallyMissing = missingScopes.filter((s) => !intentionallyOmitted.includes(s))
-
-      expect(actuallyMissing).toEqual([])
+      expect(missingScopes).toEqual([])
     })
   })
 
@@ -171,10 +159,7 @@ describe('scopes', () => {
       const registeredSet = new Set(REGISTERED_SCOPES)
 
       for (const scope of REQUIRED_SCOPES) {
-        expect(
-          registeredSet.has(scope),
-          `Required scope "${scope}" is not registered`
-        ).toBe(true)
+        expect(registeredSet.has(scope), `Required scope "${scope}" is not registered`).toBe(true)
       }
     })
 
