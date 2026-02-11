@@ -16,6 +16,7 @@ interface CloudflareRequestOptions {
 
 interface CloudflareResponse<T = unknown> {
   success: boolean;
+  status: number;
   result: T;
   errors: Array<{ code: number; message: string }>;
   messages: Array<{ code: number; message: string }>;

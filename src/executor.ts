@@ -71,7 +71,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
           if (!response.ok) {
             throw new Error("Cloudflare API error: " + response.status + " " + text);
           }
-          return { success: true, result: text };
+          return { success: true, status: response.status, result: text };
         }
 
         const data = await response.json();
@@ -81,7 +81,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
           throw new Error("Cloudflare API error: " + errors);
         }
 
-        return data;
+        return { ...data, status: response.status };
       }
     };
 
