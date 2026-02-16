@@ -76,6 +76,37 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
         const data = await response.json();
 
+        // Handle GraphQL responses (different format than REST)
+        const cleanPath = path.split('?')[0].replace(/\/+$/, '');
+        const isGraphQLEndpoint = cleanPath === '/client/v4/graphql' || cleanPath.endsWith('/graphql');
+
+        if (isGraphQLEndpoint) {
+          const graphqlErrors = Array.isArray(data.errors) ? data.errors : [];
+          const hasData = data.data !== null && data.data !== undefined;
+
+          // Complete failure: no data, only errors
+          if (graphqlErrors.length > 0 && !hasData) {
+            const msgs = graphqlErrors.map(e => e.message).join(", ");
+            throw new Error("GraphQL error: " + msgs);
+          }
+
+          // Success or partial success
+          return {
+            success: graphqlErrors.length === 0,
+            status: response.status,
+            result: data.data,
+            errors: graphqlErrors.map(e => ({
+              code: e.extensions?.code || 0,
+              message: e.message + (e.path ? \` (at \${e.path.join('.')})\` : '')
+            })),
+            messages: graphqlErrors.length > 0 ? [{
+              code: 0,
+              message: \`Partial response: \${graphqlErrors.length} error(s)\`
+            }] : []
+          };
+        }
+
+        // Handle REST API responses
         if (!data.success) {
           const errors = data.errors.map(e => e.code + ": " + e.message).join(", ");
           throw new Error("Cloudflare API error: " + errors);
