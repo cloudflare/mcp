@@ -4,7 +4,7 @@ import { CornerMarks } from './CornerMarks'
 interface CodeBlockProps {
   children: string
   title?: string
-  language?: 'typescript' | 'javascript' | 'bash' | 'text'
+  language?: 'typescript' | 'javascript' | 'json' | 'bash' | 'text'
   showLineNumbers?: boolean
 }
 
@@ -103,34 +103,74 @@ export function CodeBlock({
 }
 
 /**
- * Simple CSS-based syntax highlighting.
- * Highlights strings, comments, and keywords with Cloudflare orange.
+ * Single-pass syntax highlighter. Tokenizes raw code so each region
+ * (string, comment, keyword) is captured exactly once — no cascading
+ * regex replacements that break each other's HTML.
  */
 function highlightSyntax(
   code: string,
-  language: 'typescript' | 'javascript' | 'bash' | 'text'
+  language: 'typescript' | 'javascript' | 'json' | 'bash' | 'text'
 ): string {
   if (language === 'text') return escapeHtml(code)
+  if (language === 'json') return highlightJson(code)
 
-  let result = escapeHtml(code)
+  const keywordSet = new Set([
+    'import','export','from','const','let','var','function','async','await',
+    'return','if','else','for','while','class','interface','type','extends',
+    'implements','new','this','try','catch','throw','default',
+  ])
 
-  // Comments (// and /* */ and #)
-  result = result.replace(
-    /(\/\/.*$|\/\*[\s\S]*?\*\/|#.*$)/gm,
-    '<span class="syntax-comment">$1</span>'
-  )
+  // Single regex: comments | strings | template literals | words
+  const tokenRegex =
+    /(\/\/.*$|\/\*[\s\S]*?\*\/)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(`(?:[^`\\]|\\.)*`)|(\b[a-zA-Z_]\w*\b)/gm
 
-  // Strings (single and double quotes, template literals)
-  result = result.replace(
-    /(&quot;[^&]*&quot;|&#39;[^&]*&#39;|`[^`]*`)/g,
-    '<span class="syntax-string">$1</span>'
-  )
+  let result = ''
+  let lastIndex = 0
+  let match: RegExpExecArray | null
 
-  // Keywords
-  const keywords =
-    /\b(import|export|from|const|let|var|function|async|await|return|if|else|for|while|class|interface|type|extends|implements|new|this|try|catch|throw|default)\b/g
-  result = result.replace(keywords, '<span class="syntax-keyword">$1</span>')
+  while ((match = tokenRegex.exec(code)) !== null) {
+    // Escaped text between tokens
+    result += escapeHtml(code.slice(lastIndex, match.index))
+    const [full, comment, string, template, word] = match
 
+    if (comment) {
+      result += `<span class="syntax-comment">${escapeHtml(comment)}</span>`
+    } else if (string) {
+      result += `<span class="syntax-string">${escapeHtml(string)}</span>`
+    } else if (template) {
+      result += `<span class="syntax-string">${escapeHtml(template)}</span>`
+    } else if (word && keywordSet.has(word)) {
+      result += `<span class="syntax-keyword">${escapeHtml(word)}</span>`
+    } else {
+      result += escapeHtml(full)
+    }
+    lastIndex = match.index + full.length
+  }
+
+  result += escapeHtml(code.slice(lastIndex))
+  return result
+}
+
+function highlightJson(code: string): string {
+  // For JSON: highlight keys and string values
+  const tokenRegex = /("(?:[^"\\]|\\.)*")\s*(:)?/g
+  let result = ''
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  while ((match = tokenRegex.exec(code)) !== null) {
+    result += escapeHtml(code.slice(lastIndex, match.index))
+    const [full, str, colon] = match
+    if (colon) {
+      // It's a key
+      result += `<span class="syntax-keyword">${escapeHtml(str)}</span>${escapeHtml(colon)}`
+    } else {
+      result += `<span class="syntax-string">${escapeHtml(str)}</span>`
+    }
+    lastIndex = match.index + full.length
+  }
+
+  result += escapeHtml(code.slice(lastIndex))
   return result
 }
 

@@ -1,5 +1,4 @@
 import { Sun, Moon } from '@phosphor-icons/react'
-import { Button } from '@cloudflare/kumo/components/button'
 import { useTheme } from './ThemeProvider'
 
 export function ThemeToggle() {
@@ -10,13 +9,12 @@ export function ThemeToggle() {
   }
 
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      onPress={toggleTheme}
+    <button
+      onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      className="rounded-md p-2 text-(--color-muted) transition-colors hover:text-(--color-surface)"
     >
       {theme === 'light' ? <Sun size={18} weight="bold" /> : <Moon size={18} weight="bold" />}
-    </Button>
+    </button>
   )
 }

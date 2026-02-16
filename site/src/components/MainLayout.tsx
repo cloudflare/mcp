@@ -9,11 +9,11 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen bg-(--color-surface-secondary)">
         <DotPatternBackground />
         <SideRulers />
         <Header />
-        <main className="relative z-10 mx-auto min-h-screen w-full max-w-[var(--max-width)]">
+        <main className="relative z-10 mx-auto min-h-screen w-full max-w-[var(--max-width)] border-x border-dashed border-(--color-border)">
           {children}
         </main>
       </div>

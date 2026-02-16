@@ -1,5 +1,3 @@
-@source "../node_modules/@cloudflare/kumo/dist/**/*.{js,jsx,ts,tsx}";
-@import '@cloudflare/kumo/styles/tailwind';
 @import 'tailwindcss';
 
 /* Font faces */
@@ -37,6 +35,15 @@
 }
 
 :root {
+  /* Light theme colors */
+  --color-surface: #171717;
+  --color-surface-secondary: #fafafa;
+  --color-border: #e5e5e5;
+  --color-border-50: rgba(229, 229, 229, 0.5);
+  --color-label: #525252;
+  --color-muted: #a3a3a3;
+  --color-subtle: #f5f5f5;
+
   /* Cloudflare brand colors */
   --cf-orange: #f6821f;
   --cf-orange-light: #fbad41;
@@ -60,6 +67,10 @@
   --hero-wireframe: #000000;
   --hero-icon-box-bg: #ffffff;
 
+  /* Primary button colors */
+  --btn-primary-bg: #171717;
+  --btn-primary-text: #ffffff;
+
   /* Typography */
   --font-heading: 'Kunst Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'Apercu Mono', 'SF Mono', Menlo, Monaco, monospace;
@@ -71,6 +82,14 @@
 /* Dark theme */
 .dark,
 [data-mode='dark'] {
+  --color-surface: #fafafa;
+  --color-surface-secondary: #0a0a0a;
+  --color-border: #262626;
+  --color-border-50: rgba(38, 38, 38, 0.5);
+  --color-label: #d4d4d4;
+  --color-muted: #737373;
+  --color-subtle: #171717;
+
   /* Cloudflare brand colors - slightly brighter for dark mode */
   --cf-orange: #f6821f;
   --cf-orange-light: #fbad41;
@@ -84,7 +103,8 @@
 
   /* GlowHeading 3D text shadow - dark mode uses dark gray shadows for depth */
   --glow-heading-shadow:
-    0 3px 0 rgb(50, 50, 50), 0 4px 0 rgb(255, 255, 255, 0.3), 0 -12px 48px rgba(255, 255, 255, 0.15);
+    0 3px 0 rgb(50, 50, 50), 0 4px 0 rgb(255, 255, 255, 0.3),
+    0 -12px 48px rgba(255, 255, 255, 0.15);
   --glow-heading-grid-color: rgba(255, 255, 255, 0.3);
 
   /* Hero 3D scene colors - dark mode (inverted) */
@@ -93,6 +113,10 @@
   --hero-solid-text: #e5e5e5;
   --hero-wireframe: #ffffff;
   --hero-icon-box-bg: #171717;
+
+  /* Primary button colors - inverted for dark mode */
+  --btn-primary-bg: #fafafa;
+  --btn-primary-text: #0a0a0a;
 }
 
 @custom-variant dark (&:where(
@@ -105,6 +129,8 @@
 body {
   @apply m-0;
   font-family: var(--font-heading);
+  background-color: var(--color-surface-secondary);
+  color: var(--color-surface);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -126,7 +152,12 @@ pre,
 
 /* Syntax highlighting */
 .syntax-comment {
+  color: var(--color-muted);
   font-style: italic;
+}
+
+.syntax-string {
+  color: var(--cf-orange-syntax);
 }
 
 .syntax-keyword {

@@ -5,6 +5,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mcp",
+  "account_id": "6702657b6aa048cf3081ff3ff3c9c52f",
   "compatibility_date": "2025-02-16",
   "assets": {
     "directory": "dist"

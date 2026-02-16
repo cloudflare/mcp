@@ -9,22 +9,16 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 export function ThemeProvider({ children }: PropsWithChildren) {
-  const [theme, setThemeState] = useState<Theme>('light')
-  const [mounted, setMounted] = useState(false)
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme)
 
   useEffect(() => {
-    const initialTheme = getInitialTheme()
-    setThemeState(initialTheme)
-    document.documentElement.setAttribute('data-mode', initialTheme)
-    setMounted(true)
-  }, [])
+    document.documentElement.setAttribute('data-mode', theme)
+  }, [theme])
 
   function setTheme(newTheme: Theme) {
     setThemeState(newTheme)
     persistTheme(newTheme)
   }
-
-  if (!mounted) return <>{children}</>
 
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
 }

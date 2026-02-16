@@ -1,8 +1,8 @@
 ---
+import Layout from '@/layouts/Layout.astro'
+import { App } from '@/components/App'
 ---
 
 <Layout>
-  <MainLayout client:only="react">
-    <PageContent client:only="react" />
-  </MainLayout>
+  <App client:only="react" />
 </Layout>
