@@ -1,0 +1,165 @@
+@import 'tailwindcss';
+
+/* Font faces */
+@font-face {
+  font-family: 'Kunst Grotesk';
+  src:
+    url('/fonts/kunst-grotesk-regular.woff2') format('woff2'),
+    url('/fonts/kunst-grotesk-regular.woff') format('woff'),
+    url('/fonts/kunst-grotesk-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kunst Grotesk';
+  src:
+    url('/fonts/kunst-grotesk-medium.woff2') format('woff2'),
+    url('/fonts/kunst-grotesk-medium.woff') format('woff'),
+    url('/fonts/kunst-grotesk-medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Apercu Mono';
+  src:
+    url('/fonts/apercu-mono-pro-regular.woff2') format('woff2'),
+    url('/fonts/apercu-mono-pro-regular.woff') format('woff'),
+    url('/fonts/apercu-mono-pro-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Light theme colors */
+  --color-surface: #171717;
+  --color-surface-secondary: #fafafa;
+  --color-border: #e5e5e5;
+  --color-border-50: rgba(229, 229, 229, 0.5);
+  --color-label: #525252;
+  --color-muted: #a3a3a3;
+  --color-subtle: #f5f5f5;
+
+  /* Cloudflare brand colors */
+  --cf-orange: #f6821f;
+  --cf-orange-light: #fbad41;
+  --cf-orange-dim: rgba(246, 130, 31, 0.1);
+  --cf-orange-syntax: #c2410c;
+
+  /* Glow spectrum colors (matching hero gradient) */
+  --glow-blue: #4169e1;
+  --glow-purple: #9b59b6;
+  --glow-orange: #e67e22;
+
+  /* GlowHeading 3D text shadow - light mode uses light gray shadows */
+  --glow-heading-shadow:
+    0 3px 0 rgb(255, 255, 255), 0 4px 0 rgb(1, 1, 1, 0.25), 0 -12px 48px rgba(1, 1, 1, 0.25);
+  --glow-heading-grid-color: rgba(1, 1, 1, 0.25);
+
+  /* Hero 3D scene colors - light mode */
+  --hero-background: #ffffff;
+  --hero-grid-line: #000000;
+  --hero-solid-text: #333333;
+  --hero-wireframe: #000000;
+  --hero-icon-box-bg: #ffffff;
+
+  /* Primary button colors */
+  --btn-primary-bg: #171717;
+  --btn-primary-text: #ffffff;
+
+  /* Typography */
+  --font-heading: 'Kunst Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Apercu Mono', 'SF Mono', Menlo, Monaco, monospace;
+
+  /* Layout */
+  --max-width: 1400px;
+}
+
+/* Dark theme */
+.dark,
+[data-mode='dark'] {
+  --color-surface: #fafafa;
+  --color-surface-secondary: #0a0a0a;
+  --color-border: #262626;
+  --color-border-50: rgba(38, 38, 38, 0.5);
+  --color-label: #d4d4d4;
+  --color-muted: #737373;
+  --color-subtle: #171717;
+
+  /* Cloudflare brand colors - slightly brighter for dark mode */
+  --cf-orange: #f6821f;
+  --cf-orange-light: #fbad41;
+  --cf-orange-dim: rgba(246, 130, 31, 0.15);
+  --cf-orange-syntax: #fb923c;
+
+  /* Glow spectrum colors (slightly brighter for dark mode) */
+  --glow-blue: #5a7fe8;
+  --glow-purple: #b06ec9;
+  --glow-orange: #f09040;
+
+  /* GlowHeading 3D text shadow - dark mode uses dark gray shadows for depth */
+  --glow-heading-shadow:
+    0 3px 0 rgb(50, 50, 50), 0 4px 0 rgb(255, 255, 255, 0.3),
+    0 -12px 48px rgba(255, 255, 255, 0.15);
+  --glow-heading-grid-color: rgba(255, 255, 255, 0.3);
+
+  /* Hero 3D scene colors - dark mode (inverted) */
+  --hero-background: #0a0a0a;
+  --hero-grid-line: #ffffff;
+  --hero-solid-text: #e5e5e5;
+  --hero-wireframe: #ffffff;
+  --hero-icon-box-bg: #171717;
+
+  /* Primary button colors - inverted for dark mode */
+  --btn-primary-bg: #fafafa;
+  --btn-primary-text: #0a0a0a;
+}
+
+@custom-variant dark (&:where(
+    .dark,
+    .dark *,
+    [data-mode="dark"],
+    [data-mode="dark"] *
+  ));
+
+body {
+  @apply m-0;
+  font-family: var(--font-heading);
+  background-color: var(--color-surface-secondary);
+  color: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+code,
+pre,
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Syntax highlighting */
+.syntax-comment {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.syntax-string {
+  color: var(--cf-orange-syntax);
+}
+
+.syntax-keyword {
+  font-weight: 600;
+}
