@@ -18,9 +18,10 @@ async function createMcpResponse(
   env: Env,
   ctx: ExecutionContext,
   token: string,
-  accountId?: string
+  accountId?: string,
+  props?: AuthProps
 ): Promise<Response> {
-  const server = createServer(env, token, accountId)
+  const server = createServer(env, token, accountId, props)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
@@ -51,7 +52,7 @@ function createMcpHandler() {
       })
     }
     const accountId = props.type === 'account_token' ? props.account.id : undefined
-    return createMcpResponse(c.req.raw, c.env, ctx, props.accessToken, accountId)
+    return createMcpResponse(c.req.raw, c.env, ctx, props.accessToken, accountId, props)
   })
 
   return app
@@ -61,8 +62,8 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     // Check for direct API token first (like GitHub MCP's PAT support)
     if (isDirectApiToken(request)) {
-      const response = await handleApiTokenRequest(request, (token, accountId) =>
-        createMcpResponse(request, env, ctx, token, accountId)
+      const response = await handleApiTokenRequest(request, (token, accountId, props) =>
+        createMcpResponse(request, env, ctx, token, accountId, props)
       )
       if (response) return response
     }
