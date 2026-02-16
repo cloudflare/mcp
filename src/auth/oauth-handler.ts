@@ -8,7 +8,7 @@ import {
   getAuthToken,
   refreshAuthToken
 } from './cloudflare-auth'
-import { ALL_SCOPES, SCOPE_TEMPLATES, DEFAULT_TEMPLATE } from './scopes'
+import { ALL_SCOPES, SCOPE_TEMPLATES, DEFAULT_TEMPLATE, MAX_SCOPES } from './scopes'
 import { UserSchema, AccountsSchema, type AuthProps } from './types'
 import {
   clientIdAlreadyApproved,
@@ -220,7 +220,8 @@ export function createAuthHandlers() {
         setCookie: csrfCookie,
         scopeTemplates: SCOPE_TEMPLATES,
         allScopes: ALL_SCOPES,
-        defaultTemplate: DEFAULT_TEMPLATE
+        defaultTemplate: DEFAULT_TEMPLATE,
+        maxScopes: MAX_SCOPES
       })
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()
@@ -260,6 +261,11 @@ export function createAuthHandlers() {
       } else {
         // Fallback to default template
         scopesToRequest = [...SCOPE_TEMPLATES[DEFAULT_TEMPLATE].scopes]
+      }
+
+      // Enforce max scope limit (Cloudflare OAuth server rejects requests with too many scopes)
+      if (scopesToRequest.length > MAX_SCOPES) {
+        scopesToRequest = scopesToRequest.slice(0, MAX_SCOPES)
       }
 
       // Update oauthReqInfo with selected scopes

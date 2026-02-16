@@ -4,6 +4,7 @@ import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/
 import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
+import { processSpec, extractProducts } from './spec-processor'
 import type { AuthProps } from './auth/types'
 
 type McpContext = {
@@ -18,12 +19,14 @@ async function createMcpResponse(
   env: Env,
   ctx: ExecutionContext,
   token: string,
-  accountId?: string
+  accountId?: string,
+  props?: AuthProps
 ): Promise<Response> {
-  const server = createServer(env, token, accountId)
+  const server = await createServer(env, token, accountId, props)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
-    enableJsonResponse: true
+    enableJsonResponse: true,
+    retryInterval: 1000
   })
 
   await server.connect(transport)
@@ -50,7 +53,7 @@ function createMcpHandler() {
       })
     }
     const accountId = props.type === 'account_token' ? props.account.id : undefined
-    return createMcpResponse(c.req.raw, c.env, ctx, props.accessToken, accountId)
+    return createMcpResponse(c.req.raw, c.env, ctx, props.accessToken, accountId, props)
   })
 
   return app
@@ -60,8 +63,8 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     // Check for direct API token first (like GitHub MCP's PAT support)
     if (isDirectApiToken(request)) {
-      const response = await handleApiTokenRequest(request, (token, accountId) =>
-        createMcpResponse(request, env, ctx, token, accountId)
+      const response = await handleApiTokenRequest(request, (token, accountId, props) =>
+        createMcpResponse(request, env, ctx, token, accountId, props)
       )
       if (response) return response
     }
@@ -85,5 +88,39 @@ export default {
         ),
       accessTokenTTL: 3600
     }).fetch(request, env, ctx)
+  },
+
+  async scheduled(
+    _controller: ScheduledController,
+    env: Env,
+    _ctx: ExecutionContext
+  ): Promise<void> {
+    console.log('Fetching OpenAPI spec from:', env.OPENAPI_SPEC_URL)
+
+    const response = await fetch(env.OPENAPI_SPEC_URL)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch OpenAPI spec: ${response.status}`)
+    }
+
+    const rawSpec = (await response.json()) as Record<string, unknown>
+    console.log('Processing spec, resolving $refs...')
+
+    const processed = processSpec(rawSpec)
+    const specJson = JSON.stringify(processed)
+
+    const products = extractProducts(rawSpec)
+    const productsJson = JSON.stringify(products)
+
+    console.log(`Writing spec to R2 (${(specJson.length / 1024).toFixed(0)} KB)`)
+    await Promise.all([
+      env.SPEC_BUCKET.put('spec.json', specJson, {
+        httpMetadata: { contentType: 'application/json' }
+      }),
+      env.SPEC_BUCKET.put('products.json', productsJson, {
+        httpMetadata: { contentType: 'application/json' }
+      })
+    ])
+
+    console.log(`Spec updated successfully (${products.length} products)`)
   }
 }

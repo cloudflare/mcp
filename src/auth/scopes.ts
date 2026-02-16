@@ -112,39 +112,24 @@ export const ALL_SCOPES = {
   'url_scanner:write': 'Configure URL Scanner',
   'radar:read': 'View Radar threat intelligence',
 
-  // Billing
-  'billing:read': 'View billing information',
-  'billing:write': 'Modify billing settings',
-
   // Notebooks
   'notebook-examples:read': 'View notebook examples',
-  'notebook-managed:read': 'View managed notebooks',
 
   // Other
   'firstpartytags:write': 'Configure first-party tags'
 } as const
 
+/**
+ * Maximum number of scopes that can be requested in a single OAuth authorization.
+ * Cloudflare's OAuth server returns "Something went wrong!" when more than 76 scopes
+ * are requested. This limit is enforced server-side.
+ */
+export const MAX_SCOPES = 76
+
 export type ScopeName = keyof typeof ALL_SCOPES
 
 /** Scopes required for basic functionality - always included */
 export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
-
-/** All read-only scopes (ending in :read) */
-export const READ_ONLY_SCOPES: ScopeName[] = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (scope) => scope.endsWith(':read')
-)
-
-/** All write/edit scopes */
-export const WRITE_SCOPES: ScopeName[] = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (scope) =>
-    scope.endsWith(':write') ||
-    scope.endsWith(':edit') ||
-    scope.endsWith(':run') ||
-    scope.endsWith(':setup') ||
-    scope.endsWith(':admin') ||
-    scope.endsWith(':bind') ||
-    scope.endsWith(':pii')
-)
 
 /** Scope templates for quick selection */
 export const SCOPE_TEMPLATES = {
@@ -153,18 +138,24 @@ export const SCOPE_TEMPLATES = {
     description: 'View resources without making changes. Safest option for exploration.',
     scopes: [
       ...REQUIRED_SCOPES,
-      'zone:read',
       'workers:read',
-      'workers_tail:read',
-      'pages:read'
+      'workers_builds:read',
+      'workers_observability:read',
+      'pages:read',
+      'ai:read',
+      'access:read',
+      'dns_records:read',
+      'dns_settings:read',
+      'dns_analytics:read',
+      'zone:read',
+      'logpush:read'
     ] as ScopeName[]
   },
   'workers-full': {
     name: 'Workers Full Access',
-    description: 'Full access to Workers, KV, D1, R2, and related services.',
+    description: 'Full access to Workers, KV, D1, R2, and related services with observability.',
     scopes: [
       ...REQUIRED_SCOPES,
-      'account:read',
       'workers:read',
       'workers:write',
       'workers_scripts:write',
@@ -173,6 +164,11 @@ export const SCOPE_TEMPLATES = {
       'workers_tail:read',
       'workers_builds:read',
       'workers_builds:write',
+      'workers_observability:read',
+      'workers_observability:write',
+      'workers_observability_telemetry:write',
+      'logpush:read',
+      'logpush:write',
       'd1:write',
       'r2_catalog:write',
       'queues:write',
@@ -185,18 +181,12 @@ export const SCOPE_TEMPLATES = {
     description: 'Full access to DNS records and zone settings.',
     scopes: [
       ...REQUIRED_SCOPES,
-      'account:read',
       'zone:read',
       'dns_records:read',
       'dns_records:edit',
       'dns_settings:read',
       'dns_analytics:read'
     ] as ScopeName[]
-  },
-  'full-access': {
-    name: 'Full Access',
-    description: 'Complete access to all Cloudflare APIs. Use with caution.',
-    scopes: Object.keys(ALL_SCOPES) as ScopeName[]
   }
 } as const
 
