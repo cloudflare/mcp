@@ -23,7 +23,8 @@ async function createMcpResponse(
   const server = createServer(env, token, accountId)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
-    enableJsonResponse: true
+    enableJsonResponse: true,
+    retryInterval: 1000
   })
 
   await server.connect(transport)
