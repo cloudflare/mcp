@@ -1,5 +1,3 @@
-import spec from './data/spec.json'
-
 interface CodeExecutorEntrypoint {
   evaluate(apiToken: string): Promise<{ result: unknown; err?: string; stack?: string }>
 }
@@ -77,7 +75,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
         const data = await response.json();
 
         // Handle GraphQL responses (different format than REST)
-        const cleanPath = path.split('?')[0].replace(/\/+$/, '');
+        const cleanPath = path.split('?')[0].replace(/\\/+$/, '');
         const isGraphQLEndpoint = cleanPath === '/client/v4/graphql' || cleanPath.endsWith('/graphql');
 
         if (isGraphQLEndpoint) {
@@ -140,9 +138,12 @@ export default class CodeExecutor extends WorkerEntrypoint {
 }
 
 export function createSearchExecutor(env: Env) {
-  const specJson = JSON.stringify(spec)
-
   return async (code: string): Promise<unknown> => {
+    const obj = await env.SPEC_BUCKET.get('spec.json')
+    if (!obj)
+      throw new Error('spec.json not found in R2. Run the scheduled handler to populate it.')
+    const specJson = await obj.text()
+
     const workerId = `cloudflare-search-${crypto.randomUUID()}`
 
     const worker = env.LOADER.get(workerId, () => ({

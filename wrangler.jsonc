@@ -17,7 +17,8 @@
 		}
 	},
 	"vars": {
-		"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4"
+		"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
+		"OPENAPI_SPEC_URL": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
 	},
 	"worker_loaders": [
 		{
@@ -29,6 +30,15 @@
 			"binding": "OAUTH_KV",
 		}
 	],
+	"r2_buckets": [
+		{
+			"binding": "SPEC_BUCKET",
+			"bucket_name": "mcp-spec"
+		}
+	],
+	"triggers": {
+		"crons": ["0 0 * * *"]
+	},
 	"dev": {
 		"port": 2529
 	},
@@ -52,8 +62,18 @@
 					"id":"cd658e2801ac4ae6b18082e375f176a3"
 				}
 			],
+			"r2_buckets": [
+				{
+					"binding": "SPEC_BUCKET",
+					"bucket_name": "mcp-spec-staging"
+				}
+			],
+			"triggers": {
+				"crons": ["0 0 * * *"]
+			},
 			"vars": {
-				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4"
+				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
+		"OPENAPI_SPEC_URL": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
 			}
 		},
 		"production": {
@@ -75,8 +95,18 @@
 					"id": "c7d4e4f11dfe41e6a22228aa838a14f1"
 				}
 			],
+			"r2_buckets": [
+				{
+					"binding": "SPEC_BUCKET",
+					"bucket_name": "mcp-spec-production"
+				}
+			],
+			"triggers": {
+				"crons": ["0 0 * * *"]
+			},
 			"vars": {
-				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4"
+				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
+		"OPENAPI_SPEC_URL": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
 			}
 		}
 	}
