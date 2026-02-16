@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { ALL_SCOPES, SCOPE_TEMPLATES, REQUIRED_SCOPES, DEFAULT_TEMPLATE } from './scopes'
+import { ALL_SCOPES, SCOPE_TEMPLATES, REQUIRED_SCOPES, DEFAULT_TEMPLATE, MAX_SCOPES } from './scopes'
 
 /**
  * Scopes registered for the OAuth client.
@@ -82,10 +82,7 @@ const REGISTERED_SCOPES = [
   'url_scanner:read',
   'url_scanner:write',
   'radar:read',
-  'billing:read',
-  'billing:write',
   'notebook-examples:read',
-  'notebook-managed:read',
   'firstpartytags:write'
 ] as const
 
@@ -169,6 +166,17 @@ describe('scopes', () => {
 
     it('should include offline_access for refresh tokens', () => {
       expect(REQUIRED_SCOPES).toContain('offline_access')
+    })
+  })
+
+  describe('MAX_SCOPES', () => {
+    it('all templates should be within the max scope limit', () => {
+      for (const [templateName, template] of Object.entries(SCOPE_TEMPLATES)) {
+        expect(
+          template.scopes.length,
+          `Template "${templateName}" has ${template.scopes.length} scopes, exceeding MAX_SCOPES (${MAX_SCOPES})`
+        ).toBeLessThanOrEqual(MAX_SCOPES)
+      }
     })
   })
 })

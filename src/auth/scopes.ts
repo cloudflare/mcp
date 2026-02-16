@@ -112,17 +112,19 @@ export const ALL_SCOPES = {
   'url_scanner:write': 'Configure URL Scanner',
   'radar:read': 'View Radar threat intelligence',
 
-  // Billing
-  'billing:read': 'View billing information',
-  'billing:write': 'Modify billing settings',
-
   // Notebooks
   'notebook-examples:read': 'View notebook examples',
-  'notebook-managed:read': 'View managed notebooks',
 
   // Other
   'firstpartytags:write': 'Configure first-party tags'
 } as const
+
+/**
+ * Maximum number of scopes that can be requested in a single OAuth authorization.
+ * Cloudflare's OAuth server returns "Something went wrong!" when more than 76 scopes
+ * are requested. This limit is enforced server-side.
+ */
+export const MAX_SCOPES = 76
 
 export type ScopeName = keyof typeof ALL_SCOPES
 
