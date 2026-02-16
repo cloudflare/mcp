@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 import { createCodeExecutor, createSearchExecutor } from './executor'
 import { truncateResponse } from './truncate'
-import { PRODUCTS } from './data/products'
+import type { AuthProps } from './auth/types'
 
 const CLOUDFLARE_TYPES = `
 interface CloudflareRequestOptions {
@@ -63,7 +63,12 @@ declare const spec: {
 };
 `
 
-export function createServer(env: Env, apiToken: string, accountId?: string): McpServer {
+export async function createServer(
+  env: Env,
+  apiToken: string,
+  accountId: string | undefined,
+  props?: AuthProps
+): Promise<McpServer> {
   const server = new McpServer({
     name: 'cloudflare-api',
     version: '0.1.0'
@@ -72,12 +77,15 @@ export function createServer(env: Env, apiToken: string, accountId?: string): Mc
   const executeCode = createCodeExecutor(env)
   const executeSearch = createSearchExecutor(env)
 
+  const obj = await env.SPEC_BUCKET.get('products.json')
+  const products: string[] = obj ? await obj.json() : []
+
   server.registerTool(
     'search',
     {
       description: `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline.
 
-Products: ${PRODUCTS.slice(0, 30).join(', ')}... (${PRODUCTS.length} total)
+Products: ${products.slice(0, 30).join(', ')}... (${products.length} total)
 
 Types:
 ${SPEC_TYPES}
@@ -164,7 +172,7 @@ async () => {
       }
     )
   } else {
-    // User token mode: account_id is required
+    // User token mode: account_id must be provided each time (or we show available accounts)
     server.registerTool(
       'execute',
       {
@@ -173,12 +181,44 @@ async () => {
           code: z.string().describe('JavaScript async arrow function to execute'),
           account_id: z
             .string()
-            .describe('Your Cloudflare account ID (call GET /accounts to list available accounts)')
+            .optional()
+            .describe(
+              'Your Cloudflare account ID. Optional if you have only one account (will be auto-selected)'
+            )
         }
       },
       async ({ code, account_id }) => {
         try {
-          const result = await executeCode(code, account_id, apiToken)
+          let effectiveAccountId: string
+
+          if (account_id) {
+            effectiveAccountId = account_id
+          } else if (props?.type === 'user_token') {
+            if (props.accounts.length === 1) {
+              effectiveAccountId = props.accounts[0].id
+            } else {
+              const accountsList = props.accounts
+                .map((acc) => `  - ${acc.id} (${acc.name})`)
+                .join('\n')
+
+              return {
+                content: [
+                  {
+                    type: 'text',
+                    text: `Error: Multiple accounts available. Please specify account_id parameter.\n\nAvailable accounts:\n${accountsList}`
+                  }
+                ],
+                isError: true
+              }
+            }
+          } else {
+            return {
+              content: [{ type: 'text', text: 'Error: account_id parameter is required' }],
+              isError: true
+            }
+          }
+
+          const result = await executeCode(code, effectiveAccountId, apiToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return {

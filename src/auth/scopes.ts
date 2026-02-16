@@ -136,9 +136,17 @@ export const SCOPE_TEMPLATES = {
     description: 'View resources without making changes. Safest option for exploration.',
     scopes: [
       ...REQUIRED_SCOPES,
-      ...(Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-        (scope) => scope.endsWith(':read') && !REQUIRED_SCOPES.includes(scope)
-      )
+      'workers:read',
+      'workers_builds:read',
+      'workers_observability:read',
+      'pages:read',
+      'ai:read',
+      'access:read',
+      'dns_records:read',
+      'dns_settings:read',
+      'dns_analytics:read',
+      'zone:read',
+      'logpush:read'
     ] as ScopeName[]
   },
   'workers-full': {
@@ -177,33 +185,6 @@ export const SCOPE_TEMPLATES = {
       'dns_settings:read',
       'dns_analytics:read'
     ] as ScopeName[]
-  },
-  'security-full': {
-    name: 'Security Full Access',
-    description: 'Full access to Zero Trust, Access, SSO, and connectivity.',
-    scopes: [
-      ...REQUIRED_SCOPES,
-      'access:read',
-      'access:write',
-      'teams:read',
-      'teams:write',
-      'teams:pii',
-      'teams:secure_location',
-      'sso-connector:read',
-      'sso-connector:write',
-      'connectivity:admin',
-      'connectivity:bind',
-      'connectivity:read',
-      'cfone:read',
-      'cfone:write',
-      'dex:read',
-      'dex:write'
-    ] as ScopeName[]
-  },
-  'full-access': {
-    name: 'Full Access',
-    description: 'Complete access to all Cloudflare APIs. Use with caution.',
-    scopes: Object.keys(ALL_SCOPES) as ScopeName[]
   }
 } as const
 

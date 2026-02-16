@@ -238,14 +238,21 @@ describe('GraphQL Support', () => {
 })
 
 describe('Search Executor', () => {
-  it('should not include GraphQL handling in search executor', async () => {
+  const mockSpec = { paths: { '/test': { get: { summary: 'Test endpoint' } } } }
+
+  it('should read spec from R2 and embed in search worker', async () => {
+    let capturedWorkerCode = ''
     const mockEnv = {
       CLOUDFLARE_API_BASE: 'https://api.cloudflare.com/client/v4',
+      SPEC_BUCKET: {
+        get: vi.fn().mockResolvedValue({
+          text: async () => JSON.stringify(mockSpec)
+        })
+      },
       LOADER: {
-        get: vi.fn((id, fn) => {
+        get: vi.fn((_id: string, fn: () => any) => {
           const config = fn()
-          // Verify search executor doesn't have cloudflare.request
-          expect(config.modules['worker.js']).not.toContain('cloudflare.request')
+          capturedWorkerCode = config.modules['worker.js']
           return {
             getEntrypoint: () => ({
               evaluate: async () => ({ result: {}, err: undefined })
@@ -257,5 +264,23 @@ describe('Search Executor', () => {
 
     const executor = createSearchExecutor(mockEnv)
     await executor('async () => { return {} }')
+
+    expect(mockEnv.SPEC_BUCKET.get).toHaveBeenCalledWith('spec.json')
+    expect(capturedWorkerCode).toContain('/test')
+    expect(capturedWorkerCode).toContain('Test endpoint')
+    expect(capturedWorkerCode).not.toContain('cloudflare.request')
+  })
+
+  it('should throw if spec not in R2', async () => {
+    const mockEnv = {
+      CLOUDFLARE_API_BASE: 'https://api.cloudflare.com/client/v4',
+      SPEC_BUCKET: {
+        get: vi.fn().mockResolvedValue(null)
+      },
+      LOADER: { get: vi.fn() }
+    } as any
+
+    const executor = createSearchExecutor(mockEnv)
+    await expect(executor('async () => { return {} }')).rejects.toThrow('spec.json not found in R2')
   })
 })

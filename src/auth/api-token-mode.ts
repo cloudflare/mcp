@@ -35,7 +35,7 @@ export function extractBearerToken(request: Request): string | null {
  */
 export async function handleApiTokenRequest(
   request: Request,
-  createMcpResponse: (token: string, accountId?: string) => Promise<Response>
+  createMcpResponse: (token: string, accountId?: string, props?: AuthProps) => Promise<Response>
 ): Promise<Response | null> {
   if (!isDirectApiToken(request)) {
     return null
@@ -68,11 +68,13 @@ export async function handleApiTokenRequest(
           { status: 400, headers: { 'Content-Type': 'application/json' } }
         )
       }
-      return createMcpResponse(token, accounts[0].id)
+      const props = buildAuthProps(token, null, accounts)
+      return createMcpResponse(token, accounts[0].id, props)
     }
 
     // User token
-    return createMcpResponse(token)
+    const props = buildAuthProps(token, user, accounts)
+    return createMcpResponse(token, undefined, props)
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Token verification failed'
     return new Response(JSON.stringify({ error: message }), {
