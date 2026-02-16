@@ -173,6 +173,96 @@ execute({
 });
 ```
 
+## GraphQL Analytics API
+
+The server automatically detects and handles Cloudflare's GraphQL Analytics API endpoints. GraphQL queries work seamlessly through the same `execute` tool:
+
+```javascript
+execute({
+  code: `async () => {
+    const response = await cloudflare.request({
+      method: "POST",
+      path: "/client/v4/graphql",
+      body: {
+        query: \`query {
+          viewer {
+            zones(filter: { zoneTag: "\${accountId}" }) {
+              httpRequests1dGroups(limit: 7, orderBy: [date_ASC]) {
+                dimensions {
+                  date
+                }
+                sum {
+                  requests
+                  bytes
+                  cachedBytes
+                }
+              }
+            }
+          }
+        }\`,
+        variables: {}
+      }
+    });
+    return response.result;
+  }`,
+  account_id: "your-account-id"
+});
+```
+
+### Features
+
+- **Automatic format normalization**: GraphQL responses (`{ data, errors }`) are automatically converted to match REST format (`{ success, result, errors }`)
+- **Partial responses**: If some fields succeed and others fail, you get both the partial data and error details
+- **Enhanced error messages**: Errors include field paths for easier debugging (e.g., "Cannot query field 'invalid' (at viewer.zones.invalid)")
+- **Query any analytics data**: Access HTTP requests, Firewall events, Workers metrics, and more
+
+### Common Use Cases
+
+**Zone Traffic Analytics:**
+```javascript
+query {
+  viewer {
+    zones(filter: { zoneTag: "zone-id" }) {
+      httpRequests1dGroups(limit: 7) {
+        dimensions { date }
+        sum { requests, bytes }
+      }
+    }
+  }
+}
+```
+
+**Workers Metrics:**
+```javascript
+query {
+  viewer {
+    accounts(filter: { accountTag: "account-id" }) {
+      workersInvocationsAdaptive(limit: 10) {
+        sum { requests, errors }
+        dimensions { scriptName }
+      }
+    }
+  }
+}
+```
+
+**Firewall Events:**
+```javascript
+query {
+  viewer {
+    zones(filter: { zoneTag: "zone-id" }) {
+      firewallEventsAdaptive(limit: 100) {
+        action
+        clientRequestHTTPHost
+        datetime
+      }
+    }
+  }
+}
+```
+
+See the [Cloudflare GraphQL API docs](https://developers.cloudflare.com/analytics/graphql-api/) for more examples.
+
 ## Token Comparison
 
 | Content                       | Tokens     |
