@@ -10,6 +10,8 @@ count.txt
 .wrangler
 .output
 .vinxi
+.vscode
+.astro
 todos.json
 
 .dev.vars*

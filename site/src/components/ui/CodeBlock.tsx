@@ -153,7 +153,7 @@ function highlightSyntax(
 
 function highlightJson(code: string): string {
   // For JSON: highlight keys and string values
-  const tokenRegex = /("(?:[^"\\]|\\.)*")\s*(:)?/g
+  const tokenRegex = /("(?:[^"\\]|\\.)*")(:)?/g
   let result = ''
   let lastIndex = 0
   let match: RegExpExecArray | null
