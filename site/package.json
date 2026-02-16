@@ -1,0 +1,53 @@
+{
+  "name": "mcp",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "serve": "astro preview",
+    "test": "vitest run",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "astro preview",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@cloudflare/kumo": "^1.5.0",
+    "@cloudflare/vite-plugin": "^1.13.8",
+    "@phosphor-icons/react": "^2.1.10",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@tailwindcss/vite": "^4.0.6",
+    "astro": "^5.17.2",
+    "framer-motion": "^12.29.2",
+    "leva": "^0.10.1",
+    "matter-js": "^0.20.0",
+    "postprocessing": "^6.38.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.0.6",
+    "three": "^0.182.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.11",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@types/matter-js": "^0.20.2",
+    "@types/node": "^22.19.7",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.182.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "jsdom": "^27.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^7.1.7",
+    "vitest": "^3.0.5",
+    "web-vitals": "^5.1.0",
+    "wrangler": "^4.59.3"
+  }
+}
