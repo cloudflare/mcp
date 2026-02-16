@@ -175,6 +175,7 @@ export interface ApprovalDialogOptions {
   scopeTemplates?: Record<string, ScopeTemplate>
   allScopes?: Record<string, string>
   defaultTemplate?: string
+  maxScopes?: number
 }
 
 /**
@@ -193,8 +194,16 @@ function sanitizeHtml(unsafe: string): string {
  * Renders an approval dialog for OAuth authorization with scope selection
  */
 export function renderApprovalDialog(request: Request, options: ApprovalDialogOptions): Response {
-  const { client, state, csrfToken, setCookie, scopeTemplates, allScopes, defaultTemplate } =
-    options
+  const {
+    client,
+    state,
+    csrfToken,
+    setCookie,
+    scopeTemplates,
+    allScopes,
+    defaultTemplate,
+    maxScopes
+  } = options
   const encodedState = btoa(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
 
@@ -671,6 +680,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
             Advanced: Select individual permissions
           </button>
           <div class="advanced-section" id="advancedSection">
+            ${maxScopes ? `<div id="scopeCounter" style="font-size: 0.75rem; color: var(--cf-text-muted); margin-bottom: 0.5rem; font-weight: 500;"></div>` : ''}
             <div class="scope-groups">
               ${scopeGroupsHtml}
             </div>
@@ -704,6 +714,35 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
   <script>
     const templates = ${scopeTemplates ? JSON.stringify(Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.scopes]))) : '{}'};
+    const maxScopes = ${maxScopes || 0};
+
+    function getCheckedCount() {
+      return document.querySelectorAll('.scope-checkbox:checked').length;
+    }
+
+    function updateScopeCounter() {
+      const counter = document.getElementById('scopeCounter');
+      if (!counter || !maxScopes) return;
+      const count = getCheckedCount();
+      counter.textContent = count + ' / ' + maxScopes + ' scopes selected';
+      counter.style.color = count >= maxScopes ? 'var(--cf-red, #d63031)' : 'var(--cf-text-muted)';
+    }
+
+    function enforceScopeLimit() {
+      if (!maxScopes) return;
+      const checked = getCheckedCount();
+      document.querySelectorAll('.scope-checkbox').forEach(cb => {
+        if (!cb.checked) {
+          cb.disabled = checked >= maxScopes;
+          cb.closest('.scope-item').style.opacity = checked >= maxScopes ? '0.5' : '1';
+        }
+      });
+      updateScopeCounter();
+    }
+
+    document.querySelectorAll('.scope-checkbox').forEach(cb => {
+      cb.addEventListener('change', enforceScopeLimit);
+    });
 
     document.querySelectorAll('input[name="scope_template"]').forEach(radio => {
       radio.addEventListener('change', function() {
@@ -713,6 +752,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         document.querySelectorAll('.scope-checkbox').forEach(cb => {
           cb.checked = selectedScopes.includes(cb.value);
         });
+        enforceScopeLimit();
       });
     });
 
@@ -721,6 +761,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       document.querySelectorAll('.scope-checkbox').forEach(cb => {
         cb.checked = templates[defaultTemplate].includes(cb.value);
       });
+      enforceScopeLimit();
     }
 
     function toggleAdvanced() {
