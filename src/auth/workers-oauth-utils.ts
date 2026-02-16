@@ -194,8 +194,16 @@ function sanitizeHtml(unsafe: string): string {
  * Renders an approval dialog for OAuth authorization with scope selection
  */
 export function renderApprovalDialog(request: Request, options: ApprovalDialogOptions): Response {
-  const { client, state, csrfToken, setCookie, scopeTemplates, allScopes, defaultTemplate, maxScopes } =
-    options
+  const {
+    client,
+    state,
+    csrfToken,
+    setCookie,
+    scopeTemplates,
+    allScopes,
+    defaultTemplate,
+    maxScopes
+  } = options
   const encodedState = btoa(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
 

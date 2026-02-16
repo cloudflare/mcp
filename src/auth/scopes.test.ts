@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest'
-import { ALL_SCOPES, SCOPE_TEMPLATES, REQUIRED_SCOPES, DEFAULT_TEMPLATE, MAX_SCOPES } from './scopes'
+import {
+  ALL_SCOPES,
+  SCOPE_TEMPLATES,
+  REQUIRED_SCOPES,
+  DEFAULT_TEMPLATE,
+  MAX_SCOPES
+} from './scopes'
 
 /**
  * Scopes registered for the OAuth client.
