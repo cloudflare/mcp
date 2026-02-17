@@ -223,7 +223,8 @@ export function GridSquares({
     if (canvasWidth === 0 || canvasHeight === 0) return
 
     const initialCards: ActiveCard[] = []
-    const targetCount = 6
+    // Fewer cards on small screens to avoid crowding
+    const targetCount = canvasWidth < 640 ? 3 : 6
 
     for (let i = 0; i < targetCount; i++) {
       const card = generateRandomCard(initialCards)
@@ -254,7 +255,8 @@ export function GridSquares({
         }
 
         // Occasionally add an extra card if below target
-        if (newCards.length < 3) {
+        const minCards = canvasWidth < 640 ? 2 : 3
+        if (newCards.length < minCards) {
           const extraCard = generateRandomCard(newCards)
           if (extraCard) {
             newCards.push(extraCard)

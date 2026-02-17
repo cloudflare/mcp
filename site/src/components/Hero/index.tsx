@@ -553,18 +553,32 @@ function EffectLayer() {
     type: THREE.HalfFloatType
   })
 
-  // Track mouse position
+  // Track mouse/touch position
   useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
+    const updatePointer = (clientX: number, clientY: number) => {
       const canvas = document.querySelector('canvas')
       if (!canvas) return
       const rect = canvas.getBoundingClientRect()
-      mouseRef.current.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
-      mouseRef.current.y = -(((event.clientY - rect.top) / rect.height) * 2 - 1)
+      mouseRef.current.x = ((clientX - rect.left) / rect.width) * 2 - 1
+      mouseRef.current.y = -(((clientY - rect.top) / rect.height) * 2 - 1)
+    }
+
+    const handleMouseMove = (event: MouseEvent) => {
+      updatePointer(event.clientX, event.clientY)
+    }
+
+    const handleTouchMove = (event: TouchEvent) => {
+      if (event.touches.length > 0) {
+        updatePointer(event.touches[0].clientX, event.touches[0].clientY)
+      }
     }
 
     window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
   }, [])
 
   // Animate both letter groups in sync
@@ -720,6 +734,28 @@ function EffectLayer() {
   )
 }
 
+// Adjust camera position based on aspect ratio so text fits on narrow screens
+function ResponsiveCamera() {
+  const { camera, size } = useThree()
+
+  useEffect(() => {
+    const perspCamera = camera as THREE.PerspectiveCamera
+    const aspect = size.width / size.height
+
+    // On narrow (mobile) screens, pull the camera back so the text fits
+    if (aspect < 1) {
+      perspCamera.position.z = 6 + (1 - aspect) * 5
+    } else if (aspect < 1.4) {
+      perspCamera.position.z = 6 + (1.4 - aspect) * 2
+    } else {
+      perspCamera.position.z = 6
+    }
+    perspCamera.updateProjectionMatrix()
+  }, [camera, size])
+
+  return null
+}
+
 // Handle WebGL context loss/restore
 function ContextHandler() {
   const { gl } = useThree()
@@ -790,11 +826,24 @@ function SceneContent() {
     setCanvasSize({ width, height })
   }, [])
 
-  // Track mouse position for icon desaturation effect
+  // Track mouse/touch position for icon desaturation effect
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       const rect = e.currentTarget.getBoundingClientRect()
       glowContext.setMousePosition(e.clientX - rect.left, e.clientY - rect.top)
+    },
+    [glowContext]
+  )
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      if (e.touches.length > 0) {
+        const rect = e.currentTarget.getBoundingClientRect()
+        glowContext.setMousePosition(
+          e.touches[0].clientX - rect.left,
+          e.touches[0].clientY - rect.top
+        )
+      }
     },
     [glowContext]
   )
@@ -836,7 +885,9 @@ function SceneContent() {
       ref={containerRef}
       className="relative w-full h-full overflow-hidden"
       onMouseMove={handleMouseMove}
+      onTouchMove={handleTouchMove}
       onMouseLeave={handleMouseLeave}
+      onTouchEnd={handleMouseLeave}
       style={{
         // Ensure smooth resize transitions
         contain: 'strict'
@@ -871,6 +922,7 @@ function SceneContent() {
           dpr={[1, pixelRatio]} // Use Leva-controlled pixel ratio
         >
           <SizeReporter onSizeChange={handleSizeChange} />
+          <ResponsiveCamera />
           <ContextHandler />
           <EffectLayer />
         </Canvas>
