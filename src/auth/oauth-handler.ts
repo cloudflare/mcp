@@ -249,7 +249,9 @@ export function createAuthHandlers() {
       const oauthReqInfo = state.oauthReqInfo as AuthRequest
 
       // Checkboxes are the source of truth — accept whatever the frontend sends
-      const scopesToRequest = (selectedScopes && selectedScopes.length > 0 ? selectedScopes : []).slice(0, MAX_SCOPES)
+      const scopesToRequest = (
+        selectedScopes && selectedScopes.length > 0 ? selectedScopes : []
+      ).slice(0, MAX_SCOPES)
 
       // Update oauthReqInfo with selected scopes
       oauthReqInfo.scope = scopesToRequest
