@@ -248,25 +248,10 @@ export function createAuthHandlers() {
 
       const oauthReqInfo = state.oauthReqInfo as AuthRequest
 
-      // Determine which scopes to request
-      let scopesToRequest: string[]
-      if (selectedScopes && selectedScopes.length > 0) {
-        // User customized individual scopes
-        scopesToRequest = selectedScopes
-      } else if (selectedTemplate && selectedTemplate in SCOPE_TEMPLATES) {
-        // User selected a template
-        scopesToRequest = [
-          ...SCOPE_TEMPLATES[selectedTemplate as keyof typeof SCOPE_TEMPLATES].scopes
-        ]
-      } else {
-        // Fallback to default template
-        scopesToRequest = [...SCOPE_TEMPLATES[DEFAULT_TEMPLATE].scopes]
-      }
-
-      // Enforce max scope limit (Cloudflare OAuth server rejects requests with too many scopes)
-      if (scopesToRequest.length > MAX_SCOPES) {
-        scopesToRequest = scopesToRequest.slice(0, MAX_SCOPES)
-      }
+      // Checkboxes are the source of truth — accept whatever the frontend sends
+      const scopesToRequest = (
+        selectedScopes && selectedScopes.length > 0 ? selectedScopes : []
+      ).slice(0, MAX_SCOPES)
 
       // Update oauthReqInfo with selected scopes
       oauthReqInfo.scope = scopesToRequest
