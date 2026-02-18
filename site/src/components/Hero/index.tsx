@@ -17,6 +17,7 @@ import * as THREE from 'three'
 import { GridEffect } from '../three/GridEffect'
 import '../three/TexturedLetterMaterial'
 import { GridSquares } from './GridSquares'
+import { MultiplayerGrid } from './MultiplayerGrid'
 import { GlowColorProvider, useGlowColors, useGlowShaderData } from './GlowColorContext'
 import { useHeroColors } from '@/hooks/useThemeColors'
 
@@ -879,6 +880,9 @@ function SceneContent() {
           <EffectLayer />
         </Canvas>
       </CanvasErrorBoundary>
+
+      {/* Multiplayer pixel grid overlay */}
+      <MultiplayerGrid gridDensity={gridDensity} canvasWidth={canvasSize.width} canvasHeight={canvasSize.height} />
 
       {/* Grid squares overlay */}
       <GridSquares
