@@ -538,15 +538,16 @@ function EffectLayer() {
   // Create orthographic camera for the full-screen quad
   const orthoCamera = useMemo(() => new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), [])
 
-  // Create FBOs for both solid and wireframe renders
-  const solidTarget = useFBO(size.width, size.height, {
+  // Create FBOs at physical pixel resolution for sharp rendering on high-DPI screens
+  const dpr = gl.getPixelRatio()
+  const solidTarget = useFBO(size.width * dpr, size.height * dpr, {
     minFilter: THREE.LinearFilter,
     magFilter: THREE.LinearFilter,
     format: THREE.RGBAFormat,
     type: THREE.HalfFloatType
   })
 
-  const wireframeTarget = useFBO(size.width, size.height, {
+  const wireframeTarget = useFBO(size.width * dpr, size.height * dpr, {
     minFilter: THREE.LinearFilter,
     magFilter: THREE.LinearFilter,
     format: THREE.RGBAFormat,
@@ -748,6 +749,30 @@ function ContextHandler() {
   return null
 }
 
+// Adjust camera FOV based on aspect ratio so the 3D text fills
+// a consistent proportion of the screen at any size.
+// At the reference aspect (~2.3, desktop 60vh hero), fov=50 looks right.
+// As the aspect gets narrower (mobile), FOV widens to compensate.
+function ResponsiveFOV() {
+  const { camera, size } = useThree()
+
+  useEffect(() => {
+    const perspCamera = camera as THREE.PerspectiveCamera
+    const aspect = size.width / size.height
+    const baseFov = 50
+    const referenceAspect = 2.3
+    // Compute FOV that keeps the same visible width as desktop
+    const fov = 2 * Math.atan(
+      Math.tan((baseFov * Math.PI) / 360) * referenceAspect / aspect
+    ) * (180 / Math.PI)
+    // Clamp to reasonable range
+    perspCamera.fov = Math.min(85, Math.max(baseFov, fov))
+    perspCamera.updateProjectionMatrix()
+  }, [camera, size.width, size.height])
+
+  return null
+}
+
 // Component to report canvas size back to parent
 function SizeReporter({ onSizeChange }: { onSizeChange: (width: number, height: number) => void }) {
   const { size } = useThree()
@@ -771,7 +796,7 @@ function SceneContent() {
   // Grid density and quality controls (needs to be here so GridSquares can access it)
   const { gridDensity, pixelRatio } = useControls('Grid', {
     gridDensity: { value: 30, min: 5, max: 80, step: 1 },
-    pixelRatio: { value: 2, min: 1, max: 3, step: 0.5 }
+    pixelRatio: { value: 3, min: 1, max: 3, step: 0.5 }
   })
 
   // Icon desaturation controls (icons go B&W near mouse)
@@ -868,9 +893,10 @@ function SceneContent() {
             margin: '-1px',
             display: 'block'
           }}
-          dpr={[1, pixelRatio]} // Use Leva-controlled pixel ratio
+          dpr={Math.max(pixelRatio, typeof window !== 'undefined' ? window.devicePixelRatio : 2)}
         >
           <SizeReporter onSizeChange={handleSizeChange} />
+          <ResponsiveFOV />
           <ContextHandler />
           <EffectLayer />
         </Canvas>

@@ -8,6 +8,7 @@ interface GridSquareProps {
   server: MCPServer
   position: { x: number; y: number }
   cellSize: number // Square cell size in pixels
+  cardScale?: number // Scale factor for card size (e.g. 0.7 on mobile)
   grayscaleAmount?: number // 0-1, where 1 = fully B&W
   // Mouse drag effect - offset direction and strength
   pushOffset?: { x: number; y: number } // Pixel offset to apply
@@ -99,6 +100,7 @@ export function GridSquare({
   server,
   position,
   cellSize,
+  cardScale = 1,
   grayscaleAmount = 0,
   pushOffset = { x: 0, y: 0 }
 }: GridSquareProps) {
@@ -166,7 +168,9 @@ export function GridSquare({
       className="absolute pointer-events-auto cursor-default"
       style={{
         left: position.x,
-        top: position.y
+        top: position.y,
+        transformOrigin: 'top left',
+        scale: cardScale
       }}
     >
       {/* Colored version (base layer) */}

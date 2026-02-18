@@ -3,7 +3,7 @@ import { ThemeToggle } from './ThemeToggle'
 export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-(--color-surface-secondary) border-b border-(--color-border)">
-      <div className="mx-auto flex h-12 max-w-[var(--max-width)] items-center border-x border-dashed border-(--color-border) px-6">
+      <div className="mx-auto flex h-12 max-w-[var(--max-width)] items-center border-x border-dashed border-(--color-border) px-4 sm:px-6">
         <div className="flex items-center gap-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +29,7 @@ export function Header() {
           <h1 className="text-base font-medium">MCP</h1>
         </div>
         <div className="ml-auto flex items-center gap-3">
-          <p className="font-mono text-xs text-(--color-muted)">mcp.cloudflare.com</p>
+          <p className="hidden font-mono text-xs text-(--color-muted) sm:block">mcp.cloudflare.com</p>
           <ThemeToggle />
         </div>
       </div>

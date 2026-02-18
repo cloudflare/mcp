@@ -223,7 +223,7 @@ export function GridSquares({
     if (canvasWidth === 0 || canvasHeight === 0) return
 
     const initialCards: ActiveCard[] = []
-    const targetCount = 6
+    const targetCount = canvasWidth < 480 ? 2 : canvasWidth < 768 ? 4 : 6
 
     for (let i = 0; i < targetCount; i++) {
       const card = generateRandomCard(initialCards)
@@ -254,7 +254,8 @@ export function GridSquares({
         }
 
         // Occasionally add an extra card if below target
-        if (newCards.length < 3) {
+        const minCards = canvasWidth < 480 ? 1 : canvasWidth < 768 ? 2 : 3
+        if (newCards.length < minCards) {
           const extraCard = generateRandomCard(newCards)
           if (extraCard) {
             newCards.push(extraCard)
@@ -407,6 +408,9 @@ export function GridSquares({
     }
   }, [desatEnabled, desatTrailPersist])
 
+  // Scale cards down on mobile
+  const cardScale = canvasWidth < 480 ? 0.45 : canvasWidth < 768 ? 0.65 : 1
+
   // Don't render until we have dimensions
   if (canvasWidth === 0 || canvasHeight === 0 || gridDimensions.cellSize === 0) {
     return null
@@ -438,6 +442,7 @@ export function GridSquares({
               server={card.server}
               position={card.position}
               cellSize={gridDimensions.cellSize}
+              cardScale={cardScale}
               grayscaleAmount={getGrayscaleAmount(card.id, cardCenterX, cardCenterY)}
               pushOffset={getPushOffset(cardCenterX, cardCenterY)}
             />
