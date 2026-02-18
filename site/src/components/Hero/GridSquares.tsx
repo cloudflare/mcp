@@ -3,48 +3,73 @@ import { AnimatePresence } from 'framer-motion'
 import { GridSquare } from './GridSquare'
 import { MCP_SERVERS, type MCPServer } from './mcpServers'
 import { useGlowColorsOptional, type CardInfo } from './GlowColorContext'
+import { CARD_HEIGHT_CELLS, getCardCellsWide, getCardDimensions } from './cardLayout'
 
-// Estimate text width based on character count and font size
-// Must match the calculation in GridSquare
-function estimateTextWidth(text: string, fontSize: number): number {
-  const charWidth = fontSize * 0.65
-  return text.length * charWidth
-}
+// Responsive breakpoints (px)
+const BREAKPOINT_SM = 480
+const BREAKPOINT_MD = 768
 
-// Calculate how many cells wide a card will be for a given server
-// Must match the calculation in GridSquare
-function getCardCellsWide(server: MCPServer, cellSize: number): number {
-  const fontSize = Math.max(14, Math.min(28, cellSize * 0.7))
-  const labelPaddingCells = 0.5 // 0.5 cells padding on each side
-  const textWidth = estimateTextWidth(server.name, fontSize)
-  const textCells = textWidth / cellSize
-  const totalLabelCells = textCells + labelPaddingCells * 2
-  const labelCells = Math.max(2, Math.ceil(totalLabelCells))
-  // Icon box is 2 cells + label cells
-  return 2 + labelCells
-}
+// Card counts per breakpoint: [initial, minimum]
+const CARD_COUNTS_SM = { initial: 2, minimum: 1 }
+const CARD_COUNTS_MD = { initial: 4, minimum: 2 }
+const CARD_COUNTS_LG = { initial: 6, minimum: 3 }
+
+// Card scale per breakpoint
+const CARD_SCALE_SM = 0.45
+const CARD_SCALE_MD = 0.65
+const CARD_SCALE_LG = 1
+
+// Grid placement constraints
+const EDGE_MARGIN_CELLS = 2
+const CARD_GAP_CELLS = 1
+const MAX_PLACEMENT_ATTEMPTS = 100
+
+// Card cycling interval (ms)
+const CYCLE_INTERVAL_MS = 5000
 
 interface ActiveCard {
   id: string
   server: MCPServer
   position: { x: number; y: number }
   gridCell: { x: number; y: number }
-  cellsWide: number // Store the width for collision detection
+  cellsWide: number
 }
 
 interface GridSquaresProps {
   gridDensity: number
   canvasWidth: number
   canvasHeight: number
-  // Icon desaturation props
   desatEnabled?: boolean
   desatRadius?: number
   desatCutoff?: number
   desatStyle?: 'smooth' | 'sharp'
   desatTrailPersist?: number
-  // Drag effect - icons pulled toward mouse
   pushStrength?: number
   pushRadius?: number
+}
+
+function getCardCountsForWidth(width: number): { initial: number; minimum: number } {
+  if (width < BREAKPOINT_SM) return CARD_COUNTS_SM
+  if (width < BREAKPOINT_MD) return CARD_COUNTS_MD
+  return CARD_COUNTS_LG
+}
+
+function getCardScaleForWidth(width: number): number {
+  if (width < BREAKPOINT_SM) return CARD_SCALE_SM
+  if (width < BREAKPOINT_MD) return CARD_SCALE_MD
+  return CARD_SCALE_LG
+}
+
+/** Calculate the center position of a card in pixel coordinates. */
+function getCardCenter(
+  card: ActiveCard,
+  cellSize: number
+): { x: number; y: number } {
+  const dims = getCardDimensions(card.server, cellSize)
+  return {
+    x: card.position.x + dims.totalWidth / 2,
+    y: card.position.y + dims.totalHeight / 2
+  }
 }
 
 export function GridSquares({
@@ -63,76 +88,59 @@ export function GridSquares({
   const glowContext = useGlowColorsOptional()
   const lastReportedRef = useRef<string>('')
 
-  // For trail persistence animation
+  // Trail persistence animation state
   const cardLastNearRef = useRef<Map<string, number>>(new Map())
   const [, forceUpdate] = useState(0)
   const animatingRef = useRef(false)
 
   // Calculate grid dimensions based on aspect ratio
-  // Grid cells should be square, matching the shader calculation
   const gridDimensions = useMemo(() => {
     if (canvasWidth === 0 || canvasHeight === 0) {
-      return {
-        gridWidth: 0,
-        gridHeight: 0,
-        cellSize: 0,
-        cellWidth: 0,
-        cellHeight: 0
-      }
+      return { gridWidth: 0, gridHeight: 0, cellSize: 0, cellWidth: 0, cellHeight: 0 }
     }
 
     const aspect = canvasWidth / canvasHeight
     const gridWidth = aspect >= 1 ? Math.round(gridDensity * aspect) : gridDensity
     const gridHeight = aspect >= 1 ? gridDensity : Math.round(gridDensity / aspect)
-
-    // Calculate cell dimensions (they may not be perfectly square due to aspect ratio rounding)
     const cellWidth = canvasWidth / gridWidth
     const cellHeight = canvasHeight / gridHeight
-    // Use the smaller dimension for square cards
     const cellSize = Math.min(cellWidth, cellHeight)
 
     return { gridWidth, gridHeight, cellSize, cellWidth, cellHeight }
   }, [gridDensity, canvasWidth, canvasHeight])
 
-  // Define exclusion zone (center area where 3D text is)
-  // Wider horizontally since text is wide, narrower vertically
-  const exclusionZone = useMemo(() => {
-    return {
+  // Exclusion zone: center area where 3D text is rendered
+  const exclusionZone = useMemo(
+    () => ({
       left: canvasWidth * 0.2,
       right: canvasWidth * 0.8,
       top: canvasHeight * 0.25,
       bottom: canvasHeight * 0.75
-    }
-  }, [canvasWidth, canvasHeight])
+    }),
+    [canvasWidth, canvasHeight]
+  )
 
-  // Check if a position overlaps with exclusion zone or existing cards
-  // Cards have variable width based on text, but are always 2 cells tall
+  // Check if a grid position is valid (no overlaps with exclusion zone or existing cards)
   const isValidPosition = useCallback(
     (cellX: number, cellY: number, cardCellsWide: number, existingCards: ActiveCard[]): boolean => {
       const { cellWidth, cellHeight, gridWidth, gridHeight } = gridDimensions
 
-      const cardCellsTall = 2
-      const edgeMargin = 2 // Must be at least 2 cells from any edge
-
-      // Calculate pixel position
-      const x = cellX * cellWidth
-      const y = cellY * cellHeight
-      const cardWidth = cardCellsWide * cellWidth
-      const cardHeight = cardCellsTall * cellHeight
-
-      // Check canvas bounds with margin (ensure card is 2 cells from edges)
+      // Check canvas bounds with edge margin
       if (
-        cellX < edgeMargin ||
-        cellY < edgeMargin ||
-        cellX + cardCellsWide > gridWidth - edgeMargin ||
-        cellY + cardCellsTall > gridHeight - edgeMargin
+        cellX < EDGE_MARGIN_CELLS ||
+        cellY < EDGE_MARGIN_CELLS ||
+        cellX + cardCellsWide > gridWidth - EDGE_MARGIN_CELLS ||
+        cellY + CARD_HEIGHT_CELLS > gridHeight - EDGE_MARGIN_CELLS
       ) {
         return false
       }
 
-      // Check exclusion zone overlap
-      const cardRight = x + cardWidth
-      const cardBottom = y + cardHeight
+      // Check exclusion zone overlap (in pixel space)
+      const x = cellX * cellWidth
+      const y = cellY * cellHeight
+      const cardRight = x + cardCellsWide * cellWidth
+      const cardBottom = y + CARD_HEIGHT_CELLS * cellHeight
+
       const overlapsExclusion =
         x < exclusionZone.right &&
         cardRight > exclusionZone.left &&
@@ -143,20 +151,13 @@ export function GridSquares({
         return false
       }
 
-      // Check overlap with existing cards (each has its own width)
-      // Must be at least 1 cell gap between cards
-      const cardGap = 1
+      // Check overlap with existing cards (with gap)
       for (const card of existingCards) {
-        const existingX = card.gridCell.x
-        const existingY = card.gridCell.y
-        const existingWidth = card.cellsWide
-
-        // Check if grid cells overlap (including 1 cell gap)
         const overlaps =
-          cellX < existingX + existingWidth + cardGap &&
-          cellX + cardCellsWide + cardGap > existingX &&
-          cellY < existingY + cardCellsTall + cardGap &&
-          cellY + cardCellsTall + cardGap > existingY
+          cellX < card.gridCell.x + card.cellsWide + CARD_GAP_CELLS &&
+          cellX + cardCellsWide + CARD_GAP_CELLS > card.gridCell.x &&
+          cellY < card.gridCell.y + CARD_HEIGHT_CELLS + CARD_GAP_CELLS &&
+          cellY + CARD_HEIGHT_CELLS + CARD_GAP_CELLS > card.gridCell.y
 
         if (overlaps) {
           return false
@@ -168,45 +169,32 @@ export function GridSquares({
     [gridDimensions, exclusionZone]
   )
 
-  // Generate a random card position
+  // Generate a random card at a valid position
   const generateRandomCard = useCallback(
     (existingCards: ActiveCard[]): ActiveCard | null => {
       const { gridWidth, gridHeight, cellWidth, cellHeight, cellSize } = gridDimensions
 
       if (gridWidth === 0 || gridHeight === 0) return null
 
-      const cardCellsTall = 2
-
-      // Get unused servers
       const usedServerIds = new Set(existingCards.map((c) => c.server.id))
       const availableServers = MCP_SERVERS.filter((s) => !usedServerIds.has(s.id))
 
-      if (availableServers.length === 0) {
-        return null
-      }
+      if (availableServers.length === 0) return null
 
-      // Shuffle available servers to try different ones
       const shuffledServers = [...availableServers].sort(() => Math.random() - 0.5)
 
-      // Try to find a valid position (max attempts to avoid infinite loop)
-      const maxAttempts = 100
-      for (let attempt = 0; attempt < maxAttempts; attempt++) {
-        // Pick a server to try
+      for (let attempt = 0; attempt < MAX_PLACEMENT_ATTEMPTS; attempt++) {
         const server = shuffledServers[attempt % shuffledServers.length]
         const cardCellsWide = getCardCellsWide(server, cellSize)
 
-        // Random grid cell (ensure room for this card's width)
         const cellX = Math.floor(Math.random() * (gridWidth - cardCellsWide + 1))
-        const cellY = Math.floor(Math.random() * (gridHeight - cardCellsTall + 1))
+        const cellY = Math.floor(Math.random() * (gridHeight - CARD_HEIGHT_CELLS + 1))
 
         if (isValidPosition(cellX, cellY, cardCellsWide, existingCards)) {
           return {
             id: `${server.id}-${Date.now()}-${Math.random()}`,
             server,
-            position: {
-              x: cellX * cellWidth,
-              y: cellY * cellHeight
-            },
+            position: { x: cellX * cellWidth, y: cellY * cellHeight },
             gridCell: { x: cellX, y: cellY },
             cellsWide: cardCellsWide
           }
@@ -223,7 +211,7 @@ export function GridSquares({
     if (canvasWidth === 0 || canvasHeight === 0) return
 
     const initialCards: ActiveCard[] = []
-    const targetCount = canvasWidth < 480 ? 2 : canvasWidth < 768 ? 4 : 6
+    const { initial: targetCount } = getCardCountsForWidth(canvasWidth)
 
     for (let i = 0; i < targetCount; i++) {
       const card = generateRandomCard(initialCards)
@@ -235,7 +223,7 @@ export function GridSquares({
     setActiveCards(initialCards)
   }, [canvasWidth, canvasHeight, generateRandomCard])
 
-  // Cycle cards every 5 seconds
+  // Cycle cards periodically
   useEffect(() => {
     if (canvasWidth === 0 || canvasHeight === 0) return
 
@@ -243,18 +231,17 @@ export function GridSquares({
       setActiveCards((prev) => {
         if (prev.length === 0) return prev
 
-        // Remove a random card
+        // Remove a random card and add a new one
         const removeIndex = Math.floor(Math.random() * prev.length)
         const newCards = prev.filter((_, i) => i !== removeIndex)
 
-        // Add a new card
         const newCard = generateRandomCard(newCards)
         if (newCard) {
           newCards.push(newCard)
         }
 
-        // Occasionally add an extra card if below target
-        const minCards = canvasWidth < 480 ? 1 : canvasWidth < 768 ? 2 : 3
+        // Add an extra card if below minimum
+        const { minimum: minCards } = getCardCountsForWidth(canvasWidth)
         if (newCards.length < minCards) {
           const extraCard = generateRandomCard(newCards)
           if (extraCard) {
@@ -264,7 +251,7 @@ export function GridSquares({
 
         return newCards
       })
-    }, 5000)
+    }, CYCLE_INTERVAL_MS)
 
     return () => clearInterval(interval)
   }, [canvasWidth, canvasHeight, generateRandomCard])
@@ -273,27 +260,18 @@ export function GridSquares({
   useEffect(() => {
     if (!glowContext || canvasWidth === 0 || canvasHeight === 0) return
 
-    // Create a fingerprint to avoid unnecessary updates
     const fingerprint = activeCards.map((c) => `${c.id}:${c.position.x}:${c.position.y}`).join('|')
     if (fingerprint === lastReportedRef.current) return
     lastReportedRef.current = fingerprint
 
-    // Convert active cards to CardInfo format
     const cardInfos: CardInfo[] = activeCards.map((card) => {
-      const iconBoxSize = gridDimensions.cellSize * 2
-      const fontSize = Math.max(14, Math.min(28, gridDimensions.cellSize * 0.7))
-      const labelPaddingCells = 0.5
-      const textWidth = estimateTextWidth(card.server.name, fontSize)
-      const textCells = textWidth / gridDimensions.cellSize
-      const totalCells = textCells + labelPaddingCells * 2
-      const labelWidth = Math.max(2, Math.ceil(totalCells)) * gridDimensions.cellSize
-
+      const dims = getCardDimensions(card.server, gridDimensions.cellSize)
       return {
         id: card.id,
         x: card.position.x,
         y: card.position.y,
-        width: iconBoxSize + labelWidth,
-        height: iconBoxSize,
+        width: dims.totalWidth,
+        height: dims.totalHeight,
         color: card.server.color
       }
     })
@@ -301,7 +279,6 @@ export function GridSquares({
     glowContext.updateCards(cardInfos, canvasWidth, canvasHeight)
   }, [activeCards, canvasWidth, canvasHeight, glowContext, gridDimensions.cellSize])
 
-  // Get mouse position from context
   const mousePosition = glowContext?.mousePosition ?? { x: -9999, y: -9999 }
 
   // Calculate grayscale amount for a card based on mouse proximity
@@ -318,7 +295,6 @@ export function GridSquares({
       if (desatStyle === 'sharp') {
         instantGrayscale = distance < desatRadius ? 1 : 0
       } else {
-        // Smooth gradient
         const innerRadius = Math.max(0, desatRadius - desatCutoff)
         if (distance >= desatRadius) {
           instantGrayscale = 0
@@ -329,17 +305,15 @@ export function GridSquares({
         }
       }
 
-      // Trail persistence: if currently affected, update last near time
+      // Trail persistence: update last-near timestamp when actively affected
       if (instantGrayscale > 0.5) {
         cardLastNearRef.current.set(cardId, currentTime)
       }
 
-      // Check if we should still be grayscale due to trail
       const lastNear = cardLastNearRef.current.get(cardId) || 0
-      const timeSinceNear = (currentTime - lastNear) / 1000 // Convert to seconds
+      const timeSinceNear = (currentTime - lastNear) / 1000
 
       if (desatTrailPersist > 0 && timeSinceNear < desatTrailPersist) {
-        // Fade out over the persist duration
         const trailGrayscale = 1 - timeSinceNear / desatTrailPersist
         return Math.max(instantGrayscale, trailGrayscale)
       }
@@ -349,26 +323,21 @@ export function GridSquares({
     [mousePosition, desatEnabled, desatRadius, desatCutoff, desatStyle, desatTrailPersist]
   )
 
-  // Calculate push offset - icons are pushed AWAY from mouse (repelled by x-ray)
+  // Calculate push offset (icons are repelled away from mouse)
   const getPushOffset = useCallback(
     (cardCenterX: number, cardCenterY: number): { x: number; y: number } => {
       if (!desatEnabled || pushStrength === 0) return { x: 0, y: 0 }
 
-      // Direction FROM mouse TO card (push away from mouse)
       const dx = cardCenterX - mousePosition.x
       const dy = cardCenterY - mousePosition.y
       const distance = Math.sqrt(dx * dx + dy * dy)
 
-      // No push if mouse is far away (uses its own radius)
       if (distance >= pushRadius || distance < 1) return { x: 0, y: 0 }
 
-      // Normalize direction (away from mouse)
       const normalizedX = dx / distance
       const normalizedY = dy / distance
-
-      // Push strength falls off with distance (stronger when closer)
       const falloff = 1 - distance / pushRadius
-      const strength = pushStrength * falloff * falloff // Quadratic falloff for snappy feel
+      const strength = pushStrength * falloff * falloff
 
       return {
         x: normalizedX * strength,
@@ -378,7 +347,7 @@ export function GridSquares({
     [mousePosition, desatEnabled, pushRadius, pushStrength]
   )
 
-  // Animation loop for trail persistence - re-render while cards are fading
+  // Animation loop for trail persistence
   useEffect(() => {
     if (!desatEnabled || desatTrailPersist === 0) return
 
@@ -386,7 +355,6 @@ export function GridSquares({
       const now = performance.now()
       let stillAnimating = false
 
-      // Check if any card is still fading
       cardLastNearRef.current.forEach((lastNear) => {
         if ((now - lastNear) / 1000 < desatTrailPersist) {
           stillAnimating = true
@@ -402,16 +370,13 @@ export function GridSquares({
       }
     }
 
-    // Start animation if we have cards that were recently near mouse
     if (!animatingRef.current && cardLastNearRef.current.size > 0) {
       requestAnimationFrame(animate)
     }
   }, [desatEnabled, desatTrailPersist])
 
-  // Scale cards down on mobile
-  const cardScale = canvasWidth < 480 ? 0.45 : canvasWidth < 768 ? 0.65 : 1
+  const cardScale = getCardScaleForWidth(canvasWidth)
 
-  // Don't render until we have dimensions
   if (canvasWidth === 0 || canvasHeight === 0 || gridDimensions.cellSize === 0) {
     return null
   }
@@ -423,18 +388,7 @@ export function GridSquares({
     >
       <AnimatePresence mode="popLayout">
         {activeCards.map((card) => {
-          // Calculate card center for grayscale calculation
-          const iconBoxSize = gridDimensions.cellSize * 2
-          const fontSize = Math.max(14, Math.min(28, gridDimensions.cellSize * 0.7))
-          const labelPaddingCells = 0.5
-          const textWidth = estimateTextWidth(card.server.name, fontSize)
-          const textCells = textWidth / gridDimensions.cellSize
-          const totalCells = textCells + labelPaddingCells * 2
-          const labelWidth = Math.max(2, Math.ceil(totalCells)) * gridDimensions.cellSize
-          const cardWidth = iconBoxSize + labelWidth
-          const cardHeight = iconBoxSize
-          const cardCenterX = card.position.x + cardWidth / 2
-          const cardCenterY = card.position.y + cardHeight / 2
+          const center = getCardCenter(card, gridDimensions.cellSize)
 
           return (
             <GridSquare
@@ -443,8 +397,8 @@ export function GridSquares({
               position={card.position}
               cellSize={gridDimensions.cellSize}
               cardScale={cardScale}
-              grayscaleAmount={getGrayscaleAmount(card.id, cardCenterX, cardCenterY)}
-              pushOffset={getPushOffset(cardCenterX, cardCenterY)}
+              grayscaleAmount={getGrayscaleAmount(card.id, center.x, center.y)}
+              pushOffset={getPushOffset(center.x, center.y)}
             />
           )
         })}
