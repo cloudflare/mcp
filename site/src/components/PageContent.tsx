@@ -6,13 +6,13 @@ export function PageContent() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <div className="h-[60vh]">
+      <div className="h-[35vh] sm:h-[45vh] md:h-[60vh]">
         <Scene />
       </div>
 
       {/* Use Cloudflare's MCP Servers */}
       <FadeInSection
-        className="border-t border-dashed border-(--color-border) px-6 py-24"
+        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
         cornerGrid={{ position: 'bottom-left', color: '#f38020' }}
       >
         <div className="mx-auto max-w-3xl">
@@ -46,7 +46,7 @@ export function PageContent() {
 
       {/* Build Your Own */}
       <FadeInSection
-        className="border-t border-dashed border-(--color-border) px-6 py-24"
+        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
         cornerGrid={{ position: 'top-right', color: '#06b6d4' }}
       >
         <div className="mx-auto max-w-3xl">
@@ -182,7 +182,7 @@ export default {
 
       {/* MCP Client */}
       <FadeInSection
-        className="border-t border-dashed border-(--color-border) px-6 py-24"
+        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
         cornerGrid={{ position: 'top-left', color: '#f38020' }}
       >
         <div className="mx-auto max-w-3xl">
@@ -231,7 +231,7 @@ export default {
 
       {/* Code Mode */}
       <FadeInSection
-        className="border-t border-dashed border-(--color-border) px-6 py-24"
+        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
         cornerGrid={{ position: 'bottom-right', color: '#a855f7' }}
       >
         <div className="mx-auto max-w-3xl">
@@ -290,7 +290,7 @@ export default {
 
       {/* CTA */}
       <FadeInSection
-        className="border-t border-dashed border-(--color-border) px-6 py-24"
+        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
         cornerGrid={{ position: 'bottom-left', color: '#6366f1' }}
       >
         <div className="mx-auto max-w-3xl text-center">
@@ -311,7 +311,7 @@ export default {
 
       {/* Footer */}
       <footer className="border-t border-(--color-border) bg-(--color-surface-secondary)">
-        <div className="mx-auto flex max-w-[var(--max-width)] items-center justify-between border-x border-dashed border-(--color-border) px-6 py-6">
+        <div className="mx-auto flex max-w-[var(--max-width)] items-center justify-between border-x border-dashed border-(--color-border) px-4 py-6 sm:px-6">
           <p className="font-mono text-xs text-(--color-muted)">&copy; 2026 Cloudflare, Inc.</p>
           <div className="flex gap-6">
             <a

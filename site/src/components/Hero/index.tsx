@@ -316,26 +316,22 @@ function WireframeLetters({
 }
 
 // Background plane that always fills the camera view
+const BG_PLANE_Z = -5
+const CAMERA_Z = 6
+const BG_PLANE_OVERFLOW = 1.2 // Scale factor to ensure full coverage at edges
+
 function BackgroundPlane() {
   const { camera, size } = useThree()
   const heroColors = useHeroColors()
 
-  // Calculate plane size to fill camera view at z=-5
-  const planeZ = -5
-  const cameraZ = 6 // Camera position
-  const distance = cameraZ - planeZ
-
-  // Get vertical FOV in radians
-  const fov = (camera as THREE.PerspectiveCamera).fov * (Math.PI / 180)
-  const height = 2 * Math.tan(fov / 2) * distance
+  const distanceFromCamera = CAMERA_Z - BG_PLANE_Z
+  const fovRad = (camera as THREE.PerspectiveCamera).fov * (Math.PI / 180)
+  const height = 2 * Math.tan(fovRad / 2) * distanceFromCamera
   const width = height * (size.width / size.height)
 
-  // Add some padding to ensure full coverage
-  const padding = 1.2
-
   return (
-    <mesh position={[0, 0, planeZ]}>
-      <planeGeometry args={[width * padding, height * padding]} />
+    <mesh position={[0, 0, BG_PLANE_Z]}>
+      <planeGeometry args={[width * BG_PLANE_OVERFLOW, height * BG_PLANE_OVERFLOW]} />
       <meshStandardMaterial color={heroColors.background} />
     </mesh>
   )
@@ -538,15 +534,16 @@ function EffectLayer() {
   // Create orthographic camera for the full-screen quad
   const orthoCamera = useMemo(() => new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), [])
 
-  // Create FBOs for both solid and wireframe renders
-  const solidTarget = useFBO(size.width, size.height, {
+  // Create FBOs at physical pixel resolution for sharp rendering on high-DPI screens
+  const dpr = gl.getPixelRatio()
+  const solidTarget = useFBO(size.width * dpr, size.height * dpr, {
     minFilter: THREE.LinearFilter,
     magFilter: THREE.LinearFilter,
     format: THREE.RGBAFormat,
     type: THREE.HalfFloatType
   })
 
-  const wireframeTarget = useFBO(size.width, size.height, {
+  const wireframeTarget = useFBO(size.width * dpr, size.height * dpr, {
     minFilter: THREE.LinearFilter,
     magFilter: THREE.LinearFilter,
     format: THREE.RGBAFormat,
@@ -566,25 +563,6 @@ function EffectLayer() {
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
-
-  // Animate both letter groups in sync
-  useFrame((_state) => {
-    const groups = [solidGroupRef.current, wireframeGroupRef.current]
-    groups.forEach((group) => {
-      if (group) {
-        // // Base oscillation
-        // const baseRotationY = Math.sin(state.clock.elapsedTime * 0.3) * 0.08;
-        // const basePositionY = Math.sin(state.clock.elapsedTime * 0.5) * 0.04;
-        // // Mouse-based tilt
-        // const targetRotationX = mouseRef.current.y * 0.05;
-        // const targetRotationY = baseRotationY + mouseRef.current.x * 0.05;
-        // // Smooth interpolation
-        // group.rotation.x += (baseRotationY - group.rotation.x) * 0.1;
-        // group.rotation.y += (basePositionY - group.rotation.y) * 0.1;
-        // group.position.y = basePositionY;
-      }
-    })
-  })
 
   // Render: both scenes to FBOs, then post-process quad to screen
   useFrame(() => {
@@ -748,6 +726,31 @@ function ContextHandler() {
   return null
 }
 
+// Adjust camera FOV based on aspect ratio so the 3D text fills a consistent
+// proportion of the screen at any size. At the reference aspect (~2.3,
+// desktop 60vh hero), baseFov=50 looks right. As the viewport narrows
+// (mobile / portrait), the FOV widens to keep the same visible width.
+const BASE_FOV = 50
+const REFERENCE_ASPECT = 2.3
+const MAX_FOV = 85
+
+function ResponsiveFOV() {
+  const { camera, size } = useThree()
+
+  useEffect(() => {
+    const perspCamera = camera as THREE.PerspectiveCamera
+    const aspect = size.width / size.height
+
+    const baseFovRad = (BASE_FOV * Math.PI) / 360 // half-angle in radians
+    const adjustedFov = 2 * Math.atan(Math.tan(baseFovRad) * REFERENCE_ASPECT / aspect) * (180 / Math.PI)
+
+    perspCamera.fov = Math.min(MAX_FOV, Math.max(BASE_FOV, adjustedFov))
+    perspCamera.updateProjectionMatrix()
+  }, [camera, size.width, size.height])
+
+  return null
+}
+
 // Component to report canvas size back to parent
 function SizeReporter({ onSizeChange }: { onSizeChange: (width: number, height: number) => void }) {
   const { size } = useThree()
@@ -771,7 +774,7 @@ function SceneContent() {
   // Grid density and quality controls (needs to be here so GridSquares can access it)
   const { gridDensity, pixelRatio } = useControls('Grid', {
     gridDensity: { value: 30, min: 5, max: 80, step: 1 },
-    pixelRatio: { value: 2, min: 1, max: 3, step: 0.5 }
+    pixelRatio: { value: 3, min: 1, max: 3, step: 0.5 }
   })
 
   // Icon desaturation controls (icons go B&W near mouse)
@@ -846,8 +849,8 @@ function SceneContent() {
         <Canvas
           key={`${canvasKey}-${heroColors.background}`}
           camera={{
-            position: [0, 0, 6],
-            fov: 50
+            position: [0, 0, CAMERA_Z],
+            fov: BASE_FOV
           }}
           gl={{
             antialias: true,
@@ -868,9 +871,10 @@ function SceneContent() {
             margin: '-1px',
             display: 'block'
           }}
-          dpr={[1, pixelRatio]} // Use Leva-controlled pixel ratio
+          dpr={Math.max(pixelRatio, window.devicePixelRatio)}
         >
           <SizeReporter onSizeChange={handleSizeChange} />
+          <ResponsiveFOV />
           <ContextHandler />
           <EffectLayer />
         </Canvas>
