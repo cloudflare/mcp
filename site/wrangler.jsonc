@@ -5,12 +5,29 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mcp",
+  "main": "src/server.ts",
   "account_id": "6702657b6aa048cf3081ff3ff3c9c52f",
   "compatibility_date": "2025-02-16",
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
-    "directory": "dist"
+    "directory": "dist",
+    "run_worker_first": ["/agents/*"]
   },
   "observability": {
     "enabled": true
-  }
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "GridAgent",
+        "class_name": "GridAgent"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["GridAgent"]
+    }
+  ]
 }
