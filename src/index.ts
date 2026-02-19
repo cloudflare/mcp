@@ -8,9 +8,7 @@ import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
 import type { AuthProps } from './auth/types'
 
-const ALLOWED_HOSTNAMES = [
-  'api.cloudflare.com',
-]
+const ALLOWED_HOSTNAMES = ['api.cloudflare.com']
 
 /**
  * Global outbound fetch handler that restricts dynamically-loaded workers
