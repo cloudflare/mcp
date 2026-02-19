@@ -1,11 +1,30 @@
 import OAuthProvider from '@cloudflare/workers-oauth-provider'
 import { Hono } from 'hono'
+import { WorkerEntrypoint } from 'cloudflare:workers'
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
 import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
 import type { AuthProps } from './auth/types'
+
+const ALLOWED_HOSTNAMES = [
+  'api.cloudflare.com',
+]
+
+/**
+ * Global outbound fetch handler that restricts dynamically-loaded workers
+ * to only make requests to Cloudflare API domains.
+ */
+export class GlobalOutbound extends WorkerEntrypoint {
+  async fetch(request: Request): Promise<Response> {
+    const url = new URL(request.url)
+    if (!ALLOWED_HOSTNAMES.includes(url.hostname)) {
+      return new Response(`Forbidden: requests to ${url.hostname} are not allowed`, { status: 403 })
+    }
+    return fetch(request)
+  }
+}
 
 type McpContext = {
   Bindings: Env
