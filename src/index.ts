@@ -8,17 +8,16 @@ import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
 import type { AuthProps } from './auth/types'
 
-const ALLOWED_HOSTNAMES = ['api.cloudflare.com']
-
 /**
  * Global outbound fetch handler that restricts dynamically-loaded workers
- * to only make requests to Cloudflare API domains.
+ * to only make requests to the configured Cloudflare API base URL.
  */
-export class GlobalOutbound extends WorkerEntrypoint {
+export class GlobalOutbound extends WorkerEntrypoint<Env> {
   async fetch(request: Request): Promise<Response> {
-    const url = new URL(request.url)
-    if (!ALLOWED_HOSTNAMES.includes(url.hostname)) {
-      return new Response(`Forbidden: requests to ${url.hostname} are not allowed`, { status: 403 })
+    const allowed = new URL(this.env.CLOUDFLARE_API_BASE).hostname
+    const requested = new URL(request.url).hostname
+    if (requested !== allowed) {
+      return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
     }
     return fetch(request)
   }
