@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { isDirectApiToken, extractBearerToken, buildAuthProps } from './api-token-mode'
+import { isDirectApiToken, extractBearerToken, buildAuthProps } from '../../auth/api-token-mode'
 
 /**
  * Helper to create a mock Request with given Authorization header

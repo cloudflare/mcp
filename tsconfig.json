@@ -4,7 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "lib": ["ES2022"],
-    "types": ["./worker-configuration.d.ts", "@cloudflare/vitest-pool-workers"],
+    "types": ["./worker-configuration.d.ts"],
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
@@ -15,5 +15,5 @@
     "resolveJsonModule": true
   },
   "include": ["src/**/*", "worker-configuration.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/tests"]
 }
