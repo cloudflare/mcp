@@ -15,6 +15,7 @@ export function createCodeExecutor(env: Env) {
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
       compatibilityFlags: ['nodejs_compat'],
+      globalOutbound: env.GLOBAL_OUTBOUND,
       mainModule: 'worker.js',
       modules: {
         'worker.js': `
@@ -149,6 +150,7 @@ export function createSearchExecutor(env: Env) {
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
       compatibilityFlags: ['nodejs_compat'],
+      globalOutbound: null,
       mainModule: 'worker.js',
       modules: {
         'worker.js': `
