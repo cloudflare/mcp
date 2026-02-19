@@ -232,7 +232,7 @@ describe('GraphQL Support', () => {
       const workerConfig = loaderCall.mock.calls[0][1]()
 
       expect(workerConfig.compatibilityDate).toBe('2026-01-12')
-      expect(workerConfig.compatibilityFlags).toContain('nodejs_compat')
+      expect(workerConfig.compatibilityFlags).toBeUndefined()
     })
   })
 })
