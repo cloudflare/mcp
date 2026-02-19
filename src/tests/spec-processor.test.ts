@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { extractProduct, resolveRefs, processSpec, extractProducts } from './spec-processor'
+import { extractProduct, resolveRefs, processSpec, extractProducts } from '../spec-processor'
 
 describe('extractProduct', () => {
   it('should extract product from account paths', () => {

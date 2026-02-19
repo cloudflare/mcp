@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { createCodeExecutor, createSearchExecutor } from './executor'
+import { createCodeExecutor, createSearchExecutor } from '../executor'
 
 describe('GraphQL Support', () => {
   let mockEnv: Env

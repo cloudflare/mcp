@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { truncateResponse } from './truncate'
+import { truncateResponse } from '../truncate'
 
 describe('truncateResponse', () => {
   it('should return string content unchanged if under limit', () => {
