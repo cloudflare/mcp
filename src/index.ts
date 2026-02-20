@@ -11,15 +11,25 @@ import type { AuthProps } from './auth/types'
 /**
  * Global outbound fetch handler that restricts dynamically-loaded workers
  * to only make requests to the configured Cloudflare API base URL.
+ * The API token is injected via props so it never enters the user code isolate.
  */
-export class GlobalOutbound extends WorkerEntrypoint<Env> {
+type GlobalOutboundProps = { apiToken: string }
+
+export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
   async fetch(request: Request): Promise<Response> {
     const allowed = new URL(this.env.CLOUDFLARE_API_BASE).hostname
     const requested = new URL(request.url).hostname
     if (requested !== allowed) {
       return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
     }
-    return fetch(request)
+    // Inject auth header — token comes from props, never enters user code isolate
+    const authedRequest = new Request(request, {
+      headers: new Headers([
+        ...request.headers.entries(),
+        ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
+      ])
+    })
+    return fetch(authedRequest)
   }
 }
 
@@ -38,7 +48,7 @@ async function createMcpResponse(
   accountId?: string,
   props?: AuthProps
 ): Promise<Response> {
-  const server = await createServer(env, token, accountId, props)
+  const server = await createServer(env, ctx, token, accountId, props)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,

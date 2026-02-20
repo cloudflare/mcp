@@ -1,12 +1,12 @@
 interface CodeExecutorEntrypoint {
-  evaluate(apiToken: string): Promise<{ result: unknown; err?: string; stack?: string }>
+  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
 }
 
 interface SearchExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
 }
 
-export function createCodeExecutor(env: Env) {
+export function createCodeExecutor(env: Env, ctx: ExecutionContext) {
   const apiBase = env.CLOUDFLARE_API_BASE
 
   return async (code: string, accountId: string, apiToken: string): Promise<unknown> => {
@@ -14,7 +14,7 @@ export function createCodeExecutor(env: Env) {
 
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
-      globalOutbound: env.GLOBAL_OUTBOUND,
+      globalOutbound: ctx.exports.GlobalOutbound({ props: { apiToken } }),
       mainModule: 'worker.js',
       modules: {
         'worker.js': `
@@ -24,10 +24,8 @@ const apiBase = ${JSON.stringify(apiBase)};
 const accountId = ${JSON.stringify(accountId)};
 
 export default class CodeExecutor extends WorkerEntrypoint {
-  #cloudflare = null;
-
-  async evaluate(apiToken) {
-    this.#cloudflare = {
+  async evaluate() {
+    const cloudflare = {
       async request(options) {
         const { method, path, query, body, contentType, rawBody } = options;
 
@@ -40,9 +38,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
           }
         }
 
-        const headers = {
-          "Authorization": "Bearer " + apiToken,
-        };
+        const headers = {};
 
         if (contentType) {
           headers["Content-Type"] = contentType;
@@ -116,11 +112,6 @@ export default class CodeExecutor extends WorkerEntrypoint {
       }
     };
 
-    return this.#run();
-  }
-
-  async #run() {
-    const cloudflare = this.#cloudflare;
     try {
       const result = await (${code})();
       return { result, err: undefined };
@@ -134,7 +125,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
     }))
 
     const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
-    const response = await entrypoint.evaluate(apiToken)
+    const response = await entrypoint.evaluate()
 
     if (response.err) {
       throw new Error(response.err)
