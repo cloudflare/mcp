@@ -65,6 +65,7 @@ declare const spec: {
 
 export async function createServer(
   env: Env,
+  ctx: ExecutionContext,
   apiToken: string,
   accountId: string | undefined,
   props?: AuthProps
@@ -74,7 +75,7 @@ export async function createServer(
     version: '0.1.0'
   })
 
-  const executeCode = createCodeExecutor(env)
+  const executeCode = createCodeExecutor(env, ctx)
   const executeSearch = createSearchExecutor(env)
 
   const obj = await env.SPEC_BUCKET.get('products.json')

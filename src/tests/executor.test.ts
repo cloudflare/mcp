@@ -3,6 +3,7 @@ import { createCodeExecutor, createSearchExecutor } from '../executor'
 
 describe('GraphQL Support', () => {
   let mockEnv: Env
+  let mockCtx: any
   let mockWorker: any
   let mockEntrypoint: any
 
@@ -24,6 +25,12 @@ describe('GraphQL Support', () => {
         get: vi.fn(() => mockWorker)
       }
     } as any
+
+    mockCtx = {
+      exports: {
+        GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() }))
+      }
+    } as any
   })
 
   describe('Path Detection', () => {
@@ -35,7 +42,7 @@ describe('GraphQL Support', () => {
         }
       })
 
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       const code = `
         async () => {
           return await cloudflare.request({
@@ -54,7 +61,7 @@ describe('GraphQL Support', () => {
     })
 
     it('should detect GraphQL endpoint with trailing /graphql', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
 
       // The path detection logic is in the worker code itself
       // We're testing that the code generation includes the GraphQL handling
@@ -72,7 +79,7 @@ describe('GraphQL Support', () => {
     })
 
     it('should handle GraphQL path with query parameters', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -85,7 +92,7 @@ describe('GraphQL Support', () => {
     })
 
     it('should not treat non-GraphQL paths as GraphQL', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -100,7 +107,7 @@ describe('GraphQL Support', () => {
 
   describe('Response Handling', () => {
     it('should include partial response handling logic', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -115,7 +122,7 @@ describe('GraphQL Support', () => {
     })
 
     it('should include error path in error messages', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -128,7 +135,7 @@ describe('GraphQL Support', () => {
     })
 
     it('should handle errors array robustly', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -140,7 +147,7 @@ describe('GraphQL Support', () => {
     })
 
     it('should normalize GraphQL response format', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -156,7 +163,7 @@ describe('GraphQL Support', () => {
 
   describe('Error Scenarios', () => {
     it('should include logic for complete failure (no data, only errors)', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -169,7 +176,7 @@ describe('GraphQL Support', () => {
     })
 
     it('should extract error codes from extensions', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -183,7 +190,7 @@ describe('GraphQL Support', () => {
 
   describe('REST API Compatibility', () => {
     it('should preserve REST API handling', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -198,7 +205,7 @@ describe('GraphQL Support', () => {
     })
 
     it('should preserve non-JSON response handling', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
@@ -213,19 +220,19 @@ describe('GraphQL Support', () => {
 
   describe('Worker Code Generation', () => {
     it('should inject cloudflare.request function', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
       const workerCode = workerConfig.modules['worker.js']
 
-      expect(workerCode).toContain('this.#cloudflare = {')
+      expect(workerCode).toContain('const cloudflare = {')
       expect(workerCode).toContain('async request(options)')
     })
 
     it('should use correct compatibility date', async () => {
-      const executor = createCodeExecutor(mockEnv)
+      const executor = createCodeExecutor(mockEnv, mockCtx)
       await executor('async () => { return {} }', 'test-account', 'test-token')
 
       const loaderCall = mockEnv.LOADER.get as any
