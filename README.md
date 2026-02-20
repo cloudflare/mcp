@@ -39,14 +39,16 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 
 ### Add to Agent
 
-MCP URL: `https://mcp.cloudflare.com/mcp`
-Bearer Token: Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens)
+| Setting      | Value                                                                       |
+| ------------ | --------------------------------------------------------------------------- |
+| MCP URL      | `https://mcp.cloudflare.com/mcp`                                            |
+| Bearer Token | Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens) |
 
 ## The Problem
 
-The Cloudflare OpenAPI spec is **2.3 million tokens** in JSON format. Even compressed to TypeScript endpoint summaries, it's still **~200k tokens**. Traditional MCP servers that expose every endpoint as a tool, or include the full spec in tool descriptions, leak this entire context to the main agent.
+The Cloudflare OpenAPI spec is **2 million tokens**. Even with native MCP tools using minimal schemas, it's still **~244k tokens**. Traditional MCP servers that expose every endpoint as a tool leak this entire context to the main agent.
 
-This server solves the problem by using **code execution** in a [codemode](https://blog.cloudflare.com/code-mode/) pattern - the spec lives on the server, and only the results of queries are returned to the agent.
+This server solves the problem by using **code execution** in a [Code Mode](https://blog.cloudflare.com/code-mode-mcp/) pattern - the spec lives on the server, and only the result of the code execution is returned to the agent.
 
 ## Tools
 
