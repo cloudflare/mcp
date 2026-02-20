@@ -43,13 +43,34 @@ interface CloudflareApiResponse<T> {
 }
 
 /**
+ * Build Cloudflare API auth headers for either a Bearer token or Global API Key
+ */
+export function buildCloudflareAuthHeaders(
+  auth:
+    | { type: 'bearer'; token: string }
+    | { type: 'global_api_key'; email: string; apiKey: string }
+): Record<string, string> {
+  if (auth.type === 'global_api_key') {
+    return { 'X-Auth-Email': auth.email, 'X-Auth-Key': auth.apiKey }
+  }
+  return { Authorization: `Bearer ${auth.token}` }
+}
+
+/**
  * Fetch user and accounts from Cloudflare API
  */
-export async function getUserAndAccounts(accessToken: string): Promise<{
+export async function getUserAndAccounts(
+  authOrToken:
+    | string
+    | { type: 'bearer'; token: string }
+    | { type: 'global_api_key'; email: string; apiKey: string }
+): Promise<{
   user: { id: string; email: string } | null
   accounts: Array<{ id: string; name: string }>
 }> {
-  const headers = { Authorization: `Bearer ${accessToken}` }
+  const auth =
+    typeof authOrToken === 'string' ? { type: 'bearer' as const, token: authOrToken } : authOrToken
+  const headers = buildCloudflareAuthHeaders(auth)
 
   const [userResp, accountsResp] = await Promise.all([
     fetch(`${env.CLOUDFLARE_API_BASE}/user`, { headers }),
@@ -105,6 +126,13 @@ export async function handleTokenExchangeCallback(
       user: z.object({ id: z.string(), email: z.string() }),
       accounts: z.array(z.object({ id: z.string(), name: z.string() })),
       refreshToken: z.string().optional()
+    }),
+    z.object({
+      type: z.literal('global_api_key'),
+      email: z.string(),
+      apiKey: z.string(),
+      user: z.object({ id: z.string(), email: z.string() }),
+      accounts: z.array(z.object({ id: z.string(), name: z.string() }))
     })
   ])
 

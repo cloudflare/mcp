@@ -1,6 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
-import { createCodeExecutor, createSearchExecutor } from './executor'
+import { createCodeExecutor, createSearchExecutor, type OutboundAuth } from './executor'
 import { truncateResponse } from './truncate'
 import type { AuthProps } from './auth/types'
 
@@ -63,6 +63,16 @@ declare const spec: {
 };
 `
 
+function getOutboundAuth(props?: AuthProps, apiToken?: string): OutboundAuth {
+  if (props?.type === 'global_api_key') {
+    return { type: 'global_api_key', email: props.email, apiKey: props.apiKey }
+  }
+  const token =
+    props?.type === 'user_token' || props?.type === 'account_token' ? props.accessToken : apiToken
+  if (!token) throw new Error('No API token available')
+  return { type: 'bearer', apiToken: token }
+}
+
 export async function createServer(
   env: Env,
   ctx: ExecutionContext,
@@ -75,6 +85,7 @@ export async function createServer(
     version: '0.1.0'
   })
 
+  const outboundAuth = getOutboundAuth(props, apiToken)
   const executeCode = createCodeExecutor(env, ctx)
   const executeSearch = createSearchExecutor(env)
 
@@ -162,7 +173,7 @@ async () => {
       },
       async ({ code }) => {
         try {
-          const result = await executeCode(code, accountId, apiToken)
+          const result = await executeCode(code, accountId, outboundAuth)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return {
@@ -194,7 +205,7 @@ async () => {
 
           if (account_id) {
             effectiveAccountId = account_id
-          } else if (props?.type === 'user_token') {
+          } else if (props?.type === 'user_token' || props?.type === 'global_api_key') {
             if (props.accounts.length === 1) {
               effectiveAccountId = props.accounts[0].id
             } else {
@@ -219,7 +230,7 @@ async () => {
             }
           }
 
-          const result = await executeCode(code, effectiveAccountId, apiToken)
+          const result = await executeCode(code, effectiveAccountId, outboundAuth)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return {

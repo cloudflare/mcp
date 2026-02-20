@@ -1,13 +1,23 @@
 import { describe, it, expect } from 'vitest'
-import { isDirectApiToken, extractBearerToken, buildAuthProps } from '../../auth/api-token-mode'
+import {
+  isDirectApiToken,
+  extractBearerToken,
+  buildAuthProps,
+  isGlobalApiKey
+} from '../../auth/api-token-mode'
 
 /**
- * Helper to create a mock Request with given Authorization header
+ * Helper to create a mock Request with given headers
  */
-function mockRequest(authHeader?: string): Request {
+function mockRequest(authHeader?: string, extraHeaders?: Record<string, string>): Request {
   const headers = new Headers()
   if (authHeader) {
     headers.set('Authorization', authHeader)
+  }
+  if (extraHeaders) {
+    for (const [key, value] of Object.entries(extraHeaders)) {
+      headers.set(key, value)
+    }
   }
   return new Request('https://example.com', { headers })
 }
@@ -130,5 +140,38 @@ describe('buildAuthProps', () => {
     const props = buildAuthProps(mockToken, undefined, mockAccounts)
 
     expect(props.type).toBe('account_token')
+  })
+})
+
+describe('isGlobalApiKey', () => {
+  it('should return true when both X-Auth-Email and X-Auth-Key are present', () => {
+    const request = mockRequest(undefined, {
+      'X-Auth-Email': 'user@example.com',
+      'X-Auth-Key': 'global-api-key-123'
+    })
+    expect(isGlobalApiKey(request)).toBe(true)
+  })
+
+  it('should return false when only X-Auth-Email is present', () => {
+    const request = mockRequest(undefined, { 'X-Auth-Email': 'user@example.com' })
+    expect(isGlobalApiKey(request)).toBe(false)
+  })
+
+  it('should return false when only X-Auth-Key is present', () => {
+    const request = mockRequest(undefined, { 'X-Auth-Key': 'global-api-key-123' })
+    expect(isGlobalApiKey(request)).toBe(false)
+  })
+
+  it('should return false when neither header is present', () => {
+    const request = mockRequest()
+    expect(isGlobalApiKey(request)).toBe(false)
+  })
+
+  it('should return true even when Authorization header is also present', () => {
+    const request = mockRequest('Bearer some-token', {
+      'X-Auth-Email': 'user@example.com',
+      'X-Auth-Key': 'global-api-key-123'
+    })
+    expect(isGlobalApiKey(request)).toBe(true)
   })
 })
