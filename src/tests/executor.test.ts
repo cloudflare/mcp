@@ -53,7 +53,7 @@ describe('GraphQL Support', () => {
         }
       `
 
-      await executor(code, 'test-account', 'test-token')
+      await executor(code, 'test-account', { type: 'bearer', apiToken: 'test-token' })
 
       // Verify the LOADER.get was called with correct worker code
       const loaderCall = mockEnv.LOADER.get as any
@@ -67,7 +67,10 @@ describe('GraphQL Support', () => {
       // We're testing that the code generation includes the GraphQL handling
       const loaderCall = mockEnv.LOADER.get as any
 
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const workerConfig = loaderCall.mock.calls[0][1]()
       const workerCode = workerConfig.modules['worker.js']
@@ -80,7 +83,10 @@ describe('GraphQL Support', () => {
 
     it('should handle GraphQL path with query parameters', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -93,7 +99,10 @@ describe('GraphQL Support', () => {
 
     it('should not treat non-GraphQL paths as GraphQL', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -108,7 +117,10 @@ describe('GraphQL Support', () => {
   describe('Response Handling', () => {
     it('should include partial response handling logic', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -123,7 +135,10 @@ describe('GraphQL Support', () => {
 
     it('should include error path in error messages', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -136,7 +151,10 @@ describe('GraphQL Support', () => {
 
     it('should handle errors array robustly', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -148,7 +166,10 @@ describe('GraphQL Support', () => {
 
     it('should normalize GraphQL response format', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -164,7 +185,10 @@ describe('GraphQL Support', () => {
   describe('Error Scenarios', () => {
     it('should include logic for complete failure (no data, only errors)', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -177,7 +201,10 @@ describe('GraphQL Support', () => {
 
     it('should extract error codes from extensions', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -191,7 +218,10 @@ describe('GraphQL Support', () => {
   describe('REST API Compatibility', () => {
     it('should preserve REST API handling', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -206,7 +236,10 @@ describe('GraphQL Support', () => {
 
     it('should preserve non-JSON response handling', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -221,7 +254,10 @@ describe('GraphQL Support', () => {
   describe('Worker Code Generation', () => {
     it('should inject cloudflare.request function', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()
@@ -233,7 +269,10 @@ describe('GraphQL Support', () => {
 
     it('should use correct compatibility date', async () => {
       const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
+      await executor('async () => { return {} }', 'test-account', {
+        type: 'bearer',
+        apiToken: 'test-token'
+      })
 
       const loaderCall = mockEnv.LOADER.get as any
       const workerConfig = loaderCall.mock.calls[0][1]()

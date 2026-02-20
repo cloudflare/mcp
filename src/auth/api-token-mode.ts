@@ -3,6 +3,61 @@ import { getUserAndAccounts } from './oauth-handler'
 import type { AuthProps } from './types'
 
 /**
+ * Check if the request contains a Cloudflare Global API Key
+ * (X-Auth-Email + X-Auth-Key headers)
+ */
+export function isGlobalApiKey(request: Request): boolean {
+  return !!(request.headers.get('X-Auth-Email') && request.headers.get('X-Auth-Key'))
+}
+
+/**
+ * Handle requests authenticated with Cloudflare Global API Key
+ * Returns null if this is not a Global API Key request
+ */
+export async function handleGlobalApiKeyRequest(
+  request: Request,
+  createMcpResponse: (token: string, accountId?: string, props?: AuthProps) => Promise<Response>
+): Promise<Response | null> {
+  if (!isGlobalApiKey(request)) {
+    return null
+  }
+
+  const email = request.headers.get('X-Auth-Email')!
+  const apiKey = request.headers.get('X-Auth-Key')!
+
+  try {
+    const { user, accounts } = await getUserAndAccounts({
+      type: 'global_api_key',
+      email,
+      apiKey
+    })
+
+    if (!user) {
+      return new Response(JSON.stringify({ error: 'Failed to verify Global API Key' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' }
+      })
+    }
+
+    const props: AuthProps = {
+      type: 'global_api_key',
+      email,
+      apiKey,
+      user,
+      accounts
+    }
+
+    return createMcpResponse('', undefined, props)
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Global API Key verification failed'
+    return new Response(JSON.stringify({ error: message }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' }
+    })
+  }
+}
+
+/**
  * Check if the request contains a direct Cloudflare API token
  * (as opposed to an OAuth token issued by workers-oauth-provider)
  *

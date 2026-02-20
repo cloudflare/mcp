@@ -26,7 +26,19 @@ export const UserAuthProps = z.object({
   refreshToken: z.string().optional()
 })
 
-export const AuthProps = z.discriminatedUnion('type', [AccountAuthProps, UserAuthProps])
+export const GlobalApiKeyAuthProps = z.object({
+  type: z.literal('global_api_key'),
+  email: z.string(),
+  apiKey: z.string(),
+  user: UserSchema,
+  accounts: AccountsSchema
+})
+
+export const AuthProps = z.discriminatedUnion('type', [
+  AccountAuthProps,
+  UserAuthProps,
+  GlobalApiKeyAuthProps
+])
 
 export type AuthProps = z.infer<typeof AuthProps>
 export type UserSchema = z.infer<typeof UserSchema>

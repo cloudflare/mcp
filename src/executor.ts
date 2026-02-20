@@ -1,3 +1,7 @@
+export type OutboundAuth =
+  | { type: 'bearer'; apiToken: string }
+  | { type: 'global_api_key'; email: string; apiKey: string }
+
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
 }
@@ -9,12 +13,12 @@ interface SearchExecutorEntrypoint {
 export function createCodeExecutor(env: Env, ctx: ExecutionContext) {
   const apiBase = env.CLOUDFLARE_API_BASE
 
-  return async (code: string, accountId: string, apiToken: string): Promise<unknown> => {
+  return async (code: string, accountId: string, outboundAuth: OutboundAuth): Promise<unknown> => {
     const workerId = `cloudflare-api-${crypto.randomUUID()}`
 
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
-      globalOutbound: ctx.exports.GlobalOutbound({ props: { apiToken } }),
+      globalOutbound: ctx.exports.GlobalOutbound({ props: outboundAuth }),
       mainModule: 'worker.js',
       modules: {
         'worker.js': `

@@ -4,7 +4,12 @@ import { WorkerEntrypoint } from 'cloudflare:workers'
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
 import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
-import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
+import {
+  isDirectApiToken,
+  handleApiTokenRequest,
+  isGlobalApiKey,
+  handleGlobalApiKeyRequest
+} from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
 import type { AuthProps } from './auth/types'
 
@@ -13,7 +18,9 @@ import type { AuthProps } from './auth/types'
  * to only make requests to the configured Cloudflare API base URL.
  * The API token is injected via props so it never enters the user code isolate.
  */
-type GlobalOutboundProps = { apiToken: string }
+type GlobalOutboundProps =
+  | { type: 'bearer'; apiToken: string }
+  | { type: 'global_api_key'; email: string; apiKey: string }
 
 export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
   async fetch(request: Request): Promise<Response> {
@@ -22,12 +29,17 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     if (requested !== allowed) {
       return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
     }
-    // Inject auth header — token comes from props, never enters user code isolate
+    // Inject auth headers — credentials come from props, never enter user code isolate
+    const authHeaders: [string, string][] =
+      this.ctx.props.type === 'global_api_key'
+        ? [
+            ['X-Auth-Email', this.ctx.props.email],
+            ['X-Auth-Key', this.ctx.props.apiKey]
+          ]
+        : [['Authorization', `Bearer ${this.ctx.props.apiToken}`]]
+
     const authedRequest = new Request(request, {
-      headers: new Headers([
-        ...request.headers.entries(),
-        ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
-      ])
+      headers: new Headers([...request.headers.entries(), ...authHeaders])
     })
     return fetch(authedRequest)
   }
@@ -72,14 +84,16 @@ function createMcpHandler() {
     // Props are passed via ExecutionContext by workers-oauth-provider
     const ctx = c.executionCtx as ExecutionContext & { props?: AuthProps }
     const props = ctx.props
-    if (!props || !props.accessToken) {
+    if (!props) {
       return new Response(JSON.stringify({ error: 'Not authenticated' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' }
       })
     }
+    const token =
+      props.type === 'user_token' || props.type === 'account_token' ? props.accessToken : ''
     const accountId = props.type === 'account_token' ? props.account.id : undefined
-    return createMcpResponse(c.req.raw, c.env, ctx, props.accessToken, accountId, props)
+    return createMcpResponse(c.req.raw, c.env, ctx, token, accountId, props)
   })
 
   return app
@@ -87,7 +101,15 @@ function createMcpHandler() {
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-    // Check for direct API token first (like GitHub MCP's PAT support)
+    // Check for Global API Key (X-Auth-Email + X-Auth-Key headers)
+    if (isGlobalApiKey(request)) {
+      const response = await handleGlobalApiKeyRequest(request, (_token, accountId, props) =>
+        createMcpResponse(request, env, ctx, '', accountId, props)
+      )
+      if (response) return response
+    }
+
+    // Check for direct API token (like GitHub MCP's PAT support)
     if (isDirectApiToken(request)) {
       const response = await handleApiTokenRequest(request, (token, accountId, props) =>
         createMcpResponse(request, env, ctx, token, accountId, props)
