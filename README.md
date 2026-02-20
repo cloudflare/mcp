@@ -4,13 +4,12 @@
 
 ## Token Comparison
 
-| Approach                                   | Tools | Token cost  | Context used (200K) |
-| ------------------------------------------ | ----- | ----------- | ------------------- |
-| Raw OpenAPI spec in prompt                 | —     | ~2,000,000  | 977%                |
-| Native MCP (full schemas)                  | 2,594 | 1,170,523   | 585%                |
-| Native MCP (minimal — required params only)| 2,594 | 244,047     | 122%                |
-| Code mode                                  | 2     | 1,069       | 0.5%                |
-
+| Approach                                    | Tools | Token cost | Context used (200K) |
+| ------------------------------------------- | ----- | ---------- | ------------------- |
+| Raw OpenAPI spec in prompt                  | —     | ~2,000,000 | 977%                |
+| Native MCP (full schemas)                   | 2,594 | 1,170,523  | 585%                |
+| Native MCP (minimal — required params only) | 2,594 | 244,047    | 122%                |
+| Code mode                                   | 2     | 1,069      | 0.5%                |
 
 ## Get Started
 
@@ -57,7 +56,6 @@ Agent writes code to search the spec and execute API calls.
 | --------- | ----------------------------------------------------------------------------- |
 | `search`  | Write JavaScript to query `spec.paths` and find endpoints                     |
 | `execute` | Write JavaScript to call `cloudflare.request()` with the discovered endpoints |
-
 
 ```
 Agent                         MCP Server
@@ -155,7 +153,7 @@ execute({
     });
     return response.result;
   }`,
-  account_id: "your-account-id"
+  account_id: "your-account-id",
 });
 ```
 
@@ -163,6 +161,7 @@ execute({
 
 Code execution uses Cloudflare's [Dynamic Worker Loader API](https://developers.cloudflare.com/workers/runtime-apis/bindings/worker-loader/) to run generated code in isolated Workers, following the [Code Mode pattern](https://github.com/cloudflare/agents/tree/main/packages/codemode).
 
+Read the [Code Mode SDK docs](https://developers.cloudflare.com/agents/api-reference/codemode/) for more info.
 
 ### Resources
 
