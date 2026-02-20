@@ -25,6 +25,13 @@
 			"binding": "LOADER"
 		}
 	],
+	"services": [
+		{
+			"binding": "GLOBAL_OUTBOUND",
+			"service": "cloudflare-api-mcp-dev",
+			"entrypoint": "GlobalOutbound"
+		}
+	],
 	"kv_namespaces": [
 		{
 			"binding": "OAUTH_KV",
@@ -54,6 +61,13 @@
 			"worker_loaders": [
 				{
 					"binding": "LOADER"
+				}
+			],
+			"services": [
+				{
+					"binding": "GLOBAL_OUTBOUND",
+					"service": "cloudflare-api-mcp-staging",
+					"entrypoint": "GlobalOutbound"
 				}
 			],
 			"kv_namespaces": [
@@ -87,6 +101,13 @@
 			"worker_loaders": [
 				{
 					"binding": "LOADER"
+				}
+			],
+			"services": [
+				{
+					"binding": "GLOBAL_OUTBOUND",
+					"service": "cloudflare-api-mcp",
+					"entrypoint": "GlobalOutbound"
 				}
 			],
 			"kv_namespaces": [

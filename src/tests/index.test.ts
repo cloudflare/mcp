@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 // Import the default export (the worker)
-import worker from './index'
+import worker from '../index'
 
 describe('scheduled handler', () => {
   let originalFetch: typeof globalThis.fetch

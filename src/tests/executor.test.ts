@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { createCodeExecutor, createSearchExecutor } from './executor'
+import { createCodeExecutor, createSearchExecutor } from '../executor'
 
 describe('GraphQL Support', () => {
   let mockEnv: Env
@@ -67,7 +67,7 @@ describe('GraphQL Support', () => {
 
       // Verify GraphQL detection code is present
       expect(workerCode).toContain('isGraphQLEndpoint')
-      expect(workerCode).toContain('/client/v4/graphql')
+      expect(workerCode).toContain("cleanPath === '/graphql'")
       expect(workerCode).toContain("endsWith('/graphql')")
     })
 
@@ -220,7 +220,7 @@ describe('GraphQL Support', () => {
       const workerConfig = loaderCall.mock.calls[0][1]()
       const workerCode = workerConfig.modules['worker.js']
 
-      expect(workerCode).toContain('const cloudflare = {')
+      expect(workerCode).toContain('this.#cloudflare = {')
       expect(workerCode).toContain('async request(options)')
     })
 
@@ -232,7 +232,7 @@ describe('GraphQL Support', () => {
       const workerConfig = loaderCall.mock.calls[0][1]()
 
       expect(workerConfig.compatibilityDate).toBe('2026-01-12')
-      expect(workerConfig.compatibilityFlags).toContain('nodejs_compat')
+      expect(workerConfig.compatibilityFlags).toBeUndefined()
     })
   })
 })

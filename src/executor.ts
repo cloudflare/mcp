@@ -14,7 +14,7 @@ export function createCodeExecutor(env: Env) {
 
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
-      compatibilityFlags: ['nodejs_compat'],
+      globalOutbound: env.GLOBAL_OUTBOUND,
       mainModule: 'worker.js',
       modules: {
         'worker.js': `
@@ -24,8 +24,10 @@ const apiBase = ${JSON.stringify(apiBase)};
 const accountId = ${JSON.stringify(accountId)};
 
 export default class CodeExecutor extends WorkerEntrypoint {
+  #cloudflare = null;
+
   async evaluate(apiToken) {
-    const cloudflare = {
+    this.#cloudflare = {
       async request(options) {
         const { method, path, query, body, contentType, rawBody } = options;
 
@@ -76,7 +78,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
         // Handle GraphQL responses (different format than REST)
         const cleanPath = path.split('?')[0].replace(/\\/+$/, '');
-        const isGraphQLEndpoint = cleanPath === '/client/v4/graphql' || cleanPath.endsWith('/graphql');
+        const isGraphQLEndpoint = cleanPath === '/graphql' || cleanPath.endsWith('/graphql');
 
         if (isGraphQLEndpoint) {
           const graphqlErrors = Array.isArray(data.errors) ? data.errors : [];
@@ -114,6 +116,11 @@ export default class CodeExecutor extends WorkerEntrypoint {
       }
     };
 
+    return this.#run();
+  }
+
+  async #run() {
+    const cloudflare = this.#cloudflare;
     try {
       const result = await (${code})();
       return { result, err: undefined };
@@ -148,7 +155,7 @@ export function createSearchExecutor(env: Env) {
 
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
-      compatibilityFlags: ['nodejs_compat'],
+      globalOutbound: null,
       mainModule: 'worker.js',
       modules: {
         'worker.js': `
