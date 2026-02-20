@@ -76,7 +76,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
         // Handle GraphQL responses (different format than REST)
         const cleanPath = path.split('?')[0].replace(/\\/+$/, '');
-        const isGraphQLEndpoint = cleanPath === '/client/v4/graphql' || cleanPath.endsWith('/graphql');
+        const isGraphQLEndpoint = cleanPath === '/graphql' || cleanPath.endsWith('/graphql');
 
         if (isGraphQLEndpoint) {
           const graphqlErrors = Array.isArray(data.errors) ? data.errors : [];
