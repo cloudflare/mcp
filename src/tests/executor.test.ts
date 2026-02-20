@@ -67,7 +67,7 @@ describe('GraphQL Support', () => {
 
       // Verify GraphQL detection code is present
       expect(workerCode).toContain('isGraphQLEndpoint')
-      expect(workerCode).toContain('/client/v4/graphql')
+      expect(workerCode).toContain("cleanPath === '/graphql'")
       expect(workerCode).toContain("endsWith('/graphql')")
     })
 
