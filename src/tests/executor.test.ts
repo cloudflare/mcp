@@ -67,7 +67,7 @@ describe('GraphQL Support', () => {
 
       // Verify GraphQL detection code is present
       expect(workerCode).toContain('isGraphQLEndpoint')
-      expect(workerCode).toContain('/client/v4/graphql')
+      expect(workerCode).toContain("cleanPath === '/graphql'")
       expect(workerCode).toContain("endsWith('/graphql')")
     })
 
@@ -220,7 +220,7 @@ describe('GraphQL Support', () => {
       const workerConfig = loaderCall.mock.calls[0][1]()
       const workerCode = workerConfig.modules['worker.js']
 
-      expect(workerCode).toContain('const cloudflare = {')
+      expect(workerCode).toContain('this.#cloudflare = {')
       expect(workerCode).toContain('async request(options)')
     })
 
