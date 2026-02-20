@@ -220,7 +220,7 @@ describe('GraphQL Support', () => {
       const workerConfig = loaderCall.mock.calls[0][1]()
       const workerCode = workerConfig.modules['worker.js']
 
-      expect(workerCode).toContain('const cloudflare = {')
+      expect(workerCode).toContain('this.#cloudflare = {')
       expect(workerCode).toContain('async request(options)')
     })
 

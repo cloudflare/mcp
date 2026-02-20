@@ -24,8 +24,10 @@ const apiBase = ${JSON.stringify(apiBase)};
 const accountId = ${JSON.stringify(accountId)};
 
 export default class CodeExecutor extends WorkerEntrypoint {
+  #cloudflare = null;
+
   async evaluate(apiToken) {
-    const cloudflare = {
+    this.#cloudflare = {
       async request(options) {
         const { method, path, query, body, contentType, rawBody } = options;
 
@@ -114,6 +116,11 @@ export default class CodeExecutor extends WorkerEntrypoint {
       }
     };
 
+    return this.#run();
+  }
+
+  async #run() {
+    const cloudflare = this.#cloudflare;
     try {
       const result = await (${code})();
       return { result, err: undefined };
