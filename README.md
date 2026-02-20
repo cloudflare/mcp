@@ -1,8 +1,15 @@
-# cloudflare-mcp
+# Cloudflare MCP Server
 
-> A token-efficient MCP server for the entire Cloudflare API.
+> A token-efficient MCP server for the entire Cloudflare API. 2500 endpoints in 1k tokens, powered by [Code Mode](https://blog.cloudflare.com/code-mode-mcp/).
 
-Uses [Code Mode](https://blog.cloudflare.com/code-mode/) to avoid overloading your context window.
+## Token Comparison
+
+| Approach                                    | Tools | Token cost | Context used (200K) |
+| ------------------------------------------- | ----- | ---------- | ------------------- |
+| Raw OpenAPI spec in prompt                  | —     | ~2,000,000 | 977%                |
+| Native MCP (full schemas)                   | 2,594 | 1,170,523  | 585%                |
+| Native MCP (minimal — required params only) | 2,594 | 244,047    | 122%                |
+| Code mode                                   | 2     | 1,069      | 0.5%                |
 
 ## Get Started
 
@@ -28,86 +35,27 @@ Just connect to the MCP server URL - you'll be redirected to Cloudflare to autho
 
 For CI/CD, automation, or if you prefer managing tokens yourself.
 
-Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) with the permissions you need.
-
-Both **user tokens** and **account tokens** are supported:
-
-| Token Type    | Description                                         | Requirements                                         |
-| ------------- | --------------------------------------------------- | ---------------------------------------------------- |
-| User Token    | Created at user level, can access multiple accounts | Requires `account_id` parameter on each execute call |
-| Account Token | Scoped to single account                            | `account_id` auto-detected, no parameter needed      |
-
-For account tokens, include the **Account Resources : Read** permission so the server can auto-detect your account ID.
+Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) with the permissions you need. Both **user tokens** and **account tokens** are supported. For account tokens, include the **Account Resources : Read** permission so the server can auto-detect your account ID.
 
 ### Add to Agent
 
 MCP URL: `https://mcp.cloudflare.com/mcp`
 Bearer Token: Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens)
 
-#### Claude Code
-
-<details>
-<summary>CLI</summary>
-
-```bash
-export CLOUDFLARE_API_TOKEN="your-token-here"
-
-claude mcp add --transport http cloudflare-api https://mcp.cloudflare.com/mcp \
-  --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
-```
-
-</details>
-
-#### OpenCode
-
-<details>
-<summary>opencode.json</summary>
-
-Set your API token as an environment variable:
-
-```bash
-export CLOUDFLARE_API_TOKEN="your-token-here"
-```
-
-Then add to your `opencode.json`:
-
-```json
-{
-  "mcp": {
-    "cloudflare-api": {
-      "type": "remote",
-      "url": "https://mcp.cloudflare.com/mcp",
-      "headers": {
-        "Authorization": "Bearer {env:CLOUDFLARE_API_TOKEN}"
-      }
-    }
-  }
-}
-```
-
-</details>
-
-### Resources
-
-- [Build your own remote MCP server](https://developers.cloudflare.com/agents/guides/remote-mcp-server/)
-- [Cloudflare MCP Servers](https://github.com/cloudflare/mcp-server-cloudflare)
-
 ## The Problem
 
-The Cloudflare OpenAPI spec is **2.3 million tokens** in JSON format. Even compressed to TypeScript endpoint summaries, it's still **~50k tokens**. Traditional MCP servers that expose every endpoint as a tool, or include the full spec in tool descriptions, leak this entire context to the main agent.
+The Cloudflare OpenAPI spec is **2.3 million tokens** in JSON format. Even compressed to TypeScript endpoint summaries, it's still **~200k tokens**. Traditional MCP servers that expose every endpoint as a tool, or include the full spec in tool descriptions, leak this entire context to the main agent.
 
 This server solves the problem by using **code execution** in a [codemode](https://blog.cloudflare.com/code-mode/) pattern - the spec lives on the server, and only the results of queries are returned to the agent.
 
 ## Tools
 
-Two tools where the agent writes code to search the spec and execute API calls. Akin to [ACI.dev's MCP server](https://github.com/aipotheosis-labs/aci) but with added codemode.
+Agent writes code to search the spec and execute API calls.
 
 | Tool      | Description                                                                   |
 | --------- | ----------------------------------------------------------------------------- |
 | `search`  | Write JavaScript to query `spec.paths` and find endpoints                     |
 | `execute` | Write JavaScript to call `cloudflare.request()` with the discovered endpoints |
-
-**Token usage:** Only search results and API responses are returned. The 6MB spec stays on the server.
 
 ```
 Agent                         MCP Server
@@ -173,7 +121,7 @@ execute({
 });
 ```
 
-## GraphQL Analytics API
+### GraphQL Analytics API
 
 The server automatically detects and handles Cloudflare's GraphQL Analytics API endpoints. GraphQL queries work seamlessly through the same `execute` tool:
 
@@ -205,92 +153,18 @@ execute({
     });
     return response.result;
   }`,
-  account_id: "your-account-id"
+  account_id: "your-account-id",
 });
 ```
 
-### Features
+## Build a Code Mode MCP Server
 
-- **Automatic format normalization**: GraphQL responses (`{ data, errors }`) are automatically converted to match REST format (`{ success, result, errors }`)
-- **Partial responses**: If some fields succeed and others fail, you get both the partial data and error details
-- **Enhanced error messages**: Errors include field paths for easier debugging (e.g., "Cannot query field 'invalid' (at viewer.zones.invalid)")
-- **Query any analytics data**: Access HTTP requests, Firewall events, Workers metrics, and more
+Code execution uses Cloudflare's [Dynamic Worker Loader API](https://developers.cloudflare.com/workers/runtime-apis/bindings/worker-loader/) to run generated code in isolated Workers, following the [Code Mode pattern](https://github.com/cloudflare/agents/tree/main/packages/codemode).
 
-### Common Use Cases
+Read the [Code Mode SDK docs](https://developers.cloudflare.com/agents/api-reference/codemode/) for more info.
 
-**Zone Traffic Analytics:**
-```javascript
-query {
-  viewer {
-    zones(filter: { zoneTag: "zone-id" }) {
-      httpRequests1dGroups(limit: 7) {
-        dimensions { date }
-        sum { requests, bytes }
-      }
-    }
-  }
-}
-```
+### Resources
 
-**Workers Metrics:**
-```javascript
-query {
-  viewer {
-    accounts(filter: { accountTag: "account-id" }) {
-      workersInvocationsAdaptive(limit: 10) {
-        sum { requests, errors }
-        dimensions { scriptName }
-      }
-    }
-  }
-}
-```
-
-**Firewall Events:**
-```javascript
-query {
-  viewer {
-    zones(filter: { zoneTag: "zone-id" }) {
-      firewallEventsAdaptive(limit: 100) {
-        action
-        clientRequestHTTPHost
-        datetime
-      }
-    }
-  }
-}
-```
-
-See the [Cloudflare GraphQL API docs](https://developers.cloudflare.com/analytics/graphql-api/) for more examples.
-
-## Token Comparison
-
-| Content                       | Tokens     |
-| ----------------------------- | ---------- |
-| Full OpenAPI spec (JSON)      | ~2,352,000 |
-| Endpoint summary (TypeScript) | ~43,000    |
-| Typical search result         | ~500       |
-| API response                  | varies     |
-
-## Architecture
-
-```
-src/
-├── index.ts      # MCP server entry point
-├── server.ts     # Search + Execute tools
-├── executor.ts   # Isolated worker code execution
-├── truncate.ts   # Response truncation (10k token limit)
-└── data/
-    ├── types.generated.ts  # Generated endpoint types
-    ├── spec.json           # OpenAPI spec for search
-    └── products.ts         # Product list
-```
-
-Code execution uses Cloudflare's Worker Loader API to run generated code in isolated workers, following the [codemode pattern](https://github.com/cloudflare/agents/tree/main/packages/codemode).
-
-## Development
-
-```bash
-npm i
-npm run deploy
-```
+- [Code Mode blog post](https://blog.cloudflare.com/code-mode/)
+- [Build your own remote MCP server](https://developers.cloudflare.com/agents/guides/remote-mcp-server/)
+- [Cloudflare's own MCP Servers](https://github.com/cloudflare/mcp-server-cloudflare)
