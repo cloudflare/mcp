@@ -37,12 +37,34 @@ For CI/CD, automation, or if you prefer managing tokens yourself.
 
 Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) with the permissions you need. Both **user tokens** and **account tokens** are supported. For account tokens, include the **Account Resources : Read** permission so the server can auto-detect your account ID.
 
-### Add to Agent
+#### Add to Agent
 
 | Setting      | Value                                                                       |
 | ------------ | --------------------------------------------------------------------------- |
 | MCP URL      | `https://mcp.cloudflare.com/mcp`                                            |
 | Bearer Token | Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens) |
+
+### Option 3: Global API Key
+
+> **Warning:** The Global API Key grants **full access** to your Cloudflare account — equivalent to your dashboard login. Prefer [API Tokens](#option-2-api-token) with scoped permissions when possible.
+
+If you need to use your [Global API Key](https://dash.cloudflare.com/profile/api-tokens), pass it via `X-Auth-Email` and `X-Auth-Key` headers instead of a Bearer token.
+
+#### Example JSON Configuration
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "url": "https://mcp.cloudflare.com/mcp",
+      "headers": {
+        "X-Auth-Email": "you@example.com",
+        "X-Auth-Key": "your-global-api-key"
+      }
+    }
+  }
+}
+```
 
 ## The Problem
 

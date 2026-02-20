@@ -5,6 +5,7 @@ import {
   buildAuthProps,
   isGlobalApiKey
 } from '../../auth/api-token-mode'
+import { buildCloudflareAuthHeaders } from '../../auth/oauth-handler'
 
 /**
  * Helper to create a mock Request with given headers
@@ -173,5 +174,26 @@ describe('isGlobalApiKey', () => {
       'X-Auth-Key': 'global-api-key-123'
     })
     expect(isGlobalApiKey(request)).toBe(true)
+  })
+})
+
+describe('buildCloudflareAuthHeaders', () => {
+  it('should return Bearer header for bearer auth', () => {
+    const headers = buildCloudflareAuthHeaders({ type: 'bearer', token: 'my-token' })
+
+    expect(headers).toEqual({ Authorization: 'Bearer my-token' })
+  })
+
+  it('should return X-Auth-Email and X-Auth-Key for global_api_key auth', () => {
+    const headers = buildCloudflareAuthHeaders({
+      type: 'global_api_key',
+      email: 'user@example.com',
+      apiKey: 'key-123'
+    })
+
+    expect(headers).toEqual({
+      'X-Auth-Email': 'user@example.com',
+      'X-Auth-Key': 'key-123'
+    })
   })
 })
