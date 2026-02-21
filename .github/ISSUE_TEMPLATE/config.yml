@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Cloudflare MCP Documentation
+    url: https://developers.cloudflare.com/agents/model-context-protocol/
+    about: Check the official documentation before opening an issue
