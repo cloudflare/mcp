@@ -28,8 +28,9 @@
     "@cloudflare/vitest-pool-workers": "^0.12.11",
     "@types/node": "^25.0.6",
     "oxfmt": "^0.31.0",
-    "tsx": "^4.19.0",
     "oxlint": "^1.46.0",
+    "pkg-pr-new": "^0.0.63",
+    "tsx": "^4.19.0",
     "typescript": "^5.7.0",
     "vitest": "3.2",
     "wrangler": "^4.64.0"
