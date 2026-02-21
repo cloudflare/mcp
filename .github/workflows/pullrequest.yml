@@ -1,0 +1,30 @@
+name: Pull Request
+
+on:
+  pull_request:
+    paths-ignore:
+      - "*.md"
+      - "site/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  publish-preview:
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Publish package to pkg.pr.new
+        run: npx pkg-pr-new publish
