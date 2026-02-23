@@ -558,21 +558,15 @@ export async function handleTokenExchangeCallback(
  */
 async function redirectToCloudflare(
   requestUrl: string,
-  oauthReqInfo: AuthRequest,
   stateToken: string,
   codeChallenge: string,
   scopes: string[],
   additionalHeaders: Record<string, string> = {}
 ): Promise<Response> {
-  const stateWithToken: AuthRequest = {
-    ...oauthReqInfo,
-    state: stateToken
-  }
-
   const { authUrl } = await getAuthorizationURL({
     client_id: env.CLOUDFLARE_CLIENT_ID,
     redirect_uri: new URL('/oauth/callback', requestUrl).href,
-    state: stateWithToken,
+    stateToken,
     scopes,
     codeChallenge,
     oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
@@ -617,16 +611,9 @@ export function createAuthHandlers() {
         const stateToken = await createOAuthState(oauthReqInfo, env.OAUTH_KV, codeVerifier)
         const { setCookie: sessionCookie } = await bindStateToSession(stateToken)
 
-        return redirectToCloudflare(
-          c.req.url,
-          oauthReqInfo,
-          stateToken,
-          codeChallenge,
-          defaultScopes,
-          {
-            'Set-Cookie': sessionCookie
-          }
-        )
+        return redirectToCloudflare(c.req.url, stateToken, codeChallenge, defaultScopes, {
+          'Set-Cookie': sessionCookie
+        })
       }
 
       // Client not approved - show consent dialog with scope selection
@@ -691,7 +678,6 @@ export function createAuthHandlers() {
 
       const redirectResponse = await redirectToCloudflare(
         c.req.url,
-        oauthReqInfo,
         stateToken,
         codeChallenge,
         scopesToRequest

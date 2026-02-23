@@ -1,7 +1,5 @@
 import { z } from 'zod'
 
-import type { AuthRequest } from '@cloudflare/workers-oauth-provider'
-
 import { OAuthError } from './workers-oauth-utils'
 
 /**
@@ -71,7 +69,7 @@ export async function generatePKCECodes(): Promise<PKCECodes> {
 export async function getAuthorizationURL(params: {
   client_id: string
   redirect_uri: string
-  state: AuthRequest
+  stateToken: string
   scopes: string[]
   codeChallenge: string
   oauthDomain: string
@@ -80,7 +78,7 @@ export async function getAuthorizationURL(params: {
     response_type: 'code',
     client_id: params.client_id,
     redirect_uri: params.redirect_uri,
-    state: btoa(JSON.stringify(params.state)),
+    state: params.stateToken,
     code_challenge: params.codeChallenge,
     code_challenge_method: 'S256',
     scope: params.scopes.join(' ')

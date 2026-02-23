@@ -1754,17 +1754,7 @@ export async function validateOAuthState(
     throw new OAuthError('invalid_request', 'Missing state parameter')
   }
 
-  // Decode state to extract embedded stateToken
-  let stateToken: string
-  try {
-    const decodedState = JSON.parse(atob(stateFromQuery))
-    stateToken = decodedState.state
-    if (!stateToken) {
-      throw new Error('State token not found')
-    }
-  } catch {
-    throw new OAuthError('invalid_request', 'Failed to decode state')
-  }
+  const stateToken = stateFromQuery
 
   // Validate state exists in KV
   const storedDataJson = await kv.get(`oauth:state:${stateToken}`)
