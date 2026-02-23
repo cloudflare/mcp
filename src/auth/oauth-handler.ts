@@ -97,7 +97,11 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
     return { user: null, accounts }
   }
 
-  throw new OAuthError('invalid_token', 'Failed to verify token: no user or account information', 401)
+  throw new OAuthError(
+    'invalid_token',
+    'Failed to verify token: no user or account information',
+    401
+  )
 }
 
 /**

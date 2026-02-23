@@ -921,7 +921,12 @@ const StoredOAuthStateSchema = z.object({
 /**
  * Renders a styled error page matching Cloudflare's design system
  */
-export function renderErrorPage(title: string, message: string, details?: string, status = 400): Response {
+export function renderErrorPage(
+  title: string,
+  message: string,
+  details?: string,
+  status = 400
+): Response {
   const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
