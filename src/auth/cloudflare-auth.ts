@@ -2,6 +2,27 @@ import { z } from 'zod'
 
 import type { AuthRequest } from '@cloudflare/workers-oauth-provider'
 
+import { OAuthError } from './workers-oauth-utils'
+
+/**
+ * Convert an upstream Cloudflare OAuth error response to an OAuthError.
+ * 4xx: preserves the status code with a safe message.
+ * 5xx: uses 502 Bad Gateway (we're proxying).
+ */
+function throwUpstreamError(status: number, context: string): never {
+  if (status >= 500) {
+    throw new OAuthError('server_error', `${context}: upstream service unavailable`, 502)
+  }
+  const codeMap: Record<number, [string, string]> = {
+    400: ['invalid_grant', `${context}: invalid or expired grant`],
+    401: ['invalid_client', `${context}: invalid client credentials`],
+    403: ['unauthorized_client', `${context}: insufficient permissions`],
+    429: ['temporarily_unavailable', `${context}: rate limited, try again later`]
+  }
+  const [code, desc] = codeMap[status] || ['invalid_grant', `${context}: request failed`]
+  throw new OAuthError(code, desc, status)
+}
+
 const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
 const CODE_VERIFIER_LENGTH = 96
 
@@ -101,8 +122,8 @@ export async function getAuthToken(params: {
   })
 
   if (!resp.ok) {
-    const text = await resp.text()
-    throw new Error(`Token exchange failed: ${text}`)
+    console.error(`Token exchange failed: ${resp.status}`, await resp.text())
+    throwUpstreamError(resp.status, 'Token exchange failed')
   }
 
   return AuthorizationToken.parse(await resp.json())
@@ -132,8 +153,8 @@ export async function refreshAuthToken(params: {
   })
 
   if (!resp.ok) {
-    const text = await resp.text()
-    throw new Error(`Token refresh failed: ${text}`)
+    console.error(`Token refresh failed: ${resp.status}`, await resp.text())
+    throwUpstreamError(resp.status, 'Token refresh failed')
   }
 
   return AuthorizationToken.parse(await resp.json())

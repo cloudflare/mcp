@@ -1,4 +1,5 @@
 import { getUserAndAccounts } from './oauth-handler'
+import { OAuthError } from './workers-oauth-utils'
 
 import type { AuthProps } from './types'
 
@@ -76,8 +77,10 @@ export async function handleApiTokenRequest(
     const props = buildAuthProps(token, user, accounts)
     return createMcpResponse(token, undefined, props)
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Token verification failed'
-    return new Response(JSON.stringify({ error: message }), {
+    if (err instanceof OAuthError) {
+      return err.toResponse()
+    }
+    return new Response(JSON.stringify({ error: 'Token verification failed' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
     })
