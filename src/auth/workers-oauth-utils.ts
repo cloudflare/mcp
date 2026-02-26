@@ -36,15 +36,19 @@ export class OAuthError extends Error {
   toHtmlResponse(): Response {
     const titles: Record<string, string> = {
       invalid_request: 'Invalid Request',
+      invalid_grant: 'Invalid Grant',
+      invalid_client: 'Invalid Client',
+      invalid_token: 'Invalid Token',
       unauthorized_client: 'Unauthorized Client',
       access_denied: 'Access Denied',
       unsupported_response_type: 'Unsupported Response Type',
       invalid_scope: 'Invalid Scope',
+      insufficient_scope: 'Insufficient Scope',
       server_error: 'Server Error',
       temporarily_unavailable: 'Temporarily Unavailable'
     }
     const title = titles[this.code] || 'Authorization Error'
-    return renderErrorPage(title, this.description, `Error code: ${this.code}`)
+    return renderErrorPage(title, this.description, `Error code: ${this.code}`, this.statusCode)
   }
 }
 
@@ -803,7 +807,7 @@ export async function parseRedirectApproval(
   cookieSecret: string
 ): Promise<ParsedApprovalResult> {
   if (request.method !== 'POST') {
-    throw new Error('Invalid request method')
+    throw new OAuthError('invalid_request', 'Invalid request method', 405)
   }
 
   const formData = await request.formData()
@@ -811,7 +815,7 @@ export async function parseRedirectApproval(
   // Validate CSRF token
   const tokenFromForm = formData.get('csrf_token')
   if (!tokenFromForm || typeof tokenFromForm !== 'string') {
-    throw new Error('Missing CSRF token')
+    throw new OAuthError('invalid_request', 'Missing CSRF token')
   }
 
   const cookieHeader = request.headers.get('Cookie') || ''
@@ -820,17 +824,17 @@ export async function parseRedirectApproval(
   const tokenFromCookie = csrfCookie ? csrfCookie.substring(CSRF_COOKIE.length + 1) : null
 
   if (!tokenFromCookie || tokenFromForm !== tokenFromCookie) {
-    throw new Error('CSRF token mismatch')
+    throw new OAuthError('access_denied', 'CSRF token mismatch', 403)
   }
 
   const encodedState = formData.get('state')
   if (!encodedState || typeof encodedState !== 'string') {
-    throw new Error('Missing state')
+    throw new OAuthError('invalid_request', 'Missing state')
   }
 
   const state = JSON.parse(atob(encodedState))
   if (!state.oauthReqInfo || !state.oauthReqInfo.clientId) {
-    throw new Error('Invalid state data')
+    throw new OAuthError('invalid_request', 'Invalid state data')
   }
 
   // Extract selected scopes (from checkboxes) and template
@@ -917,7 +921,12 @@ const StoredOAuthStateSchema = z.object({
 /**
  * Renders a styled error page matching Cloudflare's design system
  */
-export function renderErrorPage(title: string, message: string, details?: string): Response {
+export function renderErrorPage(
+  title: string,
+  message: string,
+  details?: string,
+  status = 400
+): Response {
   const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -1075,7 +1084,7 @@ export function renderErrorPage(title: string, message: string, details?: string
 `
 
   return new Response(htmlContent, {
-    status: 400,
+    status,
     headers: {
       'Content-Security-Policy': "frame-ancestors 'none'",
       'Content-Type': 'text/html; charset=utf-8',

@@ -56,6 +56,25 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
     fetch(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers })
   ])
 
+  // Check for upstream errors before parsing
+  if (!userResp.ok && !accountsResp.ok) {
+    const status = userResp.status
+    console.error(`Cloudflare API error: user=${userResp.status}, accounts=${accountsResp.status}`)
+    if (status >= 500) {
+      throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
+    }
+    if (status === 401) {
+      throw new OAuthError('invalid_token', 'Access token is invalid or expired', 401)
+    }
+    if (status === 403) {
+      throw new OAuthError('insufficient_scope', 'Insufficient permissions', 403)
+    }
+    if (status === 429) {
+      throw new OAuthError('temporarily_unavailable', 'Rate limited, try again later', 429)
+    }
+    throw new OAuthError('invalid_token', 'Failed to verify token', status)
+  }
+
   const userData = (await userResp.json()) as CloudflareApiResponse<{ id: string; email: string }>
   const accountsData = (await accountsResp.json()) as CloudflareApiResponse<
     Array<{ id: string; name: string }>
@@ -78,7 +97,11 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
     return { user: null, accounts }
   }
 
-  throw new Error('Failed to fetch user or accounts')
+  throw new OAuthError(
+    'invalid_token',
+    'Failed to verify token: no user or account information',
+    401
+  )
 }
 
 /**
@@ -225,11 +248,13 @@ export function createAuthHandlers() {
       })
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()
-      console.error('Authorize error:', e)
+      const errorId = crypto.randomUUID()
+      console.error(`Authorize error [${errorId}]:`, e)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred. Please try again.',
-        e instanceof Error ? e.message : undefined
+        `Error ID: ${errorId}`,
+        500
       )
     }
   })
@@ -278,11 +303,13 @@ export function createAuthHandlers() {
       return redirectResponse
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()
-      console.error('Authorize POST error:', e)
+      const errorId = crypto.randomUUID()
+      console.error(`Authorize POST error [${errorId}]:`, e)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred. Please try again.',
-        e instanceof Error ? e.message : undefined
+        `Error ID: ${errorId}`,
+        500
       )
     }
   })
@@ -354,11 +381,13 @@ export function createAuthHandlers() {
       })
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()
-      console.error('Callback error:', e)
+      const errorId = crypto.randomUUID()
+      console.error(`Callback error [${errorId}]:`, e)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred during authorization.',
-        e instanceof Error ? e.message : undefined
+        `Error ID: ${errorId}`,
+        500
       )
     }
   })
