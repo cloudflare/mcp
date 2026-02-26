@@ -112,6 +112,9 @@ export default {
           env.CLOUDFLARE_CLIENT_ID,
           env.CLOUDFLARE_CLIENT_SECRET
         ),
+      resourceMetadata: {
+        resource_name: 'Cloudflare API MCP Server'
+      },
       accessTokenTTL: 3600
     }).fetch(request, env, ctx)
   },

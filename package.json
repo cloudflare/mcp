@@ -19,7 +19,7 @@
     "seed:prod": "tsx scripts/seed-r2.ts production"
   },
   "dependencies": {
-    "@cloudflare/workers-oauth-provider": "^0.2.2",
+    "@cloudflare/workers-oauth-provider": "^0.2.4",
     "@modelcontextprotocol/sdk": "^1.26.0",
     "hono": "^4.11.9",
     "zod": "^4.3.5"
@@ -28,8 +28,8 @@
     "@cloudflare/vitest-pool-workers": "^0.12.11",
     "@types/node": "^25.0.6",
     "oxfmt": "^0.31.0",
-    "tsx": "^4.19.0",
     "oxlint": "^1.46.0",
+    "tsx": "^4.19.0",
     "typescript": "^5.7.0",
     "vitest": "3.2",
     "wrangler": "^4.64.0"
