@@ -42,6 +42,18 @@ interface CloudflareApiResponse<T> {
   errors?: Array<{ code: number; message: string }>
 }
 
+async function parseCloudflareResponse<T>(
+  response: Response,
+  endpoint: '/user' | '/accounts'
+): Promise<CloudflareApiResponse<T> | null> {
+  try {
+    return (await response.json()) as CloudflareApiResponse<T>
+  } catch (error) {
+    console.error(`Cloudflare API ${endpoint} response is not valid JSON`, error)
+    return null
+  }
+}
+
 /**
  * Fetch user and accounts from Cloudflare API
  */
@@ -75,17 +87,20 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
     throw new OAuthError('invalid_token', 'Failed to verify token', status)
   }
 
-  const userData = (await userResp.json()) as CloudflareApiResponse<{ id: string; email: string }>
-  const accountsData = (await accountsResp.json()) as CloudflareApiResponse<
-    Array<{ id: string; name: string }>
-  >
+  const userData = userResp.ok
+    ? await parseCloudflareResponse<{ id: string; email: string }>(userResp, '/user')
+    : null
+
+  const accountsData = accountsResp.ok
+    ? await parseCloudflareResponse<Array<{ id: string; name: string }>>(accountsResp, '/accounts')
+    : null
 
   // Parse accounts (always try)
   const accounts =
-    accountsData.success && accountsData.result ? AccountsSchema.parse(accountsData.result) : []
+    accountsData?.success && accountsData.result ? AccountsSchema.parse(accountsData.result) : []
 
   // User token - parse user
-  if (userData.success && userData.result) {
+  if (userData?.success && userData.result) {
     return {
       user: UserSchema.parse(userData.result),
       accounts
@@ -93,7 +108,7 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
   }
 
   // Account-scoped token - user will be null
-  if (accounts.length > 0) {
+  if (!userResp.ok && accounts.length > 0) {
     return { user: null, accounts }
   }
 

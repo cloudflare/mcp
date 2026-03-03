@@ -35,7 +35,7 @@ Just connect to the MCP server URL - you'll be redirected to Cloudflare to autho
 
 For CI/CD, automation, or if you prefer managing tokens yourself.
 
-Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) with the permissions you need. Both **user tokens** and **account tokens** are supported. For account tokens, include the **Account Resources : Read** permission so the server can auto-detect your account ID.
+Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) with the permissions you need. Both **user tokens** and **account tokens** are supported. For account tokens, include the **Account Resources : Read** permission so the server can auto-detect your account ID. Avoid `request_ip` restrictions for remote MCP usage because Cloudflare API calls originate from the MCP server, not your local client IP.
 
 ### Add to Agent
 
