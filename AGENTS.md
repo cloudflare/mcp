@@ -6,8 +6,6 @@
 
 **Production URL:** `mcp.cloudflare.com`
 
-This server was largely written with Claude AI assistance, with all code reviewed by Cloudflare engineers.
-
 ## MCP specification compliance
 
 When modifying MCP or OAuth functionality, **always check the latest published MCP specification**:
