@@ -9,7 +9,7 @@ import {
   refreshAuthToken
 } from './cloudflare-auth'
 import { ALL_SCOPES, SCOPE_TEMPLATES, DEFAULT_TEMPLATE, MAX_SCOPES } from './scopes'
-import { UserSchema, AccountsSchema, type AuthProps } from './types'
+import { UserSchema, AccountsSchema, type AuthProps, type AccountSchema } from './types'
 import {
   clientIdAlreadyApproved,
   createOAuthState,
@@ -35,16 +35,6 @@ interface AuthEnv extends Env {
 
 const env = cloudflareEnv as AuthEnv
 
-/** Cloudflare API response shape */
-interface CloudflareApiResponse<T> {
-  success: boolean
-  result?: T
-  errors?: Array<{ code: number; message: string }>
-}
-
-type CloudflareUser = { id: string; email: string }
-type CloudflareAccount = { id: string; name: string }
-
 function throwCombinedCloudflareApiError(userStatus: number, accountsStatus: number): never {
   const statuses = [userStatus, accountsStatus]
 
@@ -67,67 +57,11 @@ function throwCombinedCloudflareApiError(userStatus: number, accountsStatus: num
   throw new OAuthError('invalid_token', 'Failed to verify token', userStatus)
 }
 
-async function parseCloudflareResponse<T>(
-  response: Response,
-  endpoint: '/user' | '/accounts'
-): Promise<CloudflareApiResponse<T> | null> {
-  try {
-    return (await response.json()) as CloudflareApiResponse<T>
-  } catch (error) {
-    console.error(`Cloudflare API ${endpoint} response is not valid JSON`, error)
-    return null
-  }
-}
-
-function parseUserFromResponse(
-  userData: CloudflareApiResponse<CloudflareUser> | null
-): CloudflareUser | null {
-  if (!userData?.success || !userData.result) {
-    return null
-  }
-
-  const parsedUser = UserSchema.safeParse(userData.result)
-  if (!parsedUser.success) {
-    console.error('Cloudflare API /user payload did not match expected shape', parsedUser.error)
-    return null
-  }
-
-  return parsedUser.data
-}
-
-function parseAccountsFromResponse(
-  accountsData: CloudflareApiResponse<Array<CloudflareAccount>> | null
-): Array<CloudflareAccount> {
-  if (!accountsData?.success || !accountsData.result) {
-    return []
-  }
-
-  const parsedAccounts = AccountsSchema.safeParse(accountsData.result)
-  if (!parsedAccounts.success) {
-    console.error(
-      'Cloudflare API /accounts payload did not match expected shape',
-      parsedAccounts.error
-    )
-    return []
-  }
-
-  return parsedAccounts.data
-}
-
-/**
- * Fetch user and accounts from Cloudflare API
- */
-export async function getUserAndAccounts(accessToken: string): Promise<{
-  user: CloudflareUser | null
-  accounts: Array<CloudflareAccount>
-}> {
+async function fetchCloudflareProbes(accessToken: string): Promise<[Response, Response]> {
   const headers = { Authorization: `Bearer ${accessToken}` }
 
-  let userResp: Response
-  let accountsResp: Response
-
   try {
-    ;[userResp, accountsResp] = await Promise.all([
+    return await Promise.all([
       fetch(`${env.CLOUDFLARE_API_BASE}/user`, { headers }),
       fetch(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers })
     ])
@@ -135,6 +69,16 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
     console.error('Cloudflare API request failed', error)
     throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
   }
+}
+
+/**
+ * Fetch user and accounts from Cloudflare API
+ */
+export async function getUserAndAccounts(accessToken: string): Promise<{
+  user: UserSchema | null
+  accounts: AccountSchema[]
+}> {
+  const [userResp, accountsResp] = await fetchCloudflareProbes(accessToken)
 
   // Check for upstream errors before parsing
   if (!userResp.ok && !accountsResp.ok) {
@@ -142,23 +86,47 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
     throwCombinedCloudflareApiError(userResp.status, accountsResp.status)
   }
 
-  const userData = userResp.ok
-    ? await parseCloudflareResponse<CloudflareUser>(userResp, '/user')
-    : null
-
-  const accountsData = accountsResp.ok
-    ? await parseCloudflareResponse<Array<CloudflareAccount>>(accountsResp, '/accounts')
-    : null
-
-  const user = parseUserFromResponse(userData)
-  const accounts = parseAccountsFromResponse(accountsData)
-
-  // User token - parse user
-  if (user) {
-    return {
-      user,
-      accounts
+  // Parse user from response
+  let user: UserSchema | null = null
+  if (userResp.ok) {
+    try {
+      const json = (await userResp.json()) as { success?: boolean; result?: unknown }
+      if (json.success && json.result) {
+        const parsed = UserSchema.safeParse(json.result)
+        if (parsed.success) {
+          user = parsed.data
+        } else {
+          console.error('Cloudflare API /user payload did not match expected shape', parsed.error)
+        }
+      }
+    } catch (error) {
+      console.error('Cloudflare API /user response is not valid JSON', error)
     }
+  }
+
+  // Parse accounts from response
+  let accounts: AccountSchema[] = []
+  if (accountsResp.ok) {
+    try {
+      const json = (await accountsResp.json()) as { success?: boolean; result?: unknown }
+      if (json.success && json.result) {
+        const parsed = AccountsSchema.safeParse(json.result)
+        if (parsed.success) {
+          accounts = parsed.data
+        } else {
+          console.error(
+            'Cloudflare API /accounts payload did not match expected shape',
+            parsed.error
+          )
+        }
+      }
+    } catch (error) {
+      console.error('Cloudflare API /accounts response is not valid JSON', error)
+    }
+  }
+
+  if (user) {
+    return { user, accounts }
   }
 
   // Account-scoped token - user will be null
@@ -419,6 +387,8 @@ export function createAuthHandlers() {
       // Fetch user and accounts
       const { user, accounts } = await getUserAndAccounts(access_token)
 
+      // Account-scoped tokens (user: null) are only supported via API token mode
+      // (see api-token-mode.ts). The OAuth flow always requires a user identity.
       if (!user) {
         return new OAuthError(
           'server_error',

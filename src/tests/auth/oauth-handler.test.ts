@@ -11,12 +11,17 @@ function jsonResponse(body: unknown, status = 200): Response {
 }
 
 async function expectOAuthError(
-  result: Promise<unknown>,
+  promise: Promise<unknown>,
   code: string,
   statusCode: number
 ): Promise<void> {
-  await expect(result).rejects.toBeInstanceOf(OAuthError)
-  await expect(result).rejects.toMatchObject({ code, statusCode })
+  try {
+    await promise
+    throw new Error('Expected OAuthError to be thrown')
+  } catch (e) {
+    expect(e).toBeInstanceOf(OAuthError)
+    expect(e).toMatchObject({ code, statusCode })
+  }
 }
 
 afterEach(() => {
