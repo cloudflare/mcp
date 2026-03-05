@@ -33,14 +33,23 @@ export function ToolCard({ toolPart }: { toolPart: ToolPart }) {
   const isComplete = toolPart.state === 'output-available'
   const isRunning = !isComplete && !hasError
 
-  // Extract a readable tool name from the MCP tool key (tool_<id>_<name>)
-  const rawName = toolPart.toolName ?? 'tool'
+  // Extract a readable tool name from the MCP tool key
+  // Format: "tool_<serverId>_<toolName>" e.g. "tool_aL4Y1Ql4_search"
+  const rawName = toolPart.toolName || (toolPart as any).name || ''
+  const isCodemode = rawName === 'codemode'
   const toolNameMatch = rawName.match(/^tool_[a-zA-Z0-9]+_(.+)$/)
-  const displayName = toolNameMatch ? toolNameMatch[1].replace(/_/g, ' ') : rawName.replace(/_/g, ' ')
-  const label = displayName
-  const Icon = Lightning
+  const label = isCodemode
+    ? 'Code'
+    : toolNameMatch
+      ? toolNameMatch[1]
+      : rawName || 'Tool call'
+  const Icon = isCodemode ? Code : Lightning
 
-  const outputStr = toolPart.output ? formatOutput(toolPart.output) : undefined
+  // For codemode, output may contain { result, logs }
+  const outputObj = toolPart.output as any
+  const codemodeResult = isCodemode && outputObj?.result !== undefined ? formatOutput(outputObj.result) : undefined
+  const codemodeLogs = isCodemode && Array.isArray(outputObj?.logs) && outputObj.logs.length > 0 ? outputObj.logs as string[] : undefined
+  const outputStr = isCodemode ? codemodeResult : (toolPart.output ? formatOutput(toolPart.output) : undefined)
 
   return (
     <div
@@ -90,6 +99,14 @@ export function ToolCard({ toolPart }: { toolPart: ToolPart }) {
               <span className="text-xs font-medium text-(--color-label)">Result</span>
               <pre className="font-mono text-xs text-(--color-label) bg-green-500/5 border border-green-500/20 rounded p-2 overflow-x-auto whitespace-pre-wrap mt-1 max-h-64 overflow-y-auto">
                 {outputStr}
+              </pre>
+            </div>
+          )}
+          {codemodeLogs && (
+            <div>
+              <span className="text-xs font-medium text-(--color-label)">Logs</span>
+              <pre className="font-mono text-xs text-(--color-muted) bg-(--color-subtle) rounded p-2 overflow-x-auto whitespace-pre-wrap mt-1 max-h-32 overflow-y-auto">
+                {codemodeLogs.join('\n')}
               </pre>
             </div>
           )}

@@ -7,7 +7,7 @@
   "name": "mcp",
   "main": "src/server.ts",
   "account_id": "6702657b6aa048cf3081ff3ff3c9c52f",
-  "compatibility_date": "2025-02-16",
+  "compatibility_date": "2026-01-28",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": "dist",
@@ -22,6 +22,7 @@
   "ai": {
     "binding": "AI"
   },
+  "worker_loaders": [{ "binding": "LOADER" }],
   "durable_objects": {
     "bindings": [
       {

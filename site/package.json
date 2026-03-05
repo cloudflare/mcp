@@ -17,6 +17,7 @@
     "@ai-sdk/react": "^3.0.118",
     "@astrojs/react": "^4.4.2",
     "@cloudflare/ai-chat": "^0.1.8",
+    "@cloudflare/codemode": "https://pkg.pr.new/@cloudflare/codemode@1074",
     "@cloudflare/vite-plugin": "^1.13.8",
     "@phosphor-icons/react": "^2.1.10",
     "@react-three/drei": "^10.7.7",

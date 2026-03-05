@@ -2,6 +2,8 @@ import { Agent, routeAgentRequest, callable } from "agents";
 import { createWorkersAI } from "workers-ai-provider";
 import { AIChatAgent, type OnChatMessageOptions } from "@cloudflare/ai-chat";
 import { streamText, convertToModelMessages, pruneMessages, stepCountIs } from "ai";
+import { createCodeTool } from "@cloudflare/codemode/ai";
+import { DynamicWorkerExecutor } from "@cloudflare/codemode";
 
 // ── Grid Agent (existing multiplayer pixel grid) ─────────────────────
 
@@ -96,6 +98,7 @@ Keep responses short and focused. This is a demo — help users see how powerful
 
 export class ChatAgent extends AIChatAgent {
   maxPersistedMessages = 50;
+  useCodemode = false;
 
   async onStart() {
     this.mcp.configureOAuthCallback({
@@ -113,7 +116,6 @@ export class ChatAgent extends AIChatAgent {
       },
     });
 
-    // Destroy after 1 hour of inactivity
     await this.resetInactivityTimer();
   }
 
@@ -131,29 +133,45 @@ export class ChatAgent extends AIChatAgent {
     await this.destroy();
   }
 
+  /** Connect to one or more servers, removing any not in the list */
   @callable()
-  async connectMcp(serverId: string) {
-    const url = MCP_SERVER_REGISTRY[serverId];
-    if (!url) {
-      throw new Error(`Unknown MCP server: ${serverId}`);
-    }
-
+  async connectServers(serverIds: string[], useCodemode: boolean) {
     await this.resetInactivityTimer();
+    this.useCodemode = useCodemode;
 
-    // Already connected — no-op
-    const existing = this.mcp.listServers().find((s) => s.name === serverId);
-    if (existing) {
-      return { id: existing.id, state: "ready" };
+    // Validate all server IDs
+    for (const id of serverIds) {
+      if (!MCP_SERVER_REGISTRY[id]) {
+        throw new Error(`Unknown MCP server: ${id}`);
+      }
     }
 
-    return await this.addMcpServer(serverId, url, {
-      callbackHost: this.env.HOST,
-    });
-  }
+    const currentServers = this.mcp.listServers();
 
-  @callable()
-  async resetAgent() {
-    await this.destroy();
+    // Remove servers not in the new list
+    for (const server of currentServers) {
+      if (!serverIds.includes(server.name)) {
+        try {
+          await this.mcp.removeServer(server.id);
+        } catch {}
+      }
+    }
+
+    // Connect servers not yet connected
+    const results: Array<{ id: string; state: string }> = [];
+    for (const id of serverIds) {
+      const existing = this.mcp.listServers().find((s) => s.name === id);
+      if (existing) {
+        results.push({ id: existing.id, state: "ready" });
+        continue;
+      }
+      const result = await this.addMcpServer(id, MCP_SERVER_REGISTRY[id], {
+        callbackHost: this.env.HOST,
+      });
+      results.push({ id, state: (result as any)?.state ?? "connecting" });
+    }
+
+    return results;
   }
 
   async onChatMessage(_onFinish: unknown, options?: OnChatMessageOptions) {
@@ -161,17 +179,31 @@ export class ChatAgent extends AIChatAgent {
     const mcpTools = this.mcp.getAITools();
     const workersai = createWorkersAI({ binding: this.env.AI });
 
+    const connectedNames = this.mcp.listServers().map((s) => s.name).join(", ");
+    const systemPrompt = this.useCodemode
+      ? `${SYSTEM_PROMPT}\n\nYou are in Code Mode. You have a single "codemode" tool that lets you write JavaScript code to call multiple MCP tools. The connected servers are: ${connectedNames}. Write code using the \`codemode\` object to call the available functions.`
+      : SYSTEM_PROMPT;
+
+    let tools;
+    if (this.useCodemode) {
+      const executor = new DynamicWorkerExecutor({ loader: this.env.LOADER });
+      const codemode = createCodeTool({ tools: mcpTools, executor });
+      tools = { codemode };
+    } else {
+      tools = mcpTools;
+    }
+
     const result = streamText({
       abortSignal: options?.abortSignal,
       // @ts-ignore — not yet in public types
       model: workersai("@cf/moonshotai/kimi-k2.5"),
-      system: SYSTEM_PROMPT,
+      system: systemPrompt,
       messages: pruneMessages({
         messages: await convertToModelMessages(this.messages),
         toolCalls: "before-last-2-messages",
         reasoning: "before-last-message",
       }),
-      tools: mcpTools,
+      tools,
       stopWhen: stepCountIs(10),
     });
 

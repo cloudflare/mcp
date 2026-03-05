@@ -11,6 +11,8 @@ import {
   Trash,
   CircleNotch,
   Stop,
+  CaretRight,
+  Brain,
 } from '@phosphor-icons/react'
 
 type McpStatus = 'disconnected' | 'authenticating' | 'connecting' | 'ready'
@@ -26,25 +28,32 @@ function getOrCreateSessionId(): string {
   return id
 }
 
-function getMcpStatus(mcpState: MCPServersState): { status: McpStatus; authUrl?: string } {
+function getMcpStatus(mcpState: MCPServersState, selectedServerIds: string[]): { status: McpStatus; authUrl?: string } {
   const servers = Object.values(mcpState.servers)
   if (servers.length === 0) return { status: 'disconnected' }
 
-  const server = servers[0]
-  if (server.state === 'authenticating' && server.auth_url) {
-    return { status: 'authenticating', authUrl: server.auth_url }
+  // Check if any server is authenticating
+  const authServer = servers.find((s) => s.state === 'authenticating' && s.auth_url)
+  if (authServer) {
+    return { status: 'authenticating', authUrl: authServer.auth_url }
   }
-  if (server.state === 'ready') {
-    return { status: 'ready' }
-  }
+
+  // All selected servers must be ready
+  const allReady = selectedServerIds.every((id) => {
+    const server = servers.find((s) => s.name === id)
+    return server?.state === 'ready'
+  })
+  if (allReady) return { status: 'ready' }
+
   return { status: 'connecting' }
 }
 
 interface ChatInterfaceProps {
-  selectedServer: MCPServer
+  selectedServers: MCPServer[]
+  useCodemode: boolean
 }
 
-export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
+export function ChatInterface({ selectedServers, useCodemode }: ChatInterfaceProps) {
   const [input, setInput] = useState('')
   const [isConnected, setIsConnected] = useState(false)
   const [mcpState, setMcpState] = useState<MCPServersState>({
@@ -55,15 +64,17 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
   })
   const [isConnectingMcp, setIsConnectingMcp] = useState(false)
   const pendingMessageRef = useRef<string | null>(null)
-  const connectedRef = useRef(false)
+  const prevSelectionRef = useRef<string | null>(null)
 
-  // Each server gets its own DO — session ID includes server ID
-  const [userId] = useState(getOrCreateSessionId)
-  const agentName = `${userId}-${selectedServer.id}`
+  const [sessionId, setSessionId] = useState(getOrCreateSessionId)
 
+  const selectedServerIds = selectedServers.map((s) => s.id)
+  const selectionKey = [...selectedServerIds].sort().join(',') + `|${useCodemode}`
+
+  // Single agent — one DO for the whole session
   const agent = useAgent({
     agent: 'chat-agent',
-    name: agentName,
+    name: sessionId,
     onOpen: useCallback(() => setIsConnected(true), []),
     onClose: useCallback(() => setIsConnected(false), []),
     onError: useCallback(() => setIsConnected(false), []),
@@ -75,18 +86,22 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
 
   const { messages, sendMessage, clearHistory, stop, status } = useAgentChat({ agent })
 
-  // Reset local state when server changes (new agent/DO)
-  useEffect(() => {
-    setInput('')
-    setIsConnectingMcp(false)
-    pendingMessageRef.current = null
-    connectedRef.current = false
-    setMcpState({ prompts: [], resources: [], servers: {}, tools: [] })
-  }, [selectedServer.id])
-
   const isStreaming = status === 'streaming'
-  const { status: mcpStatus, authUrl } = getMcpStatus(mcpState)
+  const { status: mcpStatus, authUrl } = getMcpStatus(mcpState, selectedServerIds)
   const isReady = mcpStatus === 'ready'
+
+  // When selection changes, clear chat but do NOT connect (lazy connect)
+  useEffect(() => {
+    if (prevSelectionRef.current !== null && prevSelectionRef.current !== selectionKey) {
+      stop()
+      clearHistory()
+      pendingMessageRef.current = null
+      setIsConnectingMcp(false)
+      setInput('')
+      setMcpState({ prompts: [], resources: [], servers: {}, tools: [] })
+    }
+    prevSelectionRef.current = selectionKey
+  }, [selectionKey, stop, clearHistory])
 
   // Open OAuth popup when auth is needed
   useEffect(() => {
@@ -95,7 +110,7 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
     }
   }, [mcpStatus, authUrl])
 
-  // Send pending message when MCP becomes ready
+  // When MCP becomes ready, send any pending message
   useEffect(() => {
     if (isReady && pendingMessageRef.current) {
       const text = pendingMessageRef.current
@@ -107,13 +122,17 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
 
   const handleClear = useCallback(() => {
     stop()
+    // Generate new session ID → useAgent reconnects to a fresh DO
+    const newId = crypto.randomUUID()
+    localStorage.setItem(SESSION_KEY, newId)
+    clearHistory()
+    setSessionId(newId)
     setIsConnectingMcp(false)
     setInput('')
     pendingMessageRef.current = null
-    connectedRef.current = false
-    clearHistory()
-    agent.call('resetAgent', []).catch(() => {})
-  }, [agent, clearHistory, stop])
+    prevSelectionRef.current = null
+    setMcpState({ prompts: [], resources: [], servers: {}, tools: [] })
+  }, [clearHistory, stop])
 
   const send = useCallback(async () => {
     const text = input.trim()
@@ -121,24 +140,24 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
 
     setInput('')
 
-    if (isReady && connectedRef.current) {
+    if (isReady) {
+      // Already connected — send immediately
       sendMessage({ role: 'user', parts: [{ type: 'text', text }] })
       return
     }
 
-    // Not connected yet — store message and connect
+    // Not connected — store message and kick off connection
     pendingMessageRef.current = text
     setIsConnectingMcp(true)
     try {
-      await agent.call('connectMcp', [selectedServer.id])
-      connectedRef.current = true
+      await agent.call('connectServers', [selectedServerIds, useCodemode])
     } catch (e) {
-      console.error('Failed to connect MCP server:', e)
+      console.error('Failed to connect MCP servers:', e)
       setIsConnectingMcp(false)
       pendingMessageRef.current = null
       setInput(text)
     }
-  }, [input, isStreaming, isReady, agent, sendMessage, selectedServer.id])
+  }, [input, isStreaming, isReady, agent, sendMessage, selectedServerIds, useCodemode])
 
   const handleTextareaInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value)
@@ -148,6 +167,7 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
   }
 
   const hasPending = pendingMessageRef.current !== null
+  const serverNames = selectedServers.map((s) => s.name).join(', ')
 
   return (
     <div className="flex flex-col h-full rounded-xl border border-(--color-border) bg-(--color-surface-secondary) overflow-hidden">
@@ -156,8 +176,13 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
         <div className="flex items-center gap-2">
           <div className={`w-2 h-2 rounded-full ${isReady ? 'bg-green-500' : isConnectingMcp || mcpStatus === 'connecting' ? 'bg-amber-500' : 'bg-(--color-muted)'}`} />
           <span className="font-mono text-xs text-(--color-muted)">
-            {selectedServer.name}
+            {serverNames}
           </span>
+          {useCodemode && (
+            <span className="font-mono text-xs text-purple-500">
+              · code mode
+            </span>
+          )}
           {isReady && mcpState.tools.length > 0 && (
             <span className="font-mono text-xs text-(--color-muted)">
               · {mcpState.tools.length} tools
@@ -191,12 +216,16 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
           {messages.length === 0 && !hasPending && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <p className="text-sm text-(--color-muted) mb-3">
-                Try the {selectedServer.name} MCP server
+                {selectedServers.length === 1
+                  ? `Try the ${selectedServers[0].name} MCP server`
+                  : `Try ${serverNames} together`}
               </p>
               <div className="flex flex-wrap justify-center gap-2">
-                {(selectedServer.id === 'cloudflare'
+                {(selectedServers.length === 1 && selectedServers[0].id === 'cloudflare'
                   ? ["What's the traffic today?", 'Make a hello world Worker', 'Protect with Access']
-                  : [`What can I do with ${selectedServer.name}?`, 'List my projects', 'Show recent activity']
+                  : selectedServers.length === 1
+                    ? [`What can I do with ${selectedServers[0].name}?`, 'List my projects', 'Show recent activity']
+                    : [`What can I do across ${serverNames}?`, 'Show me an overview', 'List everything available']
                 ).map((q) => (
                   <button
                     key={q}
@@ -222,7 +251,7 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
               <div className="flex justify-start">
                 <div className="flex items-center gap-2 text-xs text-(--color-muted) px-2">
                   <CircleNotch size={14} className="animate-spin" />
-                  {mcpStatus === 'authenticating' ? 'Waiting for authentication...' : `Connecting to ${selectedServer.name}...`}
+                  {mcpStatus === 'authenticating' ? 'Waiting for authentication...' : `Connecting to ${serverNames}...`}
                 </div>
               </div>
             </>
@@ -272,7 +301,23 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
                   }
 
                   if (part.type === 'step-start') return null
-                  if (part.type === 'reasoning') return null
+
+                  if (part.type === 'reasoning') {
+                    const text = (part as any).text
+                    if (!text || text.trim() === '') return null
+                    return (
+                      <details key={partIdx} className="max-w-[80%] group">
+                        <summary className="flex items-center gap-1.5 cursor-pointer text-xs text-(--color-muted) py-1 select-none">
+                          <CaretRight size={10} className="transition-transform group-open:rotate-90" />
+                          <Brain size={12} />
+                          Thinking
+                        </summary>
+                        <div className="rounded-xl border border-dashed border-(--color-border) px-3 py-2 mt-1 text-xs text-(--color-muted) italic leading-relaxed opacity-70">
+                          {text}
+                        </div>
+                      </details>
+                    )
+                  }
 
                   if (isToolUIPart(part)) {
                     return (
@@ -308,7 +353,7 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
                 send()
               }
             }}
-            placeholder={`Ask ${selectedServer.name} anything...`}
+            placeholder={selectedServers.length === 1 ? `Ask ${selectedServers[0].name} anything...` : `Ask ${serverNames} anything...`}
             disabled={isStreaming || hasPending}
             rows={1}
             className="flex-1 resize-none bg-transparent text-sm outline-none placeholder:text-(--color-muted) disabled:opacity-50"

@@ -6,10 +6,22 @@ import { ChatDemo } from '@/components/chat'
 import { MCP_SERVERS, type MCPServer } from '@/components/Hero/mcpServers'
 
 export function PageContent() {
-  const [selectedServer, setSelectedServer] = useState<MCPServer>(MCP_SERVERS[0])
+  const [selectedServers, setSelectedServers] = useState<MCPServer[]>([MCP_SERVERS[0]])
+  const [codemodeEnabled, setCodemodeEnabled] = useState(false)
   const demoSectionRef = useRef<HTMLDivElement>(null)
+
+  const useCodemode = codemodeEnabled || selectedServers.length > 1
+
   const handleCardClick = useCallback((server: MCPServer) => {
-    setSelectedServer(server)
+    setSelectedServers((prev) => {
+      const exists = prev.some((s) => s.id === server.id)
+      if (exists) {
+        // Don't allow deselecting the last server
+        if (prev.length === 1) return prev
+        return prev.filter((s) => s.id !== server.id)
+      }
+      return [...prev, server]
+    })
     demoSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
 
@@ -17,7 +29,7 @@ export function PageContent() {
     <div className="flex flex-col">
       {/* Hero */}
       <div className="h-[30vh] sm:h-[35vh] md:h-[45vh] lg:h-[50vh]">
-        <Scene onCardClick={handleCardClick} selectedServerId={selectedServer.id} />
+        <Scene onCardClick={handleCardClick} selectedServerId={selectedServers[0]?.id} />
       </div>
 
       {/* Try it — Chat Demo */}
@@ -36,7 +48,7 @@ export function PageContent() {
             <div className="flex flex-wrap gap-2 mb-6">
               {MCP_SERVERS.map((server) => {
                 const Icon = server.icon
-                const isActive = server.id === selectedServer.id
+                const isActive = selectedServers.some((s) => s.id === server.id)
                 return (
                   <button
                     key={server.id}
@@ -54,8 +66,27 @@ export function PageContent() {
                   </button>
                 )
               })}
+              {/* Code Mode pill */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (selectedServers.length <= 1) setCodemodeEnabled((v) => !v)
+                }}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                  useCodemode
+                    ? 'border-purple-500 bg-purple-500/10 text-purple-500'
+                    : 'border-dashed border-(--color-border) text-(--color-label) hover:bg-(--color-subtle) hover:border-(--color-surface) cursor-pointer'
+                } ${selectedServers.length > 1 ? 'cursor-default' : 'cursor-pointer'}`}
+                title={selectedServers.length > 1 ? 'Code Mode is always active with multiple servers' : 'Toggle Code Mode'}
+              >
+                {'</>'}
+                Code Mode
+                {selectedServers.length > 1 && (
+                  <span className="text-[10px] opacity-70">auto</span>
+                )}
+              </button>
             </div>
-            <ChatDemo selectedServer={selectedServer} />
+            <ChatDemo selectedServers={selectedServers} useCodemode={useCodemode} />
           </div>
         </FadeInSection>
       </div>
