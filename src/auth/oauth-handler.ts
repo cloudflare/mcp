@@ -1,4 +1,5 @@
 import { env as cloudflareEnv } from 'cloudflare:workers'
+import { getAgentByName } from 'agents'
 import { Hono } from 'hono'
 import { z } from 'zod'
 
@@ -164,7 +165,8 @@ export async function handleTokenExchangeCallback(
       accessToken: z.string(),
       user: z.object({ id: z.string(), email: z.string() }),
       accounts: z.array(z.object({ id: z.string(), name: z.string() })),
-      refreshToken: z.string().optional()
+      refreshToken: z.string().optional(),
+      scopes: z.array(z.string()).optional()
     })
   ])
 
@@ -365,6 +367,49 @@ export function createAuthHandlers() {
         env.OAUTH_KV
       )
 
+      // ── Scope upgrade flow ──────────────────────────────────────────
+      // If the state was created by ElicitationAgent, handle it as a
+      // scope upgrade instead of a normal OAuth completion.
+      const upgradeInfo = oauthReqInfo as AuthRequest & {
+        elicitationId?: string
+        tokenHash?: string
+        userId?: string
+      }
+
+      if (upgradeInfo.responseType === 'scope_upgrade' && upgradeInfo.elicitationId) {
+        const { access_token, refresh_token } = await getAuthToken({
+          client_id: env.CLOUDFLARE_CLIENT_ID,
+          client_secret: env.CLOUDFLARE_CLIENT_SECRET,
+          redirect_uri: new URL('/oauth/callback', c.req.url).href,
+          code,
+          code_verifier: codeVerifier
+        })
+
+        // Notify the ElicitationAgent of the successful upgrade
+        const stub = await getAgentByName(env.ELICITATION_AGENT, upgradeInfo.elicitationId)
+        await stub.fetch(new Request('https://agent/complete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            accessToken: access_token,
+            refreshToken: refresh_token,
+            scopes: oauthReqInfo.scope
+          })
+        }))
+
+        // Redirect to elicitation success page
+        const baseUrl = new URL(c.req.url).origin
+        return new Response(null, {
+          status: 302,
+          headers: {
+            Location: `${baseUrl}/elicitation/${upgradeInfo.elicitationId}`,
+            'Set-Cookie': clearCookie
+          }
+        })
+      }
+
+      // ── Normal OAuth flow ───────────────────────────────────────────
+
       if (!oauthReqInfo.clientId) {
         return new OAuthError('invalid_request', 'Invalid OAuth request info').toHtmlResponse()
       }
@@ -407,7 +452,8 @@ export function createAuthHandlers() {
           user,
           accounts,
           accessToken: access_token,
-          refreshToken: refresh_token
+          refreshToken: refresh_token,
+          scopes: oauthReqInfo.scope
         } satisfies AuthProps
       })
 

@@ -42,6 +42,20 @@
 			"bucket_name": "mcp-spec"
 		}
 	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "ELICITATION_AGENT",
+				"class_name": "ElicitationAgent"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": ["ElicitationAgent"]
+		}
+	],
 	"triggers": {
 		"crons": ["0 0 * * *"]
 	},
@@ -79,6 +93,20 @@
 				{
 					"binding": "SPEC_BUCKET",
 					"bucket_name": "mcp-spec-staging"
+				}
+			],
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "ELICITATION_AGENT",
+						"class_name": "ElicitationAgent"
+					}
+				]
+			},
+			"migrations": [
+				{
+					"tag": "v1",
+					"new_sqlite_classes": ["ElicitationAgent"]
 				}
 			],
 			"triggers": {
@@ -119,6 +147,20 @@
 				{
 					"binding": "SPEC_BUCKET",
 					"bucket_name": "mcp-spec-production"
+				}
+			],
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "ELICITATION_AGENT",
+						"class_name": "ElicitationAgent"
+					}
+				]
+			},
+			"migrations": [
+				{
+					"tag": "v1",
+					"new_sqlite_classes": ["ElicitationAgent"]
 				}
 			],
 			"triggers": {

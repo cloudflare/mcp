@@ -23,7 +23,8 @@ export const UserAuthProps = z.object({
   accessToken: z.string(),
   user: UserSchema,
   accounts: AccountsSchema,
-  refreshToken: z.string().optional()
+  refreshToken: z.string().optional(),
+  scopes: z.array(z.string()).optional()
 })
 
 export const AuthProps = z.discriminatedUnion('type', [AccountAuthProps, UserAuthProps])

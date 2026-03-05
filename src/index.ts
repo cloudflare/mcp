@@ -1,12 +1,15 @@
 import OAuthProvider from '@cloudflare/workers-oauth-provider'
 import { Hono } from 'hono'
 import { WorkerEntrypoint } from 'cloudflare:workers'
+import { getAgentByName } from 'agents'
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
 import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
 import type { AuthProps } from './auth/types'
+
+export { ElicitationAgent } from './elicitation-agent'
 
 /**
  * Global outbound fetch handler that restricts dynamically-loaded workers
@@ -48,7 +51,8 @@ async function createMcpResponse(
   accountId?: string,
   props?: AuthProps
 ): Promise<Response> {
-  const server = await createServer(env, ctx, token, accountId, props)
+  const baseUrl = new URL(request.url).origin
+  const server = await createServer(env, ctx, token, accountId, props, baseUrl)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
@@ -87,6 +91,20 @@ function createMcpHandler() {
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    // Route /elicitation/:id[/action] to ElicitationAgent DO (browser callback, no auth needed)
+    const url = new URL(request.url)
+    if (url.pathname.startsWith('/elicitation/')) {
+      const rest = url.pathname.slice('/elicitation/'.length)
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i
+      const match = rest.match(uuidRegex)
+      if (!match) {
+        return new Response('Bad Request: invalid elicitation ID', { status: 400 })
+      }
+      const id = match[0]
+      const stub = await getAgentByName(env.ELICITATION_AGENT, id)
+      return stub.fetch(request)
+    }
+
     // Check for direct API token first (like GitHub MCP's PAT support)
     if (isDirectApiToken(request)) {
       const response = await handleApiTokenRequest(request, (token, accountId, props) =>

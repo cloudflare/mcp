@@ -1,5 +1,5 @@
 interface CodeExecutorEntrypoint {
-  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
+  evaluate(): Promise<{ result: unknown; err?: string; stack?: string; httpStatus?: number }>
 }
 
 interface SearchExecutorEntrypoint {
@@ -65,7 +65,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
         if (!responseContentType.includes("application/json")) {
           const text = await response.text();
           if (!response.ok) {
-            throw new Error("Cloudflare API error: " + response.status + " " + text);
+            const err = new Error("Cloudflare API error: " + response.status + " " + text);
+            err.httpStatus = response.status;
+            throw err;
           }
           return { success: true, status: response.status, result: text };
         }
@@ -83,7 +85,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
           // Complete failure: no data, only errors
           if (graphqlErrors.length > 0 && !hasData) {
             const msgs = graphqlErrors.map(e => e.message).join(", ");
-            throw new Error("GraphQL error: " + msgs);
+            const err = new Error("GraphQL error: " + msgs);
+            err.httpStatus = response.status;
+            throw err;
           }
 
           // Success or partial success
@@ -105,7 +109,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
         // Handle REST API responses
         if (!data.success) {
           const errors = data.errors.map(e => e.code + ": " + e.message).join(", ");
-          throw new Error("Cloudflare API error: " + errors);
+          const err = new Error("Cloudflare API error: " + errors);
+          err.httpStatus = response.status;
+          throw err;
         }
 
         return { ...data, status: response.status };
@@ -116,7 +122,8 @@ export default class CodeExecutor extends WorkerEntrypoint {
       const result = await (${code})();
       return { result, err: undefined };
     } catch (err) {
-      return { result: undefined, err: err.message, stack: err.stack };
+      const httpStatus = (typeof err === 'object' && err !== null) ? err.httpStatus : undefined;
+      return { result: undefined, err: err.message, stack: err.stack, httpStatus };
     }
   }
 }
@@ -128,7 +135,11 @@ export default class CodeExecutor extends WorkerEntrypoint {
     const response = await entrypoint.evaluate()
 
     if (response.err) {
-      throw new Error(response.err)
+      const error = new Error(response.err)
+      if (response.httpStatus !== undefined) {
+        ;(error as any).httpStatus = response.httpStatus
+      }
+      throw error
     }
 
     return response.result

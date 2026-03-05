@@ -9,6 +9,7 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
+		ELICITATION_AGENT: DurableObjectNamespace<import("./src/elicitation-agent").ElicitationAgent>;
 		CLOUDFLARE_API_BASE: "https://api.cloudflare.com/client/v4";
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
 		MCP_COOKIE_ENCRYPTION_KEY: string;
@@ -21,6 +22,7 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
+		ELICITATION_AGENT: DurableObjectNamespace<import("./src/elicitation-agent").ElicitationAgent>;
 		CLOUDFLARE_API_BASE: "https://api.cloudflare.com/client/v4";
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
 		MCP_COOKIE_ENCRYPTION_KEY: string;
@@ -37,6 +39,7 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
+		ELICITATION_AGENT: DurableObjectNamespace<import("./src/elicitation-agent").ElicitationAgent>;
 		CLOUDFLARE_API_BASE: "https://api.cloudflare.com/client/v4";
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
 		GLOBAL_OUTBOUND: Service /* entrypoint GlobalOutbound from cloudflare-api-mcp-staging */ | Service /* entrypoint GlobalOutbound from cloudflare-api-mcp */ | Service<typeof import("./src/index").GlobalOutbound>;

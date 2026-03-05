@@ -1,4 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { UrlElicitationRequiredError } from '@modelcontextprotocol/sdk/types.js'
+import { getAgentByName } from 'agents'
 import { z } from 'zod'
 import { createCodeExecutor, createSearchExecutor } from './executor'
 import { truncateResponse } from './truncate'
@@ -40,6 +42,115 @@ function formatError(error: unknown): string {
   return error instanceof Error ? error.message : String(error)
 }
 
+const SCOPES_DOCS_URL = 'https://developers.cloudflare.com/fundamentals/api/reference/permissions/'
+
+const ELICITATION_MESSAGE =
+  'This API call requires additional permissions. ' +
+  'Open the link below to upgrade your scopes, then retry the operation.'
+
+type ToolResult = { content: { type: 'text'; text: string }[]; isError: true }
+
+/**
+ * Compute a SHA-256 hash of the API token for use as a KV key.
+ * This avoids storing the raw token in agent state.
+ */
+async function hashToken(token: string): Promise<string> {
+  const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token))
+  return Array.from(new Uint8Array(buffer))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+}
+
+/**
+ * Check KV for a scope-upgraded token. Returns the upgraded token if available.
+ */
+async function getUpgradedToken(
+  env: Env,
+  tokenHash: string
+): Promise<string | null> {
+  const data = await env.OAUTH_KV.get(`token-upgrade:${tokenHash}`, 'json') as {
+    accessToken: string
+    refreshToken: string
+    scopes: string[]
+    timestamp: number
+  } | null
+
+  return data?.accessToken ?? null
+}
+
+interface ElicitationContext {
+  server: McpServer
+  env: Env
+  baseUrl: string
+  currentScopes?: string[]
+  tokenHash: string
+  userId?: string
+}
+
+/**
+ * Handle 403 (insufficient scope) errors from the Cloudflare API.
+ *
+ * Creates an ElicitationAgent with a scope picker UI so the user can
+ * upgrade their permissions without a full re-auth.
+ *
+ * - If the client supports URL elicitation: throws UrlElicitationRequiredError
+ * - If the client does NOT support elicitation: returns a tool error result
+ *   containing the scope upgrade URL
+ * - If not a 403: returns undefined (caller should handle normally)
+ */
+export async function elicitUpdatedScopes(
+  error: unknown,
+  ctx?: ElicitationContext
+): Promise<ToolResult | undefined> {
+  if (!(error instanceof Error)) return undefined
+  const status = (error as any).httpStatus
+  if (status !== 403) return undefined
+
+  const elicitationId = crypto.randomUUID()
+  let callbackUrl = SCOPES_DOCS_URL
+
+  // Create an ElicitationAgent with scope picker if the binding is available
+  if (ctx?.env.ELICITATION_AGENT) {
+    try {
+      const stub = await getAgentByName(ctx.env.ELICITATION_AGENT, elicitationId)
+      await stub.fetch(new Request('https://agent/init', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          errorMessage: error.message,
+          currentScopes: ctx.currentScopes || [],
+          tokenHash: ctx.tokenHash,
+          userId: ctx.userId || 'unknown'
+        })
+      }))
+      callbackUrl = `${ctx.baseUrl}/elicitation/${elicitationId}`
+    } catch {
+      // Fall back to static docs URL if agent creation fails
+    }
+  }
+
+  const message = `${ELICITATION_MESSAGE}\n\n(${error.message})`
+
+  // Check if the client supports URL elicitation
+  const capabilities = ctx?.server.server.getClientCapabilities()
+  if (capabilities?.elicitation?.url) {
+    throw new UrlElicitationRequiredError([
+      {
+        mode: 'url',
+        message,
+        url: callbackUrl,
+        elicitationId
+      }
+    ])
+  }
+
+  // Client does NOT support elicitation — return URL in tool error result
+  return {
+    content: [{ type: 'text', text: `${message}\n\nUpgrade permissions here: ${callbackUrl}` }],
+    isError: true
+  }
+}
+
 const SPEC_TYPES = `
 interface OperationInfo {
   summary?: string;
@@ -68,7 +179,8 @@ export async function createServer(
   ctx: ExecutionContext,
   apiToken: string,
   accountId: string | undefined,
-  props?: AuthProps
+  props?: AuthProps,
+  baseUrl?: string
 ): Promise<McpServer> {
   const server = new McpServer({
     name: 'cloudflare-api',
@@ -77,6 +189,13 @@ export async function createServer(
 
   const executeCode = createCodeExecutor(env, ctx)
   const executeSearch = createSearchExecutor(env)
+
+  // Pre-compute token hash for scope upgrade lookups
+  const tokenHash = await hashToken(apiToken)
+
+  // Extract user context for elicitation
+  const currentScopes = props?.type === 'user_token' ? props.scopes : undefined
+  const userId = props?.type === 'user_token' ? props.user.id : undefined
 
   const obj = await env.SPEC_BUCKET.get('products.json')
   const products: string[] = obj ? await obj.json() : []
@@ -162,9 +281,16 @@ async () => {
       },
       async ({ code }) => {
         try {
-          const result = await executeCode(code, accountId, apiToken)
+          // Check for scope-upgraded token
+          const effectiveToken = await getUpgradedToken(env, tokenHash) || apiToken
+          const result = await executeCode(code, accountId, effectiveToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
+          const elicitation = await elicitUpdatedScopes(
+            error,
+            baseUrl ? { server, env, baseUrl, currentScopes, tokenHash, userId } : undefined
+          )
+          if (elicitation) return elicitation
           return {
             content: [{ type: 'text', text: `Error: ${formatError(error)}` }],
             isError: true
@@ -219,9 +345,16 @@ async () => {
             }
           }
 
-          const result = await executeCode(code, effectiveAccountId, apiToken)
+          // Check for scope-upgraded token
+          const effectiveToken = await getUpgradedToken(env, tokenHash) || apiToken
+          const result = await executeCode(code, effectiveAccountId, effectiveToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
+          const elicitation = await elicitUpdatedScopes(
+            error,
+            baseUrl ? { server, env, baseUrl, currentScopes, tokenHash, userId } : undefined
+          )
+          if (elicitation) return elicitation
           return {
             content: [{ type: 'text', text: `Error: ${formatError(error)}` }],
             isError: true
