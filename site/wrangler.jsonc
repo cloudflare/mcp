@@ -16,11 +16,21 @@
   "observability": {
     "enabled": true
   },
+  "vars": {
+    "HOST": "https://mcp.maximo-670.workers.dev"
+  },
+  "ai": {
+    "binding": "AI"
+  },
   "durable_objects": {
     "bindings": [
       {
         "name": "GridAgent",
         "class_name": "GridAgent"
+      },
+      {
+        "name": "ChatAgent",
+        "class_name": "ChatAgent"
       }
     ]
   },
@@ -28,6 +38,10 @@
     {
       "tag": "v1",
       "new_sqlite_classes": ["GridAgent"]
+    },
+    {
+      "tag": "v2",
+      "new_sqlite_classes": ["ChatAgent"]
     }
   ]
 }

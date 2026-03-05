@@ -17,6 +17,7 @@ import * as THREE from 'three'
 import { GridEffect } from '../three/GridEffect'
 import '../three/TexturedLetterMaterial'
 import { GridSquares } from './GridSquares'
+import type { MCPServer } from './mcpServers'
 import { MultiplayerGrid } from './MultiplayerGrid'
 import { GlowColorProvider, useGlowColors, useGlowShaderData } from './GlowColorContext'
 import { useHeroColors } from '@/hooks/useThemeColors'
@@ -763,8 +764,13 @@ function SizeReporter({ onSizeChange }: { onSizeChange: (width: number, height: 
   return null
 }
 
+interface SceneProps {
+  onCardClick?: (server: MCPServer) => void
+  selectedServerId?: string
+}
+
 // Inner scene component that uses glow context
-function SceneContent() {
+function SceneContent({ onCardClick, selectedServerId }: SceneProps) {
   const [mounted, setMounted] = useState(false)
   const [canvasKey, setCanvasKey] = useState(0)
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
@@ -896,16 +902,18 @@ function SceneContent() {
         desatTrailPersist={iconDesatControls.trailPersist}
         pushStrength={iconDesatControls.pushStrength}
         pushRadius={iconDesatControls.pushRadius}
+        onCardClick={onCardClick}
+        selectedServerId={selectedServerId}
       />
     </div>
   )
 }
 
 // Main scene export wrapped with GlowColorProvider
-export function Scene() {
+export function Scene({ onCardClick, selectedServerId }: SceneProps) {
   return (
     <GlowColorProvider>
-      <SceneContent />
+      <SceneContent onCardClick={onCardClick} selectedServerId={selectedServerId} />
     </GlowColorProvider>
   )
 }

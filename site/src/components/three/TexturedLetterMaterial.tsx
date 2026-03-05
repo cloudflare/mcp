@@ -253,11 +253,8 @@ export const TexturedLetterMaterial = shaderMaterial(
 extend({ TexturedLetterMaterial })
 
 // TypeScript declaration for the custom material
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      texturedLetterMaterial: any
-    }
+declare module '@react-three/fiber' {
+  interface ThreeElements {
+    texturedLetterMaterial: React.JSX.IntrinsicElements['meshStandardMaterial'] & Record<string, unknown>
   }
 }

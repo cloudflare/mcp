@@ -1,289 +1,148 @@
+import { useState, useCallback, useRef } from 'react'
 import { Scene } from '@/components/Hero'
 import { FadeInSection, GlowHeading } from '@/components/GlowHeading'
-import { CodeBlock, PillLink, TabbedCodeBlock } from '@/components/ui'
+import { PillLink } from '@/components/ui'
+import { ChatDemo } from '@/components/chat'
+import { MCP_SERVERS, type MCPServer } from '@/components/Hero/mcpServers'
 
 export function PageContent() {
+  const [selectedServer, setSelectedServer] = useState<MCPServer>(MCP_SERVERS[0])
+  const demoSectionRef = useRef<HTMLDivElement>(null)
+  const handleCardClick = useCallback((server: MCPServer) => {
+    setSelectedServer(server)
+    demoSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [])
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <div className="h-[35vh] sm:h-[45vh] md:h-[60vh]">
-        <Scene />
+      <div className="h-[30vh] sm:h-[35vh] md:h-[45vh] lg:h-[50vh]">
+        <Scene onCardClick={handleCardClick} selectedServerId={selectedServer.id} />
       </div>
 
-      {/* Use Cloudflare's MCP Servers */}
+      {/* Try it — Chat Demo */}
+      <div ref={demoSectionRef}>
+        <FadeInSection
+          className="border-t border-dashed border-(--color-border) px-4 py-12 sm:px-6 sm:py-16"
+          cornerGrid={{ position: 'bottom-right', color: '#f38020' }}
+        >
+          <div className="mx-auto max-w-3xl">
+            <GlowHeading eyebrow="Try it">
+              Build and connect to MCP servers.
+            </GlowHeading>
+            <p className="text-lg leading-relaxed text-(--color-label) mb-6">
+              Host your MCP servers on Cloudflare. Join the likes of these companies.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {MCP_SERVERS.map((server) => {
+                const Icon = server.icon
+                const isActive = server.id === selectedServer.id
+                return (
+                  <button
+                    key={server.id}
+                    type="button"
+                    onClick={() => handleCardClick(server)}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all cursor-pointer ${
+                      isActive
+                        ? 'border-current bg-(--color-subtle)'
+                        : 'border-dashed border-(--color-border) text-(--color-label) hover:bg-(--color-subtle) hover:border-(--color-surface)'
+                    }`}
+                    style={isActive ? { color: server.darkColor ?? server.color } : undefined}
+                  >
+                    <Icon size={14} />
+                    {server.name}
+                  </button>
+                )
+              })}
+            </div>
+            <ChatDemo selectedServer={selectedServer} />
+          </div>
+        </FadeInSection>
+      </div>
+
+      {/* Features */}
       <FadeInSection
         className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
-        cornerGrid={{ position: 'bottom-left', color: '#f38020' }}
+        cornerGrid={{ position: 'top-left', color: '#6366f1' }}
       >
         <div className="mx-auto max-w-3xl">
-          <GlowHeading eyebrow="Use">Connect to Cloudflare's MCP server</GlowHeading>
-          <p className="text-lg leading-relaxed text-(--color-label)">
-            Connect from Claude, Cursor, Windsurf, or any MCP client.
-            Manage Workers, KV, R2, D1, query analytics, and more — all through your AI assistant.
+          <GlowHeading eyebrow="Features">
+            Spec compliant MCP servers at global scale.
+          </GlowHeading>
+          <p className="text-lg leading-relaxed text-(--color-label) mb-10">
+            Host stateful or stateless MCP servers at global scale — fast cold starts, automatic scaling, and zero infrastructure to manage.
           </p>
-          <div className="mt-8">
-            <CodeBlock title="mcp.json" language="json">
-              {`{
-  "mcpServers": {
-    "cloudflare": {
-      "url": "https://mcp.cloudflare.com/mcp"
-    }
-  }
-}`}
-            </CodeBlock>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="rounded-lg border border-dashed border-(--color-border) p-5">
+              <h3 className="font-medium mb-2">MCP Client in Agents SDK</h3>
+              <p className="text-sm text-(--color-label) leading-relaxed">
+                The{' '}
+                <a href="https://developers.cloudflare.com/agents/" className="underline hover:text-(--color-surface)">
+                  Agents SDK
+                </a>
+                {' '}includes a built-in MCP client. Connect to any MCP server from your agent with a single method call.
+              </p>
+            </div>
+            <div className="rounded-lg border border-dashed border-(--color-border) p-5">
+              <h3 className="font-medium mb-2">Authentication</h3>
+              <p className="text-sm text-(--color-label) leading-relaxed">
+                Add OAuth to your servers with{' '}
+                <a href="https://github.com/cloudflare/workers-oauth-provider" className="underline hover:text-(--color-surface)">
+                  Workers OAuth Provider
+                </a>
+                . Users authorize with their existing accounts — no API keys needed.
+              </p>
+            </div>
+            <div className="rounded-lg border border-dashed border-(--color-border) p-5">
+              <h3 className="font-medium mb-2">Code Mode</h3>
+              <p className="text-sm text-(--color-label) leading-relaxed">
+                Execute untrusted code in sandboxed{' '}
+                <a href="https://developers.cloudflare.com/workers/runtime-apis/bindings/worker-loader/" className="underline hover:text-(--color-surface)">
+                  Dynamic Worker
+                </a>
+                {' '}isolates. LLMs write code against your API instead of calling thousands of tools.
+              </p>
+            </div>
+            <div className="rounded-lg border border-dashed border-(--color-border) p-5">
+              <h3 className="font-medium mb-2">Region: Earth</h3>
+              <p className="text-sm text-(--color-label) leading-relaxed">
+                Host MCP servers on Workers — global by default across 300+ locations. Only pay for CPU time, not wall time.
+              </p>
+            </div>
           </div>
-          <p className="mt-4 text-sm text-(--color-muted)">
-            Cloudflare also maintains domain-specific MCP servers for docs, radar, containers, and more.{' '}
-            <a
-              href="https://github.com/cloudflare/mcp-server-cloudflare"
-              className="underline hover:text-(--color-surface)"
-            >
-              See all Cloudflare MCP servers
+        </div>
+      </FadeInSection>
+
+      {/* MCP Spec Features */}
+      <FadeInSection
+        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
+        cornerGrid={{ position: 'top-right', color: '#a855f7' }}
+      >
+        <div className="mx-auto max-w-3xl">
+          <GlowHeading eyebrow="MCP Spec">
+            Full protocol support, day one.
+          </GlowHeading>
+          <p className="text-lg leading-relaxed text-(--color-label) mb-10">
+            Cloudflare's MCP implementation tracks the{' '}
+            <a href="https://modelcontextprotocol.io" className="underline hover:text-(--color-surface)">
+              latest spec
             </a>
+            . Every feature ships as soon as it's standardized.
           </p>
-        </div>
-      </FadeInSection>
-
-      {/* Build Your Own */}
-      <FadeInSection
-        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
-        cornerGrid={{ position: 'top-right', color: '#06b6d4' }}
-      >
-        <div className="mx-auto max-w-3xl">
-          <GlowHeading eyebrow="Build">Build your own MCP server</GlowHeading>
-          <p className="text-lg leading-relaxed text-(--color-label)">
-            Deploy MCP servers on Cloudflare Workers. Choose the pattern that fits —
-            stateless with <code className="font-mono text-sm bg-(--color-subtle) px-1.5 py-0.5 rounded">createMcpHandler</code>,
-            stateful with <code className="font-mono text-sm bg-(--color-subtle) px-1.5 py-0.5 rounded">McpAgent</code>,
-            or use the MCP SDK directly.
-          </p>
-          <div className="mt-8">
-            <TabbedCodeBlock
-              tabs={[
-                {
-                  label: 'createMcpHandler',
-                  title: 'mcp-worker/src/index.ts',
-                  code: `import { createMcpHandler } from "agents/mcp";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
-
-function createServer() {
-  const server = new McpServer({
-    name: "Hello MCP Server",
-    version: "1.0.0",
-  });
-
-  server.registerTool(
-    "hello",
-    {
-      description: "Returns a greeting message",
-      inputSchema: { name: z.string().optional() },
-    },
-    async ({ name }) => ({
-      content: [{ text: \`Hello, \${name ?? "World"}!\`, type: "text" }],
-    })
-  );
-
-  return server;
-}
-
-export default {
-  fetch: async (request: Request, env: Env, ctx: ExecutionContext) => {
-    const server = createServer();
-    return createMcpHandler(server)(request, env, ctx);
-  },
-};`,
-                },
-                {
-                  label: 'McpAgent',
-                  title: 'mcp/src/server.ts',
-                  code: `import { McpAgent } from "agents/mcp";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
-
-type State = { counter: number };
-
-export class MyMCP extends McpAgent<Env, State, {}> {
-  server = new McpServer({ name: "Demo", version: "1.0.0" });
-  initialState: State = { counter: 0 };
-
-  async init() {
-    this.server.registerTool(
-      "add",
-      {
-        description: "Add to the counter",
-        inputSchema: { a: z.number() },
-      },
-      async ({ a }) => {
-        this.setState({ ...this.state, counter: this.state.counter + a });
-        return {
-          content: [{ text: \`Counter: \${this.state.counter}\`, type: "text" }],
-        };
-      }
-    );
-  }
-}
-
-export default {
-  fetch(request: Request, env: Env, ctx: ExecutionContext) {
-    const url = new URL(request.url);
-    if (url.pathname.startsWith("/sse")) {
-      return MyMCP.serveSSE("/sse", { binding: "MyMCP" }).fetch(request, env, ctx);
-    }
-    if (url.pathname.startsWith("/mcp")) {
-      return MyMCP.serve("/mcp", { binding: "MyMCP" }).fetch(request, env, ctx);
-    }
-    return new Response("Not found", { status: 404 });
-  },
-};`,
-                },
-                {
-                  label: 'Native MCP SDK',
-                  title: 'mcp-server/src/index.ts',
-                  code: `import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { WebStandardStreamableHTTPServerTransport }
-  from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
-import { z } from "zod";
-
-const createServer = () => {
-  const server = new McpServer({
-    name: "Native MCP Server",
-    version: "1.0.0",
-  });
-
-  server.registerTool(
-    "hello",
-    {
-      description: "Returns a greeting",
-      inputSchema: { name: z.string().optional() },
-    },
-    async ({ name }) => ({
-      content: [{ text: \`Hello, \${name ?? "World"}!\`, type: "text" }],
-    })
-  );
-
-  return server;
-};
-
-export default {
-  fetch: async (request: Request) => {
-    const transport = new WebStandardStreamableHTTPServerTransport();
-    const server = createServer();
-    server.connect(transport);
-    return transport.handleRequest(request);
-  },
-};`,
-                },
-              ]}
-            />
-          </div>
-        </div>
-      </FadeInSection>
-
-      {/* MCP Client */}
-      <FadeInSection
-        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
-        cornerGrid={{ position: 'top-left', color: '#f38020' }}
-      >
-        <div className="mx-auto max-w-3xl">
-          <GlowHeading eyebrow="Connect">Use MCP servers from your agents</GlowHeading>
-          <p className="text-lg leading-relaxed text-(--color-label)">
-            Agents built on Cloudflare can connect to remote MCP servers as a client.
-            Add servers dynamically, list available tools, and call them from your agent code.
-          </p>
-          <div className="mt-8">
-            <CodeBlock title="mcp-client/src/server.ts">
-              {`import { Agent, routeAgentRequest } from "agents";
-
-export class MyAgent extends Agent {
-  async onRequest(request: Request) {
-    const url = new URL(request.url);
-
-    if (url.pathname.endsWith("add-mcp") && request.method === "POST") {
-      const { url: mcpUrl, name } = await request.json();
-      await this.addMcpServer(name, mcpUrl);
-      return new Response("Ok", { status: 200 });
-    }
-
-    if (url.pathname.endsWith("get-tools") && request.method === "POST") {
-      const { serverId } = await request.json();
-      const tools = this.mcp.listTools()
-        .filter((tool) => tool.serverId === serverId);
-      return Response.json({ tools });
-    }
-
-    return new Response("Not found", { status: 404 });
-  }
-}
-
-export default {
-  async fetch(request: Request, env: Env) {
-    return (
-      (await routeAgentRequest(request, env, { cors: true })) ||
-      new Response("Not found", { status: 404 })
-    );
-  },
-};`}
-            </CodeBlock>
-          </div>
-        </div>
-      </FadeInSection>
-
-      {/* Code Mode */}
-      <FadeInSection
-        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
-        cornerGrid={{ position: 'bottom-right', color: '#a855f7' }}
-      >
-        <div className="mx-auto max-w-3xl">
-          <GlowHeading eyebrow="Code Mode">Let agents write code against your tools</GlowHeading>
-          <p className="text-lg leading-relaxed text-(--color-label)">
-            Code Mode wraps your tools into a typed SDK. Instead of calling tools one at a time,
-            the model writes TypeScript that composes multiple calls in a single execution.
-            Runs in a sandboxed Workers isolate.
-          </p>
-          <div className="mt-8">
-            <CodeBlock title="codemode/src/server.ts">
-              {`import { Agent, routeAgentRequest } from "agents";
-import { experimental_codemode as codemode } from "@cloudflare/codemode/ai";
-import { streamText, convertToModelMessages } from "ai";
-import { openai } from "@ai-sdk/openai";
-import { tools } from "./tools";
-
-export class Codemode extends Agent<Env> {
-  async onChatMessage() {
-    const { prompt, tools: wrappedTools } = await codemode({
-      prompt: "You are a helpful assistant.",
-      tools,
-      loader: this.env.LOADER,
-      proxy: this.ctx.exports.CodeModeProxy({
-        props: {
-          binding: "Codemode",
-          name: this.name,
-          callback: "callTool",
-        },
-      }),
-    });
-
-    const result = streamText({
-      system: prompt,
-      messages: await convertToModelMessages(this.messages),
-      model: openai("gpt-4o"),
-      tools: wrappedTools,
-    });
-
-    return result.toUIMessageStream();
-  }
-}
-
-export default {
-  async fetch(request: Request, env: Env) {
-    return (
-      (await routeAgentRequest(request, env)) ||
-      new Response("Not found", { status: 404 })
-    );
-  },
-};`}
-            </CodeBlock>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: 'Streamable HTTP', desc: 'Bi-directional JSON-RPC over HTTP. No SSE, no WebSockets required. Production-ready transport.' },
+              { title: 'OAuth 2.1', desc: 'Full spec authorization via Workers OAuth Provider — PKCE, Protected Resource Metadata discovery, and Client ID Metadata Document.' },
+              { title: 'Elicitations', desc: 'Servers request additional context from users mid-conversation. Define schemas for exactly what input you need.' },
+              { title: 'Sampling', desc: 'Server-initiated LLM calls for agentic workflows. Clients control approval, prompts, and visibility.' },
+              { title: 'Tasks', desc: 'Use Cloudflare Workflows for durable execution, status updates, and structured results across long-running operations.' },
+              { title: 'Tool Output Schemas', desc: 'Clients and LLMs understand tool output shapes ahead of time for more reliable integrations.' },
+            ].map((item) => (
+              <div key={item.title} className="rounded-lg border border-dashed border-(--color-border) p-4">
+                <h3 className="font-medium text-sm mb-1.5">{item.title}</h3>
+                <p className="text-xs text-(--color-label) leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </FadeInSection>
@@ -294,16 +153,19 @@ export default {
         cornerGrid={{ position: 'bottom-left', color: '#6366f1' }}
       >
         <div className="mx-auto max-w-3xl text-center">
-          <GlowHeading eyebrow="Get started">Build with MCP on Cloudflare</GlowHeading>
+          <GlowHeading eyebrow="Get started">Build your own MCP server</GlowHeading>
           <p className="text-lg leading-relaxed text-(--color-label)">
-            Deploy your first MCP server in minutes. Read the docs or explore the examples.
+            Deploy a remote MCP server on Cloudflare in minutes. Read the blog post, follow the guide, or explore the source.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <PillLink href="https://developers.cloudflare.com/agents/model-context-protocol/" variant="primary">
-              Read the docs
+            <PillLink href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/" variant="primary">
+              Deploy an MCP server
             </PillLink>
-            <PillLink href="https://github.com/cloudflare/agents/tree/main/examples" variant="secondary">
-              View examples
+            <PillLink href="https://blog.cloudflare.com/code-mode-mcp/" variant="secondary">
+              Code Mode
+            </PillLink>
+            <PillLink href="https://github.com/cloudflare/mcp" variant="secondary">
+              View source
             </PillLink>
           </div>
         </div>

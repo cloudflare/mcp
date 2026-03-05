@@ -22,6 +22,8 @@ interface GridSquareProps {
   cardScale?: number
   grayscaleAmount?: number
   pushOffset?: { x: number; y: number }
+  onClick?: (server: MCPServer) => void
+  isSelected?: boolean
 }
 
 interface CardContentProps {
@@ -94,7 +96,9 @@ export function GridSquare({
   cellSize,
   cardScale = 1,
   grayscaleAmount = 0,
-  pushOffset = { x: 0, y: 0 }
+  pushOffset = { x: 0, y: 0 },
+  onClick,
+  isSelected = false
 }: GridSquareProps) {
   const heroColors = useHeroColors()
   const { theme } = useTheme()
@@ -123,24 +127,26 @@ export function GridSquare({
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{
         opacity: 1,
-        scale: 1,
+        scale: isSelected ? 1.05 : 1,
         x: pushOffset.x,
         y: pushOffset.y
       }}
       exit={{ opacity: 0, scale: 0.9 }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: isSelected ? 1.05 : 1.02 }}
       transition={{
         duration: 0.4,
         ease: 'easeOut',
         x: PUSH_SPRING,
         y: PUSH_SPRING
       }}
-      className="absolute pointer-events-auto cursor-default"
+      className="absolute pointer-events-auto cursor-pointer"
+      onClick={() => onClick?.(server)}
       style={{
         left: position.x,
         top: position.y,
         transformOrigin: 'top left',
-        scale: cardScale
+        scale: cardScale,
+        filter: isSelected ? `drop-shadow(0 0 8px ${serverColor})` : undefined
       }}
     >
       {/* Colored version (base layer) */}

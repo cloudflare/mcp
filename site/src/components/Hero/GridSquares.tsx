@@ -46,6 +46,8 @@ interface GridSquaresProps {
   desatTrailPersist?: number
   pushStrength?: number
   pushRadius?: number
+  onCardClick?: (server: MCPServer) => void
+  selectedServerId?: string
 }
 
 function getCardCountsForWidth(width: number): { initial: number; minimum: number } {
@@ -82,7 +84,9 @@ export function GridSquares({
   desatStyle = 'smooth',
   desatTrailPersist = 0.5,
   pushStrength = 15,
-  pushRadius = 200
+  pushRadius = 200,
+  onCardClick,
+  selectedServerId
 }: GridSquaresProps) {
   const [activeCards, setActiveCards] = useState<ActiveCard[]>([])
   const glowContext = useGlowColorsOptional()
@@ -231,8 +235,10 @@ export function GridSquares({
       setActiveCards((prev) => {
         if (prev.length === 0) return prev
 
-        // Remove a random card and add a new one
-        const removeIndex = Math.floor(Math.random() * prev.length)
+        // Don't cycle out the selected card
+        const removable = prev.map((c, i) => ({ card: c, index: i })).filter(({ card }) => card.server.id !== selectedServerId)
+        if (removable.length === 0) return prev
+        const removeIndex = removable[Math.floor(Math.random() * removable.length)].index
         const newCards = prev.filter((_, i) => i !== removeIndex)
 
         const newCard = generateRandomCard(newCards)
@@ -399,6 +405,8 @@ export function GridSquares({
               cardScale={cardScale}
               grayscaleAmount={getGrayscaleAmount(card.id, center.x, center.y)}
               pushOffset={getPushOffset(center.x, center.y)}
+              onClick={onCardClick}
+              isSelected={selectedServerId === card.server.id}
             />
           )
         })}
