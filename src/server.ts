@@ -141,6 +141,18 @@ ${CLOUDFLARE_TYPES}
 
 Your code must be an async arrow function that returns the result.
 
+IMPORTANT: Always use the 'search' tool first to find the correct endpoint path and parameters. Not all endpoints follow the same pattern — some are top-level (e.g. /zones, /user) with query filters, others are nested under /accounts/{account_id}/.
+
+Example: List zones (top-level endpoint with account filter):
+async () => {
+  return cloudflare.request({ method: "GET", path: "/zones", query: { "account.id": accountId } });
+}
+
+Example: List Workers scripts (account-scoped endpoint):
+async () => {
+  return cloudflare.request({ method: "GET", path: \`/accounts/\${accountId}/workers/scripts\` });
+}
+
 Example: Worker with bindings (requires multipart/form-data):
 async () => {
   const code = \`addEventListener('fetch', e => e.respondWith(MY_KV.get('key').then(v => new Response(v || 'none'))));\`;
