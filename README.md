@@ -136,7 +136,7 @@ execute({
       body: {
         query: \`query {
           viewer {
-            zones(filter: { zoneTag: "\${accountId}" }) {
+            zones(filter: { zoneTag: "your-zone-id" }) {
               httpRequests1dGroups(limit: 7, orderBy: [date_ASC]) {
                 dimensions {
                   date
