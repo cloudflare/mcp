@@ -2,7 +2,6 @@ import { Agent, routeAgentRequest, callable } from "agents";
 import { createWorkersAI } from "workers-ai-provider";
 import { AIChatAgent, type OnChatMessageOptions } from "@cloudflare/ai-chat";
 import { streamText, convertToModelMessages, pruneMessages, stepCountIs } from "ai";
-import { PersistedObject } from "./utils/persisted-object";
 
 // ── Grid Agent (existing multiplayer pixel grid) ─────────────────────
 
@@ -98,17 +97,6 @@ Keep responses short and focused. This is a demo — help users see how powerful
 export class ChatAgent extends AIChatAgent {
   maxPersistedMessages = 50;
 
-  private _mcpConnectionCache?: ReturnType<typeof PersistedObject<Record<string, string | null>>>;
-  private get _mcpConnection() {
-    if (!this._mcpConnectionCache) {
-      this._mcpConnectionCache = PersistedObject<Record<string, string | null>>(
-        this.ctx.storage.kv,
-        { prefix: "mcpConnection:", defaults: { currentName: null } }
-      );
-    }
-    return this._mcpConnectionCache;
-  }
-
   async onStart() {
     this.mcp.configureOAuthCallback({
       customHandler: (result) => {
@@ -125,13 +113,11 @@ export class ChatAgent extends AIChatAgent {
       },
     });
 
-    // Reset inactivity timer on start
+    // Destroy after 1 hour of inactivity
     await this.resetInactivityTimer();
   }
 
-  /** Reset inactivity timer — destroy after 1 hour of no use */
   private async resetInactivityTimer() {
-    // Cancel any existing timer
     const schedules = this.getSchedules();
     for (const s of schedules) {
       if (s.callback === "inactivityDestroy") {
@@ -154,15 +140,12 @@ export class ChatAgent extends AIChatAgent {
 
     await this.resetInactivityTimer();
 
-    // Check if already connected to this server
+    // Already connected — no-op
     const existing = this.mcp.listServers().find((s) => s.name === serverId);
     if (existing) {
-      // Already connected — just switch active server
-      this._mcpConnection.currentName = serverId;
       return { id: existing.id, state: "ready" };
     }
 
-    this._mcpConnection.currentName = serverId;
     return await this.addMcpServer(serverId, url, {
       callbackHost: this.env.HOST,
     });
@@ -170,36 +153,12 @@ export class ChatAgent extends AIChatAgent {
 
   @callable()
   async resetAgent() {
-    // Remove all servers on explicit reset
-    const servers = this.mcp.listServers();
-    for (const server of servers) {
-      try {
-        await this.mcp.removeServer(server.id);
-      } catch {}
-    }
-    this._mcpConnection.currentName = null;
-  }
-
-  /** Get tools scoped to the currently active server only */
-  private getActiveTools() {
-    const activeName = this._mcpConnection.currentName;
-    if (!activeName) return {};
-
-    // Find the server row matching the active name
-    const activeServer = this.mcp.listServers().find((s) => s.name === activeName);
-    if (!activeServer) return {};
-
-    // Get all tools and filter to only the active server's
-    const allTools = this.mcp.getAITools();
-    const prefix = `tool_${activeServer.id.replace(/-/g, "")}_`;
-    return Object.fromEntries(
-      Object.entries(allTools).filter(([key]) => key.startsWith(prefix))
-    );
+    await this.destroy();
   }
 
   async onChatMessage(_onFinish: unknown, options?: OnChatMessageOptions) {
     await this.resetInactivityTimer();
-    const mcpTools = this.getActiveTools();
+    const mcpTools = this.mcp.getAITools();
     const workersai = createWorkersAI({ binding: this.env.AI });
 
     const result = streamText({

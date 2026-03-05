@@ -54,15 +54,16 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
     tools: [],
   })
   const [isConnectingMcp, setIsConnectingMcp] = useState(false)
-  const [cleared, setCleared] = useState(false)
   const pendingMessageRef = useRef<string | null>(null)
-  const connectedServerRef = useRef<string | null>(null)
+  const connectedRef = useRef(false)
 
-  const [sessionId] = useState(getOrCreateSessionId)
+  // Each server gets its own DO — session ID includes server ID
+  const [userId] = useState(getOrCreateSessionId)
+  const agentName = `${userId}-${selectedServer.id}`
 
   const agent = useAgent({
     agent: 'chat-agent',
-    name: sessionId,
+    name: agentName,
     onOpen: useCallback(() => setIsConnected(true), []),
     onClose: useCallback(() => setIsConnected(false), []),
     onError: useCallback(() => setIsConnected(false), []),
@@ -72,16 +73,16 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
     }, []),
   })
 
-  const { messages: rawMessages, sendMessage, clearHistory, stop, status } = useAgentChat({ agent })
+  const { messages, sendMessage, clearHistory, stop, status } = useAgentChat({ agent })
 
-  const messages = cleared ? [] : rawMessages
-
-  // Reset cleared flag when new messages arrive
+  // Reset local state when server changes (new agent/DO)
   useEffect(() => {
-    if (cleared && rawMessages.length > 0) {
-      setCleared(false)
-    }
-  }, [cleared, rawMessages])
+    setInput('')
+    setIsConnectingMcp(false)
+    pendingMessageRef.current = null
+    connectedRef.current = false
+    setMcpState({ prompts: [], resources: [], servers: {}, tools: [] })
+  }, [selectedServer.id])
 
   const isStreaming = status === 'streaming'
   const { status: mcpStatus, authUrl } = getMcpStatus(mcpState)
@@ -104,26 +105,12 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
     }
   }, [isReady, sendMessage])
 
-  // Handle server switch: clear chat but keep connections alive
-  useEffect(() => {
-    if (connectedServerRef.current && connectedServerRef.current !== selectedServer.id) {
-      stop()
-      setCleared(true)
-      setIsConnectingMcp(false)
-      setInput('')
-      pendingMessageRef.current = null
-      clearHistory()
-      connectedServerRef.current = null
-    }
-  }, [selectedServer.id, clearHistory, stop])
-
   const handleClear = useCallback(() => {
     stop()
-    setCleared(true)
     setIsConnectingMcp(false)
     setInput('')
     pendingMessageRef.current = null
-    connectedServerRef.current = null
+    connectedRef.current = false
     clearHistory()
     agent.call('resetAgent', []).catch(() => {})
   }, [agent, clearHistory, stop])
@@ -134,18 +121,17 @@ export function ChatInterface({ selectedServer }: ChatInterfaceProps) {
 
     setInput('')
 
-    if (isReady && connectedServerRef.current === selectedServer.id) {
-      // MCP is connected to the right server — send immediately
+    if (isReady && connectedRef.current) {
       sendMessage({ role: 'user', parts: [{ type: 'text', text }] })
       return
     }
 
-    // MCP not ready — store message and kick off connection
+    // Not connected yet — store message and connect
     pendingMessageRef.current = text
     setIsConnectingMcp(true)
     try {
       await agent.call('connectMcp', [selectedServer.id])
-      connectedServerRef.current = selectedServer.id
+      connectedRef.current = true
     } catch (e) {
       console.error('Failed to connect MCP server:', e)
       setIsConnectingMcp(false)
