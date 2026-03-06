@@ -73,6 +73,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
 
   const selectedServerIds = selectedServers.map((s) => s.id)
   const selectionKey = [...selectedServerIds].sort().join(',') + `|${useCodemode}`
+  const agentRef = useRef<ReturnType<typeof useAgent> | null>(null)
 
   // Single agent — one DO for the whole session
   const agent = useAgent({
@@ -82,17 +83,18 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
       setIsConnected(true)
       if (syncedRef.current) return
       syncedRef.current = true
-      agent.call('getSessionConfig').then((config: { serverIds: string[]; useCodemode: boolean }) => {
+      agentRef.current?.call('getSessionConfig').then((config: { serverIds: string[]; useCodemode: boolean }) => {
         skipNextClearRef.current = true
         onSyncFromServer(config.serverIds, config.useCodemode)
       }).catch(() => {})
-    }, [agent, onSyncFromServer]),
+    }, [onSyncFromServer]),
     onClose: useCallback(() => setIsConnected(false), []),
     onError: useCallback(() => setIsConnected(false), []),
     onMcpUpdate: useCallback((mcpState: MCPServersState) => {
       setMcpState(mcpState)
     }, []),
   })
+  agentRef.current = agent
 
   const { messages, sendMessage, clearHistory, stop, status } = useAgentChat({ agent })
 
