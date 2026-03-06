@@ -35,6 +35,10 @@ export function PageContent() {
       setSelectedServers(servers)
       const defaultCodemode = servers.length > 1
       setCodemodeOverride(serverCodemode !== defaultCodemode ? serverCodemode : null)
+    } else {
+      // Server has no connections — reset to defaults
+      setSelectedServers([MCP_SERVERS[0]])
+      setCodemodeOverride(null)
     }
   }, [])
 

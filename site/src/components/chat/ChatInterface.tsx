@@ -48,10 +48,6 @@ function getMcpStatus(mcpState: MCPServersState, selectedServerIds: string[]): {
   return { status: 'connecting' }
 }
 
-interface ChatAgentState {
-  useCodemode: boolean
-}
-
 interface ChatInterfaceProps {
   selectedServers: MCPServer[]
   useCodemode: boolean
@@ -70,7 +66,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
   const [connectError, setConnectError] = useState<string | null>(null)
   const pendingMessageRef = useRef<string | null>(null)
   const prevSelectionRef = useRef<string | null>(null)
-  const hasSyncedRef = useRef(false)
+  const syncedRef = useRef(false)
   const skipNextClearRef = useRef(false)
 
   const [sessionId, setSessionId] = useState(getOrCreateSessionId)
@@ -78,33 +74,24 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
   const selectedServerIds = selectedServers.map((s) => s.id)
   const selectionKey = [...selectedServerIds].sort().join(',') + `|${useCodemode}`
 
-  // Track server state for sync — refs to avoid stale closures in callbacks
-  const serverStateRef = useRef<{ serverIds: string[]; useCodemode: boolean } | null>(null)
-
   // Single agent — one DO for the whole session
-  const agent = useAgent<ChatAgentState>({
+  const agent = useAgent({
     agent: 'chat-agent',
     name: sessionId,
-    onOpen: useCallback(() => setIsConnected(true), []),
+    onOpen: useCallback(() => {
+      setIsConnected(true)
+      if (syncedRef.current) return
+      syncedRef.current = true
+      agent.call('getSessionConfig').then((config: { serverIds: string[]; useCodemode: boolean }) => {
+        skipNextClearRef.current = true
+        onSyncFromServer(config.serverIds, config.useCodemode)
+      }).catch(() => {})
+    }, [agent, onSyncFromServer]),
     onClose: useCallback(() => setIsConnected(false), []),
     onError: useCallback(() => setIsConnected(false), []),
-    onStateUpdate: useCallback((state: ChatAgentState) => {
-      serverStateRef.current = { ...serverStateRef.current!, useCodemode: state.useCodemode }
-    }, []),
     onMcpUpdate: useCallback((mcpState: MCPServersState) => {
       setMcpState(mcpState)
-
-      // Sync client selection from server on first MCP state push
-      if (!hasSyncedRef.current) {
-        hasSyncedRef.current = true
-        const serverIds = Object.values(mcpState.servers).map((s) => s.name)
-        if (serverIds.length > 0) {
-          const codemode = serverStateRef.current?.useCodemode ?? false
-          skipNextClearRef.current = true
-          onSyncFromServer(serverIds, codemode)
-        }
-      }
-    }, [onSyncFromServer]),
+    }, []),
   })
 
   const { messages, sendMessage, clearHistory, stop, status } = useAgentChat({ agent })
@@ -134,7 +121,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
   // Open OAuth popup when auth is needed
   useEffect(() => {
     if (mcpStatus === 'authenticating' && authUrl) {
-      window.open(authUrl, 'oauth', 'width=600,height=800')
+      window.open(authUrl, 'oauth', 'width=600,height=800,noopener,noreferrer')
     }
   }, [mcpStatus, authUrl])
 
@@ -158,7 +145,8 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
     setInput('')
     pendingMessageRef.current = null
     prevSelectionRef.current = null
-    hasSyncedRef.current = false
+    syncedRef.current = false
+    skipNextClearRef.current = false
     setMcpState({ prompts: [], resources: [], servers: {}, tools: [] })
   }, [clearHistory, stop])
 
@@ -224,6 +212,11 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
           {mcpStatus === 'connecting' && (
             <span className="text-xs text-(--color-muted)">
               · connecting...
+            </span>
+          )}
+          {connectError && (
+            <span className="text-xs text-red-500">
+              · connection failed
             </span>
           )}
         </div>

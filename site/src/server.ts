@@ -103,6 +103,14 @@ export type ChatAgentState = {
 export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
   maxPersistedMessages = 50;
   initialState: ChatAgentState = { useCodemode: false };
+  private executor?: DynamicWorkerExecutor;
+
+  private getExecutor(): DynamicWorkerExecutor {
+    if (!this.executor) {
+      this.executor = new DynamicWorkerExecutor({ loader: this.env.LOADER });
+    }
+    return this.executor;
+  }
 
   async onStart() {
     this.mcp.configureOAuthCallback({
@@ -137,6 +145,13 @@ export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
     } catch (e) {
       console.error("Failed to destroy agent:", e);
     }
+  }
+
+  /** Return current session config for client sync on reconnect */
+  @callable()
+  getSessionConfig() {
+    const serverIds = this.mcp.listServers().map((s) => s.name);
+    return { serverIds, useCodemode: this.state.useCodemode };
   }
 
   /** Connect to one or more servers, removing any not in the list */
@@ -192,8 +207,7 @@ export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
 
     let tools;
     if (this.state.useCodemode) {
-      const executor = new DynamicWorkerExecutor({ loader: this.env.LOADER });
-      const codemode = createCodeTool({ tools: mcpTools, executor });
+      const codemode = createCodeTool({ tools: mcpTools, executor: this.getExecutor() });
       tools = { codemode };
     } else {
       tools = mcpTools;
