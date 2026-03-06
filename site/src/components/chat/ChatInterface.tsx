@@ -48,12 +48,17 @@ function getMcpStatus(mcpState: MCPServersState, selectedServerIds: string[]): {
   return { status: 'connecting' }
 }
 
-interface ChatInterfaceProps {
-  selectedServers: MCPServer[]
+interface ChatAgentState {
   useCodemode: boolean
 }
 
-export function ChatInterface({ selectedServers, useCodemode }: ChatInterfaceProps) {
+interface ChatInterfaceProps {
+  selectedServers: MCPServer[]
+  useCodemode: boolean
+  onSyncFromServer: (serverIds: string[], useCodemode: boolean) => void
+}
+
+export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }: ChatInterfaceProps) {
   const [input, setInput] = useState('')
   const [isConnected, setIsConnected] = useState(false)
   const [mcpState, setMcpState] = useState<MCPServersState>({
@@ -65,23 +70,40 @@ export function ChatInterface({ selectedServers, useCodemode }: ChatInterfacePro
   const [isConnectingMcp, setIsConnectingMcp] = useState(false)
   const pendingMessageRef = useRef<string | null>(null)
   const prevSelectionRef = useRef<string | null>(null)
+  const hasSyncedRef = useRef(false)
 
   const [sessionId, setSessionId] = useState(getOrCreateSessionId)
 
   const selectedServerIds = selectedServers.map((s) => s.id)
   const selectionKey = [...selectedServerIds].sort().join(',') + `|${useCodemode}`
 
+  // Track server state for sync — refs to avoid stale closures in callbacks
+  const serverStateRef = useRef<{ serverIds: string[]; useCodemode: boolean } | null>(null)
+
   // Single agent — one DO for the whole session
-  const agent = useAgent({
+  const agent = useAgent<ChatAgentState>({
     agent: 'chat-agent',
     name: sessionId,
     onOpen: useCallback(() => setIsConnected(true), []),
     onClose: useCallback(() => setIsConnected(false), []),
     onError: useCallback(() => setIsConnected(false), []),
-    onMcpUpdate: useCallback((state: MCPServersState) => {
-      setMcpState(state)
-      setIsConnectingMcp(false)
+    onStateUpdate: useCallback((state: ChatAgentState) => {
+      serverStateRef.current = { ...serverStateRef.current!, useCodemode: state.useCodemode }
     }, []),
+    onMcpUpdate: useCallback((mcpState: MCPServersState) => {
+      setMcpState(mcpState)
+      setIsConnectingMcp(false)
+
+      // Sync client selection from server on first MCP state push
+      if (!hasSyncedRef.current) {
+        hasSyncedRef.current = true
+        const serverIds = Object.values(mcpState.servers).map((s) => s.name)
+        if (serverIds.length > 0) {
+          const codemode = serverStateRef.current?.useCodemode ?? false
+          onSyncFromServer(serverIds, codemode)
+        }
+      }
+    }, [onSyncFromServer]),
   })
 
   const { messages, sendMessage, clearHistory, stop, status } = useAgentChat({ agent })
@@ -131,6 +153,7 @@ export function ChatInterface({ selectedServers, useCodemode }: ChatInterfacePro
     setInput('')
     pendingMessageRef.current = null
     prevSelectionRef.current = null
+    hasSyncedRef.current = false
     setMcpState({ prompts: [], resources: [], servers: {}, tools: [] })
   }, [clearHistory, stop])
 
@@ -175,26 +198,26 @@ export function ChatInterface({ selectedServers, useCodemode }: ChatInterfacePro
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-dashed border-(--color-border)">
         <div className="flex items-center gap-2">
           <div className={`w-2 h-2 rounded-full ${isReady ? 'bg-green-500' : isConnectingMcp || mcpStatus === 'connecting' ? 'bg-amber-500' : 'bg-(--color-muted)'}`} />
-          <span className="font-mono text-xs text-(--color-muted)">
+          <span className="text-xs text-(--color-muted)">
             {serverNames}
           </span>
           {useCodemode && (
-            <span className="font-mono text-xs text-purple-500">
+            <span className="text-xs text-purple-500">
               · code mode
             </span>
           )}
           {isReady && mcpState.tools.length > 0 && (
-            <span className="font-mono text-xs text-(--color-muted)">
+            <span className="text-xs text-(--color-muted)">
               · {mcpState.tools.length} tools
             </span>
           )}
           {mcpStatus === 'authenticating' && (
-            <span className="font-mono text-xs text-amber-500">
+            <span className="text-xs text-amber-500">
               · waiting for auth
             </span>
           )}
           {isConnectingMcp && mcpStatus !== 'authenticating' && (
-            <span className="font-mono text-xs text-(--color-muted)">
+            <span className="text-xs text-(--color-muted)">
               · connecting...
             </span>
           )}

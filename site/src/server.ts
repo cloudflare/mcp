@@ -96,9 +96,13 @@ Use the available tools to help the user accomplish their goals. Be concise and 
 
 Keep responses short and focused. This is a demo — help users see how powerful remote MCP servers are.`;
 
-export class ChatAgent extends AIChatAgent {
+export type ChatAgentState = {
+  useCodemode: boolean;
+};
+
+export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
   maxPersistedMessages = 50;
-  useCodemode = false;
+  initialState: ChatAgentState = { useCodemode: false };
 
   async onStart() {
     this.mcp.configureOAuthCallback({
@@ -139,7 +143,7 @@ export class ChatAgent extends AIChatAgent {
   @callable()
   async connectServers(serverIds: string[], useCodemode: boolean) {
     await this.resetInactivityTimer();
-    this.useCodemode = useCodemode;
+    this.setState({ ...this.state, useCodemode });
 
     // Validate all server IDs
     for (const id of serverIds) {
@@ -182,12 +186,12 @@ export class ChatAgent extends AIChatAgent {
     const workersai = createWorkersAI({ binding: this.env.AI });
 
     const connectedNames = this.mcp.listServers().map((s) => s.name).join(", ");
-    const systemPrompt = this.useCodemode
+    const systemPrompt = this.state.useCodemode
       ? `${SYSTEM_PROMPT}\n\nYou are in Code Mode. You have a single "codemode" tool that lets you write JavaScript code to call multiple MCP tools. The connected servers are: ${connectedNames}. Write code using the \`codemode\` object to call the available functions.`
       : SYSTEM_PROMPT;
 
     let tools;
-    if (this.useCodemode) {
+    if (this.state.useCodemode) {
       const executor = new DynamicWorkerExecutor({ loader: this.env.LOADER });
       const codemode = createCodeTool({ tools: mcpTools, executor });
       tools = { codemode };

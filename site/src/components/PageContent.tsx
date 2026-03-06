@@ -26,6 +26,18 @@ export function PageContent() {
     demoSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
 
+  // Sync selection from server when reconnecting to an existing session
+  const handleSyncFromServer = useCallback((serverIds: string[], serverCodemode: boolean) => {
+    const servers = serverIds
+      .map((id) => MCP_SERVERS.find((s) => s.id === id))
+      .filter((s): s is MCPServer => !!s)
+    if (servers.length > 0) {
+      setSelectedServers(servers)
+      const defaultCodemode = servers.length > 1
+      setCodemodeOverride(serverCodemode !== defaultCodemode ? serverCodemode : null)
+    }
+  }, [])
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
@@ -82,7 +94,7 @@ export function PageContent() {
                 Code Mode
               </button>
             </div>
-            <ChatDemo selectedServers={selectedServers} useCodemode={useCodemode} />
+            <ChatDemo selectedServers={selectedServers} useCodemode={useCodemode} onSyncFromServer={handleSyncFromServer} />
           </div>
         </FadeInSection>
       </div>
