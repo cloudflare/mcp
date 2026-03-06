@@ -67,10 +67,11 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
     servers: {},
     tools: [],
   })
-  const [isConnectingMcp, setIsConnectingMcp] = useState(false)
+  const [connectError, setConnectError] = useState<string | null>(null)
   const pendingMessageRef = useRef<string | null>(null)
   const prevSelectionRef = useRef<string | null>(null)
   const hasSyncedRef = useRef(false)
+  const skipNextClearRef = useRef(false)
 
   const [sessionId, setSessionId] = useState(getOrCreateSessionId)
 
@@ -92,7 +93,6 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
     }, []),
     onMcpUpdate: useCallback((mcpState: MCPServersState) => {
       setMcpState(mcpState)
-      setIsConnectingMcp(false)
 
       // Sync client selection from server on first MCP state push
       if (!hasSyncedRef.current) {
@@ -100,6 +100,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
         const serverIds = Object.values(mcpState.servers).map((s) => s.name)
         if (serverIds.length > 0) {
           const codemode = serverStateRef.current?.useCodemode ?? false
+          skipNextClearRef.current = true
           onSyncFromServer(serverIds, codemode)
         }
       }
@@ -113,14 +114,19 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
   const isReady = mcpStatus === 'ready'
 
   // When selection changes, clear chat but do NOT connect (lazy connect)
+  // Skip clear when the change came from server sync (not user action)
   useEffect(() => {
+    if (skipNextClearRef.current) {
+      skipNextClearRef.current = false
+      prevSelectionRef.current = selectionKey
+      return
+    }
     if (prevSelectionRef.current !== null && prevSelectionRef.current !== selectionKey) {
       stop()
       clearHistory()
       pendingMessageRef.current = null
-      setIsConnectingMcp(false)
+      setConnectError(null)
       setInput('')
-      setMcpState({ prompts: [], resources: [], servers: {}, tools: [] })
     }
     prevSelectionRef.current = selectionKey
   }, [selectionKey, stop, clearHistory])
@@ -137,7 +143,6 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
     if (isReady && pendingMessageRef.current) {
       const text = pendingMessageRef.current
       pendingMessageRef.current = null
-      setIsConnectingMcp(false)
       sendMessage({ role: 'user', parts: [{ type: 'text', text }] })
     }
   }, [isReady, sendMessage])
@@ -149,7 +154,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
     localStorage.setItem(SESSION_KEY, newId)
     clearHistory()
     setSessionId(newId)
-    setIsConnectingMcp(false)
+    setConnectError(null)
     setInput('')
     pendingMessageRef.current = null
     prevSelectionRef.current = null
@@ -171,12 +176,12 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
 
     // Not connected — store message and kick off connection
     pendingMessageRef.current = text
-    setIsConnectingMcp(true)
+    setConnectError(null)
     try {
       await agent.call('connectServers', [selectedServerIds, useCodemode])
     } catch (e) {
       console.error('Failed to connect MCP servers:', e)
-      setIsConnectingMcp(false)
+      setConnectError(String(e))
       pendingMessageRef.current = null
       setInput(text)
     }
@@ -197,7 +202,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-dashed border-(--color-border)">
         <div className="flex items-center gap-2">
-          <div className={`w-2 h-2 rounded-full ${isReady ? 'bg-green-500' : isConnectingMcp || mcpStatus === 'connecting' ? 'bg-amber-500' : 'bg-(--color-muted)'}`} />
+          <div className={`w-2 h-2 rounded-full ${isReady ? 'bg-green-500' : mcpStatus === 'connecting' || hasPending ? 'bg-amber-500' : 'bg-(--color-muted)'}`} />
           <span className="text-xs text-(--color-muted)">
             {serverNames}
           </span>
@@ -216,7 +221,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
               · waiting for auth
             </span>
           )}
-          {isConnectingMcp && mcpStatus !== 'authenticating' && (
+          {mcpStatus === 'connecting' && (
             <span className="text-xs text-(--color-muted)">
               · connecting...
             </span>
@@ -306,7 +311,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
             return (
               <div key={message.id} className="space-y-2">
                 {message.parts.map((part, partIdx) => {
-                  const partKey = partIdx
+                  const partKey = (part as any).toolCallId ?? `${part.type}-${partIdx}`
 
                   if (part.type === 'text') {
                     if (!part.text || part.text.trim() === '') return null
