@@ -283,10 +283,12 @@ export function ChatInterface({ selectedServers, useCodemode }: ChatInterfacePro
             return (
               <div key={message.id} className="space-y-2">
                 {message.parts.map((part, partIdx) => {
+                  const partKey = partIdx
+
                   if (part.type === 'text') {
                     if (!part.text || part.text.trim() === '') return null
                     return (
-                      <div key={partIdx} className="flex justify-start">
+                      <div key={partKey} className="flex justify-start">
                         <div className="max-w-[80%] rounded-2xl rounded-bl-md border border-(--color-border)">
                           <Streamdown
                             className="sd-theme px-4 py-2.5 text-sm leading-relaxed"
@@ -306,7 +308,7 @@ export function ChatInterface({ selectedServers, useCodemode }: ChatInterfacePro
                     const text = (part as any).text
                     if (!text || text.trim() === '') return null
                     return (
-                      <details key={partIdx} className="max-w-[80%] group">
+                      <details key={partKey} className="max-w-[80%] group">
                         <summary className="flex items-center gap-1.5 cursor-pointer text-xs text-(--color-muted) py-1 select-none">
                           <CaretRight size={10} className="transition-transform group-open:rotate-90" />
                           <Brain size={12} />
@@ -321,7 +323,7 @@ export function ChatInterface({ selectedServers, useCodemode }: ChatInterfacePro
 
                   if (isToolUIPart(part)) {
                     return (
-                      <div key={(part as any).toolCallId ?? partIdx} className="max-w-[80%]">
+                      <div key={partKey} className="max-w-[80%]">
                         <ToolCard toolPart={part as any} />
                       </div>
                     )

@@ -73,7 +73,11 @@ export function ToolCard({ toolPart }: { toolPart: ToolPart }) {
         {isRunning && <CircleNotch size={14} className="text-(--color-muted) animate-spin shrink-0" />}
       </button>
 
-      {expanded && (
+      <div
+        className={`transition-all duration-200 overflow-hidden ${
+          expanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
         <div className="px-3 pb-3 border-t border-(--color-border) space-y-2 pt-2">
           {toolPart.input?.code && (
             <div>
@@ -119,7 +123,7 @@ export function ToolCard({ toolPart }: { toolPart: ToolPart }) {
             </div>
           )}
         </div>
-      )}
+      </div>
     </div>
   )
 }

@@ -10,7 +10,8 @@ export function PageContent() {
   const [codemodeEnabled, setCodemodeEnabled] = useState(false)
   const demoSectionRef = useRef<HTMLDivElement>(null)
 
-  const useCodemode = codemodeEnabled || selectedServers.length > 1
+  const hasCloudflare = selectedServers.some((s) => s.id === 'cloudflare')
+  const useCodemode = !hasCloudflare && (codemodeEnabled || selectedServers.length > 1)
 
   const handleCardClick = useCallback((server: MCPServer) => {
     setSelectedServers((prev) => {
@@ -43,7 +44,7 @@ export function PageContent() {
               Build and connect to MCP servers.
             </GlowHeading>
             <p className="text-lg leading-relaxed text-(--color-label) mb-6">
-              Host your MCP servers on Cloudflare. Join the likes of these companies.
+              Host your MCP servers on Cloudflare.
             </p>
             <div className="flex flex-wrap gap-2 mb-6">
               {MCP_SERVERS.map((server) => {
@@ -66,22 +67,25 @@ export function PageContent() {
                   </button>
                 )
               })}
-              {/* Code Mode pill */}
+              {/* Code Mode pill — disabled when Cloudflare is selected (it has native codemode) */}
               <button
                 type="button"
                 onClick={() => {
-                  if (selectedServers.length <= 1) setCodemodeEnabled((v) => !v)
+                  if (!hasCloudflare && selectedServers.length <= 1) setCodemodeEnabled((v) => !v)
                 }}
+                disabled={hasCloudflare}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                  useCodemode
-                    ? 'border-purple-500 bg-purple-500/10 text-purple-500'
-                    : 'border-dashed border-(--color-border) text-(--color-label) hover:bg-(--color-subtle) hover:border-(--color-surface) cursor-pointer'
-                } ${selectedServers.length > 1 ? 'cursor-default' : 'cursor-pointer'}`}
-                title={selectedServers.length > 1 ? 'Code Mode is always active with multiple servers' : 'Toggle Code Mode'}
+                  hasCloudflare
+                    ? 'border-(--color-border) text-(--color-muted) opacity-40 cursor-not-allowed'
+                    : useCodemode
+                      ? 'border-purple-500 bg-purple-500/10 text-purple-500 cursor-pointer'
+                      : 'border-dashed border-(--color-border) text-(--color-label) hover:bg-(--color-subtle) hover:border-(--color-surface) cursor-pointer'
+                } ${!hasCloudflare && selectedServers.length > 1 ? 'cursor-default' : ''}`}
+                title={hasCloudflare ? 'Cloudflare MCP has built-in code mode' : selectedServers.length > 1 ? 'Code Mode is always active with multiple servers' : 'Toggle Code Mode'}
               >
                 {'</>'}
                 Code Mode
-                {selectedServers.length > 1 && (
+                {!hasCloudflare && selectedServers.length > 1 && (
                   <span className="text-[10px] opacity-70">auto</span>
                 )}
               </button>

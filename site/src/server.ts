@@ -14,7 +14,7 @@ export type GridState = {
 const MAX_COORD = 200;
 const MAX_CELLS = 500;
 const DECAY_MS = 60_000;
-const SWEEP_INTERVAL_S = 5;
+const SWEEP_INTERVAL_S = 30;
 
 export class GridAgent extends Agent<Env, GridState> {
   initialState: GridState = { cells: {} };
@@ -115,8 +115,6 @@ export class ChatAgent extends AIChatAgent {
         );
       },
     });
-
-    await this.resetInactivityTimer();
   }
 
   private async resetInactivityTimer() {
@@ -130,7 +128,11 @@ export class ChatAgent extends AIChatAgent {
   }
 
   async inactivityDestroy() {
-    await this.destroy();
+    try {
+      await this.destroy();
+    } catch (e) {
+      console.error("Failed to destroy agent:", e);
+    }
   }
 
   /** Connect to one or more servers, removing any not in the list */
