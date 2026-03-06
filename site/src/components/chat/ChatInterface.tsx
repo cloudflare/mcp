@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useAgent } from 'agents/react'
 import { useAgentChat } from '@cloudflare/ai-chat/react'
 import { isToolUIPart } from 'ai'
@@ -13,9 +13,8 @@ import {
   Stop,
   CaretRight,
   Brain,
+  ArrowsClockwise,
 } from '@phosphor-icons/react'
-
-type McpStatus = 'disconnected' | 'authenticating' | 'connecting' | 'ready'
 
 const SESSION_KEY = 'mcp-chat-session'
 
@@ -26,26 +25,6 @@ function getOrCreateSessionId(): string {
     localStorage.setItem(SESSION_KEY, id)
   }
   return id
-}
-
-function getMcpStatus(mcpState: MCPServersState, selectedServerIds: string[]): { status: McpStatus; authUrl?: string } {
-  const servers = Object.values(mcpState.servers)
-  if (servers.length === 0) return { status: 'disconnected' }
-
-  // Check if any server is authenticating
-  const authServer = servers.find((s) => s.state === 'authenticating' && s.auth_url)
-  if (authServer) {
-    return { status: 'authenticating', authUrl: authServer.auth_url }
-  }
-
-  // All selected servers must be ready
-  const allReady = selectedServerIds.every((id) => {
-    const server = servers.find((s) => s.name === id)
-    return server?.state === 'ready'
-  })
-  if (allReady) return { status: 'ready' }
-
-  return { status: 'connecting' }
 }
 
 interface ChatInterfaceProps {
@@ -68,8 +47,9 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
   const prevSelectionRef = useRef<string | null>(null)
   const syncedRef = useRef(false)
   const skipNextClearRef = useRef(false)
+  const openedAuthRef = useRef<Record<string, string>>({})
 
-  const [sessionId, setSessionId] = useState(getOrCreateSessionId)
+  const [sessionId] = useState(getOrCreateSessionId)
 
   const selectedServerIds = selectedServers.map((s) => s.id)
   const selectionKey = [...selectedServerIds].sort().join(',') + `|${useCodemode}`
@@ -83,9 +63,9 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
       setIsConnected(true)
       if (syncedRef.current) return
       syncedRef.current = true
-      agentRef.current?.call('getSessionConfig').then((config: { serverIds: string[]; useCodemode: boolean }) => {
+      agentRef.current?.call('getSessionConfig').then((config: { serverIds: string[]; activeServerIds: string[]; useCodemode: boolean }) => {
         skipNextClearRef.current = true
-        onSyncFromServer(config.serverIds, config.useCodemode)
+        onSyncFromServer(config.activeServerIds.length > 0 ? config.activeServerIds : config.serverIds, config.useCodemode)
       }).catch(() => {})
     }, [onSyncFromServer]),
     onClose: useCallback(() => setIsConnected(false), []),
@@ -99,11 +79,32 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
   const { messages, sendMessage, clearHistory, stop, status } = useAgentChat({ agent })
 
   const isStreaming = status === 'streaming'
-  const { status: mcpStatus, authUrl } = getMcpStatus(mcpState, selectedServerIds)
-  const isReady = mcpStatus === 'ready'
 
-  // When selection changes, clear chat but do NOT connect (lazy connect)
-  // Skip clear when the change came from server sync (not user action)
+  // Derive status directly from mcpState.servers
+  const servers = Object.entries(mcpState.servers)
+  const hasServers = servers.length > 0
+  const authenticatingServer = servers.find(([, s]) => s.state === 'authenticating' && s.auth_url)
+  const isAuthenticating = !!authenticatingServer
+  const isReady = hasServers && selectedServerIds.every((id) => {
+    const server = servers.find(([, s]) => s.name === id)
+    return server?.[1]?.state === 'ready'
+  })
+  const isConnecting = hasServers && !isReady && !isAuthenticating
+
+  // Filter tool count to only active servers
+  const activeToolCount = useMemo(() => {
+    const activeInternalIds = new Set(
+      Object.values(mcpState.servers)
+        .filter((s) => selectedServerIds.includes(s.name))
+        .map((s) => s.id)
+    )
+    return mcpState.tools.filter((t) => {
+      const match = t.name?.match(/^tool_([a-zA-Z0-9]+)_/)
+      return match && activeInternalIds.has(match[1])
+    }).length
+  }, [mcpState.servers, mcpState.tools, selectedServerIds])
+
+  // When selection changes while connected, update active servers (no clear)
   useEffect(() => {
     if (skipNextClearRef.current) {
       skipNextClearRef.current = false
@@ -111,21 +112,22 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
       return
     }
     if (prevSelectionRef.current !== null && prevSelectionRef.current !== selectionKey) {
-      stop()
-      clearHistory()
-      pendingMessageRef.current = null
-      setConnectError(null)
-      setInput('')
+      if (isReady) {
+        agent.call('setActiveServers', [selectedServerIds, useCodemode])
+      }
     }
     prevSelectionRef.current = selectionKey
-  }, [selectionKey, stop, clearHistory])
+  }, [selectionKey, isReady, agent, selectedServerIds, useCodemode])
 
-  // Open OAuth popup when auth is needed
+  // Open OAuth popup when auth is needed (dedupe per server+URL)
   useEffect(() => {
-    if (mcpStatus === 'authenticating' && authUrl) {
-      window.open(authUrl, 'oauth', 'width=600,height=800,noopener,noreferrer')
-    }
-  }, [mcpStatus, authUrl])
+    if (!authenticatingServer) return
+    const [serverId, server] = authenticatingServer
+    const authUrl = server.auth_url!
+    if (openedAuthRef.current[serverId] === authUrl) return
+    openedAuthRef.current[serverId] = authUrl
+    window.open(authUrl, 'oauth', 'width=600,height=800,noopener,noreferrer')
+  }, [authenticatingServer])
 
   // When MCP becomes ready, send any pending message
   useEffect(() => {
@@ -138,18 +140,10 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
 
   const handleClear = useCallback(() => {
     stop()
-    // Generate new session ID → useAgent reconnects to a fresh DO
-    const newId = crypto.randomUUID()
-    localStorage.setItem(SESSION_KEY, newId)
     clearHistory()
-    setSessionId(newId)
     setConnectError(null)
     setInput('')
     pendingMessageRef.current = null
-    prevSelectionRef.current = null
-    syncedRef.current = false
-    skipNextClearRef.current = false
-    setMcpState({ prompts: [], resources: [], servers: {}, tools: [] })
   }, [clearHistory, stop])
 
   const send = useCallback(async () => {
@@ -159,8 +153,23 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
     setInput('')
 
     if (isReady) {
-      // Already connected — send immediately
-      sendMessage({ role: 'user', parts: [{ type: 'text', text }] })
+      // Check if any selected server isn't connected yet
+      const connectedNames = Object.values(mcpState.servers).map((s) => s.name)
+      const needsNewConnection = selectedServerIds.some((id) => !connectedNames.includes(id))
+      if (needsNewConnection) {
+        pendingMessageRef.current = text
+        setConnectError(null)
+        try {
+          await agent.call('connectServers', [selectedServerIds, useCodemode])
+        } catch (e) {
+          console.error('Failed to connect MCP servers:', e)
+          setConnectError(String(e))
+          pendingMessageRef.current = null
+          setInput(text)
+        }
+      } else {
+        sendMessage({ role: 'user', parts: [{ type: 'text', text }] })
+      }
       return
     }
 
@@ -175,7 +184,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
       pendingMessageRef.current = null
       setInput(text)
     }
-  }, [input, isStreaming, isReady, agent, sendMessage, selectedServerIds, useCodemode])
+  }, [input, isStreaming, isReady, agent, sendMessage, selectedServerIds, useCodemode, mcpState.servers])
 
   const handleTextareaInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value)
@@ -186,13 +195,14 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
 
   const hasPending = pendingMessageRef.current !== null
   const serverNames = selectedServers.map((s) => s.name).join(', ')
+  const hasNoServers = !hasServers
 
   return (
     <div className="flex flex-col h-full rounded-xl border border-(--color-border) bg-(--color-surface-secondary) overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-dashed border-(--color-border)">
         <div className="flex items-center gap-2">
-          <div className={`w-2 h-2 rounded-full ${isReady ? 'bg-green-500' : mcpStatus === 'connecting' || hasPending ? 'bg-amber-500' : 'bg-(--color-muted)'}`} />
+          <div className={`w-2 h-2 rounded-full ${isReady ? 'bg-green-500' : isConnecting || hasPending ? 'bg-amber-500' : 'bg-(--color-muted)'}`} />
           <span className="text-xs text-(--color-muted)">
             {serverNames}
           </span>
@@ -201,17 +211,17 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
               · code mode
             </span>
           )}
-          {isReady && mcpState.tools.length > 0 && (
+          {isReady && activeToolCount > 0 && (
             <span className="text-xs text-(--color-muted)">
-              · {mcpState.tools.length} tools
+              · {activeToolCount} tools
             </span>
           )}
-          {mcpStatus === 'authenticating' && (
+          {isAuthenticating && (
             <span className="text-xs text-amber-500">
               · waiting for auth
             </span>
           )}
-          {mcpStatus === 'connecting' && (
+          {isConnecting && (
             <span className="text-xs text-(--color-muted)">
               · connecting...
             </span>
@@ -222,15 +232,26 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
             </span>
           )}
         </div>
-        <button
-          type="button"
-          onClick={handleClear}
-          disabled={messages.length === 0 && mcpStatus === 'disconnected' && !hasPending}
-          className="flex items-center gap-1 text-xs text-(--color-muted) hover:text-(--color-surface) disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-default"
-        >
-          <Trash size={14} />
-          Clear
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => agent.call('reauthServers')}
+            disabled={hasNoServers}
+            className="flex items-center text-xs text-(--color-muted) hover:text-(--color-surface) disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-default"
+            title="Re-authenticate"
+          >
+            <ArrowsClockwise size={14} />
+          </button>
+          <button
+            type="button"
+            onClick={handleClear}
+            disabled={messages.length === 0 && hasNoServers && !hasPending}
+            className="flex items-center gap-1 text-xs text-(--color-muted) hover:text-(--color-surface) disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-default"
+          >
+            <Trash size={14} />
+            Clear
+          </button>
+        </div>
       </div>
 
       {/* Messages */}
@@ -274,7 +295,7 @@ export function ChatInterface({ selectedServers, useCodemode, onSyncFromServer }
               <div className="flex justify-start">
                 <div className="flex items-center gap-2 text-xs text-(--color-muted) px-2">
                   <CircleNotch size={14} className="animate-spin" />
-                  {mcpStatus === 'authenticating' ? 'Waiting for authentication...' : `Connecting to ${serverNames}...`}
+                  {isAuthenticating ? 'Waiting for authentication...' : `Connecting to ${serverNames}...`}
                 </div>
               </div>
             </>

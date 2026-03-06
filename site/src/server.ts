@@ -98,11 +98,12 @@ Keep responses short and focused. This is a demo — help users see how powerful
 
 export type ChatAgentState = {
   useCodemode: boolean;
+  activeServerIds: string[];
 };
 
 export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
   maxPersistedMessages = 50;
-  initialState: ChatAgentState = { useCodemode: false };
+  initialState: ChatAgentState = { useCodemode: false, activeServerIds: [] };
   private executor?: DynamicWorkerExecutor;
 
   private getExecutor(): DynamicWorkerExecutor {
@@ -110,6 +111,29 @@ export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
       this.executor = new DynamicWorkerExecutor({ loader: this.env.LOADER });
     }
     return this.executor;
+  }
+
+  /** Filter MCP tools to only include tools from active servers */
+  private getActiveTools() {
+    const allTools = this.mcp.getAITools();
+    const activeIds = new Set(this.state.activeServerIds);
+    if (activeIds.size === 0) return allTools;
+
+    const activeServers = this.mcp.listServers().filter((s) => activeIds.has(s.name));
+    const activeInternalIds = new Set(activeServers.map((s) => s.id));
+
+    return Object.fromEntries(
+      Object.entries(allTools).filter(([key]) => {
+        const match = key.match(/^tool_([a-zA-Z0-9]+)_/);
+        return match && activeInternalIds.has(match[1]);
+      })
+    );
+  }
+
+  /** Update which servers' tools are exposed to the LLM */
+  @callable()
+  setActiveServers(serverIds: string[], useCodemode: boolean) {
+    this.setState({ ...this.state, useCodemode, activeServerIds: serverIds });
   }
 
   async onStart() {
@@ -136,10 +160,16 @@ export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
         await this.cancelSchedule(s.id);
       }
     }
-    await this.schedule(60 * 60, "inactivityDestroy", {});
+    await this.schedule(15 * 60, "inactivityDestroy", {});
   }
 
   async inactivityDestroy() {
+    // Don't destroy if someone is still connected
+    const connections = [...this.getConnections()];
+    if (connections.length > 0) {
+      await this.schedule(15 * 60, "inactivityDestroy", {});
+      return;
+    }
     try {
       await this.destroy();
     } catch (e) {
@@ -151,14 +181,39 @@ export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
   @callable()
   getSessionConfig() {
     const serverIds = this.mcp.listServers().map((s) => s.name);
-    return { serverIds, useCodemode: this.state.useCodemode };
+    return {
+      serverIds,
+      activeServerIds: this.state.activeServerIds,
+      useCodemode: this.state.useCodemode,
+    };
   }
 
-  /** Connect to one or more servers, removing any not in the list */
+  /** Force re-authentication by disconnecting and reconnecting all servers */
+  @callable()
+  async reauthServers() {
+    const currentServers = this.mcp.listServers();
+    const serverIds = currentServers.map((s) => s.name);
+
+    for (const server of currentServers) {
+      try {
+        await this.mcp.removeServer(server.id);
+      } catch {}
+    }
+
+    for (const id of serverIds) {
+      if (MCP_SERVER_REGISTRY[id]) {
+        await this.addMcpServer(id, MCP_SERVER_REGISTRY[id], {
+          callbackHost: this.env.HOST,
+        });
+      }
+    }
+  }
+
+  /** Connect servers that aren't already connected (additive only) */
   @callable()
   async connectServers(serverIds: string[], useCodemode: boolean) {
     await this.resetInactivityTimer();
-    this.setState({ ...this.state, useCodemode });
+    this.setState({ ...this.state, useCodemode, activeServerIds: serverIds });
 
     // Validate all server IDs
     for (const id of serverIds) {
@@ -167,18 +222,7 @@ export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
       }
     }
 
-    const currentServers = this.mcp.listServers();
-
-    // Remove servers not in the new list
-    for (const server of currentServers) {
-      if (!serverIds.includes(server.name)) {
-        try {
-          await this.mcp.removeServer(server.id);
-        } catch {}
-      }
-    }
-
-    // Connect servers not yet connected
+    // Only add servers not yet connected — never remove
     const results: Array<{ id: string; state: string }> = [];
     for (const id of serverIds) {
       const existing = this.mcp.listServers().find((s) => s.name === id);
@@ -197,13 +241,20 @@ export class ChatAgent extends AIChatAgent<Env, ChatAgentState> {
 
   async onChatMessage(_onFinish: unknown, options?: OnChatMessageOptions) {
     await this.resetInactivityTimer();
-    const mcpTools = this.mcp.getAITools();
+    const mcpTools = this.getActiveTools();
     const workersai = createWorkersAI({ binding: this.env.AI });
 
-    const connectedNames = this.mcp.listServers().map((s) => s.name).join(", ");
-    const systemPrompt = this.state.useCodemode
-      ? `${SYSTEM_PROMPT}\n\nYou are in Code Mode. You have a single "codemode" tool that lets you write JavaScript code to call multiple MCP tools. The connected servers are: ${connectedNames}. Write code using the \`codemode\` object to call the available functions.`
+    const activeNames = this.mcp.listServers()
+      .filter((s) => this.state.activeServerIds.includes(s.name))
+      .map((s) => s.name)
+      .join(", ");
+    const basePrompt = activeNames
+      ? `${SYSTEM_PROMPT}\n\nYou only have access to tools from: ${activeNames}. If the user asks about tools or services not in this list, let them know you don't currently have access.`
       : SYSTEM_PROMPT;
+
+    const systemPrompt = this.state.useCodemode
+      ? `${basePrompt}\n\nYou are in Code Mode. You have a single "codemode" tool that lets you write JavaScript code to call multiple MCP tools. Write code using the \`codemode\` object to call the available functions.`
+      : basePrompt;
 
     let tools;
     if (this.state.useCodemode) {

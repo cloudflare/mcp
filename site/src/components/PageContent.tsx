@@ -2,6 +2,7 @@ import { useState, useCallback, useRef } from 'react'
 import { Scene } from '@/components/Hero'
 import { FadeInSection, GlowHeading } from '@/components/GlowHeading'
 import { PillLink } from '@/components/ui'
+import { ShikiCode } from '@/components/ui/ShikiCode'
 import { ChatDemo } from '@/components/chat'
 import { MCP_SERVERS, type MCPServer } from '@/components/Hero/mcpServers'
 
@@ -48,6 +49,24 @@ export function PageContent() {
       <div className="h-[30vh] sm:h-[35vh] md:h-[45vh] lg:h-[50vh]">
         <Scene onCardClick={handleCardClick} selectedServerId={selectedServers[0]?.id} />
       </div>
+
+      {/* What is MCP */}
+      <FadeInSection
+        className="border-t border-dashed border-(--color-border) px-4 py-12 sm:px-6 sm:py-16"
+      >
+        <div className="mx-auto max-w-3xl">
+          <GlowHeading eyebrow="MCP">
+            The open protocol for connecting AI to tools.
+          </GlowHeading>
+          <p className="text-lg leading-relaxed text-(--color-label)">
+            The{' '}
+            <a href="https://modelcontextprotocol.io" className="underline hover:text-(--color-surface)">
+              Model Context Protocol
+            </a>
+            {' '}(MCP) is a standard way for AI models to discover and call tools, access data, and interact with services. Build an MCP server once and it works with any compatible client.
+          </p>
+        </div>
+      </FadeInSection>
 
       {/* Try it — Chat Demo */}
       <div ref={demoSectionRef}>
@@ -149,8 +168,65 @@ export function PageContent() {
             <div className="rounded-lg border border-dashed border-(--color-border) p-5">
               <h3 className="font-medium mb-2">Region: Earth</h3>
               <p className="text-sm text-(--color-label) leading-relaxed">
-                Host MCP servers on Workers — global by default across 300+ locations. Only pay for CPU time, not wall time.
+                Host MCP servers on Workers — global by default across 300+ locations. Fast cold starts, automatic scaling, and zero infrastructure to manage.
               </p>
+            </div>
+          </div>
+        </div>
+      </FadeInSection>
+
+      {/* Code Examples */}
+      <FadeInSection
+        className="border-t border-dashed border-(--color-border) px-4 py-16 sm:px-6 sm:py-24"
+        cornerGrid={{ position: 'bottom-left', color: '#f38020' }}
+      >
+        <div className="mx-auto max-w-3xl">
+          <GlowHeading eyebrow="Code">
+            MCP Clients and Servers with Stateful Agents
+          </GlowHeading>
+          <p className="text-lg leading-relaxed text-(--color-label) mb-10">
+            Build an MCP server, then connect to it from an agent.
+          </p>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="rounded-lg border border-dashed border-(--color-border) overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-dashed border-(--color-border)">
+                <div className="w-2 h-2 rounded-full bg-orange-500" />
+                <span className="text-xs text-(--color-muted)">server.ts</span>
+              </div>
+              <ShikiCode code={`import { McpAgent } from "agents/mcp";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+
+export class MyMCP extends McpAgent {
+  server = new McpServer({ name: "my-server", version: "1.0.0" });
+
+  async init() {
+    this.server.tool("hello", async () => ({
+      content: [{ type: "text", text: "Hello from MCP!" }],
+    }));
+  }
+}`} />
+            </div>
+            <div className="rounded-lg border border-dashed border-(--color-border) overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-dashed border-(--color-border)">
+                <div className="w-2 h-2 rounded-full bg-indigo-500" />
+                <span className="text-xs text-(--color-muted)">agent.ts</span>
+              </div>
+              <ShikiCode code={`import { AIChatAgent } from "@cloudflare/ai-chat";
+import { streamText } from "ai";
+
+export class MyAgent extends AIChatAgent {
+  async onChatMessage() {
+    await this.addMcpServer(
+      "my-server",
+      "https://my-server.workers.dev/mcp"
+    );
+    const tools = this.mcp.getAITools();
+
+    return streamText({
+      model, tools, messages: this.messages,
+    }).toUIMessageStreamResponse();
+  }
+}`} />
             </div>
           </div>
         </div>
