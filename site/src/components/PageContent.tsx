@@ -10,9 +10,8 @@ export function PageContent() {
   const [codemodeOverride, setCodemodeOverride] = useState<boolean | null>(null)
   const demoSectionRef = useRef<HTMLDivElement>(null)
 
-  const hasCloudflare = selectedServers.some((s) => s.id === 'cloudflare')
   const codemodeDefault = selectedServers.length > 1
-  const useCodemode = hasCloudflare ? false : (codemodeOverride ?? codemodeDefault)
+  const useCodemode = codemodeOverride ?? codemodeDefault
 
   const handleCardClick = useCallback((server: MCPServer) => {
     setSelectedServers((prev) => {
@@ -71,18 +70,13 @@ export function PageContent() {
               {/* Code Mode pill */}
               <button
                 type="button"
-                onClick={() => {
-                  if (!hasCloudflare) setCodemodeOverride((prev) => !(prev ?? codemodeDefault))
-                }}
-                disabled={hasCloudflare}
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                  hasCloudflare
-                    ? 'border-(--color-border) text-(--color-muted) opacity-40 cursor-not-allowed'
-                    : useCodemode
-                      ? 'border-purple-500 bg-purple-500/10 text-purple-500 cursor-pointer'
-                      : 'border-dashed border-(--color-border) text-(--color-label) hover:bg-(--color-subtle) hover:border-(--color-surface) cursor-pointer'
+                onClick={() => setCodemodeOverride((prev) => !(prev ?? codemodeDefault))}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-all cursor-pointer ${
+                  useCodemode
+                    ? 'border-purple-500 bg-purple-500/10 text-purple-500'
+                    : 'border-dashed border-(--color-border) text-(--color-label) hover:bg-(--color-subtle) hover:border-(--color-surface)'
                 }`}
-                title={hasCloudflare ? 'Cloudflare MCP has built-in code mode' : 'Toggle Code Mode'}
+                title="Toggle Code Mode"
               >
                 <span className="font-mono text-[10px] leading-none">{'</>'}</span>
                 Code Mode
