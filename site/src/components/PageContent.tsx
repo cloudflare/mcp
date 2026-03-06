@@ -7,22 +7,23 @@ import { MCP_SERVERS, type MCPServer } from '@/components/Hero/mcpServers'
 
 export function PageContent() {
   const [selectedServers, setSelectedServers] = useState<MCPServer[]>([MCP_SERVERS[0]])
-  const [codemodeEnabled, setCodemodeEnabled] = useState(false)
+  const [codemodeOverride, setCodemodeOverride] = useState<boolean | null>(null)
   const demoSectionRef = useRef<HTMLDivElement>(null)
 
   const hasCloudflare = selectedServers.some((s) => s.id === 'cloudflare')
-  const useCodemode = !hasCloudflare && (codemodeEnabled || selectedServers.length > 1)
+  const codemodeDefault = selectedServers.length > 1
+  const useCodemode = hasCloudflare ? false : (codemodeOverride ?? codemodeDefault)
 
   const handleCardClick = useCallback((server: MCPServer) => {
     setSelectedServers((prev) => {
       const exists = prev.some((s) => s.id === server.id)
       if (exists) {
-        // Don't allow deselecting the last server
         if (prev.length === 1) return prev
         return prev.filter((s) => s.id !== server.id)
       }
       return [...prev, server]
     })
+    setCodemodeOverride(null)
     demoSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
 
@@ -67,27 +68,24 @@ export function PageContent() {
                   </button>
                 )
               })}
-              {/* Code Mode pill — disabled when Cloudflare is selected (it has native codemode) */}
+              {/* Code Mode pill */}
               <button
                 type="button"
                 onClick={() => {
-                  if (!hasCloudflare && selectedServers.length <= 1) setCodemodeEnabled((v) => !v)
+                  if (!hasCloudflare) setCodemodeOverride((prev) => !(prev ?? codemodeDefault))
                 }}
                 disabled={hasCloudflare}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
                   hasCloudflare
                     ? 'border-(--color-border) text-(--color-muted) opacity-40 cursor-not-allowed'
                     : useCodemode
                       ? 'border-purple-500 bg-purple-500/10 text-purple-500 cursor-pointer'
                       : 'border-dashed border-(--color-border) text-(--color-label) hover:bg-(--color-subtle) hover:border-(--color-surface) cursor-pointer'
-                } ${!hasCloudflare && selectedServers.length > 1 ? 'cursor-default' : ''}`}
-                title={hasCloudflare ? 'Cloudflare MCP has built-in code mode' : selectedServers.length > 1 ? 'Code Mode is always active with multiple servers' : 'Toggle Code Mode'}
+                }`}
+                title={hasCloudflare ? 'Cloudflare MCP has built-in code mode' : 'Toggle Code Mode'}
               >
-                {'</>'}
+                <span className="font-mono text-[10px] leading-none">{'</>'}</span>
                 Code Mode
-                {!hasCloudflare && selectedServers.length > 1 && (
-                  <span className="text-[10px] opacity-70">auto</span>
-                )}
               </button>
             </div>
             <ChatDemo selectedServers={selectedServers} useCodemode={useCodemode} />
