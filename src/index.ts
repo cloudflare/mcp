@@ -1,6 +1,6 @@
 import OAuthProvider from '@cloudflare/workers-oauth-provider'
 import { Hono } from 'hono'
-import { WorkerEntrypoint } from 'cloudflare:workers'
+import { WorkerEntrypoint, DurableObject } from 'cloudflare:workers'
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
 import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
@@ -14,6 +14,9 @@ import type { AuthProps } from './auth/types'
  * The API token is injected via props so it never enters the user code isolate.
  */
 type GlobalOutboundProps = { apiToken: string }
+
+// No-op DO to satisfy staging migration (was deployed from another branch)
+export class ElicitationAgent extends DurableObject<Env> {}
 
 export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
   async fetch(request: Request): Promise<Response> {

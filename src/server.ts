@@ -36,6 +36,34 @@ declare const cloudflare: {
 declare const accountId: string;
 `
 
+function cloudflareTypesForAccount(accountId: string | undefined, props?: AuthProps): string {
+  // When accountId is known, tell the LLM it's pre-set
+  if (accountId) {
+    return CLOUDFLARE_TYPES + `\n// accountId is pre-set to "${accountId}" — use it directly in API paths.\n`
+  }
+
+  if (props?.type === 'user_token' && props.accounts.length === 1) {
+    return CLOUDFLARE_TYPES + `\n// accountId is pre-set to "${props.accounts[0].id}" (${props.accounts[0].name}) — use it directly in API paths.\n`
+  }
+
+  // When multiple accounts, replace the `declare const accountId: string` with guidance
+  if (props?.type === 'user_token' && props.accounts.length > 1) {
+    const list = props.accounts.map((a) => `//   "${a.id}" — ${a.name}`).join('\n')
+    // Remove the accountId declaration and add multi-account guidance
+    const typesWithoutAccountId = CLOUDFLARE_TYPES.replace('declare const accountId: string;\n', '')
+    return (
+      typesWithoutAccountId +
+      `\n// IMPORTANT: This token has access to multiple Cloudflare accounts.\n` +
+      `// The accountId variable will be set based on the account_id parameter you pass to this tool.\n` +
+      `// Available accounts:\n${list}\n` +
+      `// Ask the user which account to use if unclear, then pass it as the account_id parameter.\n` +
+      `declare const accountId: string; // Set from your account_id parameter\n`
+    )
+  }
+
+  return CLOUDFLARE_TYPES
+}
+
 function formatError(error: unknown): string {
   return error instanceof Error ? error.message : String(error)
 }
@@ -134,10 +162,12 @@ async () => {
     }
   )
 
+  const types = cloudflareTypesForAccount(accountId, props)
+
   const executeDescription = `Execute JavaScript code against the Cloudflare API. First use the 'search' tool to find the right endpoints, then write code using the cloudflare.request() function.
 
 Available in your code:
-${CLOUDFLARE_TYPES}
+${types}
 
 Your code must be an async arrow function that returns the result.
 
@@ -184,7 +214,9 @@ async () => {
             .string()
             .optional()
             .describe(
-              'Your Cloudflare account ID. Optional if you have only one account (will be auto-selected)'
+              props?.type === 'user_token' && props.accounts.length > 1
+                ? `Your Cloudflare account ID. Required — this token has access to multiple accounts: ${props.accounts.map((a) => `${a.id} (${a.name})`).join(', ')}`
+                : 'Your Cloudflare account ID. Optional if you have only one account (will be auto-selected)'
             )
         }
       },
