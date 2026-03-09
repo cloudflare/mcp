@@ -33,11 +33,14 @@ jobs:
         with:
           fetch-depth: 30
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: Run Bonk
         uses: ask-bonk/ask-bonk/github@main
