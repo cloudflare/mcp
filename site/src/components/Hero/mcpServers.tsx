@@ -85,8 +85,8 @@ export const MCP_SERVERS: MCPServer[] = [
     id: 'asana',
     name: 'Asana',
     icon: AsanaLogo,
-    color: '#F06A6A',
-    darkColor: '#F06A6A',
+    color: '#FC636B',
+    darkColor: '#FC636B',
   },
   {
     id: 'atlassian',
@@ -99,8 +99,8 @@ export const MCP_SERVERS: MCPServer[] = [
     id: 'intercom',
     name: 'Intercom',
     icon: IntercomLogo,
-    color: '#6AFDEF',
-    darkColor: '#6AFDEF',
+    color: '#0057FF',
+    darkColor: '#47C7F0',
   },
   {
     id: 'linear',
@@ -141,7 +141,7 @@ export const MCP_SERVERS: MCPServer[] = [
     id: 'webflow',
     name: 'Webflow',
     icon: WebflowLogo,
-    color: '#4353FF',
-    darkColor: '#6B79FF',
+    color: '#146EF5',
+    darkColor: '#146EF5',
   },
 ]
