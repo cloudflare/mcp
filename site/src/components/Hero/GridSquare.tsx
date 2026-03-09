@@ -4,7 +4,6 @@ import {
   ICON_BOX_CELLS,
   LABEL_PADDING_CELLS,
   getLabelFontSize,
-  getLabelWidth
 } from './cardLayout'
 import { useHeroColors } from '@/hooks/useThemeColors'
 import { useTheme } from '@/components/ThemeProvider'
@@ -30,7 +29,6 @@ interface CardContentProps {
   server: MCPServer
   iconBoxSize: number
   iconSize: number
-  labelWidth: number
   labelPadding: number
   fontSize: number
   iconBoxBg: string
@@ -42,7 +40,6 @@ function CardContent({
   server,
   iconBoxSize,
   iconSize,
-  labelWidth,
   labelPadding,
   fontSize,
   iconBoxBg,
@@ -52,9 +49,9 @@ function CardContent({
   const Icon = server.icon
 
   return (
-    <>
+    <div className="flex">
       <div
-        className="flex items-center justify-center"
+        className="flex items-center justify-center shrink-0"
         style={{
           backgroundColor: iconBoxBg,
           width: iconBoxSize,
@@ -67,15 +64,12 @@ function CardContent({
       </div>
 
       <div
-        className="absolute flex items-center"
+        className="relative flex items-center"
         style={{
           backgroundColor: accentColor,
           height: iconBoxSize,
-          width: labelWidth,
-          left: iconBoxSize,
-          top: 0,
           paddingLeft: labelPadding,
-          paddingRight: labelPadding
+          paddingRight: labelPadding,
         }}
       >
         <div className="absolute inset-0 border border-l-0 mask-l-from-0 border-white dark:border-black" />
@@ -86,7 +80,7 @@ function CardContent({
           {server.name}
         </span>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -109,13 +103,11 @@ export function GridSquare({
   const iconSize = iconBoxSize * ICON_SCALE
   const fontSize = getLabelFontSize(cellSize)
   const labelPadding = LABEL_PADDING_CELLS * cellSize
-  const labelWidth = getLabelWidth(server.name, cellSize)
 
   const sharedProps = {
     server,
     iconBoxSize,
     iconSize,
-    labelWidth,
     labelPadding,
     fontSize,
     iconBoxBg: heroColors.iconBoxBg,
@@ -150,9 +142,7 @@ export function GridSquare({
       }}
     >
       {/* Colored version (base layer) */}
-      <div className="relative">
-        <CardContent {...sharedProps} accentColor={serverColor} />
-      </div>
+      <CardContent {...sharedProps} accentColor={serverColor} />
 
       {/* Monochrome overlay (fades in on mouse proximity) */}
       <motion.div
