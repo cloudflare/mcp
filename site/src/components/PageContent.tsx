@@ -5,8 +5,10 @@ import { PillLink } from '@/components/ui'
 import { ShikiCode } from '@/components/ui/ShikiCode'
 import { ChatDemo } from '@/components/chat'
 import { MCP_SERVERS, type MCPServer } from '@/components/Hero/mcpServers'
+import { useTheme } from '@/components/ThemeProvider'
 
 export function PageContent() {
+  const { theme } = useTheme()
   const [selectedServers, setSelectedServers] = useState<MCPServer[]>([MCP_SERVERS[0]])
   const [codemodeOverride, setCodemodeOverride] = useState<boolean | null>(null)
   const demoSectionRef = useRef<HTMLDivElement>(null)
@@ -95,7 +97,7 @@ export function PageContent() {
                         ? 'border-current bg-(--color-subtle)'
                         : 'border-dashed border-(--color-border) text-(--color-label) hover:bg-(--color-subtle) hover:border-(--color-surface)'
                     }`}
-                    style={isActive ? { color: server.darkColor ?? server.color } : undefined}
+                    style={isActive ? { color: theme === 'dark' && server.darkColor ? server.darkColor : server.color } : undefined}
                   >
                     <Icon size={14} />
                     {server.name}
