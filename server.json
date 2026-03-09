@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.cloudflare/api",
-  "title": "Cloudflare API",
+  "title": "Cloudflare",
   "description": "Token-efficient MCP server for the entire Cloudflare API — 2500 endpoints in 1k tokens, powered by Code Mode.",
   "version": "0.1.0",
   "repository": {
