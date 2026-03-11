@@ -39,11 +39,17 @@ declare const accountId: string;
 function cloudflareTypesForAccount(accountId: string | undefined, props?: AuthProps): string {
   // When accountId is known, tell the LLM it's pre-set
   if (accountId) {
-    return CLOUDFLARE_TYPES + `\n// accountId is pre-set to "${accountId}" — use it directly in API paths.\n`
+    return (
+      CLOUDFLARE_TYPES +
+      `\n// accountId is pre-set to "${accountId}" — use it directly in API paths.\n`
+    )
   }
 
   if (props?.type === 'user_token' && props.accounts.length === 1) {
-    return CLOUDFLARE_TYPES + `\n// accountId is pre-set to "${props.accounts[0].id}" (${props.accounts[0].name}) — use it directly in API paths.\n`
+    return (
+      CLOUDFLARE_TYPES +
+      `\n// accountId is pre-set to "${props.accounts[0].id}" (${props.accounts[0].name}) — use it directly in API paths.\n`
+    )
   }
 
   // When multiple accounts, replace the `declare const accountId: string` with guidance
