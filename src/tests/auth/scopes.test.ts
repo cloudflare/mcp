@@ -23,6 +23,7 @@ const REGISTERED_SCOPES = [
   'workers_kv:write',
   'workers_routes:write',
   'workers_tail:read',
+  'workers_deployments:read',
   'workers_builds:read',
   'workers_builds:write',
   'workers_observability:read',
