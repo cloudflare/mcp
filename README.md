@@ -46,6 +46,34 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 | MCP URL      | `https://mcp.cloudflare.com/mcp`                                            |
 | Bearer Token | Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens) |
 
+### Disable Code Mode
+
+If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the 2 code mode tools.
+
+```
+https://mcp.cloudflare.com/mcp?codemode=false
+```
+
+#### Example JSON Configuration
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "url": "https://mcp.cloudflare.com/mcp?codemode=false"
+    }
+  }
+}
+```
+
+When code mode is disabled:
+- Each API endpoint is registered as its own tool (e.g., `get_accounts_workers_scripts`)
+- Tool input schemas are derived from the endpoint's path parameters, query parameters, and request body
+- Tools make direct API calls — no code execution involved
+- Path parameters like `account_id` are auto-resolved when possible (single account)
+
+> **Note:** Disabling code mode significantly increases the token cost (~244k tokens vs ~1k tokens). Only disable it when necessary for composition with other code mode systems.
+
 ## The Problem
 
 The Cloudflare OpenAPI spec is **2 million tokens**. Even with native MCP tools using minimal schemas, it's still **~244k tokens**. Traditional MCP servers that expose every endpoint as a tool leak this entire context to the main agent.
