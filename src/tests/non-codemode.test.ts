@@ -40,7 +40,9 @@ describe('pathToToolName', () => {
 })
 
 describe('buildInputSchema', () => {
-  it('creates schema with path parameters', () => {
+  // --- Path parameters ---
+
+  it('creates schema with a single path parameter', () => {
     const operation: OperationInfo = {
       parameters: [
         { name: 'account_id', in: 'path', required: true, description: 'Account identifier' }
@@ -50,17 +52,151 @@ describe('buildInputSchema', () => {
     expect(schema['account_id']).toBeDefined()
   })
 
-  it('creates schema with query parameters', () => {
+  it('creates schema with multiple path parameters', () => {
     const operation: OperationInfo = {
       parameters: [
-        { name: 'page', in: 'query', required: false, description: 'Page number' },
-        { name: 'per_page', in: 'query', required: true, description: 'Items per page' }
+        { name: 'zone_id', in: 'path', required: true, description: 'Zone ID' },
+        { name: 'record_id', in: 'path', required: true, description: 'DNS record ID' }
       ]
+    }
+    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records/{record_id}')
+    expect(schema['zone_id']).toBeDefined()
+    expect(schema['record_id']).toBeDefined()
+  })
+
+  it('extracts path params from template even without explicit parameter definitions', () => {
+    const operation: OperationInfo = {}
+    const schema = buildInputSchema(
+      operation,
+      '/accounts/{account_id}/workers/scripts/{script_name}'
+    )
+    expect(schema['account_id']).toBeDefined()
+    expect(schema['script_name']).toBeDefined()
+  })
+
+  it('uses description from parameter spec when available', () => {
+    const operation: OperationInfo = {
+      parameters: [
+        { name: 'zone_id', in: 'path', required: true, description: 'The zone identifier' }
+      ]
+    }
+    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records')
+    // Zod stores description — verify it's set by checking the schema definition
+    expect(schema['zone_id'].description).toBe('The zone identifier')
+  })
+
+  it('falls back to generic description when parameter spec has no description', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'zone_id', in: 'path', required: true }]
+    }
+    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records')
+    expect(schema['zone_id'].description).toBe('Path parameter: zone_id')
+  })
+
+  it('falls back to generic description when path param has no matching parameter spec', () => {
+    const operation: OperationInfo = { parameters: [] }
+    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records')
+    expect(schema['zone_id'].description).toBe('Path parameter: zone_id')
+  })
+
+  // --- Query parameters ---
+
+  it('creates schema with required query parameter', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'per_page', in: 'query', required: true, description: 'Items per page' }]
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['per_page']).toBeDefined()
+    expect(schema['per_page'].isOptional()).toBe(false)
+  })
+
+  it('creates schema with optional query parameter', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'page', in: 'query', required: false, description: 'Page number' }]
     }
     const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
     expect(schema['page']).toBeDefined()
-    expect(schema['per_page']).toBeDefined()
+    expect(schema['page'].isOptional()).toBe(true)
   })
+
+  it('treats query parameter without required field as optional', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'direction', in: 'query', description: 'Sort direction' }]
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['direction'].isOptional()).toBe(true)
+  })
+
+  it('handles multiple query parameters with mixed required/optional', () => {
+    const operation: OperationInfo = {
+      parameters: [
+        { name: 'page', in: 'query', required: false, description: 'Page number' },
+        { name: 'per_page', in: 'query', required: true, description: 'Items per page' },
+        { name: 'order', in: 'query', required: false, description: 'Sort order' },
+        { name: 'direction', in: 'query', required: false, description: 'asc or desc' }
+      ]
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['page'].isOptional()).toBe(true)
+    expect(schema['per_page'].isOptional()).toBe(false)
+    expect(schema['order'].isOptional()).toBe(true)
+    expect(schema['direction'].isOptional()).toBe(true)
+  })
+
+  it('uses param name as fallback description for query params', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'page', in: 'query', required: false }]
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['page'].description).toBe('page')
+  })
+
+  // --- Header parameters ---
+
+  it('creates schema with header parameter', () => {
+    const operation: OperationInfo = {
+      parameters: [
+        {
+          name: 'If-Match',
+          in: 'header',
+          required: false,
+          description: 'ETag for optimistic concurrency'
+        }
+      ]
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['header_if_match']).toBeDefined()
+    expect(schema['header_if_match'].isOptional()).toBe(true)
+  })
+
+  it('creates required header parameter', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'If-Match', in: 'header', required: true, description: 'Required ETag' }]
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['header_if_match']).toBeDefined()
+    expect(schema['header_if_match'].isOptional()).toBe(false)
+  })
+
+  it('includes header name in description', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'If-Match', in: 'header', required: false, description: 'ETag value' }]
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['header_if_match'].description).toContain('If-Match')
+    expect(schema['header_if_match'].description).toContain('ETag value')
+  })
+
+  it('normalizes header name to safe key (lowercase, hyphens to underscores)', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'X-Custom-Header', in: 'header', required: false }]
+    }
+    const schema = buildInputSchema(operation, '/user')
+    expect(schema['header_x_custom_header']).toBeDefined()
+    expect(schema['header_X-Custom-Header']).toBeUndefined()
+  })
+
+  // --- Request body ---
 
   it('adds body param when requestBody exists', () => {
     const operation: OperationInfo = {
@@ -73,20 +209,146 @@ describe('buildInputSchema', () => {
     expect(schema['body']).toBeDefined()
   })
 
+  it('body param is always optional in schema (validation is at API level)', () => {
+    const operation: OperationInfo = {
+      requestBody: {
+        required: true,
+        content: { 'application/json': { schema: { type: 'object' } } }
+      }
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/d1/database')
+    expect(schema['body'].isOptional()).toBe(true)
+  })
+
   it('does not add body param when no requestBody', () => {
     const operation: OperationInfo = {}
     const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
     expect(schema['body']).toBeUndefined()
   })
 
-  it('extracts path params from path template even without explicit parameter definitions', () => {
+  // --- Combined / complex cases ---
+
+  it('handles path params + query params + body together', () => {
+    const operation: OperationInfo = {
+      parameters: [
+        { name: 'account_id', in: 'path', required: true, description: 'Account ID' },
+        { name: 'page', in: 'query', required: false, description: 'Page' },
+        { name: 'per_page', in: 'query', required: false, description: 'Per page' }
+      ],
+      requestBody: {
+        required: true,
+        content: { 'application/json': { schema: { type: 'object' } } }
+      }
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['account_id']).toBeDefined()
+    expect(schema['page']).toBeDefined()
+    expect(schema['per_page']).toBeDefined()
+    expect(schema['body']).toBeDefined()
+    expect(Object.keys(schema)).toHaveLength(4)
+  })
+
+  it('handles path params + query params + headers + body together', () => {
+    const operation: OperationInfo = {
+      parameters: [
+        { name: 'zone_id', in: 'path', required: true },
+        { name: 'record_id', in: 'path', required: true },
+        { name: 'page', in: 'query', required: false },
+        { name: 'If-Match', in: 'header', required: false, description: 'ETag' }
+      ],
+      requestBody: { required: true, content: {} }
+    }
+    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records/{record_id}')
+    expect(schema['zone_id']).toBeDefined()
+    expect(schema['record_id']).toBeDefined()
+    expect(schema['page']).toBeDefined()
+    expect(schema['header_if_match']).toBeDefined()
+    expect(schema['body']).toBeDefined()
+    expect(Object.keys(schema)).toHaveLength(5)
+  })
+
+  it('returns empty schema for endpoint with no path params, no query, no body', () => {
     const operation: OperationInfo = {}
+    const schema = buildInputSchema(operation, '/user')
+    expect(Object.keys(schema)).toHaveLength(0)
+  })
+
+  it('handles endpoint with only a summary and description (no params)', () => {
+    const operation: OperationInfo = {
+      summary: 'Get current user',
+      description: 'Returns the currently authenticated user'
+    }
+    const schema = buildInputSchema(operation, '/user')
+    expect(Object.keys(schema)).toHaveLength(0)
+  })
+
+  it('ignores cookie parameters', () => {
+    const operation: OperationInfo = {
+      parameters: [{ name: 'session', in: 'cookie' as any, required: false }]
+    }
+    const schema = buildInputSchema(operation, '/user')
+    expect(schema['session']).toBeUndefined()
+    expect(Object.keys(schema)).toHaveLength(0)
+  })
+
+  it('handles empty parameters array', () => {
+    const operation: OperationInfo = { parameters: [] }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    // Should still extract account_id from the path template
+    expect(schema['account_id']).toBeDefined()
+    expect(Object.keys(schema)).toHaveLength(1)
+  })
+
+  it('handles undefined parameters', () => {
+    const operation: OperationInfo = { parameters: undefined }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['account_id']).toBeDefined()
+    expect(Object.keys(schema)).toHaveLength(1)
+  })
+
+  it('does not duplicate path params that also appear as query params with same name', () => {
+    // Edge case: a parameter named the same in both path and query
+    const operation: OperationInfo = {
+      parameters: [
+        { name: 'account_id', in: 'path', required: true, description: 'Account ID (path)' },
+        { name: 'account_id', in: 'query', required: false, description: 'Account ID (query)' }
+      ]
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    // Query param overwrites path param since it's processed second
+    expect(schema['account_id']).toBeDefined()
+  })
+
+  // --- Deeply nested / unusual paths ---
+
+  it('handles deeply nested paths with many params', () => {
+    const operation: OperationInfo = {
+      parameters: [
+        { name: 'account_id', in: 'path', required: true },
+        { name: 'namespace_id', in: 'path', required: true },
+        { name: 'key_name', in: 'path', required: true }
+      ]
+    }
     const schema = buildInputSchema(
       operation,
-      '/accounts/{account_id}/workers/scripts/{script_name}'
+      '/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}'
     )
     expect(schema['account_id']).toBeDefined()
-    expect(schema['script_name']).toBeDefined()
+    expect(schema['namespace_id']).toBeDefined()
+    expect(schema['key_name']).toBeDefined()
+    expect(Object.keys(schema)).toHaveLength(3)
+  })
+
+  it('handles graphql endpoint path with no params', () => {
+    const operation: OperationInfo = {
+      requestBody: {
+        required: true,
+        content: { 'application/json': { schema: { type: 'object' } } }
+      }
+    }
+    const schema = buildInputSchema(operation, '/client/v4/graphql')
+    expect(schema['body']).toBeDefined()
+    expect(Object.keys(schema)).toHaveLength(1)
   })
 })
 
@@ -115,6 +377,24 @@ describe('createServer with codemode=false', () => {
     } as any
   }
 
+  function mockFetchJson(data: unknown, ok = true) {
+    return vi.fn().mockResolvedValue({
+      ok,
+      status: ok ? 200 : 400,
+      headers: new Headers({ 'content-type': 'application/json' }),
+      json: async () => data
+    })
+  }
+
+  function mockFetchText(text: string, ok = true) {
+    return vi.fn().mockResolvedValue({
+      ok,
+      status: ok ? 200 : 500,
+      headers: new Headers({ 'content-type': 'text/plain' }),
+      text: async () => text
+    })
+  }
+
   it('registers one tool per endpoint when codemode=false', async () => {
     const specPaths = {
       '/accounts/{account_id}/workers/scripts': {
@@ -130,10 +410,7 @@ describe('createServer with codemode=false', () => {
     const ctx = { exports: {}, waitUntil: vi.fn() } as any
     const server = await createServer(env, ctx, 'test-token', 'test-account', undefined, false)
 
-    // Access registered tools via the server's internal state
     const tools = (server as any)._registeredTools
-    expect(tools).toBeDefined()
-
     const toolNames = Object.keys(tools)
     expect(toolNames).toContain('get_accounts_workers_scripts')
     expect(toolNames).toContain('post_accounts_workers_scripts')
@@ -181,16 +458,9 @@ describe('createServer with codemode=false', () => {
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
-    expect(tool).toBeDefined()
 
-    // Mock global fetch for the tool handler
     const originalFetch = globalThis.fetch
-    const mockResponse = {
-      ok: true,
-      headers: new Headers({ 'content-type': 'application/json' }),
-      json: async () => ({ success: true, result: [{ id: 'my-worker' }] })
-    }
-    globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
+    globalThis.fetch = mockFetchJson({ success: true, result: [{ id: 'my-worker' }] })
 
     try {
       const result = await tool.handler({ account_id: 'acct-123' }, {} as any)
@@ -225,18 +495,47 @@ describe('createServer with codemode=false', () => {
     const tool = tools['get_accounts_workers_scripts']
 
     const originalFetch = globalThis.fetch
-    globalThis.fetch = vi.fn().mockResolvedValue({
-      ok: true,
-      headers: new Headers({ 'content-type': 'application/json' }),
-      json: async () => ({ success: true, result: [] })
-    })
+    globalThis.fetch = mockFetchJson({ success: true, result: [] })
 
     try {
-      // Call without account_id — should auto-resolve from the fixed accountId
       await tool.handler({}, {} as any)
-
       expect(globalThis.fetch).toHaveBeenCalledWith(
         expect.stringContaining('/accounts/fixed-acct/workers/scripts'),
+        expect.anything()
+      )
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('auto-resolves account_id for single-account user token', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: { summary: 'List Workers' } as OperationInfo
+      }
+    }
+
+    const props: AuthProps = {
+      type: 'user_token',
+      accessToken: 'test-token',
+      user: { id: 'u1', email: 'test@example.com' },
+      accounts: [{ id: 'single-acct', name: 'My Account' }]
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', undefined, props, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['get_accounts_workers_scripts']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+
+    try {
+      await tool.handler({}, {} as any)
+      expect(globalThis.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('/accounts/single-acct/workers/scripts'),
         expect.anything()
       )
     } finally {
@@ -253,7 +552,6 @@ describe('createServer with codemode=false', () => {
 
     const env = makeMockEnv(specPaths)
     const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    // No fixed accountId, no props — zone_id won't auto-resolve
     const server = await createServer(env, ctx, 'test-token', undefined, undefined, false)
 
     const tools = (server as any)._registeredTools
@@ -262,6 +560,26 @@ describe('createServer with codemode=false', () => {
     const result = await tool.handler({}, {} as any)
     expect(result.isError).toBe(true)
     expect(result.content[0].text).toContain('missing required path parameter: zone_id')
+  })
+
+  it('returns error for second missing path param (first resolved)', async () => {
+    const specPaths = {
+      '/zones/{zone_id}/dns_records/{record_id}': {
+        delete: { summary: 'Delete DNS Record' } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', undefined, undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['delete_zones_dns_records']
+
+    // Provide zone_id but not record_id
+    const result = await tool.handler({ zone_id: 'z1' }, {} as any)
+    expect(result.isError).toBe(true)
+    expect(result.content[0].text).toContain('missing required path parameter: record_id')
   })
 
   it('passes query params to the URL', async () => {
@@ -285,17 +603,47 @@ describe('createServer with codemode=false', () => {
     const tool = tools['get_accounts_workers_scripts']
 
     const originalFetch = globalThis.fetch
-    globalThis.fetch = vi.fn().mockResolvedValue({
-      ok: true,
-      headers: new Headers({ 'content-type': 'application/json' }),
-      json: async () => ({ success: true, result: [] })
-    })
+    globalThis.fetch = mockFetchJson({ success: true, result: [] })
 
     try {
       await tool.handler({ page: '2' }, {} as any)
-
       const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
       expect(calledUrl).toContain('page=2')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('omits undefined query params from URL', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: {
+          summary: 'List Workers',
+          parameters: [
+            { name: 'account_id', in: 'path', required: true },
+            { name: 'page', in: 'query', required: false },
+            { name: 'per_page', in: 'query', required: false }
+          ]
+        } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['get_accounts_workers_scripts']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+
+    try {
+      // Only pass page, not per_page
+      await tool.handler({ page: '3' }, {} as any)
+      const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
+      expect(calledUrl).toContain('page=3')
+      expect(calledUrl).not.toContain('per_page')
     } finally {
       globalThis.fetch = originalFetch
     }
@@ -322,11 +670,7 @@ describe('createServer with codemode=false', () => {
     const tool = tools['post_accounts_d1_database']
 
     const originalFetch = globalThis.fetch
-    globalThis.fetch = vi.fn().mockResolvedValue({
-      ok: true,
-      headers: new Headers({ 'content-type': 'application/json' }),
-      json: async () => ({ success: true, result: { id: 'new-db' } })
-    })
+    globalThis.fetch = mockFetchJson({ success: true, result: { id: 'new-db' } })
 
     try {
       const body = JSON.stringify({ name: 'my-database' })
@@ -336,6 +680,217 @@ describe('createServer with codemode=false', () => {
       expect(calledOpts.method).toBe('POST')
       expect(calledOpts.body).toBe(body)
       expect(calledOpts.headers['Content-Type']).toBe('application/json')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('does not set Content-Type when no body provided', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: { summary: 'List Workers' } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['get_accounts_workers_scripts']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+
+    try {
+      await tool.handler({}, {} as any)
+      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
+      expect(calledOpts.headers['Content-Type']).toBeUndefined()
+      expect(calledOpts.body).toBeUndefined()
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('passes header params through to fetch', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts/{script_name}': {
+        put: {
+          summary: 'Update Worker',
+          parameters: [
+            { name: 'account_id', in: 'path', required: true },
+            { name: 'script_name', in: 'path', required: true },
+            { name: 'If-Match', in: 'header', required: false, description: 'ETag' }
+          ],
+          requestBody: { required: true, content: {} }
+        } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['put_accounts_workers_scripts']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+
+    try {
+      await tool.handler(
+        {
+          script_name: 'my-worker',
+          header_if_match: '"etag-123"',
+          body: '{}'
+        },
+        {} as any
+      )
+
+      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
+      expect(calledOpts.headers['If-Match']).toBe('"etag-123"')
+      expect(calledOpts.headers['Authorization']).toBe('Bearer test-token')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('omits header when header param is not provided', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts/{script_name}': {
+        put: {
+          summary: 'Update Worker',
+          parameters: [
+            { name: 'account_id', in: 'path', required: true },
+            { name: 'script_name', in: 'path', required: true },
+            { name: 'If-Match', in: 'header', required: false }
+          ]
+        } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['put_accounts_workers_scripts']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+
+    try {
+      await tool.handler({ script_name: 'my-worker' }, {} as any)
+      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
+      expect(calledOpts.headers['If-Match']).toBeUndefined()
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('handles non-JSON response (e.g., KV value)', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}': {
+        get: { summary: 'Read KV value' } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['get_accounts_storage_kv_namespaces_values']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchText('raw-kv-value-here')
+
+    try {
+      const result = await tool.handler({ namespace_id: 'ns-1', key_name: 'mykey' }, {} as any)
+      expect(result.isError).toBeFalsy()
+      expect(result.content[0].text).toContain('raw-kv-value-here')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('sets isError=true for non-ok responses', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: { summary: 'List Workers' } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['get_accounts_workers_scripts']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson(
+      { success: false, errors: [{ code: 10000, message: 'Auth error' }] },
+      false
+    )
+
+    try {
+      const result = await tool.handler({}, {} as any)
+      expect(result.isError).toBe(true)
+      expect(result.content[0].text).toContain('Auth error')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('handles fetch throwing an error', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: { summary: 'List Workers' } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['get_accounts_workers_scripts']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network failure'))
+
+    try {
+      const result = await tool.handler({}, {} as any)
+      expect(result.isError).toBe(true)
+      expect(result.content[0].text).toContain('Network failure')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('encodes path parameters in URL', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts/{script_name}': {
+        get: { summary: 'Get Worker' } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['get_accounts_workers_scripts']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+
+    try {
+      await tool.handler({ script_name: 'my worker/v2' }, {} as any)
+      const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
+      expect(calledUrl).toContain('my%20worker%2Fv2')
+      expect(calledUrl).not.toContain('my worker/v2')
     } finally {
       globalThis.fetch = originalFetch
     }
@@ -364,9 +919,73 @@ describe('createServer with codemode=false', () => {
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
-
-    // The tool should have account_id in its schema
     const inputSchema = tool.inputSchema
     expect(inputSchema).toBeDefined()
+  })
+
+  it('endpoint with no params at all works', async () => {
+    const specPaths = {
+      '/user': {
+        get: { summary: 'Get current user' } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', undefined, undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['get_user']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: { id: 'u1', email: 'a@b.com' } })
+
+    try {
+      const result = await tool.handler({}, {} as any)
+      expect(result.isError).toBeFalsy()
+      expect(result.content[0].text).toContain('a@b.com')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('passes query params + body together on PATCH', async () => {
+    const specPaths = {
+      '/zones/{zone_id}/dns_records/{record_id}': {
+        patch: {
+          summary: 'Patch DNS Record',
+          parameters: [
+            { name: 'zone_id', in: 'path', required: true },
+            { name: 'record_id', in: 'path', required: true },
+            { name: 'comment', in: 'query', required: false }
+          ],
+          requestBody: { required: true, content: {} }
+        } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', undefined, undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['patch_zones_dns_records']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+
+    try {
+      const body = JSON.stringify({ content: '1.2.3.4' })
+      await tool.handler({ zone_id: 'z1', record_id: 'r1', comment: 'updated IP', body }, {} as any)
+
+      const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
+      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
+      expect(calledUrl).toContain('/zones/z1/dns_records/r1')
+      expect(calledUrl).toContain('comment=updated+IP')
+      expect(calledOpts.method).toBe('PATCH')
+      expect(calledOpts.body).toBe(body)
+    } finally {
+      globalThis.fetch = originalFetch
+    }
   })
 })

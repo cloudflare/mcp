@@ -151,6 +151,28 @@ export function buildInputSchema(
     }
   }
 
+  // Add header parameters (e.g., If-Match for ETags)
+  if (operation.parameters) {
+    for (const param of operation.parameters) {
+      if (param.in === 'header') {
+        const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
+        const field = param.required
+          ? z
+              .string()
+              .describe(
+                `Header: ${param.name}${param.description ? ` — ${param.description}` : ''}`
+              )
+          : z
+              .string()
+              .optional()
+              .describe(
+                `Header: ${param.name}${param.description ? ` — ${param.description}` : ''}`
+              )
+        schema[headerKey] = field
+      }
+    }
+  }
+
   // Add body as a JSON string parameter if requestBody exists
   if (operation.requestBody) {
     schema['body'] = z.string().optional().describe('Request body as JSON string')
@@ -263,6 +285,18 @@ async function registerNonCodemodeTools(
           // Build request
           const headers: Record<string, string> = {
             Authorization: `Bearer ${apiToken}`
+          }
+
+          // Add header parameters
+          if (operation.parameters) {
+            for (const param of operation.parameters) {
+              if (param.in === 'header') {
+                const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
+                if (params[headerKey] !== undefined) {
+                  headers[param.name] = String(params[headerKey])
+                }
+              }
+            }
           }
 
           let requestBody: string | undefined
