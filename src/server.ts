@@ -182,9 +182,21 @@ export function buildInputSchema(
     }
   }
 
-  // Add body as a JSON string parameter if requestBody exists
+  // Add body and content_type params if requestBody exists
   if (operation.requestBody) {
-    schema['body'] = z.string().optional().describe('Request body as JSON string')
+    const contentTypes = operation.requestBody.content
+      ? Object.keys(operation.requestBody.content)
+      : []
+    const hasNonJson = contentTypes.some((ct) => !ct.includes('application/json'))
+
+    schema['body'] = z.string().optional().describe('Request body as string')
+
+    if (hasNonJson) {
+      schema['content_type'] = z
+        .string()
+        .optional()
+        .describe(`Content-Type header. Supported: ${contentTypes.join(', ')}`)
+    }
   }
 
   return schema
@@ -326,7 +338,7 @@ async function registerNonCodemodeTools(
 
           let requestBody: string | undefined
           if (params['body']) {
-            headers['Content-Type'] = 'application/json'
+            headers['Content-Type'] = (params['content_type'] as string) || 'application/json'
             requestBody = params['body'] as string
           }
 

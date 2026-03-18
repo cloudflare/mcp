@@ -276,6 +276,45 @@ describe('buildInputSchema', () => {
     expect(schema['body']).toBeUndefined()
   })
 
+  // --- Content-Type ---
+
+  it('adds content_type param when endpoint supports non-JSON content types', () => {
+    const operation: OperationInfo = {
+      requestBody: {
+        required: true,
+        content: {
+          'application/json': { schema: { type: 'object' } },
+          'application/javascript': { schema: { type: 'string' } },
+          'multipart/form-data': { schema: { type: 'object' } }
+        }
+      }
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['content_type']).toBeDefined()
+    expect(schema['content_type'].isOptional()).toBe(true)
+    expect(schema['content_type'].description).toContain('application/javascript')
+    expect(schema['content_type'].description).toContain('multipart/form-data')
+  })
+
+  it('does not add content_type param when endpoint only supports JSON', () => {
+    const operation: OperationInfo = {
+      requestBody: {
+        required: true,
+        content: { 'application/json': { schema: { type: 'object' } } }
+      }
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/d1/database')
+    expect(schema['content_type']).toBeUndefined()
+  })
+
+  it('does not add content_type param when no requestBody content', () => {
+    const operation: OperationInfo = {
+      requestBody: { required: true }
+    }
+    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
+    expect(schema['content_type']).toBeUndefined()
+  })
+
   // --- Combined / complex cases ---
 
   it('handles path params + query params + body together', () => {
@@ -729,6 +768,79 @@ describe('createServer with codemode=false', () => {
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.method).toBe('POST')
       expect(calledOpts.body).toBe(body)
+      expect(calledOpts.headers['Content-Type']).toBe('application/json')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('uses custom content_type when provided', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts/{script_name}': {
+        put: {
+          summary: 'Upload Worker',
+          requestBody: {
+            required: true,
+            content: {
+              'application/javascript': { schema: { type: 'string' } },
+              'multipart/form-data': { schema: { type: 'object' } }
+            }
+          }
+        } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['put_accounts_workers_scripts_by_script_name']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+
+    try {
+      const scriptBody = 'export default { async fetch() { return new Response("hi"); } }'
+      await tool.handler(
+        { script_name: 'my-worker', body: scriptBody, content_type: 'application/javascript' },
+        {} as any
+      )
+
+      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
+      expect(calledOpts.headers['Content-Type']).toBe('application/javascript')
+      expect(calledOpts.body).toBe(scriptBody)
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('defaults to application/json when content_type not provided', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/d1/database': {
+        post: {
+          summary: 'Create D1 Database',
+          requestBody: {
+            required: true,
+            content: { 'application/json': { schema: { type: 'object' } } }
+          }
+        } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
+
+    const tools = (server as any)._registeredTools
+    const tool = tools['post_accounts_d1_database']
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+
+    try {
+      await tool.handler({ body: '{"name":"test"}' }, {} as any)
+      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.headers['Content-Type']).toBe('application/json')
     } finally {
       globalThis.fetch = originalFetch
