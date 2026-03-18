@@ -103,9 +103,6 @@ declare const spec: {
  */
 export function pathToToolName(method: string, path: string): string {
   let cleaned = path
-    // Strip common auth-context prefixes
-    .replace(/^\/accounts\/\{[^}]+\}\//, '/')
-    .replace(/^\/zones\/\{[^}]+\}\//, '/')
 
   // Check if path ends with a {param} — keep it for disambiguation
   const trailingParam = cleaned.match(/\/\{([^}]+)\}$/)
@@ -123,8 +120,8 @@ export function pathToToolName(method: string, path: string): string {
       .replace(/_$/, '') +
     suffix
 
-  // MCP tool names must be <= 64 characters
-  return name.length > 64 ? name.slice(0, 64).replace(/_$/, '') : name
+  // MCP spec: tool names SHOULD be between 1 and 128 characters
+  return name.length > 128 ? name.slice(0, 128).replace(/_$/, '') : name
 }
 
 /**
@@ -238,7 +235,7 @@ async function registerNonCodemodeTools(
         let candidate: string
         do {
           const suffixStr = `_${i}`
-          const maxBase = 64 - suffixStr.length
+          const maxBase = 128 - suffixStr.length
           const base =
             toolName.length > maxBase ? toolName.slice(0, maxBase).replace(/_$/, '') : toolName
           candidate = `${base}${suffixStr}`
