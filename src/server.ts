@@ -273,9 +273,7 @@ async function registerNonCodemodeTools(
       if (needsAccountId) {
         inputSchema['account_id'] = z
           .string()
-          .describe(
-            `Cloudflare account ID. Available: ${props.accounts.map((a) => `${a.id} (${a.name})`).join(', ')}`
-          )
+          .describe('Cloudflare account ID. Required for multi-account tokens.')
       }
 
       server.registerTool(toolName, { description, inputSchema }, async (params) => {
@@ -386,10 +384,19 @@ export async function createServer(
   props?: AuthProps,
   codemode = true
 ): Promise<McpServer> {
-  const server = new McpServer({
-    name: 'cloudflare-api',
-    version: '0.1.0'
-  })
+  // Build server instructions with account info for multi-account tokens
+  let instructions: string | undefined
+  if (!accountId && props?.type === 'user_token' && props.accounts.length > 1) {
+    const list = props.accounts.map((a) => `  - ${a.id} (${a.name})`).join('\n')
+    instructions =
+      `This token has access to multiple Cloudflare accounts. ` +
+      `Pass the account_id argument to tools that require it.\n\nAvailable accounts:\n${list}`
+  }
+
+  const server = new McpServer(
+    { name: 'cloudflare-api', version: '0.1.0' },
+    instructions ? { instructions } : undefined
+  )
 
   if (!codemode) {
     await registerNonCodemodeTools(server, env, apiToken, accountId, props)
