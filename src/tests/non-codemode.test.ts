@@ -4,38 +4,86 @@ import type { OperationInfo } from '../server'
 import type { AuthProps } from '../auth/types'
 
 describe('pathToToolName', () => {
-  it('converts a simple GET endpoint', () => {
+  it('strips accounts/{id} prefix', () => {
     expect(pathToToolName('get', '/accounts/{account_id}/workers/scripts')).toBe(
-      'get_accounts_workers_scripts'
+      'get_workers_scripts'
     )
+  })
+
+  it('strips zones/{id} prefix', () => {
+    expect(pathToToolName('get', '/zones/{zone_id}/dns_records')).toBe('get_dns_records')
   })
 
   it('converts a POST endpoint', () => {
-    expect(pathToToolName('post', '/accounts/{account_id}/d1/database')).toBe(
-      'post_accounts_d1_database'
+    expect(pathToToolName('post', '/accounts/{account_id}/d1/database')).toBe('post_d1_database')
+  })
+
+  it('adds by_param suffix for trailing path param', () => {
+    expect(pathToToolName('get', '/accounts/{account_id}/workers/scripts/{script_name}')).toBe(
+      'get_workers_scripts_by_script_name'
     )
   })
 
-  it('handles nested path params', () => {
-    expect(pathToToolName('delete', '/accounts/{account_id}/workers/scripts/{script_name}')).toBe(
-      'delete_accounts_workers_scripts'
-    )
+  it('disambiguates collection vs resource paths', () => {
+    const collection = pathToToolName('get', '/accounts/{account_id}/workers/scripts')
+    const resource = pathToToolName('get', '/accounts/{account_id}/workers/scripts/{script_name}')
+    expect(collection).toBe('get_workers_scripts')
+    expect(resource).toBe('get_workers_scripts_by_script_name')
+    expect(collection).not.toBe(resource)
   })
 
-  it('handles zone-based paths', () => {
-    expect(pathToToolName('get', '/zones/{zone_id}/dns_records')).toBe('get_zones_dns_records')
-  })
-
-  it('strips leading slash and collapses underscores', () => {
-    expect(pathToToolName('get', '/user')).toBe('get_user')
+  it('strips intermediate params but keeps trailing one', () => {
+    expect(
+      pathToToolName(
+        'get',
+        '/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}'
+      )
+    ).toBe('get_storage_kv_namespaces_values_by_key_name')
   })
 
   it('handles paths with no params', () => {
+    expect(pathToToolName('get', '/user')).toBe('get_user')
     expect(pathToToolName('get', '/user/tokens')).toBe('get_user_tokens')
   })
 
-  it('strips trailing underscore', () => {
-    expect(pathToToolName('get', '/accounts/{account_id}')).toBe('get_accounts')
+  it('handles graphql path', () => {
+    expect(pathToToolName('post', '/client/v4/graphql')).toBe('post_client_v4_graphql')
+  })
+
+  it('truncates tool names to 64 characters max', () => {
+    const longPath =
+      '/accounts/{account_id}/some_very_long_product_name/resources/{resource_id}/subresources/{sub_id}'
+    const name = pathToToolName('get', longPath)
+    expect(name.length).toBeLessThanOrEqual(64)
+  })
+
+  it('does not leave trailing underscore after truncation', () => {
+    const longPath =
+      '/accounts/{account_id}/long_product_name_here/resources/{resource_id}/items/{item_id}'
+    const name = pathToToolName('get', longPath)
+    expect(name.length).toBeLessThanOrEqual(64)
+    expect(name.endsWith('_')).toBe(false)
+  })
+
+  it('all realistic Cloudflare paths produce names <= 64 chars', () => {
+    const realisticPaths = [
+      '/accounts/{account_id}/workers/scripts',
+      '/accounts/{account_id}/workers/scripts/{script_name}',
+      '/zones/{zone_id}/dns_records/{record_id}',
+      '/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}',
+      '/accounts/{account_id}/resourcelibrary/applications',
+      '/accounts/{account_id}/resourcelibrary/applications/{app_id}',
+      '/accounts/{account_id}/d1/database',
+      '/user/tokens',
+      '/client/v4/graphql',
+      '/accounts/{account_id}/workers/scripts/{script_name}/schedules'
+    ]
+    for (const path of realisticPaths) {
+      for (const method of ['get', 'post', 'put', 'patch', 'delete']) {
+        const name = pathToToolName(method, path)
+        expect(name.length).toBeLessThanOrEqual(64)
+      }
+    }
   })
 })
 
@@ -412,9 +460,9 @@ describe('createServer with codemode=false', () => {
 
     const tools = (server as any)._registeredTools
     const toolNames = Object.keys(tools)
-    expect(toolNames).toContain('get_accounts_workers_scripts')
-    expect(toolNames).toContain('post_accounts_workers_scripts')
-    expect(toolNames).toContain('get_zones_dns_records')
+    expect(toolNames).toContain('get_workers_scripts')
+    expect(toolNames).toContain('post_workers_scripts')
+    expect(toolNames).toContain('get_dns_records')
 
     // Should NOT have codemode tools
     expect(toolNames).not.toContain('search')
@@ -439,7 +487,7 @@ describe('createServer with codemode=false', () => {
     const toolNames = Object.keys(tools)
     expect(toolNames).toContain('search')
     expect(toolNames).toContain('execute')
-    expect(toolNames).not.toContain('get_accounts_workers_scripts')
+    expect(toolNames).not.toContain('get_workers_scripts')
   })
 
   it('tool handler makes direct fetch call for non-codemode tools', async () => {
@@ -457,7 +505,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-123', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [{ id: 'my-worker' }] })
@@ -492,7 +540,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'fixed-acct', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
@@ -527,7 +575,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', undefined, props, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
@@ -555,7 +603,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', undefined, undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['delete_zones_dns_records']
+    const tool = tools['delete_dns_records_by_record_id']
 
     const result = await tool.handler({}, {} as any)
     expect(result.isError).toBe(true)
@@ -574,7 +622,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', undefined, undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['delete_zones_dns_records']
+    const tool = tools['delete_dns_records_by_record_id']
 
     // Provide zone_id but not record_id
     const result = await tool.handler({ zone_id: 'z1' }, {} as any)
@@ -600,7 +648,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
@@ -633,7 +681,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
@@ -667,7 +715,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['post_accounts_d1_database']
+    const tool = tools['post_d1_database']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: { id: 'new-db' } })
@@ -697,7 +745,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
@@ -732,7 +780,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['put_accounts_workers_scripts']
+    const tool = tools['put_workers_scripts_by_script_name']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
@@ -774,7 +822,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['put_accounts_workers_scripts']
+    const tool = tools['put_workers_scripts_by_script_name']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
@@ -800,7 +848,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_storage_kv_namespaces_values']
+    const tool = tools['get_storage_kv_namespaces_values_by_key_name']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchText('raw-kv-value-here')
@@ -826,7 +874,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson(
@@ -855,7 +903,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network failure'))
@@ -881,7 +929,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'acct-1', undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts_by_script_name']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
@@ -918,7 +966,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', undefined, props, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const tool = tools['get_workers_scripts']
     const inputSchema = tool.inputSchema
     expect(inputSchema).toBeDefined()
   })
@@ -969,7 +1017,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', undefined, undefined, false)
 
     const tools = (server as any)._registeredTools
-    const tool = tools['patch_zones_dns_records']
+    const tool = tools['patch_dns_records_by_record_id']
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })

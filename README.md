@@ -67,7 +67,7 @@ https://mcp.cloudflare.com/mcp?codemode=false
 ```
 
 When code mode is disabled:
-- Each API endpoint is registered as its own tool (e.g., `get_accounts_workers_scripts`)
+- Each API endpoint is registered as its own tool (e.g., `get_workers_scripts`, `post_d1_database`)
 - Tool input schemas are derived from the endpoint's path parameters, query parameters, and request body
 - Tools make direct API calls — no code execution involved
 - Path parameters like `account_id` are auto-resolved when possible (single account)

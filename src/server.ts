@@ -102,17 +102,29 @@ declare const spec: {
  * e.g. GET /accounts/{account_id}/workers/scripts → get_accounts_workers_scripts
  */
 export function pathToToolName(method: string, path: string): string {
-  return (
+  let cleaned = path
+    // Strip common auth-context prefixes
+    .replace(/^\/accounts\/\{[^}]+\}\//, '/')
+    .replace(/^\/zones\/\{[^}]+\}\//, '/')
+
+  // Check if path ends with a {param} — keep it for disambiguation
+  const trailingParam = cleaned.match(/\/\{([^}]+)\}$/)
+  const suffix = trailingParam ? `_by_${trailingParam[1]}` : ''
+
+  const name =
     method.toLowerCase() +
     '_' +
-    path
+    cleaned
       .replace(/^\//, '')
-      .replace(/\/\{[^}]+\}/g, '') // strip path params like /{account_id}
+      .replace(/\/\{[^}]+\}/g, '') // strip all {param} segments
       .replace(/\//g, '_')
       .replace(/[^a-z0-9_]/gi, '')
       .replace(/_+/g, '_')
-      .replace(/_$/, '')
-  )
+      .replace(/_$/, '') +
+    suffix
+
+  // MCP tool names must be <= 64 characters
+  return name.length > 64 ? name.slice(0, 64).replace(/_$/, '') : name
 }
 
 /**
@@ -210,6 +222,7 @@ async function registerNonCodemodeTools(
   if (!obj) throw new Error('spec.json not found in R2. Run the scheduled handler to populate it.')
   const spec = (await obj.json()) as { paths: Record<string, Record<string, OperationInfo>> }
   const apiBase = env.CLOUDFLARE_API_BASE
+  const registeredNames = new Set<string>()
 
   const methods = ['get', 'post', 'put', 'patch', 'delete'] as const
 
@@ -218,7 +231,22 @@ async function registerNonCodemodeTools(
       const operation = pathItem[method]
       if (!operation) continue
 
-      const toolName = pathToToolName(method, path)
+      let toolName = pathToToolName(method, path)
+      // Deduplicate if truncation caused a collision
+      if (registeredNames.has(toolName)) {
+        let i = 2
+        let candidate: string
+        do {
+          const suffixStr = `_${i}`
+          const maxBase = 64 - suffixStr.length
+          const base =
+            toolName.length > maxBase ? toolName.slice(0, maxBase).replace(/_$/, '') : toolName
+          candidate = `${base}${suffixStr}`
+          i++
+        } while (registeredNames.has(candidate))
+        toolName = candidate
+      }
+      registeredNames.add(toolName)
       const description =
         `${method.toUpperCase()} ${path}` +
         (operation.summary ? `\n\n${operation.summary}` : '') +
