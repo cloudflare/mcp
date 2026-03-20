@@ -90,6 +90,8 @@ const REGISTERED_SCOPES = [
   'url_scanner:write',
   'radar:read',
   'notebook-examples:read',
+  'mcp_portals:read',
+  'mcp_portals:write',
   'firstpartytags:write'
 ] as const
 

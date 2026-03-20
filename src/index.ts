@@ -48,7 +48,9 @@ async function createMcpResponse(
   accountId?: string,
   props?: AuthProps
 ): Promise<Response> {
-  const server = await createServer(env, ctx, token, accountId, props)
+  const url = new URL(request.url)
+  const codemode = url.searchParams.get('codemode') !== 'false'
+  const server = await createServer(env, ctx, token, accountId, props, codemode)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,

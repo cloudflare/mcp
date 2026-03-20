@@ -37,12 +37,42 @@ For CI/CD, automation, or if you prefer managing tokens yourself.
 
 Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) with the permissions you need. Both **user tokens** and **account tokens** are supported. For account tokens, include the **Account Resources : Read** permission so the server can auto-detect your account ID.
 
+> **Note:** API tokens with **Client IP Address Filtering** enabled are not currently supported.
+
 ### Add to Agent
 
 | Setting      | Value                                                                       |
 | ------------ | --------------------------------------------------------------------------- |
 | MCP URL      | `https://mcp.cloudflare.com/mcp`                                            |
 | Bearer Token | Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens) |
+
+### Disable Code Mode
+
+If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the 2 code mode tools.
+
+```
+https://mcp.cloudflare.com/mcp?codemode=false
+```
+
+#### Example JSON Configuration
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "url": "https://mcp.cloudflare.com/mcp?codemode=false"
+    }
+  }
+}
+```
+
+When code mode is disabled:
+- Each API endpoint is registered as its own tool (e.g., `get_workers_scripts`, `post_d1_database`)
+- Tool input schemas are derived from the endpoint's path parameters, query parameters, and request body
+- Tools make direct API calls — no code execution involved
+- Path parameters like `account_id` are auto-resolved when possible (single account)
+
+> **Note:** Disabling code mode significantly increases the token cost (~244k tokens vs ~1k tokens). Only disable it when necessary for composition with other code mode systems.
 
 ## The Problem
 
