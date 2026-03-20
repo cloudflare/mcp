@@ -20,6 +20,7 @@ export const ALL_SCOPES = {
   'workers_kv:write': 'Create and modify KV namespaces and data',
   'workers_routes:write': 'Configure Worker routes',
   'workers_tail:read': 'View Worker logs via tail',
+  'workers_deployments:read': 'View Worker deployment history and status',
   'workers_builds:read': 'View Worker builds',
   'workers_builds:write': 'Trigger Worker builds',
   'workers_observability:read': 'View Worker metrics and traces',
@@ -115,6 +116,10 @@ export const ALL_SCOPES = {
   // Notebooks
   'notebook-examples:read': 'View notebook examples',
 
+  // MCP Portals
+  'mcp_portals:read': 'View MCP Portal configurations',
+  'mcp_portals:write': 'Create and modify MCP Portals',
+
   // Other
   'firstpartytags:write': 'Configure first-party tags'
 } as const
@@ -139,6 +144,7 @@ export const SCOPE_TEMPLATES = {
     scopes: [
       ...REQUIRED_SCOPES,
       'workers:read',
+      'workers_deployments:read',
       'workers_builds:read',
       'workers_observability:read',
       'pages:read',

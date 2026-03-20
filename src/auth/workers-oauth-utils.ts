@@ -558,7 +558,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       font-family: 'SF Mono', Monaco, 'Courier New', monospace;
       font-size: 0.75rem;
       color: var(--cf-text);
-      min-width: 140px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-right: 0.5rem;
     }
     .scope-desc {
       color: var(--cf-text-light);
@@ -566,6 +568,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      min-width: 0;
     }
 
     /* Info Text */
