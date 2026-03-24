@@ -31,6 +31,8 @@ Just connect to the MCP server URL - you'll be redirected to Cloudflare to autho
 }
 ```
 
+> **Claude Code users:** You must add `"type": "http"` to the config. See the [Claude Code connection guide](docs/connection-guides/claude-code.md) for full instructions.
+
 ### Option 2: API Token
 
 For CI/CD, automation, or if you prefer managing tokens yourself.
@@ -188,6 +190,12 @@ execute({
   account_id: "your-account-id",
 });
 ```
+
+## Connection Guides
+
+Client-specific setup instructions:
+
+- [Claude Code](docs/connection-guides/claude-code.md)
 
 ## Build a Code Mode MCP Server
 
