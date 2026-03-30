@@ -17,6 +17,7 @@
 	},
 	"vars": {
 		"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
+		"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.cloudflare.com",
 		"OPENAPI_SPEC_URL": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
 	},
 	"worker_loaders": [
@@ -85,8 +86,9 @@
 				"crons": ["0 0 * * *"]
 			},
 			"vars": {
-				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
-		"OPENAPI_SPEC_URL": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
+				"CLOUDFLARE_API_BASE": "https://api.staging.cloudflare.com/client/v4",
+				"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.staging.cloudflare.com",
+				"OPENAPI_SPEC_URL": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
 			}
 		},
 		"production": {
@@ -126,7 +128,8 @@
 			},
 			"vars": {
 				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
-		"OPENAPI_SPEC_URL": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
+				"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.cloudflare.com",
+				"OPENAPI_SPEC_URL": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json"
 			}
 		}
 	}

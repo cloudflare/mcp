@@ -68,6 +68,7 @@ export async function getAuthorizationURL(params: {
   state: AuthRequest
   scopes: string[]
   codeChallenge: string
+  oauthDomain: string
 }): Promise<{ authUrl: string }> {
   const urlParams = new URLSearchParams({
     response_type: 'code',
@@ -80,7 +81,7 @@ export async function getAuthorizationURL(params: {
   })
 
   return {
-    authUrl: `https://dash.cloudflare.com/oauth2/auth?${urlParams.toString()}`
+    authUrl: `${params.oauthDomain}/oauth2/auth?${urlParams.toString()}`
   }
 }
 
@@ -103,6 +104,7 @@ export async function getAuthToken(params: {
   redirect_uri: string
   code: string
   code_verifier: string
+  oauthDomain: string
 }): Promise<AuthorizationToken> {
   const body = new URLSearchParams({
     grant_type: 'authorization_code',
@@ -112,7 +114,7 @@ export async function getAuthToken(params: {
     code_verifier: params.code_verifier
   })
 
-  const resp = await fetch('https://dash.cloudflare.com/oauth2/token', {
+  const resp = await fetch(`${params.oauthDomain}/oauth2/token`, {
     method: 'POST',
     headers: {
       Authorization: `Basic ${btoa(`${params.client_id}:${params.client_secret}`)}`,
@@ -136,6 +138,7 @@ export async function refreshAuthToken(params: {
   client_id: string
   client_secret: string
   refresh_token: string
+  oauthDomain: string
 }): Promise<AuthorizationToken> {
   const body = new URLSearchParams({
     grant_type: 'refresh_token',
@@ -143,7 +146,7 @@ export async function refreshAuthToken(params: {
     refresh_token: params.refresh_token
   })
 
-  const resp = await fetch('https://dash.cloudflare.com/oauth2/token', {
+  const resp = await fetch(`${params.oauthDomain}/oauth2/token`, {
     method: 'POST',
     headers: {
       Authorization: `Basic ${btoa(`${params.client_id}:${params.client_secret}`)}`,
