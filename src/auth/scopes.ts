@@ -120,6 +120,10 @@ export const ALL_SCOPES = {
   'mcp_portals:read': 'View MCP Portal configurations',
   'mcp_portals:write': 'Create and modify MCP Portals',
 
+  // Email
+  'email_routing:write': 'Configure email routing rules',
+  'email_sending:write': 'Send emails via Email Workers',
+
   // Other
   'firstpartytags:write': 'Configure first-party tags'
 } as const
