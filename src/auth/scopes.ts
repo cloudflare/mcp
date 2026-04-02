@@ -121,7 +121,9 @@ export const ALL_SCOPES = {
   'mcp_portals:write': 'Create and modify MCP Portals',
 
   // Email
+  'email_routing:read': 'View email routing rules',
   'email_routing:write': 'Configure email routing rules',
+  'email_sending:read': 'View email sending configurations',
   'email_sending:write': 'Send emails via Email Workers',
 
   // Other
@@ -158,7 +160,9 @@ export const SCOPE_TEMPLATES = {
       'dns_settings:read',
       'dns_analytics:read',
       'zone:read',
-      'logpush:read'
+      'logpush:read',
+      'email_routing:read',
+      'email_sending:read'
     ] as ScopeName[]
   },
   'workers-full': {

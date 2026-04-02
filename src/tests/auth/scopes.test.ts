@@ -92,7 +92,9 @@ const REGISTERED_SCOPES = [
   'notebook-examples:read',
   'mcp_portals:read',
   'mcp_portals:write',
+  'email_routing:read',
   'email_routing:write',
+  'email_sending:read',
   'email_sending:write',
   'firstpartytags:write'
 ] as const
