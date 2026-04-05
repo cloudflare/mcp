@@ -15,6 +15,8 @@
 
 MCP URL: `https://mcp.cloudflare.com/mcp`
 
+> **Transport type:** This is a remote MCP server using **HTTP transport** (Streamable HTTP). Clients that require a transport type should use `http` — not `sse` or `stdio`. No npm package installation is needed.
+
 ### Option 1: OAuth (Recommended)
 
 Just connect to the MCP server URL - you'll be redirected to Cloudflare to authorize and select permissions.
@@ -25,6 +27,53 @@ Just connect to the MCP server URL - you'll be redirected to Cloudflare to autho
 {
   "mcpServers": {
     "cloudflare-api": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    }
+  }
+}
+```
+
+> **Note:** Some MCP clients infer the transport type from the config. If your client requires an explicit type, set `"type": "http"`. Using `"sse"` or omitting the type may cause connection failures.
+
+### Client Setup Guides
+
+#### Claude Code (CLI)
+
+Register the server using the `--transport http` flag:
+
+```bash
+npx -y @anthropic-ai/claude-code mcp add --transport http cloudflare-api https://mcp.cloudflare.com/mcp
+```
+
+After adding, run `/mcp` in Claude Code to initiate the OAuth flow. Your browser will open to authorize with Cloudflare. On first connection, you may need to restart Claude Code after completing OAuth for the server to fully connect.
+
+#### Claude Desktop
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    }
+  }
+}
+```
+
+Restart Claude Desktop after updating the config. The OAuth flow will open in your browser on first use.
+
+#### Cursor / Windsurf / Other IDE Agents
+
+Add to your MCP settings (typically `.cursor/mcp.json` or equivalent):
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "type": "http",
       "url": "https://mcp.cloudflare.com/mcp"
     }
   }
@@ -44,6 +93,7 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 | Setting      | Value                                                                       |
 | ------------ | --------------------------------------------------------------------------- |
 | MCP URL      | `https://mcp.cloudflare.com/mcp`                                            |
+| Transport    | `http` (Streamable HTTP)                                                    |
 | Bearer Token | Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens) |
 
 ### Disable Code Mode
@@ -60,6 +110,7 @@ https://mcp.cloudflare.com/mcp?codemode=false
 {
   "mcpServers": {
     "cloudflare-api": {
+      "type": "http",
       "url": "https://mcp.cloudflare.com/mcp?codemode=false"
     }
   }
