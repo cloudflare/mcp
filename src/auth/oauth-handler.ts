@@ -62,11 +62,10 @@ async function fetchCloudflareProbes(accessToken: string): Promise<[Response, Re
   const headers = { Authorization: `Bearer ${accessToken}` }
 
   try {
-    const [userResp, accountsResp] = await Promise.all([
+    return await Promise.all([
       fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }),
       fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers })
     ])
-    return [userResp, accountsResp]
   } catch (error) {
     console.error('Cloudflare API request failed', error)
     throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
