@@ -15,8 +15,8 @@ const DEFAULT_OPTIONS: Required<RetryOptions> = {
   maxRetries: 3,
   baseDelayMs: 1000,
   backoffFactor: 2,
-  maxDelayMs: 5_000,  // Keep low — Workers have a 30s wall clock limit
-  jitter: true,
+  maxDelayMs: 5_000, // Keep low — Workers have a 30s wall clock limit
+  jitter: true
 }
 
 /**
@@ -29,7 +29,7 @@ const DEFAULT_OPTIONS: Required<RetryOptions> = {
 export function computeRetryDelay(
   attempt: number,
   opts: Required<RetryOptions>,
-  retryAfterHeader?: string | null,
+  retryAfterHeader?: string | null
 ): number {
   // Respect Retry-After header if present (value in seconds)
   if (retryAfterHeader) {
@@ -58,7 +58,7 @@ export function computeRetryDelay(
 export async function fetchWithRetry(
   input: RequestInfo,
   init?: RequestInit,
-  options?: RetryOptions,
+  options?: RetryOptions
 ): Promise<Response> {
   const opts = { ...DEFAULT_OPTIONS, ...options }
 
@@ -80,7 +80,7 @@ export async function fetchWithRetry(
         const delay = computeRetryDelay(attempt, opts, response.headers.get('Retry-After'))
         console.warn(
           `fetchWithRetry: 429 on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-            `retrying in ${Math.round(delay)}ms`,
+            `retrying in ${Math.round(delay)}ms`
         )
         await sleep(delay)
       }
@@ -92,7 +92,7 @@ export async function fetchWithRetry(
         const delay = computeRetryDelay(attempt, opts, null)
         console.warn(
           `fetchWithRetry: network error on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-            `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : error}`,
+            `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : error}`
         )
         await sleep(delay)
       }

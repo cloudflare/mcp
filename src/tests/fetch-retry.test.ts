@@ -7,7 +7,7 @@ describe('computeRetryDelay', () => {
     baseDelayMs: 1000,
     backoffFactor: 2,
     maxDelayMs: 5_000,
-    jitter: false,
+    jitter: false
   }
 
   it('computes exponential delays without jitter', () => {
@@ -83,7 +83,8 @@ describe('fetchWithRetry', () => {
   })
 
   it('retries on 429 and succeeds', async () => {
-    const mock = vi.fn()
+    const mock = vi
+      .fn()
       .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
     globalThis.fetch = mock
@@ -91,7 +92,7 @@ describe('fetchWithRetry', () => {
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 3,
       baseDelayMs: 10, // fast for tests
-      jitter: false,
+      jitter: false
     })
 
     expect(result.status).toBe(200)
@@ -105,7 +106,7 @@ describe('fetchWithRetry', () => {
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 2,
       baseDelayMs: 10,
-      jitter: false,
+      jitter: false
     })
 
     expect(result.status).toBe(429)
@@ -114,7 +115,8 @@ describe('fetchWithRetry', () => {
   })
 
   it('retries on network errors and succeeds', async () => {
-    const mock = vi.fn()
+    const mock = vi
+      .fn()
       .mockRejectedValueOnce(new Error('network failure'))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
     globalThis.fetch = mock
@@ -122,7 +124,7 @@ describe('fetchWithRetry', () => {
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 3,
       baseDelayMs: 10,
-      jitter: false,
+      jitter: false
     })
 
     expect(result.status).toBe(200)
@@ -137,7 +139,7 @@ describe('fetchWithRetry', () => {
       fetchWithRetry('https://api.example.com/test', undefined, {
         maxRetries: 1,
         baseDelayMs: 10,
-        jitter: false,
+        jitter: false
       })
     ).rejects.toThrow('network failure')
 
@@ -152,19 +154,20 @@ describe('fetchWithRetry', () => {
     await fetchWithRetry('https://api.example.com/test', {
       method: 'POST',
       headers: { Authorization: 'Bearer token' },
-      body: '{"key":"value"}',
+      body: '{"key":"value"}'
     })
 
     expect(globalThis.fetch).toHaveBeenCalledWith('https://api.example.com/test', {
       method: 'POST',
       headers: { Authorization: 'Bearer token' },
-      body: '{"key":"value"}',
+      body: '{"key":"value"}'
     })
   })
 
   it('respects Retry-After header from 429 response', async () => {
     const headers429 = new Headers({ 'Retry-After': '1' })
-    const mock = vi.fn()
+    const mock = vi
+      .fn()
       .mockResolvedValueOnce(new Response('rate limited', { status: 429, headers: headers429 }))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
     globalThis.fetch = mock
@@ -173,7 +176,7 @@ describe('fetchWithRetry', () => {
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 3,
       baseDelayMs: 10, // would be 10ms without Retry-After
-      jitter: false,
+      jitter: false
     })
 
     const elapsed = Date.now() - start
@@ -183,7 +186,8 @@ describe('fetchWithRetry', () => {
   })
 
   it('handles mixed network errors and 429s', async () => {
-    const mock = vi.fn()
+    const mock = vi
+      .fn()
       .mockRejectedValueOnce(new Error('network failure'))
       .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
@@ -192,7 +196,7 @@ describe('fetchWithRetry', () => {
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 3,
       baseDelayMs: 10,
-      jitter: false,
+      jitter: false
     })
 
     expect(result.status).toBe(200)
@@ -200,7 +204,8 @@ describe('fetchWithRetry', () => {
   })
 
   it('returns 429 if last response was 429 even after network errors', async () => {
-    const mock = vi.fn()
+    const mock = vi
+      .fn()
       .mockRejectedValueOnce(new Error('network failure'))
       .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
     globalThis.fetch = mock
@@ -208,7 +213,7 @@ describe('fetchWithRetry', () => {
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 1,
       baseDelayMs: 10,
-      jitter: false,
+      jitter: false
     })
 
     expect(result.status).toBe(429)

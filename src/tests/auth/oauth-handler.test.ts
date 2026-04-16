@@ -228,9 +228,7 @@ describe('getUserAndAccounts', () => {
   })
 
   it('maps fetch rejection to server_error', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockRejectedValue(new TypeError('network failed'))
+    const fetchMock = vi.fn<typeof fetch>().mockRejectedValue(new TypeError('network failed'))
 
     vi.stubGlobal('fetch', fetchMock)
 
