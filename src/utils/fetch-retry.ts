@@ -5,7 +5,7 @@ export interface RetryOptions {
   baseDelayMs?: number
   /** Multiplier applied to delay after each retry (default: 2) */
   backoffFactor?: number
-  /** Maximum delay cap in ms (default: 30000) */
+  /** Maximum delay cap in ms (default: 5000) */
   maxDelayMs?: number
   /** Add random jitter to prevent thundering herd (default: true) */
   jitter?: boolean
@@ -15,7 +15,7 @@ const DEFAULT_OPTIONS: Required<RetryOptions> = {
   maxRetries: 3,
   baseDelayMs: 1000,
   backoffFactor: 2,
-  maxDelayMs: 30_000,
+  maxDelayMs: 5_000,  // Keep low — Workers have a 30s wall clock limit
   jitter: true,
 }
 

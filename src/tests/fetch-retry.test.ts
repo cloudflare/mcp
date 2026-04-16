@@ -6,7 +6,7 @@ describe('computeRetryDelay', () => {
     maxRetries: 3,
     baseDelayMs: 1000,
     backoffFactor: 2,
-    maxDelayMs: 30_000,
+    maxDelayMs: 5_000,
     jitter: false,
   }
 
@@ -14,12 +14,11 @@ describe('computeRetryDelay', () => {
     expect(computeRetryDelay(0, defaults)).toBe(1000) // 1000 * 2^0
     expect(computeRetryDelay(1, defaults)).toBe(2000) // 1000 * 2^1
     expect(computeRetryDelay(2, defaults)).toBe(4000) // 1000 * 2^2
-    expect(computeRetryDelay(3, defaults)).toBe(8000) // 1000 * 2^3
+    expect(computeRetryDelay(3, defaults)).toBe(5000) // 1000 * 2^3 = 8000, capped at 5000
   })
 
   it('caps delay at maxDelayMs', () => {
-    const opts = { ...defaults, maxDelayMs: 3000 }
-    expect(computeRetryDelay(5, opts)).toBe(3000) // 1000 * 2^5 = 32000, capped at 3000
+    expect(computeRetryDelay(5, defaults)).toBe(5000) // 1000 * 2^5 = 32000, capped at 5000
   })
 
   it('respects Retry-After header (seconds)', () => {
@@ -28,7 +27,7 @@ describe('computeRetryDelay', () => {
   })
 
   it('caps Retry-After at maxDelayMs', () => {
-    expect(computeRetryDelay(0, defaults, '60')).toBe(30_000)
+    expect(computeRetryDelay(0, defaults, '60')).toBe(5_000)
   })
 
   it('ignores invalid Retry-After values', () => {
