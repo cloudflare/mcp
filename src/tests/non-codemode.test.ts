@@ -3,6 +3,16 @@ import { pathToToolName, buildInputSchema, createServer } from '../server'
 import type { OperationInfo } from '../server'
 import type { AuthProps } from '../auth/types'
 
+// Use minimal retry config so tests don't wait for real backoff delays
+vi.mock('../utils/fetch-retry', async (importOriginal) => {
+  const original = await importOriginal<typeof import('../utils/fetch-retry')>()
+  return {
+    ...original,
+    fetchWithRetry: (input: RequestInfo, init?: RequestInit) =>
+      original.fetchWithRetry(input, init, { maxRetries: 0 })
+  }
+})
+
 describe('pathToToolName', () => {
   it('keeps accounts in name, strips param', () => {
     expect(pathToToolName('get', '/accounts/{account_id}/workers/scripts')).toBe(

@@ -2,6 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 import { createCodeExecutor, createSearchExecutor } from './executor'
 import { truncateResponse } from './truncate'
+import { fetchWithRetry } from './utils/fetch-retry'
 import type { AuthProps } from './auth/types'
 
 const CLOUDFLARE_TYPES = `
@@ -340,7 +341,7 @@ async function registerNonCodemodeTools(
             requestBody = params['body'] as string
           }
 
-          const response = await fetch(url.toString(), {
+          const response = await fetchWithRetry(url.toString(), {
             method: method.toUpperCase(),
             headers,
             body: requestBody

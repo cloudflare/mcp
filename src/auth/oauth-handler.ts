@@ -21,6 +21,7 @@ import {
   validateOAuthState,
   OAuthError
 } from './workers-oauth-utils'
+import { fetchWithRetry } from '../utils/fetch-retry'
 
 import type {
   AuthRequest,
@@ -61,10 +62,10 @@ async function fetchCloudflareProbes(accessToken: string): Promise<[Response, Re
   const headers = { Authorization: `Bearer ${accessToken}` }
 
   try {
-    return await Promise.all([
-      fetch(`${env.CLOUDFLARE_API_BASE}/user`, { headers }),
-      fetch(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers })
-    ])
+    return (await Promise.all([
+      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }),
+      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers })
+    ])) as [Response, Response]
   } catch (error) {
     console.error('Cloudflare API request failed', error)
     throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)

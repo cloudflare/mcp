@@ -6,6 +6,7 @@ import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
+import { fetchWithRetry } from './utils/fetch-retry'
 import type { AuthProps } from './auth/types'
 
 /**
@@ -29,7 +30,7 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
-    return fetch(authedRequest)
+    return fetchWithRetry(authedRequest)
   }
 }
 
