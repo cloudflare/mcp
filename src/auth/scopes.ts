@@ -127,14 +127,7 @@ export type ScopeName = keyof typeof ALL_SCOPES
 /** Scopes required for basic functionality - always included */
 export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
 
-/**
- * Scopes excluded from the Full access template: sensitive PII / location data.
- */
-const YOLO_EXCLUDED: ScopeName[] = ['teams:pii', 'teams:secure_location']
-
-const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (s) => !YOLO_EXCLUDED.includes(s)
-)
+const yoloScopes = Object.keys(ALL_SCOPES) as ScopeName[]
 
 const readOnlyScopes = Array.from(
   new Set<ScopeName>([

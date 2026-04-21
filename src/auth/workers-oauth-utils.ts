@@ -710,13 +710,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
     /* Categories (accordions) */
     .categories {
-      border: 1px solid var(--cf-border);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      background: white;
+      background: var(--cf-bg);
     }
     .cat {
-      border-bottom: 1px solid var(--cf-border);
+      border-bottom: 1px dashed var(--cf-row-divider);
     }
     .cat:last-child { border-bottom: none; }
     .cat-summary {
@@ -756,7 +753,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .cat-count.has { color: var(--cf-orange); }
     .cat-body {
       background: var(--cf-bg);
-      border-top: 1px solid var(--cf-border);
     }
 
     /* Rows */
