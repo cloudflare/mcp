@@ -207,23 +207,100 @@ function humanize(key: string): string {
 interface ScopeRow {
   resource: string
   label: string
+  category: string
   actions: Array<{ action: string; scope: string; desc: string; required: boolean }>
 }
 
+interface CategoryGroup {
+  category: string
+  rows: ScopeRow[]
+}
+
 /**
- * Group scopes by resource (the part before the `:`). A scope without a colon
- * (e.g. `offline_access`) becomes a single-action row.
+ * High-level category each resource belongs to — mirrors the grouping on the
+ * Cloudflare dashboard's API token screen. Unknown resources fall through to "Other".
  */
-function groupScopesByResource(
+const CATEGORY_MAP: Record<string, string> = {
+  offline_access: 'Core',
+  user: 'Core',
+  account: 'Core',
+  access: 'Access',
+  workers: 'Developer Platform',
+  workers_scripts: 'Developer Platform',
+  workers_kv: 'Developer Platform',
+  workers_routes: 'Developer Platform',
+  workers_tail: 'Developer Platform',
+  workers_deployments: 'Developer Platform',
+  workers_builds: 'Developer Platform',
+  workers_observability: 'Developer Platform',
+  workers_observability_telemetry: 'Developer Platform',
+  pages: 'Developer Platform',
+  d1: 'Developer Platform',
+  queues: 'Developer Platform',
+  pipelines: 'Developer Platform',
+  r2_catalog: 'Developer Platform',
+  vectorize: 'Developer Platform',
+  query_cache: 'Developer Platform',
+  secrets_store: 'Developer Platform',
+  containers: 'Developer Platform',
+  constellation: 'Developer Platform',
+  cloudchamber: 'Developer Platform',
+  mcp_portals: 'Developer Platform',
+  ai: 'AI & Machine Learning',
+  aig: 'AI & Machine Learning',
+  aiaudit: 'AI & Machine Learning',
+  'ai-search': 'AI & Machine Learning',
+  rag: 'AI & Machine Learning',
+  dns_records: 'DNS & Zones',
+  dns_settings: 'DNS & Zones',
+  dns_analytics: 'DNS & Zones',
+  zone: 'DNS & Zones',
+  ssl_certs: 'DNS & Zones',
+  logpush: 'Analytics & Logs',
+  auditlogs: 'Analytics & Logs',
+  lb: 'Networking',
+  notification: 'Networking',
+  connectivity: 'Networking',
+  teams: 'Cloudflare One / Zero Trust',
+  'sso-connector': 'Cloudflare One / Zero Trust',
+  cfone: 'Cloudflare One / Zero Trust',
+  dex: 'Cloudflare One / Zero Trust',
+  browser: 'Browser & Rendering',
+  url_scanner: 'App Security',
+  radar: 'App Security',
+  email_routing: 'Email & Messaging',
+  email_sending: 'Email & Messaging'
+}
+
+const CATEGORY_ORDER = [
+  'Core',
+  'Access',
+  'Developer Platform',
+  'AI & Machine Learning',
+  'DNS & Zones',
+  'Analytics & Logs',
+  'Networking',
+  'Browser & Rendering',
+  'Email & Messaging',
+  'App Security',
+  'Cloudflare One / Zero Trust',
+  'Other'
+]
+
+/**
+ * Group scopes by resource, then bucket rows by category for accordion display.
+ */
+function groupScopesByCategory(
   allScopes: Record<string, string>,
   requiredScopes: Set<string>
-): ScopeRow[] {
+): CategoryGroup[] {
   const byResource = new Map<string, ScopeRow>()
 
   for (const [scope, desc] of Object.entries(allScopes)) {
     const [resource, action = 'grant'] = scope.includes(':') ? scope.split(':') : [scope]
+    const category = CATEGORY_MAP[resource] ?? 'Other'
     if (!byResource.has(resource)) {
-      byResource.set(resource, { resource, label: humanize(resource), actions: [] })
+      byResource.set(resource, { resource, label: humanize(resource), category, actions: [] })
     }
     byResource.get(resource)!.actions.push({
       action,
@@ -233,7 +310,6 @@ function groupScopesByResource(
     })
   }
 
-  // Sort actions within a row: read first, then write/edit, then run/admin, then others alphabetically.
   const actionRank: Record<string, number> = {
     read: 0,
     write: 1,
@@ -254,12 +330,24 @@ function groupScopesByResource(
     })
   }
 
-  // Sort resources: put rows containing required scopes first (Core), then alphabetical.
-  return Array.from(byResource.values()).sort((a, b) => {
-    const aReq = a.actions.some((x) => x.required) ? 0 : 1
-    const bReq = b.actions.some((x) => x.required) ? 0 : 1
-    return aReq === bReq ? a.label.localeCompare(b.label) : aReq - bReq
-  })
+  const byCategory = new Map<string, ScopeRow[]>()
+  for (const row of byResource.values()) {
+    if (!byCategory.has(row.category)) byCategory.set(row.category, [])
+    byCategory.get(row.category)!.push(row)
+  }
+  for (const rows of byCategory.values()) {
+    rows.sort((a, b) => a.label.localeCompare(b.label))
+  }
+
+  const ordered: CategoryGroup[] = []
+  for (const category of CATEGORY_ORDER) {
+    const rows = byCategory.get(category)
+    if (rows) ordered.push({ category, rows })
+  }
+  for (const [category, rows] of byCategory) {
+    if (!CATEGORY_ORDER.includes(category)) ordered.push({ category, rows })
+  }
+  return ordered
 }
 
 const ACTION_LABELS: Record<string, string> = {
@@ -294,28 +382,45 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   const encodedState = btoa(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
   const requiredSet = new Set(requiredScopes)
-  const rows = groupScopesByResource(allScopes, requiredSet)
+  const categories = groupScopesByCategory(allScopes, requiredSet)
 
-  const rowsHtml = rows
-    .map((row) => {
-      const pills = row.actions
-        .map((a) => {
-          const label = ACTION_LABELS[a.action] ?? humanize(a.action)
-          const classes = ['pill', `pill--${a.action}`]
-          if (a.required) classes.push('pill--required')
-          return `<button type="button" class="${classes.join(' ')}" data-scope="${sanitizeHtml(a.scope)}" data-action="${sanitizeHtml(a.action)}" data-required="${a.required ? '1' : ''}" title="${sanitizeHtml(a.scope)} — ${sanitizeHtml(a.desc)}" aria-pressed="false">${sanitizeHtml(label)}</button>`
-        })
-        .join('')
-      const hasRequired = row.actions.some((a) => a.required)
+  const renderRow = (row: ScopeRow): string => {
+    const pills = row.actions
+      .map((a) => {
+        const label = ACTION_LABELS[a.action] ?? humanize(a.action)
+        const classes = ['pill']
+        if (a.required) classes.push('pill--required')
+        return `<button type="button" class="${classes.join(' ')}" data-scope="${sanitizeHtml(a.scope)}" data-action="${sanitizeHtml(a.action)}" data-required="${a.required ? '1' : ''}" title="${sanitizeHtml(a.scope)} — ${sanitizeHtml(a.desc)}" aria-pressed="false">${sanitizeHtml(label)}</button>`
+      })
+      .join('')
+    const hasRequired = row.actions.some((a) => a.required)
+    return `
+          <div class="row" data-resource="${sanitizeHtml(row.resource)}" data-search="${sanitizeHtml((row.label + ' ' + row.resource + ' ' + row.category).toLowerCase())}">
+            <div class="row-label">
+              <span class="row-name">${sanitizeHtml(row.label)}</span>
+              ${hasRequired ? '<span class="row-badge">Required</span>' : ''}
+            </div>
+            <div class="row-pills">${pills}</div>
+          </div>`
+  }
+
+  const categoriesHtml = categories
+    .map((g, idx) => {
+      const hasRequired = g.rows.some((r) => r.actions.some((a) => a.required))
+      const open = idx === 0 || hasRequired
       return `
-        <div class="row" data-resource="${sanitizeHtml(row.resource)}" data-search="${sanitizeHtml((row.label + ' ' + row.resource).toLowerCase())}">
-          <div class="row-label">
-            <span class="row-name">${sanitizeHtml(row.label)}</span>
-            <span class="row-key">${sanitizeHtml(row.resource)}</span>
-            ${hasRequired ? '<span class="row-badge">Required</span>' : ''}
+        <details class="cat" ${open ? 'open' : ''} data-category="${sanitizeHtml(g.category)}">
+          <summary class="cat-summary">
+            <span class="cat-chevron" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+            </span>
+            <span class="cat-name">${sanitizeHtml(g.category)}</span>
+            <span class="cat-count" data-count></span>
+          </summary>
+          <div class="cat-body">
+            ${g.rows.map(renderRow).join('')}
           </div>
-          <div class="row-pills">${pills}</div>
-        </div>`
+        </details>`
     })
     .join('')
 
@@ -338,242 +443,173 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Authorize ${clientName} · Cloudflare MCP</title>
+  <title>Authorize ${clientName} | Cloudflare</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #16110d;
-      --ink-soft: #3d342d;
-      --ink-muted: #7a6e65;
-      --ink-faint: #b3a99f;
-      --paper: #faf7f2;
-      --paper-2: #f3ede3;
-      --paper-3: #ebe3d5;
-      --line: rgba(22, 17, 13, 0.08);
-      --line-strong: rgba(22, 17, 13, 0.18);
-      --accent: #f6821f;
-      --accent-ink: #16110d;
-      --accent-soft: rgba(246, 130, 31, 0.10);
-      --danger: #c02d30;
-      --pill-radius: 6px;
+      --cf-orange: #f6821f;
+      --cf-orange-hover: #e5750f;
+      --cf-orange-light: rgba(246, 130, 31, 0.08);
+      --cf-brown: #3c2415;
+      --cf-brown-light: #6b4c3a;
+      --cf-cream: #fbf8f3;
+      --cf-cream-dark: #f5f0e8;
+      --cf-border: rgba(60, 36, 21, 0.1);
+      --cf-border-dark: rgba(60, 36, 21, 0.15);
+      --cf-text: #3c2415;
+      --cf-text-muted: #6b5c52;
+      --cf-text-light: #9a8a7c;
+      --cf-red: #d63031;
+      --border-radius: 8px;
+      --border-radius-lg: 12px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body { height: 100%; }
-
     body {
-      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 14px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.5;
-      color: var(--ink);
-      background: var(--paper);
-      background-image:
-        radial-gradient(rgba(22, 17, 13, 0.025) 1px, transparent 1px),
-        radial-gradient(rgba(22, 17, 13, 0.02) 1px, transparent 1px);
-      background-size: 24px 24px, 40px 40px;
-      background-position: 0 0, 12px 12px;
+      color: var(--cf-text);
+      background: var(--cf-cream);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    .masthead {
+    /* Header */
+    .header {
+      padding: 1rem 2rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 20px 32px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(250, 247, 242, 0.7);
-      backdrop-filter: saturate(140%) blur(8px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--cf-border);
+      background: white;
     }
-    .masthead .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: 18px;
-      letter-spacing: -0.01em;
-    }
-    .masthead .brand img { width: 28px; height: 28px; }
-    .masthead .brand em {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--ink-muted);
-    }
-    .masthead .eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-    }
+    .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
+    .cf-logo img { height: 32px; width: auto; }
+    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-border-dark); margin: 0 0.5rem; }
+    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-muted); }
 
-    .frame {
+    /* Main */
+    .main {
       flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--cf-border);
+      border-radius: var(--border-radius-lg);
       width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 48px 32px 120px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 40px;
+      max-width: 640px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(60, 36, 21, 0.06);
     }
+    .card-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--cf-border);
+      text-align: center;
+    }
+    .card-title { font-size: 1.25rem; font-weight: 600; color: var(--cf-text); margin-bottom: 0.25rem; }
+    .card-subtitle { font-size: 0.875rem; color: var(--cf-text-muted); }
+    .card-body { padding: 1.5rem 2rem; }
 
-    .hero {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 32px;
-      align-items: start;
-    }
-    .hero .num {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-style: italic;
-      font-size: 56px;
-      color: var(--accent);
-      line-height: 1;
-      padding-top: 6px;
-    }
-    .hero h1 {
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: 38px;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 12px;
-    }
-    .hero h1 em {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent);
-    }
-    .hero p {
-      font-size: 15px;
-      color: var(--ink-soft);
-      max-width: 52ch;
-    }
-    .hero .client-pill {
+    /* Client badge */
+    .client-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 16px;
-      padding: 6px 12px;
-      border: 1px solid var(--line-strong);
+      gap: 0.5rem;
+      background: var(--cf-cream);
+      padding: 0.5rem 1rem;
       border-radius: 100px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--ink-soft);
-      background: var(--paper-2);
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--cf-border);
     }
-    .hero .client-pill::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
+    .client-badge-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--cf-orange);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    .client-badge-icon svg { width: 12px; height: 12px; }
 
-    .divider {
-      height: 1px;
-      background: var(--line);
-      position: relative;
-    }
-    .divider::before {
-      content: attr(data-label);
-      position: absolute;
-      left: 0;
-      top: -9px;
-      padding-right: 16px;
-      background: var(--paper);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.14em;
+    /* Section labels */
+    .section { margin-bottom: 1.5rem; }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
       text-transform: uppercase;
-      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+      color: var(--cf-text-muted);
+      margin-bottom: 0.75rem;
     }
 
-    /* Template chooser */
+    /* Templates */
     .templates {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
+      gap: 0.5rem;
     }
     .tmpl {
       position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 14px 10px 14px;
-      border: 1px solid var(--line-strong);
-      border-radius: 10px;
-      background: var(--paper-2);
+      gap: 0.5rem;
+      padding: 0.5rem 0.9rem;
+      border: 1px solid var(--cf-border-dark);
+      border-radius: 100px;
+      background: white;
       cursor: pointer;
-      transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
-      font-family: 'IBM Plex Sans', sans-serif;
+      font-family: inherit;
+      transition: all 0.15s ease;
     }
-    .tmpl:hover { border-color: var(--ink); background: var(--paper-3); }
+    .tmpl:hover { border-color: var(--cf-brown-light); background: var(--cf-cream); }
     .tmpl[aria-pressed="true"] {
-      border-color: var(--accent);
-      background: #fff;
-      box-shadow: inset 0 0 0 1px var(--accent);
+      background: var(--cf-orange);
+      border-color: var(--cf-orange);
+      color: white;
     }
-    .tmpl .tmpl-name {
-      font-weight: 500;
-      font-size: 14px;
-      color: var(--ink);
-    }
+    .tmpl[aria-pressed="true"] .tmpl-tag { color: rgba(255,255,255,0.85); }
+    .tmpl .tmpl-name { font-size: 0.85rem; font-weight: 500; }
     .tmpl .tmpl-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.1em;
+      font-size: 0.7rem;
+      color: var(--cf-text-muted);
       text-transform: uppercase;
-      color: var(--ink-muted);
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: var(--paper-3);
+      letter-spacing: 0.04em;
+      font-weight: 500;
     }
-    .tmpl[aria-pressed="true"] .tmpl-tag { background: var(--accent-soft); color: var(--accent); }
     .tmpl .tmpl-delete {
-      margin-left: 4px;
       width: 16px;
       height: 16px;
       border: none;
       background: transparent;
       cursor: pointer;
-      color: var(--ink-muted);
-      border-radius: 4px;
+      color: currentColor;
+      opacity: 0.5;
+      padding: 0;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 0;
+      margin-left: 0.15rem;
     }
     .tmpl[data-user="1"] .tmpl-delete { display: inline-flex; }
-    .tmpl .tmpl-delete:hover { background: rgba(192, 45, 48, 0.12); color: var(--danger); }
-    .tmpl--custom {
-      border-style: dashed;
-      background: transparent;
-    }
-    .tmpl--custom[aria-pressed="true"] {
-      background: #fff;
-      border-style: solid;
-    }
+    .tmpl .tmpl-delete:hover { opacity: 1; color: var(--cf-red); }
+    .tmpl[aria-pressed="true"] .tmpl-delete:hover { color: white; opacity: 1; }
+    .tmpl--custom { border-style: dashed; }
 
-    /* Matrix */
+    /* Matrix head */
     .matrix-head {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 14px;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
     }
     .search {
       flex: 1;
@@ -581,298 +617,328 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .search input {
       width: 100%;
-      padding: 10px 14px 10px 36px;
-      border: 1px solid var(--line-strong);
-      border-radius: 10px;
+      padding: 0.55rem 0.85rem 0.55rem 2rem;
+      border: 1px solid var(--cf-border-dark);
+      border-radius: var(--border-radius);
       font-family: inherit;
-      font-size: 14px;
-      background: #fff;
-      color: var(--ink);
+      font-size: 0.85rem;
+      background: white;
+      color: var(--cf-text);
       outline: none;
-      transition: border-color 120ms ease, box-shadow 120ms ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
-    .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .search input:focus {
+      border-color: var(--cf-orange);
+      box-shadow: 0 0 0 3px var(--cf-orange-light);
+    }
     .search svg {
       position: absolute;
-      left: 12px;
+      left: 0.65rem;
       top: 50%;
       transform: translateY(-50%);
       width: 14px;
       height: 14px;
-      color: var(--ink-muted);
+      color: var(--cf-text-light);
     }
     .counter {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--ink-muted);
+      font-size: 0.75rem;
+      color: var(--cf-text-muted);
       white-space: nowrap;
+      font-weight: 500;
     }
-    .counter strong { color: var(--ink); font-weight: 500; }
-    .counter.warn strong { color: var(--danger); }
+    .counter.warn { color: var(--cf-red); }
 
-    .matrix {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+    /* Categories (accordions) */
+    .categories {
+      border: 1px solid var(--cf-border);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      background: white;
+    }
+    .cat {
+      border-bottom: 1px solid var(--cf-border);
+    }
+    .cat:last-child { border-bottom: none; }
+    .cat-summary {
+      list-style: none;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--cf-text);
+      background: white;
+      transition: background 0.12s ease;
+      user-select: none;
+    }
+    .cat-summary::-webkit-details-marker { display: none; }
+    .cat-summary:hover { background: var(--cf-cream); }
+    .cat-chevron {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      color: var(--cf-text-muted);
+      transition: transform 0.2s ease;
+    }
+    .cat[open] > .cat-summary .cat-chevron { transform: rotate(90deg); }
+    .cat-name { flex: 1; }
+    .cat-count {
+      font-size: 0.7rem;
+      color: var(--cf-text-muted);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+    .cat-count.has { color: var(--cf-orange); }
+    .cat-body {
+      background: var(--cf-cream);
+      border-top: 1px solid var(--cf-border);
     }
 
+    /* Rows */
     .row {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 24px;
+      gap: 1rem;
       align-items: center;
-      padding: 14px 4px;
-      border-bottom: 1px dashed var(--line);
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid var(--cf-border);
     }
     .row:last-child { border-bottom: none; }
     .row.hidden { display: none; }
-
     .row-label { min-width: 0; }
     .row-name {
+      font-size: 0.85rem;
       font-weight: 500;
-      font-size: 14px;
-      color: var(--ink);
-      display: block;
-    }
-    .row-key {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--ink-muted);
-      letter-spacing: 0.02em;
+      color: var(--cf-text);
     }
     .row-badge {
       display: inline-block;
-      margin-left: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.08em;
+      margin-left: 0.5rem;
+      font-size: 0.65rem;
+      font-weight: 600;
       text-transform: uppercase;
-      color: var(--accent);
+      letter-spacing: 0.05em;
+      color: var(--cf-orange);
       padding: 1px 6px;
-      border: 1px solid var(--accent);
+      border: 1px solid var(--cf-orange);
       border-radius: 3px;
       vertical-align: 1px;
     }
-
     .row-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 0.35rem;
       justify-content: flex-end;
     }
     .pill {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 12px;
+      font-family: inherit;
+      font-size: 0.75rem;
       font-weight: 500;
-      padding: 6px 12px;
-      border: 1px solid var(--line-strong);
-      border-radius: var(--pill-radius);
-      background: transparent;
-      color: var(--ink-soft);
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--cf-border-dark);
+      border-radius: 4px;
+      background: white;
+      color: var(--cf-text-muted);
       cursor: pointer;
-      transition: background 120ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
-      min-width: 56px;
+      transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+      min-width: 54px;
       text-align: center;
     }
-    .pill:hover { border-color: var(--ink); color: var(--ink); }
+    .pill:hover { border-color: var(--cf-brown-light); color: var(--cf-text); }
     .pill[aria-pressed="true"] {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
+      background: var(--cf-orange);
+      border-color: var(--cf-orange);
+      color: white;
     }
-    .pill--required {
-      cursor: not-allowed;
-    }
+    .pill--required { cursor: not-allowed; }
     .pill[aria-pressed="true"].pill--required {
-      background: var(--accent-ink);
-      border-color: var(--accent-ink);
+      background: var(--cf-brown);
+      border-color: var(--cf-brown);
     }
-    .pill:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
+    .pill:disabled { opacity: 0.4; cursor: not-allowed; }
 
-    /* Footer bar */
-    .footbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 16px 32px;
-      background: rgba(250, 247, 242, 0.92);
-      backdrop-filter: saturate(140%) blur(10px);
-      border-top: 1px solid var(--line-strong);
+    /* Info text */
+    .info-text {
+      font-size: 0.8rem;
+      color: var(--cf-text-muted);
+      margin: 1.5rem 0 1rem;
       display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 20;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
-    .footbar .summary {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--ink-muted);
+    .info-text svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--cf-text-light);
     }
-    .footbar .summary strong { color: var(--ink); font-weight: 500; }
-    .footbar .spacer { flex: 1; }
-    .btn {
-      padding: 10px 18px;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 120ms ease, border-color 120ms ease, transform 120ms ease, color 120ms ease;
-    }
-    .btn-ghost {
-      background: transparent;
-      color: var(--ink-muted);
-    }
-    .btn-ghost:hover { color: var(--ink); }
-    .btn-outline {
-      background: transparent;
-      border-color: var(--ink);
-      color: var(--ink);
-    }
-    .btn-outline:hover { background: var(--paper-2); }
-    .btn-outline:disabled { border-color: var(--line); color: var(--ink-faint); cursor: not-allowed; background: transparent; }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-    .btn-primary:hover { transform: translateY(-1px); }
-    .btn-primary:disabled { background: var(--line); border-color: var(--line); color: var(--ink-faint); cursor: not-allowed; transform: none; }
 
-    /* Save-as dialog (inline) */
+    /* Save as inline */
     .save-as {
       display: none;
       align-items: center;
-      gap: 8px;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: var(--cf-cream);
+      border: 1px solid var(--cf-border);
+      border-radius: var(--border-radius);
     }
-    .save-as.open { display: inline-flex; }
+    .save-as.open { display: flex; }
     .save-as input {
-      padding: 8px 12px;
-      border: 1px solid var(--line-strong);
-      border-radius: 8px;
+      flex: 1;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--cf-border-dark);
+      border-radius: 6px;
       font-family: inherit;
-      font-size: 13px;
+      font-size: 0.85rem;
       outline: none;
-      background: #fff;
-      min-width: 200px;
+      background: white;
     }
-    .save-as input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .save-as input:focus { border-color: var(--cf-orange); box-shadow: 0 0 0 3px var(--cf-orange-light); }
 
-    .colophon {
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
+    /* Actions */
+    .actions {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
+      gap: 0.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--cf-border);
+      flex-wrap: wrap;
     }
-    .colophon a {
-      color: var(--ink-muted);
-      text-decoration: none;
-      transition: color 120ms ease;
+    .button {
+      padding: 0.65rem 1.25rem;
+      border-radius: 100px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-size: 0.875rem;
+      font-family: inherit;
+      transition: all 0.15s ease;
+      text-align: center;
     }
-    .colophon a:hover { color: var(--accent); }
-    .colophon .dot { color: var(--ink-faint); }
+    .button-primary { background: var(--cf-orange); color: white; border-color: var(--cf-orange); flex: 1; }
+    .button-primary:hover { background: var(--cf-orange-hover); transform: translateY(-1px); }
+    .button-primary:disabled { background: var(--cf-border); border-color: var(--cf-border); color: var(--cf-text-light); cursor: not-allowed; transform: none; }
+    .button-outline {
+      background: transparent;
+      border-color: var(--cf-orange);
+      color: var(--cf-orange);
+    }
+    .button-outline:hover { background: var(--cf-orange-light); }
+    .button-outline:disabled { border-color: var(--cf-border); color: var(--cf-text-light); cursor: not-allowed; background: transparent; }
+    .button-ghost {
+      background: transparent;
+      color: var(--cf-text-muted);
+    }
+    .button-ghost:hover { color: var(--cf-text); }
 
-    @media (max-width: 680px) {
-      .frame { padding: 32px 20px 160px; gap: 32px; }
-      .hero { grid-template-columns: 1fr; gap: 8px; }
-      .hero .num { font-size: 44px; padding-top: 0; }
-      .hero h1 { font-size: 30px; }
+    /* Footer */
+    .footer {
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--cf-text-light);
+      border-top: 1px solid var(--cf-border);
+      background: white;
+    }
+    .footer a { color: var(--cf-text-muted); text-decoration: none; }
+    .footer a:hover { color: var(--cf-orange); }
+
+    @media (max-width: 600px) {
+      .main { padding: 1rem; }
+      .card-body { padding: 1.25rem; }
       .matrix-head { flex-direction: column; align-items: stretch; }
-      .row { grid-template-columns: 1fr; gap: 10px; }
+      .row { grid-template-columns: 1fr; gap: 0.5rem; }
       .row-pills { justify-content: flex-start; }
-      .footbar { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
-      .footbar .summary { order: -1; width: 100%; }
+      .button-primary { flex: 1 1 100%; order: -1; }
     }
-
-    @keyframes flash {
-      0% { background: var(--accent-soft); }
-      100% { background: transparent; }
-    }
-    .row.flash { animation: flash 600ms ease; }
   </style>
 </head>
 <body>
-  <header class="masthead">
-    <div class="brand">
-      <img src="https://www.cloudflare.com/favicon.ico" alt="">
-      <span>Cloudflare <em>MCP</em></span>
-    </div>
-    <div class="eyebrow">Authorize access</div>
+  <header class="header">
+    <a href="https://cloudflare.com" class="cf-logo">
+      <img src="https://www.cloudflare.com/img/logo-cloudflare-dark.svg" alt="Cloudflare" height="32">
+    </a>
+    <div class="cf-logo-divider"></div>
+    <span class="cf-logo-product">MCP Server</span>
   </header>
 
-  <main class="frame">
-    <section class="hero">
-      <div class="num">§</div>
-      <div>
-        <h1>Grant <em>${clientName}</em> access to your Cloudflare account</h1>
-        <p>Pick a template or fine-tune individual permissions. You'll sign in to Cloudflare on the next step to confirm.</p>
-        <div class="client-pill">Requesting app · ${clientName}</div>
+  <main class="main">
+    <div class="card">
+      <div class="card-header">
+        <h1 class="card-title">Authorize Application</h1>
+        <p class="card-subtitle">Grant access to Cloudflare API</p>
       </div>
-    </section>
 
-    <form method="post" action="${new URL(request.url).pathname}" id="authForm">
-      <input type="hidden" name="state" value="${encodedState}">
-      <input type="hidden" name="csrf_token" value="${csrfToken}">
-      <div id="hiddenScopes"></div>
-
-      <section>
-        <div class="divider" data-label="Templates" style="margin-bottom: 20px;"></div>
-        <div class="templates" id="templates" role="radiogroup" aria-label="Permission templates"></div>
-      </section>
-
-      <section style="margin-top: 32px;">
-        <div class="divider" data-label="Permissions" style="margin-bottom: 20px;"></div>
-        <div class="matrix-head">
-          <div class="search">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+      <div class="card-body">
+        <div class="client-badge">
+          <span class="client-badge-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
-            <input type="search" id="search" placeholder="Filter by resource (e.g. workers, dns, ai)" autocomplete="off">
-          </div>
-          <div class="counter" id="counter"><strong>0</strong> / ${maxScopes ?? Object.keys(allScopes).length} scopes</div>
+          </span>
+          ${clientName}
         </div>
-        <div class="matrix" id="matrix">
-          ${rowsHtml}
-        </div>
-      </section>
-    </form>
 
-    <footer class="colophon">
-      <span>Cloudflare MCP</span>
-      <span class="dot">·</span>
-      <a href="https://cloudflare.com/privacypolicy" target="_blank" rel="noopener">Privacy</a>
-      <span class="dot">·</span>
-      <a href="https://cloudflare.com/terms" target="_blank" rel="noopener">Terms</a>
-      <span class="dot">·</span>
-      <a href="https://developers.cloudflare.com" target="_blank" rel="noopener">Docs</a>
-    </footer>
+        <form method="post" action="${new URL(request.url).pathname}" id="authForm">
+          <input type="hidden" name="state" value="${encodedState}">
+          <input type="hidden" name="csrf_token" value="${csrfToken}">
+          <div id="hiddenScopes"></div>
+
+          <div class="section">
+            <div class="section-label">Access template</div>
+            <div class="templates" id="templates" role="radiogroup" aria-label="Permission templates"></div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">Permissions</div>
+            <div class="matrix-head">
+              <div class="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+                </svg>
+                <input type="search" id="search" placeholder="Search for permission groups..." autocomplete="off">
+              </div>
+              <div class="counter" id="counter"><strong>0</strong> / ${maxScopes ?? Object.keys(allScopes).length}</div>
+            </div>
+            <div class="categories" id="matrix">
+              ${categoriesHtml}
+            </div>
+            <div class="save-as" id="saveAs">
+              <input type="text" id="saveAsName" placeholder="Template name" maxlength="40">
+              <button type="button" class="button button-outline" id="saveAsConfirm">Save</button>
+              <button type="button" class="button button-ghost" id="saveAsCancel">Cancel</button>
+            </div>
+          </div>
+
+          <div class="info-text">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 16v-4M12 8h.01"/>
+            </svg>
+            <span id="summary">You'll be redirected to Cloudflare to sign in and confirm access.</span>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="button button-ghost" onclick="window.close()">Cancel</button>
+            <button type="button" class="button button-outline" id="saveAsOpen" disabled>Save as template</button>
+            <button type="submit" class="button button-primary" id="continueBtn">Continue</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
 
-  <div class="footbar">
-    <div class="summary" id="summary">No changes yet</div>
-    <div class="spacer"></div>
-
-    <div class="save-as" id="saveAs">
-      <input type="text" id="saveAsName" placeholder="Template name" maxlength="40">
-      <button type="button" class="btn btn-outline" id="saveAsConfirm">Save</button>
-      <button type="button" class="btn btn-ghost" id="saveAsCancel">Cancel</button>
-    </div>
-
-    <button type="button" class="btn btn-outline" id="saveAsOpen" disabled>Save as template</button>
-    <button type="button" class="btn btn-ghost" onclick="window.close()">Cancel</button>
-    <button type="submit" class="btn btn-primary" id="continueBtn" form="authForm">Continue</button>
-  </div>
+  <footer class="footer">
+    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
+    <a href="https://cloudflare.com/terms">Terms</a> ·
+    <a href="https://developers.cloudflare.com">Docs</a>
+  </footer>
 
   <script>
     (function() {
@@ -920,6 +986,15 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         try { localStorage.setItem(LS_KEY, JSON.stringify(list)); } catch {}
       }
 
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
       function renderTemplates() {
         const user = loadUserTemplates();
         const entries = [];
@@ -927,7 +1002,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           entries.push({ key, name: meta.name, tagline: meta.tagline, user: false });
         }
         for (const t of user) {
-          entries.push({ key: 'user:' + t.name, name: t.name, tagline: 'Yours', user: true });
+          entries.push({ key: 'user:' + t.name, name: t.name, tagline: '', user: true });
         }
         entries.push({ key: '__custom__', name: 'Custom', tagline: '', user: false, custom: true });
 
@@ -935,10 +1010,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           const classes = ['tmpl'];
           if (e.custom) classes.push('tmpl--custom');
           return \`
-            <button type="button" class="\${classes.join(' ')}" data-key="\${e.key}" data-user="\${e.user ? '1' : ''}" aria-pressed="false" role="radio">
+            <button type="button" class="\${classes.join(' ')}" data-key="\${escapeHtml(e.key)}" data-user="\${e.user ? '1' : ''}" aria-pressed="false" role="radio">
               <span class="tmpl-name">\${escapeHtml(e.name)}</span>
               \${e.tagline ? '<span class="tmpl-tag">' + escapeHtml(e.tagline) + '</span>' : ''}
-              \${e.user ? '<button type="button" class="tmpl-delete" data-delete="' + escapeHtml(e.key) + '" aria-label="Delete template" title="Delete"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m4 4 8 8M12 4l-8 8"/></svg></button>' : ''}
+              \${e.user ? '<span class="tmpl-delete" data-delete="' + escapeHtml(e.key) + '" aria-label="Delete template" title="Delete"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m4 4 8 8M12 4l-8 8"/></svg></span>' : ''}
             </button>
           \`;
         }).join('');
@@ -954,10 +1029,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
             applyTemplate(key);
           });
         });
-        templatesEl.querySelectorAll('[data-delete]').forEach(btn => {
-          btn.addEventListener('click', (ev) => {
+        templatesEl.querySelectorAll('[data-delete]').forEach(el => {
+          el.addEventListener('click', (ev) => {
             ev.stopPropagation();
-            const key = btn.dataset.delete;
+            const key = el.dataset.delete;
             const name = key.slice('user:'.length);
             const next = loadUserTemplates().filter(t => t.name !== name);
             saveUserTemplates(next);
@@ -968,15 +1043,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
             updateActiveTemplateUI();
           });
         });
-      }
-
-      function escapeHtml(s) {
-        return String(s)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;');
       }
 
       function resolveTemplateScopes(key) {
@@ -1035,11 +1101,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       function syncPills() {
         matrixEl.querySelectorAll('.pill').forEach(pill => {
           const scope = pill.dataset.scope;
-          const isSelected = selected.has(scope);
-          pill.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+          pill.setAttribute('aria-pressed', selected.has(scope) ? 'true' : 'false');
         });
         enforceLimit();
         updateCounter();
+        updateCategoryCounts();
         renderHiddenInputs();
       }
 
@@ -1049,32 +1115,41 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         matrixEl.querySelectorAll('.pill').forEach(pill => {
           if (pill.dataset.required) return;
           const scope = pill.dataset.scope;
-          if (!selected.has(scope)) {
-            pill.disabled = atMax;
-          } else {
-            pill.disabled = false;
-          }
+          pill.disabled = !selected.has(scope) && atMax;
         });
       }
 
       function updateCounter() {
         const count = selected.size;
         const max = MAX_SCOPES || ALL_SCOPES.size;
-        counterEl.innerHTML = '<strong>' + count + '</strong> / ' + max + ' scopes';
+        counterEl.innerHTML = '<strong>' + count + '</strong> / ' + max;
         counterEl.classList.toggle('warn', MAX_SCOPES > 0 && count >= MAX_SCOPES);
+      }
+
+      function updateCategoryCounts() {
+        matrixEl.querySelectorAll('.cat').forEach(cat => {
+          const pills = cat.querySelectorAll('.pill');
+          let on = 0;
+          pills.forEach(p => { if (selected.has(p.dataset.scope)) on++; });
+          const countEl = cat.querySelector('[data-count]');
+          if (countEl) {
+            countEl.textContent = on > 0 ? on + ' selected' : '';
+            countEl.classList.toggle('has', on > 0);
+          }
+        });
       }
 
       function updateFooter() {
         const count = selected.size;
         if (!dirty && activeTemplate && activeTemplate !== '__custom__') {
           const meta = TEMPLATE_META[activeTemplate] || { name: activeTemplate.replace(/^user:/, '') };
-          summaryEl.innerHTML = 'Using <strong>' + escapeHtml(meta.name) + '</strong> · ' + count + ' scopes';
+          summaryEl.innerHTML = 'Using <strong>' + escapeHtml(meta.name) + '</strong>. You\\'ll be redirected to Cloudflare to sign in.';
           saveAsOpen.disabled = true;
         } else if (count === 0) {
-          summaryEl.textContent = 'No scopes selected';
+          summaryEl.textContent = 'Select at least one permission to continue.';
           saveAsOpen.disabled = true;
         } else {
-          summaryEl.innerHTML = '<strong>Custom</strong> · ' + count + ' scopes';
+          summaryEl.innerHTML = '<strong>Custom selection</strong> (' + count + ' scopes). You can save this for future use.';
           saveAsOpen.disabled = false;
         }
         continueBtn.disabled = count === 0;
@@ -1126,6 +1201,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           const hay = row.dataset.search || '';
           row.classList.toggle('hidden', q.length > 0 && !hay.includes(q));
         });
+        matrixEl.querySelectorAll('.cat').forEach(cat => {
+          const visibleRows = cat.querySelectorAll('.row:not(.hidden)');
+          cat.classList.toggle('hidden', q.length > 0 && visibleRows.length === 0);
+          if (q.length > 0 && visibleRows.length > 0) cat.setAttribute('open', '');
+        });
       }
 
       function openSaveAs() {
@@ -1156,7 +1236,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         updateFooter();
       }
 
-      // Wire up
       matrixEl.addEventListener('click', onPillClick);
       searchEl.addEventListener('input', onSearch);
       saveAsOpen.addEventListener('click', openSaveAs);
@@ -1167,7 +1246,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         if (ev.key === 'Escape') { ev.preventDefault(); closeSaveAs(); }
       });
 
-      // Boot
       renderTemplates();
       applyTemplate(DEFAULT_TEMPLATE || Object.keys(TEMPLATES)[0] || '__custom__');
       onSearch();
