@@ -442,7 +442,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         const label = ACTION_LABELS[a.action] ?? humanize(a.action)
         const classes = ['pill']
         if (a.required) classes.push('pill--required')
-        return `<button type="button" class="${classes.join(' ')}" data-scope="${sanitizeHtml(a.scope)}" data-action="${sanitizeHtml(a.action)}" data-required="${a.required ? '1' : ''}" title="${sanitizeHtml(a.scope)} — ${sanitizeHtml(a.desc)}" aria-pressed="false">${sanitizeHtml(label)}</button>`
+        return `<button type="button" class="${classes.join(' ')}" data-scope="${sanitizeHtml(a.scope)}" data-action="${sanitizeHtml(a.action)}" data-required="${a.required ? '1' : ''}" title="${sanitizeHtml(a.scope)} — ${sanitizeHtml(a.desc)}" aria-pressed="false"><span class="pill-box" aria-hidden="true"></span><span class="pill-label">${sanitizeHtml(label)}</span></button>`
       })
       .join('')
     const hasRequired = row.actions.some((a) => a.required)
@@ -499,24 +499,25 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cf-orange: #f6821f;
-      --cf-orange-hover: #e5750f;
-      --cf-orange-light: rgba(246, 130, 31, 0.08);
-      --cf-text: #313131;
-      --cf-text-heading: #000000;
-      --cf-text-product: #636363; /* oklch(0.439 0 0) */
-      --cf-text-muted: #707070;
-      --cf-text-light: #9c9c9c;
-      --cf-bg: #ffffff;
-      --cf-bg-muted: #f7f7f7;
-      --cf-bg-alt: #fafafa;
-      --cf-border: #e5e5e5;
-      --cf-border-strong: #d4d4d4;
-      --cf-row-divider: rgba(37, 37, 37, 0.1); /* oklch(0.145 0 0 / 0.1) */
+      /* Kumo-derived tokens (see @cloudflare/kumo/theme-kumo.css) */
+      --cf-brand: #f6821f;
+      --cf-brand-hover: #e5750f;
+      --cf-brand-tint: rgba(246, 130, 31, 0.08);
+      --cf-base: #ffffff;             /* kumo-base */
+      --cf-canvas: #fbfbfb;           /* kumo-canvas  oklch(98.75% 0 0) */
+      --cf-elevated: #fafafa;         /* kumo-elevated oklch(98% 0 0)  */
+      --cf-tint: #f7f7f7;             /* neutral-100  oklch(97% 0 0)   */
+      --cf-recessed: #f5f5f5;         /* kumo-recessed oklch(96% 0 0)  */
+      --cf-hairline: #eeeeee;         /* kumo-hairline oklch(93.5% 0 0)*/
+      --cf-line: rgba(37, 37, 37, 0.1); /* kumo-line oklch(14.5% 0 0 / 0.1) */
+      --cf-interact: #d4d4d4;         /* neutral-300 oklch(87% 0 0)    */
+      --cf-contrast: #262626;         /* kumo-contrast (checked state) */
+      --cf-text-default: #262626;     /* neutral-900 oklch(21% ...)    */
+      --cf-text-strong: #636363;      /* neutral-600 oklch(43.9% 0 0)  */
+      --cf-text-subtle: #808080;      /* neutral-500 oklch(55.6% 0 0)  */
+      --cf-text-inactive: #a3a3a3;    /* neutral-400 oklch(70.8% 0 0)  */
       --cf-red: #c0392b;
-      --cf-disabled-bg: #f0f0f0;
-      --cf-disabled-border: #dcdcdc;
-      --cf-disabled-text: #9c9c9c;
+      --border-radius-sm: 2px;
       --border-radius: 8px;
       --border-radius-lg: 12px;
     }
@@ -527,8 +528,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       font-size: 14px;
       line-height: 1.5;
       letter-spacing: -0.01em;
-      color: var(--cf-text);
-      background: var(--cf-bg-muted);
+      color: var(--cf-text-default);
+      background: var(--cf-canvas);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -540,13 +541,13 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      border-bottom: 1px solid var(--cf-border);
+      border-bottom: 1px solid var(--cf-hairline);
       background: white;
     }
     .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
     .cf-logo img { height: 32px; width: auto; }
-    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-border-strong); margin: 0 0.5rem; }
-    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-muted); }
+    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-interact); margin: 0 0.5rem; }
+    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-subtle); }
 
     /* Main */
     .main {
@@ -557,8 +558,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       padding: 2rem;
     }
     .card {
-      background: var(--cf-bg);
-      border: 1px solid var(--cf-border);
+      background: var(--cf-base);
+      border: 1px solid var(--cf-hairline);
       border-radius: var(--border-radius-lg);
       width: 100%;
       max-width: 640px;
@@ -567,11 +568,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .card-header {
       padding: 1.5rem 2rem;
-      border-bottom: 1px solid var(--cf-border);
+      border-bottom: 1px solid var(--cf-hairline);
       text-align: center;
     }
-    .card-title { font-size: 1.25rem; font-weight: 600; color: var(--cf-text); margin-bottom: 0.25rem; }
-    .card-subtitle { font-size: 0.875rem; color: var(--cf-text-muted); }
+    .card-title { font-size: 1.25rem; font-weight: 600; color: var(--cf-text-default); margin-bottom: 0.25rem; }
+    .card-subtitle { font-size: 0.875rem; color: var(--cf-text-subtle); }
     .card-body { padding: 1.5rem 2rem; }
 
     /* Client badge */
@@ -579,18 +580,18 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--cf-bg-alt);
+      background: var(--cf-elevated);
       padding: 0.45rem 0.85rem;
       border-radius: var(--border-radius);
       font-size: 0.875rem;
       font-weight: 500;
       margin-bottom: 1.5rem;
-      border: 1px solid var(--cf-border);
+      border: 1px solid var(--cf-hairline);
     }
     .client-badge-icon {
       width: 20px;
       height: 20px;
-      background: var(--cf-orange);
+      background: var(--cf-brand);
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -605,7 +606,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-subtle);
       margin-bottom: 0.75rem;
     }
 
@@ -621,26 +622,26 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       align-items: center;
       gap: 0.5rem;
       padding: 0.45rem 0.8rem;
-      border: 1px solid var(--cf-border-strong);
+      border: 1px solid var(--cf-interact);
       border-radius: var(--border-radius);
-      background: var(--cf-bg);
+      background: var(--cf-base);
       cursor: pointer;
       font-family: inherit;
-      color: var(--cf-text);
+      color: var(--cf-text-default);
       transition: all 0.12s ease;
     }
-    .tmpl:hover { border-color: var(--cf-text-muted); background: var(--cf-bg-alt); }
+    .tmpl:hover { border-color: var(--cf-text-subtle); background: var(--cf-elevated); }
     .tmpl[aria-pressed="true"] {
-      background: var(--cf-orange-light);
-      border-color: var(--cf-orange);
-      color: var(--cf-orange-hover);
-      box-shadow: inset 0 0 0 1px var(--cf-orange);
+      background: var(--cf-brand-tint);
+      border-color: var(--cf-brand);
+      color: var(--cf-brand-hover);
+      box-shadow: inset 0 0 0 1px var(--cf-brand);
     }
-    .tmpl[aria-pressed="true"] .tmpl-tag { color: var(--cf-orange); }
+    .tmpl[aria-pressed="true"] .tmpl-tag { color: var(--cf-brand); }
     .tmpl .tmpl-name { font-size: 0.85rem; font-weight: 500; }
     .tmpl .tmpl-tag {
       font-size: 0.7rem;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-subtle);
       text-transform: uppercase;
       letter-spacing: 0.04em;
       font-weight: 500;
@@ -678,18 +679,18 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .search input {
       width: 100%;
       padding: 0.55rem 0.85rem 0.55rem 2rem;
-      border: 1px solid var(--cf-border-strong);
+      border: 1px solid var(--cf-interact);
       border-radius: var(--border-radius);
       font-family: inherit;
       font-size: 0.85rem;
       background: white;
-      color: var(--cf-text);
+      color: var(--cf-text-default);
       outline: none;
       transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
     .search input:focus {
-      border-color: var(--cf-orange);
-      box-shadow: 0 0 0 3px var(--cf-orange-light);
+      border-color: var(--cf-brand);
+      box-shadow: 0 0 0 3px var(--cf-brand-tint);
     }
     .search svg {
       position: absolute;
@@ -698,11 +699,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       transform: translateY(-50%);
       width: 14px;
       height: 14px;
-      color: var(--cf-text-light);
+      color: var(--cf-text-inactive);
     }
     .counter {
       font-size: 0.75rem;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-subtle);
       white-space: nowrap;
       font-weight: 500;
     }
@@ -710,10 +711,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
     /* Categories (accordions) */
     .categories {
-      background: var(--cf-bg);
+      background: var(--cf-base);
     }
     .cat {
-      border-bottom: 1px dashed var(--cf-row-divider);
+      border-bottom: 1px dashed var(--cf-line);
     }
     .cat:last-child { border-bottom: none; }
     .cat-summary {
@@ -725,34 +726,34 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       cursor: pointer;
       font-size: 14px;
       font-weight: 500;
-      color: var(--cf-text-heading);
+      color: var(--cf-text-default);
       letter-spacing: -0.14px;
-      background: var(--cf-bg);
+      background: var(--cf-base);
       transition: background 0.12s ease;
       user-select: none;
     }
     .cat-summary::-webkit-details-marker { display: none; }
-    .cat-summary:hover { background: var(--cf-bg-muted); }
+    .cat-summary:hover { background: var(--cf-canvas); }
     .cat-chevron {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 14px;
       height: 14px;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-subtle);
       transition: transform 0.2s ease;
     }
     .cat[open] > .cat-summary .cat-chevron { transform: rotate(90deg); }
     .cat-name { flex: 1; }
     .cat-count {
       font-size: 0.7rem;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-subtle);
       font-weight: 500;
       font-variant-numeric: tabular-nums;
     }
-    .cat-count.has { color: var(--cf-orange); }
+    .cat-count.has { color: var(--cf-brand); }
     .cat-body {
-      background: var(--cf-bg);
+      background: var(--cf-base);
     }
 
     /* Rows */
@@ -763,7 +764,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       align-items: center;
       min-height: 48px;
       padding: 0 1rem 0 2.4rem;
-      border-top: 1px dashed var(--cf-row-divider);
+      border-top: 1px dashed var(--cf-line);
     }
     .cat-body .row:first-child { border-top: none; }
     .row.hidden { display: none; }
@@ -771,63 +772,68 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .row-name {
       font-size: 14px;
       font-weight: 400;
-      color: var(--cf-text-product);
+      color: var(--cf-text-strong);
       letter-spacing: -0.16px;
     }
     .row-badge {
-      display: inline-block;
       margin-left: 0.5rem;
-      font-size: 0.65rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--cf-orange);
-      padding: 1px 6px;
-      border: 1px solid var(--cf-orange);
-      border-radius: 3px;
-      vertical-align: 1px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cf-brand);
+      letter-spacing: -0.1px;
     }
     .row-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.35rem;
+      gap: 2px;
       justify-content: flex-end;
     }
+    /* Action checkbox (visual only — the button element IS the checkbox) */
     .pill {
       font-family: inherit;
-      font-size: 0.75rem;
-      font-weight: 500;
-      padding: 0.3rem 0.7rem;
-      border: 1px solid var(--cf-border-strong);
-      border-radius: 6px;
-      background: var(--cf-bg);
-      color: var(--cf-text-muted);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border: none;
+      background: transparent;
+      color: var(--cf-text-strong);
       cursor: pointer;
-      transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
-      min-width: 54px;
-      text-align: center;
+      border-radius: 6px;
+      transition: background 0.12s ease;
     }
-    .pill:hover { border-color: var(--cf-text-muted); color: var(--cf-text); }
-    .pill[aria-pressed="true"] {
-      background: var(--cf-orange-light);
-      border-color: var(--cf-orange);
-      color: var(--cf-orange-hover);
-      box-shadow: inset 0 0 0 1px var(--cf-orange);
+    .pill:hover { background: var(--cf-tint); }
+    .pill-box {
+      width: 16px;
+      height: 16px;
+      border-radius: var(--border-radius-sm);
+      background: var(--cf-base);
+      box-shadow: inset 0 0 0 1px var(--cf-hairline);
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.12s ease, box-shadow 0.12s ease;
     }
-    .pill--required {
-      cursor: not-allowed;
-      background: var(--cf-disabled-bg);
-      border-color: var(--cf-disabled-border);
-      color: var(--cf-disabled-text);
+    .pill:hover .pill-box { box-shadow: inset 0 0 0 1px var(--cf-interact); }
+    .pill[aria-pressed="true"] .pill-box {
+      background: var(--cf-contrast);
+      box-shadow: inset 0 0 0 1px var(--cf-contrast);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='3.5,8 6.5,11 12.5,5'/></svg>");
+      background-size: 12px 12px;
+      background-position: center;
+      background-repeat: no-repeat;
     }
-    .pill[aria-pressed="true"].pill--required {
-      background: var(--cf-disabled-bg);
-      border-color: var(--cf-disabled-border);
-      color: var(--cf-disabled-text);
-      box-shadow: inset 0 0 0 1px var(--cf-disabled-border);
+    .pill-label { line-height: 1; }
+    .pill--required { cursor: not-allowed; opacity: 0.5; }
+    .pill--required:hover { background: transparent; }
+    .pill[aria-pressed="true"].pill--required .pill-box {
+      background-color: var(--cf-text-inactive);
+      box-shadow: inset 0 0 0 1px var(--cf-text-inactive);
     }
-    .pill--required:hover { border-color: var(--cf-disabled-border); color: var(--cf-disabled-text); }
     .pill:disabled { opacity: 0.4; cursor: not-allowed; }
+    .pill:disabled:hover { background: transparent; }
 
     /* Save as inline */
     .save-as {
@@ -836,29 +842,29 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       gap: 0.5rem;
       margin-top: 0.75rem;
       padding: 0.75rem;
-      background: var(--cf-bg-muted);
-      border: 1px solid var(--cf-border);
+      background: var(--cf-canvas);
+      border: 1px solid var(--cf-hairline);
       border-radius: var(--border-radius);
     }
     .save-as.open { display: flex; }
     .save-as input {
       flex: 1;
       padding: 0.5rem 0.75rem;
-      border: 1px solid var(--cf-border-strong);
+      border: 1px solid var(--cf-interact);
       border-radius: 6px;
       font-family: inherit;
       font-size: 0.85rem;
       outline: none;
       background: white;
     }
-    .save-as input:focus { border-color: var(--cf-orange); box-shadow: 0 0 0 3px var(--cf-orange-light); }
+    .save-as input:focus { border-color: var(--cf-brand); box-shadow: 0 0 0 3px var(--cf-brand-tint); }
 
     /* Actions */
     .actions {
       display: flex;
       gap: 0.5rem;
       padding-top: 1rem;
-      border-top: 1px solid var(--cf-border);
+      border-top: 1px solid var(--cf-hairline);
       flex-wrap: wrap;
     }
     .button {
@@ -872,33 +878,33 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       transition: all 0.15s ease;
       text-align: center;
     }
-    .button-primary { background: var(--cf-orange); color: white; border-color: var(--cf-orange); flex: 1; }
-    .button-primary:hover { background: var(--cf-orange-hover); border-color: var(--cf-orange-hover); }
-    .button-primary:disabled { background: var(--cf-disabled-bg); border-color: var(--cf-disabled-border); color: var(--cf-disabled-text); cursor: not-allowed; }
+    .button-primary { background: var(--cf-brand); color: white; border-color: var(--cf-brand); flex: 1; }
+    .button-primary:hover { background: var(--cf-brand-hover); border-color: var(--cf-brand-hover); }
+    .button-primary:disabled { background: var(--cf-tint); border-color: var(--cf-hairline); color: var(--cf-text-inactive); cursor: not-allowed; }
     .button-outline {
-      background: var(--cf-bg);
-      border-color: var(--cf-border-strong);
-      color: var(--cf-text);
+      background: var(--cf-base);
+      border-color: var(--cf-interact);
+      color: var(--cf-text-default);
     }
-    .button-outline:hover { background: var(--cf-bg-alt); border-color: var(--cf-text-muted); }
-    .button-outline:disabled { border-color: var(--cf-disabled-border); color: var(--cf-disabled-text); cursor: not-allowed; background: var(--cf-bg); }
+    .button-outline:hover { background: var(--cf-elevated); border-color: var(--cf-text-subtle); }
+    .button-outline:disabled { border-color: var(--cf-hairline); color: var(--cf-text-inactive); cursor: not-allowed; background: var(--cf-base); }
     .button-ghost {
       background: transparent;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-subtle);
     }
-    .button-ghost:hover { color: var(--cf-text); }
+    .button-ghost:hover { color: var(--cf-text-default); }
 
     /* Footer */
     .footer {
       padding: 1rem 2rem;
       text-align: center;
       font-size: 0.75rem;
-      color: var(--cf-text-light);
-      border-top: 1px solid var(--cf-border);
+      color: var(--cf-text-inactive);
+      border-top: 1px solid var(--cf-hairline);
       background: white;
     }
-    .footer a { color: var(--cf-text-muted); text-decoration: none; }
-    .footer a:hover { color: var(--cf-orange); }
+    .footer a { color: var(--cf-text-subtle); text-decoration: none; }
+    .footer a:hover { color: var(--cf-brand); }
 
     @media (max-width: 600px) {
       .main { padding: 1rem; }
@@ -1469,8 +1475,8 @@ export function renderErrorPage(
       font-feature-settings: 'cv11', 'ss01';
       font-size: 14px;
       line-height: 1.5;
-      color: var(--cf-text);
-      background: var(--cf-bg-muted);
+      color: var(--cf-text-default);
+      background: var(--cf-canvas);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -1480,13 +1486,13 @@ export function renderErrorPage(
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      border-bottom: 1px solid var(--cf-border);
-      background: var(--cf-bg);
+      border-bottom: 1px solid var(--cf-hairline);
+      background: var(--cf-base);
     }
     .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
     .cf-logo img { height: 32px; width: auto; }
-    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-border-strong); margin: 0 0.5rem; }
-    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-muted); }
+    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-interact); margin: 0 0.5rem; }
+    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-subtle); }
     .main {
       flex: 1;
       display: flex;
@@ -1495,8 +1501,8 @@ export function renderErrorPage(
       padding: 2rem;
     }
     .card {
-      background: var(--cf-bg);
-      border: 1px solid var(--cf-border);
+      background: var(--cf-base);
+      border: 1px solid var(--cf-hairline);
       border-radius: var(--border-radius-lg);
       width: 100%;
       max-width: 440px;
@@ -1519,22 +1525,22 @@ export function renderErrorPage(
     .card-title {
       font-size: 1.25rem;
       font-weight: 600;
-      color: var(--cf-text);
+      color: var(--cf-text-default);
       margin-bottom: 0.5rem;
     }
     .card-message {
       font-size: 0.95rem;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-subtle);
       margin-bottom: 1.5rem;
     }
     .error-details {
-      background: var(--cf-bg-alt);
-      border: 1px solid var(--cf-border);
+      background: var(--cf-elevated);
+      border: 1px solid var(--cf-hairline);
       border-radius: var(--border-radius);
       padding: 0.75rem 1rem;
       font-family: ui-monospace, 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
       font-size: 0.8rem;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-subtle);
       text-align: left;
       word-break: break-word;
       margin-bottom: 1.5rem;
@@ -1547,23 +1553,23 @@ export function renderErrorPage(
       font-size: 0.875rem;
       font-weight: 500;
       text-decoration: none;
-      background: var(--cf-orange);
+      background: var(--cf-brand);
       color: white;
-      border: 1px solid var(--cf-orange);
+      border: 1px solid var(--cf-brand);
       cursor: pointer;
       transition: background 0.12s ease, border-color 0.12s ease;
     }
-    .button:hover { background: var(--cf-orange-hover); border-color: var(--cf-orange-hover); }
+    .button:hover { background: var(--cf-brand-hover); border-color: var(--cf-brand-hover); }
     .footer {
       padding: 1rem 2rem;
       text-align: center;
       font-size: 0.75rem;
-      color: var(--cf-text-light);
-      border-top: 1px solid var(--cf-border);
-      background: var(--cf-bg);
+      color: var(--cf-text-inactive);
+      border-top: 1px solid var(--cf-hairline);
+      background: var(--cf-base);
     }
-    .footer a { color: var(--cf-text-muted); text-decoration: none; }
-    .footer a:hover { color: var(--cf-orange); }
+    .footer a { color: var(--cf-text-subtle); text-decoration: none; }
+    .footer a:hover { color: var(--cf-brand); }
   </style>
 </head>
 <body>
