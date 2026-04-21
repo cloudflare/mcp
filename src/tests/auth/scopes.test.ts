@@ -41,8 +41,6 @@ const REGISTERED_SCOPES = [
   'ai-search:read',
   'ai-search:write',
   'ai-search:run',
-  'rag:read',
-  'rag:write',
   'dns_records:read',
   'dns_records:edit',
   'dns_settings:read',
@@ -68,8 +66,6 @@ const REGISTERED_SCOPES = [
   'browser:read',
   'browser:write',
   'containers:write',
-  'constellation:write',
-  'cloudchamber:write',
   'teams:read',
   'teams:write',
   'teams:pii',
@@ -86,12 +82,10 @@ const REGISTERED_SCOPES = [
   'url_scanner:read',
   'url_scanner:write',
   'radar:read',
-  'notebook-examples:read',
   'mcp_portals:read',
   'mcp_portals:write',
   'email_routing:write',
-  'email_sending:write',
-  'firstpartytags:write'
+  'email_sending:write'
 ] as const
 
 describe('scopes', () => {

@@ -42,8 +42,6 @@ export const ALL_SCOPES = {
   'ai-search:read': 'View AI Search configurations',
   'ai-search:write': 'Configure AI Search',
   'ai-search:run': 'Execute AI Search queries',
-  'rag:read': 'View RAG configurations',
-  'rag:write': 'Configure RAG pipelines',
 
   // DNS Management
   'dns_records:read': 'View DNS records',
@@ -81,8 +79,6 @@ export const ALL_SCOPES = {
   'browser:read': 'View Browser Rendering configurations',
   'browser:write': 'Configure Browser Rendering',
   'containers:write': 'Manage containers',
-  'constellation:write': 'Configure Constellation',
-  'cloudchamber:write': 'Manage CloudChamber',
 
   // Teams & Security
   'teams:read': 'View Cloudflare Zero Trust configurations',
@@ -110,19 +106,13 @@ export const ALL_SCOPES = {
   'url_scanner:write': 'Configure URL Scanner',
   'radar:read': 'View Radar threat intelligence',
 
-  // Notebooks
-  'notebook-examples:read': 'View notebook examples',
-
   // MCP Portals
   'mcp_portals:read': 'View MCP Portal configurations',
   'mcp_portals:write': 'Create and modify MCP Portals',
 
   // Email
   'email_routing:write': 'Configure email routing rules',
-  'email_sending:write': 'Send emails via Email Workers',
-
-  // Other
-  'firstpartytags:write': 'Configure first-party tags'
+  'email_sending:write': 'Send emails via Email Workers'
 } as const
 
 /**
@@ -138,15 +128,9 @@ export type ScopeName = keyof typeof ALL_SCOPES
 export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
 
 /**
- * Scopes excluded from the YOLO template: sensitive (PII), rarely needed, or deprecated.
- * Also needed to keep the template under MAX_SCOPES.
+ * Scopes excluded from the Full access template: sensitive PII / location data.
  */
-const YOLO_EXCLUDED: ScopeName[] = [
-  'teams:pii',
-  'teams:secure_location',
-  'constellation:write',
-  'cloudchamber:write'
-]
+const YOLO_EXCLUDED: ScopeName[] = ['teams:pii', 'teams:secure_location']
 
 const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
   (s) => !YOLO_EXCLUDED.includes(s)
