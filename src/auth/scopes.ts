@@ -152,27 +152,20 @@ const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
   (s) => !YOLO_EXCLUDED.includes(s)
 )
 
+const readOnlyScopes = Array.from(
+  new Set<ScopeName>([
+    ...REQUIRED_SCOPES,
+    ...(Object.keys(ALL_SCOPES) as ScopeName[]).filter((s) => s.endsWith(':read'))
+  ])
+)
+
 /** Scope templates for quick selection. `custom` is surfaced client-side only. */
 export const SCOPE_TEMPLATES = {
   'read-only': {
     name: 'Read only',
     description:
       'View resources without making changes. Safest for exploration and read workflows.',
-    scopes: [
-      ...REQUIRED_SCOPES,
-      'workers:read',
-      'workers_deployments:read',
-      'workers_builds:read',
-      'workers_observability:read',
-      'pages:read',
-      'ai:read',
-      'access:read',
-      'dns_records:read',
-      'dns_settings:read',
-      'dns_analytics:read',
-      'zone:read',
-      'logpush:read'
-    ] as ScopeName[]
+    scopes: readOnlyScopes
   },
   yolo: {
     name: 'Full access',

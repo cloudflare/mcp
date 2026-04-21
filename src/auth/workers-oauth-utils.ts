@@ -197,9 +197,70 @@ function sanitizeHtml(unsafe: string): string {
 }
 
 /**
- * Turn a resource key like `workers_scripts` into "Workers scripts".
+ * Override labels for resources whose humanized form would mangle acronyms
+ * or brand names (e.g. `url_scanner` → "Url scanner", `cfone` → "Cfone").
+ */
+const RESOURCE_LABELS: Record<string, string> = {
+  access: 'Access',
+  ai: 'AI',
+  aig: 'AI Gateway',
+  aiaudit: 'AI Audit',
+  'ai-search': 'AI Search',
+  auditlogs: 'Audit logs',
+  browser: 'Browser Rendering',
+  cfone: 'Cloudflare One',
+  cloudchamber: 'Cloudchamber',
+  connectivity: 'Connectivity',
+  containers: 'Containers',
+  constellation: 'Constellation',
+  d1: 'D1',
+  dex: 'DEX',
+  dns_analytics: 'DNS analytics',
+  dns_records: 'DNS records',
+  dns_settings: 'DNS settings',
+  email_routing: 'Email routing',
+  email_sending: 'Email sending',
+  firstpartytags: 'First-party tags',
+  lb: 'Load Balancer',
+  logpush: 'Logpush',
+  mcp_portals: 'MCP Portals',
+  notebook_examples: 'Notebook examples',
+  'notebook-examples': 'Notebook examples',
+  notification: 'Notifications',
+  offline_access: 'Offline access',
+  pages: 'Pages',
+  pipelines: 'Pipelines',
+  queues: 'Queues',
+  query_cache: 'Query Cache',
+  r2_catalog: 'R2',
+  radar: 'Radar',
+  rag: 'RAG',
+  secrets_store: 'Secrets Store',
+  'sso-connector': 'SSO Connector',
+  ssl_certs: 'SSL certificates',
+  teams: 'Teams (Zero Trust)',
+  url_scanner: 'URL Scanner',
+  user: 'User',
+  account: 'Account',
+  vectorize: 'Vectorize',
+  workers: 'Workers',
+  workers_builds: 'Workers Builds',
+  workers_deployments: 'Workers Deployments',
+  workers_kv: 'Workers KV',
+  workers_observability: 'Workers Observability',
+  workers_observability_telemetry: 'Workers Telemetry',
+  workers_routes: 'Workers Routes',
+  workers_scripts: 'Workers Scripts',
+  workers_tail: 'Workers Tail',
+  zone: 'Zone'
+}
+
+/**
+ * Turn a resource key like `workers_scripts` into a human-readable label.
+ * Falls back to title-casing unknown keys.
  */
 function humanize(key: string): string {
+  if (RESOURCE_LABELS[key]) return RESOURCE_LABELS[key]
   const spaced = key.replace(/[_-]/g, ' ')
   return spaced.charAt(0).toUpperCase() + spaced.slice(1)
 }
