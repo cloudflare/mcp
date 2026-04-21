@@ -1439,133 +1439,158 @@ export function renderErrorPage(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${sanitizeHtml(title)} · Cloudflare MCP</title>
+  <title>${sanitizeHtml(title)} | Cloudflare</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #16110d;
-      --ink-soft: #3d342d;
-      --ink-muted: #7a6e65;
-      --paper: #faf7f2;
-      --paper-2: #f3ede3;
-      --line: rgba(22, 17, 13, 0.08);
-      --accent: #f6821f;
-      --danger: #c02d30;
-      --danger-soft: rgba(192, 45, 48, 0.08);
+      --cf-orange: #f6821f;
+      --cf-orange-hover: #e5750f;
+      --cf-text: #313131;
+      --cf-text-muted: #707070;
+      --cf-text-light: #9c9c9c;
+      --cf-bg: #ffffff;
+      --cf-bg-muted: #f7f7f7;
+      --cf-bg-alt: #fafafa;
+      --cf-border: #e5e5e5;
+      --cf-border-strong: #d4d4d4;
+      --cf-red: #c0392b;
+      --cf-red-light: rgba(192, 57, 43, 0.08);
+      --border-radius: 8px;
+      --border-radius-lg: 12px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-feature-settings: 'cv11', 'ss01';
+      font-size: 14px;
       line-height: 1.5;
-      color: var(--ink);
-      background: var(--paper);
+      color: var(--cf-text);
+      background: var(--cf-bg-muted);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
-    .masthead {
-      padding: 20px 32px;
+    .header {
+      padding: 1rem 2rem;
       display: flex;
       align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid var(--line);
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--cf-border);
+      background: var(--cf-bg);
     }
-    .masthead .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: 18px;
-    }
-    .masthead img { width: 24px; height: 24px; }
+    .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
+    .cf-logo img { height: 32px; width: auto; }
+    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-border-strong); margin: 0 0.5rem; }
+    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-muted); }
     .main {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 48px 24px;
+      padding: 2rem;
     }
     .card {
-      max-width: 480px;
+      background: var(--cf-bg);
+      border: 1px solid var(--cf-border);
+      border-radius: var(--border-radius-lg);
+      width: 100%;
+      max-width: 440px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
       text-align: center;
+      padding: 2.5rem 2rem;
     }
-    .mark {
-      display: inline-flex;
-      width: 64px;
-      height: 64px;
-      background: var(--danger-soft);
+    .error-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--cf-red-light);
       border-radius: 50%;
+      display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 24px;
+      margin: 0 auto 1.5rem;
     }
-    .mark svg { width: 28px; height: 28px; color: var(--danger); }
-    h1 {
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: 32px;
-      line-height: 1.15;
-      letter-spacing: -0.015em;
-      margin-bottom: 12px;
+    .error-icon svg { width: 28px; height: 28px; color: var(--cf-red); }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--cf-text);
+      margin-bottom: 0.5rem;
     }
-    p.msg {
-      font-size: 15px;
-      color: var(--ink-soft);
-      margin-bottom: 24px;
+    .card-message {
+      font-size: 0.95rem;
+      color: var(--cf-text-muted);
+      margin-bottom: 1.5rem;
     }
-    .details {
-      background: var(--paper-2);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--ink-muted);
+    .error-details {
+      background: var(--cf-bg-alt);
+      border: 1px solid var(--cf-border);
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1rem;
+      font-family: ui-monospace, 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: var(--cf-text-muted);
       text-align: left;
       word-break: break-word;
-      margin-bottom: 24px;
+      margin-bottom: 1.5rem;
     }
-    .btn {
+    .button {
       display: inline-block;
-      padding: 10px 22px;
-      border-radius: 8px;
+      padding: 0.55rem 1.25rem;
+      border-radius: var(--border-radius);
       font-family: inherit;
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: 500;
       text-decoration: none;
-      background: var(--accent);
-      color: #fff;
-      border: 1px solid var(--accent);
+      background: var(--cf-orange);
+      color: white;
+      border: 1px solid var(--cf-orange);
       cursor: pointer;
+      transition: background 0.12s ease, border-color 0.12s ease;
     }
-    .btn:hover { transform: translateY(-1px); }
+    .button:hover { background: var(--cf-orange-hover); border-color: var(--cf-orange-hover); }
+    .footer {
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--cf-text-light);
+      border-top: 1px solid var(--cf-border);
+      background: var(--cf-bg);
+    }
+    .footer a { color: var(--cf-text-muted); text-decoration: none; }
+    .footer a:hover { color: var(--cf-orange); }
   </style>
 </head>
 <body>
-  <header class="masthead">
-    <div class="brand">
-      <img src="https://www.cloudflare.com/favicon.ico" alt="">
-      <span>Cloudflare MCP</span>
-    </div>
+  <header class="header">
+    <a href="https://cloudflare.com" class="cf-logo">
+      <img src="https://www.cloudflare.com/img/logo-cloudflare-dark.svg" alt="Cloudflare" height="32">
+    </a>
+    <div class="cf-logo-divider"></div>
+    <span class="cf-logo-product">MCP Server</span>
   </header>
   <main class="main">
     <div class="card">
-      <div class="mark">
+      <div class="error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/>
           <line x1="15" y1="9" x2="9" y2="15"/>
           <line x1="9" y1="9" x2="15" y2="15"/>
         </svg>
       </div>
-      <h1>${sanitizeHtml(title)}</h1>
-      <p class="msg">${sanitizeHtml(message)}</p>
-      ${details ? `<div class="details">${sanitizeHtml(details)}</div>` : ''}
-      <a href="javascript:window.close()" class="btn" onclick="window.close(); return false;">Close window</a>
+      <h1 class="card-title">${sanitizeHtml(title)}</h1>
+      <p class="card-message">${sanitizeHtml(message)}</p>
+      ${details ? `<div class="error-details">${sanitizeHtml(details)}</div>` : ''}
+      <a href="javascript:window.close()" class="button" onclick="window.close(); return false;">Close window</a>
     </div>
   </main>
+  <footer class="footer">
+    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
+    <a href="https://cloudflare.com/terms">Terms</a> ·
+    <a href="https://developers.cloudflare.com">Docs</a>
+  </footer>
 </body>
 </html>
 `
