@@ -405,11 +405,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   }
 
   const categoriesHtml = categories
-    .map((g, idx) => {
-      const hasRequired = g.rows.some((r) => r.actions.some((a) => a.required))
-      const open = idx === 0 || hasRequired
+    .map((g) => {
       return `
-        <details class="cat" ${open ? 'open' : ''} data-category="${sanitizeHtml(g.category)}">
+        <details class="cat" data-category="${sanitizeHtml(g.category)}">
           <summary class="cat-summary">
             <span class="cat-chevron" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
