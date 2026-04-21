@@ -503,6 +503,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       --cf-orange-hover: #e5750f;
       --cf-orange-light: rgba(246, 130, 31, 0.08);
       --cf-text: #313131;
+      --cf-text-heading: #000000;
+      --cf-text-product: #636363; /* oklch(0.439 0 0) */
       --cf-text-muted: #707070;
       --cf-text-light: #9c9c9c;
       --cf-bg: #ffffff;
@@ -510,6 +512,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       --cf-bg-alt: #fafafa;
       --cf-border: #e5e5e5;
       --cf-border-strong: #d4d4d4;
+      --cf-row-divider: rgba(37, 37, 37, 0.1); /* oklch(0.145 0 0 / 0.1) */
       --cf-red: #c0392b;
       --cf-disabled-bg: #f0f0f0;
       --cf-disabled-border: #dcdcdc;
@@ -519,10 +522,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       font-feature-settings: 'cv11', 'ss01';
       font-size: 14px;
       line-height: 1.5;
+      letter-spacing: -0.01em;
       color: var(--cf-text);
       background: var(--cf-bg-muted);
       min-height: 100vh;
@@ -722,9 +726,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       align-items: center;
       gap: 0.5rem;
       cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #111;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--cf-text-heading);
+      letter-spacing: -0.14px;
       background: var(--cf-bg);
       transition: background 0.12s ease;
       user-select: none;
@@ -760,16 +765,18 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 1rem;
       align-items: center;
-      padding: 0.55rem 1rem 0.55rem 2.4rem;
-      border-bottom: 1px solid var(--cf-border);
+      min-height: 48px;
+      padding: 0 1rem 0 2.4rem;
+      border-top: 1px dashed var(--cf-row-divider);
     }
-    .row:last-child { border-bottom: none; }
+    .cat-body .row:first-child { border-top: none; }
     .row.hidden { display: none; }
     .row-label { min-width: 0; }
     .row-name {
-      font-size: 0.85rem;
+      font-size: 14px;
       font-weight: 400;
-      color: var(--cf-text-muted);
+      color: var(--cf-text-product);
+      letter-spacing: -0.16px;
     }
     .row-badge {
       display: inline-block;
