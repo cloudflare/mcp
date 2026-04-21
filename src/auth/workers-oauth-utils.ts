@@ -218,6 +218,7 @@ const RESOURCE_LABELS: Record<string, string> = {
   dns_settings: 'DNS settings',
   email_routing: 'Email routing',
   email_sending: 'Email sending',
+  firstpartytags: 'First-party Tags',
   lb: 'Load Balancer',
   logpush: 'Logpush',
   mcp_portals: 'MCP Portals',
@@ -321,7 +322,8 @@ const CATEGORY_MAP: Record<string, string> = {
   url_scanner: 'App Security',
   radar: 'App Security',
   email_routing: 'Email & Messaging',
-  email_sending: 'Email & Messaging'
+  email_sending: 'Email & Messaging',
+  firstpartytags: 'Developer Platform'
 }
 
 const CATEGORY_ORDER = [
@@ -547,7 +549,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
     .cf-logo img { height: 32px; width: auto; }
     .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-interact); margin: 0 0.5rem; }
-    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-subtle); }
+    .cf-logo-product { font-size: 14px; color: var(--cf-text-subtle); }
 
     /* Main */
     .main {
@@ -571,8 +573,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       border-bottom: 1px solid var(--cf-hairline);
       text-align: center;
     }
-    .card-title { font-size: 1.25rem; font-weight: 600; color: var(--cf-text-default); margin-bottom: 0.25rem; }
-    .card-subtitle { font-size: 0.875rem; color: var(--cf-text-subtle); }
+    .card-title { font-size: 18px; font-weight: 600; color: var(--cf-text-default); letter-spacing: -0.18px; margin-bottom: 0.25rem; }
+    .card-subtitle { font-size: 14px; color: var(--cf-text-subtle); letter-spacing: -0.16px; }
     .card-body { padding: 1.5rem 2rem; }
 
     /* Client badge */
@@ -583,7 +585,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       background: var(--cf-elevated);
       padding: 0.45rem 0.85rem;
       border-radius: var(--border-radius);
-      font-size: 0.875rem;
+      font-size: 14px;
       font-weight: 500;
       margin-bottom: 1.5rem;
       border: 1px solid var(--cf-hairline);
@@ -599,16 +601,70 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .client-badge-icon svg { width: 12px; height: 12px; }
 
-    /* Section labels */
+    /* Section labels (match dashboard 'Edit policy' heading: 14px/500/subtle) */
     .section { margin-bottom: 1.5rem; }
     .section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.16px;
       color: var(--cf-text-subtle);
       margin-bottom: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
+    .info-tip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      color: var(--cf-text-inactive);
+      cursor: help;
+      position: relative;
+    }
+    .info-tip svg { width: 14px; height: 14px; }
+    .info-tip:hover { color: var(--cf-text-subtle); }
+    .info-tip[data-tip]::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cf-contrast);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.12px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      max-width: 280px;
+      white-space: normal;
+      width: max-content;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      z-index: 50;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    .info-tip[data-tip]::before {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: var(--cf-contrast);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      z-index: 50;
+    }
+    .info-tip[data-tip]:hover::after,
+    .info-tip[data-tip]:hover::before,
+    .info-tip[data-tip]:focus::after,
+    .info-tip[data-tip]:focus::before { opacity: 1; }
 
     /* Templates */
     .templates {
@@ -638,12 +694,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       box-shadow: inset 0 0 0 1px var(--cf-brand);
     }
     .tmpl[aria-pressed="true"] .tmpl-tag { color: var(--cf-brand); }
-    .tmpl .tmpl-name { font-size: 0.85rem; font-weight: 500; }
+    .tmpl .tmpl-name { font-size: 14px; font-weight: 500; letter-spacing: -0.14px; }
     .tmpl .tmpl-tag {
-      font-size: 0.7rem;
+      font-size: 12px;
       color: var(--cf-text-subtle);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: -0.12px;
       font-weight: 500;
     }
     .tmpl .tmpl-delete {
@@ -682,7 +737,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       border: 1px solid var(--cf-interact);
       border-radius: var(--border-radius);
       font-family: inherit;
-      font-size: 0.85rem;
+      font-size: 14px;
       background: white;
       color: var(--cf-text-default);
       outline: none;
@@ -702,10 +757,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       color: var(--cf-text-inactive);
     }
     .counter {
-      font-size: 0.75rem;
+      font-size: 12px;
       color: var(--cf-text-subtle);
       white-space: nowrap;
       font-weight: 500;
+      letter-spacing: -0.12px;
     }
     .counter.warn { color: var(--cf-red); }
 
@@ -746,7 +802,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .cat[open] > .cat-summary .cat-chevron { transform: rotate(90deg); }
     .cat-name { flex: 1; }
     .cat-count {
-      font-size: 0.7rem;
+      font-size: 12px;
       color: var(--cf-text-subtle);
       font-weight: 500;
       font-variant-numeric: tabular-nums;
@@ -782,58 +838,63 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       color: var(--cf-brand);
       letter-spacing: -0.1px;
     }
+    /* Kumo action-group container (dashboard "permission policies" row):
+       px-1.5 gap-3 ring-1 ring-kumo-line rounded-md h-7 bg-kumo-control */
     .row-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2px;
-      justify-content: flex-end;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      height: 28px;
+      padding: 0 6px;
+      border-radius: 6px;
+      background: var(--cf-base);
+      box-shadow: 0 0 0 1px var(--cf-line);
+      flex-wrap: nowrap;
     }
-    /* Action checkbox (visual only — the button element IS the checkbox) */
+    /* Action checkbox (matches Kumo Checkbox primitive).
+       The button element IS the checkbox; .pill-box is the 16px visual. */
     .pill {
       font-family: inherit;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 400;
-      letter-spacing: -0.16px;
+      letter-spacing: -0.13px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 10px;
+      padding: 0;
+      margin: 0;
       border: none;
       background: transparent;
       color: var(--cf-text-strong);
       cursor: pointer;
-      border-radius: 6px;
-      transition: background 0.12s ease;
+      min-height: 0;
     }
-    .pill:hover { background: var(--cf-tint); }
     .pill-box {
       width: 16px;
       height: 16px;
       border-radius: var(--border-radius-sm);
       background: var(--cf-base);
-      box-shadow: inset 0 0 0 1px var(--cf-hairline);
+      box-shadow: 0 0 0 1px var(--cf-hairline);
       flex-shrink: 0;
       position: relative;
       transition: background 0.12s ease, box-shadow 0.12s ease;
     }
-    .pill:hover .pill-box { box-shadow: inset 0 0 0 1px var(--cf-interact); }
+    .pill:hover .pill-box { box-shadow: 0 0 0 1px var(--cf-interact); }
     .pill[aria-pressed="true"] .pill-box {
-      background: var(--cf-contrast);
-      box-shadow: inset 0 0 0 1px var(--cf-contrast);
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='3.5,8 6.5,11 12.5,5'/></svg>");
+      background-color: var(--cf-contrast);
+      box-shadow: 0 0 0 1px var(--cf-contrast);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='3.5,8.2 6.5,11 12.5,5'/></svg>");
       background-size: 12px 12px;
       background-position: center;
       background-repeat: no-repeat;
     }
     .pill-label { line-height: 1; }
     .pill--required { cursor: not-allowed; opacity: 0.5; }
-    .pill--required:hover { background: transparent; }
     .pill[aria-pressed="true"].pill--required .pill-box {
       background-color: var(--cf-text-inactive);
-      box-shadow: inset 0 0 0 1px var(--cf-text-inactive);
+      box-shadow: 0 0 0 1px var(--cf-text-inactive);
     }
     .pill:disabled { opacity: 0.4; cursor: not-allowed; }
-    .pill:disabled:hover { background: transparent; }
 
     /* Save as inline */
     .save-as {
@@ -853,7 +914,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       border: 1px solid var(--cf-interact);
       border-radius: 6px;
       font-family: inherit;
-      font-size: 0.85rem;
+      font-size: 14px;
       outline: none;
       background: white;
     }
@@ -873,7 +934,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       font-weight: 500;
       cursor: pointer;
       border: 1px solid transparent;
-      font-size: 0.875rem;
+      font-size: 14px;
       font-family: inherit;
       transition: all 0.15s ease;
       text-align: center;
@@ -898,7 +959,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .footer {
       padding: 1rem 2rem;
       text-align: center;
-      font-size: 0.75rem;
+      font-size: 12px;
       color: var(--cf-text-inactive);
       border-top: 1px solid var(--cf-hairline);
       background: white;
@@ -948,12 +1009,22 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           <div id="hiddenScopes"></div>
 
           <div class="section">
-            <div class="section-label">Access template</div>
+            <div class="section-label">
+              Access template
+              <span class="info-tip" tabindex="0" data-tip="Pick a built-in preset or customize individual scopes. Save custom selections as templates (stored in this browser).">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
+              </span>
+            </div>
             <div class="templates" id="templates" role="radiogroup" aria-label="Permission templates"></div>
           </div>
 
           <div class="section">
-            <div class="section-label">Permissions</div>
+            <div class="section-label">
+              Permissions
+              <span class="info-tip" tabindex="0" data-tip="Individual OAuth scopes granted to this client. Required scopes (user, account, offline access) are always included.">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
+              </span>
+            </div>
             <div class="matrix-head">
               <div class="search">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1492,7 +1563,7 @@ export function renderErrorPage(
     .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
     .cf-logo img { height: 32px; width: auto; }
     .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-interact); margin: 0 0.5rem; }
-    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-subtle); }
+    .cf-logo-product { font-size: 14px; color: var(--cf-text-subtle); }
     .main {
       flex: 1;
       display: flex;
@@ -1563,7 +1634,7 @@ export function renderErrorPage(
     .footer {
       padding: 1rem 2rem;
       text-align: center;
-      font-size: 0.75rem;
+      font-size: 12px;
       color: var(--cf-text-inactive);
       border-top: 1px solid var(--cf-hairline);
       background: var(--cf-base);

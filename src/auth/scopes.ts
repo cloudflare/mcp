@@ -112,7 +112,10 @@ export const ALL_SCOPES = {
 
   // Email
   'email_routing:write': 'Configure email routing rules',
-  'email_sending:write': 'Send emails via Email Workers'
+  'email_sending:write': 'Send emails via Email Workers',
+
+  // Zaraz / Tag management
+  'firstpartytags:write': 'Can see, edit and publish Google tag gateway configuration.'
 } as const
 
 /**

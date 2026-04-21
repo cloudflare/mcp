@@ -85,7 +85,8 @@ const REGISTERED_SCOPES = [
   'mcp_portals:read',
   'mcp_portals:write',
   'email_routing:write',
-  'email_sending:write'
+  'email_sending:write',
+  'firstpartytags:write'
 ] as const
 
 describe('scopes', () => {
