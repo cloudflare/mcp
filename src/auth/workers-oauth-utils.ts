@@ -722,10 +722,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       align-items: center;
       gap: 0.5rem;
       cursor: pointer;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--cf-text);
-      background: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #111;
+      background: var(--cf-bg);
       transition: background 0.12s ease;
       user-select: none;
     }
@@ -760,7 +760,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 1rem;
       align-items: center;
-      padding: 0.55rem 1rem;
+      padding: 0.55rem 1rem 0.55rem 2.4rem;
       border-bottom: 1px solid var(--cf-border);
     }
     .row:last-child { border-bottom: none; }
@@ -768,8 +768,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .row-label { min-width: 0; }
     .row-name {
       font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--cf-text);
+      font-weight: 400;
+      color: var(--cf-text-muted);
     }
     .row-badge {
       display: inline-block;
