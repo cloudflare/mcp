@@ -529,7 +529,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       line-height: 1.5;
       letter-spacing: -0.01em;
       color: var(--cf-text-default);
-      background: var(--cf-base);
+      background: var(--cf-canvas);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -762,9 +762,13 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .counter.warn { color: var(--cf-red); }
 
-    /* Categories (accordions) */
+    /* Categories (accordions). Kumo 'permission policies' panel:
+       bg-kumo-elevated ring-kumo-hairline rounded-lg divide-dashed */
     .categories {
-      background: var(--cf-base);
+      background: var(--cf-elevated);
+      border-radius: var(--border-radius);
+      box-shadow: 0 0 0 1px var(--cf-hairline);
+      overflow: hidden;
     }
     .cat {
       border-bottom: 1px dashed var(--cf-line);
@@ -786,7 +790,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       user-select: none;
     }
     .cat-summary::-webkit-details-marker { display: none; }
-    .cat-summary:hover { background: var(--cf-tint); }
+    .cat-summary:hover { background: rgba(37, 37, 37, 0.03); }
     .cat-chevron {
       display: inline-flex;
       align-items: center;
@@ -806,7 +810,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .cat-count.has { color: var(--cf-brand); }
     .cat-body {
-      background: var(--cf-base);
+      background: transparent;
     }
 
     /* Rows */
@@ -1544,7 +1548,7 @@ export function renderErrorPage(
       font-size: 14px;
       line-height: 1.5;
       color: var(--cf-text-default);
-      background: var(--cf-base);
+      background: var(--cf-canvas);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
