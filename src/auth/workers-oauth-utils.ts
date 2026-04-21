@@ -531,7 +531,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       line-height: 1.5;
       letter-spacing: -0.01em;
       color: var(--cf-text-default);
-      background: var(--cf-canvas);
+      background: var(--cf-base);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -566,7 +566,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       width: 100%;
       max-width: 640px;
       overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     .card-header {
       padding: 1.5rem 2rem;
@@ -789,7 +788,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       user-select: none;
     }
     .cat-summary::-webkit-details-marker { display: none; }
-    .cat-summary:hover { background: var(--cf-canvas); }
+    .cat-summary:hover { background: var(--cf-tint); }
     .cat-chevron {
       display: inline-flex;
       align-items: center;
@@ -903,7 +902,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       gap: 0.5rem;
       margin-top: 0.75rem;
       padding: 0.75rem;
-      background: var(--cf-canvas);
+      background: var(--cf-tint);
       border: 1px solid var(--cf-hairline);
       border-radius: var(--border-radius);
     }
@@ -1547,7 +1546,7 @@ export function renderErrorPage(
       font-size: 14px;
       line-height: 1.5;
       color: var(--cf-text-default);
-      background: var(--cf-canvas);
+      background: var(--cf-base);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
