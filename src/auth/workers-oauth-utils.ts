@@ -762,10 +762,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .counter.warn { color: var(--cf-red); }
 
-    /* Categories (accordions). Kumo 'permission policies' panel:
-       bg-kumo-elevated ring-kumo-hairline rounded-lg divide-dashed */
+    /* Categories (accordions). Kumo 'permission policies' panel — match
+       body canvas bg so the table looks recessed into the card. */
     .categories {
-      background: var(--cf-elevated);
+      background: var(--cf-canvas);
       border-radius: var(--border-radius);
       box-shadow: 0 0 0 1px var(--cf-hairline);
       overflow: hidden;
@@ -785,7 +785,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       font-weight: 500;
       color: var(--cf-text-default);
       letter-spacing: -0.14px;
-      background: var(--cf-base);
+      background: transparent;
       transition: background 0.12s ease;
       user-select: none;
     }
