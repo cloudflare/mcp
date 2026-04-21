@@ -137,11 +137,28 @@ export type ScopeName = keyof typeof ALL_SCOPES
 /** Scopes required for basic functionality - always included */
 export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
 
-/** Scope templates for quick selection */
+/**
+ * Scopes excluded from the YOLO template: sensitive (PII), rarely needed, or deprecated.
+ * Also needed to keep the template under MAX_SCOPES.
+ */
+const YOLO_EXCLUDED: ScopeName[] = [
+  'teams:pii',
+  'teams:secure_location',
+  'constellation:write',
+  'cloudchamber:write'
+]
+
+const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
+  (s) => !YOLO_EXCLUDED.includes(s)
+)
+
+/** Scope templates for quick selection. `custom` is surfaced client-side only. */
 export const SCOPE_TEMPLATES = {
   'read-only': {
-    name: 'Read Only (Recommended)',
-    description: 'View resources without making changes. Safest option for exploration.',
+    name: 'Read only',
+    tagline: 'Recommended',
+    description:
+      'View resources without making changes. Safest for exploration and read workflows.',
     scopes: [
       ...REQUIRED_SCOPES,
       'workers:read',
@@ -158,42 +175,12 @@ export const SCOPE_TEMPLATES = {
       'logpush:read'
     ] as ScopeName[]
   },
-  'workers-full': {
-    name: 'Workers Full Access',
-    description: 'Full access to Workers, KV, D1, R2, and related services with observability.',
-    scopes: [
-      ...REQUIRED_SCOPES,
-      'workers:read',
-      'workers:write',
-      'workers_scripts:write',
-      'workers_kv:write',
-      'workers_routes:write',
-      'workers_tail:read',
-      'workers_builds:read',
-      'workers_builds:write',
-      'workers_observability:read',
-      'workers_observability:write',
-      'workers_observability_telemetry:write',
-      'logpush:read',
-      'logpush:write',
-      'd1:write',
-      'r2_catalog:write',
-      'queues:write',
-      'pages:read',
-      'pages:write'
-    ] as ScopeName[]
-  },
-  'dns-full': {
-    name: 'DNS Full Access',
-    description: 'Full access to DNS records and zone settings.',
-    scopes: [
-      ...REQUIRED_SCOPES,
-      'zone:read',
-      'dns_records:read',
-      'dns_records:edit',
-      'dns_settings:read',
-      'dns_analytics:read'
-    ] as ScopeName[]
+  yolo: {
+    name: 'YOLO',
+    tagline: 'Full access',
+    description:
+      'Everything the MCP server can do. Skips sensitive PII and deprecated scopes. Use with trusted clients only.',
+    scopes: yoloScopes
   }
 } as const
 

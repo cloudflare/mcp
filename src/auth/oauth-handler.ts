@@ -8,7 +8,13 @@ import {
   getAuthToken,
   refreshAuthToken
 } from './cloudflare-auth'
-import { ALL_SCOPES, SCOPE_TEMPLATES, DEFAULT_TEMPLATE, MAX_SCOPES } from './scopes'
+import {
+  ALL_SCOPES,
+  SCOPE_TEMPLATES,
+  DEFAULT_TEMPLATE,
+  MAX_SCOPES,
+  REQUIRED_SCOPES
+} from './scopes'
 import { UserSchema, AccountsSchema, type AuthProps, type AccountSchema } from './types'
 import {
   clientIdAlreadyApproved,
@@ -284,7 +290,8 @@ export function createAuthHandlers() {
         scopeTemplates: SCOPE_TEMPLATES,
         allScopes: ALL_SCOPES,
         defaultTemplate: DEFAULT_TEMPLATE,
-        maxScopes: MAX_SCOPES
+        maxScopes: MAX_SCOPES,
+        requiredScopes: REQUIRED_SCOPES
       })
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()

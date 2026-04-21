@@ -160,6 +160,7 @@ export async function clientIdAlreadyApproved(
 export interface ScopeTemplate {
   name: string
   description: string
+  tagline?: string
   scopes: readonly string[]
 }
 
@@ -180,6 +181,7 @@ export interface ApprovalDialogOptions {
   allScopes?: Record<string, string>
   defaultTemplate?: string
   maxScopes?: number
+  requiredScopes?: readonly string[]
 }
 
 /**
@@ -195,6 +197,85 @@ function sanitizeHtml(unsafe: string): string {
 }
 
 /**
+ * Turn a resource key like `workers_scripts` into "Workers scripts".
+ */
+function humanize(key: string): string {
+  const spaced = key.replace(/[_-]/g, ' ')
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1)
+}
+
+interface ScopeRow {
+  resource: string
+  label: string
+  actions: Array<{ action: string; scope: string; desc: string; required: boolean }>
+}
+
+/**
+ * Group scopes by resource (the part before the `:`). A scope without a colon
+ * (e.g. `offline_access`) becomes a single-action row.
+ */
+function groupScopesByResource(
+  allScopes: Record<string, string>,
+  requiredScopes: Set<string>
+): ScopeRow[] {
+  const byResource = new Map<string, ScopeRow>()
+
+  for (const [scope, desc] of Object.entries(allScopes)) {
+    const [resource, action = 'grant'] = scope.includes(':') ? scope.split(':') : [scope]
+    if (!byResource.has(resource)) {
+      byResource.set(resource, { resource, label: humanize(resource), actions: [] })
+    }
+    byResource.get(resource)!.actions.push({
+      action,
+      scope,
+      desc,
+      required: requiredScopes.has(scope)
+    })
+  }
+
+  // Sort actions within a row: read first, then write/edit, then run/admin, then others alphabetically.
+  const actionRank: Record<string, number> = {
+    read: 0,
+    write: 1,
+    edit: 1,
+    run: 2,
+    admin: 3,
+    bind: 4,
+    setup: 5,
+    pii: 9,
+    secure_location: 9,
+    grant: -1
+  }
+  for (const row of byResource.values()) {
+    row.actions.sort((a, b) => {
+      const ra = actionRank[a.action] ?? 5
+      const rb = actionRank[b.action] ?? 5
+      return ra === rb ? a.action.localeCompare(b.action) : ra - rb
+    })
+  }
+
+  // Sort resources: put rows containing required scopes first (Core), then alphabetical.
+  return Array.from(byResource.values()).sort((a, b) => {
+    const aReq = a.actions.some((x) => x.required) ? 0 : 1
+    const bReq = b.actions.some((x) => x.required) ? 0 : 1
+    return aReq === bReq ? a.label.localeCompare(b.label) : aReq - bReq
+  })
+}
+
+const ACTION_LABELS: Record<string, string> = {
+  read: 'Read',
+  write: 'Write',
+  edit: 'Edit',
+  run: 'Run',
+  admin: 'Admin',
+  bind: 'Bind',
+  setup: 'Setup',
+  pii: 'PII',
+  secure_location: 'Locations',
+  grant: 'Grant'
+}
+
+/**
  * Renders an approval dialog for OAuth authorization with scope selection
  */
 export function renderApprovalDialog(request: Request, options: ApprovalDialogOptions): Response {
@@ -203,67 +284,53 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     state,
     csrfToken,
     setCookie,
-    scopeTemplates,
-    allScopes,
+    scopeTemplates = {},
+    allScopes = {},
     defaultTemplate,
-    maxScopes
+    maxScopes,
+    requiredScopes = []
   } = options
+
   const encodedState = btoa(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
+  const requiredSet = new Set(requiredScopes)
+  const rows = groupScopesByResource(allScopes, requiredSet)
 
-  // Build scope template options HTML
-  let templateOptionsHtml = ''
-  if (scopeTemplates) {
-    templateOptionsHtml = Object.entries(scopeTemplates)
-      .map(
-        ([key, template]) => `
-        <label class="template-option ${key === defaultTemplate ? 'selected' : ''}">
-          <input type="radio" name="scope_template" value="${sanitizeHtml(key)}" ${key === defaultTemplate ? 'checked' : ''}>
-          <div class="template-content">
-            <span class="template-name">${sanitizeHtml(template.name)}</span>
-            <span class="template-desc">${sanitizeHtml(template.description)}</span>
+  const rowsHtml = rows
+    .map((row) => {
+      const pills = row.actions
+        .map((a) => {
+          const label = ACTION_LABELS[a.action] ?? humanize(a.action)
+          const classes = ['pill', `pill--${a.action}`]
+          if (a.required) classes.push('pill--required')
+          return `<button type="button" class="${classes.join(' ')}" data-scope="${sanitizeHtml(a.scope)}" data-action="${sanitizeHtml(a.action)}" data-required="${a.required ? '1' : ''}" title="${sanitizeHtml(a.scope)} — ${sanitizeHtml(a.desc)}" aria-pressed="false">${sanitizeHtml(label)}</button>`
+        })
+        .join('')
+      const hasRequired = row.actions.some((a) => a.required)
+      return `
+        <div class="row" data-resource="${sanitizeHtml(row.resource)}" data-search="${sanitizeHtml((row.label + ' ' + row.resource).toLowerCase())}">
+          <div class="row-label">
+            <span class="row-name">${sanitizeHtml(row.label)}</span>
+            <span class="row-key">${sanitizeHtml(row.resource)}</span>
+            ${hasRequired ? '<span class="row-badge">Required</span>' : ''}
           </div>
-        </label>
-      `
-      )
-      .join('')
-  }
+          <div class="row-pills">${pills}</div>
+        </div>`
+    })
+    .join('')
 
-  // Build scope groups for detailed view (grouped by category)
-  let scopeGroupsHtml = ''
-  if (allScopes) {
-    const scopesByCategory: Record<string, Array<{ scope: string; desc: string }>> = {}
-    for (const [scope, desc] of Object.entries(allScopes)) {
-      const parts = scope.split(':')
-      const category = parts[0].replace(/_/g, ' ')
-      if (!scopesByCategory[category]) {
-        scopesByCategory[category] = []
-      }
-      scopesByCategory[category].push({ scope, desc })
-    }
+  const templateDataJson = JSON.stringify(
+    Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.scopes]))
+  )
 
-    scopeGroupsHtml = Object.entries(scopesByCategory)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(
-        ([category, scopes]) => `
-        <div class="scope-group">
-          <div class="scope-group-header">${sanitizeHtml(category)}</div>
-          ${scopes
-            .map(
-              ({ scope, desc }) => `
-            <label class="scope-item">
-              <input type="checkbox" name="scopes" value="${sanitizeHtml(scope)}" class="scope-checkbox">
-              <span class="scope-name">${sanitizeHtml(scope)}</span>
-              <span class="scope-desc">${sanitizeHtml(desc)}</span>
-            </label>
-          `
-            )
-            .join('')}
-        </div>
-      `
-      )
-      .join('')
-  }
+  const templateMetaJson = JSON.stringify(
+    Object.fromEntries(
+      Object.entries(scopeTemplates).map(([k, v]) => [
+        k,
+        { name: v.name, tagline: v.tagline ?? '', description: v.description }
+      ])
+    )
+  )
 
   const htmlContent = `
 <!DOCTYPE html>
@@ -271,512 +338,840 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Authorize ${clientName} | Cloudflare</title>
+  <title>Authorize ${clientName} · Cloudflare MCP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cf-orange: #f6821f;
-      --cf-orange-hover: #e5750f;
-      --cf-orange-light: rgba(246, 130, 31, 0.08);
-      --cf-brown: #3c2415;
-      --cf-brown-light: #6b4c3a;
-      --cf-cream: #fbf8f3;
-      --cf-cream-dark: #f5f0e8;
-      --cf-border: rgba(60, 36, 21, 0.1);
-      --cf-border-dark: rgba(60, 36, 21, 0.15);
-      --cf-text: #3c2415;
-      --cf-text-muted: #6b5c52;
-      --cf-text-light: #9a8a7c;
-      --border-radius: 8px;
-      --border-radius-lg: 12px;
+      --ink: #16110d;
+      --ink-soft: #3d342d;
+      --ink-muted: #7a6e65;
+      --ink-faint: #b3a99f;
+      --paper: #faf7f2;
+      --paper-2: #f3ede3;
+      --paper-3: #ebe3d5;
+      --line: rgba(22, 17, 13, 0.08);
+      --line-strong: rgba(22, 17, 13, 0.18);
+      --accent: #f6821f;
+      --accent-ink: #16110d;
+      --accent-soft: rgba(246, 130, 31, 0.10);
+      --danger: #c02d30;
+      --pill-radius: 6px;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
       line-height: 1.5;
-      color: var(--cf-text);
-      background: var(--cf-cream);
+      color: var(--ink);
+      background: var(--paper);
+      background-image:
+        radial-gradient(rgba(22, 17, 13, 0.025) 1px, transparent 1px),
+        radial-gradient(rgba(22, 17, 13, 0.02) 1px, transparent 1px);
+      background-size: 24px 24px, 40px 40px;
+      background-position: 0 0, 12px 12px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /* Header */
-    .header {
-      padding: 1rem 2rem;
+    .masthead {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      border-bottom: 1px solid var(--cf-border);
-      background: white;
-    }
-    .cf-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      color: inherit;
-    }
-    .cf-logo svg { height: 32px; width: auto; }
-    .cf-logo-text {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: var(--cf-text);
-    }
-    .cf-logo-divider {
-      width: 1px;
-      height: 24px;
-      background: var(--cf-border-dark);
-      margin: 0 0.5rem;
-    }
-    .cf-logo-product {
-      font-size: 0.9rem;
-      color: var(--cf-text-muted);
-    }
-
-    /* Main Content */
-    .main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    .card {
-      background: white;
-      border: 1px solid var(--cf-border);
-      border-radius: var(--border-radius-lg);
-      width: 100%;
-      max-width: 480px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(60, 36, 21, 0.06);
-    }
-    .card-header {
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid var(--cf-border);
-      text-align: center;
-    }
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--cf-text);
-      margin-bottom: 0.5rem;
-    }
-    .card-subtitle {
-      font-size: 0.875rem;
-      color: var(--cf-text-muted);
-    }
-    .card-body { padding: 1.5rem 2rem; }
-
-    /* Client Info */
-    .client-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--cf-cream);
-      padding: 0.5rem 1rem;
-      border-radius: 100px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      margin-bottom: 1.25rem;
-      border: 1px solid var(--cf-border);
-    }
-    .client-badge-icon {
-      width: 20px;
-      height: 20px;
-      background: var(--cf-orange);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .client-badge-icon svg { width: 12px; height: 12px; }
-
-    /* Scope Selection */
-    .scope-section { margin-bottom: 1.5rem; }
-    .scope-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--cf-text-muted);
-      margin-bottom: 0.75rem;
-    }
-    .template-options { display: flex; flex-direction: column; gap: 0.5rem; }
-    .template-option {
-      display: flex;
-      align-items: flex-start;
-      padding: 1rem;
-      border: 1px solid var(--cf-border);
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      background: transparent;
-    }
-    .template-option:hover { border-color: var(--cf-border-dark); background: var(--cf-cream); }
-    .template-option.selected {
-      border-color: var(--cf-orange);
-      background: var(--cf-orange-light);
-    }
-    .template-option input[type="radio"] {
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--cf-border-dark);
-      border-radius: 50%;
-      margin-right: 0.75rem;
-      margin-top: 2px;
-      flex-shrink: 0;
-      position: relative;
-      cursor: pointer;
-      background: white;
-    }
-    .template-option input[type="radio"]:checked {
-      border-color: var(--cf-orange);
-      background: var(--cf-orange);
-    }
-    .template-option input[type="radio"]:checked::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-    }
-    .template-content { flex: 1; }
-    .template-name {
-      font-weight: 500;
-      color: var(--cf-text);
-      font-size: 0.9rem;
-    }
-    .template-desc {
-      font-size: 0.8rem;
-      color: var(--cf-text-muted);
-      margin-top: 0.25rem;
-      line-height: 1.4;
-    }
-
-    /* Advanced Toggle */
-    .advanced-toggle {
-      background: none;
-      border: none;
-      color: var(--cf-orange);
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin-bottom: 1rem;
-    }
-    .advanced-toggle:hover { text-decoration: underline; }
-    .advanced-toggle svg {
-      width: 12px;
-      height: 12px;
-      transition: transform 0.2s ease;
-    }
-    .advanced-toggle.open svg { transform: rotate(90deg); }
-    .advanced-section {
-      display: none;
-      margin-bottom: 1.5rem;
-      animation: fadeIn 0.2s ease;
-    }
-    .advanced-section.open { display: block; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .scope-groups {
-      max-height: 240px;
-      overflow-y: auto;
-      border: 1px solid var(--cf-border);
-      border-radius: var(--border-radius);
-      background: var(--cf-cream);
-    }
-    .scope-groups::-webkit-scrollbar { width: 6px; }
-    .scope-groups::-webkit-scrollbar-track { background: transparent; }
-    .scope-groups::-webkit-scrollbar-thumb {
-      background: var(--cf-border-dark);
-      border-radius: 3px;
-    }
-    .scope-group { padding: 0.5rem; }
-    .scope-group + .scope-group { border-top: 1px solid var(--cf-border); }
-    .scope-group-header {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--cf-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.5rem;
+      justify-content: space-between;
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(250, 247, 242, 0.7);
+      backdrop-filter: saturate(140%) blur(8px);
       position: sticky;
       top: 0;
-      background: var(--cf-cream);
+      z-index: 10;
     }
-    .scope-item {
+    .masthead .brand {
       display: flex;
       align-items: center;
-      padding: 0.4rem 0.5rem;
-      cursor: pointer;
-      border-radius: 4px;
-      font-size: 0.8rem;
+      gap: 12px;
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: -0.01em;
     }
-    .scope-item:hover { background: white; }
-    .scope-item input[type="checkbox"] {
-      appearance: none;
-      width: 14px;
-      height: 14px;
-      border: 1px solid var(--cf-border-dark);
-      border-radius: 3px;
-      margin-right: 0.5rem;
-      cursor: pointer;
-      position: relative;
-      flex-shrink: 0;
-      background: white;
+    .masthead .brand img { width: 28px; height: 28px; }
+    .masthead .brand em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink-muted);
     }
-    .scope-item input[type="checkbox"]:checked {
-      background: var(--cf-orange);
-      border-color: var(--cf-orange);
-    }
-    .scope-item input[type="checkbox"]:checked::after {
-      content: '';
-      position: absolute;
-      top: 1px;
-      left: 4px;
-      width: 4px;
-      height: 8px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-    .scope-name {
-      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
-      font-size: 0.75rem;
-      color: var(--cf-text);
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-right: 0.5rem;
-    }
-    .scope-desc {
-      color: var(--cf-text-light);
-      font-size: 0.75rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 0;
+    .masthead .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
     }
 
-    /* Info Text */
-    .info-text {
-      font-size: 0.8rem;
-      color: var(--cf-text-muted);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
+    .frame {
+      flex: 1;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 32px 120px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
     }
-    .info-text svg {
+
+    .hero {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .hero .num {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 56px;
+      color: var(--accent);
+      line-height: 1;
+      padding-top: 6px;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 38px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .hero p {
+      font-size: 15px;
+      color: var(--ink-soft);
+      max-width: 52ch;
+    }
+    .hero .client-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 6px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-soft);
+      background: var(--paper-2);
+    }
+    .hero .client-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      position: relative;
+    }
+    .divider::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      top: -9px;
+      padding-right: 16px;
+      background: var(--paper);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    /* Template chooser */
+    .templates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .tmpl {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px 10px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      background: var(--paper-2);
+      cursor: pointer;
+      transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+    .tmpl:hover { border-color: var(--ink); background: var(--paper-3); }
+    .tmpl[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: #fff;
+      box-shadow: inset 0 0 0 1px var(--accent);
+    }
+    .tmpl .tmpl-name {
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .tmpl .tmpl-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--paper-3);
+    }
+    .tmpl[aria-pressed="true"] .tmpl-tag { background: var(--accent-soft); color: var(--accent); }
+    .tmpl .tmpl-delete {
+      margin-left: 4px;
       width: 16px;
       height: 16px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      color: var(--cf-text-light);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--ink-muted);
+      border-radius: 4px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .tmpl[data-user="1"] .tmpl-delete { display: inline-flex; }
+    .tmpl .tmpl-delete:hover { background: rgba(192, 45, 48, 0.12); color: var(--danger); }
+    .tmpl--custom {
+      border-style: dashed;
+      background: transparent;
+    }
+    .tmpl--custom[aria-pressed="true"] {
+      background: #fff;
+      border-style: solid;
     }
 
-    /* Actions */
-    .actions {
+    /* Matrix */
+    .matrix-head {
       display: flex;
-      gap: 0.75rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--cf-border);
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
     }
-    .button {
+    .search {
       flex: 1;
-      padding: 0.75rem 1.25rem;
-      border-radius: 100px;
+      position: relative;
+    }
+    .search input {
+      width: 100%;
+      padding: 10px 14px 10px 36px;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 120ms ease, box-shadow 120ms ease;
+    }
+    .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .search svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      color: var(--ink-muted);
+    }
+    .counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+    .counter strong { color: var(--ink); font-weight: 500; }
+    .counter.warn strong { color: var(--danger); }
+
+    .matrix {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: 14px 4px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .row:last-child { border-bottom: none; }
+    .row.hidden { display: none; }
+
+    .row-label { min-width: 0; }
+    .row-name {
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--ink);
+      display: block;
+    }
+    .row-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-muted);
+      letter-spacing: 0.02em;
+    }
+    .row-badge {
+      display: inline-block;
+      margin-left: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 1px 6px;
+      border: 1px solid var(--accent);
+      border-radius: 3px;
+      vertical-align: 1px;
+    }
+
+    .row-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+    .pill {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--pill-radius);
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: background 120ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
+      min-width: 56px;
+      text-align: center;
+    }
+    .pill:hover { border-color: var(--ink); color: var(--ink); }
+    .pill[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .pill--required {
+      cursor: not-allowed;
+    }
+    .pill[aria-pressed="true"].pill--required {
+      background: var(--accent-ink);
+      border-color: var(--accent-ink);
+    }
+    .pill:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Footer bar */
+    .footbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 32px;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: saturate(140%) blur(10px);
+      border-top: 1px solid var(--line-strong);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 20;
+    }
+    .footbar .summary {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+    .footbar .summary strong { color: var(--ink); font-weight: 500; }
+    .footbar .spacer { flex: 1; }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font-family: inherit;
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      border: none;
-      font-size: 0.9rem;
-      font-family: inherit;
-      transition: all 0.15s ease;
-      text-align: center;
+      transition: background 120ms ease, border-color 120ms ease, transform 120ms ease, color 120ms ease;
     }
-    .button-primary {
-      background: var(--cf-orange);
-      color: white;
-    }
-    .button-primary:hover { background: var(--cf-orange-hover); transform: translateY(-1px); }
-    .button-secondary {
+    .btn-ghost {
       background: transparent;
-      border: 1px solid var(--cf-orange);
-      color: var(--cf-orange);
+      color: var(--ink-muted);
     }
-    .button-secondary:hover {
-      background: var(--cf-orange-light);
+    .btn-ghost:hover { color: var(--ink); }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+    .btn-outline:hover { background: var(--paper-2); }
+    .btn-outline:disabled { border-color: var(--line); color: var(--ink-faint); cursor: not-allowed; background: transparent; }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-primary:disabled { background: var(--line); border-color: var(--line); color: var(--ink-faint); cursor: not-allowed; transform: none; }
+
+    /* Save-as dialog (inline) */
+    .save-as {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .save-as.open { display: inline-flex; }
+    .save-as input {
+      padding: 8px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      background: #fff;
+      min-width: 200px;
+    }
+    .save-as input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+    .colophon {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .colophon a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 120ms ease;
+    }
+    .colophon a:hover { color: var(--accent); }
+    .colophon .dot { color: var(--ink-faint); }
+
+    @media (max-width: 680px) {
+      .frame { padding: 32px 20px 160px; gap: 32px; }
+      .hero { grid-template-columns: 1fr; gap: 8px; }
+      .hero .num { font-size: 44px; padding-top: 0; }
+      .hero h1 { font-size: 30px; }
+      .matrix-head { flex-direction: column; align-items: stretch; }
+      .row { grid-template-columns: 1fr; gap: 10px; }
+      .row-pills { justify-content: flex-start; }
+      .footbar { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
+      .footbar .summary { order: -1; width: 100%; }
     }
 
-    /* Footer */
-    .footer {
-      padding: 1rem 2rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--cf-text-light);
-      border-top: 1px solid var(--cf-border);
-      background: white;
+    @keyframes flash {
+      0% { background: var(--accent-soft); }
+      100% { background: transparent; }
     }
-    .footer a { color: var(--cf-text-muted); text-decoration: none; }
-    .footer a:hover { color: var(--cf-orange); }
+    .row.flash { animation: flash 600ms ease; }
   </style>
 </head>
 <body>
-  <header class="header">
-    <a href="https://cloudflare.com" class="cf-logo">
-      <img src="https://www.cloudflare.com/img/logo-cloudflare-dark.svg" alt="Cloudflare" height="32">
-    </a>
-    <div class="cf-logo-divider"></div>
-    <span class="cf-logo-product">MCP Server</span>
+  <header class="masthead">
+    <div class="brand">
+      <img src="https://www.cloudflare.com/favicon.ico" alt="">
+      <span>Cloudflare <em>MCP</em></span>
+    </div>
+    <div class="eyebrow">Authorize access</div>
   </header>
 
-  <main class="main">
-    <div class="card">
-      <div class="card-header">
-        <h1 class="card-title">Authorize Application</h1>
-        <p class="card-subtitle">Grant access to Cloudflare API</p>
+  <main class="frame">
+    <section class="hero">
+      <div class="num">§</div>
+      <div>
+        <h1>Grant <em>${clientName}</em> access to your Cloudflare account</h1>
+        <p>Pick a template or fine-tune individual permissions. You'll sign in to Cloudflare on the next step to confirm.</p>
+        <div class="client-pill">Requesting app · ${clientName}</div>
       </div>
+    </section>
 
-      <div class="card-body">
-        <div class="client-badge">
-          <span class="client-badge-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    <form method="post" action="${new URL(request.url).pathname}" id="authForm">
+      <input type="hidden" name="state" value="${encodedState}">
+      <input type="hidden" name="csrf_token" value="${csrfToken}">
+      <div id="hiddenScopes"></div>
+
+      <section>
+        <div class="divider" data-label="Templates" style="margin-bottom: 20px;"></div>
+        <div class="templates" id="templates" role="radiogroup" aria-label="Permission templates"></div>
+      </section>
+
+      <section style="margin-top: 32px;">
+        <div class="divider" data-label="Permissions" style="margin-bottom: 20px;"></div>
+        <div class="matrix-head">
+          <div class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
             </svg>
-          </span>
-          ${clientName}
+            <input type="search" id="search" placeholder="Filter by resource (e.g. workers, dns, ai)" autocomplete="off">
+          </div>
+          <div class="counter" id="counter"><strong>0</strong> / ${maxScopes ?? Object.keys(allScopes).length} scopes</div>
         </div>
+        <div class="matrix" id="matrix">
+          ${rowsHtml}
+        </div>
+      </section>
+    </form>
 
-        <form method="post" action="${new URL(request.url).pathname}" id="authForm">
-          <input type="hidden" name="state" value="${encodedState}">
-          <input type="hidden" name="csrf_token" value="${csrfToken}">
-
-          ${
-            scopeTemplates
-              ? `
-          <div class="scope-section">
-            <div class="scope-label">Access Level</div>
-            <div class="template-options">
-              ${templateOptionsHtml}
-            </div>
-          </div>
-          `
-              : ''
-          }
-
-          ${
-            allScopes
-              ? `
-          <button type="button" class="advanced-toggle" id="advancedToggle" onclick="toggleAdvanced()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
-            Advanced: Select individual permissions
-          </button>
-          <div class="advanced-section" id="advancedSection">
-            ${maxScopes ? `<div id="scopeCounter" style="font-size: 0.75rem; color: var(--cf-text-muted); margin-bottom: 0.5rem; font-weight: 500;"></div>` : ''}
-            <div class="scope-groups">
-              ${scopeGroupsHtml}
-            </div>
-          </div>
-          `
-              : ''
-          }
-
-          <div class="info-text">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 16v-4M12 8h.01"/>
-            </svg>
-            <span>You'll be redirected to Cloudflare to sign in and confirm access.</span>
-          </div>
-
-          <div class="actions">
-            <button type="button" class="button button-secondary" onclick="window.close()">Cancel</button>
-            <button type="submit" class="button button-primary">Continue</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <footer class="colophon">
+      <span>Cloudflare MCP</span>
+      <span class="dot">·</span>
+      <a href="https://cloudflare.com/privacypolicy" target="_blank" rel="noopener">Privacy</a>
+      <span class="dot">·</span>
+      <a href="https://cloudflare.com/terms" target="_blank" rel="noopener">Terms</a>
+      <span class="dot">·</span>
+      <a href="https://developers.cloudflare.com" target="_blank" rel="noopener">Docs</a>
+    </footer>
   </main>
 
-  <footer class="footer">
-    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
-    <a href="https://cloudflare.com/terms">Terms</a> ·
-    <a href="https://developers.cloudflare.com">Docs</a>
-  </footer>
+  <div class="footbar">
+    <div class="summary" id="summary">No changes yet</div>
+    <div class="spacer"></div>
+
+    <div class="save-as" id="saveAs">
+      <input type="text" id="saveAsName" placeholder="Template name" maxlength="40">
+      <button type="button" class="btn btn-outline" id="saveAsConfirm">Save</button>
+      <button type="button" class="btn btn-ghost" id="saveAsCancel">Cancel</button>
+    </div>
+
+    <button type="button" class="btn btn-outline" id="saveAsOpen" disabled>Save as template</button>
+    <button type="button" class="btn btn-ghost" onclick="window.close()">Cancel</button>
+    <button type="submit" class="btn btn-primary" id="continueBtn" form="authForm">Continue</button>
+  </div>
 
   <script>
-    const templates = ${scopeTemplates ? JSON.stringify(Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.scopes]))) : '{}'};
-    const maxScopes = ${maxScopes || 0};
+    (function() {
+      const TEMPLATES = ${templateDataJson};
+      const TEMPLATE_META = ${templateMetaJson};
+      const DEFAULT_TEMPLATE = ${JSON.stringify(defaultTemplate ?? null)};
+      const MAX_SCOPES = ${maxScopes ?? 0};
+      const REQUIRED = new Set(${JSON.stringify(Array.from(requiredSet))});
+      const ALL_SCOPES = new Set(${JSON.stringify(Object.keys(allScopes))});
+      const LS_KEY = 'cf-mcp-consent:user-templates:v1';
 
-    function getCheckedCount() {
-      return document.querySelectorAll('.scope-checkbox:checked').length;
-    }
+      const selected = new Set();
+      let activeTemplate = null;
+      let dirty = false;
 
-    function updateScopeCounter() {
-      const counter = document.getElementById('scopeCounter');
-      if (!counter || !maxScopes) return;
-      const count = getCheckedCount();
-      counter.textContent = count + ' / ' + maxScopes + ' scopes selected';
-      counter.style.color = count >= maxScopes ? 'var(--cf-red, #d63031)' : 'var(--cf-text-muted)';
-    }
+      const templatesEl = document.getElementById('templates');
+      const matrixEl = document.getElementById('matrix');
+      const counterEl = document.getElementById('counter');
+      const summaryEl = document.getElementById('summary');
+      const searchEl = document.getElementById('search');
+      const hiddenScopesEl = document.getElementById('hiddenScopes');
+      const continueBtn = document.getElementById('continueBtn');
+      const saveAsOpen = document.getElementById('saveAsOpen');
+      const saveAs = document.getElementById('saveAs');
+      const saveAsName = document.getElementById('saveAsName');
+      const saveAsConfirm = document.getElementById('saveAsConfirm');
+      const saveAsCancel = document.getElementById('saveAsCancel');
 
-    function enforceScopeLimit() {
-      if (!maxScopes) return;
-      const checked = getCheckedCount();
-      document.querySelectorAll('.scope-checkbox').forEach(cb => {
-        if (!cb.checked) {
-          cb.disabled = checked >= maxScopes;
-          cb.closest('.scope-item').style.opacity = checked >= maxScopes ? '0.5' : '1';
+      function loadUserTemplates() {
+        try {
+          const raw = localStorage.getItem(LS_KEY);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed)) return [];
+          return parsed
+            .filter(t => t && typeof t.name === 'string' && Array.isArray(t.scopes))
+            .map(t => ({
+              name: String(t.name).slice(0, 40),
+              scopes: t.scopes.filter(s => typeof s === 'string' && ALL_SCOPES.has(s))
+            }));
+        } catch { return []; }
+      }
+
+      function saveUserTemplates(list) {
+        try { localStorage.setItem(LS_KEY, JSON.stringify(list)); } catch {}
+      }
+
+      function renderTemplates() {
+        const user = loadUserTemplates();
+        const entries = [];
+        for (const [key, meta] of Object.entries(TEMPLATE_META)) {
+          entries.push({ key, name: meta.name, tagline: meta.tagline, user: false });
         }
-      });
-      updateScopeCounter();
-    }
+        for (const t of user) {
+          entries.push({ key: 'user:' + t.name, name: t.name, tagline: 'Yours', user: true });
+        }
+        entries.push({ key: '__custom__', name: 'Custom', tagline: '', user: false, custom: true });
 
-    document.querySelectorAll('.scope-checkbox').forEach(cb => {
-      cb.addEventListener('change', enforceScopeLimit);
-    });
+        templatesEl.innerHTML = entries.map(e => {
+          const classes = ['tmpl'];
+          if (e.custom) classes.push('tmpl--custom');
+          return \`
+            <button type="button" class="\${classes.join(' ')}" data-key="\${e.key}" data-user="\${e.user ? '1' : ''}" aria-pressed="false" role="radio">
+              <span class="tmpl-name">\${escapeHtml(e.name)}</span>
+              \${e.tagline ? '<span class="tmpl-tag">' + escapeHtml(e.tagline) + '</span>' : ''}
+              \${e.user ? '<button type="button" class="tmpl-delete" data-delete="' + escapeHtml(e.key) + '" aria-label="Delete template" title="Delete"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m4 4 8 8M12 4l-8 8"/></svg></button>' : ''}
+            </button>
+          \`;
+        }).join('');
 
-    document.querySelectorAll('input[name="scope_template"]').forEach(radio => {
-      radio.addEventListener('change', function() {
-        document.querySelectorAll('.template-option').forEach(opt => opt.classList.remove('selected'));
-        this.closest('.template-option').classList.add('selected');
-        const selectedScopes = templates[this.value] || [];
-        document.querySelectorAll('.scope-checkbox').forEach(cb => {
-          cb.checked = selectedScopes.includes(cb.value);
+        templatesEl.querySelectorAll('.tmpl').forEach(btn => {
+          btn.addEventListener('click', (ev) => {
+            if (ev.target.closest('[data-delete]')) return;
+            const key = btn.dataset.key;
+            if (key === '__custom__') {
+              setActiveTemplate('__custom__');
+              return;
+            }
+            applyTemplate(key);
+          });
         });
-        enforceScopeLimit();
-      });
-    });
+        templatesEl.querySelectorAll('[data-delete]').forEach(btn => {
+          btn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            const key = btn.dataset.delete;
+            const name = key.slice('user:'.length);
+            const next = loadUserTemplates().filter(t => t.name !== name);
+            saveUserTemplates(next);
+            if (activeTemplate === key) {
+              applyTemplate(DEFAULT_TEMPLATE || '__custom__');
+            }
+            renderTemplates();
+            updateActiveTemplateUI();
+          });
+        });
+      }
 
-    const defaultTemplate = '${defaultTemplate || ''}';
-    if (defaultTemplate && templates[defaultTemplate]) {
-      document.querySelectorAll('.scope-checkbox').forEach(cb => {
-        cb.checked = templates[defaultTemplate].includes(cb.value);
-      });
-      enforceScopeLimit();
-    }
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
 
-    function toggleAdvanced() {
-      const section = document.getElementById('advancedSection');
-      const toggle = document.getElementById('advancedToggle');
-      section.classList.toggle('open');
-      toggle.classList.toggle('open');
-    }
+      function resolveTemplateScopes(key) {
+        if (TEMPLATES[key]) return TEMPLATES[key];
+        if (key && key.startsWith('user:')) {
+          const name = key.slice('user:'.length);
+          const found = loadUserTemplates().find(t => t.name === name);
+          return found ? found.scopes : null;
+        }
+        return null;
+      }
+
+      function applyTemplate(key) {
+        const scopes = resolveTemplateScopes(key);
+        if (!scopes) {
+          setActiveTemplate('__custom__');
+          return;
+        }
+        selected.clear();
+        for (const s of scopes) if (ALL_SCOPES.has(s)) selected.add(s);
+        for (const r of REQUIRED) selected.add(r);
+        dirty = false;
+        setActiveTemplate(key);
+        syncPills();
+      }
+
+      function setActiveTemplate(key) {
+        activeTemplate = key;
+        updateActiveTemplateUI();
+        updateFooter();
+      }
+
+      function updateActiveTemplateUI() {
+        templatesEl.querySelectorAll('.tmpl').forEach(btn => {
+          btn.setAttribute('aria-pressed', btn.dataset.key === activeTemplate ? 'true' : 'false');
+        });
+      }
+
+      function matchesExistingTemplate() {
+        const currentScopes = Array.from(selected).sort().join(',');
+        for (const [key, scopes] of Object.entries(TEMPLATES)) {
+          const withReq = new Set(scopes);
+          for (const r of REQUIRED) withReq.add(r);
+          const s = Array.from(withReq).sort().join(',');
+          if (s === currentScopes) return key;
+        }
+        for (const t of loadUserTemplates()) {
+          const withReq = new Set(t.scopes);
+          for (const r of REQUIRED) withReq.add(r);
+          const s = Array.from(withReq).sort().join(',');
+          if (s === currentScopes) return 'user:' + t.name;
+        }
+        return null;
+      }
+
+      function syncPills() {
+        matrixEl.querySelectorAll('.pill').forEach(pill => {
+          const scope = pill.dataset.scope;
+          const isSelected = selected.has(scope);
+          pill.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+        });
+        enforceLimit();
+        updateCounter();
+        renderHiddenInputs();
+      }
+
+      function enforceLimit() {
+        if (!MAX_SCOPES) return;
+        const atMax = selected.size >= MAX_SCOPES;
+        matrixEl.querySelectorAll('.pill').forEach(pill => {
+          if (pill.dataset.required) return;
+          const scope = pill.dataset.scope;
+          if (!selected.has(scope)) {
+            pill.disabled = atMax;
+          } else {
+            pill.disabled = false;
+          }
+        });
+      }
+
+      function updateCounter() {
+        const count = selected.size;
+        const max = MAX_SCOPES || ALL_SCOPES.size;
+        counterEl.innerHTML = '<strong>' + count + '</strong> / ' + max + ' scopes';
+        counterEl.classList.toggle('warn', MAX_SCOPES > 0 && count >= MAX_SCOPES);
+      }
+
+      function updateFooter() {
+        const count = selected.size;
+        if (!dirty && activeTemplate && activeTemplate !== '__custom__') {
+          const meta = TEMPLATE_META[activeTemplate] || { name: activeTemplate.replace(/^user:/, '') };
+          summaryEl.innerHTML = 'Using <strong>' + escapeHtml(meta.name) + '</strong> · ' + count + ' scopes';
+          saveAsOpen.disabled = true;
+        } else if (count === 0) {
+          summaryEl.textContent = 'No scopes selected';
+          saveAsOpen.disabled = true;
+        } else {
+          summaryEl.innerHTML = '<strong>Custom</strong> · ' + count + ' scopes';
+          saveAsOpen.disabled = false;
+        }
+        continueBtn.disabled = count === 0;
+      }
+
+      function renderHiddenInputs() {
+        hiddenScopesEl.innerHTML = '';
+        for (const s of selected) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'scopes';
+          input.value = s;
+          hiddenScopesEl.appendChild(input);
+        }
+        if (activeTemplate && activeTemplate !== '__custom__') {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'scope_template';
+          input.value = activeTemplate;
+          hiddenScopesEl.appendChild(input);
+        }
+      }
+
+      function onPillClick(ev) {
+        const pill = ev.target.closest('.pill');
+        if (!pill || pill.disabled) return;
+        if (pill.dataset.required) return;
+        const scope = pill.dataset.scope;
+        if (selected.has(scope)) selected.delete(scope);
+        else selected.add(scope);
+        dirty = true;
+
+        const match = matchesExistingTemplate();
+        if (match) {
+          activeTemplate = match;
+          dirty = false;
+        } else {
+          activeTemplate = '__custom__';
+        }
+
+        updateActiveTemplateUI();
+        syncPills();
+        updateFooter();
+      }
+
+      function onSearch() {
+        const q = searchEl.value.trim().toLowerCase();
+        matrixEl.querySelectorAll('.row').forEach(row => {
+          const hay = row.dataset.search || '';
+          row.classList.toggle('hidden', q.length > 0 && !hay.includes(q));
+        });
+      }
+
+      function openSaveAs() {
+        saveAs.classList.add('open');
+        saveAsOpen.style.display = 'none';
+        saveAsName.value = '';
+        saveAsName.focus();
+      }
+      function closeSaveAs() {
+        saveAs.classList.remove('open');
+        saveAsOpen.style.display = '';
+      }
+      function confirmSaveAs() {
+        const name = saveAsName.value.trim().slice(0, 40);
+        if (!name) { saveAsName.focus(); return; }
+        if (TEMPLATE_META[name] || name === '__custom__') {
+          saveAsName.focus();
+          saveAsName.select();
+          return;
+        }
+        const list = loadUserTemplates().filter(t => t.name !== name);
+        list.push({ name, scopes: Array.from(selected) });
+        saveUserTemplates(list);
+        closeSaveAs();
+        renderTemplates();
+        setActiveTemplate('user:' + name);
+        dirty = false;
+        updateFooter();
+      }
+
+      // Wire up
+      matrixEl.addEventListener('click', onPillClick);
+      searchEl.addEventListener('input', onSearch);
+      saveAsOpen.addEventListener('click', openSaveAs);
+      saveAsCancel.addEventListener('click', closeSaveAs);
+      saveAsConfirm.addEventListener('click', confirmSaveAs);
+      saveAsName.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter') { ev.preventDefault(); confirmSaveAs(); }
+        if (ev.key === 'Escape') { ev.preventDefault(); closeSaveAs(); }
+      });
+
+      // Boot
+      renderTemplates();
+      applyTemplate(DEFAULT_TEMPLATE || Object.keys(TEMPLATES)[0] || '__custom__');
+      onSearch();
+    })();
   </script>
 </body>
 </html>
@@ -936,152 +1331,133 @@ export function renderErrorPage(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${sanitizeHtml(title)} | Cloudflare</title>
+  <title>${sanitizeHtml(title)} · Cloudflare MCP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cf-orange: #f6821f;
-      --cf-brown: #3c2415;
-      --cf-cream: #fbf8f3;
-      --cf-border: rgba(60, 36, 21, 0.1);
-      --cf-text: #3c2415;
-      --cf-text-muted: #6b5c52;
-      --cf-text-light: #9a8a7c;
-      --cf-red: #d63031;
-      --cf-red-light: rgba(214, 48, 49, 0.08);
+      --ink: #16110d;
+      --ink-soft: #3d342d;
+      --ink-muted: #7a6e65;
+      --paper: #faf7f2;
+      --paper-2: #f3ede3;
+      --line: rgba(22, 17, 13, 0.08);
+      --accent: #f6821f;
+      --danger: #c02d30;
+      --danger-soft: rgba(192, 45, 48, 0.08);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.5;
-      color: var(--cf-text);
-      background: var(--cf-cream);
+      color: var(--ink);
+      background: var(--paper);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
-    .header {
-      padding: 1rem 2rem;
+    .masthead {
+      padding: 20px 32px;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      border-bottom: 1px solid var(--cf-border);
-      background: white;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
     }
-    .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-    .cf-logo-divider { width: 1px; height: 24px; background: rgba(60, 36, 21, 0.15); margin: 0 0.5rem; }
-    .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-muted); }
+    .masthead .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 18px;
+    }
+    .masthead img { width: 24px; height: 24px; }
     .main {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      padding: 48px 24px;
     }
     .card {
-      background: white;
-      border: 1px solid var(--cf-border);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 440px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(60, 36, 21, 0.06);
+      max-width: 480px;
       text-align: center;
-      padding: 2.5rem 2rem;
     }
-    .error-icon {
-      width: 56px;
-      height: 56px;
-      background: var(--cf-red-light);
+    .mark {
+      display: inline-flex;
+      width: 64px;
+      height: 64px;
+      background: var(--danger-soft);
       border-radius: 50%;
-      display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1.5rem;
+      margin-bottom: 24px;
     }
-    .error-icon svg { width: 28px; height: 28px; color: var(--cf-red); }
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--cf-text);
-      margin-bottom: 0.75rem;
+    .mark svg { width: 28px; height: 28px; color: var(--danger); }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      margin-bottom: 12px;
     }
-    .card-message {
-      font-size: 0.95rem;
-      color: var(--cf-text-muted);
-      margin-bottom: 1.5rem;
+    p.msg {
+      font-size: 15px;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
     }
-    .error-details {
-      background: var(--cf-cream);
-      border: 1px solid var(--cf-border);
+    .details {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 1rem;
-      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
-      font-size: 0.8rem;
-      color: var(--cf-text-muted);
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-muted);
       text-align: left;
       word-break: break-word;
-      margin-bottom: 1.5rem;
+      margin-bottom: 24px;
     }
-    .button {
+    .btn {
       display: inline-block;
-      padding: 0.75rem 2rem;
-      border-radius: 100px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      font-size: 0.9rem;
+      padding: 10px 22px;
+      border-radius: 8px;
       font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
       text-decoration: none;
-      background: var(--cf-orange);
-      color: white;
-      transition: all 0.15s ease;
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+      cursor: pointer;
     }
-    .button:hover { background: #e5750f; transform: translateY(-1px); }
-    .footer {
-      padding: 1rem 2rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--cf-text-light);
-      border-top: 1px solid var(--cf-border);
-      background: white;
-    }
-    .footer a { color: var(--cf-text-muted); text-decoration: none; }
-    .footer a:hover { color: var(--cf-orange); }
+    .btn:hover { transform: translateY(-1px); }
   </style>
 </head>
 <body>
-  <header class="header">
-    <a href="https://cloudflare.com" class="cf-logo">
-      <img src="https://www.cloudflare.com/img/logo-cloudflare-dark.svg" alt="Cloudflare" height="32">
-    </a>
-    <div class="cf-logo-divider"></div>
-    <span class="cf-logo-product">MCP Server</span>
+  <header class="masthead">
+    <div class="brand">
+      <img src="https://www.cloudflare.com/favicon.ico" alt="">
+      <span>Cloudflare MCP</span>
+    </div>
   </header>
-
   <main class="main">
     <div class="card">
-      <div class="error-icon">
+      <div class="mark">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/>
           <line x1="15" y1="9" x2="9" y2="15"/>
           <line x1="9" y1="9" x2="15" y2="15"/>
         </svg>
       </div>
-      <h1 class="card-title">${sanitizeHtml(title)}</h1>
-      <p class="card-message">${sanitizeHtml(message)}</p>
-      ${details ? `<div class="error-details">${sanitizeHtml(details)}</div>` : ''}
-      <a href="javascript:window.close()" class="button" onclick="window.close(); return false;">Close Window</a>
+      <h1>${sanitizeHtml(title)}</h1>
+      <p class="msg">${sanitizeHtml(message)}</p>
+      ${details ? `<div class="details">${sanitizeHtml(details)}</div>` : ''}
+      <a href="javascript:window.close()" class="btn" onclick="window.close(); return false;">Close window</a>
     </div>
   </main>
-
-  <footer class="footer">
-    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
-    <a href="https://cloudflare.com/terms">Terms</a> ·
-    <a href="https://developers.cloudflare.com">Docs</a>
-  </footer>
 </body>
 </html>
 `
@@ -1095,6 +1471,7 @@ export function renderErrorPage(
     }
   })
 }
+
 /**
  * Validate OAuth state from request
  */
