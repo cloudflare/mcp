@@ -452,25 +452,29 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       --cf-orange: #f6821f;
       --cf-orange-hover: #e5750f;
       --cf-orange-light: rgba(246, 130, 31, 0.08);
-      --cf-brown: #3c2415;
-      --cf-brown-light: #6b4c3a;
-      --cf-cream: #fbf8f3;
-      --cf-cream-dark: #f5f0e8;
-      --cf-border: rgba(60, 36, 21, 0.1);
-      --cf-border-dark: rgba(60, 36, 21, 0.15);
-      --cf-text: #3c2415;
-      --cf-text-muted: #6b5c52;
-      --cf-text-light: #9a8a7c;
-      --cf-red: #d63031;
+      --cf-text: #313131;
+      --cf-text-muted: #707070;
+      --cf-text-light: #9c9c9c;
+      --cf-bg: #ffffff;
+      --cf-bg-muted: #f7f7f7;
+      --cf-bg-alt: #fafafa;
+      --cf-border: #e5e5e5;
+      --cf-border-strong: #d4d4d4;
+      --cf-red: #c0392b;
+      --cf-disabled-bg: #f0f0f0;
+      --cf-disabled-border: #dcdcdc;
+      --cf-disabled-text: #9c9c9c;
       --border-radius: 8px;
       --border-radius-lg: 12px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-feature-settings: 'cv11', 'ss01';
+      font-size: 14px;
       line-height: 1.5;
       color: var(--cf-text);
-      background: var(--cf-cream);
+      background: var(--cf-bg-muted);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -487,7 +491,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
     .cf-logo img { height: 32px; width: auto; }
-    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-border-dark); margin: 0 0.5rem; }
+    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-border-strong); margin: 0 0.5rem; }
     .cf-logo-product { font-size: 0.9rem; color: var(--cf-text-muted); }
 
     /* Main */
@@ -499,13 +503,13 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       padding: 2rem;
     }
     .card {
-      background: white;
+      background: var(--cf-bg);
       border: 1px solid var(--cf-border);
       border-radius: var(--border-radius-lg);
       width: 100%;
       max-width: 640px;
       overflow: hidden;
-      box-shadow: 0 4px 24px rgba(60, 36, 21, 0.06);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     .card-header {
       padding: 1.5rem 2rem;
@@ -521,9 +525,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--cf-cream);
-      padding: 0.5rem 1rem;
-      border-radius: 100px;
+      background: var(--cf-bg-alt);
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--border-radius);
       font-size: 0.875rem;
       font-weight: 500;
       margin-bottom: 1.5rem;
@@ -562,21 +566,23 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.5rem 0.9rem;
-      border: 1px solid var(--cf-border-dark);
-      border-radius: 100px;
-      background: white;
+      padding: 0.45rem 0.8rem;
+      border: 1px solid var(--cf-border-strong);
+      border-radius: var(--border-radius);
+      background: var(--cf-bg);
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.15s ease;
+      color: var(--cf-text);
+      transition: all 0.12s ease;
     }
-    .tmpl:hover { border-color: var(--cf-brown-light); background: var(--cf-cream); }
+    .tmpl:hover { border-color: var(--cf-text-muted); background: var(--cf-bg-alt); }
     .tmpl[aria-pressed="true"] {
-      background: var(--cf-orange);
+      background: var(--cf-orange-light);
       border-color: var(--cf-orange);
-      color: white;
+      color: var(--cf-orange-hover);
+      box-shadow: inset 0 0 0 1px var(--cf-orange);
     }
-    .tmpl[aria-pressed="true"] .tmpl-tag { color: rgba(255,255,255,0.85); }
+    .tmpl[aria-pressed="true"] .tmpl-tag { color: var(--cf-orange); }
     .tmpl .tmpl-name { font-size: 0.85rem; font-weight: 500; }
     .tmpl .tmpl-tag {
       font-size: 0.7rem;
@@ -601,7 +607,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .tmpl[data-user="1"] .tmpl-delete { display: inline-flex; }
     .tmpl .tmpl-delete:hover { opacity: 1; color: var(--cf-red); }
-    .tmpl[aria-pressed="true"] .tmpl-delete:hover { color: white; opacity: 1; }
+    .tmpl[aria-pressed="true"] .tmpl-delete:hover { color: var(--cf-red); opacity: 1; }
     .tmpl--custom { border-style: dashed; }
 
     /* Matrix head */
@@ -618,7 +624,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .search input {
       width: 100%;
       padding: 0.55rem 0.85rem 0.55rem 2rem;
-      border: 1px solid var(--cf-border-dark);
+      border: 1px solid var(--cf-border-strong);
       border-radius: var(--border-radius);
       font-family: inherit;
       font-size: 0.85rem;
@@ -674,7 +680,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       user-select: none;
     }
     .cat-summary::-webkit-details-marker { display: none; }
-    .cat-summary:hover { background: var(--cf-cream); }
+    .cat-summary:hover { background: var(--cf-bg-muted); }
     .cat-chevron {
       display: inline-flex;
       align-items: center;
@@ -694,7 +700,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .cat-count.has { color: var(--cf-orange); }
     .cat-body {
-      background: var(--cf-cream);
+      background: var(--cf-bg);
       border-top: 1px solid var(--cf-border);
     }
 
@@ -738,45 +744,37 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       font-family: inherit;
       font-size: 0.75rem;
       font-weight: 500;
-      padding: 0.3rem 0.75rem;
-      border: 1px solid var(--cf-border-dark);
-      border-radius: 4px;
-      background: white;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--cf-border-strong);
+      border-radius: 6px;
+      background: var(--cf-bg);
       color: var(--cf-text-muted);
       cursor: pointer;
       transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
       min-width: 54px;
       text-align: center;
     }
-    .pill:hover { border-color: var(--cf-brown-light); color: var(--cf-text); }
+    .pill:hover { border-color: var(--cf-text-muted); color: var(--cf-text); }
     .pill[aria-pressed="true"] {
-      background: var(--cf-orange);
+      background: var(--cf-orange-light);
       border-color: var(--cf-orange);
-      color: white;
+      color: var(--cf-orange-hover);
+      box-shadow: inset 0 0 0 1px var(--cf-orange);
     }
-    .pill--required { cursor: not-allowed; }
+    .pill--required {
+      cursor: not-allowed;
+      background: var(--cf-disabled-bg);
+      border-color: var(--cf-disabled-border);
+      color: var(--cf-disabled-text);
+    }
     .pill[aria-pressed="true"].pill--required {
-      background: var(--cf-brown);
-      border-color: var(--cf-brown);
+      background: var(--cf-disabled-bg);
+      border-color: var(--cf-disabled-border);
+      color: var(--cf-disabled-text);
+      box-shadow: inset 0 0 0 1px var(--cf-disabled-border);
     }
+    .pill--required:hover { border-color: var(--cf-disabled-border); color: var(--cf-disabled-text); }
     .pill:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    /* Info text */
-    .info-text {
-      font-size: 0.8rem;
-      color: var(--cf-text-muted);
-      margin: 1.5rem 0 1rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    .info-text svg {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      color: var(--cf-text-light);
-    }
 
     /* Save as inline */
     .save-as {
@@ -785,7 +783,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       gap: 0.5rem;
       margin-top: 0.75rem;
       padding: 0.75rem;
-      background: var(--cf-cream);
+      background: var(--cf-bg-muted);
       border: 1px solid var(--cf-border);
       border-radius: var(--border-radius);
     }
@@ -793,7 +791,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .save-as input {
       flex: 1;
       padding: 0.5rem 0.75rem;
-      border: 1px solid var(--cf-border-dark);
+      border: 1px solid var(--cf-border-strong);
       border-radius: 6px;
       font-family: inherit;
       font-size: 0.85rem;
@@ -811,8 +809,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       flex-wrap: wrap;
     }
     .button {
-      padding: 0.65rem 1.25rem;
-      border-radius: 100px;
+      padding: 0.55rem 1rem;
+      border-radius: var(--border-radius);
       font-weight: 500;
       cursor: pointer;
       border: 1px solid transparent;
@@ -822,15 +820,15 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       text-align: center;
     }
     .button-primary { background: var(--cf-orange); color: white; border-color: var(--cf-orange); flex: 1; }
-    .button-primary:hover { background: var(--cf-orange-hover); transform: translateY(-1px); }
-    .button-primary:disabled { background: var(--cf-border); border-color: var(--cf-border); color: var(--cf-text-light); cursor: not-allowed; transform: none; }
+    .button-primary:hover { background: var(--cf-orange-hover); border-color: var(--cf-orange-hover); }
+    .button-primary:disabled { background: var(--cf-disabled-bg); border-color: var(--cf-disabled-border); color: var(--cf-disabled-text); cursor: not-allowed; }
     .button-outline {
-      background: transparent;
-      border-color: var(--cf-orange);
-      color: var(--cf-orange);
+      background: var(--cf-bg);
+      border-color: var(--cf-border-strong);
+      color: var(--cf-text);
     }
-    .button-outline:hover { background: var(--cf-orange-light); }
-    .button-outline:disabled { border-color: var(--cf-border); color: var(--cf-text-light); cursor: not-allowed; background: transparent; }
+    .button-outline:hover { background: var(--cf-bg-alt); border-color: var(--cf-text-muted); }
+    .button-outline:disabled { border-color: var(--cf-disabled-border); color: var(--cf-disabled-text); cursor: not-allowed; background: var(--cf-bg); }
     .button-ghost {
       background: transparent;
       color: var(--cf-text-muted);
@@ -916,14 +914,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
             </div>
           </div>
 
-          <div class="info-text">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 16v-4M12 8h.01"/>
-            </svg>
-            <span id="summary">You'll be redirected to Cloudflare to sign in and confirm access.</span>
-          </div>
-
           <div class="actions">
             <button type="button" class="button button-ghost" onclick="window.close()">Cancel</button>
             <button type="button" class="button button-outline" id="saveAsOpen" disabled>Save as template</button>
@@ -957,7 +947,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       const templatesEl = document.getElementById('templates');
       const matrixEl = document.getElementById('matrix');
       const counterEl = document.getElementById('counter');
-      const summaryEl = document.getElementById('summary');
       const searchEl = document.getElementById('search');
       const hiddenScopesEl = document.getElementById('hiddenScopes');
       const continueBtn = document.getElementById('continueBtn');
@@ -1141,17 +1130,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
       function updateFooter() {
         const count = selected.size;
-        if (!dirty && activeTemplate && activeTemplate !== '__custom__') {
-          const meta = TEMPLATE_META[activeTemplate] || { name: activeTemplate.replace(/^user:/, '') };
-          summaryEl.innerHTML = 'Using <strong>' + escapeHtml(meta.name) + '</strong>. You\\'ll be redirected to Cloudflare to sign in.';
-          saveAsOpen.disabled = true;
-        } else if (count === 0) {
-          summaryEl.textContent = 'Select at least one permission to continue.';
-          saveAsOpen.disabled = true;
-        } else {
-          summaryEl.innerHTML = '<strong>Custom selection</strong> (' + count + ' scopes). You can save this for future use.';
-          saveAsOpen.disabled = false;
-        }
+        const onTemplate = !dirty && activeTemplate && activeTemplate !== '__custom__';
+        saveAsOpen.disabled = onTemplate || count === 0;
         continueBtn.disabled = count === 0;
       }
 

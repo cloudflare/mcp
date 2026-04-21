@@ -156,7 +156,6 @@ const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
 export const SCOPE_TEMPLATES = {
   'read-only': {
     name: 'Read only',
-    tagline: 'Recommended',
     description:
       'View resources without making changes. Safest for exploration and read workflows.',
     scopes: [
@@ -176,8 +175,7 @@ export const SCOPE_TEMPLATES = {
     ] as ScopeName[]
   },
   yolo: {
-    name: 'YOLO',
-    tagline: 'Full access',
+    name: 'Full access',
     description:
       'Everything the MCP server can do. Skips sensitive PII and deprecated scopes. Use with trusted clients only.',
     scopes: yoloScopes
