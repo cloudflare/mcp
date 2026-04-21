@@ -218,7 +218,6 @@ const RESOURCE_LABELS: Record<string, string> = {
   dns_settings: 'DNS settings',
   email_routing: 'Email routing',
   email_sending: 'Email sending',
-  firstpartytags: 'First-party Tags',
   lb: 'Load Balancer',
   logpush: 'Logpush',
   mcp_portals: 'MCP Portals',
@@ -322,8 +321,7 @@ const CATEGORY_MAP: Record<string, string> = {
   url_scanner: 'App Security',
   radar: 'App Security',
   email_routing: 'Email & Messaging',
-  email_sending: 'Email & Messaging',
-  firstpartytags: 'Developer Platform'
+  email_sending: 'Email & Messaging'
 }
 
 const CATEGORY_ORDER = [
