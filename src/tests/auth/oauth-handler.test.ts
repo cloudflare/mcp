@@ -1,7 +1,21 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { getUserAndAccounts } from '../../auth/oauth-handler'
+import {
+  getUserAndAccounts,
+  guardRefreshTokenExchange,
+  handleTokenExchangeCallback
+} from '../../auth/oauth-handler'
 import { OAuthError } from '../../auth/workers-oauth-utils'
+
+import type { AuthorizationToken } from '../../auth/cloudflare-auth'
+
+vi.mock('../../auth/cloudflare-auth', async (importOriginal) => {
+  const original = await importOriginal<typeof import('../../auth/cloudflare-auth')>()
+  return {
+    ...original,
+    refreshAuthToken: vi.fn()
+  }
+})
 
 // Use minimal retry config so tests don't wait for real backoff delays
 vi.mock('../../utils/fetch-retry', async (importOriginal) => {
@@ -13,11 +27,63 @@ vi.mock('../../utils/fetch-retry', async (importOriginal) => {
   }
 })
 
+async function mockRefreshAuthToken() {
+  const { refreshAuthToken } = await import('../../auth/cloudflare-auth')
+  return vi.mocked(refreshAuthToken)
+}
+
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
     headers: { 'Content-Type': 'application/json' }
   })
+}
+
+function deferred<T>(): {
+  promise: Promise<T>
+  resolve: (value: T) => void
+  reject: (error: unknown) => void
+} {
+  let resolve!: (value: T) => void
+  let reject!: (error: unknown) => void
+  const promise = new Promise<T>((res, rej) => {
+    resolve = res
+    reject = rej
+  })
+  return { promise, resolve, reject }
+}
+
+function mockKV(initialValues: Record<string, string> = {}): KVNamespace {
+  const store = new Map(Object.entries(initialValues))
+  return {
+    get: vi.fn(async (key: string, options?: { type?: string }) => {
+      const value = store.get(key)
+      if (value === undefined) return null
+      if (options?.type === 'json') return JSON.parse(value)
+      return value
+    }),
+    put: vi.fn(async (key: string, value: string) => {
+      store.set(key, value)
+    }),
+    delete: vi.fn(async (key: string) => {
+      store.delete(key)
+    })
+  } as unknown as KVNamespace
+}
+
+async function sha256Hex(value: string): Promise<string> {
+  const data = new TextEncoder().encode(value)
+  const digest = await crypto.subtle.digest('SHA-256', data)
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('')
+}
+
+async function refreshGuardKey(
+  refreshToken: string,
+  suffix: 'in-flight' | 'failure'
+): Promise<string> {
+  return `oauth:refresh-guard:${await sha256Hex(refreshToken)}:${suffix}`
 }
 
 async function expectOAuthError(
@@ -233,5 +299,138 @@ describe('getUserAndAccounts', () => {
     vi.stubGlobal('fetch', fetchMock)
 
     await expectOAuthError(getUserAndAccounts('test-token'), 'server_error', 502)
+  })
+})
+
+describe('guardRefreshTokenExchange', () => {
+  it('singleflights concurrent refreshes for the same upstream token in one isolate', async () => {
+    const kv = mockKV()
+    const refresh = deferred<{ accessTokenTTL: number }>()
+    const refreshFn = vi.fn(() => refresh.promise)
+
+    const first = guardRefreshTokenExchange(kv, 'upstream-refresh-token', refreshFn)
+    const second = guardRefreshTokenExchange(kv, 'upstream-refresh-token', refreshFn)
+
+    await vi.waitFor(() => expect(refreshFn).toHaveBeenCalledTimes(1))
+
+    refresh.resolve({ accessTokenTTL: 3600 })
+
+    await expect(first).resolves.toEqual({ accessTokenTTL: 3600 })
+    await expect(second).resolves.toEqual({ accessTokenTTL: 3600 })
+    expect(kv.put).toHaveBeenCalledTimes(1)
+    expect(kv.delete).toHaveBeenCalledTimes(1)
+  })
+
+  it('caches terminal refresh failures so retries do not call upstream again', async () => {
+    const kv = mockKV()
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(new OAuthError('invalid_grant', 'refresh token reused', 400))
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'reused-refresh-token', refreshFn),
+      'invalid_grant',
+      400
+    )
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'reused-refresh-token', refreshFn),
+      'invalid_grant',
+      400
+    )
+
+    expect(refreshFn).toHaveBeenCalledTimes(1)
+    expect(kv.put).toHaveBeenCalledTimes(2) // in-flight marker + cached failure
+  })
+
+  it('suppresses upstream refresh when another isolate has an in-flight marker', async () => {
+    const refreshToken = 'cross-isolate-refresh-token'
+    const kv = mockKV({
+      [await refreshGuardKey(refreshToken, 'in-flight')]: JSON.stringify({ startedAt: Date.now() })
+    })
+    const refreshFn = vi.fn()
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, refreshToken, refreshFn),
+      'temporarily_unavailable',
+      429
+    )
+
+    expect(refreshFn).not.toHaveBeenCalled()
+  })
+
+  it('does not fail a successful refresh when clearing the in-flight marker fails', async () => {
+    const kv = mockKV()
+    const refreshFn = vi.fn().mockResolvedValue({ accessTokenTTL: 3600 })
+    vi.mocked(kv.delete).mockRejectedValueOnce(new Error('KV delete failed'))
+
+    await expect(
+      guardRefreshTokenExchange(kv, 'cleanup-failure-token', refreshFn)
+    ).resolves.toEqual({
+      accessTokenTTL: 3600
+    })
+    expect(refreshFn).toHaveBeenCalledTimes(1)
+  })
+
+  it('preserves the original terminal error when caching the failure fails', async () => {
+    const kv = mockKV()
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(new OAuthError('invalid_grant', 'refresh token reused', 400))
+    vi.mocked(kv.put)
+      .mockResolvedValueOnce(undefined)
+      .mockRejectedValueOnce(new Error('KV put failed'))
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'failure-cache-error-token', refreshFn),
+      'invalid_grant',
+      400
+    )
+    expect(refreshFn).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('handleTokenExchangeCallback', () => {
+  it('refreshes upstream tokens and returns updated auth props', async () => {
+    const refreshAuthToken = await mockRefreshAuthToken()
+    refreshAuthToken.mockResolvedValueOnce({
+      access_token: 'new-access-token',
+      refresh_token: 'new-refresh-token',
+      expires_in: 1234,
+      scope: 'read',
+      token_type: 'bearer'
+    } satisfies AuthorizationToken)
+
+    await expect(
+      handleTokenExchangeCallback(
+        {
+          grantType: 'refresh_token',
+          props: {
+            type: 'user_token',
+            accessToken: 'old-access-token',
+            user: { id: 'user-1', email: 'user@example.com' },
+            accounts: [{ id: 'account-1', name: 'Account 1' }],
+            refreshToken: 'old-refresh-token'
+          }
+        } as never,
+        'client-id',
+        'client-secret'
+      )
+    ).resolves.toEqual({
+      newProps: {
+        type: 'user_token',
+        accessToken: 'new-access-token',
+        user: { id: 'user-1', email: 'user@example.com' },
+        accounts: [{ id: 'account-1', name: 'Account 1' }],
+        refreshToken: 'new-refresh-token'
+      },
+      accessTokenTTL: 1234
+    })
+
+    expect(refreshAuthToken).toHaveBeenCalledWith({
+      client_id: 'client-id',
+      client_secret: 'client-secret',
+      refresh_token: 'old-refresh-token',
+      oauthDomain: 'https://dash.cloudflare.com'
+    })
   })
 })
