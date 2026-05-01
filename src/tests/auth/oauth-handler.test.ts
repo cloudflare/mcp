@@ -3,6 +3,16 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { getUserAndAccounts } from '../../auth/oauth-handler'
 import { OAuthError } from '../../auth/workers-oauth-utils'
 
+// Use minimal retry config so tests don't wait for real backoff delays
+vi.mock('../../utils/fetch-retry', async (importOriginal) => {
+  const original = await importOriginal<typeof import('../../utils/fetch-retry')>()
+  return {
+    ...original,
+    fetchWithRetry: (input: RequestInfo, init?: RequestInit) =>
+      original.fetchWithRetry(input, init, { maxRetries: 0 })
+  }
+})
+
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -218,10 +228,7 @@ describe('getUserAndAccounts', () => {
   })
 
   it('maps fetch rejection to server_error', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockRejectedValueOnce(new TypeError('network failed'))
-      .mockResolvedValueOnce(jsonResponse({ success: true, result: [] }))
+    const fetchMock = vi.fn<typeof fetch>().mockRejectedValue(new TypeError('network failed'))
 
     vi.stubGlobal('fetch', fetchMock)
 

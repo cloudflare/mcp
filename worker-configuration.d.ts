@@ -9,7 +9,8 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
-		CLOUDFLARE_API_BASE: "https://api.cloudflare.com/client/v4";
+		CLOUDFLARE_API_BASE: string;
+		CLOUDFLARE_OAUTH_DOMAIN: string;
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
 		MCP_COOKIE_ENCRYPTION_KEY: string;
 		CLOUDFLARE_CLIENT_ID: string;
@@ -21,7 +22,8 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
-		CLOUDFLARE_API_BASE: "https://api.cloudflare.com/client/v4";
+		CLOUDFLARE_API_BASE: string;
+		CLOUDFLARE_OAUTH_DOMAIN: string;
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
 		MCP_COOKIE_ENCRYPTION_KEY: string;
 		CLOUDFLARE_CLIENT_ID: string;
@@ -37,7 +39,8 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
-		CLOUDFLARE_API_BASE: "https://api.cloudflare.com/client/v4";
+		CLOUDFLARE_API_BASE: string;
+		CLOUDFLARE_OAUTH_DOMAIN: string;
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
 		GLOBAL_OUTBOUND: Service /* entrypoint GlobalOutbound from cloudflare-api-mcp-staging */ | Service /* entrypoint GlobalOutbound from cloudflare-api-mcp */ | Service<typeof import("./src/index").GlobalOutbound>;
 	}
@@ -47,7 +50,7 @@ type StringifyValues<EnvType extends Record<string, unknown>> = {
 	[Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
 };
 declare namespace NodeJS {
-	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "CLOUDFLARE_API_BASE" | "OPENAPI_SPEC_URL" | "MCP_COOKIE_ENCRYPTION_KEY" | "CLOUDFLARE_CLIENT_ID" | "CLOUDFLARE_CLIENT_SECRET" | "CLOUDFLARE_API_KEY">> {}
+	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "CLOUDFLARE_API_BASE" | "CLOUDFLARE_OAUTH_DOMAIN" | "OPENAPI_SPEC_URL" | "MCP_COOKIE_ENCRYPTION_KEY" | "CLOUDFLARE_CLIENT_ID" | "CLOUDFLARE_CLIENT_SECRET" | "CLOUDFLARE_API_KEY">> {}
 }
 
 // Begin runtime types

@@ -8,7 +8,13 @@ import {
   getAuthToken,
   refreshAuthToken
 } from './cloudflare-auth'
-import { ALL_SCOPES, SCOPE_TEMPLATES, DEFAULT_TEMPLATE, MAX_SCOPES } from './scopes'
+import {
+  ALL_SCOPES,
+  SCOPE_TEMPLATES,
+  DEFAULT_TEMPLATE,
+  MAX_SCOPES,
+  REQUIRED_SCOPES
+} from './scopes'
 import { UserSchema, AccountsSchema, type AuthProps, type AccountSchema } from './types'
 import {
   clientIdAlreadyApproved,
@@ -21,6 +27,7 @@ import {
   validateOAuthState,
   OAuthError
 } from './workers-oauth-utils'
+import { fetchWithRetry } from '../utils/fetch-retry'
 
 import type {
   AuthRequest,
@@ -62,8 +69,8 @@ async function fetchCloudflareProbes(accessToken: string): Promise<[Response, Re
 
   try {
     return await Promise.all([
-      fetch(`${env.CLOUDFLARE_API_BASE}/user`, { headers }),
-      fetch(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers })
+      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }),
+      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers })
     ])
   } catch (error) {
     console.error('Cloudflare API request failed', error)
@@ -177,7 +184,8 @@ export async function handleTokenExchangeCallback(
   const { access_token, refresh_token, expires_in } = await refreshAuthToken({
     client_id: clientId,
     client_secret: clientSecret,
-    refresh_token: props.refreshToken
+    refresh_token: props.refreshToken,
+    oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
   })
 
   return {
@@ -211,7 +219,8 @@ async function redirectToCloudflare(
     redirect_uri: new URL('/oauth/callback', requestUrl).href,
     state: stateWithToken,
     scopes,
-    codeChallenge
+    codeChallenge,
+    oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
   })
 
   return new Response(null, {
@@ -281,7 +290,8 @@ export function createAuthHandlers() {
         scopeTemplates: SCOPE_TEMPLATES,
         allScopes: ALL_SCOPES,
         defaultTemplate: DEFAULT_TEMPLATE,
-        maxScopes: MAX_SCOPES
+        maxScopes: MAX_SCOPES,
+        requiredScopes: REQUIRED_SCOPES
       })
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()
@@ -376,7 +386,8 @@ export function createAuthHandlers() {
           client_secret: env.CLOUDFLARE_CLIENT_SECRET,
           redirect_uri: new URL('/oauth/callback', c.req.url).href,
           code,
-          code_verifier: codeVerifier
+          code_verifier: codeVerifier,
+          oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
         }),
         env.OAUTH_PROVIDER.createClient({
           clientId: oauthReqInfo.clientId,

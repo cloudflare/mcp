@@ -22,7 +22,7 @@
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
     "@tailwindcss/vite": "^4.0.6",
-    "astro": "^5.17.2",
+    "astro": "^5.18.1",
     "framer-motion": "^12.29.2",
     "leva": "^0.10.1",
     "matter-js": "^0.20.0",

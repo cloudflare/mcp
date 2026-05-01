@@ -20,6 +20,7 @@ export const ALL_SCOPES = {
   'workers_kv:write': 'Create and modify KV namespaces and data',
   'workers_routes:write': 'Configure Worker routes',
   'workers_tail:read': 'View Worker logs via tail',
+  'workers_deployments:read': 'View Worker deployment history and status',
   'workers_builds:read': 'View Worker builds',
   'workers_builds:write': 'Trigger Worker builds',
   'workers_observability:read': 'View Worker metrics and traces',
@@ -36,16 +37,11 @@ export const ALL_SCOPES = {
   'ai:write': 'Run AI inference',
   'aig:read': 'View AI Gateway configurations',
   'aig:write': 'Configure AI Gateway',
-  'agw:read': 'View AI Gateway analytics',
-  'agw:run': 'Execute AI Gateway requests',
-  'agw:write': 'Modify AI Gateway settings',
   'aiaudit:read': 'View AI audit logs',
   'aiaudit:write': 'Configure AI auditing',
   'ai-search:read': 'View AI Search configurations',
   'ai-search:write': 'Configure AI Search',
   'ai-search:run': 'Execute AI Search queries',
-  'rag:read': 'View RAG configurations',
-  'rag:write': 'Configure RAG pipelines',
 
   // DNS Management
   'dns_records:read': 'View DNS records',
@@ -83,8 +79,6 @@ export const ALL_SCOPES = {
   'browser:read': 'View Browser Rendering configurations',
   'browser:write': 'Configure Browser Rendering',
   'containers:write': 'Manage containers',
-  'constellation:write': 'Configure Constellation',
-  'cloudchamber:write': 'Manage CloudChamber',
 
   // Teams & Security
   'teams:read': 'View Cloudflare Zero Trust configurations',
@@ -112,11 +106,13 @@ export const ALL_SCOPES = {
   'url_scanner:write': 'Configure URL Scanner',
   'radar:read': 'View Radar threat intelligence',
 
-  // Notebooks
-  'notebook-examples:read': 'View notebook examples',
+  // MCP Portals
+  'mcp_portals:read': 'View MCP Portal configurations',
+  'mcp_portals:write': 'Create and modify MCP Portals',
 
-  // Other
-  'firstpartytags:write': 'Configure first-party tags'
+  // Email
+  'email_routing:write': 'Configure email routing rules',
+  'email_sending:write': 'Send emails via Email Workers'
 } as const
 
 /**
@@ -131,62 +127,28 @@ export type ScopeName = keyof typeof ALL_SCOPES
 /** Scopes required for basic functionality - always included */
 export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
 
-/** Scope templates for quick selection */
+const yoloScopes = Object.keys(ALL_SCOPES) as ScopeName[]
+
+const readOnlyScopes = Array.from(
+  new Set<ScopeName>([
+    ...REQUIRED_SCOPES,
+    ...(Object.keys(ALL_SCOPES) as ScopeName[]).filter((s) => s.endsWith(':read'))
+  ])
+)
+
+/** Scope templates for quick selection. `custom` is surfaced client-side only. */
 export const SCOPE_TEMPLATES = {
   'read-only': {
-    name: 'Read Only (Recommended)',
-    description: 'View resources without making changes. Safest option for exploration.',
-    scopes: [
-      ...REQUIRED_SCOPES,
-      'workers:read',
-      'workers_builds:read',
-      'workers_observability:read',
-      'pages:read',
-      'ai:read',
-      'access:read',
-      'dns_records:read',
-      'dns_settings:read',
-      'dns_analytics:read',
-      'zone:read',
-      'logpush:read'
-    ] as ScopeName[]
+    name: 'Read only',
+    description:
+      'View resources without making changes. Safest for exploration and read workflows.',
+    scopes: readOnlyScopes
   },
-  'workers-full': {
-    name: 'Workers Full Access',
-    description: 'Full access to Workers, KV, D1, R2, and related services with observability.',
-    scopes: [
-      ...REQUIRED_SCOPES,
-      'workers:read',
-      'workers:write',
-      'workers_scripts:write',
-      'workers_kv:write',
-      'workers_routes:write',
-      'workers_tail:read',
-      'workers_builds:read',
-      'workers_builds:write',
-      'workers_observability:read',
-      'workers_observability:write',
-      'workers_observability_telemetry:write',
-      'logpush:read',
-      'logpush:write',
-      'd1:write',
-      'r2_catalog:write',
-      'queues:write',
-      'pages:read',
-      'pages:write'
-    ] as ScopeName[]
-  },
-  'dns-full': {
-    name: 'DNS Full Access',
-    description: 'Full access to DNS records and zone settings.',
-    scopes: [
-      ...REQUIRED_SCOPES,
-      'zone:read',
-      'dns_records:read',
-      'dns_records:edit',
-      'dns_settings:read',
-      'dns_analytics:read'
-    ] as ScopeName[]
+  yolo: {
+    name: 'Full access',
+    description:
+      'Everything the MCP server can do. Skips sensitive PII and deprecated scopes. Use with trusted clients only.',
+    scopes: yoloScopes
   }
 } as const
 

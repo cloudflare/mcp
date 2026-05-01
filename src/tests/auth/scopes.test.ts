@@ -23,6 +23,7 @@ const REGISTERED_SCOPES = [
   'workers_kv:write',
   'workers_routes:write',
   'workers_tail:read',
+  'workers_deployments:read',
   'workers_builds:read',
   'workers_builds:write',
   'workers_observability:read',
@@ -35,16 +36,11 @@ const REGISTERED_SCOPES = [
   'ai:write',
   'aig:read',
   'aig:write',
-  'agw:read',
-  'agw:run',
-  'agw:write',
   'aiaudit:read',
   'aiaudit:write',
   'ai-search:read',
   'ai-search:write',
   'ai-search:run',
-  'rag:read',
-  'rag:write',
   'dns_records:read',
   'dns_records:edit',
   'dns_settings:read',
@@ -70,8 +66,6 @@ const REGISTERED_SCOPES = [
   'browser:read',
   'browser:write',
   'containers:write',
-  'constellation:write',
-  'cloudchamber:write',
   'teams:read',
   'teams:write',
   'teams:pii',
@@ -88,8 +82,10 @@ const REGISTERED_SCOPES = [
   'url_scanner:read',
   'url_scanner:write',
   'radar:read',
-  'notebook-examples:read',
-  'firstpartytags:write'
+  'mcp_portals:read',
+  'mcp_portals:write',
+  'email_routing:write',
+  'email_sending:write'
 ] as const
 
 describe('scopes', () => {

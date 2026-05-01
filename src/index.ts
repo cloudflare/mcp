@@ -6,6 +6,7 @@ import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
+import { fetchWithRetry } from './utils/fetch-retry'
 import type { AuthProps } from './auth/types'
 
 /**
@@ -29,7 +30,7 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
-    return fetch(authedRequest)
+    return fetchWithRetry(authedRequest)
   }
 }
 
@@ -48,7 +49,9 @@ async function createMcpResponse(
   accountId?: string,
   props?: AuthProps
 ): Promise<Response> {
-  const server = await createServer(env, ctx, token, accountId, props)
+  const url = new URL(request.url)
+  const codemode = url.searchParams.get('codemode') !== 'false'
+  const server = await createServer(env, ctx, token, accountId, props, codemode)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
@@ -115,7 +118,10 @@ export default {
       resourceMetadata: {
         resource_name: 'Cloudflare API MCP Server'
       },
-      accessTokenTTL: 3600
+      accessTokenTTL: 3600,
+      refreshTokenTTL: 2592000, // 30 days
+      // TODO: Remove after 2026-05-01 — all pre-0.4.0 grants will have expired by then
+      resourceMatchOriginOnly: true
     }).fetch(request, env, ctx)
   },
 
