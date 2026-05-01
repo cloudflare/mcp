@@ -154,7 +154,8 @@ export async function guardRefreshTokenExchange(
         throw new OAuthError(
           'temporarily_unavailable',
           'Token refresh is already in progress; retry shortly',
-          429
+          429,
+          { 'Retry-After': '30' }
         )
       }
 
@@ -187,7 +188,9 @@ function throwCombinedCloudflareApiError(userStatus: number, accountsStatus: num
   }
 
   if (statuses.includes(429)) {
-    throw new OAuthError('temporarily_unavailable', 'Rate limited, try again later', 429)
+    throw new OAuthError('temporarily_unavailable', 'Rate limited, try again later', 429, {
+      'Retry-After': '30'
+    })
   }
 
   if (statuses.includes(401)) {
@@ -286,7 +289,11 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
 }
 
 /**
- * Handle token refresh for workers-oauth-provider
+ * Handle token refresh for workers-oauth-provider.
+ *
+ * Local `OAuthError` already has `name === 'OAuthError'`, `code`,
+ * `description`, `statusCode`, and optional `headers`, which the
+ * provider recognises and converts into a structured `/token` response.
  */
 export async function handleTokenExchangeCallback(
   options: TokenExchangeCallbackOptions,

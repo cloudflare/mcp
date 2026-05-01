@@ -20,7 +20,7 @@ function throwUpstreamError(status: number, context: string): never {
     429: ['temporarily_unavailable', `${context}: rate limited, try again later`]
   }
   const [code, desc] = codeMap[status] || ['invalid_grant', `${context}: request failed`]
-  throw new OAuthError(code, desc, status)
+  throw new OAuthError(code, desc, status, status === 429 ? { 'Retry-After': '30' } : undefined)
 }
 
 const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'

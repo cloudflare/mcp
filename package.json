@@ -15,12 +15,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
-    "postinstall": "patch-package",
     "seed:staging": "tsx scripts/seed-r2.ts staging",
     "seed:prod": "tsx scripts/seed-r2.ts production"
   },
   "dependencies": {
-    "@cloudflare/workers-oauth-provider": "^0.4.0",
+    "@cloudflare/workers-oauth-provider": "https://pkg.pr.new/cloudflare/workers-oauth-provider/@cloudflare/workers-oauth-provider@5f25875",
     "@modelcontextprotocol/sdk": "^1.26.0",
     "hono": "^4.12.7",
     "zod": "^4.3.5"
@@ -30,7 +29,6 @@
     "@types/node": "^25.0.6",
     "oxfmt": "^0.31.0",
     "oxlint": "^1.46.0",
-    "patch-package": "^8.0.1",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0",
     "vitest": "3.2",

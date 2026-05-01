@@ -433,4 +433,88 @@ describe('handleTokenExchangeCallback', () => {
       oauthDomain: 'https://dash.cloudflare.com'
     })
   })
+
+  it('throws the local OAuthError unchanged so the provider can convert it into a /token response', async () => {
+    // The provider recognises real Error objects named OAuthError with a
+    // registered token-endpoint code, so this handler no longer has to
+    // catch/rethrow the provider's exact class.
+    const refreshAuthToken = await mockRefreshAuthToken()
+    refreshAuthToken.mockRejectedValueOnce(
+      new OAuthError('invalid_grant', 'upstream refresh token is invalid', 400)
+    )
+
+    await expect(
+      handleTokenExchangeCallback(
+        {
+          grantType: 'refresh_token',
+          props: {
+            type: 'user_token',
+            accessToken: 'old-access-token',
+            user: { id: 'user-1', email: 'user@example.com' },
+            accounts: [{ id: 'account-1', name: 'Account 1' }],
+            refreshToken: 'old-refresh-token'
+          }
+        } as never,
+        'client-id',
+        'client-secret'
+      )
+    ).rejects.toMatchObject({
+      name: 'OAuthError',
+      code: 'invalid_grant',
+      description: 'upstream refresh token is invalid',
+      statusCode: 400
+    })
+  })
+
+  it('preserves Retry-After on local 429 OAuthErrors', async () => {
+    const refreshAuthToken = await mockRefreshAuthToken()
+    refreshAuthToken.mockRejectedValueOnce(
+      new OAuthError('temporarily_unavailable', 'refresh already in progress', 429, {
+        'Retry-After': '30'
+      })
+    )
+
+    await expect(
+      handleTokenExchangeCallback(
+        {
+          grantType: 'refresh_token',
+          props: {
+            type: 'user_token',
+            accessToken: 'old-access-token',
+            user: { id: 'user-1', email: 'user@example.com' },
+            accounts: [{ id: 'account-1', name: 'Account 1' }],
+            refreshToken: 'old-refresh-token'
+          }
+        } as never,
+        'client-id',
+        'client-secret'
+      )
+    ).rejects.toMatchObject({
+      code: 'temporarily_unavailable',
+      statusCode: 429,
+      headers: { 'Retry-After': '30' }
+    })
+  })
+
+  it('lets non-OAuth thrown errors propagate (surfaces as 500)', async () => {
+    const refreshAuthToken = await mockRefreshAuthToken()
+    refreshAuthToken.mockRejectedValueOnce(new Error('unexpected failure'))
+
+    await expect(
+      handleTokenExchangeCallback(
+        {
+          grantType: 'refresh_token',
+          props: {
+            type: 'user_token',
+            accessToken: 'old-access-token',
+            user: { id: 'user-1', email: 'user@example.com' },
+            accounts: [{ id: 'account-1', name: 'Account 1' }],
+            refreshToken: 'old-refresh-token'
+          }
+        } as never,
+        'client-id',
+        'client-secret'
+      )
+    ).rejects.toThrow('unexpected failure')
+  })
 })
