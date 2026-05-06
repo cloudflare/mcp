@@ -224,6 +224,7 @@ const RESOURCE_LABELS: Record<string, string> = {
   email_sending: 'Email sending',
   lb: 'Load Balancer',
   logpush: 'Logpush',
+  logs: 'Logs',
   mcp_portals: 'MCP Portals',
   notification: 'Notifications',
   offline_access: 'Offline access',
@@ -314,6 +315,7 @@ const CATEGORY_MAP: Record<string, string> = {
   ssl_certs: 'DNS & Zones',
   logpush: 'Analytics & Logs',
   auditlogs: 'Analytics & Logs',
+  logs: 'Analytics & Logs',
   lb: 'Networking',
   notification: 'Networking',
   connectivity: 'Networking',
@@ -325,7 +327,8 @@ const CATEGORY_MAP: Record<string, string> = {
   url_scanner: 'App Security',
   radar: 'App Security',
   email_routing: 'Email & Messaging',
-  email_sending: 'Email & Messaging'
+  email_sending: 'Email & Messaging',
+  'registrar-domains': 'DNS & Zones'
 }
 
 const CATEGORY_ORDER = [
@@ -353,7 +356,16 @@ function groupScopesByCategory(
   const byResource = new Map<string, ScopeRow>()
 
   for (const [scope, desc] of Object.entries(allScopes)) {
-    const [resource, action = 'grant'] = scope.includes(':') ? scope.split(':') : [scope]
+    let resource: string
+    let action = 'grant'
+    const splitScope = scope.split(/[:.]/)
+    if (splitScope.length >= 2) {
+      resource = splitScope.slice(0, -1).join('-')
+      action = splitScope[splitScope.length - 1]
+    } else {
+      resource = splitScope[0]
+    }
+
     const category = CATEGORY_MAP[resource] ?? 'Other'
     if (!byResource.has(resource)) {
       byResource.set(resource, { resource, label: humanize(resource), category, actions: [] })
@@ -668,6 +680,23 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .info-tip[data-tip]:focus::before { opacity: 1; }
 
     /* Templates */
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .section-head .section-label { margin-bottom: 0; }
+    .template-clear {
+      border: none;
+      background: transparent;
+      color: var(--cf-text-subtle);
+      padding: 0;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .template-clear:hover { color: var(--cf-text-default); }
     .templates {
       display: flex;
       flex-wrap: wrap;
@@ -1024,11 +1053,14 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           </div>
 
           <div class="section">
-            <div class="section-label">
-              Permissions
-              <span class="info-tip" tabindex="0" data-tip="Individual OAuth scopes granted to this client. Required scopes (user, account, offline access) are always included.">
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
-              </span>
+            <div class="section-head">
+              <div class="section-label">
+                Permissions
+                <span class="info-tip" tabindex="0" data-tip="Individual OAuth scopes granted to this client. Required scopes (user, account, offline access) are always included.">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <button type="button" class="template-clear" id="deselectAll">Deselect all</button>
             </div>
             <div class="matrix-head">
               <div class="search">
@@ -1090,6 +1122,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       const saveAsName = document.getElementById('saveAsName');
       const saveAsConfirm = document.getElementById('saveAsConfirm');
       const saveAsCancel = document.getElementById('saveAsCancel');
+      const deselectAll = document.getElementById('deselectAll');
 
       function loadUserTemplates() {
         try {
@@ -1310,6 +1343,16 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         updateFooter();
       }
 
+      function deselectOptionalScopes() {
+        selected.clear();
+        for (const r of REQUIRED) selected.add(r);
+        activeTemplate = '__custom__';
+        dirty = true;
+        updateActiveTemplateUI();
+        syncPills();
+        updateFooter();
+      }
+
       function onSearch() {
         const q = searchEl.value.trim().toLowerCase();
         matrixEl.querySelectorAll('.row').forEach(row => {
@@ -1356,6 +1399,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       saveAsOpen.addEventListener('click', openSaveAs);
       saveAsCancel.addEventListener('click', closeSaveAs);
       saveAsConfirm.addEventListener('click', confirmSaveAs);
+      deselectAll.addEventListener('click', deselectOptionalScopes);
       saveAsName.addEventListener('keydown', (ev) => {
         if (ev.key === 'Enter') { ev.preventDefault(); confirmSaveAs(); }
         if (ev.key === 'Escape') { ev.preventDefault(); closeSaveAs(); }

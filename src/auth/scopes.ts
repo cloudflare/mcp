@@ -54,6 +54,8 @@ export const ALL_SCOPES = {
   'logpush:read': 'View Logpush jobs',
   'logpush:write': 'Configure Logpush jobs',
   'auditlogs:read': 'View audit logs',
+  'logs.read': 'View logs',
+  'logs.write': 'Manage logs',
 
   // Infrastructure & Networking
   'ssl_certs:write': 'Manage SSL certificates',
@@ -112,7 +114,11 @@ export const ALL_SCOPES = {
 
   // Email
   'email_routing:write': 'Configure email routing rules',
-  'email_sending:write': 'Send emails via Email Workers'
+  'email_sending:write': 'Send emails via Email Workers',
+
+  // Registrar
+  'registrar-domains.read': 'View existing & new Registrar domains',
+  'registrar-domains.admin': 'Manage existing & new Registrar domains'
 } as const
 
 /**
@@ -127,12 +133,14 @@ export type ScopeName = keyof typeof ALL_SCOPES
 /** Scopes required for basic functionality - always included */
 export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
 
-const yoloScopes = Object.keys(ALL_SCOPES) as ScopeName[]
+const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
+  (scope) => !['teams:pii', 'logs.write'].includes(scope)
+)
 
 const readOnlyScopes = Array.from(
   new Set<ScopeName>([
     ...REQUIRED_SCOPES,
-    ...(Object.keys(ALL_SCOPES) as ScopeName[]).filter((s) => s.endsWith(':read'))
+    ...(Object.keys(ALL_SCOPES) as ScopeName[]).filter((s) => s.match(/[.:]read$/))
   ])
 )
 

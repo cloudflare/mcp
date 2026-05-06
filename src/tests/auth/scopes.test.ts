@@ -49,6 +49,8 @@ const REGISTERED_SCOPES = [
   'logpush:read',
   'logpush:write',
   'auditlogs:read',
+  'logs.read',
+  'logs.write',
   'ssl_certs:write',
   'lb:read',
   'lb:edit',
@@ -85,7 +87,9 @@ const REGISTERED_SCOPES = [
   'mcp_portals:read',
   'mcp_portals:write',
   'email_routing:write',
-  'email_sending:write'
+  'email_sending:write',
+  'registrar-domains.read',
+  'registrar-domains.admin'
 ] as const
 
 describe('scopes', () => {
@@ -146,10 +150,22 @@ describe('scopes', () => {
           scope.endsWith(':write') ||
           scope.endsWith(':edit') ||
           scope.endsWith(':admin') ||
-          scope.endsWith(':pii')
+          scope.endsWith(':pii') ||
+          scope.endsWith('.write') ||
+          scope.endsWith('.admin')
       )
 
       expect(writeScopes).toEqual([])
+    })
+
+    it('read-only template should include dot-notation read scopes', () => {
+      expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('registrar-domains.read')
+      expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('logs.read')
+    })
+
+    it('full-access template should skip sensitive or high-volume scopes', () => {
+      expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('teams:pii')
+      expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('logs.write')
     })
   })
 
