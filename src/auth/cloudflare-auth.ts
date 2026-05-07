@@ -9,7 +9,13 @@ import { OAuthError } from './workers-oauth-utils'
  * 4xx: preserves the status code with a safe message.
  * 5xx: uses 502 Bad Gateway (we're proxying).
  */
-function throwUpstreamError(status: number, context: string): never {
+function retryAfterHeaders(response: Response): Record<string, string> | undefined {
+  const retryAfter = response.headers.get('Retry-After') ?? '30'
+  return response.status === 429 ? { 'Retry-After': retryAfter } : undefined
+}
+
+function throwUpstreamError(response: Response, context: string): never {
+  const status = response.status
   if (status >= 500) {
     throw new OAuthError('server_error', `${context}: upstream service unavailable`, 502)
   }
@@ -20,7 +26,7 @@ function throwUpstreamError(status: number, context: string): never {
     429: ['temporarily_unavailable', `${context}: rate limited, try again later`]
   }
   const [code, desc] = codeMap[status] || ['invalid_grant', `${context}: request failed`]
-  throw new OAuthError(code, desc, status, status === 429 ? { 'Retry-After': '30' } : undefined)
+  throw new OAuthError(code, desc, status, retryAfterHeaders(response))
 }
 
 const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
@@ -125,7 +131,7 @@ export async function getAuthToken(params: {
 
   if (!resp.ok) {
     console.error(`Token exchange failed: ${resp.status}`, await resp.text())
-    throwUpstreamError(resp.status, 'Token exchange failed')
+    throwUpstreamError(resp, 'Token exchange failed')
   }
 
   return AuthorizationToken.parse(await resp.json())
@@ -157,7 +163,7 @@ export async function refreshAuthToken(params: {
 
   if (!resp.ok) {
     console.error(`Token refresh failed: ${resp.status}`, await resp.text())
-    throwUpstreamError(resp.status, 'Token refresh failed')
+    throwUpstreamError(resp, 'Token refresh failed')
   }
 
   return AuthorizationToken.parse(await resp.json())

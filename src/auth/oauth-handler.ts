@@ -180,8 +180,15 @@ export async function guardRefreshTokenExchange(
   return refreshPromise
 }
 
-function throwCombinedCloudflareApiError(userStatus: number, accountsStatus: number): never {
-  const statuses = [userStatus, accountsStatus]
+function getRetryAfterHeader(...responses: Response[]): Record<string, string> {
+  return {
+    'Retry-After':
+      responses.find((response) => response.status === 429)?.headers.get('Retry-After') ?? '30'
+  }
+}
+
+function throwCombinedCloudflareApiError(userResp: Response, accountsResp: Response): never {
+  const statuses = [userResp.status, accountsResp.status]
 
   if (statuses.some((status) => status >= 500)) {
     throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
@@ -189,7 +196,7 @@ function throwCombinedCloudflareApiError(userStatus: number, accountsStatus: num
 
   if (statuses.includes(429)) {
     throw new OAuthError('temporarily_unavailable', 'Rate limited, try again later', 429, {
-      'Retry-After': '30'
+      ...getRetryAfterHeader(userResp, accountsResp)
     })
   }
 
@@ -201,7 +208,7 @@ function throwCombinedCloudflareApiError(userStatus: number, accountsStatus: num
     throw new OAuthError('insufficient_scope', 'Insufficient permissions', 403)
   }
 
-  throw new OAuthError('invalid_token', 'Failed to verify token', userStatus)
+  throw new OAuthError('invalid_token', 'Failed to verify token', userResp.status)
 }
 
 async function fetchCloudflareProbes(accessToken: string): Promise<[Response, Response]> {
@@ -230,7 +237,7 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
   // Check for upstream errors before parsing
   if (!userResp.ok && !accountsResp.ok) {
     console.error(`Cloudflare API error: user=${userResp.status}, accounts=${accountsResp.status}`)
-    throwCombinedCloudflareApiError(userResp.status, accountsResp.status)
+    throwCombinedCloudflareApiError(userResp, accountsResp)
   }
 
   // Parse user from response
@@ -291,9 +298,9 @@ export async function getUserAndAccounts(accessToken: string): Promise<{
 /**
  * Handle token refresh for workers-oauth-provider.
  *
- * Local `OAuthError` already has `name === 'OAuthError'`, `code`,
- * `description`, `statusCode`, and optional `headers`, which the
- * provider recognises and converts into a structured `/token` response.
+ * Throws the local `OAuthError` (which extends the provider's exported
+ * `OAuthError`) for intentional refresh failures so workers-oauth-provider
+ * converts them into structured `/token` responses.
  */
 export async function handleTokenExchangeCallback(
   options: TokenExchangeCallbackOptions,

@@ -1,3 +1,4 @@
+import { OAuthError as ProviderOAuthError } from '@cloudflare/workers-oauth-provider'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
@@ -90,13 +91,15 @@ async function expectOAuthError(
   promise: Promise<unknown>,
   code: string,
   statusCode: number
-): Promise<void> {
+): Promise<OAuthError> {
   try {
     await promise
     throw new Error('Expected OAuthError to be thrown')
   } catch (e) {
     expect(e).toBeInstanceOf(OAuthError)
+    expect(e).toBeInstanceOf(ProviderOAuthError)
     expect(e).toMatchObject({ code, statusCode })
+    return e as OAuthError
   }
 }
 
@@ -199,6 +202,40 @@ describe('getUserAndAccounts', () => {
       await expectOAuthError(getUserAndAccounts('test-token'), code, statusCode)
     }
   )
+
+  it('preserves Retry-After from Cloudflare API 429 responses', async () => {
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(
+        new Response('rate limited', { status: 429, headers: { 'Retry-After': '17' } })
+      )
+      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
+
+    vi.stubGlobal('fetch', fetchMock)
+
+    const error = await expectOAuthError(
+      getUserAndAccounts('test-token'),
+      'temporarily_unavailable',
+      429
+    )
+    expect(error.headers).toEqual({ 'Retry-After': '17' })
+  })
+
+  it('defaults Retry-After when Cloudflare API 429 responses omit it', async () => {
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
+      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
+
+    vi.stubGlobal('fetch', fetchMock)
+
+    const error = await expectOAuthError(
+      getUserAndAccounts('test-token'),
+      'temporarily_unavailable',
+      429
+    )
+    expect(error.headers).toEqual({ 'Retry-After': '30' })
+  })
 
   it('falls back to account-scoped auth when /user is 200 but invalid JSON', async () => {
     const fetchMock = vi
@@ -434,10 +471,7 @@ describe('handleTokenExchangeCallback', () => {
     })
   })
 
-  it('throws the local OAuthError unchanged so the provider can convert it into a /token response', async () => {
-    // The provider recognises real Error objects named OAuthError with a
-    // registered token-endpoint code, so this handler no longer has to
-    // catch/rethrow the provider's exact class.
+  it('throws the local OAuthError that extends the provider OAuthError', async () => {
     const refreshAuthToken = await mockRefreshAuthToken()
     refreshAuthToken.mockRejectedValueOnce(
       new OAuthError('invalid_grant', 'upstream refresh token is invalid', 400)
@@ -466,7 +500,7 @@ describe('handleTokenExchangeCallback', () => {
     })
   })
 
-  it('preserves Retry-After on local 429 OAuthErrors', async () => {
+  it('preserves Retry-After on local/provider 429 OAuthErrors', async () => {
     const refreshAuthToken = await mockRefreshAuthToken()
     refreshAuthToken.mockRejectedValueOnce(
       new OAuthError('temporarily_unavailable', 'refresh already in progress', 429, {

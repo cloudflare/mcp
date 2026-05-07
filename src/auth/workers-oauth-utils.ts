@@ -1,6 +1,10 @@
 import { z } from 'zod'
 
-import type { AuthRequest, ClientInfo } from '@cloudflare/workers-oauth-provider'
+import {
+  OAuthError as ProviderOAuthError,
+  type AuthRequest,
+  type ClientInfo
+} from '@cloudflare/workers-oauth-provider'
 
 const APPROVED_CLIENTS_COOKIE = '__Host-MCP_APPROVED_CLIENTS'
 const CSRF_COOKIE = '__Host-CSRF_TOKEN'
@@ -10,15 +14,14 @@ const ONE_YEAR_IN_SECONDS = 31536000
 /**
  * OAuth error class for handling OAuth-specific errors
  */
-export class OAuthError extends Error {
+export class OAuthError extends ProviderOAuthError {
   constructor(
-    public code: string,
-    public description: string,
-    public statusCode = 400,
-    public headers: Record<string, string> = {}
+    code: string,
+    description: string,
+    statusCode = 400,
+    headers: Record<string, string> = {}
   ) {
-    super(description)
-    this.name = 'OAuthError'
+    super(code, { description, statusCode, headers })
   }
 
   toResponse(): Response {
