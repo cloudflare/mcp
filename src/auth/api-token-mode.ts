@@ -21,26 +21,21 @@ async function hashApiToken(token: string): Promise<string> {
 async function getCachedApiTokenIdentity(token: string): Promise<ApiTokenIdentity> {
   const tokenHash = await hashApiToken(token)
   const cacheKey = `api-token-identity:${tokenHash}`
-  const tokenHashPrefix = tokenHash.slice(0, 8)
-
   try {
     const cached = await env.OAUTH_KV.get<ApiTokenIdentity>(cacheKey, 'json')
     if (cached) {
-      console.log(`api_token_identity_probe kv-cache status=HIT token_hash=${tokenHashPrefix}`)
       return cached
     }
   } catch (error) {
     console.warn('api_token_identity_probe kv-cache read failed', error)
   }
 
-  console.log(`api_token_identity_probe kv-cache status=MISS token_hash=${tokenHashPrefix}`)
   const identity = await getUserAndAccounts(token, 'api_token_identity_probe')
 
   try {
     await env.OAUTH_KV.put(cacheKey, JSON.stringify(identity), {
       expirationTtl: API_TOKEN_IDENTITY_CACHE_TTL_SECONDS
     })
-    console.log(`api_token_identity_probe kv-cache status=STORE token_hash=${tokenHashPrefix}`)
   } catch (error) {
     console.warn('api_token_identity_probe kv-cache write failed', error)
   }

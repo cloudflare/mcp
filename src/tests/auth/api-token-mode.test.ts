@@ -162,7 +162,6 @@ describe('handleApiTokenRequest identity probe caching', () => {
   const accounts = [{ id: 'acc-1', name: 'Account One' }]
 
   it('stores API token identity lookups in KV by token hash', async () => {
-    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
     const getSpy = vi.spyOn(env.OAUTH_KV, 'get').mockResolvedValue(null)
     const putSpy = vi.spyOn(env.OAUTH_KV, 'put').mockResolvedValue(undefined)
     getUserAndAccountsMock.mockResolvedValue({ user, accounts })
@@ -177,16 +176,9 @@ describe('handleApiTokenRequest identity probe caching', () => {
     expect(putSpy).toHaveBeenCalledWith(cacheKey, JSON.stringify({ user, accounts }), {
       expirationTtl: 2_592_000
     })
-    expect(logSpy).toHaveBeenCalledWith(
-      'api_token_identity_probe kv-cache status=MISS token_hash=9bdb81d1'
-    )
-    expect(logSpy).toHaveBeenCalledWith(
-      'api_token_identity_probe kv-cache status=STORE token_hash=9bdb81d1'
-    )
   })
 
   it('uses cached API token identity from KV', async () => {
-    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
     vi.spyOn(env.OAUTH_KV, 'get').mockResolvedValue({ user, accounts })
     const putSpy = vi.spyOn(env.OAUTH_KV, 'put').mockResolvedValue(undefined)
     const createMcpResponse = vi.fn().mockResolvedValue(new Response('ok'))
@@ -200,9 +192,6 @@ describe('handleApiTokenRequest identity probe caching', () => {
       token,
       undefined,
       buildAuthProps(token, user, accounts)
-    )
-    expect(logSpy).toHaveBeenCalledWith(
-      'api_token_identity_probe kv-cache status=HIT token_hash=9bdb81d1'
     )
   })
 })
