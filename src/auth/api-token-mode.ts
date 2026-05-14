@@ -51,7 +51,7 @@ export async function handleApiTokenRequest(
   }
 
   try {
-    const { user, accounts } = await getUserAndAccounts(token)
+    const { user, accounts } = await getUserAndAccounts(token, 'api_token_identity_probe')
 
     // Account-scoped token
     if (!user) {

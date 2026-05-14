@@ -14,7 +14,9 @@ export function createCodeExecutor(env: Env, ctx: ExecutionContext) {
 
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
-      globalOutbound: ctx.exports.GlobalOutbound({ props: { apiToken } }),
+      globalOutbound: ctx.exports.GlobalOutbound({
+        props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call' }
+      }),
       mainModule: 'worker.js',
       modules: {
         'worker.js': `

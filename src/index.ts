@@ -14,7 +14,7 @@ import type { AuthProps } from './auth/types'
  * to only make requests to the configured Cloudflare API base URL.
  * The API token is injected via props so it never enters the user code isolate.
  */
-type GlobalOutboundProps = { apiToken: string }
+type GlobalOutboundProps = { apiToken: string; fetchWithRetryCaller: string }
 
 export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
   async fetch(request: Request): Promise<Response> {
@@ -30,7 +30,9 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
-    return fetchWithRetry(authedRequest)
+    return fetchWithRetry(authedRequest, undefined, {
+      caller: this.ctx.props.fetchWithRetryCaller
+    })
   }
 }
 

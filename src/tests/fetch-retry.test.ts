@@ -52,9 +52,13 @@ describe('computeRetryDelay', () => {
 
 describe('fetchWithRetry', () => {
   let originalFetch: typeof globalThis.fetch
+  let warnSpy: ReturnType<typeof vi.spyOn>
+  let errorSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
     originalFetch = globalThis.fetch
+    warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
   })
 
   afterEach(() => {
@@ -82,6 +86,26 @@ describe('fetchWithRetry', () => {
     expect(globalThis.fetch).toHaveBeenCalledTimes(1)
   })
 
+  it('logs caller and url when retrying 429s', async () => {
+    const mock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
+      .mockResolvedValueOnce(new Response('ok', { status: 200 }))
+    globalThis.fetch = mock
+
+    const result = await fetchWithRetry('https://api.example.com/accounts', undefined, {
+      maxRetries: 1,
+      baseDelayMs: 1,
+      jitter: false,
+      caller: 'oauth_callback_identity_probe'
+    })
+
+    expect(result.status).toBe(200)
+    expect(warnSpy).toHaveBeenCalledWith(
+      'fetchWithRetry: 429 caller=oauth_callback_identity_probe url=https://api.example.com/accounts on attempt 1/2, retrying in 1ms'
+    )
+  })
+
   it('retries on 429 and succeeds', async () => {
     const mock = vi
       .fn()
@@ -97,6 +121,20 @@ describe('fetchWithRetry', () => {
 
     expect(result.status).toBe(200)
     expect(mock).toHaveBeenCalledTimes(2)
+  })
+
+  it('logs an error after exhausting 429 retries', async () => {
+    const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
+    globalThis.fetch = mock
+
+    const result = await fetchWithRetry('https://api.example.com/accounts', undefined, {
+      maxRetries: 0
+    })
+
+    expect(result.status).toBe(429)
+    expect(errorSpy).toHaveBeenCalledWith(
+      'fetchWithRetry: failed url=https://api.example.com/accounts after 1 attempts with status 429'
+    )
   })
 
   it('returns last 429 response after exhausting retries', async () => {
@@ -129,6 +167,23 @@ describe('fetchWithRetry', () => {
 
     expect(result.status).toBe(200)
     expect(mock).toHaveBeenCalledTimes(2)
+  })
+
+  it('logs an error after exhausting network retries', async () => {
+    const error = new Error('network failure')
+    const mock = vi.fn().mockRejectedValue(error)
+    globalThis.fetch = mock
+
+    await expect(
+      fetchWithRetry('https://api.example.com/accounts', undefined, {
+        maxRetries: 0
+      })
+    ).rejects.toThrow('network failure')
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      'fetchWithRetry: failed url=https://api.example.com/accounts after 1 attempts',
+      error
+    )
   })
 
   it('throws after exhausting retries on network errors', async () => {

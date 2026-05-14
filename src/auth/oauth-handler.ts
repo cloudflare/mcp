@@ -211,13 +211,16 @@ function throwCombinedCloudflareApiError(userResp: Response, accountsResp: Respo
   throw new OAuthError('invalid_token', 'Failed to verify token', userResp.status)
 }
 
-async function fetchCloudflareProbes(accessToken: string): Promise<[Response, Response]> {
+async function fetchCloudflareProbes(
+  accessToken: string,
+  caller = 'oauth_callback_identity_probe'
+): Promise<[Response, Response]> {
   const headers = { Authorization: `Bearer ${accessToken}` }
 
   try {
     return await Promise.all([
-      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }),
-      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers })
+      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }, { caller }),
+      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers }, { caller })
     ])
   } catch (error) {
     console.error('Cloudflare API request failed', error)
@@ -228,11 +231,14 @@ async function fetchCloudflareProbes(accessToken: string): Promise<[Response, Re
 /**
  * Fetch user and accounts from Cloudflare API
  */
-export async function getUserAndAccounts(accessToken: string): Promise<{
+export async function getUserAndAccounts(
+  accessToken: string,
+  caller = 'oauth_callback_identity_probe'
+): Promise<{
   user: UserSchema | null
   accounts: AccountSchema[]
 }> {
-  const [userResp, accountsResp] = await fetchCloudflareProbes(accessToken)
+  const [userResp, accountsResp] = await fetchCloudflareProbes(accessToken, caller)
 
   // Check for upstream errors before parsing
   if (!userResp.ok && !accountsResp.ok) {

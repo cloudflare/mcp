@@ -341,11 +341,15 @@ async function registerNonCodemodeTools(
             requestBody = params['body'] as string
           }
 
-          const response = await fetchWithRetry(url.toString(), {
-            method: method.toUpperCase(),
-            headers,
-            body: requestBody
-          })
+          const response = await fetchWithRetry(
+            url.toString(),
+            {
+              method: method.toUpperCase(),
+              headers,
+              body: requestBody
+            },
+            { caller: 'non_codemode_tool_call' }
+          )
 
           const contentType = response.headers.get('content-type') || ''
           let result: string

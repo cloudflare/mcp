@@ -4,9 +4,10 @@ export interface RetryOptions {
   backoffFactor?: number
   maxDelayMs?: number
   jitter?: boolean
+  caller?: string
 }
 
-const DEFAULT_OPTIONS: Required<RetryOptions> = {
+const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
   maxRetries: 3,
   baseDelayMs: 1000,
   backoffFactor: 2,
@@ -15,7 +16,7 @@ const DEFAULT_OPTIONS: Required<RetryOptions> = {
 }
 export function computeRetryDelay(
   attempt: number,
-  opts: Required<RetryOptions>,
+  opts: Required<Omit<RetryOptions, 'caller'>>,
   retryAfterHeader?: string | null
 ): number {
   if (retryAfterHeader) {
@@ -39,6 +40,8 @@ export async function fetchWithRetry(
   options?: RetryOptions
 ): Promise<Response> {
   const opts = { ...DEFAULT_OPTIONS, ...options }
+  const url = typeof input === 'string' ? input : input.url
+  const caller = options?.caller ? ` caller=${options.caller}` : ''
 
   let lastResponse: Response | undefined
   let lastError: unknown
@@ -56,7 +59,7 @@ export async function fetchWithRetry(
       if (attempt < opts.maxRetries) {
         const delay = computeRetryDelay(attempt, opts, response.headers.get('Retry-After'))
         console.warn(
-          `fetchWithRetry: 429 on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
+          `fetchWithRetry: 429${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
             `retrying in ${Math.round(delay)}ms`
         )
         await sleep(delay)
@@ -67,7 +70,7 @@ export async function fetchWithRetry(
       if (attempt < opts.maxRetries) {
         const delay = computeRetryDelay(attempt, opts, null)
         console.warn(
-          `fetchWithRetry: network error on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
+          `fetchWithRetry: network error${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
             `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : error}`
         )
         await sleep(delay)
@@ -76,9 +79,16 @@ export async function fetchWithRetry(
   }
 
   if (lastResponse) {
+    console.error(
+      `fetchWithRetry: failed${caller} url=${url} after ${opts.maxRetries + 1} attempts with status ${lastResponse.status}`
+    )
     return lastResponse
   }
 
+  console.error(
+    `fetchWithRetry: failed${caller} url=${url} after ${opts.maxRetries + 1} attempts`,
+    lastError
+  )
   throw lastError
 }
 
