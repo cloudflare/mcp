@@ -213,25 +213,14 @@ function throwCombinedCloudflareApiError(userResp: Response, accountsResp: Respo
 
 async function fetchCloudflareProbes(
   accessToken: string,
-  caller = 'oauth_callback_identity_probe',
-  apiTokenCacheKeyHash?: string
+  caller = 'oauth_callback_identity_probe'
 ): Promise<[Response, Response]> {
   const headers = { Authorization: `Bearer ${accessToken}` }
-  const userUrl = `${env.CLOUDFLARE_API_BASE}/user`
-  const accountsUrl = `${env.CLOUDFLARE_API_BASE}/accounts`
-  const cacheCf = (path: 'user' | 'accounts') =>
-    apiTokenCacheKeyHash
-      ? {
-          cacheEverything: true,
-          cacheKey: `${env.CLOUDFLARE_API_BASE}/mcp/api-token-identity/${apiTokenCacheKeyHash}/${path}`,
-          cacheTtl: 2_592_000
-        }
-      : undefined
 
   try {
     return await Promise.all([
-      fetchWithRetry(userUrl, { headers, cf: cacheCf('user') }, { caller }),
-      fetchWithRetry(accountsUrl, { headers, cf: cacheCf('accounts') }, { caller })
+      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }, { caller }),
+      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers }, { caller })
     ])
   } catch (error) {
     console.error('Cloudflare API request failed', error)
@@ -244,17 +233,12 @@ async function fetchCloudflareProbes(
  */
 export async function getUserAndAccounts(
   accessToken: string,
-  caller = 'oauth_callback_identity_probe',
-  apiTokenCacheKeyHash?: string
+  caller = 'oauth_callback_identity_probe'
 ): Promise<{
   user: UserSchema | null
   accounts: AccountSchema[]
 }> {
-  const [userResp, accountsResp] = await fetchCloudflareProbes(
-    accessToken,
-    caller,
-    apiTokenCacheKeyHash
-  )
+  const [userResp, accountsResp] = await fetchCloudflareProbes(accessToken, caller)
 
   // Check for upstream errors before parsing
   if (!userResp.ok && !accountsResp.ok) {

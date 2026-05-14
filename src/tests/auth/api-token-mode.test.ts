@@ -1,4 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { env } from 'cloudflare:workers'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { getUserAndAccounts } from '../../auth/oauth-handler'
 import {
   isDirectApiToken,
@@ -26,6 +27,10 @@ function mockRequest(authHeader?: string): Request {
 
 beforeEach(() => {
   getUserAndAccountsMock.mockReset()
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
 })
 
 describe('isDirectApiToken', () => {
@@ -151,21 +156,53 @@ describe('buildAuthProps', () => {
 
 describe('handleApiTokenRequest identity probe caching', () => {
   const token = 'api-token-123'
+  const tokenHash = '9bdb81d121b42d1c7819c816fa3cfbb6ee109726f9ed2475edb169374881d7b3'
+  const cacheKey = `api-token-identity:${tokenHash}`
   const user = { id: 'user-1', email: 'test@example.com' }
   const accounts = [{ id: 'acc-1', name: 'Account One' }]
 
-  it('passes a stable token hash for Cloudflare fetch cache keys', async () => {
+  it('stores API token identity lookups in KV by token hash', async () => {
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    const getSpy = vi.spyOn(env.OAUTH_KV, 'get').mockResolvedValue(null)
+    const putSpy = vi.spyOn(env.OAUTH_KV, 'put').mockResolvedValue(undefined)
     getUserAndAccountsMock.mockResolvedValue({ user, accounts })
     const createMcpResponse = vi.fn().mockResolvedValue(new Response('ok'))
     const request = mockRequest(`Bearer ${token}`)
 
     await handleApiTokenRequest(request, createMcpResponse)
 
+    expect(getSpy).toHaveBeenCalledWith(cacheKey, 'json')
     expect(getUserAndAccountsMock).toHaveBeenCalledTimes(1)
-    expect(getUserAndAccountsMock).toHaveBeenCalledWith(
+    expect(getUserAndAccountsMock).toHaveBeenCalledWith(token, 'api_token_identity_probe')
+    expect(putSpy).toHaveBeenCalledWith(cacheKey, JSON.stringify({ user, accounts }), {
+      expirationTtl: 2_592_000
+    })
+    expect(logSpy).toHaveBeenCalledWith(
+      'api_token_identity_probe kv-cache status=MISS token_hash=9bdb81d1'
+    )
+    expect(logSpy).toHaveBeenCalledWith(
+      'api_token_identity_probe kv-cache status=STORE token_hash=9bdb81d1'
+    )
+  })
+
+  it('uses cached API token identity from KV', async () => {
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    vi.spyOn(env.OAUTH_KV, 'get').mockResolvedValue({ user, accounts })
+    const putSpy = vi.spyOn(env.OAUTH_KV, 'put').mockResolvedValue(undefined)
+    const createMcpResponse = vi.fn().mockResolvedValue(new Response('ok'))
+    const request = mockRequest(`Bearer ${token}`)
+
+    await handleApiTokenRequest(request, createMcpResponse)
+
+    expect(getUserAndAccountsMock).not.toHaveBeenCalled()
+    expect(putSpy).not.toHaveBeenCalled()
+    expect(createMcpResponse).toHaveBeenCalledWith(
       token,
-      'api_token_identity_probe',
-      '9bdb81d121b42d1c7819c816fa3cfbb6ee109726f9ed2475edb169374881d7b3'
+      undefined,
+      buildAuthProps(token, user, accounts)
+    )
+    expect(logSpy).toHaveBeenCalledWith(
+      'api_token_identity_probe kv-cache status=HIT token_hash=9bdb81d1'
     )
   })
 })
