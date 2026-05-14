@@ -1,11 +1,46 @@
+import { env as cloudflareEnv } from 'cloudflare:workers'
+
 import { getUserAndAccounts } from './oauth-handler'
 import { OAuthError } from './workers-oauth-utils'
 
-import type { AuthProps } from './types'
+import type { AccountSchema, AuthProps, UserSchema } from './types'
+
+const env = cloudflareEnv as Env
+const API_TOKEN_IDENTITY_CACHE_TTL_SECONDS = 2_592_000
+
+type ApiTokenIdentity = {
+  user: UserSchema | null
+  accounts: AccountSchema[]
+}
 
 async function hashApiToken(token: string): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token))
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('')
+}
+
+async function getCachedApiTokenIdentity(token: string): Promise<ApiTokenIdentity> {
+  const tokenHash = await hashApiToken(token)
+  const cacheKey = `api-token-identity:${tokenHash}`
+  try {
+    const cached = await env.OAUTH_KV.get<ApiTokenIdentity>(cacheKey, 'json')
+    if (cached) {
+      return cached
+    }
+  } catch (error) {
+    console.warn('api_token_identity_probe kv-cache read failed', error)
+  }
+
+  const identity = await getUserAndAccounts(token, 'api_token_identity_probe')
+
+  try {
+    await env.OAUTH_KV.put(cacheKey, JSON.stringify(identity), {
+      expirationTtl: API_TOKEN_IDENTITY_CACHE_TTL_SECONDS
+    })
+  } catch (error) {
+    console.warn('api_token_identity_probe kv-cache write failed', error)
+  }
+
+  return identity
 }
 
 /**
@@ -56,11 +91,7 @@ export async function handleApiTokenRequest(
   }
 
   try {
-    const { user, accounts } = await getUserAndAccounts(
-      token,
-      'api_token_identity_probe',
-      await hashApiToken(token)
-    )
+    const { user, accounts } = await getCachedApiTokenIdentity(token)
 
     // Account-scoped token
     if (!user) {
