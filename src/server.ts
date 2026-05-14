@@ -221,6 +221,78 @@ export interface OperationInfo {
   responses?: Record<string, unknown>
 }
 
+type NonCodemodeToolDefinition = {
+  toolName: string
+  description: string
+  inputSchema: Record<string, z.ZodType>
+  method: 'get' | 'post' | 'put' | 'patch' | 'delete'
+  path: string
+  operation: OperationInfo
+}
+
+const nonCodemodeToolDefinitionsByBucket = new WeakMap<
+  object,
+  Promise<NonCodemodeToolDefinition[]>
+>()
+
+async function loadNonCodemodeToolDefinitions(env: Env): Promise<NonCodemodeToolDefinition[]> {
+  let definitionsPromise = nonCodemodeToolDefinitionsByBucket.get(env.SPEC_BUCKET as object)
+  if (definitionsPromise) return definitionsPromise
+
+  definitionsPromise = (async () => {
+    const obj = await env.SPEC_BUCKET.get('spec.json')
+    if (!obj)
+      throw new Error('spec.json not found in R2. Run the scheduled handler to populate it.')
+    const spec = (await obj.json()) as { paths: Record<string, Record<string, OperationInfo>> }
+    const registeredNames = new Set<string>()
+    const definitions: NonCodemodeToolDefinition[] = []
+    const methods = ['get', 'post', 'put', 'patch', 'delete'] as const
+
+    for (const [path, pathItem] of Object.entries(spec.paths)) {
+      for (const method of methods) {
+        const operation = pathItem[method]
+        if (!operation) continue
+
+        let toolName = pathToToolName(method, path)
+        // Deduplicate if truncation caused a collision
+        if (registeredNames.has(toolName)) {
+          let i = 2
+          let candidate: string
+          do {
+            const suffixStr = `_${i}`
+            const maxBase = 128 - suffixStr.length
+            const base =
+              toolName.length > maxBase ? toolName.slice(0, maxBase).replace(/_$/, '') : toolName
+            candidate = `${base}${suffixStr}`
+            i++
+          } while (registeredNames.has(candidate))
+          toolName = candidate
+        }
+        registeredNames.add(toolName)
+
+        const description =
+          `${method.toUpperCase()} ${path}` +
+          (operation.summary ? `\n\n${operation.summary}` : '') +
+          (operation.description ? `\n\n${operation.description}` : '')
+
+        definitions.push({
+          toolName,
+          description,
+          inputSchema: buildInputSchema(operation, path),
+          method,
+          path,
+          operation
+        })
+      }
+    }
+
+    return definitions
+  })()
+
+  nonCodemodeToolDefinitionsByBucket.set(env.SPEC_BUCKET as object, definitionsPromise)
+  return definitionsPromise
+}
+
 async function registerNonCodemodeTools(
   server: McpServer,
   env: Env,
@@ -228,156 +300,126 @@ async function registerNonCodemodeTools(
   accountId: string | undefined,
   props?: AuthProps
 ): Promise<void> {
-  const obj = await env.SPEC_BUCKET.get('spec.json')
-  if (!obj) throw new Error('spec.json not found in R2. Run the scheduled handler to populate it.')
-  const spec = (await obj.json()) as { paths: Record<string, Record<string, OperationInfo>> }
   const apiBase = env.CLOUDFLARE_API_BASE
-  const registeredNames = new Set<string>()
+  const definitions = await loadNonCodemodeToolDefinitions(env)
 
-  const methods = ['get', 'post', 'put', 'patch', 'delete'] as const
+  for (const definition of definitions) {
+    const { toolName, description, method, path, operation } = definition
+    const inputSchema = { ...definition.inputSchema }
 
-  for (const [path, pathItem] of Object.entries(spec.paths)) {
-    for (const method of methods) {
-      const operation = pathItem[method]
-      if (!operation) continue
+    // Add account_id to input schema if not already a path param and user has multiple accounts
+    const needsAccountId =
+      !accountId &&
+      path.includes('{account_id}') &&
+      props?.type === 'user_token' &&
+      props.accounts.length > 1
 
-      let toolName = pathToToolName(method, path)
-      // Deduplicate if truncation caused a collision
-      if (registeredNames.has(toolName)) {
-        let i = 2
-        let candidate: string
-        do {
-          const suffixStr = `_${i}`
-          const maxBase = 128 - suffixStr.length
-          const base =
-            toolName.length > maxBase ? toolName.slice(0, maxBase).replace(/_$/, '') : toolName
-          candidate = `${base}${suffixStr}`
-          i++
-        } while (registeredNames.has(candidate))
-        toolName = candidate
-      }
-      registeredNames.add(toolName)
-      const description =
-        `${method.toUpperCase()} ${path}` +
-        (operation.summary ? `\n\n${operation.summary}` : '') +
-        (operation.description ? `\n\n${operation.description}` : '')
+    if (needsAccountId) {
+      inputSchema['account_id'] = z
+        .string()
+        .describe('Cloudflare account ID. Required for multi-account tokens.')
+    }
 
-      const inputSchema = buildInputSchema(operation, path)
+    server.registerTool(toolName, { description, inputSchema }, async (params) => {
+      try {
+        // Build the URL with path parameters substituted
+        let resolvedPath = path
+        const pathParams = [...path.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
+        for (const paramName of pathParams) {
+          let value = params[paramName] as string | undefined
 
-      // Add account_id to input schema if not already a path param and user has multiple accounts
-      const needsAccountId =
-        !accountId &&
-        path.includes('{account_id}') &&
-        props?.type === 'user_token' &&
-        props.accounts.length > 1
-
-      if (needsAccountId) {
-        inputSchema['account_id'] = z
-          .string()
-          .describe('Cloudflare account ID. Required for multi-account tokens.')
-      }
-
-      server.registerTool(toolName, { description, inputSchema }, async (params) => {
-        try {
-          // Build the URL with path parameters substituted
-          let resolvedPath = path
-          const pathParams = [...path.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
-          for (const paramName of pathParams) {
-            let value = params[paramName] as string | undefined
-
-            // Auto-resolve account_id
-            if (paramName === 'account_id' && !value) {
-              if (accountId) {
-                value = accountId
-              } else if (props?.type === 'user_token' && props.accounts.length === 1) {
-                value = props.accounts[0].id
-              }
-            }
-
-            if (!value) {
-              return {
-                content: [
-                  {
-                    type: 'text' as const,
-                    text: `Error: missing required path parameter: ${paramName}`
-                  }
-                ],
-                isError: true
-              }
-            }
-            resolvedPath = resolvedPath.replace(`{${paramName}}`, encodeURIComponent(value))
-          }
-
-          // Build query string
-          const url = new URL(apiBase + resolvedPath)
-          if (operation.parameters) {
-            for (const param of operation.parameters) {
-              if (param.in === 'query' && params[param.name] !== undefined) {
-                url.searchParams.set(param.name, String(params[param.name]))
-              }
+          // Auto-resolve account_id
+          if (paramName === 'account_id' && !value) {
+            if (accountId) {
+              value = accountId
+            } else if (props?.type === 'user_token' && props.accounts.length === 1) {
+              value = props.accounts[0].id
             }
           }
 
-          // Build request
-          const headers: Record<string, string> = {
-            Authorization: `Bearer ${apiToken}`
-          }
-
-          // Add header parameters
-          if (operation.parameters) {
-            for (const param of operation.parameters) {
-              if (param.in === 'header') {
-                const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
-                if (params[headerKey] !== undefined) {
-                  headers[param.name] = String(params[headerKey])
+          if (!value) {
+            return {
+              content: [
+                {
+                  type: 'text' as const,
+                  text: `Error: missing required path parameter: ${paramName}`
                 }
-              }
+              ],
+              isError: true
             }
           }
+          resolvedPath = resolvedPath.replace(`{${paramName}}`, encodeURIComponent(value))
+        }
 
-          let requestBody: string | undefined
-          if (params['body']) {
-            headers['Content-Type'] = (params['content_type'] as string) || 'application/json'
-            requestBody = params['body'] as string
-          }
-
-          const response = await fetchWithRetry(
-            url.toString(),
-            {
-              method: method.toUpperCase(),
-              headers,
-              body: requestBody
-            },
-            { caller: 'non_codemode_tool_call' }
-          )
-
-          const contentType = response.headers.get('content-type') || ''
-          let result: string
-
-          if (contentType.includes('application/json')) {
-            const data = await response.json()
-            result = JSON.stringify(data, null, 2)
-          } else {
-            result = await response.text()
-          }
-
-          return {
-            content: [{ type: 'text' as const, text: truncateResponse(result) }],
-            isError: !response.ok
-          }
-        } catch (error) {
-          return {
-            content: [
-              {
-                type: 'text' as const,
-                text: `Error: ${error instanceof Error ? error.message : String(error)}`
-              }
-            ],
-            isError: true
+        // Build query string
+        const url = new URL(apiBase + resolvedPath)
+        if (operation.parameters) {
+          for (const param of operation.parameters) {
+            if (param.in === 'query' && params[param.name] !== undefined) {
+              url.searchParams.set(param.name, String(params[param.name]))
+            }
           }
         }
-      })
-    }
+
+        // Build request
+        const headers: Record<string, string> = {
+          Authorization: `Bearer ${apiToken}`
+        }
+
+        // Add header parameters
+        if (operation.parameters) {
+          for (const param of operation.parameters) {
+            if (param.in === 'header') {
+              const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
+              if (params[headerKey] !== undefined) {
+                headers[param.name] = String(params[headerKey])
+              }
+            }
+          }
+        }
+
+        let requestBody: string | undefined
+        if (params['body']) {
+          headers['Content-Type'] = (params['content_type'] as string) || 'application/json'
+          requestBody = params['body'] as string
+        }
+
+        const response = await fetchWithRetry(
+          url.toString(),
+          {
+            method: method.toUpperCase(),
+            headers,
+            body: requestBody
+          },
+          { caller: 'non_codemode_tool_call' }
+        )
+
+        const contentType = response.headers.get('content-type') || ''
+        let result: string
+
+        if (contentType.includes('application/json')) {
+          const data = await response.json()
+          result = JSON.stringify(data, null, 2)
+        } else {
+          result = await response.text()
+        }
+
+        return {
+          content: [{ type: 'text' as const, text: truncateResponse(result) }],
+          isError: !response.ok
+        }
+      } catch (error) {
+        return {
+          content: [
+            {
+              type: 'text' as const,
+              text: `Error: ${error instanceof Error ? error.message : String(error)}`
+            }
+          ],
+          isError: true
+        }
+      }
+    })
   }
 }
 

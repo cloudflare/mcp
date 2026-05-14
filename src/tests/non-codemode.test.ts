@@ -520,6 +520,23 @@ describe('createServer with codemode=false', () => {
     expect(toolNames).not.toContain('execute')
   })
 
+  it('caches parsed non-codemode tool definitions per spec bucket', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: { summary: 'List Workers', tags: ['Workers Scripts'] } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+
+    await createServer(env, ctx, 'test-token', 'test-account', undefined, false)
+    await createServer(env, ctx, 'test-token', 'test-account', undefined, false)
+
+    expect(env.SPEC_BUCKET.get).toHaveBeenCalledTimes(1)
+    expect(env.SPEC_BUCKET.get).toHaveBeenCalledWith('spec.json')
+  })
+
   it('registers codemode tools when codemode=true (default)', async () => {
     const specPaths = {
       '/accounts/{account_id}/workers/scripts': {
