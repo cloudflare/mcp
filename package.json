@@ -19,8 +19,9 @@
     "seed:prod": "tsx scripts/seed-r2.ts production"
   },
   "dependencies": {
+    "@cfworker/json-schema": "^4.1.1",
     "@cloudflare/workers-oauth-provider": "^0.6.0",
-    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@modelcontextprotocol/server": "^2.0.0-alpha.2",
     "hono": "^4.12.7",
     "zod": "^4.3.5"
   },

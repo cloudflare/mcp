@@ -1,7 +1,7 @@
 import OAuthProvider from '@cloudflare/workers-oauth-provider'
 import { Hono } from 'hono'
 import { WorkerEntrypoint } from 'cloudflare:workers'
-import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
+import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/server'
 import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
