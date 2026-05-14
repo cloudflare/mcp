@@ -3,6 +3,11 @@ import { OAuthError } from './workers-oauth-utils'
 
 import type { AuthProps } from './types'
 
+async function hashApiToken(token: string): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token))
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('')
+}
+
 /**
  * Check if the request contains a direct Cloudflare API token
  * (as opposed to an OAuth token issued by workers-oauth-provider)
@@ -51,7 +56,11 @@ export async function handleApiTokenRequest(
   }
 
   try {
-    const { user, accounts } = await getUserAndAccounts(token, 'api_token_identity_probe')
+    const { user, accounts } = await getUserAndAccounts(
+      token,
+      'api_token_identity_probe',
+      await hashApiToken(token)
+    )
 
     // Account-scoped token
     if (!user) {

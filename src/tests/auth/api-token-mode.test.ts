@@ -1,5 +1,17 @@
-import { describe, it, expect } from 'vitest'
-import { isDirectApiToken, extractBearerToken, buildAuthProps } from '../../auth/api-token-mode'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { getUserAndAccounts } from '../../auth/oauth-handler'
+import {
+  isDirectApiToken,
+  extractBearerToken,
+  buildAuthProps,
+  handleApiTokenRequest
+} from '../../auth/api-token-mode'
+
+vi.mock('../../auth/oauth-handler', () => ({
+  getUserAndAccounts: vi.fn()
+}))
+
+const getUserAndAccountsMock = vi.mocked(getUserAndAccounts)
 
 /**
  * Helper to create a mock Request with given Authorization header
@@ -11,6 +23,10 @@ function mockRequest(authHeader?: string): Request {
   }
   return new Request('https://example.com', { headers })
 }
+
+beforeEach(() => {
+  getUserAndAccountsMock.mockReset()
+})
 
 describe('isDirectApiToken', () => {
   it('should return false for requests without Authorization header', () => {
@@ -130,5 +146,26 @@ describe('buildAuthProps', () => {
     const props = buildAuthProps(mockToken, undefined, mockAccounts)
 
     expect(props.type).toBe('account_token')
+  })
+})
+
+describe('handleApiTokenRequest identity probe caching', () => {
+  const token = 'api-token-123'
+  const user = { id: 'user-1', email: 'test@example.com' }
+  const accounts = [{ id: 'acc-1', name: 'Account One' }]
+
+  it('passes a stable token hash for Cloudflare fetch cache keys', async () => {
+    getUserAndAccountsMock.mockResolvedValue({ user, accounts })
+    const createMcpResponse = vi.fn().mockResolvedValue(new Response('ok'))
+    const request = mockRequest(`Bearer ${token}`)
+
+    await handleApiTokenRequest(request, createMcpResponse)
+
+    expect(getUserAndAccountsMock).toHaveBeenCalledTimes(1)
+    expect(getUserAndAccountsMock).toHaveBeenCalledWith(
+      token,
+      'api_token_identity_probe',
+      '9bdb81d121b42d1c7819c816fa3cfbb6ee109726f9ed2475edb169374881d7b3'
+    )
   })
 })

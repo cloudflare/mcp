@@ -128,6 +128,51 @@ describe('getUserAndAccounts', () => {
     })
   })
 
+  it('sets Cloudflare fetch cache options for API token identity probes', async () => {
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response('Forbidden', { status: 403 }))
+      .mockResolvedValueOnce(
+        jsonResponse({
+          success: true,
+          result: [{ id: 'acc-1', name: 'Primary Account' }]
+        })
+      )
+
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(
+      getUserAndAccounts('test-token', 'api_token_identity_probe', 'token-hash')
+    ).resolves.toEqual({
+      user: null,
+      accounts: [{ id: 'acc-1', name: 'Primary Account' }]
+    })
+
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      1,
+      'https://api.cloudflare.com/client/v4/user',
+      expect.objectContaining({
+        cf: {
+          cacheEverything: true,
+          cacheKey: 'https://api.cloudflare.com/client/v4/mcp/api-token-identity/token-hash/user',
+          cacheTtl: 2_592_000
+        }
+      })
+    )
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      2,
+      'https://api.cloudflare.com/client/v4/accounts',
+      expect.objectContaining({
+        cf: {
+          cacheEverything: true,
+          cacheKey:
+            'https://api.cloudflare.com/client/v4/mcp/api-token-identity/token-hash/accounts',
+          cacheTtl: 2_592_000
+        }
+      })
+    )
+  })
+
   it('accepts user tokens when /accounts fails but /user succeeds', async () => {
     const fetchMock = vi
       .fn<typeof fetch>()
