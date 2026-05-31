@@ -240,7 +240,9 @@ export async function getUserAndAccounts(
 }> {
   const [userResp, accountsResp] = await fetchCloudflareProbes(accessToken, caller)
 
-  // Check for upstream errors before parsing
+  // Check for upstream errors before parsing - only throw if BOTH fail
+  // Note: user tokens may fail /accounts (403) while /user succeeds, and account tokens
+  // may fail /user (403) while /accounts succeeds. Only throw if both endpoints fail.
   if (!userResp.ok && !accountsResp.ok) {
     console.error(`Cloudflare API error: user=${userResp.status}, accounts=${accountsResp.status}`)
     throwCombinedCloudflareApiError(userResp, accountsResp)
