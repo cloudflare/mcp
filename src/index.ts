@@ -123,7 +123,14 @@ export default {
       accessTokenTTL: 3600,
       refreshTokenTTL: 2592000, // 30 days
       // TODO: Remove after 2026-05-01 — all pre-0.4.0 grants will have expired by then
-      resourceMatchOriginOnly: true
+      resourceMatchOriginOnly: true,
+      // Our tokenExchangeCallback redeems a single-use, rotating upstream
+      // Cloudflare refresh token, so the refresh_token grant is non-idempotent.
+      // Coalesce concurrent same-token refreshes and replay previous-token
+      // retries without re-hitting upstream, to stop the invalid_grant storms
+      // when a token is shared across sessions / refreshes race.
+      // See cloudflare/workers-oauth-provider#216.
+      coalesceRefreshTokenExchange: true
     }).fetch(request, env, ctx)
   },
 
