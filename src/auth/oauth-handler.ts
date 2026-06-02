@@ -68,6 +68,73 @@ function isTerminalRefreshError(error: unknown): error is OAuthError {
   )
 }
 
+/**
+ * Context needed to kill the downstream grant + emit telemetry when an upstream
+ * refresh fails. Optional so the guard stays usable in isolation (tests).
+ */
+export interface RefreshGuardContext {
+  /** Downstream OAuth user id (from the token-exchange callback options). */
+  userId?: string
+  /** Downstream OAuth client id (from the token-exchange callback options). */
+  clientId?: string
+  /**
+   * Lazily builds OAuth helpers (via `getOAuthApi`). Only invoked on a terminal
+   * `invalid_grant` so we don't construct the provider on every refresh.
+   */
+  getHelpers?: () => OAuthHelpers
+}
+
+type RefreshFailureKind = 'upstream_terminal' | 'cached_replay' | 'in_flight_collision'
+
+/**
+ * Structured, greppable telemetry for refresh failures. Logged as a single JSON
+ * line prefixed with `[refresh-telemetry]` so it can be counted in Workers Logs.
+ *
+ * `kind` distinguishes the cases you want to measure:
+ *  - `upstream_terminal`: upstream /oauth2/token actually returned a terminal
+ *    error this request (the *first-time* failure). `grantsRevoked` tells you
+ *    whether we killed the grant.
+ *  - `cached_replay`: a retry that short-circuited on the cached failure within
+ *    REFRESH_FAILURE_TTL_SECONDS (a *repeat*, never hit upstream).
+ *  - `in_flight_collision`: another isolate was mid-refresh.
+ */
+function logRefreshTelemetry(event: {
+  kind: RefreshFailureKind
+  code: string
+  refreshTokenHash: string
+  userId?: string
+  clientId?: string
+  grantsRevoked?: number
+}): void {
+  console.error(`[refresh-telemetry] ${JSON.stringify({ ...event, at: Date.now() })}`)
+}
+
+/**
+ * Kill every grant for this user+client. `completeAuthorization` revokes prior
+ * grants for the same user+client by default, so in practice there is at most
+ * one, but we loop defensively (and paginate). `revokeGrant` deletes all access
+ * tokens for the grant and the grant record itself, which invalidates the
+ * downstream refresh token too.
+ */
+async function revokeGrantsForClient(
+  helpers: OAuthHelpers,
+  userId: string,
+  clientId: string
+): Promise<number> {
+  let revoked = 0
+  let cursor: string | undefined
+  do {
+    const page = await helpers.listUserGrants(userId, cursor ? { cursor } : undefined)
+    for (const grant of page.items) {
+      if (grant.clientId !== clientId) continue
+      await helpers.revokeGrant(grant.id, userId)
+      revoked++
+    }
+    cursor = page.cursor
+  } while (cursor)
+  return revoked
+}
+
 async function getCachedRefreshFailure(
   kv: KVNamespace,
   failureKey: string
@@ -132,7 +199,8 @@ async function clearRefreshInFlight(kv: KVNamespace, inFlightKey: string): Promi
 export async function guardRefreshTokenExchange(
   kv: KVNamespace,
   refreshToken: string,
-  refresh: () => Promise<TokenExchangeCallbackResult | undefined>
+  refresh: () => Promise<TokenExchangeCallbackResult | undefined>,
+  context: RefreshGuardContext = {}
 ): Promise<TokenExchangeCallbackResult | undefined> {
   const refreshTokenHash = await sha256Hex(refreshToken)
   const keys = refreshGuardKeys(refreshTokenHash)
@@ -143,14 +211,31 @@ export async function guardRefreshTokenExchange(
     try {
       const cachedFailure = await getCachedRefreshFailure(kv, keys.failure)
       if (cachedFailure) {
+        const code = cachedFailure.code || 'invalid_grant'
+        // A retry of an already-failed token within the cache TTL. The grant was
+        // already killed on the first failure; this never reaches upstream.
+        logRefreshTelemetry({
+          kind: 'cached_replay',
+          code,
+          refreshTokenHash,
+          userId: context.userId,
+          clientId: context.clientId
+        })
         throw new OAuthError(
-          cachedFailure.code || 'invalid_grant',
+          code,
           cachedFailure.description || 'Token refresh recently failed; reauthorization is required',
           400
         )
       }
 
       if (await isRefreshInFlight(kv, keys.inFlight)) {
+        logRefreshTelemetry({
+          kind: 'in_flight_collision',
+          code: 'temporarily_unavailable',
+          refreshTokenHash,
+          userId: context.userId,
+          clientId: context.clientId
+        })
         throw new OAuthError(
           'temporarily_unavailable',
           'Token refresh is already in progress; retry shortly',
@@ -166,6 +251,41 @@ export async function guardRefreshTokenExchange(
       } catch (error) {
         if (isTerminalRefreshError(error)) {
           await cacheRefreshFailure(kv, keys.failure, error)
+
+          // The core fix: when upstream rejects the stored refresh token with
+          // invalid_grant it is permanently dead, so kill the downstream grant
+          // and force re-auth instead of letting the client retry forever.
+          // Other terminal codes (invalid_client/unauthorized_client) are
+          // server-side credential problems that revoking wouldn't fix.
+          let grantsRevoked = 0
+          if (
+            error.code === 'invalid_grant' &&
+            context.userId &&
+            context.clientId &&
+            context.getHelpers
+          ) {
+            try {
+              grantsRevoked = await revokeGrantsForClient(
+                context.getHelpers(),
+                context.userId,
+                context.clientId
+              )
+            } catch (revokeError) {
+              console.error(
+                'Refresh guard: failed to revoke grant after invalid_grant',
+                revokeError
+              )
+            }
+          }
+
+          logRefreshTelemetry({
+            kind: 'upstream_terminal',
+            code: error.code,
+            refreshTokenHash,
+            userId: context.userId,
+            clientId: context.clientId,
+            grantsRevoked
+          })
         }
         throw error
       } finally {
@@ -311,7 +431,14 @@ export async function getUserAndAccounts(
 export async function handleTokenExchangeCallback(
   options: TokenExchangeCallbackOptions,
   clientId: string,
-  clientSecret: string
+  clientSecret: string,
+  /**
+   * Lazily builds OAuth helpers so we can revoke the downstream grant when the
+   * upstream refresh token is rejected with `invalid_grant`. Wired from
+   * `index.ts` (the only place with the full provider options needed by
+   * `getOAuthApi`). Optional so existing callers/tests keep working.
+   */
+  getHelpers?: () => OAuthHelpers
 ): Promise<TokenExchangeCallbackResult | undefined> {
   if (options.grantType !== 'refresh_token') {
     return undefined
@@ -340,23 +467,32 @@ export async function handleTokenExchangeCallback(
 
   const upstreamRefreshToken = props.refreshToken
 
-  return guardRefreshTokenExchange(env.OAUTH_KV, upstreamRefreshToken, async () => {
-    const { access_token, refresh_token, expires_in } = await refreshAuthToken({
-      client_id: clientId,
-      client_secret: clientSecret,
-      refresh_token: upstreamRefreshToken,
-      oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
-    })
+  return guardRefreshTokenExchange(
+    env.OAUTH_KV,
+    upstreamRefreshToken,
+    async () => {
+      const { access_token, refresh_token, expires_in } = await refreshAuthToken({
+        client_id: clientId,
+        client_secret: clientSecret,
+        refresh_token: upstreamRefreshToken,
+        oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
+      })
 
-    return {
-      newProps: {
-        ...props,
-        accessToken: access_token,
-        refreshToken: refresh_token
-      } satisfies AuthProps,
-      accessTokenTTL: expires_in
+      return {
+        newProps: {
+          ...props,
+          accessToken: access_token,
+          refreshToken: refresh_token
+        } satisfies AuthProps,
+        accessTokenTTL: expires_in
+      }
+    },
+    {
+      userId: options.userId,
+      clientId: options.clientId,
+      getHelpers
     }
-  })
+  )
 }
 
 /**

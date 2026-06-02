@@ -1,4 +1,4 @@
-import OAuthProvider from '@cloudflare/workers-oauth-provider'
+import OAuthProvider, { getOAuthApi } from '@cloudflare/workers-oauth-provider'
 import { Hono } from 'hono'
 import { WorkerEntrypoint } from 'cloudflare:workers'
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
@@ -101,7 +101,7 @@ export default {
     }
 
     // OAuth mode - handle via workers-oauth-provider
-    return new OAuthProvider({
+    const oauthOptions: ConstructorParameters<typeof OAuthProvider>[0] = {
       apiHandlers: {
         // @ts-ignore - Hono apps are compatible with ExportedHandler at runtime
         '/mcp': createMcpHandler()
@@ -115,7 +115,11 @@ export default {
         handleTokenExchangeCallback(
           options,
           env.CLOUDFLARE_CLIENT_ID,
-          env.CLOUDFLARE_CLIENT_SECRET
+          env.CLOUDFLARE_CLIENT_SECRET,
+          // Lazily build helpers (only invoked on terminal invalid_grant) so we
+          // can revoke the dead grant. env.OAUTH_PROVIDER is NOT injected during
+          // the token endpoint, so we must construct the API explicitly here.
+          () => getOAuthApi(oauthOptions, env)
         ),
       resourceMetadata: {
         resource_name: 'Cloudflare API MCP Server'
@@ -124,7 +128,8 @@ export default {
       refreshTokenTTL: 2592000, // 30 days
       // TODO: Remove after 2026-05-01 — all pre-0.4.0 grants will have expired by then
       resourceMatchOriginOnly: true
-    }).fetch(request, env, ctx)
+    }
+    return new OAuthProvider(oauthOptions).fetch(request, env, ctx)
   },
 
   async scheduled(

@@ -72,6 +72,20 @@ function mockKV(initialValues: Record<string, string> = {}): KVNamespace {
   } as unknown as KVNamespace
 }
 
+interface MockGrant {
+  id: string
+  clientId: string
+  userId: string
+}
+
+/** Minimal OAuthHelpers mock backing the revoke-on-invalid_grant path. */
+function mockOAuthHelpers(grants: MockGrant[]) {
+  return {
+    listUserGrants: vi.fn(async () => ({ items: grants as never[], cursor: undefined })),
+    revokeGrant: vi.fn(async () => undefined)
+  }
+}
+
 async function sha256Hex(value: string): Promise<string> {
   const data = new TextEncoder().encode(value)
   const digest = await crypto.subtle.digest('SHA-256', data)
@@ -423,6 +437,131 @@ describe('guardRefreshTokenExchange', () => {
       400
     )
     expect(refreshFn).toHaveBeenCalledTimes(1)
+  })
+
+  it('revokes the grant for this user+client on upstream invalid_grant', async () => {
+    const kv = mockKV()
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(new OAuthError('invalid_grant', 'refresh token reused', 400))
+    const helpers = mockOAuthHelpers([
+      { id: 'grant-keep', clientId: 'other-client', userId: 'user-1' },
+      { id: 'grant-kill', clientId: 'mcp-client', userId: 'user-1' }
+    ])
+    const getHelpers = vi.fn(() => helpers)
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'dead-token', refreshFn, {
+        userId: 'user-1',
+        clientId: 'mcp-client',
+        getHelpers
+      }),
+      'invalid_grant',
+      400
+    )
+
+    // Only the matching user+client grant is killed; other clients untouched.
+    expect(helpers.listUserGrants).toHaveBeenCalledWith('user-1', undefined)
+    expect(helpers.revokeGrant).toHaveBeenCalledTimes(1)
+    expect(helpers.revokeGrant).toHaveBeenCalledWith('grant-kill', 'user-1')
+  })
+
+  it('does NOT revoke the grant on transient (429/500) refresh errors', async () => {
+    const kv = mockKV()
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(
+        new OAuthError('temporarily_unavailable', 'rate limited', 429, { 'Retry-After': '30' })
+      )
+    const helpers = mockOAuthHelpers([{ id: 'grant-1', clientId: 'mcp-client', userId: 'user-1' }])
+    const getHelpers = vi.fn(() => helpers)
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'transient-token', refreshFn, {
+        userId: 'user-1',
+        clientId: 'mcp-client',
+        getHelpers
+      }),
+      'temporarily_unavailable',
+      429
+    )
+
+    expect(getHelpers).not.toHaveBeenCalled()
+    expect(helpers.revokeGrant).not.toHaveBeenCalled()
+  })
+
+  it('does NOT revoke the grant on server-side invalid_client', async () => {
+    const kv = mockKV()
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(new OAuthError('invalid_client', 'bad client creds', 401))
+    const helpers = mockOAuthHelpers([{ id: 'grant-1', clientId: 'mcp-client', userId: 'user-1' }])
+    const getHelpers = vi.fn(() => helpers)
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'bad-client-token', refreshFn, {
+        userId: 'user-1',
+        clientId: 'mcp-client',
+        getHelpers
+      }),
+      'invalid_client',
+      401
+    )
+
+    // invalid_client still caches the failure, but the user's grant survives.
+    expect(helpers.revokeGrant).not.toHaveBeenCalled()
+  })
+
+  it('still throws invalid_grant even if revoking the grant fails', async () => {
+    const kv = mockKV()
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(new OAuthError('invalid_grant', 'refresh token reused', 400))
+    const helpers = mockOAuthHelpers([
+      { id: 'grant-kill', clientId: 'mcp-client', userId: 'user-1' }
+    ])
+    vi.mocked(helpers.revokeGrant).mockRejectedValueOnce(new Error('KV unavailable'))
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'dead-token-revoke-fails', refreshFn, {
+        userId: 'user-1',
+        clientId: 'mcp-client',
+        getHelpers: () => helpers
+      }),
+      'invalid_grant',
+      400
+    )
+  })
+
+  it('paginates listUserGrants when revoking', async () => {
+    const kv = mockKV()
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(new OAuthError('invalid_grant', 'refresh token reused', 400))
+    const helpers = mockOAuthHelpers([])
+    vi.mocked(helpers.listUserGrants)
+      .mockResolvedValueOnce({
+        items: [{ id: 'grant-a', clientId: 'mcp-client', userId: 'user-1' } as never],
+        cursor: 'next'
+      } as never)
+      .mockResolvedValueOnce({
+        items: [{ id: 'grant-b', clientId: 'mcp-client', userId: 'user-1' } as never],
+        cursor: undefined
+      } as never)
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'paginated-token', refreshFn, {
+        userId: 'user-1',
+        clientId: 'mcp-client',
+        getHelpers: () => helpers
+      }),
+      'invalid_grant',
+      400
+    )
+
+    expect(helpers.listUserGrants).toHaveBeenCalledTimes(2)
+    expect(helpers.revokeGrant).toHaveBeenCalledWith('grant-a', 'user-1')
+    expect(helpers.revokeGrant).toHaveBeenCalledWith('grant-b', 'user-1')
   })
 })
 
