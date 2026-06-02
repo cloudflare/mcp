@@ -1,8 +1,12 @@
 import { z } from 'zod'
 
+import { createLogger } from '../observability/logger'
+
 import type { AuthRequest } from '@cloudflare/workers-oauth-provider'
 
 import { OAuthError } from './workers-oauth-utils'
+
+const log = createLogger('cloudflare-auth')
 
 /**
  * Convert an upstream Cloudflare OAuth error response to an OAuthError.
@@ -130,7 +134,7 @@ export async function getAuthToken(params: {
   })
 
   if (!resp.ok) {
-    console.error(`Token exchange failed: ${resp.status}`, await resp.text())
+    log.error('token exchange failed', { status: resp.status, body: await resp.text() })
     throwUpstreamError(resp, 'Token exchange failed')
   }
 
@@ -162,7 +166,7 @@ export async function refreshAuthToken(params: {
   })
 
   if (!resp.ok) {
-    console.error(`Token refresh failed: ${resp.status}`, await resp.text())
+    log.error('token refresh failed', { status: resp.status, body: await resp.text() })
     throwUpstreamError(resp, 'Token refresh failed')
   }
 

@@ -1,3 +1,7 @@
+import { createLogger } from '../observability/logger'
+
+const log = createLogger('fetch-retry')
+
 export interface RetryOptions {
   maxRetries?: number
   baseDelayMs?: number
@@ -41,7 +45,7 @@ export async function fetchWithRetry(
 ): Promise<Response> {
   const opts = { ...DEFAULT_OPTIONS, ...options }
   const url = typeof input === 'string' ? input : input.url
-  const caller = options?.caller ? ` caller=${options.caller}` : ''
+  const caller = options?.caller
 
   let lastResponse: Response | undefined
   let lastError: unknown
@@ -58,10 +62,13 @@ export async function fetchWithRetry(
 
       if (attempt < opts.maxRetries) {
         const delay = computeRetryDelay(attempt, opts, response.headers.get('Retry-After'))
-        console.warn(
-          `fetchWithRetry: 429${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-            `retrying in ${Math.round(delay)}ms`
-        )
+        log.warn('Received 429, retrying', {
+          caller,
+          url,
+          attempt: attempt + 1,
+          maxAttempts: opts.maxRetries + 1,
+          delayMs: Math.round(delay)
+        })
         await sleep(delay)
       }
     } catch (error) {
@@ -69,26 +76,35 @@ export async function fetchWithRetry(
 
       if (attempt < opts.maxRetries) {
         const delay = computeRetryDelay(attempt, opts, null)
-        console.warn(
-          `fetchWithRetry: network error${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-            `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : error}`
-        )
+        log.warn('Network error, retrying', {
+          caller,
+          url,
+          attempt: attempt + 1,
+          maxAttempts: opts.maxRetries + 1,
+          delayMs: Math.round(delay),
+          error
+        })
         await sleep(delay)
       }
     }
   }
 
   if (lastResponse) {
-    console.error(
-      `fetchWithRetry: failed${caller} url=${url} after ${opts.maxRetries + 1} attempts with status ${lastResponse.status}`
-    )
+    log.error('Request failed after all attempts', {
+      caller,
+      url,
+      attempts: opts.maxRetries + 1,
+      status: lastResponse.status
+    })
     return lastResponse
   }
 
-  console.error(
-    `fetchWithRetry: failed${caller} url=${url} after ${opts.maxRetries + 1} attempts`,
-    lastError
-  )
+  log.error('Request failed after all attempts', {
+    caller,
+    url,
+    attempts: opts.maxRetries + 1,
+    error: lastError
+  })
   throw lastError
 }
 

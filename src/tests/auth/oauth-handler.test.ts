@@ -1,11 +1,8 @@
 import { OAuthError as ProviderOAuthError } from '@cloudflare/workers-oauth-provider'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import {
-  getUserAndAccounts,
-  guardRefreshTokenExchange,
-  handleTokenExchangeCallback
-} from '../../auth/oauth-handler'
+import { getUserAndAccounts, handleTokenExchangeCallback } from '../../auth/oauth-handler'
+import { refreshManager } from '../../auth/refresh/refresh-manager'
 import { OAuthError } from '../../auth/workers-oauth-utils'
 
 import type { AuthorizationToken } from '../../auth/cloudflare-auth'
@@ -353,14 +350,14 @@ describe('getUserAndAccounts', () => {
   })
 })
 
-describe('guardRefreshTokenExchange', () => {
+describe('refreshManager.run', () => {
   it('singleflights concurrent refreshes for the same upstream token in one isolate', async () => {
     const kv = mockKV()
     const refresh = deferred<{ accessTokenTTL: number }>()
     const refreshFn = vi.fn(() => refresh.promise)
 
-    const first = guardRefreshTokenExchange(kv, 'upstream-refresh-token', refreshFn)
-    const second = guardRefreshTokenExchange(kv, 'upstream-refresh-token', refreshFn)
+    const first = refreshManager.run(kv, 'upstream-refresh-token', refreshFn)
+    const second = refreshManager.run(kv, 'upstream-refresh-token', refreshFn)
 
     await vi.waitFor(() => expect(refreshFn).toHaveBeenCalledTimes(1))
 
@@ -379,12 +376,12 @@ describe('guardRefreshTokenExchange', () => {
       .mockRejectedValueOnce(new OAuthError('invalid_grant', 'refresh token reused', 400))
 
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, 'reused-refresh-token', refreshFn),
+      refreshManager.run(kv, 'reused-refresh-token', refreshFn),
       'invalid_grant',
       400
     )
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, 'reused-refresh-token', refreshFn),
+      refreshManager.run(kv, 'reused-refresh-token', refreshFn),
       'invalid_grant',
       400
     )
@@ -401,7 +398,7 @@ describe('guardRefreshTokenExchange', () => {
     const refreshFn = vi.fn()
 
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, refreshToken, refreshFn),
+      refreshManager.run(kv, refreshToken, refreshFn),
       'temporarily_unavailable',
       429
     )
@@ -414,9 +411,7 @@ describe('guardRefreshTokenExchange', () => {
     const refreshFn = vi.fn().mockResolvedValue({ accessTokenTTL: 3600 })
     vi.mocked(kv.delete).mockRejectedValueOnce(new Error('KV delete failed'))
 
-    await expect(
-      guardRefreshTokenExchange(kv, 'cleanup-failure-token', refreshFn)
-    ).resolves.toEqual({
+    await expect(refreshManager.run(kv, 'cleanup-failure-token', refreshFn)).resolves.toEqual({
       accessTokenTTL: 3600
     })
     expect(refreshFn).toHaveBeenCalledTimes(1)
@@ -432,7 +427,7 @@ describe('guardRefreshTokenExchange', () => {
       .mockRejectedValueOnce(new Error('KV put failed'))
 
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, 'failure-cache-error-token', refreshFn),
+      refreshManager.run(kv, 'failure-cache-error-token', refreshFn),
       'invalid_grant',
       400
     )
@@ -451,7 +446,7 @@ describe('guardRefreshTokenExchange', () => {
     const getHelpers = vi.fn(() => helpers)
 
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, 'dead-token', refreshFn, {
+      refreshManager.run(kv, 'dead-token', refreshFn, {
         userId: 'user-1',
         clientId: 'mcp-client',
         getHelpers
@@ -477,7 +472,7 @@ describe('guardRefreshTokenExchange', () => {
     const getHelpers = vi.fn(() => helpers)
 
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, 'transient-token', refreshFn, {
+      refreshManager.run(kv, 'transient-token', refreshFn, {
         userId: 'user-1',
         clientId: 'mcp-client',
         getHelpers
@@ -499,7 +494,7 @@ describe('guardRefreshTokenExchange', () => {
     const getHelpers = vi.fn(() => helpers)
 
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, 'bad-client-token', refreshFn, {
+      refreshManager.run(kv, 'bad-client-token', refreshFn, {
         userId: 'user-1',
         clientId: 'mcp-client',
         getHelpers
@@ -523,7 +518,7 @@ describe('guardRefreshTokenExchange', () => {
     vi.mocked(helpers.revokeGrant).mockRejectedValueOnce(new Error('KV unavailable'))
 
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, 'dead-token-revoke-fails', refreshFn, {
+      refreshManager.run(kv, 'dead-token-revoke-fails', refreshFn, {
         userId: 'user-1',
         clientId: 'mcp-client',
         getHelpers: () => helpers
@@ -550,7 +545,7 @@ describe('guardRefreshTokenExchange', () => {
       } as never)
 
     await expectOAuthError(
-      guardRefreshTokenExchange(kv, 'paginated-token', refreshFn, {
+      refreshManager.run(kv, 'paginated-token', refreshFn, {
         userId: 'user-1',
         clientId: 'mcp-client',
         getHelpers: () => helpers

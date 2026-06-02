@@ -1,11 +1,13 @@
 import { env as cloudflareEnv } from 'cloudflare:workers'
 
+import { createLogger } from '../observability/logger'
 import { getUserAndAccounts } from './oauth-handler'
 import { OAuthError } from './workers-oauth-utils'
 
 import type { AccountSchema, AuthProps, UserSchema } from './types'
 
 const env = cloudflareEnv as Env
+const log = createLogger('api-token-mode')
 const API_TOKEN_IDENTITY_CACHE_TTL_SECONDS = 2_592_000
 
 type ApiTokenIdentity = {
@@ -27,7 +29,7 @@ async function getCachedApiTokenIdentity(token: string): Promise<ApiTokenIdentit
       return cached
     }
   } catch (error) {
-    console.warn('api_token_identity_probe kv-cache read failed', error)
+    log.warn('api_token_identity_probe kv-cache read failed', { error })
   }
 
   const identity = await getUserAndAccounts(token, 'api_token_identity_probe')
@@ -37,7 +39,7 @@ async function getCachedApiTokenIdentity(token: string): Promise<ApiTokenIdentit
       expirationTtl: API_TOKEN_IDENTITY_CACHE_TTL_SECONDS
     })
   } catch (error) {
-    console.warn('api_token_identity_probe kv-cache write failed', error)
+    log.warn('api_token_identity_probe kv-cache write failed', { error })
   }
 
   return identity

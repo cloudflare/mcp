@@ -7,7 +7,10 @@ import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-ha
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
 import { fetchWithRetry } from './utils/fetch-retry'
+import { createLogger } from './observability/logger'
 import type { AuthProps } from './auth/types'
+
+const log = createLogger('spec-sync')
 
 /**
  * Global outbound fetch handler that restricts dynamically-loaded workers
@@ -137,7 +140,7 @@ export default {
     env: Env,
     _ctx: ExecutionContext
   ): Promise<void> {
-    console.log('Fetching OpenAPI spec from:', env.OPENAPI_SPEC_URL)
+    log.info('Fetching OpenAPI spec', { url: env.OPENAPI_SPEC_URL })
 
     const response = await fetch(env.OPENAPI_SPEC_URL)
     if (!response.ok) {
@@ -145,7 +148,7 @@ export default {
     }
 
     const rawSpec = (await response.json()) as Record<string, unknown>
-    console.log('Processing spec, resolving $refs...')
+    log.info('Processing spec, resolving $refs')
 
     const processed = processSpec(rawSpec)
     const specJson = JSON.stringify(processed)
@@ -153,7 +156,7 @@ export default {
     const products = extractProducts(rawSpec)
     const productsJson = JSON.stringify(products)
 
-    console.log(`Writing spec to R2 (${(specJson.length / 1024).toFixed(0)} KB)`)
+    log.info('Writing spec to R2', { sizeKb: Number((specJson.length / 1024).toFixed(0)) })
     await Promise.all([
       env.SPEC_BUCKET.put('spec.json', specJson, {
         httpMetadata: { contentType: 'application/json' }
@@ -163,6 +166,6 @@ export default {
       })
     ])
 
-    console.log(`Spec updated successfully (${products.length} products)`)
+    log.info('Spec updated successfully', { productCount: products.length })
   }
 }

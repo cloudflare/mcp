@@ -102,7 +102,9 @@ describe('fetchWithRetry', () => {
 
     expect(result.status).toBe(200)
     expect(warnSpy).toHaveBeenCalledWith(
-      'fetchWithRetry: 429 caller=oauth_callback_identity_probe url=https://api.example.com/accounts on attempt 1/2, retrying in 1ms'
+      expect.stringMatching(
+        /^\[fetch-retry\] .*"message":"Received 429, retrying".*"caller":"oauth_callback_identity_probe".*"url":"https:\/\/api\.example\.com\/accounts".*"attempt":1,"maxAttempts":2,"delayMs":1/
+      )
     )
   })
 
@@ -133,7 +135,9 @@ describe('fetchWithRetry', () => {
 
     expect(result.status).toBe(429)
     expect(errorSpy).toHaveBeenCalledWith(
-      'fetchWithRetry: failed url=https://api.example.com/accounts after 1 attempts with status 429'
+      expect.stringMatching(
+        /^\[fetch-retry\] .*"message":"Request failed after all attempts".*"url":"https:\/\/api\.example\.com\/accounts".*"attempts":1,"status":429/
+      )
     )
   })
 
@@ -181,8 +185,9 @@ describe('fetchWithRetry', () => {
     ).rejects.toThrow('network failure')
 
     expect(errorSpy).toHaveBeenCalledWith(
-      'fetchWithRetry: failed url=https://api.example.com/accounts after 1 attempts',
-      error
+      expect.stringMatching(
+        /^\[fetch-retry\] .*"message":"Request failed after all attempts".*"url":"https:\/\/api\.example\.com\/accounts".*"attempts":1.*"error":\{.*"message":"network failure"/
+      )
     )
   })
 

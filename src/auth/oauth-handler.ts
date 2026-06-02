@@ -27,7 +27,9 @@ import {
   validateOAuthState,
   OAuthError
 } from './workers-oauth-utils'
+import { refreshManager } from './refresh/refresh-manager'
 import { fetchWithRetry } from '../utils/fetch-retry'
+import { createLogger } from '../observability/logger'
 
 import type {
   AuthRequest,
@@ -41,264 +43,7 @@ interface AuthEnv extends Env {
 }
 
 const env = cloudflareEnv as AuthEnv
-const REFRESH_GUARD_PREFIX = 'oauth:refresh-guard'
-const REFRESH_IN_FLIGHT_TTL_SECONDS = 60
-const REFRESH_FAILURE_TTL_SECONDS = 3600
-const refreshInFlight = new Map<string, Promise<TokenExchangeCallbackResult | undefined>>()
-
-async function sha256Hex(value: string): Promise<string> {
-  const data = new TextEncoder().encode(value)
-  const digest = await crypto.subtle.digest('SHA-256', data)
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, '0'))
-    .join('')
-}
-
-function refreshGuardKeys(refreshTokenHash: string): { inFlight: string; failure: string } {
-  return {
-    inFlight: `${REFRESH_GUARD_PREFIX}:${refreshTokenHash}:in-flight`,
-    failure: `${REFRESH_GUARD_PREFIX}:${refreshTokenHash}:failure`
-  }
-}
-
-function isTerminalRefreshError(error: unknown): error is OAuthError {
-  return (
-    error instanceof OAuthError &&
-    ['invalid_grant', 'invalid_client', 'unauthorized_client'].includes(error.code)
-  )
-}
-
-/**
- * Context needed to kill the downstream grant + emit telemetry when an upstream
- * refresh fails. Optional so the guard stays usable in isolation (tests).
- */
-export interface RefreshGuardContext {
-  /** Downstream OAuth user id (from the token-exchange callback options). */
-  userId?: string
-  /** Downstream OAuth client id (from the token-exchange callback options). */
-  clientId?: string
-  /**
-   * Lazily builds OAuth helpers (via `getOAuthApi`). Only invoked on a terminal
-   * `invalid_grant` so we don't construct the provider on every refresh.
-   */
-  getHelpers?: () => OAuthHelpers
-}
-
-type RefreshFailureKind = 'upstream_terminal' | 'cached_replay' | 'in_flight_collision'
-
-/**
- * Structured, greppable telemetry for refresh failures. Logged as a single JSON
- * line prefixed with `[refresh-telemetry]` so it can be counted in Workers Logs.
- *
- * `kind` distinguishes the cases you want to measure:
- *  - `upstream_terminal`: upstream /oauth2/token actually returned a terminal
- *    error this request (the *first-time* failure). `grantsRevoked` tells you
- *    whether we killed the grant.
- *  - `cached_replay`: a retry that short-circuited on the cached failure within
- *    REFRESH_FAILURE_TTL_SECONDS (a *repeat*, never hit upstream).
- *  - `in_flight_collision`: another isolate was mid-refresh.
- */
-function logRefreshTelemetry(event: {
-  kind: RefreshFailureKind
-  code: string
-  refreshTokenHash: string
-  userId?: string
-  clientId?: string
-  grantsRevoked?: number
-}): void {
-  console.error(`[refresh-telemetry] ${JSON.stringify({ ...event, at: Date.now() })}`)
-}
-
-/**
- * Kill every grant for this user+client. `completeAuthorization` revokes prior
- * grants for the same user+client by default, so in practice there is at most
- * one, but we loop defensively (and paginate). `revokeGrant` deletes all access
- * tokens for the grant and the grant record itself, which invalidates the
- * downstream refresh token too.
- */
-async function revokeGrantsForClient(
-  helpers: OAuthHelpers,
-  userId: string,
-  clientId: string
-): Promise<number> {
-  let revoked = 0
-  let cursor: string | undefined
-  do {
-    const page = await helpers.listUserGrants(userId, cursor ? { cursor } : undefined)
-    for (const grant of page.items) {
-      if (grant.clientId !== clientId) continue
-      await helpers.revokeGrant(grant.id, userId)
-      revoked++
-    }
-    cursor = page.cursor
-  } while (cursor)
-  return revoked
-}
-
-async function getCachedRefreshFailure(
-  kv: KVNamespace,
-  failureKey: string
-): Promise<{ code?: string; description?: string } | null> {
-  try {
-    const failure = await kv.get(failureKey, { type: 'json' })
-    if (!failure || typeof failure !== 'object') return null
-    return failure as { code?: string; description?: string }
-  } catch (error) {
-    console.warn('Refresh guard: failed to read cached refresh failure', error)
-    return null
-  }
-}
-
-async function isRefreshInFlight(kv: KVNamespace, inFlightKey: string): Promise<boolean> {
-  try {
-    return Boolean(await kv.get(inFlightKey))
-  } catch (error) {
-    console.warn('Refresh guard: failed to read in-flight marker', error)
-    return false
-  }
-}
-
-async function markRefreshInFlight(kv: KVNamespace, inFlightKey: string): Promise<void> {
-  try {
-    await kv.put(inFlightKey, JSON.stringify({ startedAt: Date.now() }), {
-      expirationTtl: REFRESH_IN_FLIGHT_TTL_SECONDS
-    })
-  } catch (error) {
-    console.warn('Refresh guard: failed to write in-flight marker', error)
-  }
-}
-
-async function cacheRefreshFailure(
-  kv: KVNamespace,
-  failureKey: string,
-  error: OAuthError
-): Promise<void> {
-  try {
-    await kv.put(
-      failureKey,
-      JSON.stringify({
-        code: error.code,
-        description: 'Token refresh failed; reauthorization is required',
-        failedAt: Date.now()
-      }),
-      { expirationTtl: REFRESH_FAILURE_TTL_SECONDS }
-    )
-  } catch (cacheError) {
-    console.warn('Refresh guard: failed to cache terminal refresh failure', cacheError)
-  }
-}
-
-async function clearRefreshInFlight(kv: KVNamespace, inFlightKey: string): Promise<void> {
-  try {
-    await kv.delete(inFlightKey)
-  } catch (error) {
-    console.warn('Refresh guard: failed to clear in-flight marker', error)
-  }
-}
-
-export async function guardRefreshTokenExchange(
-  kv: KVNamespace,
-  refreshToken: string,
-  refresh: () => Promise<TokenExchangeCallbackResult | undefined>,
-  context: RefreshGuardContext = {}
-): Promise<TokenExchangeCallbackResult | undefined> {
-  const refreshTokenHash = await sha256Hex(refreshToken)
-  const keys = refreshGuardKeys(refreshTokenHash)
-  const existingRefresh = refreshInFlight.get(refreshTokenHash)
-  if (existingRefresh) return existingRefresh
-
-  const refreshPromise = (async () => {
-    try {
-      const cachedFailure = await getCachedRefreshFailure(kv, keys.failure)
-      if (cachedFailure) {
-        const code = cachedFailure.code || 'invalid_grant'
-        // A retry of an already-failed token within the cache TTL. The grant was
-        // already killed on the first failure; this never reaches upstream.
-        logRefreshTelemetry({
-          kind: 'cached_replay',
-          code,
-          refreshTokenHash,
-          userId: context.userId,
-          clientId: context.clientId
-        })
-        throw new OAuthError(
-          code,
-          cachedFailure.description || 'Token refresh recently failed; reauthorization is required',
-          400
-        )
-      }
-
-      if (await isRefreshInFlight(kv, keys.inFlight)) {
-        logRefreshTelemetry({
-          kind: 'in_flight_collision',
-          code: 'temporarily_unavailable',
-          refreshTokenHash,
-          userId: context.userId,
-          clientId: context.clientId
-        })
-        throw new OAuthError(
-          'temporarily_unavailable',
-          'Token refresh is already in progress; retry shortly',
-          429,
-          { 'Retry-After': '30' }
-        )
-      }
-
-      await markRefreshInFlight(kv, keys.inFlight)
-
-      try {
-        return await refresh()
-      } catch (error) {
-        if (isTerminalRefreshError(error)) {
-          await cacheRefreshFailure(kv, keys.failure, error)
-
-          // The core fix: when upstream rejects the stored refresh token with
-          // invalid_grant it is permanently dead, so kill the downstream grant
-          // and force re-auth instead of letting the client retry forever.
-          // Other terminal codes (invalid_client/unauthorized_client) are
-          // server-side credential problems that revoking wouldn't fix.
-          let grantsRevoked = 0
-          if (
-            error.code === 'invalid_grant' &&
-            context.userId &&
-            context.clientId &&
-            context.getHelpers
-          ) {
-            try {
-              grantsRevoked = await revokeGrantsForClient(
-                context.getHelpers(),
-                context.userId,
-                context.clientId
-              )
-            } catch (revokeError) {
-              console.error(
-                'Refresh guard: failed to revoke grant after invalid_grant',
-                revokeError
-              )
-            }
-          }
-
-          logRefreshTelemetry({
-            kind: 'upstream_terminal',
-            code: error.code,
-            refreshTokenHash,
-            userId: context.userId,
-            clientId: context.clientId,
-            grantsRevoked
-          })
-        }
-        throw error
-      } finally {
-        await clearRefreshInFlight(kv, keys.inFlight)
-      }
-    } finally {
-      refreshInFlight.delete(refreshTokenHash)
-    }
-  })()
-
-  refreshInFlight.set(refreshTokenHash, refreshPromise)
-  return refreshPromise
-}
+const log = createLogger('oauth-handler')
 
 function getRetryAfterHeader(...responses: Response[]): Record<string, string> {
   return {
@@ -343,7 +88,7 @@ async function fetchCloudflareProbes(
       fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/accounts`, { headers }, { caller })
     ])
   } catch (error) {
-    console.error('Cloudflare API request failed', error)
+    log.error('Cloudflare API request failed', { error })
     throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
   }
 }
@@ -362,7 +107,10 @@ export async function getUserAndAccounts(
 
   // Check for upstream errors before parsing
   if (!userResp.ok && !accountsResp.ok) {
-    console.error(`Cloudflare API error: user=${userResp.status}, accounts=${accountsResp.status}`)
+    log.error('Cloudflare API error', {
+      userStatus: userResp.status,
+      accountsStatus: accountsResp.status
+    })
     throwCombinedCloudflareApiError(userResp, accountsResp)
   }
 
@@ -376,11 +124,13 @@ export async function getUserAndAccounts(
         if (parsed.success) {
           user = parsed.data
         } else {
-          console.error('Cloudflare API /user payload did not match expected shape', parsed.error)
+          log.error('Cloudflare API /user payload did not match expected shape', {
+            error: parsed.error
+          })
         }
       }
     } catch (error) {
-      console.error('Cloudflare API /user response is not valid JSON', error)
+      log.error('Cloudflare API /user response is not valid JSON', { error })
     }
   }
 
@@ -394,14 +144,13 @@ export async function getUserAndAccounts(
         if (parsed.success) {
           accounts = parsed.data
         } else {
-          console.error(
-            'Cloudflare API /accounts payload did not match expected shape',
-            parsed.error
-          )
+          log.error('Cloudflare API /accounts payload did not match expected shape', {
+            error: parsed.error
+          })
         }
       }
     } catch (error) {
-      console.error('Cloudflare API /accounts response is not valid JSON', error)
+      log.error('Cloudflare API /accounts response is not valid JSON', { error })
     }
   }
 
@@ -467,7 +216,7 @@ export async function handleTokenExchangeCallback(
 
   const upstreamRefreshToken = props.refreshToken
 
-  return guardRefreshTokenExchange(
+  return refreshManager.run(
     env.OAUTH_KV,
     upstreamRefreshToken,
     async () => {
@@ -593,7 +342,7 @@ export function createAuthHandlers() {
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
-      console.error(`Authorize error [${errorId}]:`, e)
+      log.error('Authorize error', { errorId, error: e })
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred. Please try again.',
@@ -648,7 +397,7 @@ export function createAuthHandlers() {
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
-      console.error(`Authorize POST error [${errorId}]:`, e)
+      log.error('Authorize POST error', { errorId, error: e })
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred. Please try again.',
@@ -729,7 +478,7 @@ export function createAuthHandlers() {
     } catch (e) {
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
-      console.error(`Callback error [${errorId}]:`, e)
+      log.error('Callback error', { errorId, error: e })
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred during authorization.',
