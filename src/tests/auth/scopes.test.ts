@@ -87,7 +87,8 @@ const REGISTERED_SCOPES = [
   'email_routing:write',
   'email_sending:write',
   'registrar-domains.read',
-  'registrar-domains.admin'
+  'registrar-domains.admin',
+  'firewall.write'
 ] as const
 
 describe('scopes', () => {
