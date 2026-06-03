@@ -61,8 +61,6 @@ export const ALL_SCOPES = {
   'ssl_certs:write': 'Manage SSL certificates',
   'lb:read': 'View load balancer configurations',
   'lb:edit': 'Configure load balancers',
-  'notification:read': 'View notification policies',
-  'notification:write': 'Configure notifications',
 
   // Queues & Pipelines
   'queues:write': 'Create and modify Queues',

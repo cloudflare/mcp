@@ -54,8 +54,6 @@ const REGISTERED_SCOPES = [
   'ssl_certs:write',
   'lb:read',
   'lb:edit',
-  'notification:read',
-  'notification:write',
   'queues:write',
   'pipelines:read',
   'pipelines:setup',
