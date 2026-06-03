@@ -26,6 +26,14 @@ interface RefreshTelemetryEvent {
   userId?: string
   clientId?: string
   grantsRevoked?: number
+  /**
+   * `createdAt` (epoch seconds) of the revoked grant, and its age at failure.
+   * Lets us tell whether failing refreshes are recently-issued grants (a real
+   * bug) or old pre-fix grants draining out (expected). When multiple grants
+   * are revoked, this is the oldest.
+   */
+  revokedGrantCreatedAt?: number
+  revokedGrantAgeSec?: number
 }
 
 const refreshTelemetry = createTelemetry<RefreshTelemetryEvent>('refresh-telemetry')
@@ -114,8 +122,8 @@ class RefreshManager {
     } catch (error) {
       if (isTerminalRefreshError(error)) {
         await store.cacheFailure(error)
-        const grantsRevoked = await this.maybeRevoke(error, context)
-        this.emit('upstream_terminal', error.code, store, context, grantsRevoked)
+        const revoked = await this.maybeRevoke(error, context)
+        this.emit('upstream_terminal', error.code, store, context, revoked)
       }
       throw error
     } finally {
@@ -124,18 +132,19 @@ class RefreshManager {
   }
 
   /**
-   * Kill the dead downstream grant on `invalid_grant`. Returns the number of
-   * grants revoked (0 if not applicable or revocation failed).
+   * Kill the dead downstream grant on `invalid_grant`. Returns the revoke count
+   * and the oldest revoked grant's `createdAt` (for age telemetry), or an empty
+   * result if not applicable / revocation failed.
    */
-  private async maybeRevoke(error: OAuthError, context: RefreshContext): Promise<number> {
+  private async maybeRevoke(error: OAuthError, context: RefreshContext): Promise<RevokeResult> {
     if (!shouldRevokeGrant(error) || !context.userId || !context.clientId || !context.getHelpers) {
-      return 0
+      return { count: 0 }
     }
     try {
       return await revokeGrantsForClient(context.getHelpers(), context.userId, context.clientId)
     } catch (revokeError) {
       log.error('failed to revoke grant after invalid_grant', { error: revokeError })
-      return 0
+      return { count: 0 }
     }
   }
 
@@ -144,15 +153,23 @@ class RefreshManager {
     code: string,
     store: RefreshStore,
     context: RefreshContext,
-    grantsRevoked?: number
+    revoked?: RevokeResult
   ): void {
+    const ageFields =
+      revoked?.oldestCreatedAt !== undefined
+        ? {
+            revokedGrantCreatedAt: revoked.oldestCreatedAt,
+            revokedGrantAgeSec: Math.floor(Date.now() / 1000) - revoked.oldestCreatedAt
+          }
+        : {}
     refreshTelemetry({
       kind,
       code,
       refreshTokenHash: store.tokenHash,
       userId: context.userId,
       clientId: context.clientId,
-      ...(grantsRevoked !== undefined ? { grantsRevoked } : {})
+      ...(revoked !== undefined ? { grantsRevoked: revoked.count } : {}),
+      ...ageFields
     })
   }
 }
@@ -164,23 +181,36 @@ class RefreshManager {
  * tokens for the grant and the grant record itself, invalidating the downstream
  * refresh token too.
  */
+interface RevokeResult {
+  count: number
+  /** Oldest `createdAt` (epoch seconds) among revoked grants, if any. */
+  oldestCreatedAt?: number
+}
+
 async function revokeGrantsForClient(
   helpers: OAuthHelpers,
   userId: string,
   clientId: string
-): Promise<number> {
-  let revoked = 0
+): Promise<RevokeResult> {
+  let count = 0
+  let oldestCreatedAt: number | undefined
   let cursor: string | undefined
   do {
     const page = await helpers.listUserGrants(userId, cursor ? { cursor } : undefined)
     for (const grant of page.items) {
       if (grant.clientId !== clientId) continue
+      if (grant.createdAt !== undefined) {
+        oldestCreatedAt =
+          oldestCreatedAt === undefined
+            ? grant.createdAt
+            : Math.min(oldestCreatedAt, grant.createdAt)
+      }
       await helpers.revokeGrant(grant.id, userId)
-      revoked++
+      count++
     }
     cursor = page.cursor
   } while (cursor)
-  return revoked
+  return { count, oldestCreatedAt }
 }
 
 /** Process-wide singleton so the in-isolate singleflight map is shared. */
