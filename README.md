@@ -25,6 +25,7 @@ Just connect to the MCP server URL - you'll be redirected to Cloudflare to autho
 {
   "mcpServers": {
     "cloudflare-api": {
+      "type": "http",
       "url": "https://mcp.cloudflare.com/mcp"
     }
   }
@@ -60,6 +61,7 @@ https://mcp.cloudflare.com/mcp?codemode=false
 {
   "mcpServers": {
     "cloudflare-api": {
+      "type": "http",
       "url": "https://mcp.cloudflare.com/mcp?codemode=false"
     }
   }
