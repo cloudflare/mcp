@@ -118,8 +118,9 @@ export const ALL_SCOPES = {
   'registrar-domains.read': 'View existing & new Registrar domains',
   'registrar-domains.admin': 'Manage existing & new Registrar domains',
 
-  // Firewall & WAF
-  'firewall.write': 'Configure firewall, WAF, rulesets, and Snippets'
+  // Snippets
+  'snippets.read': 'View Snippets',
+  'snippets.write': 'Create and modify Snippets'
 } as const
 
 /**
