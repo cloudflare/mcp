@@ -61,6 +61,8 @@ export const ALL_SCOPES = {
   'ssl_certs:write': 'Manage SSL certificates',
   'lb:read': 'View load balancer configurations',
   'lb:edit': 'Configure load balancers',
+  'notification:read': 'View notification policies',
+  'notification:write': 'Configure notifications',
 
   // Queues & Pipelines
   'queues:write': 'Create and modify Queues',
@@ -125,10 +127,11 @@ export const ALL_SCOPES = {
 
 /**
  * Maximum number of scopes that can be requested in a single OAuth authorization.
- * Cloudflare's OAuth server returns "Something went wrong!" when more than 76 scopes
- * are requested. This limit is enforced server-side.
+ * Cloudflare's OAuth server returns "Something went wrong!" when too many scopes
+ * are requested. This limit is enforced server-side. Verified on staging that 78
+ * scopes are accepted (full yolo template including notification:read/write).
  */
-export const MAX_SCOPES = 76
+export const MAX_SCOPES = 78
 
 export type ScopeName = keyof typeof ALL_SCOPES
 

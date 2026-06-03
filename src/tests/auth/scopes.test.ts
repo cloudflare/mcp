@@ -89,7 +89,9 @@ const REGISTERED_SCOPES = [
   'registrar-domains.read',
   'registrar-domains.admin',
   'snippets.read',
-  'snippets.write'
+  'snippets.write',
+  'notification:read',
+  'notification:write'
 ] as const
 
 describe('scopes', () => {
