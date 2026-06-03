@@ -23,7 +23,12 @@ export const UserAuthProps = z.object({
   accessToken: z.string(),
   user: UserSchema,
   accounts: AccountsSchema,
-  refreshToken: z.string().optional()
+  refreshToken: z.string().optional(),
+  // Epoch seconds when the current upstream refresh token was issued (initial
+  // auth or last successful refresh). Lets us report the dead token's age on an
+  // invalid_grant denial. Optional: grants minted before this field shipped
+  // won't have it until their next successful refresh.
+  upstreamTokenIssuedAt: z.number().optional()
 })
 
 export const AuthProps = z.discriminatedUnion('type', [AccountAuthProps, UserAuthProps])

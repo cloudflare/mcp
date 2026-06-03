@@ -82,29 +82,33 @@ export interface RefreshGuardContext {
    * `invalid_grant` so we don't construct the provider on every refresh.
    */
   getHelpers?: () => OAuthHelpers
+  /**
+   * Epoch seconds when the now-presented upstream refresh token was issued
+   * (from grant props). Logged as the dead token's age on a denial.
+   */
+  upstreamTokenIssuedAt?: number
 }
 
-type RefreshFailureKind = 'upstream_terminal' | 'cached_replay' | 'in_flight_collision'
-
 /**
- * Structured, greppable telemetry for refresh failures. Logged as a single JSON
- * line prefixed with `[refresh-telemetry]` so it can be counted in Workers Logs.
+ * Structured, greppable telemetry for a *denied* refresh: upstream returned a
+ * terminal error (`invalid_grant` etc.) for the stored refresh token. Logged as
+ * a single JSON line prefixed with `[refresh-telemetry]` so it can be counted in
+ * Workers Logs.
  *
- * `kind` distinguishes the cases you want to measure:
- *  - `upstream_terminal`: upstream /oauth2/token actually returned a terminal
- *    error this request (the *first-time* failure). `grantsRevoked` tells you
- *    whether we killed the grant.
- *  - `cached_replay`: a retry that short-circuited on the cached failure within
- *    REFRESH_FAILURE_TTL_SECONDS (a *repeat*, never hit upstream).
- *  - `in_flight_collision`: another isolate was mid-refresh.
+ * `upstreamTokenAgeSec` (when known) is how old the dead upstream token was at
+ * denial — derived from `upstreamTokenIssuedAt` on the grant props. This tells
+ * us whether failing tokens were recently issued or old.
  */
 function logRefreshTelemetry(event: {
-  kind: RefreshFailureKind
+  kind: 'upstream_terminal'
   code: string
   refreshTokenHash: string
   userId?: string
   clientId?: string
   grantsRevoked?: number
+  upstreamTokenIssuedAt?: number
+  upstreamTokenIssuedAtISO?: string
+  upstreamTokenAgeSec?: number
 }): void {
   console.error(`[refresh-telemetry] ${JSON.stringify({ ...event, at: Date.now() })}`)
 }
@@ -214,13 +218,6 @@ export async function guardRefreshTokenExchange(
         const code = cachedFailure.code || 'invalid_grant'
         // A retry of an already-failed token within the cache TTL. The grant was
         // already killed on the first failure; this never reaches upstream.
-        logRefreshTelemetry({
-          kind: 'cached_replay',
-          code,
-          refreshTokenHash,
-          userId: context.userId,
-          clientId: context.clientId
-        })
         throw new OAuthError(
           code,
           cachedFailure.description || 'Token refresh recently failed; reauthorization is required',
@@ -229,13 +226,6 @@ export async function guardRefreshTokenExchange(
       }
 
       if (await isRefreshInFlight(kv, keys.inFlight)) {
-        logRefreshTelemetry({
-          kind: 'in_flight_collision',
-          code: 'temporarily_unavailable',
-          refreshTokenHash,
-          userId: context.userId,
-          clientId: context.clientId
-        })
         throw new OAuthError(
           'temporarily_unavailable',
           'Token refresh is already in progress; retry shortly',
@@ -278,13 +268,21 @@ export async function guardRefreshTokenExchange(
             }
           }
 
+          const issuedAt = context.upstreamTokenIssuedAt
           logRefreshTelemetry({
             kind: 'upstream_terminal',
             code: error.code,
             refreshTokenHash,
             userId: context.userId,
             clientId: context.clientId,
-            grantsRevoked
+            grantsRevoked,
+            ...(issuedAt !== undefined
+              ? {
+                  upstreamTokenIssuedAt: issuedAt,
+                  upstreamTokenIssuedAtISO: new Date(issuedAt * 1000).toISOString(),
+                  upstreamTokenAgeSec: Math.floor(Date.now() / 1000) - issuedAt
+                }
+              : {})
           })
         }
         throw error
@@ -455,7 +453,8 @@ export async function handleTokenExchangeCallback(
       accessToken: z.string(),
       user: z.object({ id: z.string(), email: z.string() }),
       accounts: z.array(z.object({ id: z.string(), name: z.string() })),
-      refreshToken: z.string().optional()
+      refreshToken: z.string().optional(),
+      upstreamTokenIssuedAt: z.number().optional()
     })
   ])
 
@@ -482,7 +481,10 @@ export async function handleTokenExchangeCallback(
         newProps: {
           ...props,
           accessToken: access_token,
-          refreshToken: refresh_token
+          refreshToken: refresh_token,
+          // Stamp issuance time of the freshly-rotated upstream token, so a
+          // future denial can report how old the dead token was.
+          upstreamTokenIssuedAt: Math.floor(Date.now() / 1000)
         } satisfies AuthProps,
         accessTokenTTL: expires_in
       }
@@ -490,7 +492,9 @@ export async function handleTokenExchangeCallback(
     {
       userId: options.userId,
       clientId: options.clientId,
-      getHelpers
+      getHelpers,
+      // Age of the token being presented now (from the last refresh / initial auth).
+      upstreamTokenIssuedAt: props.upstreamTokenIssuedAt
     }
   )
 }
@@ -715,7 +719,8 @@ export function createAuthHandlers() {
           user,
           accounts,
           accessToken: access_token,
-          refreshToken: refresh_token
+          refreshToken: refresh_token,
+          upstreamTokenIssuedAt: Math.floor(Date.now() / 1000)
         } satisfies AuthProps
       })
 

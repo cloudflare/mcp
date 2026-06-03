@@ -597,7 +597,8 @@ describe('handleTokenExchangeCallback', () => {
         accessToken: 'new-access-token',
         user: { id: 'user-1', email: 'user@example.com' },
         accounts: [{ id: 'account-1', name: 'Account 1' }],
-        refreshToken: 'new-refresh-token'
+        refreshToken: 'new-refresh-token',
+        upstreamTokenIssuedAt: expect.any(Number)
       },
       accessTokenTTL: 1234
     })
