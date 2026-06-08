@@ -4,7 +4,7 @@ import { registerDocsTool } from './docs-search'
 import { createCodeExecutor, createSearchExecutor } from './executor'
 import { truncateResponse } from './truncate'
 import { fetchWithRetry } from './utils/fetch-retry'
-import { MetricsTracker, SessionStart, ToolCall } from './metrics'
+import { MetricsTracker, ToolCall } from './metrics'
 import type { AuthProps } from './auth/types'
 
 const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
@@ -19,27 +19,20 @@ function userIdFromProps(props?: AuthProps): string | undefined {
 }
 
 /**
- * Wire Analytics Engine metrics into a server instance: log a `session_start`
- * on initialization and a `tool_call` for every tool invocation (with an
- * `errorCode` on failure). Monkey-patches `registerTool` so every tool
- * registered after this call is tracked identically. Tolerant of a missing
- * MCP_METRICS binding (becomes a no-op).
+ * Wire Analytics Engine metrics into a server instance: log a `tool_call` for
+ * every tool invocation (with an `errorCode` on failure). Monkey-patches
+ * `registerTool` so every tool registered after this call is tracked
+ * identically. Tolerant of a missing MCP_METRICS binding (becomes a no-op).
+ *
+ * Note: unlike the Durable-Object-backed Cloudflare MCP servers, this server is
+ * stateless (a fresh McpServer per request), so there is no meaningful
+ * `session_start` to log — `oninitialized` fires on a separate request from the
+ * `initialize` handshake and can never see the client info. Client identity is
+ * instead available at the HTTP layer via the User-Agent header.
  */
 function attachMetrics(server: McpServer, env: Env, props?: AuthProps): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   const userId = userIdFromProps(props)
-
-  // `server.server` is the underlying low-level Server instance.
-  const lowLevel = (server as unknown as { server: McpServer['server'] }).server
-  lowLevel.oninitialized = () => {
-    metrics.logEvent(
-      new SessionStart({
-        userId,
-        clientInfo: lowLevel.getClientVersion(),
-        clientCapabilities: lowLevel.getClientCapabilities()
-      })
-    )
-  }
 
   const errorCodeOf = (e: unknown): number =>
     typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
@@ -478,7 +471,7 @@ export async function createServer(
 
   const server = new McpServer(SERVER_INFO, instructions ? { instructions } : undefined)
 
-  // Track session_start + tool_call metrics for every tool registered below.
+  // Track tool_call metrics for every tool registered below.
   attachMetrics(server, env, props)
 
   registerDocsTool(server, env)

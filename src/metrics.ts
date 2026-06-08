@@ -7,22 +7,26 @@
  * the other servers and are picked up by existing dashboards/queries.
  *
  * Positional layout (must not change — the dataset columns are positional):
- *   index1  = event type (`tool_call` | `session_start` | `auth_user`)
+ *   index1  = event type (`tool_call` | `auth_user`)
  *   blob1   = MCP server name      (reserved, injected by the tracker)
  *   blob2   = MCP server version   (reserved, injected by the tracker)
  *   blob3   = userId
- *   blob4   = toolName / clientInfo.name / errorMessage (event-specific)
- *   blob5   = clientInfo.version (session_start only)
- *   double1 = errorCode (tool_call) | clientCapabilities.roots (session_start)
- *   double2 = clientCapabilities.sampling (session_start)
+ *   blob4   = toolName (tool_call) | errorMessage (auth_user)
+ *   double1 = errorCode (tool_call)
+ *
+ * Note: this server is stateless (a fresh McpServer per request) so it does not
+ * emit `session_start` events the way the Durable-Object-backed Cloudflare MCP
+ * servers do — `oninitialized` fires on a separate request from `initialize`
+ * and can never observe the client info. The `blob4`/`blob5`/`double2` slots
+ * reserved upstream for session client info are simply left unused here, which
+ * keeps shared-dataset queries compatible. Client identity is available at the
+ * HTTP layer via the User-Agent header instead.
  */
 
 export type ClientInfo = { name: string; version: string }
-export type ClientCapabilities = { roots?: unknown; sampling?: unknown }
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
-  SESSION_START = 'session_start',
   TOOL_CALL = 'tool_call'
 }
 
@@ -149,33 +153,6 @@ export class ToolCall extends MetricsEvent {
       }),
       doubles: this.mapDoubles({
         double1: this.toolCall.errorCode
-      })
-    }
-  }
-}
-
-export class SessionStart extends MetricsEvent {
-  constructor(
-    private session: {
-      userId?: string
-      clientInfo?: ClientInfo
-      clientCapabilities?: ClientCapabilities
-    }
-  ) {
-    super()
-  }
-
-  toDataPoint(): AnalyticsEngineDataPoint {
-    return {
-      indexes: [MetricsEventIndexId.SESSION_START],
-      blobs: this.mapBlobs({
-        blob3: this.session.userId,
-        blob4: this.session.clientInfo?.name,
-        blob5: this.session.clientInfo?.version
-      }),
-      doubles: this.mapDoubles({
-        double1: this.session.clientCapabilities?.roots ? 1 : 0,
-        double2: this.session.clientCapabilities?.sampling ? 1 : 0
       })
     }
   }

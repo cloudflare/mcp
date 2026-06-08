@@ -1,12 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import {
-  AuthUser,
-  MetricsEventIndexId,
-  MetricsError,
-  MetricsTracker,
-  SessionStart,
-  ToolCall
-} from '../metrics'
+import { AuthUser, MetricsEventIndexId, MetricsError, MetricsTracker, ToolCall } from '../metrics'
 
 const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
 
@@ -29,23 +22,6 @@ describe('ToolCall', () => {
     const dp = event.toDataPoint()
 
     expect(dp.doubles).toEqual([-32602])
-  })
-})
-
-describe('SessionStart', () => {
-  it('captures client info and capabilities', () => {
-    const event = new SessionStart({
-      userId: 'user-1',
-      clientInfo: { name: 'claude-code', version: '2.1.0' },
-      clientCapabilities: { roots: {}, sampling: undefined }
-    })
-    event.serverInfo = SERVER_INFO
-    const dp = event.toDataPoint()
-
-    expect(dp.indexes).toEqual([MetricsEventIndexId.SESSION_START])
-    expect(dp.blobs).toEqual(['cloudflare-api', '0.1.0', 'user-1', 'claude-code', '2.1.0'])
-    // double1 = roots present (1), double2 = sampling present (0)
-    expect(dp.doubles).toEqual([1, 0])
   })
 })
 

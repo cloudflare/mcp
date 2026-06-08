@@ -130,8 +130,9 @@ Responses capped at ~6,000 tokens (~24KB). Truncation notice included with origi
 
 Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the shared `mcp-metrics-{dev,staging,production}` dataset — the same dataset used by the per-product Cloudflare MCP servers (`cloudflare/mcp-server-cloudflare`), so this server shows up alongside them under server name `cloudflare-api`.
 
-- `src/metrics.ts` mirrors the upstream `@repo/mcp-observability` schema. The blob/double layout is **positional and must not change**: `index1` = event type, `blob1`/`blob2` = server name/version (reserved), `blob3` = userId, `blob4` = toolName, `double1` = errorCode.
-- `attachMetrics()` in `src/server.ts` logs a `session_start` on initialization and wraps `registerTool` so every tool (search, execute, docs, non-codemode) emits a `tool_call` event (with `errorCode` on failure).
+- `src/metrics.ts` mirrors the upstream `@repo/mcp-observability` schema. The blob/double layout is **positional and must not change**: `index1` = event type, `blob1`/`blob2` = server name/version (reserved), `blob3` = userId, `blob4` = toolName/errorMessage, `double1` = errorCode.
+- `attachMetrics()` in `src/server.ts` wraps `registerTool` so every tool (search, execute, docs, non-codemode) emits a `tool_call` event (with `errorCode` on failure). `auth_user` events are emitted from the OAuth handler.
+- **No `session_start`**: unlike the Durable-Object-backed servers, this server is stateless (a fresh `McpServer` per request), so `oninitialized` fires on a different request than `initialize` and can never see client info. Client identity comes from the HTTP `User-Agent` header (visible in zone HTTP analytics) instead.
 - The tracker is tolerant of a missing binding (no-op in tests/local dev) and swallows write errors so metrics can never break a tool call.
 - Query via the Analytics Engine SQL API: `SELECT ... FROM 'mcp-metrics-production' WHERE blob1='cloudflare-api' AND index1='tool_call'`.
 
