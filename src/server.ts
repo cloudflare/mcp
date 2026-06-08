@@ -4,10 +4,8 @@ import { registerDocsTool } from './docs-search'
 import { createCodeExecutor, createSearchExecutor } from './executor'
 import { truncateResponse } from './truncate'
 import { fetchWithRetry } from './utils/fetch-retry'
-import { MetricsTracker, ToolCall } from './metrics'
+import { MetricsTracker, SERVER_INFO, ToolCall } from './metrics'
 import type { AuthProps } from './auth/types'
-
-const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
 
 /**
  * Resolve the userId to attribute metrics to. Only user tokens carry a user
@@ -474,6 +472,9 @@ export async function createServer(
   // Track tool_call metrics for every tool registered below.
   attachMetrics(server, env, props)
 
+  // Attributed to api_request datapoints emitted from the GlobalOutbound proxy.
+  const userId = userIdFromProps(props)
+
   registerDocsTool(server, env)
 
   if (!codemode) {
@@ -570,7 +571,7 @@ async () => {
       },
       async ({ code }) => {
         try {
-          const result = await executeCode(code, accountId, apiToken)
+          const result = await executeCode(code, accountId, apiToken, userId)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return {
@@ -629,7 +630,7 @@ async () => {
             }
           }
 
-          const result = await executeCode(code, effectiveAccountId, apiToken)
+          const result = await executeCode(code, effectiveAccountId, apiToken, userId)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return {

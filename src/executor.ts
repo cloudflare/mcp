@@ -9,13 +9,18 @@ interface SearchExecutorEntrypoint {
 export function createCodeExecutor(env: Env, ctx: ExecutionContext) {
   const apiBase = env.CLOUDFLARE_API_BASE
 
-  return async (code: string, accountId: string, apiToken: string): Promise<unknown> => {
+  return async (
+    code: string,
+    accountId: string,
+    apiToken: string,
+    userId?: string
+  ): Promise<unknown> => {
     const workerId = `cloudflare-api-${crypto.randomUUID()}`
 
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
       globalOutbound: ctx.exports.GlobalOutbound({
-        props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call' }
+        props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call', userId }
       }),
       mainModule: 'worker.js',
       modules: {

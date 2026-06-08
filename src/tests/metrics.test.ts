@@ -1,5 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import { AuthUser, MetricsEventIndexId, MetricsError, MetricsTracker, ToolCall } from '../metrics'
+import {
+  ApiRequest,
+  AuthUser,
+  MetricsEventIndexId,
+  MetricsError,
+  MetricsTracker,
+  normalizeApiPath,
+  ToolCall
+} from '../metrics'
 
 const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
 
@@ -22,6 +30,73 @@ describe('ToolCall', () => {
     const dp = event.toDataPoint()
 
     expect(dp.doubles).toEqual([-32602])
+  })
+})
+
+describe('ApiRequest', () => {
+  it('maps method, normalized path and status to the correct slots', () => {
+    const event = new ApiRequest({
+      userId: 'user-1',
+      method: 'GET',
+      path: '/accounts/{id}/workers/scripts',
+      status: 200
+    })
+    event.serverInfo = SERVER_INFO
+    const dp = event.toDataPoint()
+
+    expect(dp.indexes).toEqual([MetricsEventIndexId.API_REQUEST])
+    // blob3=userId, blob4=method, blob5=path
+    expect(dp.blobs).toEqual([
+      'cloudflare-api',
+      '0.1.0',
+      'user-1',
+      'GET',
+      '/accounts/{id}/workers/scripts'
+    ])
+    // double1 = HTTP status
+    expect(dp.doubles).toEqual([200])
+  })
+})
+
+describe('normalizeApiPath', () => {
+  it('strips the /client/v4 prefix and the query string', () => {
+    const acct = '6702657b6aa048cf3081ff3ff3c9c52f'
+    expect(normalizeApiPath(`https://api.cloudflare.com/client/v4/accounts/${acct}?page=2`)).toBe(
+      '/accounts/{id}'
+    )
+  })
+
+  it('replaces 32-char hex account/zone ids with {id}', () => {
+    const acct = '6702657b6aa048cf3081ff3ff3c9c52f'
+    expect(
+      normalizeApiPath(`https://api.cloudflare.com/client/v4/accounts/${acct}/workers/scripts`)
+    ).toBe('/accounts/{id}/workers/scripts')
+  })
+
+  it('replaces UUIDs and numeric ids', () => {
+    expect(
+      normalizeApiPath(
+        'https://api.cloudflare.com/client/v4/accounts/123456/d1/database/3f2504e0-4f89-41d3-9a0c-0305e82c3301/query'
+      )
+    ).toBe('/accounts/{id}/d1/database/{id}/query')
+  })
+
+  it('preserves user-named resource segments (not id-shaped)', () => {
+    expect(
+      normalizeApiPath(
+        'https://api.cloudflare.com/client/v4/accounts/6702657b6aa048cf3081ff3ff3c9c52f/workers/scripts/my-worker'
+      )
+    ).toBe('/accounts/{id}/workers/scripts/my-worker')
+  })
+
+  it('handles the graphql endpoint', () => {
+    expect(normalizeApiPath('https://api.cloudflare.com/client/v4/graphql')).toBe('/graphql')
+  })
+
+  it('falls back gracefully on a non-URL string', () => {
+    expect(normalizeApiPath('/client/v4/accounts/6702657b6aa048cf3081ff3ff3c9c52f?x=1')).toBe(
+      '/accounts/{id}'
+    )
   })
 })
 

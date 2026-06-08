@@ -7,6 +7,7 @@ import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-ha
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
 import { fetchWithRetry } from './utils/fetch-retry'
+import { ApiRequest, MetricsTracker, SERVER_INFO, normalizeApiPath } from './metrics'
 import type { AuthProps } from './auth/types'
 
 /**
@@ -14,7 +15,7 @@ import type { AuthProps } from './auth/types'
  * to only make requests to the configured Cloudflare API base URL.
  * The API token is injected via props so it never enters the user code isolate.
  */
-type GlobalOutboundProps = { apiToken: string; fetchWithRetryCaller: string }
+type GlobalOutboundProps = { apiToken: string; fetchWithRetryCaller: string; userId?: string }
 
 export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
   async fetch(request: Request): Promise<Response> {
@@ -30,9 +31,25 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
-    return fetchWithRetry(authedRequest, undefined, {
+    const response = await fetchWithRetry(authedRequest, undefined, {
       caller: this.ctx.props.fetchWithRetryCaller
     })
+
+    // Record one api_request datapoint per forwarded Cloudflare API call. This
+    // is the choke point every cloudflare.request() from the execute isolate
+    // passes through, so it captures the fan-out a single tool_call can't.
+    // logEvent swallows its own errors; metrics must never affect the proxy.
+    const metrics = new MetricsTracker(this.env.MCP_METRICS, SERVER_INFO)
+    metrics.logEvent(
+      new ApiRequest({
+        userId: this.ctx.props.userId,
+        method: request.method,
+        path: normalizeApiPath(request.url),
+        status: response.status
+      })
+    )
+
+    return response
   }
 }
 

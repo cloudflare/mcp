@@ -7,12 +7,13 @@
  * the other servers and are picked up by existing dashboards/queries.
  *
  * Positional layout (must not change — the dataset columns are positional):
- *   index1  = event type (`tool_call` | `auth_user`)
+ *   index1  = event type (`tool_call` | `auth_user` | `api_request`)
  *   blob1   = MCP server name      (reserved, injected by the tracker)
  *   blob2   = MCP server version   (reserved, injected by the tracker)
  *   blob3   = userId
- *   blob4   = toolName (tool_call) | errorMessage (auth_user)
- *   double1 = errorCode (tool_call)
+ *   blob4   = toolName (tool_call) | errorMessage (auth_user) | HTTP method (api_request)
+ *   blob5   = normalized request path (api_request)
+ *   double1 = errorCode (tool_call) | HTTP response status (api_request)
  *
  * Note: this server is stateless (a fresh McpServer per request) so it does not
  * emit `session_start` events the way the Durable-Object-backed Cloudflare MCP
@@ -25,9 +26,47 @@
 
 export type ClientInfo = { name: string; version: string }
 
+/** Canonical server identity stamped onto every datapoint (blob1/blob2). */
+export const SERVER_INFO: ClientInfo = { name: 'cloudflare-api', version: '0.1.0' }
+
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
-  TOOL_CALL = 'tool_call'
+  TOOL_CALL = 'tool_call',
+  API_REQUEST = 'api_request'
+}
+
+/**
+ * Normalize a Cloudflare API URL into a low-cardinality path template suitable
+ * for grouping in Analytics Engine. Strips the `/client/v4` version prefix and
+ * the query string, then replaces identifier-like segments (32-char hex account
+ * /zone/resource ids, UUIDs, and pure-numeric ids) with `{id}`.
+ *
+ * Caveat: user-named resources (worker script names, KV titles, DNS names) are
+ * NOT collapsed — only clearly identifier-shaped segments are. That keeps the
+ * common high-cardinality drivers (account/zone ids) bounded while preserving
+ * the endpoint shape; AE sampling absorbs the remaining tail.
+ */
+export function normalizeApiPath(rawUrl: string): string {
+  let path: string
+  try {
+    path = new URL(rawUrl).pathname
+  } catch {
+    path = rawUrl.split('?')[0]
+  }
+
+  // Strip the API version prefix, e.g. `/client/v4`.
+  path = path.replace(/^\/client\/v\d+/, '')
+
+  const HEX32 = /^[0-9a-f]{32}$/i
+  const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+  const NUMERIC = /^\d+$/
+
+  const normalized = path
+    .split('/')
+    .filter(Boolean)
+    .map((seg) => (HEX32.test(seg) || UUID.test(seg) || NUMERIC.test(seg) ? '{id}' : seg))
+
+  return '/' + normalized.join('/')
 }
 
 type Range1To20 =
@@ -153,6 +192,33 @@ export class ToolCall extends MetricsEvent {
       }),
       doubles: this.mapDoubles({
         double1: this.toolCall.errorCode
+      })
+    }
+  }
+}
+
+export class ApiRequest extends MetricsEvent {
+  constructor(
+    private apiRequest: {
+      userId?: string
+      method: string
+      path: string
+      status: number
+    }
+  ) {
+    super()
+  }
+
+  toDataPoint(): AnalyticsEngineDataPoint {
+    return {
+      indexes: [MetricsEventIndexId.API_REQUEST],
+      blobs: this.mapBlobs({
+        blob3: this.apiRequest.userId,
+        blob4: this.apiRequest.method,
+        blob5: this.apiRequest.path
+      }),
+      doubles: this.mapDoubles({
+        double1: this.apiRequest.status
       })
     }
   }
