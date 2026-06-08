@@ -96,6 +96,12 @@ describe('MetricsTracker', () => {
     expect(() => tracker.logEvent(new ToolCall({ toolName: 'execute' }))).not.toThrow()
   })
 
+  it('records an errorCode for a tool call that failed (isError result)', () => {
+    const event = new ToolCall({ userId: 'user-1', toolName: 'execute', errorCode: -1 })
+    event.serverInfo = SERVER_INFO
+    expect(event.toDataPoint().doubles).toEqual([-1])
+  })
+
   it('swallows write errors so tool calls are never broken by metrics', () => {
     const writeDataPoint = vi.fn(() => {
       throw new Error('AE down')

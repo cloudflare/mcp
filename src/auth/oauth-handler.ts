@@ -28,6 +28,7 @@ import {
   OAuthError
 } from './workers-oauth-utils'
 import { fetchWithRetry } from '../utils/fetch-retry'
+import { MetricsTracker, AuthUser } from '../metrics'
 
 import type {
   AuthRequest,
@@ -42,6 +43,21 @@ interface AuthEnv extends Env {
 
 const env = cloudflareEnv as AuthEnv
 const REFRESH_GUARD_PREFIX = 'oauth:refresh-guard'
+
+const metrics = new MetricsTracker(env.MCP_METRICS, { name: 'cloudflare-api', version: '0.1.0' })
+
+/** Format an unknown thrown value into a stable `auth_user` error message. */
+function authErrorMessage(prefix: string, e: unknown): string {
+  let message: string
+  if (e instanceof Error) {
+    message = `${e.name}: ${e.message}`
+  } else if (typeof e === 'string') {
+    message = e
+  } else {
+    message = 'Unknown error'
+  }
+  return `${prefix}: ${message}`
+}
 const REFRESH_IN_FLIGHT_TTL_SECONDS = 60
 const REFRESH_FAILURE_TTL_SECONDS = 3600
 const refreshInFlight = new Map<string, Promise<TokenExchangeCallbackResult | undefined>>()
@@ -591,6 +607,7 @@ export function createAuthHandlers() {
         requiredScopes: REQUIRED_SCOPES
       })
     } catch (e) {
+      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize Error', e) }))
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
       console.error(`Authorize error [${errorId}]:`, e)
@@ -646,6 +663,7 @@ export function createAuthHandlers() {
 
       return redirectResponse
     } catch (e) {
+      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize POST Error', e) }))
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
       console.error(`Authorize POST error [${errorId}]:`, e)
@@ -719,6 +737,8 @@ export function createAuthHandlers() {
         } satisfies AuthProps
       })
 
+      metrics.logEvent(new AuthUser({ userId: user.id }))
+
       return new Response(null, {
         status: 302,
         headers: {
@@ -727,6 +747,7 @@ export function createAuthHandlers() {
         }
       })
     } catch (e) {
+      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', e) }))
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
       console.error(`Callback error [${errorId}]:`, e)

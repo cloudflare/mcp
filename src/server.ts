@@ -42,6 +42,13 @@ function attachMetrics(server: McpServer, env: Env, props?: AuthProps): void {
   const errorCodeOf = (e: unknown): number =>
     typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
 
+  // Our tool callbacks signal failure by returning `{ isError: true }` rather
+  // than throwing, so inspect the resolved result as well as the thrown path.
+  const logResult = (name: string, result: unknown) => {
+    const errorCode = (result as { isError?: boolean })?.isError ? -1 : undefined
+    metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode }))
+  }
+
   const originalRegisterTool = server.registerTool.bind(server) as (
     ...args: unknown[]
   ) => ReturnType<McpServer['registerTool']>
@@ -55,7 +62,7 @@ function attachMetrics(server: McpServer, env: Env, props?: AuthProps): void {
         if (out instanceof Promise) {
           return out
             .then((r) => {
-              metrics.logEvent(new ToolCall({ toolName: name, userId }))
+              logResult(name, r)
               return r
             })
             .catch((e: unknown) => {
@@ -63,7 +70,7 @@ function attachMetrics(server: McpServer, env: Env, props?: AuthProps): void {
               throw e
             })
         }
-        metrics.logEvent(new ToolCall({ toolName: name, userId }))
+        logResult(name, out)
         return out
       } catch (e) {
         metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
