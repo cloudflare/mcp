@@ -23,6 +23,7 @@ cloudflare-mcp/
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
+│   ├── metrics.ts                 # Analytics Engine metrics (session_start/tool_call)
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Direct Cloudflare API token support
@@ -124,6 +125,15 @@ Max 76 OAuth scopes enforced (Cloudflare server limitation).
 ### Response truncation
 
 Responses capped at ~6,000 tokens (~24KB). Truncation notice included with original size to prompt agents to write more specific queries.
+
+### Usage metrics (Analytics Engine)
+
+Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the shared `mcp-metrics-{dev,staging,production}` dataset — the same dataset used by the per-product Cloudflare MCP servers (`cloudflare/mcp-server-cloudflare`), so this server shows up alongside them under server name `cloudflare-api`.
+
+- `src/metrics.ts` mirrors the upstream `@repo/mcp-observability` schema. The blob/double layout is **positional and must not change**: `index1` = event type, `blob1`/`blob2` = server name/version (reserved), `blob3` = userId, `blob4` = toolName, `double1` = errorCode.
+- `attachMetrics()` in `src/server.ts` logs a `session_start` on initialization and wraps `registerTool` so every tool (search, execute, docs, non-codemode) emits a `tool_call` event (with `errorCode` on failure).
+- The tracker is tolerant of a missing binding (no-op in tests/local dev) and swallows write errors so metrics can never break a tool call.
+- Query via the Analytics Engine SQL API: `SELECT ... FROM 'mcp-metrics-production' WHERE blob1='cloudflare-api' AND index1='tool_call'`.
 
 ## Security considerations
 

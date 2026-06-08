@@ -43,6 +43,12 @@
 			"bucket_name": "mcp-spec"
 		}
 	],
+	"analytics_engine_datasets": [
+		{
+			"binding": "MCP_METRICS",
+			"dataset": "mcp-metrics-dev"
+		}
+	],
 	"triggers": {
 		"crons": ["0 0 * * *"]
 	},
@@ -83,6 +89,12 @@
 				{
 					"binding": "SPEC_BUCKET",
 					"bucket_name": "mcp-spec-staging"
+				}
+			],
+			"analytics_engine_datasets": [
+				{
+					"binding": "MCP_METRICS",
+					"dataset": "mcp-metrics-staging"
 				}
 			],
 			"triggers": {
@@ -127,6 +139,12 @@
 				{
 					"binding": "SPEC_BUCKET",
 					"bucket_name": "mcp-spec-production"
+				}
+			],
+			"analytics_engine_datasets": [
+				{
+					"binding": "MCP_METRICS",
+					"dataset": "mcp-metrics-production"
 				}
 			],
 			"triggers": {
