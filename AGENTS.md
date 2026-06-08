@@ -36,7 +36,6 @@ cloudflare-mcp/
 │       ├── executor.test.ts
 │       ├── spec-processor.test.ts
 │       └── truncate.test.ts
-├── site/                          # Marketing/docs website (Astro + React)
 ├── scripts/
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
 ├── .github/workflows/
