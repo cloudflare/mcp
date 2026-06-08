@@ -511,6 +511,7 @@ describe('createServer with codemode=false', () => {
 
     const tools = (server as any)._registeredTools
     const toolNames = Object.keys(tools)
+    expect(toolNames).toContain('docs')
     expect(toolNames).toContain('get_accounts_workers_scripts')
     expect(toolNames).toContain('post_accounts_workers_scripts')
     expect(toolNames).toContain('get_zones_dns_records')
@@ -518,6 +519,24 @@ describe('createServer with codemode=false', () => {
     // Should NOT have codemode tools
     expect(toolNames).not.toContain('search')
     expect(toolNames).not.toContain('execute')
+  })
+
+  it('registers docs with the Cloudflare docs server description and output schema', async () => {
+    const env = makeMockEnv({})
+    const ctx = {
+      exports: { GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() })) },
+      waitUntil: vi.fn()
+    } as any
+    const server = await createServer(env, ctx, 'test-token', 'test-account', undefined, true)
+
+    const docsTool = (server as any)._registeredTools['docs']
+    expect(docsTool.description).toContain(
+      'This tool should be used to answer any question about Cloudflare products or features'
+    )
+    expect(docsTool.description).toContain(
+      'Results are returned as semantically similar chunks to the query.'
+    )
+    expect(docsTool.outputSchema).toBeDefined()
   })
 
   it('registers codemode tools when codemode=true (default)', async () => {
@@ -536,6 +555,7 @@ describe('createServer with codemode=false', () => {
 
     const tools = (server as any)._registeredTools
     const toolNames = Object.keys(tools)
+    expect(toolNames).toContain('docs')
     expect(toolNames).toContain('search')
     expect(toolNames).toContain('execute')
     expect(toolNames).not.toContain('get_accounts_workers_scripts')

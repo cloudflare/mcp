@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
+import { registerDocsTool } from './docs-search'
 import { createCodeExecutor, createSearchExecutor } from './executor'
 import { truncateResponse } from './truncate'
 import { fetchWithRetry } from './utils/fetch-retry'
@@ -402,6 +403,8 @@ export async function createServer(
     { name: 'cloudflare-api', version: '0.1.0' },
     instructions ? { instructions } : undefined
   )
+
+  registerDocsTool(server, env)
 
   if (!codemode) {
     await registerNonCodemodeTools(server, env, apiToken, accountId, props)

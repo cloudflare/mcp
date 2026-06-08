@@ -9,6 +9,7 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
+		AI: Ai;
 		CLOUDFLARE_API_BASE: string;
 		CLOUDFLARE_OAUTH_DOMAIN: string;
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
@@ -22,6 +23,7 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
+		AI: Ai;
 		CLOUDFLARE_API_BASE: string;
 		CLOUDFLARE_OAUTH_DOMAIN: string;
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
@@ -39,6 +41,7 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		LOADER: WorkerLoader;
+		AI?: Ai;
 		CLOUDFLARE_API_BASE: string;
 		CLOUDFLARE_OAUTH_DOMAIN: string;
 		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";

@@ -52,6 +52,9 @@
 	"env": {
 		"staging": {
 			"name": "cloudflare-api-mcp-staging",
+			"ai": {
+				"binding": "AI"
+			},
 			"routes": [
 				{
 					"pattern": "staging.mcp.cloudflare.com",
@@ -93,6 +96,9 @@
 		},
 		"production": {
 			"name": "cloudflare-api-mcp",
+			"ai": {
+				"binding": "AI"
+			},
 			"routes": [
 				{
 					"pattern": "mcp.cloudflare.com",

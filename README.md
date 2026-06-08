@@ -9,7 +9,7 @@
 | Raw OpenAPI spec in prompt                  | —     | ~2,000,000 | 977%                |
 | Native MCP (full schemas)                   | 2,594 | 1,170,523  | 585%                |
 | Native MCP (minimal — required params only) | 2,594 | 244,047    | 122%                |
-| Code mode                                   | 2     | 1,069      | 0.5%                |
+| Code mode                                   | 3     | ~1,100     | 0.5%                |
 
 ## Get Started
 
@@ -49,7 +49,7 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 
 ### Disable Code Mode
 
-If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the 2 code mode tools.
+If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` tool remains available in both modes.
 
 ```
 https://mcp.cloudflare.com/mcp?codemode=false
@@ -84,10 +84,11 @@ This server solves the problem by using **code execution** in a [Code Mode](http
 
 ## Tools
 
-Agent writes code to search the spec and execute API calls.
+Agent writes code to search the spec and execute API calls. It can also search Cloudflare's developer documentation directly.
 
 | Tool      | Description                                                                   |
 | --------- | ----------------------------------------------------------------------------- |
+| `docs`    | Search Cloudflare developer documentation                                     |
 | `search`  | Write JavaScript to query `spec.paths` and find endpoints                     |
 | `execute` | Write JavaScript to call `cloudflare.request()` with the discovered endpoints |
 
