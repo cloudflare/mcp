@@ -9,11 +9,13 @@ import type { AuthProps } from './auth/types'
 
 const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
 
-/** Resolve the userId to attribute metrics to from the auth props. */
+/**
+ * Resolve the userId to attribute metrics to. Only user tokens carry a user
+ * identity; account tokens have no user, so blob3 is left undefined — matching
+ * the other Cloudflare MCP servers (`props.type === 'user_token' ? ... : undefined`).
+ */
 function userIdFromProps(props?: AuthProps): string | undefined {
-  if (props?.type === 'user_token') return props.user.id
-  if (props?.type === 'account_token') return props.account.id
-  return undefined
+  return props?.type === 'user_token' ? props.user.id : undefined
 }
 
 /**
