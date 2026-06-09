@@ -599,68 +599,12 @@ describe('createServer with codemode=false', () => {
     }
   })
 
-  it('auto-resolves account_id when fixed account token', async () => {
-    const specPaths = {
-      '/accounts/{account_id}/workers/scripts': {
-        get: { summary: 'List Workers' } as OperationInfo
-      }
-    }
-
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, 'test-token', 'fixed-acct', undefined, false)
-
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [] })
-
-    try {
-      await tool.handler({}, {} as any)
-      expect(globalThis.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/accounts/fixed-acct/workers/scripts'),
-        expect.anything()
-      )
-    } finally {
-      globalThis.fetch = originalFetch
-    }
-  })
-
-  it('auto-resolves account_id for single-account user token', async () => {
-    const specPaths = {
-      '/accounts/{account_id}/workers/scripts': {
-        get: { summary: 'List Workers' } as OperationInfo
-      }
-    }
-
-    const props: AuthProps = {
-      type: 'user_token',
-      accessToken: 'test-token',
-      user: { id: 'u1', email: 'test@example.com' },
-      accounts: [{ id: 'single-acct', name: 'My Account' }]
-    }
-
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, 'test-token', undefined, props, false)
-
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [] })
-
-    try {
-      await tool.handler({}, {} as any)
-      expect(globalThis.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/accounts/single-acct/workers/scripts'),
-        expect.anything()
-      )
-    } finally {
-      globalThis.fetch = originalFetch
-    }
-  })
+  // NOTE: account_id auto-resolution is covered end-to-end (through real MCP
+  // argument validation) in tests/non-codemode-worker.test.ts. Direct
+  // tool.handler({}) calls bypass that validation and gave false confidence —
+  // they passed even while production rejected the same call with an Input
+  // validation error (account_id was a required schema field). Don't re-add
+  // handler-level auto-resolve tests here.
 
   it('returns error for missing required path param', async () => {
     const specPaths = {
