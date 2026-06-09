@@ -154,11 +154,21 @@ async function revokeGrantsForClient(
 async function getCachedRefreshFailure(
   kv: KVNamespace,
   failureKey: string
-): Promise<{ code?: string; description?: string } | null> {
+): Promise<{
+  code?: string
+  description?: string
+  statusCode?: number
+  headers?: Record<string, string>
+} | null> {
   try {
     const failure = await kv.get(failureKey, { type: 'json' })
     if (!failure || typeof failure !== 'object') return null
-    return failure as { code?: string; description?: string }
+    return failure as {
+      code?: string
+      description?: string
+      statusCode?: number
+      headers?: Record<string, string>
+    }
   } catch (error) {
     console.warn('Refresh guard: failed to read cached refresh failure', error)
     return null
@@ -195,6 +205,11 @@ async function cacheRefreshFailure(
       JSON.stringify({
         code: error.code,
         description: 'Token refresh failed; reauthorization is required',
+        // Preserve the upstream status + headers so a cached replay returns the
+        // same response as the original failure (e.g. 401 invalid_client, or a
+        // 429 with Retry-After) instead of a flat 400 with no headers.
+        statusCode: error.statusCode,
+        headers: error.headers,
         failedAt: Date.now()
       }),
       { expirationTtl: REFRESH_FAILURE_TTL_SECONDS }
@@ -240,7 +255,8 @@ export async function guardRefreshTokenExchange(
         throw new OAuthError(
           code,
           cachedFailure.description || 'Token refresh recently failed; reauthorization is required',
-          400
+          cachedFailure.statusCode ?? 400,
+          cachedFailure.headers ?? {}
         )
       }
 

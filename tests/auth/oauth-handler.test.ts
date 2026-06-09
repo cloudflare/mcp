@@ -12,7 +12,17 @@ import {
   handleTokenExchangeCallback
 } from '../../src/auth/oauth-handler'
 import { OAuthError } from '../../src/auth/workers-oauth-utils'
+import { API_BASE, cfSuccess } from '../helpers/cloudflare-api'
 import { server } from '../setup/msw'
+
+/** Register MSW handlers for the two identity-probe endpoints by path. */
+function mockProbes(opts: {
+  user?: () => Response
+  accounts?: () => Response
+}) {
+  if (opts.user) server.use(http.get(`${API_BASE}/user`, opts.user))
+  if (opts.accounts) server.use(http.get(`${API_BASE}/accounts`, opts.accounts))
+}
 
 // Use minimal retry config so tests don't wait for real backoff delays. This is
 // the only mock of our own modules left here: it just tightens retry timing for
@@ -25,13 +35,6 @@ vi.mock('../../src/utils/fetch-retry', async (importOriginal) => {
       original.fetchWithRetry(input, init, { maxRetries: 0 })
   }
 })
-
-function jsonResponse(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json' }
-  })
-}
 
 function deferred<T>(): {
   promise: Promise<T>
@@ -101,7 +104,6 @@ async function expectOAuthError(
 
 afterEach(async () => {
   vi.restoreAllMocks()
-  vi.unstubAllGlobals()
   // Storage isolation in vitest-pool-workers is per test FILE, not per test, so
   // the real OAUTH_KV persists across tests here. Some refresh-guard tests reuse
   // the same refresh token and would otherwise hit a cached failure written by
@@ -113,17 +115,10 @@ afterEach(async () => {
 
 describe('getUserAndAccounts', () => {
   it('accepts account-scoped token when /user fails but /accounts succeeds', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(new Response('Forbidden', { status: 403 }))
-      .mockResolvedValueOnce(
-        jsonResponse({
-          success: true,
-          result: [{ id: 'acc-1', name: 'Primary Account' }]
-        })
-      )
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => new HttpResponse('Forbidden', { status: 403 }),
+      accounts: () => HttpResponse.json(cfSuccess([{ id: 'acc-1', name: 'Primary Account' }]))
+    })
 
     await expect(getUserAndAccounts('test-token')).resolves.toEqual({
       user: null,
@@ -132,17 +127,10 @@ describe('getUserAndAccounts', () => {
   })
 
   it('accepts user tokens when /accounts fails but /user succeeds', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(
-        jsonResponse({
-          success: true,
-          result: { id: 'user-1', email: 'user@example.com' }
-        })
-      )
-      .mockResolvedValueOnce(new Response('Forbidden', { status: 403 }))
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' })),
+      accounts: () => new HttpResponse('Forbidden', { status: 403 })
+    })
 
     await expect(getUserAndAccounts('test-token')).resolves.toEqual({
       user: { id: 'user-1', email: 'user@example.com' },
@@ -151,12 +139,10 @@ describe('getUserAndAccounts', () => {
   })
 
   it('throws insufficient_scope when both endpoints fail with 403', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(new Response('Forbidden', { status: 403 }))
-      .mockResolvedValueOnce(new Response('Forbidden', { status: 403 }))
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => new HttpResponse('Forbidden', { status: 403 }),
+      accounts: () => new HttpResponse('Forbidden', { status: 403 })
+    })
 
     await expectOAuthError(getUserAndAccounts('test-token'), 'insufficient_scope', 403)
   })
@@ -195,26 +181,20 @@ describe('getUserAndAccounts', () => {
   ])(
     'maps dual endpoint failures to OAuthError for /user=$userStatus /accounts=$accountsStatus',
     async ({ userStatus, accountsStatus, code, statusCode }) => {
-      const fetchMock = vi
-        .fn<typeof fetch>()
-        .mockResolvedValueOnce(new Response('upstream error', { status: userStatus }))
-        .mockResolvedValueOnce(new Response('upstream error', { status: accountsStatus }))
-
-      vi.stubGlobal('fetch', fetchMock)
+      mockProbes({
+        user: () => new HttpResponse('upstream error', { status: userStatus }),
+        accounts: () => new HttpResponse('upstream error', { status: accountsStatus })
+      })
 
       await expectOAuthError(getUserAndAccounts('test-token'), code, statusCode)
     }
   )
 
   it('preserves Retry-After from Cloudflare API 429 responses', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(
-        new Response('rate limited', { status: 429, headers: { 'Retry-After': '17' } })
-      )
-      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => new HttpResponse('rate limited', { status: 429, headers: { 'Retry-After': '17' } }),
+      accounts: () => new HttpResponse('rate limited', { status: 429 })
+    })
 
     const error = await expectOAuthError(
       getUserAndAccounts('test-token'),
@@ -225,12 +205,10 @@ describe('getUserAndAccounts', () => {
   })
 
   it('defaults Retry-After when Cloudflare API 429 responses omit it', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
-      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => new HttpResponse('rate limited', { status: 429 }),
+      accounts: () => new HttpResponse('rate limited', { status: 429 })
+    })
 
     const error = await expectOAuthError(
       getUserAndAccounts('test-token'),
@@ -241,17 +219,10 @@ describe('getUserAndAccounts', () => {
   })
 
   it('falls back to account-scoped auth when /user is 200 but invalid JSON', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(new Response('not-json', { status: 200 }))
-      .mockResolvedValueOnce(
-        jsonResponse({
-          success: true,
-          result: [{ id: 'acc-1', name: 'Primary Account' }]
-        })
-      )
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => new HttpResponse('not-json', { status: 200 }),
+      accounts: () => HttpResponse.json(cfSuccess([{ id: 'acc-1', name: 'Primary Account' }]))
+    })
 
     await expect(getUserAndAccounts('test-token')).resolves.toEqual({
       user: null,
@@ -260,21 +231,10 @@ describe('getUserAndAccounts', () => {
   })
 
   it('falls back to account-scoped auth when /user is 200 with success=false', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(
-        jsonResponse({
-          success: false
-        })
-      )
-      .mockResolvedValueOnce(
-        jsonResponse({
-          success: true,
-          result: [{ id: 'acc-1', name: 'Primary Account' }]
-        })
-      )
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => HttpResponse.json({ success: false }),
+      accounts: () => HttpResponse.json(cfSuccess([{ id: 'acc-1', name: 'Primary Account' }]))
+    })
 
     await expect(getUserAndAccounts('test-token')).resolves.toEqual({
       user: null,
@@ -283,17 +243,10 @@ describe('getUserAndAccounts', () => {
   })
 
   it('keeps user auth when /accounts is 200 but invalid JSON', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(
-        jsonResponse({
-          success: true,
-          result: { id: 'user-1', email: 'user@example.com' }
-        })
-      )
-      .mockResolvedValueOnce(new Response('not-json', { status: 200 }))
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' })),
+      accounts: () => new HttpResponse('not-json', { status: 200 })
+    })
 
     await expect(getUserAndAccounts('test-token')).resolves.toEqual({
       user: { id: 'user-1', email: 'user@example.com' },
@@ -302,41 +255,29 @@ describe('getUserAndAccounts', () => {
   })
 
   it('rejects when /accounts returns empty result and /user fails', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(new Response('Forbidden', { status: 403 }))
-      .mockResolvedValueOnce(
-        jsonResponse({
-          success: true,
-          result: []
-        })
-      )
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => new HttpResponse('Forbidden', { status: 403 }),
+      accounts: () => HttpResponse.json(cfSuccess([]))
+    })
 
     await expectOAuthError(getUserAndAccounts('test-token'), 'invalid_token', 401)
   })
 
   it('rejects when /accounts payload shape is invalid and /user fails', async () => {
-    const fetchMock = vi
-      .fn<typeof fetch>()
-      .mockResolvedValueOnce(new Response('Forbidden', { status: 403 }))
-      .mockResolvedValueOnce(
-        jsonResponse({
-          success: true,
-          result: [{ id: 'acc-1' }]
-        })
-      )
-
-    vi.stubGlobal('fetch', fetchMock)
+    mockProbes({
+      user: () => new HttpResponse('Forbidden', { status: 403 }),
+      accounts: () => HttpResponse.json(cfSuccess([{ id: 'acc-1' }]))
+    })
 
     await expectOAuthError(getUserAndAccounts('test-token'), 'invalid_token', 401)
   })
 
-  it('maps fetch rejection to server_error', async () => {
-    const fetchMock = vi.fn<typeof fetch>().mockRejectedValue(new TypeError('network failed'))
-
-    vi.stubGlobal('fetch', fetchMock)
+  it('maps a network failure to server_error', async () => {
+    // A transport-level failure (fetch rejecting) is BELOW MSW's HTTP
+    // abstraction — HttpResponse.error() leaks an unhandled rejection through
+    // @mswjs/interceptors. The fetch primitive is the correct seam for a
+    // network error, so spy it here. (vi.spyOn restored in afterEach.)
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new TypeError('network failed'))
 
     await expectOAuthError(getUserAndAccounts('test-token'), 'server_error', 502)
   })
@@ -386,6 +327,52 @@ describe('guardRefreshTokenExchange', () => {
     // failure that the first call wrote to real KV.
     expect(refreshFn).toHaveBeenCalledTimes(1)
     expect(await kv.get(await refreshGuardKey('reused-refresh-token', 'failure'))).not.toBeNull()
+  })
+
+  it('replays a cached failure with its original status code (not a flat 400)', async () => {
+    const kv = env.OAUTH_KV
+    // invalid_client is a 401; the cached replay must preserve that, not 400.
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(new OAuthError('invalid_client', 'bad client creds', 401))
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'client-fail-token', refreshFn),
+      'invalid_client',
+      401
+    )
+    // Second call replays from cache and must still be a 401.
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'client-fail-token', refreshFn),
+      'invalid_client',
+      401
+    )
+    expect(refreshFn).toHaveBeenCalledTimes(1)
+  })
+
+  it('preserves Retry-After headers across a cached failure replay', async () => {
+    const kv = env.OAUTH_KV
+    // A terminal failure carrying a Retry-After header must replay with it.
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(
+        new OAuthError('unauthorized_client', 'slow down', 403, { 'Retry-After': '120' })
+      )
+
+    const first = await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'retry-after-token', refreshFn),
+      'unauthorized_client',
+      403
+    )
+    expect(first.headers).toEqual({ 'Retry-After': '120' })
+
+    const replay = await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'retry-after-token', refreshFn),
+      'unauthorized_client',
+      403
+    )
+    expect(replay.headers).toEqual({ 'Retry-After': '120' })
+    expect(refreshFn).toHaveBeenCalledTimes(1)
   })
 
   it('suppresses upstream refresh when another isolate has an in-flight marker', async () => {
