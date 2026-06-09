@@ -1,7 +1,10 @@
 import { exports } from 'cloudflare:workers'
 import { env } from 'cloudflare:test'
+import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { cfSuccess } from '../helpers/cloudflare-api'
 import { clearKv } from '../helpers/kv'
+import { server } from '../setup/msw'
 
 /**
  * Worker-seam tests for the OAuth route layer (`createAuthHandlers` in
@@ -37,6 +40,15 @@ function authorizeUrl(params: Record<string, string>): string {
   const u = new URL('https://mcp.example.com/authorize')
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v)
   return u.toString()
+}
+
+/** Collapse a response's Set-Cookie header(s) into a Cookie request header. */
+function cookiesFrom(res: Response): string {
+  const raw = res.headers.getSetCookie?.() ?? [res.headers.get('set-cookie') ?? '']
+  return raw
+    .filter(Boolean)
+    .map((c) => c.split(';')[0])
+    .join('; ')
 }
 
 /** Index1 values of every datapoint written via the spied MCP_METRICS binding. */
@@ -98,6 +110,86 @@ describe('GET /authorize', () => {
 })
 
 describe('GET /oauth/callback', () => {
+  it('completes the full login flow and redirects back to the client with a code', async () => {
+    const clientId = await registerClient()
+
+    // 1. GET /authorize -> consent dialog (CSRF cookie + hidden state/csrf).
+    const authRes = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'user:read'
+        })
+      )
+    )
+    const html = await authRes.text()
+    const csrfCookie = cookiesFrom(authRes)
+    const stateField = html.match(/name="state" value="([^"]+)"/)?.[1]
+    const csrfField = html.match(/name="csrf_token" value="([^"]+)"/)?.[1]
+    expect(stateField && csrfField).toBeTruthy()
+
+    // 2. POST /authorize (consent) -> 302 to Cloudflare carrying the state token.
+    const postRes = await exports.default.fetch(
+      new Request('https://mcp.example.com/authorize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', Cookie: csrfCookie },
+        body: new URLSearchParams({
+          state: stateField!,
+          csrf_token: csrfField!,
+          scopes: 'user:read'
+        }).toString(),
+        redirect: 'manual'
+      })
+    )
+    expect(postRes.status).toBe(302)
+    const cfState = new URL(postRes.headers.get('location')!).searchParams.get('state')!
+    const sessionCookie = cookiesFrom(postRes)
+
+    // 3. Mock the upstream the callback talks to: token exchange + identity.
+    server.use(
+      http.post('https://dash.cloudflare.com/oauth2/token', () =>
+        HttpResponse.json({
+          access_token: 'access-token',
+          expires_in: 3600,
+          refresh_token: 'refresh-token',
+          scope: 'user:read',
+          token_type: 'bearer'
+        })
+      ),
+      http.get('https://api.cloudflare.com/client/v4/user', () =>
+        HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' }))
+      ),
+      http.get('https://api.cloudflare.com/client/v4/accounts', () =>
+        HttpResponse.json(cfSuccess([{ id: 'acc-1', name: 'Account One' }]))
+      )
+    )
+
+    // 4. GET /oauth/callback -> 302 back to the client redirect URI with a code.
+    const cbRes = await exports.default.fetch(
+      new Request(
+        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(cfState)}`,
+        { headers: { Cookie: sessionCookie }, redirect: 'manual' }
+      )
+    )
+
+    expect(cbRes.status).toBe(302)
+    const redirect = new URL(cbRes.headers.get('location')!)
+    expect(redirect.origin + redirect.pathname).toBe(REDIRECT_URI)
+    expect(redirect.searchParams.get('code')).toBeTruthy()
+
+    // A successful login records an auth_user datapoint with the userId (blob3)
+    // and no error message (blob4).
+    const authUserCall = metricsSpy.mock.calls.find(
+      ([dp]) => (dp as { indexes?: string[] })?.indexes?.[0] === 'auth_user'
+    )
+    expect(authUserCall).toBeTruthy()
+    const dp = authUserCall![0] as { blobs?: Array<string | null> }
+    expect(dp.blobs?.[2]).toBe('user-1')
+    expect(dp.blobs?.[3]).toBeFalsy()
+  })
+
   it('returns 400 invalid_request when the code is missing', async () => {
     const res = await exports.default.fetch(
       new Request('https://mcp.example.com/oauth/callback')
