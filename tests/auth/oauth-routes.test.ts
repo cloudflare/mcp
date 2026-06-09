@@ -148,6 +148,18 @@ describe('GET /oauth/callback', () => {
     const cfState = new URL(postRes.headers.get('location')!).searchParams.get('state')!
     const sessionCookie = cookiesFrom(postRes)
 
+    // The state forwarded to Cloudflare is an opaque token (RFC 6749 §10.12),
+    // not a base64-encoded AuthRequest. Decoding it must NOT yield JSON with
+    // request fields like client_id/redirect_uri (the pre-opaque-state shape).
+    let decodedAsJson: unknown
+    try {
+      decodedAsJson = JSON.parse(atob(cfState))
+    } catch {
+      decodedAsJson = null
+    }
+    expect(decodedAsJson).not.toMatchObject({ clientId: expect.anything() })
+    expect(decodedAsJson).not.toMatchObject({ redirectUri: expect.anything() })
+
     // 3. Mock the upstream the callback talks to: token exchange + identity.
     server.use(
       http.post('https://dash.cloudflare.com/oauth2/token', () =>
@@ -209,10 +221,11 @@ describe('GET /oauth/callback', () => {
   })
 
   it('rejects an unknown/expired state token', async () => {
-    const stateQuery = btoa(JSON.stringify({ clientId: 'c', state: 'never-stored' }))
+    // State is now used directly as the KV lookup key; an unknown opaque token
+    // has no KV entry and is rejected.
     const res = await exports.default.fetch(
       new Request(
-        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(stateQuery)}`,
+        'https://mcp.example.com/oauth/callback?code=authcode&state=never-stored',
         { headers: { Cookie: '__Host-CONSENTED_STATE=deadbeef' } }
       )
     )

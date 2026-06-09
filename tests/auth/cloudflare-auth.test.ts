@@ -92,12 +92,12 @@ describe('generatePKCECodes', () => {
 })
 
 describe('getAuthorizationURL', () => {
-  it('builds the Cloudflare /oauth2/auth URL with S256 PKCE and encoded state', async () => {
-    const state = { clientId: 'mcp-client', redirectUri: 'https://app/cb' } as never
+  it('builds the Cloudflare /oauth2/auth URL with S256 PKCE and an opaque state token', async () => {
+    const stateToken = 'b9f1c0de-1234-4abc-9def-0123456789ab'
     const { authUrl } = await getAuthorizationURL({
       client_id: 'client-id',
       redirect_uri: 'https://mcp.example.com/oauth/callback',
-      state,
+      stateToken,
       scopes: ['user:read', 'account:read'],
       codeChallenge: 'challenge-123',
       oauthDomain: OAUTH_DOMAIN
@@ -111,8 +111,8 @@ describe('getAuthorizationURL', () => {
     expect(url.searchParams.get('code_challenge')).toBe('challenge-123')
     expect(url.searchParams.get('code_challenge_method')).toBe('S256')
     expect(url.searchParams.get('scope')).toBe('user:read account:read')
-    // State is base64-encoded JSON of the AuthRequest.
-    expect(JSON.parse(atob(url.searchParams.get('state')!))).toEqual(state)
+    // State is the opaque KV lookup token, passed through verbatim (RFC 6749 §10.12).
+    expect(url.searchParams.get('state')).toBe(stateToken)
   })
 })
 
