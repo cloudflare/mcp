@@ -106,8 +106,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
         // Handle REST API responses
         if (!data.success) {
-          const errors = data.errors.map(e => e.code + ": " + e.message).join(", ");
-          throw new Error("Cloudflare API error: " + errors);
+          const errorList = Array.isArray(data.errors) ? data.errors : [];
+          const errors = errorList.map(e => e.code + ": " + e.message).join(", ");
+          throw new Error("Cloudflare API error: " + (errors || response.status));
         }
 
         return { ...data, status: response.status };

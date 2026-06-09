@@ -1,293 +1,148 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { createCodeExecutor, createSearchExecutor } from '../src/executor'
+import { env } from 'cloudflare:workers'
+import { http, HttpResponse } from 'msw'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
+import { clearKv } from './helpers/kv'
+import { clearR2 } from './helpers/r2'
+import { callTool, toolText } from './helpers/mcp'
+import { server } from './setup/msw'
 
-describe('GraphQL Support', () => {
-  let mockEnv: Env
-  let mockCtx: any
-  let mockWorker: any
-  let mockEntrypoint: any
+/**
+ * Behaviour tests for the code executors, run through the REAL worker: a
+ * tools/call for `execute` loads actual code into a Worker Loader isolate whose
+ * cloudflare.request() is forwarded by the real GlobalOutbound, and `search`
+ * runs against a real seeded SPEC_BUCKET. The only mock is the Cloudflare API
+ * boundary (MSW). This replaces the old string-grep assertions on the generated
+ * worker source, which never compiled or ran the code.
+ */
 
-  beforeEach(() => {
-    mockEntrypoint = {
-      evaluate: vi.fn().mockResolvedValue({
-        result: {},
-        err: undefined
-      })
-    }
+const ACCOUNT_ID = '00000000000000000000000000000001'
+const API_TOKEN = 'test-api-token-executor'
 
-    mockWorker = {
-      getEntrypoint: vi.fn(() => mockEntrypoint)
-    }
+afterEach(async () => {
+  await clearKv(env.OAUTH_KV)
+  await clearR2(env.SPEC_BUCKET)
+})
 
-    mockEnv = {
-      CLOUDFLARE_API_BASE: 'https://api.cloudflare.com/client/v4',
-      LOADER: {
-        get: vi.fn(() => mockWorker)
-      }
-    } as any
+/** Run an `execute` tool call whose code hits `path`, with MSW returning `body`. */
+async function runExecute(path: string, body: unknown, init?: ResponseInit): Promise<string> {
+  mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+  server.use(
+    http.get(`${API_BASE}${path}`, () =>
+      typeof body === 'string'
+        ? new HttpResponse(body, init)
+        : HttpResponse.json(body as object, init)
+    )
+  )
+  const result = await callTool(API_TOKEN, 'execute', {
+    code: `async () => cloudflare.request({ method: "GET", path: "${path}" })`
+  })
+  return toolText(result)
+}
 
-    mockCtx = {
-      exports: {
-        GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() }))
-      }
-    } as any
+describe('execute: REST responses', () => {
+  it('returns the success envelope with the response status', async () => {
+    const text = await runExecute(`/accounts/${ACCOUNT_ID}/tokens/verify`, cfSuccess({ status: 'active' }))
+    expect(text).toContain('"status": "active"')
+    expect(text).toContain('"success": true')
   })
 
-  describe('Path Detection', () => {
-    it('should detect GraphQL endpoint with exact path', async () => {
-      mockEntrypoint.evaluate.mockResolvedValue({
-        result: {
-          success: true,
-          result: { viewer: { __typename: 'Viewer' } }
-        }
-      })
-
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      const code = `
-        async () => {
-          return await cloudflare.request({
-            method: "POST",
-            path: "/client/v4/graphql",
-            body: { query: "{ viewer { __typename } }" }
-          });
-        }
-      `
-
-      await executor(code, 'test-account', 'test-token')
-
-      // Verify the LOADER.get was called with correct worker code
-      const loaderCall = mockEnv.LOADER.get as any
-      expect(loaderCall).toHaveBeenCalled()
-    })
-
-    it('should detect GraphQL endpoint with trailing /graphql', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-
-      // The path detection logic is in the worker code itself
-      // We're testing that the code generation includes the GraphQL handling
-      const loaderCall = mockEnv.LOADER.get as any
-
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify GraphQL detection code is present
-      expect(workerCode).toContain('isGraphQLEndpoint')
-      expect(workerCode).toContain("cleanPath === '/graphql'")
-      expect(workerCode).toContain("endsWith('/graphql')")
-    })
-
-    it('should handle GraphQL path with query parameters', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify path cleaning logic is present
-      expect(workerCode).toContain("split('?')[0]")
-      expect(workerCode).toContain('replace(/')
-    })
-
-    it('should not treat non-GraphQL paths as GraphQL', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify REST API handling is still present
-      expect(workerCode).toContain('if (!data.success)')
-      expect(workerCode).toContain('Cloudflare API error')
-    })
+  it('surfaces a clean "Cloudflare API error" for a failure envelope with errors', async () => {
+    const text = await runExecute(
+      `/accounts/${ACCOUNT_ID}/tokens/verify`,
+      { success: false, errors: [{ code: 1000, message: 'Invalid API Token' }], messages: [], result: null },
+      { status: 403 }
+    )
+    expect(text).toContain('Cloudflare API error')
+    expect(text).toContain('1000: Invalid API Token')
   })
 
-  describe('Response Handling', () => {
-    it('should include partial response handling logic', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify partial response handling
-      expect(workerCode).toContain('graphqlErrors')
-      expect(workerCode).toContain('hasData')
-      expect(workerCode).toContain('data.data !== null')
-      expect(workerCode).toContain('data.data !== undefined')
-    })
-
-    it('should include error path in error messages', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify error path handling
-      expect(workerCode).toContain('e.path')
-      expect(workerCode).toContain("join('.')")
-    })
-
-    it('should handle errors array robustly', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify robust array checking
-      expect(workerCode).toContain('Array.isArray(data.errors)')
-    })
-
-    it('should normalize GraphQL response format', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify response normalization
-      expect(workerCode).toContain('success: graphqlErrors.length === 0')
-      expect(workerCode).toContain('result: data.data')
-      expect(workerCode).toContain('Partial response')
-    })
+  it('handles a failure envelope with NO errors array without crashing', async () => {
+    // Regression: the REST branch must not assume data.errors is an array.
+    // A {success:false} body with a missing errors array (e.g. a gateway/proxy
+    // envelope) previously threw "Cannot read properties of undefined (map)".
+    const text = await runExecute(
+      `/accounts/${ACCOUNT_ID}/tokens/verify`,
+      { success: false, result: null },
+      { status: 502 }
+    )
+    expect(text).toContain('Cloudflare API error')
+    expect(text).not.toContain('undefined')
+    expect(text).not.toContain('is not a function')
   })
 
-  describe('Error Scenarios', () => {
-    it('should include logic for complete failure (no data, only errors)', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify complete failure handling
-      expect(workerCode).toContain('graphqlErrors.length > 0 && !hasData')
-      expect(workerCode).toContain('GraphQL error')
+  it('returns non-JSON responses as raw text', async () => {
+    const text = await runExecute(`/accounts/${ACCOUNT_ID}/something`, 'raw-value', {
+      headers: { 'Content-Type': 'text/plain' }
     })
-
-    it('should extract error codes from extensions', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify extensions handling
-      expect(workerCode).toContain('e.extensions?.code')
-    })
-  })
-
-  describe('REST API Compatibility', () => {
-    it('should preserve REST API handling', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify REST handling is still present and comes after GraphQL check
-      const graphqlIndex = workerCode.indexOf('isGraphQLEndpoint')
-      const restIndex = workerCode.indexOf('if (!data.success)')
-
-      expect(graphqlIndex).toBeLessThan(restIndex)
-    })
-
-    it('should preserve non-JSON response handling', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      // Verify non-JSON handling is still present
-      expect(workerCode).toContain('responseContentType')
-      expect(workerCode).toContain('application/json')
-    })
-  })
-
-  describe('Worker Code Generation', () => {
-    it('should inject cloudflare.request function', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-      const workerCode = workerConfig.modules['worker.js']
-
-      expect(workerCode).toContain('const cloudflare = {')
-      expect(workerCode).toContain('async request(options)')
-    })
-
-    it('should use correct compatibility date', async () => {
-      const executor = createCodeExecutor(mockEnv, mockCtx)
-      await executor('async () => { return {} }', 'test-account', 'test-token')
-
-      const loaderCall = mockEnv.LOADER.get as any
-      const workerConfig = loaderCall.mock.calls[0][1]()
-
-      expect(workerConfig.compatibilityDate).toBe('2026-01-12')
-      expect(workerConfig.compatibilityFlags).toBeUndefined()
-    })
+    expect(text).toContain('raw-value')
   })
 })
 
-describe('Search Executor', () => {
-  const mockSpec = { paths: { '/test': { get: { summary: 'Test endpoint' } } } }
+describe('execute: GraphQL responses', () => {
+  async function runGraphql(body: unknown): Promise<string> {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(http.post(`${API_BASE}/graphql`, () => HttpResponse.json(body as object)))
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "POST", path: "/graphql", body: { query: "{ viewer { __typename } }" } })`
+    })
+    return toolText(result)
+  }
 
-  it('should read spec from R2 and embed in search worker', async () => {
-    let capturedWorkerCode = ''
-    const mockEnv = {
-      CLOUDFLARE_API_BASE: 'https://api.cloudflare.com/client/v4',
-      SPEC_BUCKET: {
-        get: vi.fn().mockResolvedValue({
-          text: async () => JSON.stringify(mockSpec)
-        })
-      },
-      LOADER: {
-        get: vi.fn((_id: string, fn: () => any) => {
-          const config = fn()
-          capturedWorkerCode = config.modules['worker.js']
-          return {
-            getEntrypoint: () => ({
-              evaluate: async () => ({ result: {}, err: undefined })
-            })
-          }
-        })
-      }
-    } as any
-
-    const executor = createSearchExecutor(mockEnv)
-    await executor('async () => { return {} }')
-
-    expect(mockEnv.SPEC_BUCKET.get).toHaveBeenCalledWith('spec.json')
-    expect(capturedWorkerCode).toContain('/test')
-    expect(capturedWorkerCode).toContain('Test endpoint')
-    expect(capturedWorkerCode).not.toContain('cloudflare.request')
+  it('normalizes a successful GraphQL response (result = data.data)', async () => {
+    const text = await runGraphql({ data: { viewer: { __typename: 'Viewer' } } })
+    expect(text).toContain('"viewer"')
+    expect(text).toContain('"success": true')
   })
 
-  it('should throw if spec not in R2', async () => {
-    const mockEnv = {
-      CLOUDFLARE_API_BASE: 'https://api.cloudflare.com/client/v4',
-      SPEC_BUCKET: {
-        get: vi.fn().mockResolvedValue(null)
-      },
-      LOADER: { get: vi.fn() }
-    } as any
+  it('returns a partial response (data + errors) with the error path', async () => {
+    const text = await runGraphql({
+      data: { viewer: null },
+      errors: [{ message: 'boom', path: ['viewer', 'zones'], extensions: { code: 'X' } }]
+    })
+    expect(text).toContain('(at viewer.zones)')
+    expect(text).toContain('Partial response')
+  })
 
-    const executor = createSearchExecutor(mockEnv)
-    await expect(executor('async () => { return {} }')).rejects.toThrow('spec.json not found in R2')
+  it('throws "GraphQL error" on complete failure (no data, only errors)', async () => {
+    const text = await runGraphql({ data: null, errors: [{ message: 'totally broken' }] })
+    expect(text).toContain('GraphQL error')
+    expect(text).toContain('totally broken')
+  })
+})
+
+describe('search: real SPEC_BUCKET', () => {
+  const SPEC = {
+    paths: {
+      '/accounts/{account_id}/workers/scripts': { get: { summary: 'List Workers' } }
+    }
+  }
+
+  // The API-token path resolves identity before any tool runs.
+  beforeEach(() => mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] }))
+
+  it('evaluates code against the spec seeded in R2', async () => {
+    await env.SPEC_BUCKET.put('spec.json', JSON.stringify(SPEC))
+
+    const result = await callTool(API_TOKEN, 'search', {
+      code: `async () => Object.keys(spec.paths)`
+    })
+    expect(toolText(result)).toContain('/accounts/{account_id}/workers/scripts')
+  })
+
+  it('errors when spec.json is missing from R2', async () => {
+    const result = await callTool(API_TOKEN, 'search', { code: `async () => Object.keys(spec.paths)` })
+    expect(toolText(result)).toContain('spec.json not found in R2')
+  })
+
+  it('has no network access (globalOutbound is null for search)', async () => {
+    await env.SPEC_BUCKET.put('spec.json', JSON.stringify(SPEC))
+
+    const result = await callTool(API_TOKEN, 'search', {
+      code: `async () => { await fetch("https://api.cloudflare.com/client/v4/user"); return "should not reach" }`
+    })
+    // The search isolate cannot make outbound requests.
+    expect(toolText(result)).not.toContain('should not reach')
+    expect(result.result?.isError).toBe(true)
   })
 })
