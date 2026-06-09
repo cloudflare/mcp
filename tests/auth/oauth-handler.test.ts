@@ -1,5 +1,8 @@
-import { OAuthError as ProviderOAuthError } from '@cloudflare/workers-oauth-provider'
-import { env } from 'cloudflare:test'
+import {
+  OAuthError as ProviderOAuthError,
+  type OAuthHelpers
+} from '@cloudflare/workers-oauth-provider'
+import { env } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
@@ -50,11 +53,18 @@ interface MockGrant {
   userId: string
 }
 
-/** Minimal OAuthHelpers mock backing the revoke-on-invalid_grant path. */
+/**
+ * Minimal OAuthHelpers mock backing the revoke-on-invalid_grant path. Only
+ * listUserGrants/revokeGrant are exercised; cast to the full type since the
+ * guard never touches the other members.
+ */
 function mockOAuthHelpers(grants: MockGrant[]) {
   return {
     listUserGrants: vi.fn(async () => ({ items: grants as never[], cursor: undefined })),
     revokeGrant: vi.fn(async () => undefined)
+  } as unknown as OAuthHelpers & {
+    listUserGrants: ReturnType<typeof vi.fn>
+    revokeGrant: ReturnType<typeof vi.fn>
   }
 }
 

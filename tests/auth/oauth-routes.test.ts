@@ -1,5 +1,4 @@
-import { exports } from 'cloudflare:workers'
-import { env } from 'cloudflare:test'
+import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cfSuccess } from '../helpers/cloudflare-api'
@@ -51,9 +50,11 @@ function cookiesFrom(res: Response): string {
     .join('; ')
 }
 
+type Datapoint = { indexes?: string[]; blobs?: Array<string | null> }
+
 /** Index1 values of every datapoint written via the spied MCP_METRICS binding. */
 function writtenEvents(spy: ReturnType<typeof vi.spyOn>): string[] {
-  return spy.mock.calls.map(([dp]) => (dp as { indexes?: string[] })?.indexes?.[0] ?? '')
+  return (spy.mock.calls as unknown[][]).map((args) => (args[0] as Datapoint)?.indexes?.[0] ?? '')
 }
 
 let metricsSpy: ReturnType<typeof vi.spyOn>
@@ -181,11 +182,11 @@ describe('GET /oauth/callback', () => {
 
     // A successful login records an auth_user datapoint with the userId (blob3)
     // and no error message (blob4).
-    const authUserCall = metricsSpy.mock.calls.find(
-      ([dp]) => (dp as { indexes?: string[] })?.indexes?.[0] === 'auth_user'
+    const authUserCall = (metricsSpy.mock.calls as unknown[][]).find(
+      (args) => (args[0] as Datapoint)?.indexes?.[0] === 'auth_user'
     )
     expect(authUserCall).toBeTruthy()
-    const dp = authUserCall![0] as { blobs?: Array<string | null> }
+    const dp = authUserCall![0] as Datapoint
     expect(dp.blobs?.[2]).toBe('user-1')
     expect(dp.blobs?.[3]).toBeFalsy()
   })

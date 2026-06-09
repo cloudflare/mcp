@@ -2,7 +2,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { fetchWithRetry, computeRetryDelay, type RetryOptions } from '../src/utils/fetch-retry'
 
 describe('computeRetryDelay', () => {
-  const defaults: Required<RetryOptions> = {
+  // computeRetryDelay takes the resolved options without `caller`.
+  const defaults: Required<Omit<RetryOptions, 'caller'>> = {
     maxRetries: 3,
     baseDelayMs: 1000,
     backoffFactor: 2,
