@@ -1,5 +1,7 @@
 import { exports } from 'cloudflare:workers'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { http, HttpResponse } from 'msw'
+import { describe, expect, it } from 'vitest'
+import { server } from './msw-server'
 
 /**
  * End-to-end test that drives the real worker through the vitest-pool-workers
@@ -9,63 +11,40 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
  *
  * Per the Cloudflare recipes, integration tests invoke the worker via
  * `exports.default.fetch()` (the same instance the pool runs as `main`) and mock
- * outbound `fetch()` imperatively with `vi.spyOn(globalThis, 'fetch')`. The spy
- * lives in the test isolate, which is the SAME isolate the main worker (and thus
- * the auth guard and `GlobalOutbound`) runs in — so it intercepts every real
- * outbound call. Outbound `fetch()` is the ONLY thing mocked; auth, the MCP
- * transport, tool dispatch, Worker Loader and the outbound proxy are all real.
+ * outbound `fetch()` declaratively with MSW (`server.use(...)`). MSW intercepts
+ * every real outbound call from the worker isolate, so outbound `fetch()` is the
+ * ONLY thing mocked; auth, the MCP transport, tool dispatch, Worker Loader and
+ * the outbound proxy are all the real code path.
  *
  * https://developers.cloudflare.com/workers/testing/vitest-integration/recipes/
  */
 
+const API_BASE = 'https://api.cloudflare.com/client/v4'
 const ACCOUNT_ID = '00000000000000000000000000000001'
 
 // A direct (non-OAuth) API token: NOT 3 colon-separated parts, so the worker
 // treats it as a direct Cloudflare API token rather than an OAuth bearer.
 const API_TOKEN = 'test-api-token-e2e'
 
-function jsonResponse(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json' }
-  })
-}
-
 /**
- * Route outbound fetches by URL:
- *  - `/user` -> no user (account-scoped token path)
- *  - `/accounts` -> exactly one account (pins accountId, no param needed)
- *  - `/accounts/{id}/tokens/verify` -> the call the executed code makes,
- *    forwarded by GlobalOutbound
- * Anything else throws, so an unexpected outbound call fails the test loudly.
+ * Mock the API-token identity guard so the token resolves to a single-account
+ * token: `/user` returns no user (account-scoped path), `/accounts` returns
+ * exactly one account (pins accountId, so no `account_id` param is needed).
  */
-function installFetchMock() {
-  return vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
-    const request = new Request(input as RequestInfo, init)
-    const url = new URL(request.url)
-
-    if (url.pathname === '/client/v4/user') {
-      return jsonResponse({ success: false, errors: [], messages: [], result: null })
-    }
-    if (url.pathname === '/client/v4/accounts') {
-      return jsonResponse({
+function mockIdentityProbe() {
+  server.use(
+    http.get(`${API_BASE}/user`, () =>
+      HttpResponse.json({ success: false, errors: [], messages: [], result: null })
+    ),
+    http.get(`${API_BASE}/accounts`, () =>
+      HttpResponse.json({
         success: true,
         errors: [],
         messages: [],
         result: [{ id: ACCOUNT_ID, name: 'E2E Test Account' }]
       })
-    }
-    if (url.pathname === `/client/v4/accounts/${ACCOUNT_ID}/tokens/verify`) {
-      return jsonResponse({
-        success: true,
-        errors: [],
-        messages: [],
-        result: { id: 'token-1', status: 'active' }
-      })
-    }
-
-    throw new Error(`Unexpected outbound fetch: ${request.method} ${request.url}`)
-  })
+    )
+  )
 }
 
 function mcpToolCall(name: string, args: Record<string, unknown>): Request {
@@ -100,18 +79,24 @@ async function parseMcpResult(res: Response): Promise<{
   return JSON.parse(text)
 }
 
-let fetchSpy: ReturnType<typeof installFetchMock>
-
-beforeEach(() => {
-  fetchSpy = installFetchMock()
-})
-
-afterEach(() => {
-  vi.restoreAllMocks()
-})
-
 describe('e2e: execute tool call', () => {
   it('runs code in a Worker Loader isolate and returns the mocked API result', async () => {
+    mockIdentityProbe()
+
+    // The Cloudflare API call the executed code makes, forwarded by GlobalOutbound.
+    let verifyCalled = false
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/tokens/verify`, () => {
+        verifyCalled = true
+        return HttpResponse.json({
+          success: true,
+          errors: [],
+          messages: [],
+          result: { id: 'token-1', status: 'active' }
+        })
+      })
+    )
+
     const code = `async () => {
       return await cloudflare.request({
         method: "GET",
@@ -133,10 +118,7 @@ describe('e2e: execute tool call', () => {
     expect(responseText).toContain('"status": "active"')
     expect(responseText).toContain('token-1')
 
-    // The forwarded API call really went through GlobalOutbound's fetch.
-    const calledVerify = fetchSpy.mock.calls.some(([input]) =>
-      new Request(input as RequestInfo).url.endsWith(`/accounts/${ACCOUNT_ID}/tokens/verify`)
-    )
-    expect(calledVerify).toBe(true)
+    // The forwarded API call really went through GlobalOutbound -> MSW.
+    expect(verifyCalled).toBe(true)
   })
 })

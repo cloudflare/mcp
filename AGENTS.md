@@ -168,10 +168,16 @@ Drives the real worker via `exports.default.fetch()` (from `cloudflare:workers`)
 pattern from the [Cloudflare vitest recipes](https://developers.cloudflare.com/workers/testing/vitest-integration/recipes/).
 A full JSON-RPC `tools/call` for `execute` runs real code inside a Worker Loader
 isolate and is forwarded through the real `GlobalOutbound` proxy. The **only** mock
-is outbound `fetch()` via `vi.spyOn(globalThis, 'fetch')` (the test isolate shares
-the worker's isolate, so the spy intercepts the auth-guard probes and the
-GlobalOutbound-forwarded API call). Everything else — auth, MCP transport, tool
-dispatch, Worker Loader — is the real code path.
+is outbound `fetch()`, declared with **MSW** (`server.use(http.get(...))`) — see
+`tests/e2e/msw-server.ts` and `tests/e2e/msw-setup.ts`. MSW intercepts both the
+auth-guard `/user`+`/accounts` probes and the GlobalOutbound-forwarded API call.
+Everything else — auth, MCP transport, tool dispatch, Worker Loader — is the real
+code path.
+
+The test stack is **vitest 4 + `@cloudflare/vitest-pool-workers` 0.16** using the
+`cloudflareTest()` Vite plugin (required for MSW's `msw/node` to load under
+workerd). Note: storage isolation is per test **file** (not per test), so tests
+sharing real bindings (e.g. `OAUTH_KV`) must clear state in `afterEach`.
 
 ## Contributing
 

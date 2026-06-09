@@ -1,4 +1,5 @@
 import { OAuthError as ProviderOAuthError } from '@cloudflare/workers-oauth-provider'
+import { env } from 'cloudflare:test'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
@@ -117,9 +118,16 @@ async function expectOAuthError(
   }
 }
 
-afterEach(() => {
+afterEach(async () => {
   vi.restoreAllMocks()
   vi.unstubAllGlobals()
+  // Storage isolation in vitest-pool-workers is per test FILE, not per test, so
+  // the real OAUTH_KV persists across tests here. Some refresh-guard tests reuse
+  // the same refresh token and would otherwise hit a cached failure written by
+  // an earlier test. Clear it between tests to restore per-test isolation.
+  const kv = env.OAUTH_KV as KVNamespace
+  const { keys } = await kv.list()
+  await Promise.all(keys.map((k) => kv.delete(k.name)))
 })
 
 describe('getUserAndAccounts', () => {
