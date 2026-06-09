@@ -142,7 +142,10 @@ async function revokeGrantsForClient(
   do {
     const page = await helpers.listUserGrants(userId, cursor ? { cursor } : undefined)
     for (const grant of page.items) {
-      if (grant.clientId !== clientId) continue
+      // Match on client AND user. listUserGrants is expected to scope by userId,
+      // but double-check defensively so a provider bug can never let us revoke a
+      // different user's grant for the same clientId.
+      if (grant.clientId !== clientId || grant.userId !== userId) continue
       await helpers.revokeGrant(grant.id, userId)
       revoked++
     }

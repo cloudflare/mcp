@@ -550,6 +550,34 @@ describe('guardRefreshTokenExchange', () => {
     expect(helpers.revokeGrant).toHaveBeenCalledWith('grant-a', 'user-1')
     expect(helpers.revokeGrant).toHaveBeenCalledWith('grant-b', 'user-1')
   })
+
+  it('never revokes another user grant for the same client (defense-in-depth)', async () => {
+    const kv = env.OAUTH_KV
+    const refreshFn = vi
+      .fn()
+      .mockRejectedValueOnce(new OAuthError('invalid_grant', 'refresh token reused', 400))
+    // listUserGrants is supposed to scope by userId, but simulate a provider
+    // returning a same-client grant belonging to a DIFFERENT user. We must not
+    // revoke it — only the calling user's matching grant.
+    const helpers = mockOAuthHelpers([
+      { id: 'grant-mine', clientId: 'mcp-client', userId: 'user-1' },
+      { id: 'grant-other-user', clientId: 'mcp-client', userId: 'user-2' }
+    ])
+
+    await expectOAuthError(
+      guardRefreshTokenExchange(kv, 'cross-user-token', refreshFn, {
+        userId: 'user-1',
+        clientId: 'mcp-client',
+        getHelpers: () => helpers
+      }),
+      'invalid_grant',
+      400
+    )
+
+    expect(helpers.revokeGrant).toHaveBeenCalledTimes(1)
+    expect(helpers.revokeGrant).toHaveBeenCalledWith('grant-mine', 'user-1')
+    expect(helpers.revokeGrant).not.toHaveBeenCalledWith('grant-other-user', 'user-1')
+  })
 })
 
 describe('handleTokenExchangeCallback', () => {
