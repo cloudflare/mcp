@@ -1,7 +1,11 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { http, HttpResponse } from 'msw'
+import { describe, expect, it } from 'vitest'
 
 import { refreshAuthToken } from '../../src/auth/cloudflare-auth'
 import { OAuthError } from '../../src/auth/workers-oauth-utils'
+import { server } from '../setup/msw'
+
+const OAUTH_TOKEN_URL = 'https://dash.cloudflare.com/oauth2/token'
 
 const refreshParams = {
   client_id: 'client-id',
@@ -10,8 +14,9 @@ const refreshParams = {
   oauthDomain: 'https://dash.cloudflare.com'
 }
 
+/** Run the REAL refreshAuthToken against an MSW-mocked upstream `response`. */
 async function expectRefreshOAuthError(response: Response): Promise<OAuthError> {
-  vi.stubGlobal('fetch', vi.fn<typeof fetch>().mockResolvedValueOnce(response))
+  server.use(http.post(OAUTH_TOKEN_URL, () => response))
 
   try {
     await refreshAuthToken(refreshParams)
@@ -21,11 +26,6 @@ async function expectRefreshOAuthError(response: Response): Promise<OAuthError> 
     return error as OAuthError
   }
 }
-
-afterEach(() => {
-  vi.restoreAllMocks()
-  vi.unstubAllGlobals()
-})
 
 describe('refreshAuthToken', () => {
   it('preserves Retry-After from upstream OAuth 429 responses', async () => {

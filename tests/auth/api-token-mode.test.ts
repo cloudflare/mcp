@@ -1,18 +1,15 @@
 import { env } from 'cloudflare:workers'
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { getUserAndAccounts } from '../../src/auth/oauth-handler'
+import { http, HttpResponse } from 'msw'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import {
   isDirectApiToken,
   extractBearerToken,
   buildAuthProps,
   handleApiTokenRequest
 } from '../../src/auth/api-token-mode'
-
-vi.mock('../../src/auth/oauth-handler', () => ({
-  getUserAndAccounts: vi.fn()
-}))
-
-const getUserAndAccountsMock = vi.mocked(getUserAndAccounts)
+import { API_BASE, cfError, cfSuccess } from '../helpers/cloudflare-api'
+import { clearKv } from '../helpers/kv'
+import { server } from '../setup/msw'
 
 /**
  * Helper to create a mock Request with given Authorization header
@@ -25,13 +22,7 @@ function mockRequest(authHeader?: string): Request {
   return new Request('https://example.com', { headers })
 }
 
-beforeEach(() => {
-  getUserAndAccountsMock.mockReset()
-})
-
-afterEach(() => {
-  vi.restoreAllMocks()
-})
+afterEach(() => clearKv(env.OAUTH_KV))
 
 describe('isDirectApiToken', () => {
   it('should return false for requests without Authorization header', () => {
@@ -161,33 +152,51 @@ describe('handleApiTokenRequest identity probe caching', () => {
   const user = { id: 'user-1', email: 'test@example.com' }
   const accounts = [{ id: 'acc-1', name: 'Account One' }]
 
+  // Count upstream identity probes so we can assert cache hits/misses without
+  // mocking our own getUserAndAccounts — the REAL function runs against MSW.
+  function mockUserProbe(): () => number {
+    let calls = 0
+    server.use(
+      http.get(`${API_BASE}/user`, () => {
+        calls++
+        return HttpResponse.json(cfSuccess(user))
+      }),
+      http.get(`${API_BASE}/accounts`, () => HttpResponse.json(cfSuccess(accounts)))
+    )
+    return () => calls
+  }
+
   it('stores API token identity lookups in KV by token hash', async () => {
-    const getSpy = vi.spyOn(env.OAUTH_KV, 'get').mockResolvedValue(null)
-    const putSpy = vi.spyOn(env.OAUTH_KV, 'put').mockResolvedValue(undefined)
-    getUserAndAccountsMock.mockResolvedValue({ user, accounts })
+    const probeCalls = mockUserProbe()
     const createMcpResponse = vi.fn().mockResolvedValue(new Response('ok'))
-    const request = mockRequest(`Bearer ${token}`)
 
-    await handleApiTokenRequest(request, createMcpResponse)
+    await handleApiTokenRequest(mockRequest(`Bearer ${token}`), createMcpResponse)
 
-    expect(getSpy).toHaveBeenCalledWith(cacheKey, 'json')
-    expect(getUserAndAccountsMock).toHaveBeenCalledTimes(1)
-    expect(getUserAndAccountsMock).toHaveBeenCalledWith(token, 'api_token_identity_probe')
-    expect(putSpy).toHaveBeenCalledWith(cacheKey, JSON.stringify({ user, accounts }), {
-      expirationTtl: 2_592_000
-    })
+    // The real probe ran once and the identity was written to real KV.
+    expect(probeCalls()).toBe(1)
+    expect(await env.OAUTH_KV.get(cacheKey, 'json')).toEqual({ user, accounts })
+    expect(createMcpResponse).toHaveBeenCalledWith(
+      token,
+      undefined,
+      buildAuthProps(token, user, accounts)
+    )
   })
 
-  it('uses cached API token identity from KV', async () => {
-    vi.spyOn(env.OAUTH_KV, 'get').mockResolvedValue({ user, accounts })
-    const putSpy = vi.spyOn(env.OAUTH_KV, 'put').mockResolvedValue(undefined)
+  it('uses cached API token identity from KV without probing upstream', async () => {
+    // Seed the real cache; any upstream /user hit would throw (unhandled).
+    await env.OAUTH_KV.put(cacheKey, JSON.stringify({ user, accounts }))
+    let probed = false
+    server.use(
+      http.get(`${API_BASE}/user`, () => {
+        probed = true
+        return HttpResponse.json(cfError([], null))
+      })
+    )
     const createMcpResponse = vi.fn().mockResolvedValue(new Response('ok'))
-    const request = mockRequest(`Bearer ${token}`)
 
-    await handleApiTokenRequest(request, createMcpResponse)
+    await handleApiTokenRequest(mockRequest(`Bearer ${token}`), createMcpResponse)
 
-    expect(getUserAndAccountsMock).not.toHaveBeenCalled()
-    expect(putSpy).not.toHaveBeenCalled()
+    expect(probed).toBe(false)
     expect(createMcpResponse).toHaveBeenCalledWith(
       token,
       undefined,

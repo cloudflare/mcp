@@ -10,6 +10,6 @@ export default defineConfig({
   test: {
     globals: true,
     include: ['tests/**/*.test.ts'],
-    setupFiles: ['./tests/e2e/msw-setup.ts']
+    setupFiles: ['./tests/setup/msw.ts']
   }
 })
