@@ -75,6 +75,7 @@ export function registerDocsTool(server: McpServer, env: DocsSearchEnv) {
         )
       },
       annotations: {
+        title: 'Search Cloudflare Docs',
         readOnlyHint: true
       }
     },

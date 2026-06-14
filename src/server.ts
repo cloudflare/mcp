@@ -334,6 +334,7 @@ async function registerNonCodemodeTools(
         (operation.description ? `\n\n${operation.description}` : '')
 
       const inputSchema = buildInputSchema(operation, path)
+      const title = operation.summary || `${method.toUpperCase()} ${path}`
 
       // account_id is auto-resolved at call time for account-token and
       // single-account user-token sessions. The MCP SDK validates arguments
@@ -365,106 +366,110 @@ async function registerNonCodemodeTools(
           .describe('Cloudflare account ID. Required for multi-account tokens.')
       }
 
-      server.registerTool(toolName, { description, inputSchema }, async (params) => {
-        try {
-          // Build the URL with path parameters substituted
-          let resolvedPath = path
-          const pathParams = [...path.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
-          for (const paramName of pathParams) {
-            let value = params[paramName] as string | undefined
+      server.registerTool(
+        toolName,
+        { description, inputSchema, annotations: { title } },
+        async (params) => {
+          try {
+            // Build the URL with path parameters substituted
+            let resolvedPath = path
+            const pathParams = [...path.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
+            for (const paramName of pathParams) {
+              let value = params[paramName] as string | undefined
 
-            // Auto-resolve account_id
-            if (paramName === 'account_id' && !value) {
-              if (accountId) {
-                value = accountId
-              } else if (props?.type === 'user_token' && props.accounts.length === 1) {
-                value = props.accounts[0].id
+              // Auto-resolve account_id
+              if (paramName === 'account_id' && !value) {
+                if (accountId) {
+                  value = accountId
+                } else if (props?.type === 'user_token' && props.accounts.length === 1) {
+                  value = props.accounts[0].id
+                }
               }
+
+              if (!value) {
+                return {
+                  content: [
+                    {
+                      type: 'text' as const,
+                      text: `Error: missing required path parameter: ${paramName}`
+                    }
+                  ],
+                  isError: true
+                }
+              }
+              resolvedPath = resolvedPath.replace(`{${paramName}}`, encodeURIComponent(value))
             }
 
-            if (!value) {
-              return {
-                content: [
-                  {
-                    type: 'text' as const,
-                    text: `Error: missing required path parameter: ${paramName}`
-                  }
-                ],
-                isError: true
-              }
-            }
-            resolvedPath = resolvedPath.replace(`{${paramName}}`, encodeURIComponent(value))
-          }
-
-          // Build query string
-          const url = new URL(apiBase + resolvedPath)
-          if (operation.parameters) {
-            for (const param of operation.parameters) {
-              if (param.in === 'query' && params[param.name] !== undefined) {
-                url.searchParams.set(param.name, String(params[param.name]))
-              }
-            }
-          }
-
-          // Build request
-          const headers: Record<string, string> = {
-            Authorization: `Bearer ${apiToken}`
-          }
-
-          // Add header parameters
-          if (operation.parameters) {
-            for (const param of operation.parameters) {
-              if (param.in === 'header') {
-                const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
-                if (params[headerKey] !== undefined) {
-                  headers[param.name] = String(params[headerKey])
+            // Build query string
+            const url = new URL(apiBase + resolvedPath)
+            if (operation.parameters) {
+              for (const param of operation.parameters) {
+                if (param.in === 'query' && params[param.name] !== undefined) {
+                  url.searchParams.set(param.name, String(params[param.name]))
                 }
               }
             }
-          }
 
-          let requestBody: string | undefined
-          if (params['body']) {
-            headers['Content-Type'] = (params['content_type'] as string) || 'application/json'
-            requestBody = params['body'] as string
-          }
+            // Build request
+            const headers: Record<string, string> = {
+              Authorization: `Bearer ${apiToken}`
+            }
 
-          const response = await fetchWithRetry(
-            url.toString(),
-            {
-              method: method.toUpperCase(),
-              headers,
-              body: requestBody
-            },
-            { caller: 'non_codemode_tool_call' }
-          )
-
-          const contentType = response.headers.get('content-type') || ''
-          let result: string
-
-          if (contentType.includes('application/json')) {
-            const data = await response.json()
-            result = JSON.stringify(data, null, 2)
-          } else {
-            result = await response.text()
-          }
-
-          return {
-            content: [{ type: 'text' as const, text: truncateResponse(result) }],
-            isError: !response.ok
-          }
-        } catch (error) {
-          return {
-            content: [
-              {
-                type: 'text' as const,
-                text: `Error: ${error instanceof Error ? error.message : String(error)}`
+            // Add header parameters
+            if (operation.parameters) {
+              for (const param of operation.parameters) {
+                if (param.in === 'header') {
+                  const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
+                  if (params[headerKey] !== undefined) {
+                    headers[param.name] = String(params[headerKey])
+                  }
+                }
               }
-            ],
-            isError: true
+            }
+
+            let requestBody: string | undefined
+            if (params['body']) {
+              headers['Content-Type'] = (params['content_type'] as string) || 'application/json'
+              requestBody = params['body'] as string
+            }
+
+            const response = await fetchWithRetry(
+              url.toString(),
+              {
+                method: method.toUpperCase(),
+                headers,
+                body: requestBody
+              },
+              { caller: 'non_codemode_tool_call' }
+            )
+
+            const contentType = response.headers.get('content-type') || ''
+            let result: string
+
+            if (contentType.includes('application/json')) {
+              const data = await response.json()
+              result = JSON.stringify(data, null, 2)
+            } else {
+              result = await response.text()
+            }
+
+            return {
+              content: [{ type: 'text' as const, text: truncateResponse(result) }],
+              isError: !response.ok
+            }
+          } catch (error) {
+            return {
+              content: [
+                {
+                  type: 'text' as const,
+                  text: `Error: ${error instanceof Error ? error.message : String(error)}`
+                }
+              ],
+              isError: true
+            }
           }
         }
-      })
+      )
     }
   }
 }
@@ -542,6 +547,9 @@ async () => {
 }`,
       inputSchema: {
         code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec')
+      },
+      annotations: {
+        title: 'Search Cloudflare API'
       }
     },
     async ({ code }) => {
@@ -583,6 +591,9 @@ async () => {
         description: executeDescription,
         inputSchema: {
           code: z.string().describe('JavaScript async arrow function to execute')
+        },
+        annotations: {
+          title: 'Execute Cloudflare API Code'
         }
       },
       async ({ code }) => {
@@ -613,6 +624,9 @@ async () => {
                 ? `Your Cloudflare account ID. Required — this token has access to multiple accounts: ${props.accounts.map((a) => `${a.id} (${a.name})`).join(', ')}`
                 : 'Your Cloudflare account ID. Optional if you have only one account (will be auto-selected)'
             )
+        },
+        annotations: {
+          title: 'Execute Cloudflare API Code'
         }
       },
       async ({ code, account_id }) => {

@@ -515,6 +515,9 @@ describe('createServer with codemode=false', () => {
     expect(toolNames).toContain('get_accounts_workers_scripts')
     expect(toolNames).toContain('post_accounts_workers_scripts')
     expect(toolNames).toContain('get_zones_dns_records')
+    expect(tools['get_accounts_workers_scripts'].annotations?.title).toBe('List Workers')
+    expect(tools['post_accounts_workers_scripts'].annotations?.title).toBe('Create Worker')
+    expect(tools['get_zones_dns_records'].annotations?.title).toBe('List DNS Records')
 
     // Should NOT have codemode tools
     expect(toolNames).not.toContain('search')
@@ -530,6 +533,7 @@ describe('createServer with codemode=false', () => {
     const server = await createServer(env, ctx, 'test-token', 'test-account', undefined, true)
 
     const docsTool = (server as any)._registeredTools['docs']
+    expect(docsTool.annotations?.title).toBe('Search Cloudflare Docs')
     expect(docsTool.description).toContain(
       'This tool should be used to answer any question about Cloudflare products or features'
     )
@@ -558,6 +562,8 @@ describe('createServer with codemode=false', () => {
     expect(toolNames).toContain('docs')
     expect(toolNames).toContain('search')
     expect(toolNames).toContain('execute')
+    expect(tools['search'].annotations?.title).toBe('Search Cloudflare API')
+    expect(tools['execute'].annotations?.title).toBe('Execute Cloudflare API Code')
     expect(toolNames).not.toContain('get_accounts_workers_scripts')
   })
 
