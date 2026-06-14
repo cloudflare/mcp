@@ -397,7 +397,16 @@ export async function getUserAndAccounts(
 
   // Check for upstream errors before parsing
   if (!userResp.ok && !accountsResp.ok) {
-    console.error(`Cloudflare API error: user=${userResp.status}, accounts=${accountsResp.status}`)
+    // Only log genuinely actionable failures. Client errors (400/401/403) are
+    // expected when callers present malformed, expired, or unauthorized tokens,
+    // and 429s are already logged in fetchWithRetry — logging them here just
+    // inflates the error rate with noise.
+    const isServerError = [userResp.status, accountsResp.status].some((status) => status >= 500)
+    if (isServerError) {
+      console.error(
+        `Cloudflare API error: user=${userResp.status}, accounts=${accountsResp.status}`
+      )
+    }
     throwCombinedCloudflareApiError(userResp, accountsResp)
   }
 
