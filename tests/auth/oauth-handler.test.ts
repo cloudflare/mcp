@@ -657,10 +657,10 @@ describe('handleTokenExchangeCallback', () => {
 
   it('refreshes upstream tokens and returns updated auth props', async () => {
     // Real refreshAuthToken runs against the mocked upstream OAuth endpoint.
-    let body: string | undefined
+    let form: FormData | undefined
     server.use(
       http.post(OAUTH_TOKEN_URL, async ({ request }) => {
-        body = await request.text()
+        form = await request.formData()
         return HttpResponse.json({
           access_token: 'new-access-token',
           refresh_token: 'new-refresh-token',
@@ -683,8 +683,8 @@ describe('handleTokenExchangeCallback', () => {
     })
 
     // The real grant_type=refresh_token request hit the upstream endpoint.
-    expect(body).toContain('grant_type=refresh_token')
-    expect(body).toContain('refresh_token=old-refresh-token')
+    expect(form?.get('grant_type')).toBe('refresh_token')
+    expect(form?.get('refresh_token')).toBe('old-refresh-token')
   })
 
   it('throws the local OAuthError that extends the provider OAuthError', async () => {

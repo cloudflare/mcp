@@ -118,11 +118,11 @@ describe('getAuthorizationURL', () => {
 
 describe('getAuthToken', () => {
   it('exchanges an authorization code and parses the token response', async () => {
-    let body: string | undefined
+    let form: FormData | undefined
     let authHeader: string | null = null
     server.use(
       http.post(OAUTH_TOKEN_URL, async ({ request }) => {
-        body = await request.text()
+        form = await request.formData()
         authHeader = request.headers.get('Authorization')
         return HttpResponse.json(validToken)
       })
@@ -131,9 +131,9 @@ describe('getAuthToken', () => {
     await expect(getAuthToken(tokenParams)).resolves.toEqual(validToken)
 
     // Sends grant_type=authorization_code with the PKCE verifier + Basic auth.
-    expect(body).toContain('grant_type=authorization_code')
-    expect(body).toContain('code=auth-code')
-    expect(body).toContain('code_verifier=verifier')
+    expect(form?.get('grant_type')).toBe('authorization_code')
+    expect(form?.get('code')).toBe('auth-code')
+    expect(form?.get('code_verifier')).toBe('verifier')
     expect(authHeader).toBe(`Basic ${btoa('client-id:client-secret')}`)
   })
 

@@ -1,40 +1,16 @@
 import OAuthProvider, { getOAuthApi } from '@cloudflare/workers-oauth-provider'
 import { Hono } from 'hono'
-import { WorkerEntrypoint } from 'cloudflare:workers'
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
 import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
-import { fetchWithRetry } from './utils/fetch-retry'
 import type { AuthProps } from './auth/types'
 
-/**
- * Global outbound fetch handler that restricts dynamically-loaded workers
- * to only make requests to the configured Cloudflare API base URL.
- * The API token is injected via props so it never enters the user code isolate.
- */
-type GlobalOutboundProps = { apiToken: string; fetchWithRetryCaller: string }
-
-export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
-  async fetch(request: Request): Promise<Response> {
-    const allowed = new URL(this.env.CLOUDFLARE_API_BASE).hostname
-    const requested = new URL(request.url).hostname
-    if (requested !== allowed) {
-      return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
-    }
-    // Inject auth header — token comes from props, never enters user code isolate
-    const authedRequest = new Request(request, {
-      headers: new Headers([
-        ...request.headers.entries(),
-        ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
-      ])
-    })
-    return fetchWithRetry(authedRequest, undefined, {
-      caller: this.ctx.props.fetchWithRetryCaller
-    })
-  }
-}
+// GlobalOutbound lives with the execute tool (its only caller); wrangler
+// resolves the GLOBAL_OUTBOUND worker-loader entrypoint from this entry module,
+// so it must be re-exported here.
+export { GlobalOutbound } from './tools/execute'
 
 type McpContext = {
   Bindings: Env

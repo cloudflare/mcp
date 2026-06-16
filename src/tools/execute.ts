@@ -1,8 +1,9 @@
 import { z } from 'zod'
-import { env, exports } from 'cloudflare:workers'
+import { env, exports, WorkerEntrypoint } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { CLOUDFLARE_TYPES } from '../constants'
 import { truncateResponse } from '../truncate'
+import { fetchWithRetry } from '../utils/fetch-retry'
 import { formatError } from '../utils/errors'
 import {
   accountTokenId,
@@ -15,6 +16,37 @@ import type { AuthProps } from '../auth/types'
 
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
+}
+
+type GlobalOutboundProps = { apiToken: string; fetchWithRetryCaller: string }
+
+/**
+ * Outbound fetch proxy for the `execute` isolate: restricts dynamically-loaded
+ * worker code to the configured Cloudflare API base URL and injects the API
+ * token from props (so it never enters the user code isolate).
+ *
+ * Bound as the `GLOBAL_OUTBOUND` worker-loader entrypoint in wrangler.jsonc and
+ * passed to `LOADER.get(..).globalOutbound` below. Wrangler resolves the
+ * entrypoint from the worker's entry module, so index.ts re-exports this class.
+ */
+export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
+  async fetch(request: Request): Promise<Response> {
+    const allowed = new URL(this.env.CLOUDFLARE_API_BASE).hostname
+    const requested = new URL(request.url).hostname
+    if (requested !== allowed) {
+      return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
+    }
+    // Inject auth header — token comes from props, never enters user code isolate
+    const authedRequest = new Request(request, {
+      headers: new Headers([
+        ...request.headers.entries(),
+        ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
+      ])
+    })
+    return fetchWithRetry(authedRequest, undefined, {
+      caller: this.ctx.props.fetchWithRetryCaller
+    })
+  }
 }
 
 /**
