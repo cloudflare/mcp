@@ -40,6 +40,29 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 
 > **Note:** API tokens with **Client IP Address Filtering** enabled are not currently supported.
 
+### Claude Code
+
+Add the Cloudflare MCP server to Claude Code using the CLI:
+
+```bash
+claude mcp add cloudflare-api --transport http https://mcp.cloudflare.com/mcp
+```
+
+Or manually create/edit `.mcp.json` in your project root:
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    }
+  }
+}
+```
+
+After adding the server, restart Claude Code and you'll be prompted to authorize via Cloudflare OAuth on first use.
+
 ### Add to Agent
 
 | Setting      | Value                                                                       |
