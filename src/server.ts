@@ -4,7 +4,8 @@ import { registerDocsTool } from './tools/docs-search'
 import { registerNonCodemodeTools } from './tools/non-codemode'
 import { createCodeExecutor, createSearchExecutor } from './executor'
 import { truncateResponse } from './truncate'
-import { attachMetrics, SERVER_INFO } from './metrics'
+import { attachMetrics } from './metrics'
+import { SERVER_INFO } from './server-info'
 import {
   accountIdParamDescription,
   executeToolDescription,

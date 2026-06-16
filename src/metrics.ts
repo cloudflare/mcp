@@ -25,11 +25,7 @@
 
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { AuthProps } from './auth/types'
-
-export type ClientInfo = { name: string; version: string }
-
-/** Server identity reported on every metrics datapoint and to the MCP client. */
-export const SERVER_INFO: ClientInfo = { name: 'cloudflare-api', version: '0.1.0' }
+import { SERVER_INFO, type ServerInfo } from './server-info'
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
@@ -74,13 +70,13 @@ export class MetricsError extends Error {
  * event object to an AnalyticsEngineDataPoint.
  */
 export abstract class MetricsEvent {
-  private _serverInfo: ClientInfo | undefined
+  private _serverInfo: ServerInfo | undefined
 
-  set serverInfo(serverInfo: ClientInfo) {
+  set serverInfo(serverInfo: ServerInfo) {
     this._serverInfo = serverInfo
   }
 
-  get serverInfo(): ClientInfo {
+  get serverInfo(): ServerInfo {
     if (!this._serverInfo) {
       throw new MetricsError('Server info not set')
     }
@@ -192,7 +188,7 @@ export class AuthUser extends MetricsEvent {
 export class MetricsTracker {
   constructor(
     private wae: AnalyticsEngineDataset | undefined,
-    private serverInfo: ClientInfo
+    private serverInfo: ServerInfo
   ) {}
 
   logEvent(event: MetricsEvent): void {

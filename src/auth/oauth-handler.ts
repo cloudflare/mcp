@@ -36,6 +36,7 @@ import {
 } from './workers-oauth-utils'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { MetricsTracker, AuthUser } from '../metrics'
+import { SERVER_INFO } from '../server-info'
 
 import type {
   AuthRequest,
@@ -51,7 +52,7 @@ interface AuthEnv extends Env {
 const env = cloudflareEnv as AuthEnv
 const REFRESH_GUARD_PREFIX = 'oauth:refresh-guard'
 
-const metrics = new MetricsTracker(env.MCP_METRICS, { name: 'cloudflare-api', version: '0.1.0' })
+const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
 
 /** Format an unknown thrown value into a stable `auth_user` error message. */
 function authErrorMessage(prefix: string, e: unknown): string {
