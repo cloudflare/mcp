@@ -9,6 +9,19 @@ export function cfSuccess(result: unknown) {
   return { success: true, errors: [], messages: [], result }
 }
 
+/** Wrap an account page with the pagination metadata guaranteed by /accounts. */
+export function cfAccountsSuccess(result: Array<{ id: string; name: string }>) {
+  return {
+    ...cfSuccess(result),
+    result_info: {
+      page: 1,
+      per_page: result.length,
+      count: result.length,
+      total_count: result.length
+    }
+  }
+}
+
 /** The standard Cloudflare API failure envelope. */
 export function cfError(errors: Array<{ code: number; message: string }>, result: unknown = null) {
   return { success: false, errors, messages: [], result }
@@ -30,6 +43,6 @@ export function mockIdentityProbe(opts: {
     http.get(`${API_BASE}/user`, () =>
       user ? HttpResponse.json(cfSuccess(user)) : HttpResponse.json(cfError([], null))
     ),
-    http.get(`${API_BASE}/accounts`, () => HttpResponse.json(cfSuccess(accounts)))
+    http.get(`${API_BASE}/accounts`, () => HttpResponse.json(cfAccountsSuccess(accounts)))
   )
 }

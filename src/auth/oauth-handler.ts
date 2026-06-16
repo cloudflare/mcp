@@ -19,6 +19,7 @@ import {
   AccountsSchema,
   AuthProps as AuthPropsSchema,
   AUTH_PROPS_VERSION,
+  ACCOUNTS_PROBE_PAGE_SIZE,
   MAX_STORED_ACCOUNTS,
   type AuthProps,
   type AccountSchema
@@ -383,7 +384,11 @@ async function fetchCloudflareProbes(
   try {
     return await Promise.all([
       fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }, { caller }),
-      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/accounts?per_page=50`, { headers }, { caller })
+      fetchWithRetry(
+        `${env.CLOUDFLARE_API_BASE}/accounts?per_page=${ACCOUNTS_PROBE_PAGE_SIZE}`,
+        { headers },
+        { caller }
+      )
     ])
   } catch (error) {
     console.error('Cloudflare API request failed', error)
@@ -436,14 +441,26 @@ export async function getUserAndAccounts(
       const json = (await accountsResp.json()) as {
         success?: boolean
         result?: unknown
-        result_info?: { total_count?: unknown }
+        result_info?: { count?: unknown; total_count?: unknown }
       }
       if (json.success && json.result) {
         const parsed = AccountsSchema.safeParse(json.result)
         if (parsed.success) {
           accounts = parsed.data
           const reported = json.result_info?.total_count
-          totalAccountCount = typeof reported === 'number' ? reported : accounts.length
+          if (typeof reported === 'number' && Number.isFinite(reported) && reported >= 0) {
+            totalAccountCount = reported
+          } else {
+            const pageCount = json.result_info?.count
+            totalAccountCount =
+              typeof pageCount === 'number' && Number.isFinite(pageCount) && pageCount >= 0
+                ? Math.max(pageCount, accounts.length)
+                : accounts.length
+            console.warn(
+              `Cloudflare API /accounts response is missing a valid result_info.total_count; ` +
+                `falling back to page count ${totalAccountCount}`
+            )
+          }
         } else {
           console.error(
             'Cloudflare API /accounts payload did not match expected shape',
@@ -457,7 +474,8 @@ export async function getUserAndAccounts(
   }
 
   if (user) {
-    // Don't persist a long account list; keep only the count above the cutoff.
+    // Don't persist a long account list. Prefer the API-reported total; the
+    // page count fallback preserves availability if pagination metadata drifts.
     if (totalAccountCount !== undefined && totalAccountCount > MAX_STORED_ACCOUNTS) {
       return { user, accounts: [], accountCount: totalAccountCount }
     }

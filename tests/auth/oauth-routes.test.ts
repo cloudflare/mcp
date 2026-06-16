@@ -1,7 +1,7 @@
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cfSuccess } from '../helpers/cloudflare-api'
+import { cfAccountsSuccess, cfSuccess } from '../helpers/cloudflare-api'
 import { clearKv } from '../helpers/kv'
 import { server } from '../setup/msw'
 
@@ -163,7 +163,7 @@ describe('GET /oauth/callback', () => {
         HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' }))
       ),
       http.get('https://api.cloudflare.com/client/v4/accounts', () =>
-        HttpResponse.json(cfSuccess([{ id: 'acc-1', name: 'Account One' }]))
+        HttpResponse.json(cfAccountsSuccess([{ id: 'acc-1', name: 'Account One' }]))
       )
     )
 
@@ -192,9 +192,7 @@ describe('GET /oauth/callback', () => {
   })
 
   it('returns 400 invalid_request when the code is missing', async () => {
-    const res = await exports.default.fetch(
-      new Request('https://mcp.example.com/oauth/callback')
-    )
+    const res = await exports.default.fetch(new Request('https://mcp.example.com/oauth/callback'))
 
     expect(res.status).toBe(400)
     expect(await res.text()).toContain('invalid_request')

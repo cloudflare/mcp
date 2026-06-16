@@ -20,6 +20,12 @@ export const AccountsSchema = z.array(AccountSchema)
 export const MAX_STORED_ACCOUNTS = 30
 
 /**
+ * Fetch one record past the storage cutoff. A full page proves the account list
+ * is too large to persist even if pagination metadata is unexpectedly absent.
+ */
+export const ACCOUNTS_PROBE_PAGE_SIZE = MAX_STORED_ACCOUNTS + 1
+
+/**
  * Account-list page size the identity probe used before MAX_STORED_ACCOUNTS
  * existed. A pre-versioning grant holding exactly this many accounts was almost
  * certainly truncated to the first page, so its list is treated as incomplete.

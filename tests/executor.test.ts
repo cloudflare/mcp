@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
+import { API_BASE, cfAccountsSuccess, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { callTool, toolText } from './helpers/mcp'
@@ -136,7 +136,7 @@ describe('execute: no account resolved (multi-account user token)', () => {
     mockMultiAccountUser()
     server.use(
       http.get(`${API_BASE}/accounts`, () =>
-        HttpResponse.json(cfSuccess([{ id: ACCOUNT_ID, name: 'Acc One' }]))
+        HttpResponse.json(cfAccountsSuccess([{ id: ACCOUNT_ID, name: 'Acc One' }]))
       )
     )
     const result = await callTool(API_TOKEN, 'execute', {

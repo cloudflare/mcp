@@ -8,7 +8,7 @@ import {
   handleApiTokenRequest
 } from '../../src/auth/api-token-mode'
 import { AUTH_PROPS_VERSION } from '../../src/auth/types'
-import { API_BASE, cfError, cfSuccess } from '../helpers/cloudflare-api'
+import { API_BASE, cfAccountsSuccess, cfError, cfSuccess } from '../helpers/cloudflare-api'
 import { clearKv } from '../helpers/kv'
 import { server } from '../setup/msw'
 
@@ -166,7 +166,7 @@ describe('handleApiTokenRequest identity probe caching', () => {
         calls++
         return HttpResponse.json(cfSuccess(user))
       }),
-      http.get(`${API_BASE}/accounts`, () => HttpResponse.json(cfSuccess(accounts)))
+      http.get(`${API_BASE}/accounts`, () => HttpResponse.json(cfAccountsSuccess(accounts)))
     )
     return () => calls
   }
