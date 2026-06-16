@@ -23,6 +23,7 @@
  * HTTP layer via the User-Agent header instead.
  */
 
+import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { AuthProps } from './auth/types'
 import { SERVER_INFO, type ServerInfo } from './constants'
@@ -223,7 +224,7 @@ function userIdFromProps(props?: AuthProps): string | undefined {
  * `initialize` handshake and can never see the client info. Client identity is
  * instead available at the HTTP layer via the User-Agent header.
  */
-export function attachMetrics(server: McpServer, env: Env, props?: AuthProps): void {
+export function attachMetrics(server: McpServer, props?: AuthProps): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   const userId = userIdFromProps(props)
 

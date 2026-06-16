@@ -107,14 +107,9 @@ function accountIdParamDescription(props?: AuthProps): string {
  *  - User token: `account_id` selects the account, and may be omitted for
  *    account-independent discovery calls such as `GET /accounts`.
  */
-export function registerExecuteTool(
-  server: McpServer,
-  env: Env,
-  ctx: ExecutionContext,
-  props: AuthProps
-): void {
+export function registerExecuteTool(server: McpServer, props: AuthProps): void {
   const apiToken = props.accessToken
-  const executeCode = createCodeExecutor(env, ctx)
+  const executeCode = createCodeExecutor()
   const description = executeToolDescription(props)
   const pinnedAccountId = accountTokenId(props)
 

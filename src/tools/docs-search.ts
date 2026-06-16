@@ -1,8 +1,7 @@
 import { z } from 'zod'
+import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { formatError } from '../utils/errors'
-
-type DocsSearchEnv = Pick<Env, 'AI'>
 
 const AiSearchResponseSchema = z.object({
   object: z.string(),
@@ -54,7 +53,7 @@ const docsToolDescription = `Search the Cloudflare documentation.
 		Results are returned as semantically similar chunks to the query.
 		`
 
-export function registerDocsTool(server: McpServer, env: DocsSearchEnv) {
+export function registerDocsTool(server: McpServer) {
   server.registerTool(
     'docs',
     {

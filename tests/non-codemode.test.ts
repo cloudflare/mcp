@@ -1,8 +1,10 @@
-import { describe, it, expect, vi } from 'vitest'
+import { afterEach, describe, it, expect, vi } from 'vitest'
+import { env } from 'cloudflare:workers'
 import { createServer } from '../src/server'
 import { pathToToolName, buildInputSchema } from '../src/openapi'
 import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
+import { clearR2 } from './helpers/r2'
 
 // Use minimal retry config so tests don't wait for real backoff delays
 vi.mock('../src/utils/fetch-retry', async (importOriginal) => {
@@ -471,29 +473,15 @@ describe('createServer with codemode=false', () => {
     accounts: []
   }
 
-  function makeMockEnv(specPaths: Record<string, Record<string, OperationInfo>>) {
-    return {
-      CLOUDFLARE_API_BASE: 'https://api.cloudflare.com/client/v4',
-      SPEC_BUCKET: {
-        get: vi.fn((key: string) => {
-          if (key === 'spec.json') {
-            return Promise.resolve({
-              json: () => Promise.resolve({ paths: specPaths }),
-              text: () => Promise.resolve(JSON.stringify({ paths: specPaths }))
-            })
-          }
-          if (key === 'products.json') {
-            return Promise.resolve({
-              json: () => Promise.resolve(['workers']),
-              text: () => Promise.resolve(JSON.stringify(['workers']))
-            })
-          }
-          return Promise.resolve(null)
-        })
-      },
-      LOADER: { get: vi.fn() }
-    } as any
+  // Seed the REAL R2 SPEC_BUCKET (vitest-pool-workers provides it as a local
+  // binding) instead of mocking env. Storage isolation is per file, so each
+  // test re-seeds and afterEach wipes it.
+  async function seedSpec(specPaths: Record<string, Record<string, OperationInfo>>): Promise<void> {
+    await env.SPEC_BUCKET.put('spec.json', JSON.stringify({ paths: specPaths }))
+    await env.SPEC_BUCKET.put('products.json', JSON.stringify(['workers']))
   }
+
+  afterEach(() => clearR2(env.SPEC_BUCKET))
 
   function mockFetchJson(data: unknown, ok = true) {
     return vi.fn().mockResolvedValue({
@@ -524,9 +512,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('test-account'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('test-account'), false)
 
     const tools = (server as any)._registeredTools
     const toolNames = Object.keys(tools)
@@ -541,12 +528,8 @@ describe('createServer with codemode=false', () => {
   })
 
   it('registers docs with the Cloudflare docs server description and output schema', async () => {
-    const env = makeMockEnv({})
-    const ctx = {
-      exports: { GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() })) },
-      waitUntil: vi.fn()
-    } as any
-    const server = await createServer(env, ctx, acctProps('test-account'), true)
+    await seedSpec({})
+    const server = await createServer(acctProps('test-account'), true)
 
     const docsTool = (server as any)._registeredTools['docs']
     expect(docsTool.description).toContain(
@@ -565,12 +548,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = {
-      exports: { GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() })) },
-      waitUntil: vi.fn()
-    } as any
-    const server = await createServer(env, ctx, acctProps('test-account'), true)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('test-account'), true)
 
     const tools = (server as any)._registeredTools
     const toolNames = Object.keys(tools)
@@ -591,13 +570,9 @@ describe('createServer with codemode=false', () => {
       user: { id: 'u1', email: 'test@example.com' },
       accounts
     }
-    const env = makeMockEnv({})
-    const ctx = {
-      exports: { GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() })) },
-      waitUntil: vi.fn()
-    } as any
+    await seedSpec({})
 
-    const server = await createServer(env, ctx, props, true)
+    const server = await createServer(props, true)
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
@@ -619,13 +594,9 @@ describe('createServer with codemode=false', () => {
       user: { id: 'u1', email: 'test@example.com' },
       accounts
     }
-    const env = makeMockEnv({})
-    const ctx = {
-      exports: { GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() })) },
-      waitUntil: vi.fn()
-    } as any
+    await seedSpec({})
 
-    const server = await createServer(env, ctx, props, true)
+    const server = await createServer(props, true)
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
@@ -646,13 +617,9 @@ describe('createServer with codemode=false', () => {
       accounts,
       version: AUTH_PROPS_VERSION
     }
-    const env = makeMockEnv({})
-    const ctx = {
-      exports: { GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() })) },
-      waitUntil: vi.fn()
-    } as any
+    await seedSpec({})
 
-    const server = await createServer(env, ctx, props, true)
+    const server = await createServer(props, true)
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
@@ -668,13 +635,9 @@ describe('createServer with codemode=false', () => {
       accounts: [],
       accountCount: 137
     }
-    const env = makeMockEnv({})
-    const ctx = {
-      exports: { GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() })) },
-      waitUntil: vi.fn()
-    } as any
+    await seedSpec({})
 
-    const server = await createServer(env, ctx, props, true)
+    const server = await createServer(props, true)
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
@@ -684,37 +647,9 @@ describe('createServer with codemode=false', () => {
     expect(execute.description).toContain('multiple Cloudflare accounts')
   })
 
-  it('allows execute without account_id for account discovery', async () => {
-    const props: AuthProps = {
-      type: 'user_token',
-      accessToken: 'test-token',
-      user: { id: 'u1', email: 'test@example.com' },
-      accounts: [
-        { id: 'acct-1', name: 'Account One' },
-        { id: 'acct-2', name: 'Account Two' }
-      ]
-    }
-    const env = makeMockEnv({})
-    env.LOADER.get.mockReturnValue({
-      getEntrypoint: vi.fn().mockReturnValue({
-        evaluate: vi.fn().mockResolvedValue({ result: { success: true, result: [] } })
-      })
-    })
-    const ctx = {
-      exports: { GlobalOutbound: vi.fn(() => ({ fetch: vi.fn() })) },
-      waitUntil: vi.fn()
-    } as any
-
-    const server = await createServer(env, ctx, props, true)
-    const execute = (server as any)._registeredTools['execute']
-    const result = await execute.handler(
-      { code: 'async () => cloudflare.request({ method: "GET", path: "/accounts" })' },
-      {} as any
-    )
-
-    expect(result.isError).toBeFalsy()
-    expect(env.LOADER.get).toHaveBeenCalledOnce()
-  })
+  // NOTE: "execute without account_id runs account-independent discovery calls"
+  // is covered end-to-end against the real Worker Loader in tests/executor.test.ts
+  // ('execute: no account resolved (multi-account user token)').
 
   it('tool handler makes direct fetch call for non-codemode tools', async () => {
     const specPaths = {
@@ -726,9 +661,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-123'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-123'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
@@ -768,9 +702,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, bareUserProps, false)
+    await seedSpec(specPaths)
+    const server = await createServer(bareUserProps, false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['delete_zones_dns_records_by_record_id']
@@ -787,9 +720,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, bareUserProps, false)
+    await seedSpec(specPaths)
+    const server = await createServer(bareUserProps, false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['delete_zones_dns_records_by_record_id']
@@ -813,9 +745,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
@@ -846,9 +777,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
@@ -880,9 +810,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['post_accounts_d1_database']
@@ -919,9 +848,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['put_accounts_workers_scripts_by_script_name']
@@ -957,9 +885,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['post_accounts_d1_database']
@@ -983,9 +910,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
@@ -1018,9 +944,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['put_accounts_workers_scripts_by_script_name']
@@ -1060,9 +985,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['put_accounts_workers_scripts_by_script_name']
@@ -1086,9 +1010,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_storage_kv_namespaces_values_by_key_name']
@@ -1112,9 +1035,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
@@ -1141,9 +1063,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
@@ -1167,9 +1088,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-1'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts_by_script_name']
@@ -1204,9 +1124,8 @@ describe('createServer with codemode=false', () => {
       ]
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, props, false)
+    await seedSpec(specPaths)
+    const server = await createServer(props, false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
@@ -1224,9 +1143,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, acctProps('acct-123'), false)
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-123'), false)
 
     const tool = (server as any)._registeredTools['get_accounts_workers_scripts']
     // account_id is pinned to the token's account, so it must not be a param.
@@ -1250,9 +1168,8 @@ describe('createServer with codemode=false', () => {
       accounts: [{ id: 'acct-only', name: 'Only Account' }]
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, props, false)
+    await seedSpec(specPaths)
+    const server = await createServer(props, false)
 
     const tool = (server as any)._registeredTools['get_accounts_workers_scripts']
     // The sole account auto-resolves, so account_id must not be a param.
@@ -1266,9 +1183,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, bareUserProps, false)
+    await seedSpec(specPaths)
+    const server = await createServer(bareUserProps, false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_user']
@@ -1300,9 +1216,8 @@ describe('createServer with codemode=false', () => {
       }
     }
 
-    const env = makeMockEnv(specPaths)
-    const ctx = { exports: {}, waitUntil: vi.fn() } as any
-    const server = await createServer(env, ctx, bareUserProps, false)
+    await seedSpec(specPaths)
+    const server = await createServer(bareUserProps, false)
 
     const tools = (server as any)._registeredTools
     const tool = tools['patch_zones_dns_records_by_record_id']

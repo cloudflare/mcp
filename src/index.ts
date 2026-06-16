@@ -45,13 +45,12 @@ type McpContext = {
  */
 async function createMcpResponse(
   request: Request,
-  env: Env,
   ctx: ExecutionContext,
   props: AuthProps
 ): Promise<Response> {
   const url = new URL(request.url)
   const codemode = url.searchParams.get('codemode') !== 'false'
-  const server = await createServer(env, ctx, props, codemode)
+  const server = await createServer(props, codemode)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
@@ -81,7 +80,7 @@ function createMcpHandler() {
         headers: { 'Content-Type': 'application/json' }
       })
     }
-    return createMcpResponse(c.req.raw, c.env, ctx, props)
+    return createMcpResponse(c.req.raw, ctx, props)
   })
 
   return app
@@ -92,7 +91,7 @@ export default {
     // Check for direct API token first (like GitHub MCP's PAT support)
     if (isDirectApiToken(request)) {
       const response = await handleApiTokenRequest(request, (props) =>
-        createMcpResponse(request, env, ctx, props)
+        createMcpResponse(request, ctx, props)
       )
       if (response) return response
     }

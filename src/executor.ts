@@ -1,3 +1,5 @@
+import { env, exports } from 'cloudflare:workers'
+
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
 }
@@ -6,7 +8,7 @@ interface SearchExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
 }
 
-export function createCodeExecutor(env: Env, ctx: ExecutionContext) {
+export function createCodeExecutor() {
   const apiBase = env.CLOUDFLARE_API_BASE
 
   return async (
@@ -28,7 +30,7 @@ export function createCodeExecutor(env: Env, ctx: ExecutionContext) {
 
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
-      globalOutbound: ctx.exports.GlobalOutbound({
+      globalOutbound: exports.GlobalOutbound({
         props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call' }
       }),
       mainModule: 'worker.js',
@@ -152,7 +154,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
   }
 }
 
-export function createSearchExecutor(env: Env) {
+export function createSearchExecutor() {
   return async (code: string): Promise<unknown> => {
     const obj = await env.SPEC_BUCKET.get('spec.json')
     if (!obj)

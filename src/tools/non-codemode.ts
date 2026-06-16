@@ -1,9 +1,10 @@
 import { z } from 'zod'
+import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { truncateResponse } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { buildInputSchema, pathToToolName, type OperationInfo } from '../openapi'
-import { isMultiAccountUser } from '../auth/account-access'
+import { autoResolvedAccountId, isMultiAccountUser } from '../auth/account-access'
 import { formatError } from '../utils/errors'
 import type { AuthProps } from '../auth/types'
 
@@ -12,15 +13,12 @@ import type { AuthProps } from '../auth/types'
  * Each tool maps directly to a Cloudflare REST endpoint: path/query/header
  * params and a JSON/raw body are forwarded straight through.
  */
-export async function registerNonCodemodeTools(
-  server: McpServer,
-  env: Env,
-  apiToken: string,
+export async function registerNonCodemodeTools(server: McpServer, props: AuthProps): Promise<void> {
+  const apiToken = props.accessToken
   // Account id resolvable without asking the user (account token or
   // single-account user token); undefined when the caller must choose.
-  resolvedAccountId: string | undefined,
-  props?: AuthProps
-): Promise<void> {
+  const resolvedAccountId = autoResolvedAccountId(props)
+
   const obj = await env.SPEC_BUCKET.get('spec.json')
   if (!obj) throw new Error('spec.json not found in R2. Run the scheduled handler to populate it.')
   const spec = (await obj.json()) as { paths: Record<string, Record<string, OperationInfo>> }

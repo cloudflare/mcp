@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { createSearchExecutor } from '../executor'
 import { SPEC_TYPES } from '../openapi'
@@ -49,8 +50,8 @@ async () => {
  * Register the `search` tool: runs sandboxed JavaScript against the
  * pre-resolved OpenAPI spec (no network access).
  */
-export async function registerSearchTool(server: McpServer, env: Env): Promise<void> {
-  const executeSearch = createSearchExecutor(env)
+export async function registerSearchTool(server: McpServer): Promise<void> {
+  const executeSearch = createSearchExecutor()
 
   const obj = await env.SPEC_BUCKET.get('products.json')
   const products: string[] = obj ? await obj.json() : []
