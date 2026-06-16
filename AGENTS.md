@@ -122,9 +122,7 @@ Max 76 OAuth scopes enforced (Cloudflare server limitation).
 - Fetched from GitHub daily (scheduled handler, cron `0 0 * * *`)
 - All `$ref` references resolved inline before storage
 - Products and minimal operation metadata extracted
-- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and the precomputed `non-codemode-tools.json` artifact
-- The non-Code-Mode artifact contains protocol-ready JSON Schemas plus minimal request-routing metadata. `tools/list` serves it directly, avoiding per-request Zod-to-JSON-Schema conversion for ~3,000 tools; `tools/call` still uses the MCP SDK's Zod validation and handlers
-- `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
+- Stored in R2 bucket (`SPEC_BUCKET`)
 
 ### Response truncation
 

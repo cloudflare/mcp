@@ -5,7 +5,6 @@ import { createServer } from './server'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
 import { processSpec, extractProducts } from './spec-processor'
-import { buildNonCodemodeTools, type OperationInfo } from './openapi'
 import type { AuthProps } from './auth/types'
 
 // GlobalOutbound lives with the execute tool (its only caller); wrangler
@@ -125,8 +124,6 @@ export default {
 
     const products = extractProducts(rawSpec)
     const productsJson = JSON.stringify(products)
-    const paths = (processed as { paths: Record<string, Record<string, OperationInfo>> }).paths
-    const nonCodemodeToolsJson = JSON.stringify(buildNonCodemodeTools(paths))
 
     console.log(`Writing spec to R2 (${(specJson.length / 1024).toFixed(0)} KB)`)
     await Promise.all([
@@ -134,9 +131,6 @@ export default {
         httpMetadata: { contentType: 'application/json' }
       }),
       env.SPEC_BUCKET.put('products.json', productsJson, {
-        httpMetadata: { contentType: 'application/json' }
-      }),
-      env.SPEC_BUCKET.put('non-codemode-tools.json', nonCodemodeToolsJson, {
         httpMetadata: { contentType: 'application/json' }
       })
     ])

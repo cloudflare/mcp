@@ -3,7 +3,6 @@ import { writeFileSync, mkdtempSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { processSpec, extractProducts } from '../src/spec-processor'
-import { buildNonCodemodeTools, type OperationInfo } from '../src/openapi'
 
 const OPENAPI_SPEC_URL =
   'https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json'
@@ -28,26 +27,18 @@ const specJson = JSON.stringify(processed)
 
 const products = extractProducts(rawSpec)
 const productsJson = JSON.stringify(products)
-const paths = (processed as { paths: Record<string, Record<string, OperationInfo>> }).paths
-const nonCodemodeToolsJson = JSON.stringify(buildNonCodemodeTools(paths))
 
 console.log(`Spec: ${(specJson.length / 1024 / 1024).toFixed(1)} MB, ${products.length} products`)
 
 const tmp = mkdtempSync(join(tmpdir(), 'mcp-seed-'))
 const specPath = join(tmp, 'spec.json')
 const productsPath = join(tmp, 'products.json')
-const nonCodemodeToolsPath = join(tmp, 'non-codemode-tools.json')
 
 try {
   writeFileSync(specPath, specJson)
   writeFileSync(productsPath, productsJson)
-  writeFileSync(nonCodemodeToolsPath, nonCodemodeToolsJson)
 
-  for (const [key, path] of [
-    ['spec.json', specPath],
-    ['products.json', productsPath],
-    ['non-codemode-tools.json', nonCodemodeToolsPath]
-  ] as const) {
+  for (const [key, path] of [['spec.json', specPath], ['products.json', productsPath]] as const) {
     console.log(`Uploading ${key} to R2 (--env ${env})...`)
     execSync(
       `npx wrangler r2 object put mcp-spec-${env}/${key} --file "${path}" --content-type application/json --env ${env} --remote`,

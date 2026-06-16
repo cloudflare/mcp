@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { SPEC_TYPES } from '../openapi'
-import { getProducts, getSpec } from '../isolate-cache'
+import { getProducts, getSpec } from '../spec-cache'
 import { truncateResponse } from '../truncate'
 import { formatError } from '../utils/errors'
 

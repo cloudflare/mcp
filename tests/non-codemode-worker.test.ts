@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
-import { mcpToolCallRequest, mcpToolListRequest, parseMcpResult, toolText } from './helpers/mcp'
+import { mcpToolCallRequest, parseMcpResult, toolText } from './helpers/mcp'
 import { server } from './setup/msw'
 
 /**
@@ -29,34 +29,7 @@ const SPEC_PATHS = {
       parameters: [{ name: 'account_id', in: 'path', required: true }],
       responses: {}
     }
-  },
-  '/accounts/{account_id}/workers/scripts/{script_name}': {
-    get: {
-      summary: 'Get Worker',
-      tags: ['Workers'],
-      parameters: [
-        { name: 'account_id', in: 'path', required: true },
-        { name: 'script_name', in: 'path', required: true }
-      ],
-      responses: {}
-    }
   }
-}
-
-/** POST a non-codemode tools/list to the real worker. */
-async function listNonCodemodeTools(token: string) {
-  const base = mcpToolListRequest(token)
-  const req = new Request('https://mcp.example.com/mcp?codemode=false', base)
-  const result = (await parseMcpResult(await exports.default.fetch(req))) as unknown as {
-    result?: {
-      tools?: Array<{
-        name: string
-        description?: string
-        inputSchema: { properties?: Record<string, unknown>; required?: string[] }
-      }>
-    }
-  }
-  return result.result?.tools ?? []
 }
 
 /** POST a non-codemode tools/call to the real worker. */
@@ -74,37 +47,6 @@ afterEach(async () => {
 })
 
 describe('non-codemode: account_id auto-resolution through real MCP validation', () => {
-  it('serves the precomputed tool list and removes auto-resolved account_id', async () => {
-    const artifact = JSON.parse(
-      await (await env.SPEC_BUCKET.get('non-codemode-tools.json'))!.text()
-    )
-    artifact[0].description = 'PRECOMPUTED ARTIFACT'
-    await env.SPEC_BUCKET.put('non-codemode-tools.json', JSON.stringify(artifact))
-    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
-
-    const tools = await listNonCodemodeTools(ACCOUNT_TOKEN)
-    const endpoint = tools.find((tool) => tool.name === 'get_accounts_workers_scripts')
-
-    expect(endpoint?.description).toBe('PRECOMPUTED ARTIFACT')
-    expect(endpoint?.inputSchema.properties).not.toHaveProperty('account_id')
-    expect(endpoint?.inputSchema.required ?? []).not.toContain('account_id')
-    expect(tools.map((tool) => tool.name)).toContain('docs')
-  })
-
-  it('keeps SDK tools/call validation for precomputed tool schemas', async () => {
-    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
-
-    const result = await callNonCodemodeTool(
-      ACCOUNT_TOKEN,
-      'get_accounts_workers_scripts_by_script_name',
-      {}
-    )
-
-    expect(result.result?.isError).toBe(true)
-    expect(toolText(result)).toContain('Input validation error')
-    expect(toolText(result)).toContain('script_name')
-  })
-
   it('lets an account-token call an account-scoped tool WITHOUT account_id', async () => {
     // Regression guard: account_id must be optional in the schema for
     // auto-resolvable sessions, else MCP validation rejects before the handler.
