@@ -42,7 +42,10 @@ async function runExecute(path: string, body: unknown, init?: ResponseInit): Pro
 
 describe('execute: REST responses', () => {
   it('returns the success envelope with the response status', async () => {
-    const text = await runExecute(`/accounts/${ACCOUNT_ID}/tokens/verify`, cfSuccess({ status: 'active' }))
+    const text = await runExecute(
+      `/accounts/${ACCOUNT_ID}/tokens/verify`,
+      cfSuccess({ status: 'active' })
+    )
     expect(text).toContain('"status": "active"')
     expect(text).toContain('"success": true')
   })
@@ -50,7 +53,12 @@ describe('execute: REST responses', () => {
   it('surfaces a clean "Cloudflare API error" for a failure envelope with errors', async () => {
     const text = await runExecute(
       `/accounts/${ACCOUNT_ID}/tokens/verify`,
-      { success: false, errors: [{ code: 1000, message: 'Invalid API Token' }], messages: [], result: null },
+      {
+        success: false,
+        errors: [{ code: 1000, message: 'Invalid API Token' }],
+        messages: [],
+        result: null
+      },
       { status: 403 }
     )
     expect(text).toContain('Cloudflare API error')
@@ -111,6 +119,46 @@ describe('execute: GraphQL responses', () => {
   })
 })
 
+describe('execute: no account resolved (multi-account user token)', () => {
+  // A user token spanning >1 account: account_id can't be auto-resolved, so an
+  // execute call without account_id binds no usable `accountId`.
+  function mockMultiAccountUser() {
+    mockIdentityProbe({
+      user: { id: 'u1', email: 'u@example.com' },
+      accounts: [
+        { id: ACCOUNT_ID, name: 'Acc One' },
+        { id: '00000000000000000000000000000002', name: 'Acc Two' }
+      ]
+    })
+  }
+
+  it('runs account-independent calls that never read accountId', async () => {
+    mockMultiAccountUser()
+    server.use(
+      http.get(`${API_BASE}/accounts`, () =>
+        HttpResponse.json(cfSuccess([{ id: ACCOUNT_ID, name: 'Acc One' }]))
+      )
+    )
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "/accounts" })`
+    })
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toContain('"success": true')
+  })
+
+  it('fails fast with a clear message when code reads the unset accountId', async () => {
+    mockMultiAccountUser()
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: \`/accounts/\${accountId}/workers/scripts\` })`
+    })
+    const text = toolText(result)
+    expect(text).toContain('No account selected')
+    expect(text).toContain('GET /accounts')
+    // Must not have silently produced an /accounts//... request.
+    expect(text).not.toContain('/accounts//')
+  })
+})
+
 describe('search: real SPEC_BUCKET', () => {
   const SPEC = {
     paths: {
@@ -131,7 +179,9 @@ describe('search: real SPEC_BUCKET', () => {
   })
 
   it('errors when spec.json is missing from R2', async () => {
-    const result = await callTool(API_TOKEN, 'search', { code: `async () => Object.keys(spec.paths)` })
+    const result = await callTool(API_TOKEN, 'search', {
+      code: `async () => Object.keys(spec.paths)`
+    })
     expect(toolText(result)).toContain('spec.json not found in R2')
   })
 

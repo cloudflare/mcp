@@ -9,8 +9,22 @@ interface SearchExecutorEntrypoint {
 export function createCodeExecutor(env: Env, ctx: ExecutionContext) {
   const apiBase = env.CLOUDFLARE_API_BASE
 
-  return async (code: string, accountId: string, apiToken: string): Promise<unknown> => {
+  return async (
+    code: string,
+    accountId: string | undefined,
+    apiToken: string
+  ): Promise<unknown> => {
     const workerId = `cloudflare-api-${crypto.randomUUID()}`
+
+    // When no account is resolved (a multi-account user who hasn't chosen one),
+    // don't bind a usable `accountId`. Account-independent calls (GET /accounts,
+    // GET /user) never touch it, but any code that reads it fails fast with a
+    // clear message instead of silently producing `/accounts//...` (a 404).
+    const accountIdPrelude = accountId
+      ? `const accountId = ${JSON.stringify(accountId)};`
+      : `Object.defineProperty(globalThis, "accountId", { configurable: true, get() {
+          throw new Error("No account selected: this token has access to multiple accounts. Call GET /accounts to find one, then pass account_id to the execute tool.");
+        } });`
 
     const worker = env.LOADER.get(workerId, () => ({
       compatibilityDate: '2026-01-12',
@@ -23,7 +37,7 @@ export function createCodeExecutor(env: Env, ctx: ExecutionContext) {
 import { WorkerEntrypoint } from "cloudflare:workers";
 
 const apiBase = ${JSON.stringify(apiBase)};
-const accountId = ${JSON.stringify(accountId)};
+${accountIdPrelude}
 
 export default class CodeExecutor extends WorkerEntrypoint {
   async evaluate() {

@@ -97,9 +97,10 @@ export async function createServer(
       },
       async ({ code, account_id }) => {
         try {
-          // An empty accountId lets account-independent requests such as
-          // GET /accounts run before the caller has selected an account.
-          const effectiveAccountId = account_id || autoResolvedAccountId(props) || ''
+          // Undefined accountId lets account-independent requests such as
+          // GET /accounts run before the caller has selected an account; any
+          // code that reads `accountId` then fails fast with a clear message.
+          const effectiveAccountId = account_id || autoResolvedAccountId(props)
 
           const result = await executeCode(code, effectiveAccountId, apiToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
