@@ -41,6 +41,70 @@ function authorizeUrl(params: Record<string, string>): string {
   return u.toString()
 }
 
+async function beginAuthorization(options: { state?: string; scopes?: string } = {}): Promise<{
+  state: string
+  sessionCookie: string
+  location: string
+}> {
+  const clientId = await registerClient()
+  const authRes = await exports.default.fetch(
+    new Request(
+      authorizeUrl({
+        response_type: 'code',
+        client_id: clientId,
+        redirect_uri: REDIRECT_URI,
+        scope: 'user:read',
+        ...(options.state === undefined ? {} : { state: options.state })
+      })
+    )
+  )
+  const html = await authRes.text()
+  const csrfCookie = cookiesFrom(authRes)
+  const stateField = html.match(/name="state" value="([^"]+)"/)?.[1]
+  const csrfField = html.match(/name="csrf_token" value="([^"]+)"/)?.[1]
+  expect(stateField && csrfField).toBeTruthy()
+
+  const postRes = await exports.default.fetch(
+    new Request('https://mcp.example.com/authorize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', Cookie: csrfCookie },
+      body: new URLSearchParams({
+        state: stateField!,
+        csrf_token: csrfField!,
+        scopes: options.scopes ?? 'user:read'
+      }).toString(),
+      redirect: 'manual'
+    })
+  )
+  expect(postRes.status).toBe(302)
+  const location = postRes.headers.get('location')!
+  return {
+    state: new URL(location).searchParams.get('state')!,
+    sessionCookie: cookiesFrom(postRes),
+    location
+  }
+}
+
+function useCloudflareAuthSuccess(): void {
+  server.use(
+    http.post('https://dash.cloudflare.com/oauth2/token', () =>
+      HttpResponse.json({
+        access_token: 'access-token',
+        expires_in: 3600,
+        refresh_token: 'refresh-token',
+        scope: 'user:read',
+        token_type: 'bearer'
+      })
+    ),
+    http.get('https://api.cloudflare.com/client/v4/user', () =>
+      HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' }))
+    ),
+    http.get('https://api.cloudflare.com/client/v4/accounts', () =>
+      HttpResponse.json(cfAccountsSuccess([{ id: 'acc-1', name: 'Account One' }]))
+    )
+  )
+}
+
 /** Collapse a response's Set-Cookie header(s) into a Cookie request header. */
 function cookiesFrom(res: Response): string {
   const raw = res.headers.getSetCookie?.() ?? [res.headers.get('set-cookie') ?? '']
@@ -112,41 +176,7 @@ describe('GET /authorize', () => {
 
 describe('GET /oauth/callback', () => {
   it('completes the full login flow and redirects back to the client with a code', async () => {
-    const clientId = await registerClient()
-
-    // 1. GET /authorize -> consent dialog (CSRF cookie + hidden state/csrf).
-    const authRes = await exports.default.fetch(
-      new Request(
-        authorizeUrl({
-          response_type: 'code',
-          client_id: clientId,
-          redirect_uri: REDIRECT_URI,
-          scope: 'user:read'
-        })
-      )
-    )
-    const html = await authRes.text()
-    const csrfCookie = cookiesFrom(authRes)
-    const stateField = html.match(/name="state" value="([^"]+)"/)?.[1]
-    const csrfField = html.match(/name="csrf_token" value="([^"]+)"/)?.[1]
-    expect(stateField && csrfField).toBeTruthy()
-
-    // 2. POST /authorize (consent) -> 302 to Cloudflare carrying the state token.
-    const postRes = await exports.default.fetch(
-      new Request('https://mcp.example.com/authorize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', Cookie: csrfCookie },
-        body: new URLSearchParams({
-          state: stateField!,
-          csrf_token: csrfField!,
-          scopes: 'user:read'
-        }).toString(),
-        redirect: 'manual'
-      })
-    )
-    expect(postRes.status).toBe(302)
-    const cfState = new URL(postRes.headers.get('location')!).searchParams.get('state')!
-    const sessionCookie = cookiesFrom(postRes)
+    const { state: cfState, sessionCookie } = await beginAuthorization()
 
     // The state forwarded to Cloudflare is an opaque token (RFC 6749 §10.12),
     // not a base64-encoded AuthRequest. Decoding it must NOT yield JSON with
@@ -160,26 +190,9 @@ describe('GET /oauth/callback', () => {
     expect(decodedAsJson).not.toMatchObject({ clientId: expect.anything() })
     expect(decodedAsJson).not.toMatchObject({ redirectUri: expect.anything() })
 
-    // 3. Mock the upstream the callback talks to: token exchange + identity.
-    server.use(
-      http.post('https://dash.cloudflare.com/oauth2/token', () =>
-        HttpResponse.json({
-          access_token: 'access-token',
-          expires_in: 3600,
-          refresh_token: 'refresh-token',
-          scope: 'user:read',
-          token_type: 'bearer'
-        })
-      ),
-      http.get('https://api.cloudflare.com/client/v4/user', () =>
-        HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' }))
-      ),
-      http.get('https://api.cloudflare.com/client/v4/accounts', () =>
-        HttpResponse.json(cfAccountsSuccess([{ id: 'acc-1', name: 'Account One' }]))
-      )
-    )
+    useCloudflareAuthSuccess()
 
-    // 4. GET /oauth/callback -> 302 back to the client redirect URI with a code.
+    // GET /oauth/callback -> 302 back to the client redirect URI with a code.
     const cbRes = await exports.default.fetch(
       new Request(
         `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(cfState)}`,
@@ -203,6 +216,77 @@ describe('GET /oauth/callback', () => {
     expect(dp.blobs?.[3]).toBeFalsy()
   })
 
+  it('preserves Unicode downstream client state without encoding it into upstream state', async () => {
+    const downstreamState = 'client-state-🔐-你好'
+    const { state, sessionCookie } = await beginAuthorization({ state: downstreamState })
+    expect(state).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i)
+
+    useCloudflareAuthSuccess()
+    const res = await exports.default.fetch(
+      new Request(
+        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`,
+        { headers: { Cookie: sessionCookie }, redirect: 'manual' }
+      )
+    )
+
+    expect(res.status).toBe(302)
+    expect(new URL(res.headers.get('location')!).searchParams.get('state')).toBe(downstreamState)
+  })
+
+  it('keeps the upstream authorization URL bounded for large downstream state', async () => {
+    const short = await beginAuthorization({ state: 'short' })
+    const large = await beginAuthorization({ state: 'x'.repeat(8192) })
+
+    expect(large.location.length).toBe(short.location.length)
+    expect(large.location.length).toBeLessThan(2048)
+  })
+
+  it('rejects a valid state token without its session-binding cookie', async () => {
+    const { state } = await beginAuthorization()
+
+    const res = await exports.default.fetch(
+      new Request(
+        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`,
+        { redirect: 'manual' }
+      )
+    )
+
+    expect(res.status).toBe(400)
+    expect(await res.text()).toContain('Missing session binding')
+  })
+
+  it('rejects a valid state token bound to a different browser session', async () => {
+    const first = await beginAuthorization()
+    const second = await beginAuthorization()
+
+    const res = await exports.default.fetch(
+      new Request(
+        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(first.state)}`,
+        { headers: { Cookie: second.sessionCookie }, redirect: 'manual' }
+      )
+    )
+
+    expect(res.status).toBe(400)
+    expect(await res.text()).toContain('State mismatch')
+  })
+
+  it('rejects replay after a state token has completed authorization', async () => {
+    const { state, sessionCookie } = await beginAuthorization()
+    useCloudflareAuthSuccess()
+    const callbackUrl = `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`
+
+    const first = await exports.default.fetch(
+      new Request(callbackUrl, { headers: { Cookie: sessionCookie }, redirect: 'manual' })
+    )
+    expect(first.status).toBe(302)
+
+    const replay = await exports.default.fetch(
+      new Request(callbackUrl, { headers: { Cookie: sessionCookie }, redirect: 'manual' })
+    )
+    expect(replay.status).toBe(400)
+    expect(await replay.text()).toContain('Invalid or expired state')
+  })
+
   it('returns 400 invalid_request when the code is missing', async () => {
     const res = await exports.default.fetch(new Request('https://mcp.example.com/oauth/callback'))
 
@@ -220,12 +304,14 @@ describe('GET /oauth/callback', () => {
     expect(writtenEvents(metricsSpy)).toContain('auth_user')
   })
 
-  it('rejects an unknown/expired state token', async () => {
-    // State is now used directly as the KV lookup key; an unknown opaque token
-    // has no KV entry and is rejected.
+  it.each([
+    ['unknown', crypto.randomUUID()],
+    ['malformed', 'not-a-uuid'],
+    ['oversized', 'x'.repeat(1024)]
+  ])('rejects an %s state token as invalid_request', async (_, state) => {
     const res = await exports.default.fetch(
       new Request(
-        'https://mcp.example.com/oauth/callback?code=authcode&state=never-stored',
+        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`,
         { headers: { Cookie: '__Host-CONSENTED_STATE=deadbeef' } }
       )
     )

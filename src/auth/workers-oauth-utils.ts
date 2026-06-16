@@ -10,6 +10,19 @@ const APPROVED_CLIENTS_COOKIE = '__Host-MCP_APPROVED_CLIENTS'
 const CSRF_COOKIE = '__Host-CSRF_TOKEN'
 const STATE_COOKIE = '__Host-CONSENTED_STATE'
 const ONE_YEAR_IN_SECONDS = 31536000
+const OAuthStateToken = z.uuid()
+
+function encodeBase64Utf8(value: string): string {
+  const bytes = new TextEncoder().encode(value)
+  let binary = ''
+  for (const byte of bytes) binary += String.fromCharCode(byte)
+  return btoa(binary)
+}
+
+function decodeBase64Utf8(value: string): string {
+  const binary = atob(value)
+  return new TextDecoder().decode(Uint8Array.from(binary, (char) => char.charCodeAt(0)))
+}
 
 /**
  * OAuth error class for handling OAuth-specific errors
@@ -449,7 +462,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     requiredScopes = []
   } = options
 
-  const encodedState = btoa(JSON.stringify(state))
+  const encodedState = encodeBase64Utf8(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
   const requiredSet = new Set(requiredScopes)
   const categories = groupScopesByCategory(allScopes, requiredSet)
@@ -1469,7 +1482,7 @@ export async function parseRedirectApproval(
     throw new OAuthError('invalid_request', 'Missing state')
   }
 
-  const state = JSON.parse(atob(encodedState))
+  const state = JSON.parse(decodeBase64Utf8(encodedState))
   if (!state.oauthReqInfo || !state.oauthReqInfo.clientId) {
     throw new OAuthError('invalid_request', 'Invalid state data')
   }
@@ -1754,10 +1767,13 @@ export async function validateOAuthState(
     throw new OAuthError('invalid_request', 'Missing state parameter')
   }
 
-  const stateToken = stateFromQuery
+  const stateToken = OAuthStateToken.safeParse(stateFromQuery)
+  if (!stateToken.success) {
+    throw new OAuthError('invalid_request', 'Invalid state parameter')
+  }
 
   // Validate state exists in KV
-  const storedDataJson = await kv.get(`oauth:state:${stateToken}`)
+  const storedDataJson = await kv.get(`oauth:state:${stateToken.data}`)
   if (!storedDataJson) {
     throw new OAuthError('invalid_request', 'Invalid or expired state')
   }
@@ -1774,7 +1790,7 @@ export async function validateOAuthState(
 
   // Verify hash matches
   const encoder = new TextEncoder()
-  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(stateToken))
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(stateToken.data))
   const expectedHash = Array.from(new Uint8Array(hashBuffer))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('')
@@ -1790,7 +1806,7 @@ export async function validateOAuthState(
   }
 
   // Delete state (single use)
-  await kv.delete(`oauth:state:${stateToken}`)
+  await kv.delete(`oauth:state:${stateToken.data}`)
 
   return {
     oauthReqInfo: parseResult.data.oauthReqInfo as AuthRequest,
