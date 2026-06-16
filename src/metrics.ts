@@ -25,7 +25,7 @@
 
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { AuthProps } from './auth/types'
-import { SERVER_INFO, type ServerInfo } from './server-info'
+import { SERVER_INFO, type ServerInfo } from './constants'
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',

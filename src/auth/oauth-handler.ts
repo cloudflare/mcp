@@ -36,7 +36,7 @@ import {
 } from './workers-oauth-utils'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { MetricsTracker, AuthUser } from '../metrics'
-import { SERVER_INFO } from '../server-info'
+import { SERVER_INFO } from '../constants'
 
 import type {
   AuthRequest,
