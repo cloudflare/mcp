@@ -3,7 +3,8 @@ import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { truncateResponse } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
-import { buildInputSchema, pathToToolName, type OperationInfo } from '../openapi'
+import { buildInputSchema, pathToToolName } from '../openapi'
+import { getSpec } from '../spec-cache'
 import { autoResolvedAccountId, isMultiAccountUser } from '../auth/account-access'
 import { formatError } from '../utils/errors'
 import type { AuthProps } from '../auth/types'
@@ -19,15 +20,13 @@ export async function registerNonCodemodeTools(server: McpServer, props: AuthPro
   // single-account user token); undefined when the caller must choose.
   const resolvedAccountId = autoResolvedAccountId(props)
 
-  const obj = await env.SPEC_BUCKET.get('spec.json')
-  if (!obj) throw new Error('spec.json not found in R2. Run the scheduled handler to populate it.')
-  const spec = (await obj.json()) as { paths: Record<string, Record<string, OperationInfo>> }
+  const { paths } = await getSpec()
   const apiBase = env.CLOUDFLARE_API_BASE
   const registeredNames = new Set<string>()
 
   const methods = ['get', 'post', 'put', 'patch', 'delete'] as const
 
-  for (const [path, pathItem] of Object.entries(spec.paths)) {
+  for (const [path, pathItem] of Object.entries(paths)) {
     for (const method of methods) {
       const operation = pathItem[method]
       if (!operation) continue

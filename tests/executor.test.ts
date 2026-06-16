@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
-import { clearR2 } from './helpers/r2'
+import { clearSpec, seedSpec } from './helpers/spec'
 import { callTool, toolText } from './helpers/mcp'
 import { server } from './setup/msw'
 
@@ -21,7 +21,7 @@ const API_TOKEN = 'test-api-token-executor'
 
 afterEach(async () => {
   await clearKv(env.OAUTH_KV)
-  await clearR2(env.SPEC_BUCKET)
+  await clearSpec()
 })
 
 /** Run an `execute` tool call whose code hits `path`, with MSW returning `body`. */
@@ -160,17 +160,15 @@ describe('execute: no account resolved (multi-account user token)', () => {
 })
 
 describe('search: real SPEC_BUCKET', () => {
-  const SPEC = {
-    paths: {
-      '/accounts/{account_id}/workers/scripts': { get: { summary: 'List Workers' } }
-    }
+  const SPEC_PATHS = {
+    '/accounts/{account_id}/workers/scripts': { get: { summary: 'List Workers' } }
   }
 
   // The API-token path resolves identity before any tool runs.
   beforeEach(() => mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] }))
 
   it('evaluates code against the spec seeded in R2', async () => {
-    await env.SPEC_BUCKET.put('spec.json', JSON.stringify(SPEC))
+    await seedSpec(SPEC_PATHS)
 
     const result = await callTool(API_TOKEN, 'search', {
       code: `async () => Object.keys(spec.paths)`
@@ -186,7 +184,7 @@ describe('search: real SPEC_BUCKET', () => {
   })
 
   it('has no network access (globalOutbound is null for search)', async () => {
-    await env.SPEC_BUCKET.put('spec.json', JSON.stringify(SPEC))
+    await seedSpec(SPEC_PATHS)
 
     const result = await callTool(API_TOKEN, 'search', {
       code: `async () => { await fetch("https://api.cloudflare.com/client/v4/user"); return "should not reach" }`

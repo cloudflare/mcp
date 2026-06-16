@@ -1,10 +1,60 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import { createSearchExecutor } from '../executor'
 import { SPEC_TYPES } from '../openapi'
+import { getProducts, getSpec } from '../spec-cache'
 import { truncateResponse } from '../truncate'
 import { formatError } from '../utils/errors'
+
+interface SearchExecutorEntrypoint {
+  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
+}
+
+/**
+ * Run sandboxed read-only JavaScript against the pre-resolved OpenAPI spec.
+ *
+ * The spec is embedded into a fresh isolate per call (dynamic-worker isolates
+ * disallow eval, so code cannot be passed as data into a warm isolate). The
+ * spec text itself is served from the in-isolate cache, so this avoids an R2
+ * round-trip on every call.
+ */
+async function runSearch(code: string): Promise<unknown> {
+  const { text: specJson } = await getSpec()
+  const workerId = `cloudflare-search-${crypto.randomUUID()}`
+
+  const worker = env.LOADER.get(workerId, () => ({
+    compatibilityDate: '2026-01-12',
+    globalOutbound: null,
+    mainModule: 'worker.js',
+    modules: {
+      'worker.js': `
+import { WorkerEntrypoint } from "cloudflare:workers";
+
+const spec = ${specJson};
+
+export default class SearchExecutor extends WorkerEntrypoint {
+  async evaluate() {
+    try {
+      const result = await (${code})();
+      return { result, err: undefined };
+    } catch (err) {
+      return { result: undefined, err: err.message, stack: err.stack };
+    }
+  }
+}
+      `
+    }
+  }))
+
+  const entrypoint = worker.getEntrypoint() as unknown as SearchExecutorEntrypoint
+  const response = await entrypoint.evaluate()
+
+  if (response.err) {
+    throw new Error(response.err)
+  }
+
+  return response.result
+}
 
 /**
  * Description for the `search` tool, listing a sample of available products and
@@ -51,10 +101,7 @@ async () => {
  * pre-resolved OpenAPI spec (no network access).
  */
 export async function registerSearchTool(server: McpServer): Promise<void> {
-  const executeSearch = createSearchExecutor()
-
-  const obj = await env.SPEC_BUCKET.get('products.json')
-  const products: string[] = obj ? await obj.json() : []
+  const products = await getProducts()
 
   server.registerTool(
     'search',
@@ -66,7 +113,7 @@ export async function registerSearchTool(server: McpServer): Promise<void> {
     },
     async ({ code }) => {
       try {
-        const result = await executeSearch(code)
+        const result = await runSearch(code)
         return { content: [{ type: 'text', text: truncateResponse(result) }] }
       } catch (error) {
         return formatError(error)

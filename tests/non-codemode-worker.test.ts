@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
-import { clearR2 } from './helpers/r2'
+import { clearSpec, seedSpec } from './helpers/spec'
 import { mcpToolCallRequest, parseMcpResult, toolText } from './helpers/mcp'
 import { server } from './setup/msw'
 
@@ -21,37 +21,28 @@ const ACCOUNT_ID = '00000000000000000000000000000001'
 const ACCOUNT_TOKEN = 'acct-token-noncodemode'
 
 // Minimal spec with one account-scoped GET tool.
-const SPEC = {
-  paths: {
-    '/accounts/{account_id}/workers/scripts': {
-      get: {
-        summary: 'List Workers',
-        tags: ['Workers'],
-        parameters: [{ name: 'account_id', in: 'path', required: true }],
-        responses: {}
-      }
+const SPEC_PATHS = {
+  '/accounts/{account_id}/workers/scripts': {
+    get: {
+      summary: 'List Workers',
+      tags: ['Workers'],
+      parameters: [{ name: 'account_id', in: 'path', required: true }],
+      responses: {}
     }
   }
 }
 
 /** POST a non-codemode tools/call to the real worker. */
-async function callNonCodemodeTool(
-  token: string,
-  name: string,
-  args: Record<string, unknown>
-) {
+async function callNonCodemodeTool(token: string, name: string, args: Record<string, unknown>) {
   const base = mcpToolCallRequest(token, name, args)
   const req = new Request('https://mcp.example.com/mcp?codemode=false', base)
   return parseMcpResult(await exports.default.fetch(req))
 }
 
-beforeEach(async () => {
-  await env.SPEC_BUCKET.put('spec.json', JSON.stringify(SPEC))
-  await env.SPEC_BUCKET.put('products.json', JSON.stringify(['workers']))
-})
+beforeEach(() => seedSpec(SPEC_PATHS))
 
 afterEach(async () => {
-  await clearR2(env.SPEC_BUCKET)
+  await clearSpec()
   await clearKv(env.OAUTH_KV)
 })
 

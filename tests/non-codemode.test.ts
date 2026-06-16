@@ -1,10 +1,9 @@
 import { afterEach, describe, it, expect, vi } from 'vitest'
-import { env } from 'cloudflare:workers'
 import { createServer } from '../src/server'
 import { pathToToolName, buildInputSchema } from '../src/openapi'
 import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
-import { clearR2 } from './helpers/r2'
+import { clearSpec, seedSpec } from './helpers/spec'
 
 // Use minimal retry config so tests don't wait for real backoff delays
 vi.mock('../src/utils/fetch-retry', async (importOriginal) => {
@@ -473,15 +472,7 @@ describe('createServer with codemode=false', () => {
     accounts: []
   }
 
-  // Seed the REAL R2 SPEC_BUCKET (vitest-pool-workers provides it as a local
-  // binding) instead of mocking env. Storage isolation is per file, so each
-  // test re-seeds and afterEach wipes it.
-  async function seedSpec(specPaths: Record<string, Record<string, OperationInfo>>): Promise<void> {
-    await env.SPEC_BUCKET.put('spec.json', JSON.stringify({ paths: specPaths }))
-    await env.SPEC_BUCKET.put('products.json', JSON.stringify(['workers']))
-  }
-
-  afterEach(() => clearR2(env.SPEC_BUCKET))
+  afterEach(() => clearSpec())
 
   function mockFetchJson(data: unknown, ok = true) {
     return vi.fn().mockResolvedValue({

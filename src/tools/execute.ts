@@ -1,7 +1,7 @@
 import { z } from 'zod'
+import { env, exports } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { CLOUDFLARE_TYPES } from '../constants'
-import { createCodeExecutor } from '../executor'
 import { truncateResponse } from '../truncate'
 import { formatError } from '../utils/errors'
 import {
@@ -12,6 +12,161 @@ import {
   isSingleAccountUser
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
+
+interface CodeExecutorEntrypoint {
+  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
+}
+
+/**
+ * Run sandboxed JavaScript against the Cloudflare API via `cloudflare.request()`.
+ *
+ * A fresh isolate is created per call: the user code is baked into the module
+ * source (dynamic-worker isolates disallow eval, so code cannot be passed into
+ * a warm isolate), and the API token is injected via the GlobalOutbound props
+ * so it never enters the user code isolate.
+ */
+async function runExecute(
+  code: string,
+  accountId: string | undefined,
+  apiToken: string
+): Promise<unknown> {
+  const apiBase = env.CLOUDFLARE_API_BASE
+  const workerId = `cloudflare-api-${crypto.randomUUID()}`
+
+  // When no account is resolved (a multi-account user who hasn't chosen one),
+  // don't bind a usable `accountId`. Account-independent calls (GET /accounts,
+  // GET /user) never touch it, but any code that reads it fails fast with a
+  // clear message instead of silently producing `/accounts//...` (a 404).
+  const accountIdPrelude = accountId
+    ? `const accountId = ${JSON.stringify(accountId)};`
+    : `Object.defineProperty(globalThis, "accountId", { configurable: true, get() {
+        throw new Error("No account selected: this token has access to multiple accounts. Call GET /accounts to find one, then pass account_id to the execute tool.");
+      } });`
+
+  const worker = env.LOADER.get(workerId, () => ({
+    compatibilityDate: '2026-01-12',
+    globalOutbound: exports.GlobalOutbound({
+      props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call' }
+    }),
+    mainModule: 'worker.js',
+    modules: {
+      'worker.js': `
+import { WorkerEntrypoint } from "cloudflare:workers";
+
+const apiBase = ${JSON.stringify(apiBase)};
+${accountIdPrelude}
+
+export default class CodeExecutor extends WorkerEntrypoint {
+  async evaluate() {
+    const cloudflare = {
+      async request(options) {
+        const { method, path, query, body, contentType, rawBody } = options;
+
+        const url = new URL(apiBase + path);
+        if (query) {
+          for (const [key, value] of Object.entries(query)) {
+            if (value !== undefined) {
+              url.searchParams.set(key, String(value));
+            }
+          }
+        }
+
+        const headers = {};
+
+        if (contentType) {
+          headers["Content-Type"] = contentType;
+        } else if (body && !rawBody) {
+          headers["Content-Type"] = "application/json";
+        }
+
+        let requestBody;
+        if (rawBody) {
+          requestBody = body;
+        } else if (body) {
+          requestBody = JSON.stringify(body);
+        }
+
+        const response = await fetch(url.toString(), {
+          method,
+          headers,
+          body: requestBody,
+        });
+
+        const responseContentType = response.headers.get("content-type") || "";
+
+        // Handle non-JSON responses (e.g., KV values)
+        if (!responseContentType.includes("application/json")) {
+          const text = await response.text();
+          if (!response.ok) {
+            throw new Error("Cloudflare API error: " + response.status + " " + text);
+          }
+          return { success: true, status: response.status, result: text };
+        }
+
+        const data = await response.json();
+
+        // Handle GraphQL responses (different format than REST)
+        const cleanPath = path.split('?')[0].replace(/\\/+$/, '');
+        const isGraphQLEndpoint = cleanPath === '/graphql' || cleanPath.endsWith('/graphql');
+
+        if (isGraphQLEndpoint) {
+          const graphqlErrors = Array.isArray(data.errors) ? data.errors : [];
+          const hasData = data.data !== null && data.data !== undefined;
+
+          // Complete failure: no data, only errors
+          if (graphqlErrors.length > 0 && !hasData) {
+            const msgs = graphqlErrors.map(e => e.message).join(", ");
+            throw new Error("GraphQL error: " + msgs);
+          }
+
+          // Success or partial success
+          return {
+            success: graphqlErrors.length === 0,
+            status: response.status,
+            result: data.data,
+            errors: graphqlErrors.map(e => ({
+              code: e.extensions?.code || 0,
+              message: e.message + (e.path ? \` (at \${e.path.join('.')})\` : '')
+            })),
+            messages: graphqlErrors.length > 0 ? [{
+              code: 0,
+              message: \`Partial response: \${graphqlErrors.length} error(s)\`
+            }] : []
+          };
+        }
+
+        // Handle REST API responses
+        if (!data.success) {
+          const errorList = Array.isArray(data.errors) ? data.errors : [];
+          const errors = errorList.map(e => e.code + ": " + e.message).join(", ");
+          throw new Error("Cloudflare API error: " + (errors || response.status));
+        }
+
+        return { ...data, status: response.status };
+      }
+    };
+
+    try {
+      const result = await (${code})();
+      return { result, err: undefined };
+    } catch (err) {
+      return { result: undefined, err: err.message, stack: err.stack };
+    }
+  }
+}
+      `
+    }
+  }))
+
+  const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
+  const response = await entrypoint.evaluate()
+
+  if (response.err) {
+    throw new Error(response.err)
+  }
+
+  return response.result
+}
 
 /**
  * The `CLOUDFLARE_TYPES` block plus a per-session comment describing how
@@ -109,7 +264,6 @@ function accountIdParamDescription(props?: AuthProps): string {
  */
 export function registerExecuteTool(server: McpServer, props: AuthProps): void {
   const apiToken = props.accessToken
-  const executeCode = createCodeExecutor()
   const description = executeToolDescription(props)
   const pinnedAccountId = accountTokenId(props)
 
@@ -124,7 +278,7 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
       },
       async ({ code }) => {
         try {
-          const result = await executeCode(code, pinnedAccountId, apiToken)
+          const result = await runExecute(code, pinnedAccountId, apiToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return formatError(error)
@@ -150,7 +304,7 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
         // code that reads `accountId` then fails fast with a clear message.
         const effectiveAccountId = account_id || autoResolvedAccountId(props)
 
-        const result = await executeCode(code, effectiveAccountId, apiToken)
+        const result = await runExecute(code, effectiveAccountId, apiToken)
         return { content: [{ type: 'text', text: truncateResponse(result) }] }
       } catch (error) {
         return formatError(error)
