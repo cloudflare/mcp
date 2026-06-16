@@ -1,8 +1,11 @@
 import { env } from 'cloudflare:workers'
-import type { OperationInfo } from './openapi'
+import { buildNonCodemodeTools, zodInputSchemaFromJson } from './openapi'
+import type { JsonObjectSchema, NonCodemodeTool, OperationInfo } from './openapi'
+import type { z } from 'zod'
 
 /**
- * In-isolate cache for the two R2 spec artifacts (`spec.json`, `products.json`).
+ * In-isolate cache for the R2 spec artifacts (`spec.json`, `products.json`,
+ * `non-codemode-tools.json`).
  *
  * The MCP worker isolate stays warm across requests, so without this every
  * search/execute/non-codemode call re-fetched the spec from R2. The scheduled
@@ -19,6 +22,8 @@ type Entry<T> = { value: T; expiresAt: number }
 
 let specEntry: Entry<{ text: string; paths: SpecPaths }> | undefined
 let productsEntry: Entry<string[]> | undefined
+let nonCodemodeToolsEntry: Entry<NonCodemodeTool[]> | undefined
+let zodSchemas = new WeakMap<JsonObjectSchema, Record<string, z.ZodTypeAny>>()
 
 function fresh<T>(entry: Entry<T> | undefined, now: number): entry is Entry<T> {
   return entry !== undefined && entry.expiresAt > now
@@ -26,8 +31,8 @@ function fresh<T>(entry: Entry<T> | undefined, now: number): entry is Entry<T> {
 
 /**
  * The raw `spec.json` text (for embedding into the search isolate) and its
- * parsed `paths` (for non-codemode tool registration). Cached together so both
- * shapes come from a single R2 read. Throws if the spec has not been seeded.
+ * parsed `paths` (for the non-codemode rollout fallback). Cached together so
+ * both shapes come from a single R2 read. Throws if the spec has not been seeded.
  */
 export async function getSpec(): Promise<{ text: string; paths: SpecPaths }> {
   const now = Date.now()
@@ -43,6 +48,36 @@ export async function getSpec(): Promise<{ text: string; paths: SpecPaths }> {
   return value
 }
 
+/**
+ * Protocol-ready non-Code-Mode tools/list artifact. Falls back to deriving it
+ * from spec.json during a rolling deploy before the scheduled task/seed script
+ * has written the new object.
+ */
+export async function getNonCodemodeTools(): Promise<NonCodemodeTool[]> {
+  const now = Date.now()
+  if (fresh(nonCodemodeToolsEntry, now)) return nonCodemodeToolsEntry.value
+
+  const obj = await env.SPEC_BUCKET.get('non-codemode-tools.json')
+  const value = obj
+    ? ((await obj.json()) as NonCodemodeTool[])
+    : buildNonCodemodeTools((await getSpec()).paths)
+  nonCodemodeToolsEntry = { value, expiresAt: now + TTL_MS }
+  return value
+}
+
+/**
+ * Rehydrate each precomputed JSON Schema into Zod once per artifact revision.
+ * Callers shallow-copy the returned shape before account-specific mutations.
+ */
+export function getZodInputSchema(schema: JsonObjectSchema): Record<string, z.ZodTypeAny> {
+  let cached = zodSchemas.get(schema)
+  if (!cached) {
+    cached = zodInputSchemaFromJson(schema)
+    zodSchemas.set(schema, cached)
+  }
+  return cached
+}
+
 /** The product list backing the `search` tool description. Empty if unseeded. */
 export async function getProducts(): Promise<string[]> {
   const now = Date.now()
@@ -55,7 +90,9 @@ export async function getProducts(): Promise<string[]> {
 }
 
 /** Drop cached artifacts. For tests that re-seed R2 between cases. */
-export function resetSpecCache(): void {
+export function resetIsolateCache(): void {
   specEntry = undefined
   productsEntry = undefined
+  nonCodemodeToolsEntry = undefined
+  zodSchemas = new WeakMap()
 }

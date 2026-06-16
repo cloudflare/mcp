@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
-import { resetSpecCache } from '../../src/spec-cache'
+import { resetIsolateCache } from '../../src/isolate-cache'
 import { clearR2 } from './r2'
-import type { OperationInfo } from '../../src/openapi'
+import { buildNonCodemodeTools, type OperationInfo } from '../../src/openapi'
 
 /**
  * Spec-bucket test fixtures. vitest-pool-workers gives each test FILE a real,
@@ -15,11 +15,18 @@ type SpecPaths = Record<string, Record<string, OperationInfo>>
 export async function seedSpec(paths: SpecPaths, products: string[] = ['workers']): Promise<void> {
   await env.SPEC_BUCKET.put('spec.json', JSON.stringify({ paths }))
   await env.SPEC_BUCKET.put('products.json', JSON.stringify(products))
-  resetSpecCache()
+  await env.SPEC_BUCKET.put('non-codemode-tools.json', JSON.stringify(buildNonCodemodeTools(paths)))
+  resetIsolateCache()
+}
+
+/** Remove the precomputed artifact to exercise rolling-deploy fallback. */
+export async function removeNonCodemodeTools(): Promise<void> {
+  await env.SPEC_BUCKET.delete('non-codemode-tools.json')
+  resetIsolateCache()
 }
 
 /** Wipe the spec bucket and the in-isolate spec cache. Call in afterEach. */
 export async function clearSpec(): Promise<void> {
   await clearR2(env.SPEC_BUCKET)
-  resetSpecCache()
+  resetIsolateCache()
 }

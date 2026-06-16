@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import type { Tool } from '@modelcontextprotocol/sdk/types.js'
 import { formatError } from '../utils/errors'
 
 const AiSearchResponseSchema = z.object({
@@ -42,7 +43,7 @@ type DocsSearchOutput = {
   results: DocsSearchResult[]
 }
 
-const docsToolDescription = `Search the Cloudflare documentation.
+export const docsToolDescription = `Search the Cloudflare documentation.
 
 		This tool should be used to answer any question about Cloudflare products or features, including:
 		- Workers, Pages, R2, Images, Stream, D1, Durable Objects, KV, Workflows, Hyperdrive, Queues
@@ -52,6 +53,45 @@ const docsToolDescription = `Search the Cloudflare documentation.
 
 		Results are returned as semantically similar chunks to the query.
 		`
+
+/** Wire-format definition used by the precomputed non-Code-Mode tools/list. */
+export const DOCS_TOOL: Tool = {
+  name: 'docs',
+  description: docsToolDescription,
+  inputSchema: {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    type: 'object',
+    properties: {
+      query: { type: 'string', description: 'Cloudflare documentation search query' }
+    },
+    required: ['query']
+  },
+  outputSchema: {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    type: 'object',
+    properties: {
+      results: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            similarity: { type: 'number', description: 'Similarity score from AI Search' },
+            id: { type: 'string', description: 'Source file ID' },
+            url: { type: 'string', description: 'Developer documentation URL' },
+            title: { type: 'string', description: 'Documentation page title' },
+            text: { type: 'string', description: 'Matching documentation chunk text' }
+          },
+          required: ['similarity', 'id', 'url', 'title', 'text'],
+          additionalProperties: false
+        }
+      }
+    },
+    required: ['results'],
+    additionalProperties: false
+  },
+  annotations: { readOnlyHint: true },
+  execution: { taskSupport: 'forbidden' }
+}
 
 export function registerDocsTool(server: McpServer) {
   server.registerTool(

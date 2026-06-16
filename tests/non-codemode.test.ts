@@ -1,9 +1,13 @@
 import { afterEach, describe, it, expect, vi } from 'vitest'
+import { Client } from '@modelcontextprotocol/sdk/client/index.js'
+import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js'
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { createServer } from '../src/server'
-import { pathToToolName, buildInputSchema } from '../src/openapi'
+import { buildInputSchema, buildNonCodemodeTools, pathToToolName } from '../src/openapi'
 import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
-import { clearSpec, seedSpec } from './helpers/spec'
+import { DOCS_TOOL, registerDocsTool } from '../src/tools/docs-search'
+import { clearSpec, removeNonCodemodeTools, seedSpec } from './helpers/spec'
 
 // Use minimal retry config so tests don't wait for real backoff delays
 vi.mock('../src/utils/fetch-retry', async (importOriginal) => {
@@ -13,6 +17,27 @@ vi.mock('../src/utils/fetch-retry', async (importOriginal) => {
     fetchWithRetry: (input: RequestInfo, init?: RequestInit) =>
       original.fetchWithRetry(input, init, { maxRetries: 0 })
   }
+})
+
+async function listTools(server: McpServer) {
+  const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair()
+  const client = new Client({ name: 'test-client', version: '1.0.0' })
+  await Promise.all([server.connect(serverTransport), client.connect(clientTransport)])
+  try {
+    return (await client.listTools()).tools
+  } finally {
+    await client.close()
+    await server.close()
+  }
+}
+
+describe('precomputed tool contracts', () => {
+  it('keeps the docs wire definition identical to the SDK-generated definition', async () => {
+    const server = new McpServer({ name: 'docs-schema-test', version: '1.0.0' })
+    registerDocsTool(server)
+
+    expect(JSON.parse(JSON.stringify(await listTools(server)))).toEqual([DOCS_TOOL])
+  })
 })
 
 describe('pathToToolName', () => {
@@ -102,6 +127,45 @@ describe('pathToToolName', () => {
 })
 
 describe('buildInputSchema', () => {
+  it('precomputes the same wire JSON Schema emitted by the MCP SDK', async () => {
+    const path = '/zones/{zone_id}/dns_records/{record_id}'
+    const operation: OperationInfo = {
+      parameters: [
+        { name: 'zone_id', in: 'path', required: true, description: 'Zone ID' },
+        { name: 'record_id', in: 'path', required: true },
+        { name: 'page', in: 'query', description: 'Page number' },
+        { name: 'type', in: 'query', required: true },
+        { name: 'If-Match', in: 'header', description: 'ETag' }
+      ],
+      requestBody: {
+        content: {
+          'application/json': {},
+          'text/plain': {}
+        }
+      }
+    }
+    const precomputed = buildNonCodemodeTools({ [path]: { patch: operation } })[0]
+    const server = new McpServer({ name: 'schema-test', version: '1.0.0' })
+    server.registerTool(
+      precomputed.name,
+      { inputSchema: buildInputSchema(operation, path) },
+      async () => ({ content: [] })
+    )
+
+    const [listed] = await listTools(server)
+    expect(precomputed.inputSchema).toEqual(listed.inputSchema)
+  })
+
+  it('deduplicates repeated path parameter names in precomputed required fields', () => {
+    const [tool] = buildNonCodemodeTools({
+      '/accounts/{account_id}/address_maps/{map_id}/accounts/{account_id}': {
+        put: {} as OperationInfo
+      }
+    })
+
+    expect(tool.inputSchema.required).toEqual(['account_id', 'map_id'])
+  })
+
   // --- Path parameters ---
 
   it('creates schema with a single path parameter', () => {
@@ -530,6 +594,25 @@ describe('createServer with codemode=false', () => {
       'Results are returned as semantically similar chunks to the query.'
     )
     expect(docsTool.outputSchema).toBeDefined()
+  })
+
+  it('falls back to spec.json when the precomputed artifact is absent', async () => {
+    const specPaths = {
+      '/user': {
+        get: { summary: 'Get current user' } as OperationInfo
+      }
+    }
+
+    await seedSpec(specPaths)
+    await removeNonCodemodeTools()
+    const server = await createServer(bareUserProps, false)
+
+    const tools = await listTools(server)
+    expect(tools).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: 'get_user', description: 'GET /user\n\nGet current user' })
+      ])
+    )
   })
 
   it('registers codemode tools when codemode=true (default)', async () => {
@@ -1118,10 +1201,20 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(props, false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
+    const registeredTools = (server as any)._registeredTools
+    const tool = registeredTools['get_accounts_workers_scripts']
     // Multi-account user tokens can't auto-resolve account_id, so it stays.
     expect(tool.inputSchema.shape.account_id).toBeDefined()
+
+    const listedTools = await listTools(server)
+    const listedTool = listedTools.find((item) => item.name === 'get_accounts_workers_scripts')
+    expect(listedTool?.inputSchema.required).toContain('account_id')
+    expect(listedTool?.inputSchema.properties?.account_id).toEqual({
+      type: 'string',
+      description: 'Cloudflare account ID. Required for multi-account tokens.'
+    })
+    expect(JSON.stringify(listedTool)).not.toContain('Account One')
+    expect(JSON.stringify(listedTool)).not.toContain('acct-1')
   })
 
   it('drops account_id from the schema for account-token sessions', async () => {
