@@ -3,6 +3,9 @@ import { LEGACY_ACCOUNTS_PAGE_SIZE, type AuthProps } from './types'
 type UserToken = Extract<AuthProps, { type: 'user_token' }>
 type Account = UserToken['accounts'][number]
 
+/** Shared guidance for unresolved multi-account tool calls. */
+export const ACCOUNT_DISCOVERY_GUIDANCE = 'Call GET /accounts to discover available accounts.'
+
 /**
  * Account selection helpers — the single source of truth for how a session's
  * `props` map onto "which Cloudflare account does an API call target". Keep all
