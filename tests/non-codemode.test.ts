@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
-import { pathToToolName, buildInputSchema, createServer } from '../src/server'
-import type { OperationInfo } from '../src/server'
+import { createServer } from '../src/server'
+import { pathToToolName, buildInputSchema } from '../src/openapi'
+import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
 
 // Use minimal retry config so tests don't wait for real backoff delays
