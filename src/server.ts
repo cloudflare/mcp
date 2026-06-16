@@ -30,9 +30,7 @@ export async function createServer(
   // Track tool_call metrics for every tool registered below.
   attachMetrics(server, env, props)
 
-  // AI is bound in every deployed (staging/production) environment; it is only
-  // optional in the unioned Env type because of the dev variant.
-  registerDocsTool(server, env as Required<Pick<Env, 'AI'>>)
+  registerDocsTool(server, env)
 
   if (!codemode) {
     await registerNonCodemodeTools(server, env, apiToken, resolvedAccountId, props)
