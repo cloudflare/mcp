@@ -668,7 +668,7 @@ describe('createServer with codemode=false', () => {
     expect(toolNames).not.toContain('get_accounts_workers_scripts')
   })
 
-  it('includes a small account list only in the execute account_id parameter', async () => {
+  it('includes a small account list only in the execute tool description', async () => {
     const accounts = Array.from({ length: 30 }, (_, index) => ({
       id: `acct-${index + 1}`,
       name: `Account ${index + 1}`
@@ -686,10 +686,13 @@ describe('createServer with codemode=false', () => {
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
     expect((server as any).server._instructions).toBeUndefined()
-    expect(execute.description).not.toContain('acct-1')
-    expect(execute.description).not.toContain('Available accounts')
-    expect(accountIdDescription).toContain('acct-1 (Account 1)')
-    expect(accountIdDescription).toContain('acct-30 (Account 30)')
+    expect(execute.description).toContain('Available accounts')
+    expect(execute.description).toContain('acct-1 (Account 1)')
+    expect(execute.description).toContain('acct-30 (Account 30)')
+    expect(accountIdDescription).not.toContain('acct-1')
+    expect(accountIdDescription).toBe(
+      'Cloudflare account ID to scope execution to a singular account. Optional for account-independent calls.'
+    )
   })
 
   it('treats a legacy grant (no version) with exactly 20 accounts as incomplete', async () => {
@@ -710,8 +713,10 @@ describe('createServer with codemode=false', () => {
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
     expect(accountIdDescription).not.toContain('legacy-acct-1')
-    expect(accountIdDescription).toContain('GET /accounts')
+    expect(accountIdDescription).not.toContain('GET /accounts')
+    expect(execute.description).not.toContain('legacy-acct-1')
     expect(execute.description).toContain('multiple Cloudflare accounts')
+    expect(execute.description).toContain('GET /accounts')
   })
 
   it('inlines exactly 20 accounts when the grant is versioned (complete)', async () => {
@@ -732,8 +737,9 @@ describe('createServer with codemode=false', () => {
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
-    expect(accountIdDescription).toContain('fresh-acct-1 (Fresh Account 1)')
-    expect(accountIdDescription).toContain('fresh-acct-20 (Fresh Account 20)')
+    expect(execute.description).toContain('fresh-acct-1 (Fresh Account 1)')
+    expect(execute.description).toContain('fresh-acct-20 (Fresh Account 20)')
+    expect(accountIdDescription).not.toContain('fresh-acct-1')
   })
 
   it('reports only the count when the account list was omitted at the identity layer', async () => {
@@ -750,10 +756,12 @@ describe('createServer with codemode=false', () => {
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
-    expect(accountIdDescription).toContain('137 accounts')
-    expect(accountIdDescription).toContain('GET /accounts')
-    expect(accountIdDescription).toContain('GET /accounts?name=')
-    expect(execute.description).toContain('multiple Cloudflare accounts')
+    expect(accountIdDescription).not.toContain('137 accounts')
+    expect(accountIdDescription).not.toContain('GET /accounts')
+    expect(execute.description).toContain('137 Cloudflare accounts')
+    expect(execute.description).not.toContain('multiple Cloudflare accounts')
+    expect(execute.description).toContain('GET /accounts')
+    expect(execute.description).toContain('GET /accounts?name=')
   })
 
   // NOTE: "execute without account_id runs account-independent discovery calls"
@@ -1208,10 +1216,37 @@ describe('createServer with codemode=false', () => {
     expect(listedTool?.inputSchema.required).toContain('account_id')
     expect(listedTool?.inputSchema.properties?.account_id).toEqual({
       type: 'string',
-      description: 'Cloudflare account ID. Required for multi-account tokens.'
+      description:
+        'Cloudflare account ID. Required for multi-account tokens. Call the get_accounts tool to discover available accounts.'
     })
     expect(JSON.stringify(listedTool)).not.toContain('Account One')
     expect(JSON.stringify(listedTool)).not.toContain('acct-1')
+  })
+
+  it('adds account discovery guidance when multi-account account_id is missing', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: { summary: 'List Workers' } as OperationInfo
+      }
+    }
+    const props: AuthProps = {
+      type: 'user_token',
+      accessToken: 'test-token',
+      user: { id: 'u1', email: 'test@example.com' },
+      accounts: [
+        { id: 'acct-1', name: 'Account One' },
+        { id: 'acct-2', name: 'Account Two' }
+      ]
+    }
+
+    await seedSpec(specPaths)
+    const server = await createServer(props, false)
+    const result = await callTool(server, 'get_accounts_workers_scripts', {})
+
+    expect(result.isError).toBe(true)
+    expect(result.content[0].text).toContain(
+      'Call the get_accounts tool to discover available accounts.'
+    )
   })
 
   it('drops account_id from the schema for account-token sessions', async () => {

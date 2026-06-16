@@ -153,7 +153,8 @@ describe('execute: no account resolved (multi-account user token)', () => {
     })
     const text = toolText(result)
     expect(text).toContain('No account selected')
-    expect(text).toContain('GET /accounts')
+    expect(text).toContain('Call GET /accounts to discover available accounts.')
+    expect(text).not.toContain('pass account_id to the execute tool')
     // Must not have silently produced an /accounts//... request.
     expect(text).not.toContain('/accounts//')
   })

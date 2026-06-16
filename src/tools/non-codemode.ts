@@ -10,7 +10,11 @@ import {
 import { truncateResponse } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { getNonCodemodeToolMap, getNonCodemodeTools } from '../isolate-cache'
-import { autoResolvedAccountId, isMultiAccountUser } from '../auth/account-access'
+import {
+  NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE,
+  autoResolvedAccountId,
+  isMultiAccountUser
+} from '../auth/account-access'
 import { recordToolCall } from '../metrics'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { zodInputSchemaFromJson, type NonCodemodeTool } from '../openapi'
@@ -121,7 +125,12 @@ async function callNonCodemodeTool(
 }
 
 function validationError(name: string, error: z.ZodError): CallToolResult {
-  return toolError(`Input validation error: Invalid arguments for tool ${name}: ${error.message}`)
+  const accountGuidance = error.issues.some((issue) => issue.path[0] === 'account_id')
+    ? ` ${NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE}`
+    : ''
+  return toolError(
+    `Input validation error: Invalid arguments for tool ${name}: ${error.message}${accountGuidance}`
+  )
 }
 
 function toolError(message: string): CallToolResult {
@@ -149,7 +158,7 @@ function toolForAccountAccess(
   } else if (isMultiAccountUser(props)) {
     properties['account_id'] = {
       type: 'string',
-      description: 'Cloudflare account ID. Required for multi-account tokens.'
+      description: `Cloudflare account ID. Required for multi-account tokens. ${NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE}`
     }
   }
 

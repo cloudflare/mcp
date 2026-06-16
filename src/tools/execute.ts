@@ -6,6 +6,8 @@ import { truncateResponse } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { formatError } from '../utils/errors'
 import {
+  ACCOUNT_DISCOVERY_DESCRIPTION,
+  ACCOUNT_DISCOVERY_GUIDANCE,
   accountTokenId,
   autoResolvedAccountId,
   inlineableAccounts,
@@ -69,10 +71,11 @@ async function runExecute(
   // don't bind a usable `accountId`. Account-independent calls (GET /accounts,
   // GET /user) never touch it, but any code that reads it fails fast with a
   // clear message instead of silently producing `/accounts//...` (a 404).
+  const unresolvedAccountMessage = `No account selected: this token has access to multiple accounts. ${ACCOUNT_DISCOVERY_GUIDANCE}`
   const accountIdPrelude = accountId
     ? `const accountId = ${JSON.stringify(accountId)};`
     : `Object.defineProperty(globalThis, "accountId", { configurable: true, get() {
-        throw new Error("No account selected: this token has access to multiple accounts. Call GET /accounts to find one, then pass account_id to the execute tool.");
+        throw new Error(${JSON.stringify(unresolvedAccountMessage)});
       } });`
 
   const worker = env.LOADER.get(workerId, () => ({
@@ -226,9 +229,7 @@ function cloudflareTypesForAccount(props?: AuthProps): string {
   if (isMultiAccountUser(props)) {
     return (
       CLOUDFLARE_TYPES +
-      `\n// This token has access to multiple Cloudflare accounts.\n` +
-      `// accountId is set from the account_id tool argument, or is empty when omitted.\n` +
-      `// To discover account IDs, omit account_id and call GET /accounts with pagination.\n`
+      `\n// accountId is set from the optional account_id tool argument. Reading it before selecting an account throws an error.\n`
     )
   }
 
@@ -241,11 +242,12 @@ function cloudflareTypesForAccount(props?: AuthProps): string {
  */
 function executeToolDescription(props?: AuthProps): string {
   const types = cloudflareTypesForAccount(props)
+  const accountSelection = accountSelectionDescription(props)
 
   return `Execute JavaScript code against the Cloudflare API. First use the 'search' tool to find the right endpoints, then write code using the cloudflare.request() function.
 
 Available in your code:
-${types}
+${types}${accountSelection}
 
 Your code must be an async arrow function that returns the result.
 
@@ -259,30 +261,29 @@ async () => {
 }`
 }
 
-/**
- * Describe the optional `account_id` argument for multi-account user-token
- * `execute` sessions.
- *
- * - Small, complete account lists are inlined so the model can pick directly.
- * - Otherwise (omitted large list or incomplete legacy list) we point the model
- *   at paginated `GET /accounts` for discovery.
- */
-function accountIdParamDescription(props?: AuthProps): string {
-  if (!isMultiAccountUser(props)) {
-    return 'Your Cloudflare account ID. Optional if you have only one account (will be auto-selected)'
-  }
+function accountSelectionDescription(props?: AuthProps): string {
+  if (!isMultiAccountUser(props)) return ''
 
   const accounts = inlineableAccounts(props)
   if (accounts) {
-    const list = accounts.map((a) => `${a.id} (${a.name})`).join(', ')
-    return `Your Cloudflare account ID. Required for account-scoped API calls. Available accounts: ${list}`
+    const list = accounts.map((account) => `- ${account.id} (${account.name})`).join('\n')
+    return `
+
+Available accounts:
+${list}`
   }
 
-  const countNote =
+  const access =
     props.accountCount !== undefined
-      ? ` This token has access to ${props.accountCount} accounts.`
-      : ''
-  return `Your Cloudflare account ID. Required for account-scoped API calls.${countNote} Omit this argument and page through GET /accounts to discover them, or filter by exact name with GET /accounts?name=<exact account name>.`
+      ? `This token has access to ${props.accountCount} Cloudflare accounts.`
+      : 'This token has access to multiple Cloudflare accounts.'
+  return `
+
+${access} ${ACCOUNT_DISCOVERY_DESCRIPTION}`
+}
+
+function accountIdParamDescription(): string {
+  return 'Cloudflare account ID to scope execution to a singular account. Optional for account-independent calls.'
 }
 
 /**
@@ -326,7 +327,7 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
       description,
       inputSchema: {
         code: z.string().describe('JavaScript async arrow function to execute'),
-        account_id: z.string().optional().describe(accountIdParamDescription(props))
+        account_id: z.string().optional().describe(accountIdParamDescription())
       }
     },
     async ({ code, account_id }) => {
