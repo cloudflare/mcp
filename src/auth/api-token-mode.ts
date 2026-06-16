@@ -3,7 +3,7 @@ import { env as cloudflareEnv } from 'cloudflare:workers'
 import { getUserAndAccounts } from './oauth-handler'
 import { OAuthError } from './workers-oauth-utils'
 
-import type { AccountSchema, AuthProps, UserSchema } from './types'
+import { AUTH_PROPS_VERSION, type AccountSchema, type AuthProps, type UserSchema } from './types'
 
 const env = cloudflareEnv as Env
 const API_TOKEN_IDENTITY_CACHE_TTL_SECONDS = 2_592_000
@@ -11,6 +11,7 @@ const API_TOKEN_IDENTITY_CACHE_TTL_SECONDS = 2_592_000
 type ApiTokenIdentity = {
   user: UserSchema | null
   accounts: AccountSchema[]
+  accountCount?: number
 }
 
 async function hashApiToken(token: string): Promise<string> {
@@ -20,7 +21,9 @@ async function hashApiToken(token: string): Promise<string> {
 
 async function getCachedApiTokenIdentity(token: string): Promise<ApiTokenIdentity> {
   const tokenHash = await hashApiToken(token)
-  const cacheKey = `api-token-identity:${tokenHash}`
+  // v2 namespace: abandons pre-versioning entries that may hold a truncated
+  // first page of accounts rather than the full (or count-only) list.
+  const cacheKey = `api-token-identity:v2:${tokenHash}`
   try {
     const cached = await env.OAUTH_KV.get<ApiTokenIdentity>(cacheKey, 'json')
     if (cached) {
@@ -76,7 +79,7 @@ export function extractBearerToken(request: Request): string | null {
  */
 export async function handleApiTokenRequest(
   request: Request,
-  createMcpResponse: (token: string, accountId?: string, props?: AuthProps) => Promise<Response>
+  createMcpResponse: (props: AuthProps) => Promise<Response>
 ): Promise<Response | null> {
   if (!isDirectApiToken(request)) {
     return null
@@ -91,7 +94,7 @@ export async function handleApiTokenRequest(
   }
 
   try {
-    const { user, accounts } = await getCachedApiTokenIdentity(token)
+    const { user, accounts, accountCount } = await getCachedApiTokenIdentity(token)
 
     // Account-scoped token
     if (!user) {
@@ -110,12 +113,12 @@ export async function handleApiTokenRequest(
         )
       }
       const props = buildAuthProps(token, null, accounts)
-      return createMcpResponse(token, accounts[0].id, props)
+      return createMcpResponse(props)
     }
 
     // User token
-    const props = buildAuthProps(token, user, accounts)
-    return createMcpResponse(token, undefined, props)
+    const props = buildAuthProps(token, user, accounts, accountCount)
+    return createMcpResponse(props)
   } catch (err) {
     if (err instanceof OAuthError) {
       return err.toResponse()
@@ -133,14 +136,17 @@ export async function handleApiTokenRequest(
 export function buildAuthProps(
   token: string,
   user?: { id: string; email: string } | null,
-  accounts?: Array<{ id: string; name: string }>
+  accounts?: Array<{ id: string; name: string }>,
+  accountCount?: number
 ): AuthProps {
   if (user) {
     return {
       type: 'user_token',
       accessToken: token,
       user,
-      accounts: accounts || []
+      accounts: accounts || [],
+      accountCount,
+      version: AUTH_PROPS_VERSION
     }
   }
 

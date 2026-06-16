@@ -1,9 +1,7 @@
 import { z } from 'zod'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 
-interface DocsSearchEnv {
-  AI?: Ai
-}
+type DocsSearchEnv = Pick<Env, 'AI'>
 
 const AiSearchResponseSchema = z.object({
   object: z.string(),

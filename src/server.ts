@@ -5,9 +5,41 @@ import { createCodeExecutor, createSearchExecutor } from './executor'
 import { truncateResponse } from './truncate'
 import { fetchWithRetry } from './utils/fetch-retry'
 import { MetricsTracker, ToolCall } from './metrics'
+import {
+  accountTokenId,
+  autoResolvedAccountId,
+  inlineableAccounts,
+  isMultiAccountUser,
+  isSingleAccountUser
+} from './auth/account-access'
 import type { AuthProps } from './auth/types'
 
 const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
+
+/**
+ * Describe the optional `account_id` argument for user-token sessions.
+ *
+ * - Small, complete account lists are inlined so the model can pick directly.
+ * - Otherwise (omitted large list or incomplete legacy list) we point the model
+ *   at paginated `GET /accounts` for discovery.
+ */
+function accountIdParamDescription(props?: AuthProps): string {
+  if (!isMultiAccountUser(props)) {
+    return 'Your Cloudflare account ID. Optional if you have only one account (will be auto-selected)'
+  }
+
+  const accounts = inlineableAccounts(props)
+  if (accounts) {
+    const list = accounts.map((a) => `${a.id} (${a.name})`).join(', ')
+    return `Your Cloudflare account ID. Required for account-scoped API calls. Available accounts: ${list}`
+  }
+
+  const countNote =
+    props.accountCount !== undefined
+      ? ` This token has access to ${props.accountCount} accounts.`
+      : ''
+  return `Your Cloudflare account ID. Required for account-scoped API calls. The account list is not stored.${countNote} To find a specific account, omit this argument and call GET /accounts?name=<substring>; otherwise page through GET /accounts.`
+}
 
 /**
  * Resolve the userId to attribute metrics to. Only user tokens carry a user
@@ -108,34 +140,30 @@ declare const cloudflare: {
 declare const accountId: string;
 `
 
-function cloudflareTypesForAccount(accountId: string | undefined, props?: AuthProps): string {
-  // When accountId is known, tell the LLM it's pre-set
-  if (accountId) {
-    return (
-      CLOUDFLARE_TYPES +
-      `\n// accountId is pre-set to "${accountId}" — use it directly in API paths.\n`
-    )
-  }
-
-  if (props?.type === 'user_token' && props.accounts.length === 1) {
+function cloudflareTypesForAccount(props?: AuthProps): string {
+  // Single-account user token: name the account so the LLM can confirm it.
+  if (isSingleAccountUser(props)) {
     return (
       CLOUDFLARE_TYPES +
       `\n// accountId is pre-set to "${props.accounts[0].id}" (${props.accounts[0].name}) — use it directly in API paths.\n`
     )
   }
 
-  // When multiple accounts, replace the `declare const accountId: string` with guidance
-  if (props?.type === 'user_token' && props.accounts.length > 1) {
-    const list = props.accounts.map((a) => `//   "${a.id}" — ${a.name}`).join('\n')
-    // Remove the accountId declaration and add multi-account guidance
-    const typesWithoutAccountId = CLOUDFLARE_TYPES.replace('declare const accountId: string;\n', '')
+  // Any other pinned account id (account-scoped token).
+  const pinnedAccountId = autoResolvedAccountId(props)
+  if (pinnedAccountId) {
     return (
-      typesWithoutAccountId +
-      `\n// IMPORTANT: This token has access to multiple Cloudflare accounts.\n` +
-      `// The accountId variable will be set based on the account_id parameter you pass to this tool.\n` +
-      `// Available accounts:\n${list}\n` +
-      `// Ask the user which account to use if unclear, then pass it as the account_id parameter.\n` +
-      `declare const accountId: string; // Set from your account_id parameter\n`
+      CLOUDFLARE_TYPES +
+      `\n// accountId is pre-set to "${pinnedAccountId}" — use it directly in API paths.\n`
+    )
+  }
+
+  if (isMultiAccountUser(props)) {
+    return (
+      CLOUDFLARE_TYPES +
+      `\n// This token has access to multiple Cloudflare accounts.\n` +
+      `// accountId is set from the account_id tool argument, or is empty when omitted.\n` +
+      `// To discover account IDs, omit account_id and call GET /accounts with pagination.\n`
     )
   }
 
@@ -296,7 +324,9 @@ async function registerNonCodemodeTools(
   server: McpServer,
   env: Env,
   apiToken: string,
-  accountId: string | undefined,
+  // Account id resolvable without asking the user (account token or
+  // single-account user token); undefined when the caller must choose.
+  resolvedAccountId: string | undefined,
   props?: AuthProps
 ): Promise<void> {
   const obj = await env.SPEC_BUCKET.get('spec.json')
@@ -340,10 +370,7 @@ async function registerNonCodemodeTools(
       // against the input schema BEFORE the handler runs, so if account_id were
       // a required field these sessions could never call an account-scoped tool
       // without passing it manually. Make it optional when auto-resolvable.
-      const accountIdAutoResolvable =
-        !!accountId || (props?.type === 'user_token' && props.accounts.length === 1)
-
-      if (path.includes('{account_id}') && accountIdAutoResolvable && inputSchema['account_id']) {
+      if (path.includes('{account_id}') && resolvedAccountId && inputSchema['account_id']) {
         inputSchema['account_id'] = z
           .string()
           .optional()
@@ -354,10 +381,7 @@ async function registerNonCodemodeTools(
       // so keep it required (buildInputSchema already added it) with a clearer
       // description.
       const needsAccountId =
-        !accountId &&
-        path.includes('{account_id}') &&
-        props?.type === 'user_token' &&
-        props.accounts.length > 1
+        !resolvedAccountId && path.includes('{account_id}') && isMultiAccountUser(props)
 
       if (needsAccountId) {
         inputSchema['account_id'] = z
@@ -373,13 +397,9 @@ async function registerNonCodemodeTools(
           for (const paramName of pathParams) {
             let value = params[paramName] as string | undefined
 
-            // Auto-resolve account_id
+            // Auto-resolve account_id from the token when not supplied.
             if (paramName === 'account_id' && !value) {
-              if (accountId) {
-                value = accountId
-              } else if (props?.type === 'user_token' && props.accounts.length === 1) {
-                value = props.accounts[0].id
-              }
+              value = resolvedAccountId
             }
 
             if (!value) {
@@ -472,21 +492,15 @@ async function registerNonCodemodeTools(
 export async function createServer(
   env: Env,
   ctx: ExecutionContext,
-  apiToken: string,
-  accountId: string | undefined,
-  props?: AuthProps,
+  props: AuthProps,
   codemode = true
 ): Promise<McpServer> {
-  // Build server instructions with account info for multi-account tokens
-  let instructions: string | undefined
-  if (!accountId && props?.type === 'user_token' && props.accounts.length > 1) {
-    const list = props.accounts.map((a) => `  - ${a.id} (${a.name})`).join('\n')
-    instructions =
-      `This token has access to multiple Cloudflare accounts. ` +
-      `Pass the account_id argument to tools that require it.\n\nAvailable accounts:\n${list}`
-  }
+  const apiToken = props.accessToken
+  // Account id usable without asking the user (account token, or single-account
+  // user token); undefined when the model must choose per call.
+  const resolvedAccountId = autoResolvedAccountId(props)
 
-  const server = new McpServer(SERVER_INFO, instructions ? { instructions } : undefined)
+  const server = new McpServer(SERVER_INFO)
 
   // Track tool_call metrics for every tool registered below.
   attachMetrics(server, env, props)
@@ -494,7 +508,7 @@ export async function createServer(
   registerDocsTool(server, env)
 
   if (!codemode) {
-    await registerNonCodemodeTools(server, env, apiToken, accountId, props)
+    await registerNonCodemodeTools(server, env, apiToken, resolvedAccountId, props)
     return server
   }
 
@@ -557,7 +571,7 @@ async () => {
     }
   )
 
-  const types = cloudflareTypesForAccount(accountId, props)
+  const types = cloudflareTypesForAccount(props)
 
   const executeDescription = `Execute JavaScript code against the Cloudflare API. First use the 'search' tool to find the right endpoints, then write code using the cloudflare.request() function.
 
@@ -575,7 +589,8 @@ async () => {
   return cloudflare.request({ method: "PUT", path: \`/accounts/\${accountId}/workers/scripts/my-worker\`, body, contentType: \`multipart/form-data; boundary=\${b}\`, rawBody: true });
 }`
 
-  if (accountId) {
+  const pinnedAccountId = accountTokenId(props)
+  if (pinnedAccountId) {
     // Account token mode: account_id is fixed, not a parameter
     server.registerTool(
       'execute',
@@ -587,7 +602,7 @@ async () => {
       },
       async ({ code }) => {
         try {
-          const result = await executeCode(code, accountId, apiToken)
+          const result = await executeCode(code, pinnedAccountId, apiToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
           return {
@@ -598,53 +613,22 @@ async () => {
       }
     )
   } else {
-    // User token mode: account_id must be provided each time (or we show available accounts)
+    // User token mode: account_id selects the account for account-scoped calls.
+    // It may be omitted for account-independent discovery calls such as GET /accounts.
     server.registerTool(
       'execute',
       {
         description: executeDescription,
         inputSchema: {
           code: z.string().describe('JavaScript async arrow function to execute'),
-          account_id: z
-            .string()
-            .optional()
-            .describe(
-              props?.type === 'user_token' && props.accounts.length > 1
-                ? `Your Cloudflare account ID. Required — this token has access to multiple accounts: ${props.accounts.map((a) => `${a.id} (${a.name})`).join(', ')}`
-                : 'Your Cloudflare account ID. Optional if you have only one account (will be auto-selected)'
-            )
+          account_id: z.string().optional().describe(accountIdParamDescription(props))
         }
       },
       async ({ code, account_id }) => {
         try {
-          let effectiveAccountId: string
-
-          if (account_id) {
-            effectiveAccountId = account_id
-          } else if (props?.type === 'user_token') {
-            if (props.accounts.length === 1) {
-              effectiveAccountId = props.accounts[0].id
-            } else {
-              const accountsList = props.accounts
-                .map((acc) => `  - ${acc.id} (${acc.name})`)
-                .join('\n')
-
-              return {
-                content: [
-                  {
-                    type: 'text',
-                    text: `Error: Multiple accounts available. Please specify account_id parameter.\n\nAvailable accounts:\n${accountsList}`
-                  }
-                ],
-                isError: true
-              }
-            }
-          } else {
-            return {
-              content: [{ type: 'text', text: 'Error: account_id parameter is required' }],
-              isError: true
-            }
-          }
+          // An empty accountId lets account-independent requests such as
+          // GET /accounts run before the caller has selected an account.
+          const effectiveAccountId = account_id || autoResolvedAccountId(props) || ''
 
           const result = await executeCode(code, effectiveAccountId, apiToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }

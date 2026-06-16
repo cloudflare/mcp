@@ -41,19 +41,17 @@ type McpContext = {
 }
 
 /**
- * Create MCP response for a given token and optional account ID
+ * Create an MCP response for the authenticated session described by `props`.
  */
 async function createMcpResponse(
   request: Request,
   env: Env,
   ctx: ExecutionContext,
-  token: string,
-  accountId?: string,
-  props?: AuthProps
+  props: AuthProps
 ): Promise<Response> {
   const url = new URL(request.url)
   const codemode = url.searchParams.get('codemode') !== 'false'
-  const server = await createServer(env, ctx, token, accountId, props, codemode)
+  const server = await createServer(env, ctx, props, codemode)
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,
@@ -83,8 +81,7 @@ function createMcpHandler() {
         headers: { 'Content-Type': 'application/json' }
       })
     }
-    const accountId = props.type === 'account_token' ? props.account.id : undefined
-    return createMcpResponse(c.req.raw, c.env, ctx, props.accessToken, accountId, props)
+    return createMcpResponse(c.req.raw, c.env, ctx, props)
   })
 
   return app
@@ -94,8 +91,8 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     // Check for direct API token first (like GitHub MCP's PAT support)
     if (isDirectApiToken(request)) {
-      const response = await handleApiTokenRequest(request, (token, accountId, props) =>
-        createMcpResponse(request, env, ctx, token, accountId, props)
+      const response = await handleApiTokenRequest(request, (props) =>
+        createMcpResponse(request, env, ctx, props)
       )
       if (response) return response
     }

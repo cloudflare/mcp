@@ -7,6 +7,7 @@ import {
   buildAuthProps,
   handleApiTokenRequest
 } from '../../src/auth/api-token-mode'
+import { AUTH_PROPS_VERSION } from '../../src/auth/types'
 import { API_BASE, cfError, cfSuccess } from '../helpers/cloudflare-api'
 import { clearKv } from '../helpers/kv'
 import { server } from '../setup/msw'
@@ -101,7 +102,9 @@ describe('buildAuthProps', () => {
       type: 'user_token',
       accessToken: mockToken,
       user: mockUser,
-      accounts: mockAccounts
+      accounts: mockAccounts,
+      accountCount: undefined,
+      version: AUTH_PROPS_VERSION
     })
   })
 
@@ -112,7 +115,9 @@ describe('buildAuthProps', () => {
       type: 'user_token',
       accessToken: mockToken,
       user: mockUser,
-      accounts: []
+      accounts: [],
+      accountCount: undefined,
+      version: AUTH_PROPS_VERSION
     })
   })
 
@@ -148,7 +153,7 @@ describe('buildAuthProps', () => {
 describe('handleApiTokenRequest identity probe caching', () => {
   const token = 'api-token-123'
   const tokenHash = '9bdb81d121b42d1c7819c816fa3cfbb6ee109726f9ed2475edb169374881d7b3'
-  const cacheKey = `api-token-identity:${tokenHash}`
+  const cacheKey = `api-token-identity:v2:${tokenHash}`
   const user = { id: 'user-1', email: 'test@example.com' }
   const accounts = [{ id: 'acc-1', name: 'Account One' }]
 
@@ -175,11 +180,7 @@ describe('handleApiTokenRequest identity probe caching', () => {
     // The real probe ran once and the identity was written to real KV.
     expect(probeCalls()).toBe(1)
     expect(await env.OAUTH_KV.get(cacheKey, 'json')).toEqual({ user, accounts })
-    expect(createMcpResponse).toHaveBeenCalledWith(
-      token,
-      undefined,
-      buildAuthProps(token, user, accounts)
-    )
+    expect(createMcpResponse).toHaveBeenCalledWith(buildAuthProps(token, user, accounts))
   })
 
   it('uses cached API token identity from KV without probing upstream', async () => {
@@ -197,10 +198,6 @@ describe('handleApiTokenRequest identity probe caching', () => {
     await handleApiTokenRequest(mockRequest(`Bearer ${token}`), createMcpResponse)
 
     expect(probed).toBe(false)
-    expect(createMcpResponse).toHaveBeenCalledWith(
-      token,
-      undefined,
-      buildAuthProps(token, user, accounts)
-    )
+    expect(createMcpResponse).toHaveBeenCalledWith(buildAuthProps(token, user, accounts))
   })
 })
