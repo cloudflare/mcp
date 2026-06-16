@@ -1,5 +1,10 @@
 import { describe, it, expect, vi } from 'vitest'
-import { extractTitle, formatDocsResults, queryCloudflareDocs, sourceToUrl } from '../src/docs-search'
+import {
+  extractTitle,
+  formatDocsResults,
+  queryCloudflareDocs,
+  sourceToUrl
+} from '../src/tools/docs-search'
 
 describe('docs search', () => {
   function makeAi(response: unknown): { ai: Ai; search: ReturnType<typeof vi.fn> } {

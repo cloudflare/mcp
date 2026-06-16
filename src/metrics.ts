@@ -23,7 +23,13 @@
  * HTTP layer via the User-Agent header instead.
  */
 
+import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import type { AuthProps } from './auth/types'
+
 export type ClientInfo = { name: string; version: string }
+
+/** Server identity reported on every metrics datapoint and to the MCP client. */
+export const SERVER_INFO: ClientInfo = { name: 'cloudflare-api', version: '0.1.0' }
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
@@ -198,4 +204,71 @@ export class MetricsTracker {
       console.error(`Failed to log metrics event, ${e}`)
     }
   }
+}
+
+/**
+ * Resolve the userId to attribute metrics to. Only user tokens carry a user
+ * identity; account tokens have no user, so blob3 is left undefined — matching
+ * the other Cloudflare MCP servers (`props.type === 'user_token' ? ... : undefined`).
+ */
+function userIdFromProps(props?: AuthProps): string | undefined {
+  return props?.type === 'user_token' ? props.user.id : undefined
+}
+
+/**
+ * Wire Analytics Engine metrics into a server instance: log a `tool_call` for
+ * every tool invocation (with an `errorCode` on failure). Monkey-patches
+ * `registerTool` so every tool registered after this call is tracked
+ * identically. Tolerant of a missing MCP_METRICS binding (becomes a no-op).
+ *
+ * Note: unlike the Durable-Object-backed Cloudflare MCP servers, this server is
+ * stateless (a fresh McpServer per request), so there is no meaningful
+ * `session_start` to log — `oninitialized` fires on a separate request from the
+ * `initialize` handshake and can never see the client info. Client identity is
+ * instead available at the HTTP layer via the User-Agent header.
+ */
+export function attachMetrics(server: McpServer, env: Env, props?: AuthProps): void {
+  const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
+  const userId = userIdFromProps(props)
+
+  const errorCodeOf = (e: unknown): number =>
+    typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
+
+  // Our tool callbacks signal failure by returning `{ isError: true }` rather
+  // than throwing, so inspect the resolved result as well as the thrown path.
+  const logResult = (name: string, result: unknown) => {
+    const errorCode = (result as { isError?: boolean })?.isError ? -1 : undefined
+    metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode }))
+  }
+
+  const originalRegisterTool = server.registerTool.bind(server) as (
+    ...args: unknown[]
+  ) => ReturnType<McpServer['registerTool']>
+
+  server.registerTool = ((name: string, ...rest: unknown[]) => {
+    const lastIndex = rest.length - 1
+    const cb = rest[lastIndex] as (...cbArgs: unknown[]) => unknown
+    rest[lastIndex] = (...cbArgs: unknown[]) => {
+      try {
+        const out = cb(...cbArgs)
+        if (out instanceof Promise) {
+          return out
+            .then((r) => {
+              logResult(name, r)
+              return r
+            })
+            .catch((e: unknown) => {
+              metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
+              throw e
+            })
+        }
+        logResult(name, out)
+        return out
+      } catch (e) {
+        metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
+        throw e
+      }
+    }
+    return originalRegisterTool(name, ...rest)
+  }) as McpServer['registerTool']
 }
