@@ -241,6 +241,24 @@ describe('GET /oauth/callback', () => {
     expect(large.location.length).toBeLessThan(2048)
   })
 
+  it('accepts an in-flight legacy base64-JSON state during deployment', async () => {
+    const { state, sessionCookie } = await beginAuthorization()
+    const legacyState = btoa(JSON.stringify({ state }))
+    useCloudflareAuthSuccess()
+
+    const res = await exports.default.fetch(
+      new Request(
+        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(legacyState)}`,
+        { headers: { Cookie: sessionCookie }, redirect: 'manual' }
+      )
+    )
+
+    expect(res.status).toBe(302)
+    expect(
+      new URL(res.headers.get('location')!).origin + new URL(res.headers.get('location')!).pathname
+    ).toBe(REDIRECT_URI)
+  })
+
   it('rejects a valid state token without its session-binding cookie', async () => {
     const { state } = await beginAuthorization()
 

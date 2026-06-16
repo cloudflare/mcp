@@ -11,6 +11,8 @@ const CSRF_COOKIE = '__Host-CSRF_TOKEN'
 const STATE_COOKIE = '__Host-CONSENTED_STATE'
 const ONE_YEAR_IN_SECONDS = 31536000
 const OAuthStateToken = z.uuid()
+const LegacyOAuthState = z.object({ state: OAuthStateToken }).passthrough()
+const MAX_LEGACY_OAUTH_STATE_LENGTH = 32_768
 
 function encodeBase64Utf8(value: string): string {
   const bytes = new TextEncoder().encode(value)
@@ -22,6 +24,21 @@ function encodeBase64Utf8(value: string): string {
 function decodeBase64Utf8(value: string): string {
   const binary = atob(value)
   return new TextDecoder().decode(Uint8Array.from(binary, (char) => char.charCodeAt(0)))
+}
+
+function parseOAuthStateToken(state: string): string | undefined {
+  const current = OAuthStateToken.safeParse(state)
+  if (current.success) return current.data
+
+  // TODO: Remove this legacy base64-JSON reader after all OAuth flows started
+  // before the opaque-state deployment have exceeded the 600-second KV TTL.
+  if (state.length > MAX_LEGACY_OAUTH_STATE_LENGTH) return undefined
+  try {
+    const legacy = LegacyOAuthState.safeParse(JSON.parse(atob(state)))
+    return legacy.success ? legacy.data.state : undefined
+  } catch {
+    return undefined
+  }
 }
 
 /**
@@ -1767,13 +1784,13 @@ export async function validateOAuthState(
     throw new OAuthError('invalid_request', 'Missing state parameter')
   }
 
-  const stateToken = OAuthStateToken.safeParse(stateFromQuery)
-  if (!stateToken.success) {
+  const stateToken = parseOAuthStateToken(stateFromQuery)
+  if (!stateToken) {
     throw new OAuthError('invalid_request', 'Invalid state parameter')
   }
 
   // Validate state exists in KV
-  const storedDataJson = await kv.get(`oauth:state:${stateToken.data}`)
+  const storedDataJson = await kv.get(`oauth:state:${stateToken}`)
   if (!storedDataJson) {
     throw new OAuthError('invalid_request', 'Invalid or expired state')
   }
@@ -1790,7 +1807,7 @@ export async function validateOAuthState(
 
   // Verify hash matches
   const encoder = new TextEncoder()
-  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(stateToken.data))
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(stateToken))
   const expectedHash = Array.from(new Uint8Array(hashBuffer))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('')
@@ -1806,7 +1823,7 @@ export async function validateOAuthState(
   }
 
   // Delete state (single use)
-  await kv.delete(`oauth:state:${stateToken.data}`)
+  await kv.delete(`oauth:state:${stateToken}`)
 
   return {
     oauthReqInfo: parseResult.data.oauthReqInfo as AuthRequest,
