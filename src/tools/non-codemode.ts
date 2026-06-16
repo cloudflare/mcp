@@ -1,159 +1,159 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+  type CallToolResult,
+  type Tool
+} from '@modelcontextprotocol/sdk/types.js'
 import { truncateResponse } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
-import { buildInputSchema, pathToToolName } from '../openapi'
-import { getSpec } from '../spec-cache'
+import { getNonCodemodeToolMap, getNonCodemodeTools } from '../isolate-cache'
 import { autoResolvedAccountId, isMultiAccountUser } from '../auth/account-access'
-import { formatError } from '../utils/errors'
+import { recordToolCall } from '../metrics'
+import { DOCS_TOOL, runDocsTool } from './docs-search'
+import { zodInputSchemaFromJson, type NonCodemodeTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
 
 /**
- * Register one MCP tool per OpenAPI operation (non-Code-Mode passthrough mode).
- * Each tool maps directly to a Cloudflare REST endpoint: path/query/header
- * params and a JSON/raw body are forwarded straight through.
+ * Install lazy non-Code-Mode protocol handlers.
+ *
+ * Unlike `registerTool`, these handlers do not create ~3,000 closures and Zod
+ * schemas per HTTP request. `tools/list` serves the precomputed JSON artifact;
+ * `tools/call` validates and dispatches only the requested operation.
  */
 export async function registerNonCodemodeTools(server: McpServer, props: AuthProps): Promise<void> {
-  const apiToken = props.accessToken
-  // Account id resolvable without asking the user (account token or
-  // single-account user token); undefined when the caller must choose.
+  const tools = await getNonCodemodeTools()
+  const toolsByName = await getNonCodemodeToolMap()
   const resolvedAccountId = autoResolvedAccountId(props)
 
-  const { paths } = await getSpec()
-  const apiBase = env.CLOUDFLARE_API_BASE
-  const registeredNames = new Set<string>()
+  server.server.registerCapabilities({ tools: { listChanged: false } })
 
-  const methods = ['get', 'post', 'put', 'patch', 'delete'] as const
+  server.server.setRequestHandler(ListToolsRequestSchema, () => ({
+    tools: [
+      DOCS_TOOL,
+      ...tools.map((tool) => toWireTool(toolForAccountAccess(tool, resolvedAccountId, props)))
+    ]
+  }))
 
-  for (const [path, pathItem] of Object.entries(paths)) {
-    for (const method of methods) {
-      const operation = pathItem[method]
-      if (!operation) continue
+  server.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    const name = request.params.name
+    let result: CallToolResult
 
-      let toolName = pathToToolName(method, path)
-      // Deduplicate if truncation caused a collision
-      if (registeredNames.has(toolName)) {
-        let i = 2
-        let candidate: string
-        do {
-          const suffixStr = `_${i}`
-          const maxBase = 128 - suffixStr.length
-          const base =
-            toolName.length > maxBase ? toolName.slice(0, maxBase).replace(/_$/, '') : toolName
-          candidate = `${base}${suffixStr}`
-          i++
-        } while (registeredNames.has(candidate))
-        toolName = candidate
-      }
-      registeredNames.add(toolName)
-      const description =
-        `${method.toUpperCase()} ${path}` +
-        (operation.summary ? `\n\n${operation.summary}` : '') +
-        (operation.description ? `\n\n${operation.description}` : '')
-
-      const inputSchema = buildInputSchema(operation, path)
-
-      // account_id is fully auto-resolved for account-token and single-account
-      // user-token sessions, so drop it from the schema entirely — the handler
-      // substitutes resolvedAccountId. Keeps hundreds of account-scoped tool
-      // schemas lean and stops the model passing a value that can only be wrong.
-      if (path.includes('{account_id}') && resolvedAccountId) {
-        delete inputSchema['account_id']
-      }
-
-      // For multi-account user tokens account_id genuinely cannot be resolved,
-      // so keep it required (buildInputSchema already added it) with a clearer
-      // description.
-      const needsAccountId =
-        !resolvedAccountId && path.includes('{account_id}') && isMultiAccountUser(props)
-
-      if (needsAccountId) {
-        inputSchema['account_id'] = z
-          .string()
-          .describe('Cloudflare account ID. Required for multi-account tokens.')
-      }
-
-      server.registerTool(toolName, { description, inputSchema }, async (params) => {
-        try {
-          // Build the URL with path parameters substituted
-          let resolvedPath = path
-          const pathParams = [...path.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
-          for (const paramName of pathParams) {
-            let value = params[paramName] as string | undefined
-
-            // Auto-resolve account_id from the token when not supplied.
-            if (paramName === 'account_id' && !value) {
-              value = resolvedAccountId
-            }
-
-            if (!value) {
-              return formatError(`missing required path parameter: ${paramName}`)
-            }
-            resolvedPath = resolvedPath.replace(`{${paramName}}`, encodeURIComponent(value))
-          }
-
-          // Build query string
-          const url = new URL(apiBase + resolvedPath)
-          if (operation.parameters) {
-            for (const param of operation.parameters) {
-              if (param.in === 'query' && params[param.name] !== undefined) {
-                url.searchParams.set(param.name, String(params[param.name]))
-              }
-            }
-          }
-
-          // Build request
-          const headers: Record<string, string> = {
-            Authorization: `Bearer ${apiToken}`
-          }
-
-          // Add header parameters
-          if (operation.parameters) {
-            for (const param of operation.parameters) {
-              if (param.in === 'header') {
-                const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
-                if (params[headerKey] !== undefined) {
-                  headers[param.name] = String(params[headerKey])
-                }
-              }
-            }
-          }
-
-          let requestBody: string | undefined
-          if (params['body']) {
-            headers['Content-Type'] = (params['content_type'] as string) || 'application/json'
-            requestBody = params['body'] as string
-          }
-
-          const response = await fetchWithRetry(
-            url.toString(),
-            {
-              method: method.toUpperCase(),
-              headers,
-              body: requestBody
-            },
-            { caller: 'non_codemode_tool_call' }
-          )
-
-          const contentType = response.headers.get('content-type') || ''
-          let result: string
-
-          if (contentType.includes('application/json')) {
-            const data = await response.json()
-            result = JSON.stringify(data, null, 2)
-          } else {
-            result = await response.text()
-          }
-
-          return {
-            content: [{ type: 'text' as const, text: truncateResponse(result) }],
-            isError: !response.ok
-          }
-        } catch (error) {
-          return formatError(error)
+    try {
+      if (name === DOCS_TOOL.name) {
+        const parsed = z.object({ query: z.string() }).safeParse(request.params.arguments ?? {})
+        result = parsed.success
+          ? await runDocsTool(parsed.data.query)
+          : validationError(name, parsed.error)
+      } else {
+        const baseTool = toolsByName.get(name)
+        if (!baseTool) {
+          result = toolError(`Tool ${name} not found`)
+        } else {
+          const tool = toolForAccountAccess(baseTool, resolvedAccountId, props)
+          const parsed = z
+            .object(zodInputSchemaFromJson(tool.inputSchema))
+            .safeParse(request.params.arguments ?? {})
+          result = parsed.success
+            ? await callNonCodemodeTool(baseTool, parsed.data, resolvedAccountId, props.accessToken)
+            : validationError(name, parsed.error)
         }
-      })
+      }
+    } catch (error) {
+      result = toolError(error instanceof Error ? error.message : String(error))
+    }
+
+    recordToolCall(props, name, result.isError === true)
+    return result
+  })
+}
+
+async function callNonCodemodeTool(
+  tool: NonCodemodeTool,
+  params: Record<string, unknown>,
+  resolvedAccountId: string | undefined,
+  apiToken: string
+): Promise<CallToolResult> {
+  let resolvedPath = tool.path
+  const pathParams = [...tool.path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1])
+
+  for (const paramName of pathParams) {
+    let value = params[paramName] as string | undefined
+    if (paramName === 'account_id' && !value) value = resolvedAccountId
+    if (!value) return toolError(`missing required path parameter: ${paramName}`)
+    resolvedPath = resolvedPath.replace(`{${paramName}}`, encodeURIComponent(value))
+  }
+
+  const url = new URL(env.CLOUDFLARE_API_BASE + resolvedPath)
+  for (const paramName of tool.queryParams) {
+    if (params[paramName] !== undefined) {
+      url.searchParams.set(paramName, String(params[paramName]))
     }
   }
+
+  const headers: Record<string, string> = { Authorization: `Bearer ${apiToken}` }
+  for (const { name, key } of tool.headerParams) {
+    if (params[key] !== undefined) headers[name] = String(params[key])
+  }
+
+  let body: string | undefined
+  if (params['body']) {
+    headers['Content-Type'] = (params['content_type'] as string) || 'application/json'
+    body = params['body'] as string
+  }
+
+  const response = await fetchWithRetry(
+    url.toString(),
+    { method: tool.method.toUpperCase(), headers, body },
+    { caller: 'non_codemode_tool_call' }
+  )
+  const contentType = response.headers.get('content-type') || ''
+  const text = contentType.includes('application/json')
+    ? JSON.stringify(await response.json(), null, 2)
+    : await response.text()
+
+  return {
+    content: [{ type: 'text', text: truncateResponse(text) }],
+    isError: !response.ok
+  }
+}
+
+function validationError(name: string, error: z.ZodError): CallToolResult {
+  return toolError(`Input validation error: Invalid arguments for tool ${name}: ${error.message}`)
+}
+
+function toolError(message: string): CallToolResult {
+  return { content: [{ type: 'text', text: message }], isError: true }
+}
+
+function toWireTool(tool: NonCodemodeTool): Tool {
+  const { name, description, inputSchema, execution } = tool
+  return { name, description, inputSchema, execution }
+}
+
+function toolForAccountAccess(
+  tool: NonCodemodeTool,
+  resolvedAccountId: string | undefined,
+  props: AuthProps
+): NonCodemodeTool {
+  if (!tool.inputSchema.properties['account_id']) return tool
+
+  const properties = { ...tool.inputSchema.properties }
+  let required = tool.inputSchema.required
+
+  if (resolvedAccountId) {
+    delete properties['account_id']
+    required = required?.filter((name) => name !== 'account_id')
+  } else if (isMultiAccountUser(props)) {
+    properties['account_id'] = {
+      type: 'string',
+      description: 'Cloudflare account ID. Required for multi-account tokens.'
+    }
+  }
+
+  const inputSchema = { ...tool.inputSchema, properties, required }
+  if (required?.length === 0) delete inputSchema.required
+  return { ...tool, inputSchema }
 }

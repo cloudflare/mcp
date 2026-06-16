@@ -10,16 +10,14 @@ import type { AuthProps } from './auth/types'
 export async function createServer(props: AuthProps, codemode = true): Promise<McpServer> {
   const server = new McpServer(SERVER_INFO)
 
-  // Track tool_call metrics for every tool registered below.
-  attachMetrics(server, props)
-
-  registerDocsTool(server)
-
   if (!codemode) {
     await registerNonCodemodeTools(server, props)
     return server
   }
 
+  // Track tool_call metrics for every Code-Mode tool registered below.
+  attachMetrics(server, props)
+  registerDocsTool(server)
   await registerSearchTool(server)
   registerExecuteTool(server, props)
 

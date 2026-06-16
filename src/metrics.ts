@@ -212,6 +212,18 @@ function userIdFromProps(props?: AuthProps): string | undefined {
   return props?.type === 'user_token' ? props.user.id : undefined
 }
 
+/** Record one tool call from a low-level protocol handler. */
+export function recordToolCall(props: AuthProps, toolName: string, isError: boolean): void {
+  const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
+  metrics.logEvent(
+    new ToolCall({
+      toolName,
+      userId: userIdFromProps(props),
+      errorCode: isError ? -1 : undefined
+    })
+  )
+}
+
 /**
  * Wire Analytics Engine metrics into a server instance: log a `tool_call` for
  * every tool invocation (with an `errorCode` on failure). Monkey-patches

@@ -1,9 +1,13 @@
 import { afterEach, describe, it, expect, vi } from 'vitest'
+import { Client } from '@modelcontextprotocol/sdk/client/index.js'
+import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js'
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { createServer } from '../src/server'
-import { pathToToolName, buildInputSchema } from '../src/openapi'
+import { buildInputSchema, buildNonCodemodeTools, pathToToolName } from '../src/openapi'
 import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
-import { clearSpec, seedSpec } from './helpers/spec'
+import { DOCS_TOOL, registerDocsTool } from '../src/tools/docs-search'
+import { clearSpec, removeNonCodemodeTools, seedSpec } from './helpers/spec'
 
 // Use minimal retry config so tests don't wait for real backoff delays
 vi.mock('../src/utils/fetch-retry', async (importOriginal) => {
@@ -13,6 +17,42 @@ vi.mock('../src/utils/fetch-retry', async (importOriginal) => {
     fetchWithRetry: (input: RequestInfo, init?: RequestInit) =>
       original.fetchWithRetry(input, init, { maxRetries: 0 })
   }
+})
+
+async function withClient<T>(
+  server: McpServer,
+  action: (client: Client) => Promise<T>
+): Promise<T> {
+  const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair()
+  const client = new Client({ name: 'test-client', version: '1.0.0' })
+  await Promise.all([server.connect(serverTransport), client.connect(clientTransport)])
+  try {
+    return await action(client)
+  } finally {
+    await client.close()
+    await server.close()
+  }
+}
+
+async function listTools(server: McpServer) {
+  return withClient(server, async (client) => (await client.listTools()).tools)
+}
+
+async function callTool(
+  server: McpServer,
+  name: string,
+  args: Record<string, unknown>
+): Promise<any> {
+  return withClient(server, (client) => client.callTool({ name, arguments: args }))
+}
+
+describe('precomputed tool contracts', () => {
+  it('keeps the docs wire definition identical to the SDK-generated definition', async () => {
+    const server = new McpServer({ name: 'docs-schema-test', version: '1.0.0' })
+    registerDocsTool(server)
+
+    expect(JSON.parse(JSON.stringify(await listTools(server)))).toEqual([DOCS_TOOL])
+  })
 })
 
 describe('pathToToolName', () => {
@@ -102,6 +142,45 @@ describe('pathToToolName', () => {
 })
 
 describe('buildInputSchema', () => {
+  it('precomputes the same wire JSON Schema emitted by the MCP SDK', async () => {
+    const path = '/zones/{zone_id}/dns_records/{record_id}'
+    const operation: OperationInfo = {
+      parameters: [
+        { name: 'zone_id', in: 'path', required: true, description: 'Zone ID' },
+        { name: 'record_id', in: 'path', required: true },
+        { name: 'page', in: 'query', description: 'Page number' },
+        { name: 'type', in: 'query', required: true },
+        { name: 'If-Match', in: 'header', description: 'ETag' }
+      ],
+      requestBody: {
+        content: {
+          'application/json': {},
+          'text/plain': {}
+        }
+      }
+    }
+    const precomputed = buildNonCodemodeTools({ [path]: { patch: operation } })[0]
+    const server = new McpServer({ name: 'schema-test', version: '1.0.0' })
+    server.registerTool(
+      precomputed.name,
+      { inputSchema: buildInputSchema(operation, path) },
+      async () => ({ content: [] })
+    )
+
+    const [listed] = await listTools(server)
+    expect(precomputed.inputSchema).toEqual(listed.inputSchema)
+  })
+
+  it('deduplicates repeated path parameter names in precomputed required fields', () => {
+    const [tool] = buildNonCodemodeTools({
+      '/accounts/{account_id}/address_maps/{map_id}/accounts/{account_id}': {
+        put: {} as OperationInfo
+      }
+    })
+
+    expect(tool.inputSchema.required).toEqual(['account_id', 'map_id'])
+  })
+
   // --- Path parameters ---
 
   it('creates schema with a single path parameter', () => {
@@ -492,6 +571,22 @@ describe('createServer with codemode=false', () => {
     })
   }
 
+  it('does not register per-endpoint SDK handlers for a large spec', async () => {
+    const specPaths = Object.fromEntries(
+      Array.from({ length: 3_000 }, (_, index) => [
+        `/accounts/{account_id}/resources/${index}`,
+        { get: { summary: `Get resource ${index}` } as OperationInfo }
+      ])
+    )
+
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('test-account'), false)
+
+    expect(Object.keys((server as any)._registeredTools)).toEqual([])
+    const tools = await listTools(server)
+    expect(tools).toHaveLength(3_001) // docs + 3,000 endpoint tools
+  })
+
   it('registers one tool per endpoint when codemode=false', async () => {
     const specPaths = {
       '/accounts/{account_id}/workers/scripts': {
@@ -506,8 +601,12 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('test-account'), false)
 
-    const tools = (server as any)._registeredTools
-    const toolNames = Object.keys(tools)
+    // CPU guard: non-Code-Mode must dispatch lazily, never register one SDK
+    // handler/Zod schema per endpoint during server creation.
+    expect(Object.keys((server as any)._registeredTools)).toEqual([])
+
+    const tools = await listTools(server)
+    const toolNames = tools.map((tool) => tool.name)
     expect(toolNames).toContain('docs')
     expect(toolNames).toContain('get_accounts_workers_scripts')
     expect(toolNames).toContain('post_accounts_workers_scripts')
@@ -530,6 +629,25 @@ describe('createServer with codemode=false', () => {
       'Results are returned as semantically similar chunks to the query.'
     )
     expect(docsTool.outputSchema).toBeDefined()
+  })
+
+  it('falls back to spec.json when the precomputed artifact is absent', async () => {
+    const specPaths = {
+      '/user': {
+        get: { summary: 'Get current user' } as OperationInfo
+      }
+    }
+
+    await seedSpec(specPaths)
+    await removeNonCodemodeTools()
+    const server = await createServer(bareUserProps, false)
+
+    const tools = await listTools(server)
+    expect(tools).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: 'get_user', description: 'GET /user\n\nGet current user' })
+      ])
+    )
   })
 
   it('registers codemode tools when codemode=true (default)', async () => {
@@ -655,14 +773,13 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-123'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [{ id: 'my-worker' }] })
 
     try {
-      const result = await tool.handler({ account_id: 'acct-123' }, {} as any)
+      const result = await callTool(server, 'get_accounts_workers_scripts', {
+        account_id: 'acct-123'
+      })
 
       expect(globalThis.fetch).toHaveBeenCalledWith(
         'https://api.cloudflare.com/client/v4/accounts/acct-123/workers/scripts',
@@ -696,12 +813,10 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(bareUserProps, false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['delete_zones_dns_records_by_record_id']
-
-    const result = await tool.handler({}, {} as any)
+    const result = await callTool(server, 'delete_zones_dns_records_by_record_id', {})
     expect(result.isError).toBe(true)
-    expect(result.content[0].text).toContain('missing required path parameter: zone_id')
+    expect(result.content[0].text).toContain('Input validation error')
+    expect(result.content[0].text).toContain('zone_id')
   })
 
   it('returns error for second missing path param (first resolved)', async () => {
@@ -714,13 +829,13 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(bareUserProps, false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['delete_zones_dns_records_by_record_id']
-
     // Provide zone_id but not record_id
-    const result = await tool.handler({ zone_id: 'z1' }, {} as any)
+    const result = await callTool(server, 'delete_zones_dns_records_by_record_id', {
+      zone_id: 'z1'
+    })
     expect(result.isError).toBe(true)
-    expect(result.content[0].text).toContain('missing required path parameter: record_id')
+    expect(result.content[0].text).toContain('Input validation error')
+    expect(result.content[0].text).toContain('record_id')
   })
 
   it('passes query params to the URL', async () => {
@@ -739,14 +854,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
 
     try {
-      await tool.handler({ page: '2' }, {} as any)
+      await callTool(server, 'get_accounts_workers_scripts', { page: '2' })
       const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
       expect(calledUrl).toContain('page=2')
     } finally {
@@ -771,15 +883,12 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
 
     try {
       // Only pass page, not per_page
-      await tool.handler({ page: '3' }, {} as any)
+      await callTool(server, 'get_accounts_workers_scripts', { page: '3' })
       const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
       expect(calledUrl).toContain('page=3')
       expect(calledUrl).not.toContain('per_page')
@@ -804,15 +913,12 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['post_accounts_d1_database']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: { id: 'new-db' } })
 
     try {
       const body = JSON.stringify({ name: 'my-database' })
-      await tool.handler({ body }, {} as any)
+      await callTool(server, 'post_accounts_d1_database', { body })
 
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.method).toBe('POST')
@@ -842,18 +948,16 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['put_accounts_workers_scripts_by_script_name']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
 
     try {
       const scriptBody = 'export default { async fetch() { return new Response("hi"); } }'
-      await tool.handler(
-        { script_name: 'my-worker', body: scriptBody, content_type: 'application/javascript' },
-        {} as any
-      )
+      await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
+        script_name: 'my-worker',
+        body: scriptBody,
+        content_type: 'application/javascript'
+      })
 
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.headers['Content-Type']).toBe('application/javascript')
@@ -879,14 +983,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['post_accounts_d1_database']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
 
     try {
-      await tool.handler({ body: '{"name":"test"}' }, {} as any)
+      await callTool(server, 'post_accounts_d1_database', { body: '{"name":"test"}' })
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.headers['Content-Type']).toBe('application/json')
     } finally {
@@ -904,14 +1005,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
 
     try {
-      await tool.handler({}, {} as any)
+      await callTool(server, 'get_accounts_workers_scripts', {})
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.headers['Content-Type']).toBeUndefined()
       expect(calledOpts.body).toBeUndefined()
@@ -938,21 +1036,15 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['put_accounts_workers_scripts_by_script_name']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
 
     try {
-      await tool.handler(
-        {
-          script_name: 'my-worker',
-          header_if_match: '"etag-123"',
-          body: '{}'
-        },
-        {} as any
-      )
+      await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
+        script_name: 'my-worker',
+        header_if_match: '"etag-123"',
+        body: '{}'
+      })
 
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.headers['If-Match']).toBe('"etag-123"')
@@ -979,14 +1071,13 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['put_accounts_workers_scripts_by_script_name']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
 
     try {
-      await tool.handler({ script_name: 'my-worker' }, {} as any)
+      await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
+        script_name: 'my-worker'
+      })
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.headers['If-Match']).toBeUndefined()
     } finally {
@@ -1004,14 +1095,15 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_storage_kv_namespaces_values_by_key_name']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchText('raw-kv-value-here')
 
     try {
-      const result = await tool.handler({ namespace_id: 'ns-1', key_name: 'mykey' }, {} as any)
+      const result = await callTool(
+        server,
+        'get_accounts_storage_kv_namespaces_values_by_key_name',
+        { namespace_id: 'ns-1', key_name: 'mykey' }
+      )
       expect(result.isError).toBeFalsy()
       expect(result.content[0].text).toContain('raw-kv-value-here')
     } finally {
@@ -1029,9 +1121,6 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson(
       { success: false, errors: [{ code: 10000, message: 'Auth error' }] },
@@ -1039,7 +1128,7 @@ describe('createServer with codemode=false', () => {
     )
 
     try {
-      const result = await tool.handler({}, {} as any)
+      const result = await callTool(server, 'get_accounts_workers_scripts', {})
       expect(result.isError).toBe(true)
       expect(result.content[0].text).toContain('Auth error')
     } finally {
@@ -1057,14 +1146,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network failure'))
 
     try {
-      const result = await tool.handler({}, {} as any)
+      const result = await callTool(server, 'get_accounts_workers_scripts', {})
       expect(result.isError).toBe(true)
       expect(result.content[0].text).toContain('Network failure')
     } finally {
@@ -1082,14 +1168,13 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts_by_script_name']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
 
     try {
-      await tool.handler({ script_name: 'my worker/v2' }, {} as any)
+      await callTool(server, 'get_accounts_workers_scripts_by_script_name', {
+        script_name: 'my worker/v2'
+      })
       const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
       expect(calledUrl).toContain('my%20worker%2Fv2')
       expect(calledUrl).not.toContain('my worker/v2')
@@ -1118,10 +1203,15 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(props, false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_accounts_workers_scripts']
-    // Multi-account user tokens can't auto-resolve account_id, so it stays.
-    expect(tool.inputSchema.shape.account_id).toBeDefined()
+    const listedTools = await listTools(server)
+    const listedTool = listedTools.find((item) => item.name === 'get_accounts_workers_scripts')
+    expect(listedTool?.inputSchema.required).toContain('account_id')
+    expect(listedTool?.inputSchema.properties?.account_id).toEqual({
+      type: 'string',
+      description: 'Cloudflare account ID. Required for multi-account tokens.'
+    })
+    expect(JSON.stringify(listedTool)).not.toContain('Account One')
+    expect(JSON.stringify(listedTool)).not.toContain('acct-1')
   })
 
   it('drops account_id from the schema for account-token sessions', async () => {
@@ -1137,9 +1227,10 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-123'), false)
 
-    const tool = (server as any)._registeredTools['get_accounts_workers_scripts']
+    const tools = await listTools(server)
+    const tool = tools.find((item) => item.name === 'get_accounts_workers_scripts')
     // account_id is pinned to the token's account, so it must not be a param.
-    expect(tool.inputSchema.shape.account_id).toBeUndefined()
+    expect(tool?.inputSchema.properties?.account_id).toBeUndefined()
   })
 
   it('drops account_id from the schema for single-account user tokens', async () => {
@@ -1162,9 +1253,10 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(props, false)
 
-    const tool = (server as any)._registeredTools['get_accounts_workers_scripts']
+    const tools = await listTools(server)
+    const tool = tools.find((item) => item.name === 'get_accounts_workers_scripts')
     // The sole account auto-resolves, so account_id must not be a param.
-    expect(tool.inputSchema.shape.account_id).toBeUndefined()
+    expect(tool?.inputSchema.properties?.account_id).toBeUndefined()
   })
 
   it('endpoint with no params at all works', async () => {
@@ -1177,14 +1269,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(bareUserProps, false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['get_user']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: { id: 'u1', email: 'a@b.com' } })
 
     try {
-      const result = await tool.handler({}, {} as any)
+      const result = await callTool(server, 'get_user', {})
       expect(result.isError).toBeFalsy()
       expect(result.content[0].text).toContain('a@b.com')
     } finally {
@@ -1210,15 +1299,17 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(bareUserProps, false)
 
-    const tools = (server as any)._registeredTools
-    const tool = tools['patch_zones_dns_records_by_record_id']
-
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
 
     try {
       const body = JSON.stringify({ content: '1.2.3.4' })
-      await tool.handler({ zone_id: 'z1', record_id: 'r1', comment: 'updated IP', body }, {} as any)
+      await callTool(server, 'patch_zones_dns_records_by_record_id', {
+        zone_id: 'z1',
+        record_id: 'r1',
+        comment: 'updated IP',
+        body
+      })
 
       const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]

@@ -6,6 +6,19 @@ export interface McpToolResult {
   error?: { code: number; message: string }
 }
 
+/** Build a JSON-RPC `tools/list` request to the worker's `/mcp` endpoint. */
+export function mcpToolListRequest(token: string, id = 1): Request {
+  return new Request('https://mcp.example.com/mcp', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json, text/event-stream'
+    },
+    body: JSON.stringify({ jsonrpc: '2.0', id, method: 'tools/list' })
+  })
+}
+
 /** Build a JSON-RPC `tools/call` request to the worker's `/mcp` endpoint. */
 export function mcpToolCallRequest(
   token: string,
@@ -21,7 +34,12 @@ export function mcpToolCallRequest(
       // Streamable HTTP requires the client to accept both content types.
       Accept: 'application/json, text/event-stream'
     },
-    body: JSON.stringify({ jsonrpc: '2.0', id, method: 'tools/call', params: { name, arguments: args } })
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id,
+      method: 'tools/call',
+      params: { name, arguments: args }
+    })
   })
 }
 

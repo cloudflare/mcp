@@ -1,10 +1,17 @@
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { AuthUser, MetricsEventIndexId, MetricsError, MetricsTracker, ToolCall } from '../src/metrics'
+import {
+  AuthUser,
+  MetricsEventIndexId,
+  MetricsError,
+  MetricsTracker,
+  ToolCall
+} from '../src/metrics'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
-import { callTool } from './helpers/mcp'
+import { clearSpec, seedSpec } from './helpers/spec'
+import { callTool, mcpToolCallRequest, parseMcpResult } from './helpers/mcp'
 import { server } from './setup/msw'
 
 const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
@@ -108,11 +115,15 @@ describe('tool_call emission via the real worker', () => {
   afterEach(async () => {
     vi.restoreAllMocks()
     await clearKv(env.OAUTH_KV)
+    await clearSpec()
   })
 
   function findToolCall(spy: ReturnType<typeof vi.spyOn>) {
     return (spy.mock.calls as unknown[][])
-      .map((args) => args[0] as { indexes?: string[]; blobs?: Array<string | null>; doubles?: number[] })
+      .map(
+        (args) =>
+          args[0] as { indexes?: string[]; blobs?: Array<string | null>; doubles?: number[] }
+      )
       .find((dp) => dp?.indexes?.[0] === 'tool_call')
   }
 
@@ -133,6 +144,22 @@ describe('tool_call emission via the real worker', () => {
     expect(dp).toBeTruthy()
     expect(dp!.blobs?.[3]).toBe('execute') // blob4 = toolName
     expect(dp!.doubles?.[0]).toBeUndefined() // success -> no errorCode
+  })
+
+  it('emits a tool_call datapoint from the lazy non-codemode dispatcher', async () => {
+    await seedSpec({ '/accounts': { get: { summary: 'List Accounts' } } })
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+    const base = mcpToolCallRequest(API_TOKEN, 'get_accounts', {})
+    const request = new Request('https://mcp.example.com/mcp?codemode=false', base)
+
+    const result = await parseMcpResult(await exports.default.fetch(request))
+
+    expect(result.result?.isError).toBeFalsy()
+    const dp = findToolCall(writeSpy)
+    expect(dp).toBeTruthy()
+    expect(dp!.blobs?.[3]).toBe('get_accounts')
+    expect(dp!.doubles?.[0]).toBeUndefined()
   })
 
   it('records errorCode -1 when the tool returns an isError result', async () => {

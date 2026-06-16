@@ -1,8 +1,10 @@
 import { env } from 'cloudflare:workers'
-import type { OperationInfo } from './openapi'
+import { buildNonCodemodeTools } from './openapi'
+import type { NonCodemodeTool, OperationInfo } from './openapi'
 
 /**
- * In-isolate cache for the two R2 spec artifacts (`spec.json`, `products.json`).
+ * In-isolate cache for the R2 spec artifacts (`spec.json`, `products.json`,
+ * `non-codemode-tools.json`).
  *
  * The MCP worker isolate stays warm across requests, so without this every
  * search/execute/non-codemode call re-fetched the spec from R2. The scheduled
@@ -19,6 +21,9 @@ type Entry<T> = { value: T; expiresAt: number }
 
 let specEntry: Entry<{ text: string; paths: SpecPaths }> | undefined
 let productsEntry: Entry<string[]> | undefined
+let nonCodemodeToolsEntry: Entry<NonCodemodeTool[]> | undefined
+let nonCodemodeToolMap: Map<string, NonCodemodeTool> | undefined
+let nonCodemodeToolMapSource: NonCodemodeTool[] | undefined
 
 function fresh<T>(entry: Entry<T> | undefined, now: number): entry is Entry<T> {
   return entry !== undefined && entry.expiresAt > now
@@ -26,8 +31,8 @@ function fresh<T>(entry: Entry<T> | undefined, now: number): entry is Entry<T> {
 
 /**
  * The raw `spec.json` text (for embedding into the search isolate) and its
- * parsed `paths` (for non-codemode tool registration). Cached together so both
- * shapes come from a single R2 read. Throws if the spec has not been seeded.
+ * parsed `paths` (for the non-codemode rollout fallback). Cached together so
+ * both shapes come from a single R2 read. Throws if the spec has not been seeded.
  */
 export async function getSpec(): Promise<{ text: string; paths: SpecPaths }> {
   const now = Date.now()
@@ -43,6 +48,33 @@ export async function getSpec(): Promise<{ text: string; paths: SpecPaths }> {
   return value
 }
 
+/**
+ * Protocol-ready non-Code-Mode tools/list artifact. Falls back to deriving it
+ * from spec.json during a rolling deploy before the scheduled task/seed script
+ * has written the new object.
+ */
+export async function getNonCodemodeTools(): Promise<NonCodemodeTool[]> {
+  const now = Date.now()
+  if (fresh(nonCodemodeToolsEntry, now)) return nonCodemodeToolsEntry.value
+
+  const obj = await env.SPEC_BUCKET.get('non-codemode-tools.json')
+  const value = obj
+    ? ((await obj.json()) as NonCodemodeTool[])
+    : buildNonCodemodeTools((await getSpec()).paths)
+  nonCodemodeToolsEntry = { value, expiresAt: now + TTL_MS }
+  return value
+}
+
+/** Name lookup used by lazy non-Code-Mode tools/call dispatch. */
+export async function getNonCodemodeToolMap(): Promise<Map<string, NonCodemodeTool>> {
+  const tools = await getNonCodemodeTools()
+  if (nonCodemodeToolMap && nonCodemodeToolMapSource === tools) return nonCodemodeToolMap
+
+  nonCodemodeToolMap = new Map(tools.map((tool) => [tool.name, tool]))
+  nonCodemodeToolMapSource = tools
+  return nonCodemodeToolMap
+}
+
 /** The product list backing the `search` tool description. Empty if unseeded. */
 export async function getProducts(): Promise<string[]> {
   const now = Date.now()
@@ -55,7 +87,10 @@ export async function getProducts(): Promise<string[]> {
 }
 
 /** Drop cached artifacts. For tests that re-seed R2 between cases. */
-export function resetSpecCache(): void {
+export function resetIsolateCache(): void {
   specEntry = undefined
   productsEntry = undefined
+  nonCodemodeToolsEntry = undefined
+  nonCodemodeToolMap = undefined
+  nonCodemodeToolMapSource = undefined
 }

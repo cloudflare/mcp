@@ -1,5 +1,9 @@
 import { env } from 'cloudflare:workers'
-import { createExecutionContext, createScheduledController, waitOnExecutionContext } from 'cloudflare:test'
+import {
+  createExecutionContext,
+  createScheduledController,
+  waitOnExecutionContext
+} from 'cloudflare:test'
 import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it } from 'vitest'
 import { clearR2 } from './helpers/r2'
@@ -48,14 +52,30 @@ describe('scheduled handler', () => {
     // Read the real bucket back out.
     const specObj = await env.SPEC_BUCKET.get('spec.json')
     const productsObj = await env.SPEC_BUCKET.get('products.json')
+    const nonCodemodeToolsObj = await env.SPEC_BUCKET.get('non-codemode-tools.json')
     expect(specObj).not.toBeNull()
     expect(productsObj).not.toBeNull()
+    expect(nonCodemodeToolsObj).not.toBeNull()
 
     const spec = (await specObj!.json()) as { paths: Record<string, unknown> }
     expect(spec.paths['/accounts/{account_id}/workers/scripts']).toBeDefined()
 
     const products = (await productsObj!.json()) as string[]
     expect(products).toContain('workers')
+
+    const tools = (await nonCodemodeToolsObj!.json()) as Array<{
+      name: string
+      inputSchema: { properties?: Record<string, unknown>; required?: string[] }
+    }>
+    expect(tools).toEqual([
+      expect.objectContaining({
+        name: 'get_accounts_workers_scripts',
+        inputSchema: expect.objectContaining({
+          properties: expect.objectContaining({ account_id: expect.any(Object) }),
+          required: ['account_id']
+        })
+      })
+    ])
   })
 
   it('throws and writes nothing when GitHub returns a non-2xx', async () => {
@@ -77,9 +97,7 @@ describe('scheduled handler', () => {
     server.use(
       http.get(SPEC_URL, () => {
         calls++
-        return calls === 1
-          ? new HttpResponse('boom', { status: 503 })
-          : HttpResponse.json(RAW_SPEC)
+        return calls === 1 ? new HttpResponse('boom', { status: 503 }) : HttpResponse.json(RAW_SPEC)
       })
     )
 
@@ -92,7 +110,9 @@ describe('scheduled handler', () => {
   // HTML page) makes response.json() throw a raw SyntaxError rather than a clean
   // "Failed to fetch OpenAPI spec" message. Documents current behaviour.
   it('throws a raw parse error on a 200 non-JSON body (no graceful message)', async () => {
-    server.use(http.get(SPEC_URL, () => new HttpResponse('<html>rate limited</html>', { status: 200 })))
+    server.use(
+      http.get(SPEC_URL, () => new HttpResponse('<html>rate limited</html>', { status: 200 }))
+    )
 
     // Not the friendly "Failed to fetch OpenAPI spec" error.
     await expect(runScheduled()).rejects.toThrow()
