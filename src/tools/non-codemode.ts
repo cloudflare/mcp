@@ -4,6 +4,7 @@ import { truncateResponse } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { buildInputSchema, pathToToolName, type OperationInfo } from '../openapi'
 import { isMultiAccountUser } from '../auth/account-access'
+import { formatError } from '../utils/errors'
 import type { AuthProps } from '../auth/types'
 
 /**
@@ -90,15 +91,7 @@ export async function registerNonCodemodeTools(
             }
 
             if (!value) {
-              return {
-                content: [
-                  {
-                    type: 'text' as const,
-                    text: `Error: missing required path parameter: ${paramName}`
-                  }
-                ],
-                isError: true
-              }
+              return formatError(`missing required path parameter: ${paramName}`)
             }
             resolvedPath = resolvedPath.replace(`{${paramName}}`, encodeURIComponent(value))
           }
@@ -161,15 +154,7 @@ export async function registerNonCodemodeTools(
             isError: !response.ok
           }
         } catch (error) {
-          return {
-            content: [
-              {
-                type: 'text' as const,
-                text: `Error: ${error instanceof Error ? error.message : String(error)}`
-              }
-            ],
-            isError: true
-          }
+          return formatError(error)
         }
       })
     }

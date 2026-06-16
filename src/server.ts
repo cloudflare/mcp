@@ -30,7 +30,9 @@ export async function createServer(
   // Track tool_call metrics for every tool registered below.
   attachMetrics(server, env, props)
 
-  registerDocsTool(server, env)
+  // AI is bound in every deployed (staging/production) environment; it is only
+  // optional in the unioned Env type because of the dev variant.
+  registerDocsTool(server, env as Required<Pick<Env, 'AI'>>)
 
   if (!codemode) {
     await registerNonCodemodeTools(server, env, apiToken, resolvedAccountId, props)
@@ -56,10 +58,7 @@ export async function createServer(
         const result = await executeSearch(code)
         return { content: [{ type: 'text', text: truncateResponse(result) }] }
       } catch (error) {
-        return {
-          content: [{ type: 'text', text: `Error: ${formatError(error)}` }],
-          isError: true
-        }
+        return formatError(error)
       }
     }
   )
@@ -82,10 +81,7 @@ export async function createServer(
           const result = await executeCode(code, pinnedAccountId, apiToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
-          return {
-            content: [{ type: 'text', text: `Error: ${formatError(error)}` }],
-            isError: true
-          }
+          return formatError(error)
         }
       }
     )
@@ -110,10 +106,7 @@ export async function createServer(
           const result = await executeCode(code, effectiveAccountId, apiToken)
           return { content: [{ type: 'text', text: truncateResponse(result) }] }
         } catch (error) {
-          return {
-            content: [{ type: 'text', text: `Error: ${formatError(error)}` }],
-            isError: true
-          }
+          return formatError(error)
         }
       }
     )

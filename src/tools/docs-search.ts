@@ -1,7 +1,9 @@
 import { z } from 'zod'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 
-type DocsSearchEnv = Pick<Env, 'AI'>
+// AI is optional in the unioned Env but is always bound in staging/production,
+// so the docs tool requires it.
+type DocsSearchEnv = Required<Pick<Env, 'AI'>>
 
 const AiSearchResponseSchema = z.object({
   object: z.string(),
@@ -77,18 +79,6 @@ export function registerDocsTool(server: McpServer, env: DocsSearchEnv) {
       }
     },
     async ({ query }) => {
-      if (!env.AI) {
-        return {
-          content: [
-            {
-              type: 'text' as const,
-              text: 'Error: Cloudflare docs search is not configured in this environment.'
-            }
-          ],
-          isError: true
-        }
-      }
-
       const structuredContent: DocsSearchOutput = {
         results: await queryCloudflareDocs(env.AI, query)
       }
