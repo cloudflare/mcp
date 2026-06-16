@@ -1209,8 +1209,53 @@ describe('createServer with codemode=false', () => {
 
     const tools = (server as any)._registeredTools
     const tool = tools['get_accounts_workers_scripts']
-    const inputSchema = tool.inputSchema
-    expect(inputSchema).toBeDefined()
+    // Multi-account user tokens can't auto-resolve account_id, so it stays.
+    expect(tool.inputSchema.shape.account_id).toBeDefined()
+  })
+
+  it('drops account_id from the schema for account-token sessions', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: {
+          summary: 'List Workers',
+          parameters: [{ name: 'account_id', in: 'path', required: true }]
+        } as OperationInfo
+      }
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, acctProps('acct-123'), false)
+
+    const tool = (server as any)._registeredTools['get_accounts_workers_scripts']
+    // account_id is pinned to the token's account, so it must not be a param.
+    expect(tool.inputSchema.shape.account_id).toBeUndefined()
+  })
+
+  it('drops account_id from the schema for single-account user tokens', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: {
+          summary: 'List Workers',
+          parameters: [{ name: 'account_id', in: 'path', required: true }]
+        } as OperationInfo
+      }
+    }
+
+    const props: AuthProps = {
+      type: 'user_token',
+      accessToken: 'test-token',
+      user: { id: 'u1', email: 'test@example.com' },
+      accounts: [{ id: 'acct-only', name: 'Only Account' }]
+    }
+
+    const env = makeMockEnv(specPaths)
+    const ctx = { exports: {}, waitUntil: vi.fn() } as any
+    const server = await createServer(env, ctx, props, false)
+
+    const tool = (server as any)._registeredTools['get_accounts_workers_scripts']
+    // The sole account auto-resolves, so account_id must not be a param.
+    expect(tool.inputSchema.shape.account_id).toBeUndefined()
   })
 
   it('endpoint with no params at all works', async () => {

@@ -38,7 +38,7 @@ function accountIdParamDescription(props?: AuthProps): string {
     props.accountCount !== undefined
       ? ` This token has access to ${props.accountCount} accounts.`
       : ''
-  return `Your Cloudflare account ID. Required for account-scoped API calls. The account list is not stored.${countNote} To find a specific account, omit this argument and call GET /accounts?name=<substring>; otherwise page through GET /accounts.`
+  return `Your Cloudflare account ID. Required for account-scoped API calls.${countNote} Omit this argument and page through GET /accounts to discover them, or filter by exact name with GET /accounts?name=<exact account name>.`
 }
 
 /**
@@ -365,16 +365,12 @@ async function registerNonCodemodeTools(
 
       const inputSchema = buildInputSchema(operation, path)
 
-      // account_id is auto-resolved at call time for account-token and
-      // single-account user-token sessions. The MCP SDK validates arguments
-      // against the input schema BEFORE the handler runs, so if account_id were
-      // a required field these sessions could never call an account-scoped tool
-      // without passing it manually. Make it optional when auto-resolvable.
-      if (path.includes('{account_id}') && resolvedAccountId && inputSchema['account_id']) {
-        inputSchema['account_id'] = z
-          .string()
-          .optional()
-          .describe('Cloudflare account ID. Optional — auto-resolved from your token if omitted.')
+      // account_id is fully auto-resolved for account-token and single-account
+      // user-token sessions, so drop it from the schema entirely — the handler
+      // substitutes resolvedAccountId. Keeps hundreds of account-scoped tool
+      // schemas lean and stops the model passing a value that can only be wrong.
+      if (path.includes('{account_id}') && resolvedAccountId) {
+        delete inputSchema['account_id']
       }
 
       // For multi-account user tokens account_id genuinely cannot be resolved,
