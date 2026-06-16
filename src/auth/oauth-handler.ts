@@ -102,6 +102,8 @@ export interface RefreshGuardContext {
   userId?: string
   /** Downstream OAuth client id (from the token-exchange callback options). */
   clientId?: string
+  /** Exact downstream grant being refreshed. */
+  grantId?: string
   /**
    * Lazily builds OAuth helpers (via `getOAuthApi`). Only invoked on a terminal
    * `invalid_grant` so we don't construct the provider on every refresh.
@@ -132,35 +134,6 @@ function logRefreshTelemetry(event: {
   grantsRevoked?: number
 }): void {
   console.error(`[refresh-telemetry] ${JSON.stringify({ ...event, at: Date.now() })}`)
-}
-
-/**
- * Kill every grant for this user+client. `completeAuthorization` revokes prior
- * grants for the same user+client by default, so in practice there is at most
- * one, but we loop defensively (and paginate). `revokeGrant` deletes all access
- * tokens for the grant and the grant record itself, which invalidates the
- * downstream refresh token too.
- */
-async function revokeGrantsForClient(
-  helpers: OAuthHelpers,
-  userId: string,
-  clientId: string
-): Promise<number> {
-  let revoked = 0
-  let cursor: string | undefined
-  do {
-    const page = await helpers.listUserGrants(userId, cursor ? { cursor } : undefined)
-    for (const grant of page.items) {
-      // Match on client AND user. listUserGrants is expected to scope by userId,
-      // but double-check defensively so a provider bug can never let us revoke a
-      // different user's grant for the same clientId.
-      if (grant.clientId !== clientId || grant.userId !== userId) continue
-      await helpers.revokeGrant(grant.id, userId)
-      revoked++
-    }
-    cursor = page.cursor
-  } while (cursor)
-  return revoked
 }
 
 async function getCachedRefreshFailure(
@@ -305,15 +278,12 @@ export async function guardRefreshTokenExchange(
           if (
             error.code === 'invalid_grant' &&
             context.userId &&
-            context.clientId &&
+            context.grantId &&
             context.getHelpers
           ) {
             try {
-              grantsRevoked = await revokeGrantsForClient(
-                context.getHelpers(),
-                context.userId,
-                context.clientId
-              )
+              await context.getHelpers().revokeGrant(context.grantId, context.userId)
+              grantsRevoked = 1
             } catch (revokeError) {
               console.error(
                 'Refresh guard: failed to revoke grant after invalid_grant',
@@ -548,6 +518,7 @@ export async function handleTokenExchangeCallback(
     {
       userId: options.userId,
       clientId: options.clientId,
+      grantId: options.grantId,
       getHelpers
     }
   )
