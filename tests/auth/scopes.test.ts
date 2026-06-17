@@ -15,6 +15,7 @@ const REGISTERED_SCOPES = [
   'offline_access',
   'user:read',
   'account:read',
+  'account_analytics:read',
   'access:read',
   'access:write',
   'workers:read',

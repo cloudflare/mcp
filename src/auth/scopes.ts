@@ -8,6 +8,7 @@ export const ALL_SCOPES = {
   offline_access: 'Grants refresh tokens for long-lived access',
   'user:read': 'See your user info such as name, email address, and account memberships',
   'account:read': 'See your account info such as account details, analytics, and memberships',
+  'account_analytics:read': 'View account-level analytics including RUM and Web Analytics data',
 
   // Access
   'access:read': 'View Access policies',
@@ -128,10 +129,10 @@ export const ALL_SCOPES = {
 /**
  * Maximum number of scopes that can be requested in a single OAuth authorization.
  * Cloudflare's OAuth server returns "Something went wrong!" when too many scopes
- * are requested. This limit is enforced server-side. Verified on staging that 78
- * scopes are accepted (full yolo template including notification:read/write).
+ * are requested. This limit is enforced server-side and should match the largest
+ * built-in template.
  */
-export const MAX_SCOPES = 78
+export const MAX_SCOPES = 79
 
 export type ScopeName = keyof typeof ALL_SCOPES
 
