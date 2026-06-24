@@ -20,6 +20,8 @@ interface CodeExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
 }
 
+export const EXECUTE_TIMEOUT_MS = 60_000
+
 type GlobalOutboundProps = { apiToken: string; fetchWithRetryCaller: string }
 
 /**
@@ -59,10 +61,11 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
  * a warm isolate), and the API token is injected via the GlobalOutbound props
  * so it never enters the user code isolate.
  */
-async function runExecute(
+export async function runExecute(
   code: string,
   accountId: string | undefined,
-  apiToken: string
+  apiToken: string,
+  timeoutMs = EXECUTE_TIMEOUT_MS
 ): Promise<unknown> {
   const apiBase = env.CLOUDFLARE_API_BASE
   const workerId = `cloudflare-api-${crypto.randomUUID()}`
@@ -89,6 +92,8 @@ async function runExecute(
 import { WorkerEntrypoint } from "cloudflare:workers";
 
 const apiBase = ${JSON.stringify(apiBase)};
+const executeTimeoutMs = ${JSON.stringify(timeoutMs)};
+const executeTimeoutError = ${JSON.stringify(`Execution timed out after ${timeoutMs / 1000} seconds`)};
 ${accountIdPrelude}
 
 export default class CodeExecutor extends WorkerEntrypoint {
@@ -181,11 +186,20 @@ export default class CodeExecutor extends WorkerEntrypoint {
       }
     };
 
+    let timeoutId;
     try {
-      const result = await (${code})();
+      const execution = Promise.resolve().then(() => (${code})());
+      const timeout = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => reject(new Error(executeTimeoutError)), executeTimeoutMs);
+      });
+      const result = await Promise.race([execution, timeout]);
       return { result, err: undefined };
     } catch (err) {
       return { result: undefined, err: err.message, stack: err.stack };
+    } finally {
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
     }
   }
 }

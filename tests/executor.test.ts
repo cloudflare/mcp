@@ -6,6 +6,7 @@ import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { callTool, toolText } from './helpers/mcp'
 import { server } from './setup/msw'
+import { EXECUTE_TIMEOUT_MS, runExecute as runExecuteCode } from '../src/tools/execute'
 
 /**
  * Behaviour tests for the code executors, run through the REAL worker: a
@@ -25,7 +26,11 @@ afterEach(async () => {
 })
 
 /** Run an `execute` tool call whose code hits `path`, with MSW returning `body`. */
-async function runExecute(path: string, body: unknown, init?: ResponseInit): Promise<string> {
+async function runExecuteRequest(
+  path: string,
+  body: unknown,
+  init?: ResponseInit
+): Promise<string> {
   mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
   server.use(
     http.get(`${API_BASE}${path}`, () =>
@@ -40,9 +45,26 @@ async function runExecute(path: string, body: unknown, init?: ResponseInit): Pro
   return toolText(result)
 }
 
+describe('execute: dynamic worker timeout', () => {
+  it('defaults to 60 seconds', () => {
+    expect(EXECUTE_TIMEOUT_MS).toBe(60_000)
+  })
+
+  it('rejects when sandboxed code exceeds the configured timeout', async () => {
+    await expect(
+      runExecuteCode(
+        'async () => new Promise((resolve) => setTimeout(resolve, 100))',
+        ACCOUNT_ID,
+        API_TOKEN,
+        10
+      )
+    ).rejects.toThrow('Execution timed out after 0.01 seconds')
+  })
+})
+
 describe('execute: REST responses', () => {
   it('returns the success envelope with the response status', async () => {
-    const text = await runExecute(
+    const text = await runExecuteRequest(
       `/accounts/${ACCOUNT_ID}/tokens/verify`,
       cfSuccess({ status: 'active' })
     )
@@ -51,7 +73,7 @@ describe('execute: REST responses', () => {
   })
 
   it('surfaces a clean "Cloudflare API error" for a failure envelope with errors', async () => {
-    const text = await runExecute(
+    const text = await runExecuteRequest(
       `/accounts/${ACCOUNT_ID}/tokens/verify`,
       {
         success: false,
@@ -69,7 +91,7 @@ describe('execute: REST responses', () => {
     // Regression: the REST branch must not assume data.errors is an array.
     // A {success:false} body with a missing errors array (e.g. a gateway/proxy
     // envelope) previously threw "Cannot read properties of undefined (map)".
-    const text = await runExecute(
+    const text = await runExecuteRequest(
       `/accounts/${ACCOUNT_ID}/tokens/verify`,
       { success: false, result: null },
       { status: 502 }
@@ -80,7 +102,7 @@ describe('execute: REST responses', () => {
   })
 
   it('returns non-JSON responses as raw text', async () => {
-    const text = await runExecute(`/accounts/${ACCOUNT_ID}/something`, 'raw-value', {
+    const text = await runExecuteRequest(`/accounts/${ACCOUNT_ID}/something`, 'raw-value', {
       headers: { 'Content-Type': 'text/plain' }
     })
     expect(text).toContain('raw-value')
