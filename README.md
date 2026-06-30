@@ -76,6 +76,42 @@ When code mode is disabled:
 
 > **Note:** Disabling code mode significantly increases the token cost (~244k tokens vs ~1k tokens). Only disable it when necessary for composition with other code mode systems.
 
+
+## Connection Guides
+
+### Claude Code
+
+To add the Cloudflare MCP server to [Claude Code](https://docs.anthropic.com/en/docs/claude-code), create or update `.mcp.json` in your project root:
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    }
+  }
+}
+```
+
+> **Note:** The `"type": "http"` field is required for Claude Code to start the server correctly.
+
+For API token authentication, add an `Authorization` header:
+
+```json
+{
+  "mcpServers": {
+    "cloudflare-api": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_CLOUDFLARE_API_TOKEN"
+      }
+    }
+  }
+}
+```
+
 ## The Problem
 
 The Cloudflare OpenAPI spec is **2 million tokens**. Even with native MCP tools using minimal schemas, it's still **~244k tokens**. Traditional MCP servers that expose every endpoint as a tool leak this entire context to the main agent.
