@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { env, exports, WorkerEntrypoint } from 'cloudflare:workers'
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import type { McpServer } from '@modelcontextprotocol/server'
 import { CLOUDFLARE_TYPES } from '../constants'
 import { truncateResponse } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
@@ -305,9 +305,9 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
       'execute',
       {
         description,
-        inputSchema: {
+        inputSchema: z.object({
           code: z.string().describe('JavaScript async arrow function to execute')
-        }
+        })
       },
       async ({ code }) => {
         try {
@@ -325,10 +325,10 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
     'execute',
     {
       description,
-      inputSchema: {
+      inputSchema: z.object({
         code: z.string().describe('JavaScript async arrow function to execute'),
         account_id: z.string().optional().describe(accountIdParamDescription())
-      }
+      })
     },
     async ({ code, account_id }) => {
       try {

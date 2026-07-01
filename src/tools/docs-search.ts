@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import type { Tool } from '@modelcontextprotocol/sdk/types.js'
+import type { McpServer, Tool } from '@modelcontextprotocol/server'
 import { formatError } from '../utils/errors'
 
 const AiSearchResponseSchema = z.object({
@@ -59,7 +58,7 @@ export const DOCS_TOOL: Tool = {
   name: 'docs',
   description: docsToolDescription,
   inputSchema: {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
     type: 'object',
     properties: {
       query: { type: 'string', description: 'Cloudflare documentation search query' }
@@ -67,7 +66,7 @@ export const DOCS_TOOL: Tool = {
     required: ['query']
   },
   outputSchema: {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
     type: 'object',
     properties: {
       results: {
@@ -89,8 +88,7 @@ export const DOCS_TOOL: Tool = {
     required: ['results'],
     additionalProperties: false
   },
-  annotations: { readOnlyHint: true },
-  execution: { taskSupport: 'forbidden' }
+  annotations: { readOnlyHint: true }
 }
 
 export async function runDocsTool(query: string) {
@@ -112,10 +110,10 @@ export function registerDocsTool(server: McpServer) {
     'docs',
     {
       description: docsToolDescription,
-      inputSchema: {
+      inputSchema: z.object({
         query: z.string().describe('Cloudflare documentation search query')
-      },
-      outputSchema: {
+      }),
+      outputSchema: z.object({
         results: z.array(
           z.object({
             similarity: z.number().describe('Similarity score from AI Search'),
@@ -125,7 +123,7 @@ export function registerDocsTool(server: McpServer) {
             text: z.string().describe('Matching documentation chunk text')
           })
         )
-      },
+      }),
       annotations: {
         readOnlyHint: true
       }

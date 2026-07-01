@@ -94,7 +94,6 @@ export interface NonCodemodeTool {
   name: string
   description: string
   inputSchema: JsonObjectSchema
-  execution: { taskSupport: 'forbidden' }
   method: HttpMethod
   path: string
   queryParams: string[]
@@ -162,7 +161,6 @@ export function buildNonCodemodeTools(
       name: toolName,
       description,
       inputSchema: buildJsonInputSchema(operation, path),
-      execution: { taskSupport: 'forbidden' },
       method,
       path,
       queryParams: (operation.parameters ?? [])
@@ -236,7 +234,7 @@ function buildJsonInputSchema(operation: OperationInfo, path: string): JsonObjec
   }
 
   return {
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
     type: 'object',
     properties,
     ...(required.size > 0 ? { required: [...required] } : {})

@@ -24,7 +24,7 @@
  */
 
 import { env } from 'cloudflare:workers'
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import type { McpServer } from '@modelcontextprotocol/server'
 import type { AuthProps } from './auth/types'
 import { SERVER_INFO, type ServerInfo } from './constants'
 

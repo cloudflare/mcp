@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import type { McpServer } from '@modelcontextprotocol/server'
 import { SPEC_TYPES } from '../openapi'
 import { getProducts, getSpec } from '../isolate-cache'
 import { truncateResponse } from '../truncate'
@@ -107,9 +107,9 @@ export async function registerSearchTool(server: McpServer): Promise<void> {
     'search',
     {
       description: searchToolDescription(products),
-      inputSchema: {
+      inputSchema: z.object({
         code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec')
-      }
+      })
     },
     async ({ code }) => {
       try {

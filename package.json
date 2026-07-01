@@ -20,12 +20,13 @@
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "^0.8.0",
-    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@modelcontextprotocol/server": "2.0.0-beta.1",
     "hono": "^4.12.25",
     "zod": "^4.3.5"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.16.18",
+    "@modelcontextprotocol/client": "2.0.0-beta.1",
     "@types/node": "^25.0.6",
     "msw": "^2.14.6",
     "oxfmt": "^0.31.0",

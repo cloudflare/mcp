@@ -1,12 +1,6 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-  type CallToolResult,
-  type Tool
-} from '@modelcontextprotocol/sdk/types.js'
+import type { McpServer, CallToolResult, Tool } from '@modelcontextprotocol/server'
 import { truncateResponse } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { getNonCodemodeToolMap, getNonCodemodeTools } from '../isolate-cache'
@@ -34,14 +28,14 @@ export async function registerNonCodemodeTools(server: McpServer, props: AuthPro
 
   server.server.registerCapabilities({ tools: { listChanged: false } })
 
-  server.server.setRequestHandler(ListToolsRequestSchema, () => ({
+  server.server.setRequestHandler('tools/list', () => ({
     tools: [
       DOCS_TOOL,
       ...tools.map((tool) => toWireTool(toolForAccountAccess(tool, resolvedAccountId, props)))
     ]
   }))
 
-  server.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  server.server.setRequestHandler('tools/call', async (request) => {
     const name = request.params.name
     let result: CallToolResult
 
@@ -138,8 +132,8 @@ function toolError(message: string): CallToolResult {
 }
 
 function toWireTool(tool: NonCodemodeTool): Tool {
-  const { name, description, inputSchema, execution } = tool
-  return { name, description, inputSchema, execution }
+  const { name, description, inputSchema } = tool
+  return { name, description, inputSchema }
 }
 
 function toolForAccountAccess(
