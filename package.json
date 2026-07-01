@@ -19,20 +19,20 @@
     "seed:prod": "tsx scripts/seed-r2.ts production"
   },
   "dependencies": {
-    "@cfworker/json-schema": "^4.1.1",
-    "@cloudflare/workers-oauth-provider": "^0.6.0",
-    "@modelcontextprotocol/server": "^2.0.0-alpha.2",
-    "hono": "^4.12.7",
+    "@cloudflare/workers-oauth-provider": "^0.8.0",
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "hono": "^4.12.25",
     "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.12.11",
+    "@cloudflare/vitest-pool-workers": "^0.16.18",
     "@types/node": "^25.0.6",
+    "msw": "^2.14.6",
     "oxfmt": "^0.31.0",
     "oxlint": "^1.46.0",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0",
-    "vitest": "3.2",
-    "wrangler": "^4.64.0"
+    "vitest": "^4.1.8",
+    "wrangler": "^4.103.0"
   }
 }

@@ -43,6 +43,12 @@
 			"bucket_name": "mcp-spec"
 		}
 	],
+	"analytics_engine_datasets": [
+		{
+			"binding": "MCP_METRICS",
+			"dataset": "mcp-metrics-dev"
+		}
+	],
 	"triggers": {
 		"crons": ["0 0 * * *"]
 	},
@@ -52,6 +58,9 @@
 	"env": {
 		"staging": {
 			"name": "cloudflare-api-mcp-staging",
+			"ai": {
+				"binding": "AI"
+			},
 			"routes": [
 				{
 					"pattern": "staging.mcp.cloudflare.com",
@@ -82,6 +91,12 @@
 					"bucket_name": "mcp-spec-staging"
 				}
 			],
+			"analytics_engine_datasets": [
+				{
+					"binding": "MCP_METRICS",
+					"dataset": "mcp-metrics-staging"
+				}
+			],
 			"triggers": {
 				"crons": ["0 0 * * *"]
 			},
@@ -93,6 +108,9 @@
 		},
 		"production": {
 			"name": "cloudflare-api-mcp",
+			"ai": {
+				"binding": "AI"
+			},
 			"routes": [
 				{
 					"pattern": "mcp.cloudflare.com",
@@ -121,6 +139,12 @@
 				{
 					"binding": "SPEC_BUCKET",
 					"bucket_name": "mcp-spec-production"
+				}
+			],
+			"analytics_engine_datasets": [
+				{
+					"binding": "MCP_METRICS",
+					"dataset": "mcp-metrics-production"
 				}
 			],
 			"triggers": {

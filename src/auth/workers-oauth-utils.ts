@@ -10,6 +10,36 @@ const APPROVED_CLIENTS_COOKIE = '__Host-MCP_APPROVED_CLIENTS'
 const CSRF_COOKIE = '__Host-CSRF_TOKEN'
 const STATE_COOKIE = '__Host-CONSENTED_STATE'
 const ONE_YEAR_IN_SECONDS = 31536000
+const OAuthStateToken = z.uuid()
+const LegacyOAuthState = z.object({ state: OAuthStateToken }).passthrough()
+const MAX_LEGACY_OAUTH_STATE_LENGTH = 32_768
+
+function encodeBase64Utf8(value: string): string {
+  const bytes = new TextEncoder().encode(value)
+  let binary = ''
+  for (const byte of bytes) binary += String.fromCharCode(byte)
+  return btoa(binary)
+}
+
+function decodeBase64Utf8(value: string): string {
+  const binary = atob(value)
+  return new TextDecoder().decode(Uint8Array.from(binary, (char) => char.charCodeAt(0)))
+}
+
+function parseOAuthStateToken(state: string): string | undefined {
+  const current = OAuthStateToken.safeParse(state)
+  if (current.success) return current.data
+
+  // TODO: Remove this legacy base64-JSON reader after all OAuth flows started
+  // before the opaque-state deployment have exceeded the 600-second KV TTL.
+  if (state.length > MAX_LEGACY_OAUTH_STATE_LENGTH) return undefined
+  try {
+    const legacy = LegacyOAuthState.safeParse(JSON.parse(atob(state)))
+    return legacy.success ? legacy.data.state : undefined
+  } catch {
+    return undefined
+  }
+}
 
 /**
  * OAuth error class for handling OAuth-specific errors
@@ -238,6 +268,7 @@ const RESOURCE_LABELS: Record<string, string> = {
   'sso-connector': 'SSO Connector',
   ssl_certs: 'SSL certificates',
   teams: 'Teams (Zero Trust)',
+  snippets: 'Snippets',
   url_scanner: 'URL Scanner',
   user: 'User',
   account: 'Account',
@@ -313,6 +344,7 @@ const CATEGORY_MAP: Record<string, string> = {
   dns_analytics: 'DNS & Zones',
   zone: 'DNS & Zones',
   ssl_certs: 'DNS & Zones',
+  snippets: 'DNS & Zones',
   logpush: 'Analytics & Logs',
   auditlogs: 'Analytics & Logs',
   logs: 'Analytics & Logs',
@@ -447,7 +479,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     requiredScopes = []
   } = options
 
-  const encodedState = btoa(JSON.stringify(state))
+  const encodedState = encodeBase64Utf8(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
   const requiredSet = new Set(requiredScopes)
   const categories = groupScopesByCategory(allScopes, requiredSet)
@@ -1467,7 +1499,7 @@ export async function parseRedirectApproval(
     throw new OAuthError('invalid_request', 'Missing state')
   }
 
-  const state = JSON.parse(atob(encodedState))
+  const state = JSON.parse(decodeBase64Utf8(encodedState))
   if (!state.oauthReqInfo || !state.oauthReqInfo.clientId) {
     throw new OAuthError('invalid_request', 'Invalid state data')
   }
@@ -1752,16 +1784,9 @@ export async function validateOAuthState(
     throw new OAuthError('invalid_request', 'Missing state parameter')
   }
 
-  // Decode state to extract embedded stateToken
-  let stateToken: string
-  try {
-    const decodedState = JSON.parse(atob(stateFromQuery))
-    stateToken = decodedState.state
-    if (!stateToken) {
-      throw new Error('State token not found')
-    }
-  } catch {
-    throw new OAuthError('invalid_request', 'Failed to decode state')
+  const stateToken = parseOAuthStateToken(stateFromQuery)
+  if (!stateToken) {
+    throw new OAuthError('invalid_request', 'Invalid state parameter')
   }
 
   // Validate state exists in KV
