@@ -51,7 +51,7 @@ const REGISTERED_SCOPES = [
   'auditlogs:read',
   'logs.read',
   'logs.write',
-  'ssl_certs:write',
+  'account-ssl-and-certificates.write',
   'ssl-and-certificates.read',
   'ssl-and-certificates.write',
   'lb:read',

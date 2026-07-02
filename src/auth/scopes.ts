@@ -58,7 +58,7 @@ export const ALL_SCOPES = {
   'logs.write': 'Manage logs',
 
   // Infrastructure & Networking
-  'ssl_certs:write': 'Manage account-level SSL certificates',
+  'account-ssl-and-certificates.write': 'Manage account-level SSL certificates',
   'ssl-and-certificates.read': 'View zone-level SSL certificates and configuration',
   'ssl-and-certificates.write': 'Manage zone-level SSL certificates and configuration',
   'lb:read': 'View load balancer configurations',
