@@ -40,6 +40,29 @@ async function runExecute(path: string, body: unknown, init?: ResponseInit): Pro
   return toolText(result)
 }
 
+describe('codemode tool titles', () => {
+  it('exposes a title on the execute tool', async () => {
+    await seedSpec({})
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+
+    const result = await callTool(API_TOKEN, 'execute', null, { method: 'tools/list' })
+    const tool = result.result?.tools?.find((t: { name: string }) => t.name === 'execute')
+    expect(tool?.annotations?.title).toBe('Cloudflare API Code Executor')
+    expect(tool?.title).toBe('Cloudflare API Code Executor')
+  })
+
+  it('exposes a title on the search tool', async () => {
+    await seedSpec({})
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+
+    const result = await callTool(API_TOKEN, 'search', null, { method: 'tools/list' })
+    const tool = result.result?.tools?.find((t: { name: string }) => t.name === 'search')
+    expect(tool?.title).toBe('Cloudflare API Spec Search')
+    expect(tool?.annotations?.readOnlyHint).toBe(true)
+    expect(tool?.annotations?.title).toBe('Cloudflare API Spec Search')
+  })
+})
+
 describe('execute: REST responses', () => {
   it('returns the success envelope with the response status', async () => {
     const text = await runExecute(

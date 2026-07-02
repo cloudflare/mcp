@@ -53,6 +53,10 @@ declare const spec: {
  * e.g. GET /accounts/{account_id}/workers/scripts → get_accounts_workers_scripts
  */
 export function pathToToolName(method: string, path: string): string {
+  return `${method.toLowerCase()}_${pathToToolNameSuffix(path)}`
+}
+
+function pathToToolNameSuffix(path: string): string {
   let cleaned = path
 
   // Check if path ends with a {param} — keep it for disambiguation
@@ -60,19 +64,44 @@ export function pathToToolName(method: string, path: string): string {
   const suffix = trailingParam ? `_by_${trailingParam[1]}` : ''
 
   const name =
-    method.toLowerCase() +
-    '_' +
     cleaned
       .replace(/^\//, '')
       .replace(/\/\{[^}]+\}/g, '') // strip all {param} segments
       .replace(/\//g, '_')
       .replace(/[^a-z0-9_]/gi, '')
       .replace(/_+/g, '_')
-      .replace(/_$/, '') +
-    suffix
+      .replace(/_$/, '') + suffix
 
   // MCP spec: tool names SHOULD be between 1 and 128 characters
   return name.length > 128 ? name.slice(0, 128).replace(/_$/, '') : name
+}
+
+/**
+ * Build a human-readable title for a non-Code-Mode tool from its
+ * machine-friendly name. The title mirrors the tool name structure but with
+ * each segment title-cased so clients can display consistent, readable labels.
+ *
+ * e.g. get_accounts_workers_scripts → Get Accounts Workers Scripts
+ */
+export function toolNameToTitle(name: string): string {
+  const withPrepositions = name
+    .replace(/_by_/g, ' by ')
+    .replace(/_for_/g, ' for ')
+    .replace(/_in_/g, ' in ')
+    .replace(/_of_/g, ' of ')
+    .replace(/_on_/g, ' on ')
+    .replace(/_to_/g, ' to ')
+    .replace(/_with_/g, ' with ')
+  return withPrepositions.replace(/_/g, ' ').replace(/\b\w/g, (letter, offset) =>
+    // Keep prepositions lower-case when preceded by a space and followed by a space/end.
+    offset > 0 &&
+    /\s/.test(withPrepositions[offset - 1] ?? '') &&
+    ['by ', 'for ', 'in ', 'of ', 'on ', 'to ', 'with '].some((prep) =>
+      withPrepositions.slice(offset).toLowerCase().startsWith(prep)
+    )
+      ? letter.toLowerCase()
+      : letter.toUpperCase()
+  )
 }
 
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const
@@ -92,6 +121,7 @@ export type JsonObjectSchema = {
  */
 export interface NonCodemodeTool {
   name: string
+  title?: string
   description: string
   inputSchema: JsonObjectSchema
   method: HttpMethod
@@ -159,6 +189,7 @@ export function buildNonCodemodeTools(
   return listNonCodemodeOperations(paths).map(
     ({ toolName, description, method, path, operation }) => ({
       name: toolName,
+      title: toolNameToTitle(toolName),
       description,
       inputSchema: buildJsonInputSchema(operation, path),
       method,

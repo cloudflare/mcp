@@ -56,6 +56,7 @@ export const docsToolDescription = `Search the Cloudflare documentation.
 /** Wire-format definition used by the precomputed non-Code-Mode tools/list. */
 export const DOCS_TOOL: Tool = {
   name: 'docs',
+  title: 'Cloudflare Docs Search',
   description: docsToolDescription,
   inputSchema: {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
@@ -88,7 +89,7 @@ export const DOCS_TOOL: Tool = {
     required: ['results'],
     additionalProperties: false
   },
-  annotations: { readOnlyHint: true }
+  annotations: { title: 'Cloudflare Docs Search', readOnlyHint: true }
 }
 
 export async function runDocsTool(query: string) {
@@ -109,6 +110,7 @@ export function registerDocsTool(server: McpServer) {
   server.registerTool(
     'docs',
     {
+      title: 'Cloudflare Docs Search',
       description: docsToolDescription,
       inputSchema: z.object({
         query: z.string().describe('Cloudflare documentation search query')
@@ -125,6 +127,7 @@ export function registerDocsTool(server: McpServer) {
         )
       }),
       annotations: {
+        title: 'Cloudflare Docs Search',
         readOnlyHint: true
       }
     },

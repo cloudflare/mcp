@@ -15,7 +15,8 @@ export async function createServer(props: AuthProps, codemode = true): Promise<M
     return server
   }
 
-  // Track tool_call metrics for every Code-Mode tool registered below.
+  // Track tool_call metrics for every Code-Mode tool registered below. The
+  // metrics wrapper also mirrors tool.title into annotations.title.
   attachMetrics(server, props)
   registerDocsTool(server)
   await registerSearchTool(server)

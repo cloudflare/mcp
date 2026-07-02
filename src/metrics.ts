@@ -255,6 +255,13 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
   ) => ReturnType<McpServer['registerTool']>
 
   server.registerTool = ((name: string, ...rest: unknown[]) => {
+    const config = rest[0] as { title?: string; annotations?: { title?: string } } | undefined
+    // Mirror any tool.title into annotations.title so clients consistently see
+    // a display label regardless of which field they prefer.
+    if (config?.title && config.annotations && config.annotations.title === undefined) {
+      config.annotations.title = config.title
+    }
+
     const lastIndex = rest.length - 1
     const cb = rest[lastIndex] as (...cbArgs: unknown[]) => unknown
     rest[lastIndex] = (...cbArgs: unknown[]) => {

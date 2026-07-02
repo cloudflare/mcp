@@ -304,10 +304,12 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
     server.registerTool(
       'execute',
       {
+        title: 'Cloudflare API Code Executor',
         description,
         inputSchema: z.object({
           code: z.string().describe('JavaScript async arrow function to execute')
-        })
+        }),
+        annotations: { title: 'Cloudflare API Code Executor' }
       },
       async ({ code }) => {
         try {
@@ -324,11 +326,13 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
   server.registerTool(
     'execute',
     {
+      title: 'Cloudflare API Code Executor',
       description,
       inputSchema: z.object({
         code: z.string().describe('JavaScript async arrow function to execute'),
         account_id: z.string().optional().describe(accountIdParamDescription())
-      })
+      }),
+      annotations: { title: 'Cloudflare API Code Executor' }
     },
     async ({ code, account_id }) => {
       try {

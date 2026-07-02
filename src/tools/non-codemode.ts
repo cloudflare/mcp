@@ -132,8 +132,8 @@ function toolError(message: string): CallToolResult {
 }
 
 function toWireTool(tool: NonCodemodeTool): Tool {
-  const { name, description, inputSchema } = tool
-  return { name, description, inputSchema }
+  const { name, title, description, inputSchema } = tool
+  return { name, title, description, inputSchema }
 }
 
 function toolForAccountAccess(

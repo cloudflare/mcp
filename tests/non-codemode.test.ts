@@ -2,7 +2,12 @@ import { afterEach, describe, it, expect, vi } from 'vitest'
 import { Client } from '@modelcontextprotocol/client'
 import { InMemoryTransport, McpServer } from '@modelcontextprotocol/server'
 import { createServer } from '../src/server'
-import { buildInputSchema, buildNonCodemodeTools, pathToToolName } from '../src/openapi'
+import {
+  buildInputSchema,
+  buildNonCodemodeTools,
+  pathToToolName,
+  toolNameToTitle
+} from '../src/openapi'
 import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
 import { DOCS_TOOL, registerDocsTool } from '../src/tools/docs-search'
@@ -51,6 +56,33 @@ describe('precomputed tool contracts', () => {
     registerDocsTool(server)
 
     expect(JSON.parse(JSON.stringify(await listTools(server)))).toEqual([DOCS_TOOL])
+  })
+
+  it('includes annotations.title on the docs tool', async () => {
+    const server = new McpServer({ name: 'docs-title-test', version: '1.0.0' })
+    registerDocsTool(server)
+
+    const [tool] = await listTools(server)
+    expect(tool.name).toBe('docs')
+    expect(tool.title).toBe('Cloudflare Docs Search')
+    expect(tool.annotations?.title).toBe('Cloudflare Docs Search')
+    expect(tool.annotations?.readOnlyHint).toBe(true)
+  })
+})
+
+describe('toolNameToTitle', () => {
+  it('title-cases a non-codemode tool name', () => {
+    expect(toolNameToTitle('get_accounts_workers_scripts')).toBe('Get Accounts Workers Scripts')
+  })
+
+  it('expands the trailing by-param suffix', () => {
+    expect(toolNameToTitle('get_zones_dns_records_by_record_id')).toBe(
+      'Get Zones Dns Records by Record Id'
+    )
+  })
+
+  it('handles short tool names', () => {
+    expect(toolNameToTitle('get_user')).toBe('Get User')
   })
 })
 
@@ -614,6 +646,29 @@ describe('createServer with codemode=false', () => {
     // Should NOT have codemode tools
     expect(toolNames).not.toContain('search')
     expect(toolNames).not.toContain('execute')
+  })
+
+  it('exposes a title for each non-codemode endpoint', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/workers/scripts': {
+        get: { summary: 'List Workers' } as OperationInfo
+      },
+      '/accounts/{account_id}/workers/scripts/{script_name}': {
+        get: { summary: 'Get Worker' } as OperationInfo
+      }
+    }
+
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('test-account'), false)
+
+    const tools = await listTools(server)
+    const listTool = tools.find((tool) => tool.name === 'get_accounts_workers_scripts')
+    const getTool = tools.find(
+      (tool) => tool.name === 'get_accounts_workers_scripts_by_script_name'
+    )
+
+    expect(listTool?.title).toBe('Get Accounts Workers Scripts')
+    expect(getTool?.title).toBe('Get Accounts Workers Scripts by Script Name')
   })
 
   it('registers docs with the Cloudflare docs server description and output schema', async () => {

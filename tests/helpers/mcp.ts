@@ -2,7 +2,11 @@ import { exports } from 'cloudflare:workers'
 
 /** Result envelope of an MCP `tools/call` over Streamable HTTP. */
 export interface McpToolResult {
-  result?: { content?: Array<{ type: string; text: string }>; isError?: boolean }
+  result?: {
+    content?: Array<{ type: string; text: string }>
+    isError?: boolean
+    tools?: Array<{ name: string; title?: string; annotations?: { title?: string; readOnlyHint?: boolean } }>
+  }
   error?: { code: number; message: string }
 }
 
@@ -58,9 +62,14 @@ export async function parseMcpResult(res: Response): Promise<McpToolResult> {
 export async function callTool(
   token: string,
   name: string,
-  args: Record<string, unknown>
+  args: Record<string, unknown> | null,
+  options?: { method: 'tools/list' | 'tools/call' }
 ): Promise<McpToolResult> {
-  const res = await exports.default.fetch(mcpToolCallRequest(token, name, args))
+  const req =
+    options?.method === 'tools/list'
+      ? mcpToolListRequest(token)
+      : mcpToolCallRequest(token, name, args ?? {})
+  const res = await exports.default.fetch(req)
   return parseMcpResult(res)
 }
 

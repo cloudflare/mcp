@@ -106,10 +106,15 @@ export async function registerSearchTool(server: McpServer): Promise<void> {
   server.registerTool(
     'search',
     {
+      title: 'Cloudflare API Spec Search',
       description: searchToolDescription(products),
       inputSchema: z.object({
         code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec')
-      })
+      }),
+      annotations: {
+        title: 'Cloudflare API Spec Search',
+        readOnlyHint: true
+      }
     },
     async ({ code }) => {
       try {
