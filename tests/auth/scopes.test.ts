@@ -52,6 +52,8 @@ const REGISTERED_SCOPES = [
   'logs.read',
   'logs.write',
   'ssl_certs:write',
+  'ssl-and-certificates.read',
+  'ssl-and-certificates.write',
   'lb:read',
   'lb:edit',
   'queues:write',
@@ -163,11 +165,18 @@ describe('scopes', () => {
     it('read-only template should include dot-notation read scopes', () => {
       expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('registrar-domains.read')
       expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('logs.read')
+      expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('ssl-and-certificates.read')
     })
 
-    it('full-access template should skip sensitive or high-volume scopes', () => {
+    it('full-access template should include zone-level SSL certificate access', () => {
+      expect(SCOPE_TEMPLATES.yolo.scopes).toContain('ssl-and-certificates.write')
+    })
+
+    it('full-access template should skip sensitive, high-volume, or redundant scopes', () => {
       expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('teams:pii')
+      expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('logs.read')
       expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('logs.write')
+      expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('ssl-and-certificates.read')
     })
   })
 

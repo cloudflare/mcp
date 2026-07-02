@@ -58,7 +58,9 @@ export const ALL_SCOPES = {
   'logs.write': 'Manage logs',
 
   // Infrastructure & Networking
-  'ssl_certs:write': 'Manage SSL certificates',
+  'ssl_certs:write': 'Manage account-level SSL certificates',
+  'ssl-and-certificates.read': 'View zone-level SSL certificates and configuration',
+  'ssl-and-certificates.write': 'Manage zone-level SSL certificates and configuration',
   'lb:read': 'View load balancer configurations',
   'lb:edit': 'Configure load balancers',
   'notification:read': 'View notification policies',
@@ -139,7 +141,7 @@ export type ScopeName = keyof typeof ALL_SCOPES
 export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
 
 const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (scope) => !['teams:pii', 'logs.write'].includes(scope)
+  (scope) => !['teams:pii', 'logs.read', 'logs.write', 'ssl-and-certificates.read'].includes(scope)
 )
 
 const readOnlyScopes = Array.from(
