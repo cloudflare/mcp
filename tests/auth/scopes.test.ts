@@ -51,7 +51,6 @@ const REGISTERED_SCOPES = [
   'auditlogs:read',
   'logs.read',
   'logs.write',
-  'ssl_certs:write',
   'account-ssl-and-certificates.write',
   'ssl-and-certificates.read',
   'ssl-and-certificates.write',
@@ -169,19 +168,18 @@ describe('scopes', () => {
       expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('ssl-and-certificates.read')
     })
 
-    it('full-access template should include zone-level SSL certificate access', () => {
+    it('full-access template should include derived SSL certificate access', () => {
+      expect(SCOPE_TEMPLATES.yolo.scopes).toContain('account-ssl-and-certificates.write')
       expect(SCOPE_TEMPLATES.yolo.scopes).toContain('ssl-and-certificates.write')
     })
 
-    it('full-access template should preserve existing SSL and logs access', () => {
-      expect(SCOPE_TEMPLATES.yolo.scopes).toContain('ssl_certs:write')
+    it('full-access template should preserve existing logs access', () => {
       expect(SCOPE_TEMPLATES.yolo.scopes).toContain('logs.read')
     })
 
     it('full-access template should skip sensitive, high-volume, or redundant scopes', () => {
       expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('teams:pii')
       expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('logs.write')
-      expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('account-ssl-and-certificates.write')
       expect(SCOPE_TEMPLATES.yolo.scopes).not.toContain('ssl-and-certificates.read')
     })
   })
