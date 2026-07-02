@@ -54,6 +54,7 @@ export const ALL_SCOPES = {
   'logpush:read': 'View Logpush jobs',
   'logpush:write': 'Configure Logpush jobs',
   'auditlogs:read': 'View audit logs',
+  'account-analytics.read': 'View account analytics such as RUM and Web Analytics data',
   'logs.read': 'View logs',
   'logs.write': 'Manage logs',
 
