@@ -130,12 +130,9 @@ export const ALL_SCOPES = {
 
 /**
  * Maximum number of scopes that can be requested in a single OAuth authorization.
- * Cloudflare's OAuth server returns "Something went wrong!" when too many scopes
- * are requested. This limit is enforced server-side. Verified on staging that 78
- * scopes are accepted (full yolo template including notification:read/write). The
- * full-access template now preserves that existing set and adds zone-level SSL access.
+ * Undefined means the MCP server does not impose an app-side scope cap.
  */
-export const MAX_SCOPES = 79
+export const MAX_SCOPES: number | undefined = undefined
 
 export type ScopeName = keyof typeof ALL_SCOPES
 

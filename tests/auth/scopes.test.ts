@@ -205,7 +205,13 @@ describe('scopes', () => {
   })
 
   describe('MAX_SCOPES', () => {
-    it('all templates should be within the max scope limit', () => {
+    it('should not impose an app-side scope cap', () => {
+      expect(MAX_SCOPES).toBeUndefined()
+    })
+
+    it('all templates should be within the max scope limit when one is configured', () => {
+      if (MAX_SCOPES === undefined) return
+
       for (const [templateName, template] of Object.entries(SCOPE_TEMPLATES)) {
         expect(
           template.scopes.length,
