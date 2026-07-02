@@ -58,6 +58,7 @@ export const ALL_SCOPES = {
   'logs.write': 'Manage logs',
 
   // Infrastructure & Networking
+  'ssl_certs:write': 'Manage SSL certificates',
   'account-ssl-and-certificates.write': 'Manage account-level SSL certificates',
   'ssl-and-certificates.read': 'View zone-level SSL certificates and configuration',
   'ssl-and-certificates.write': 'Manage zone-level SSL certificates and configuration',
@@ -131,9 +132,10 @@ export const ALL_SCOPES = {
  * Maximum number of scopes that can be requested in a single OAuth authorization.
  * Cloudflare's OAuth server returns "Something went wrong!" when too many scopes
  * are requested. This limit is enforced server-side. Verified on staging that 78
- * scopes are accepted (full yolo template including notification:read/write).
+ * scopes are accepted (full yolo template including notification:read/write). The
+ * full-access template now preserves that existing set and adds zone-level SSL access.
  */
-export const MAX_SCOPES = 78
+export const MAX_SCOPES = 79
 
 export type ScopeName = keyof typeof ALL_SCOPES
 
@@ -141,7 +143,13 @@ export type ScopeName = keyof typeof ALL_SCOPES
 export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
 
 const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (scope) => !['teams:pii', 'logs.read', 'logs.write', 'ssl-and-certificates.read'].includes(scope)
+  (scope) =>
+    ![
+      'teams:pii',
+      'logs.write',
+      'account-ssl-and-certificates.write',
+      'ssl-and-certificates.read'
+    ].includes(scope)
 )
 
 const readOnlyScopes = Array.from(
