@@ -65,6 +65,13 @@ function createMcpHandler() {
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    // MCP Registry domain verification
+    if (new URL(request.url).pathname === '/.well-known/mcp-registry-auth') {
+      return new Response('v=MCPv1; k=ed25519; p=NAFEPh7t/Ij++0IO8vxHSZmbB/9w4G3N5RX3nZPJNwI=\n', {
+        headers: { 'Content-Type': 'text/plain' }
+      })
+    }
+
     // Check for direct API token first (like GitHub MCP's PAT support)
     if (isDirectApiToken(request)) {
       const response = await handleApiTokenRequest(request, (props) =>
