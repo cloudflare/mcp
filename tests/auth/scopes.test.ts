@@ -49,6 +49,7 @@ const REGISTERED_SCOPES = [
   'logpush:read',
   'logpush:write',
   'auditlogs:read',
+  'account-analytics.read',
   'logs.read',
   'logs.write',
   'account-ssl-and-certificates.write',
@@ -166,6 +167,11 @@ describe('scopes', () => {
       expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('registrar-domains.read')
       expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('logs.read')
       expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('ssl-and-certificates.read')
+      expect(SCOPE_TEMPLATES['read-only'].scopes).toContain('account-analytics.read')
+    })
+
+    it('full-access template should include account analytics access', () => {
+      expect(SCOPE_TEMPLATES.yolo.scopes).toContain('account-analytics.read')
     })
 
     it('full-access template should include derived SSL certificate access', () => {

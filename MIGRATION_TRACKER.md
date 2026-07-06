@@ -1,25 +1,43 @@
 # MCP TypeScript SDK v2 Migration Tracker
 
-Migrates this server from `@modelcontextprotocol/sdk` v1 to the v2 packages
-`@modelcontextprotocol/server` and `@modelcontextprotocol/client`, pinned to the
-`2.0.0-beta.1` release candidate.
+Tracks the migration from `@modelcontextprotocol/sdk` v1 to the split v2
+packages, plus follow-up upgrades while v2 is in beta. Both packages are pinned
+to the latest beta published on npm, `2.0.0-beta.2` (verified 2026-07-06).
 
-Branch: `chore/mcp-sdk-migration` (rebuilt on top of current `main`).
+Current upgrade branch: `chore/mcp-sdk-beta-2`, created from `origin/main` at
+`3d46b04`.
+
+## Beta upgrade tally (`2.0.0-beta.1` → `2.0.0-beta.2`)
+
+| # | Change | Repository impact | Status |
+| --- | --- | --- | --- |
+| 1 | Upgrade `@modelcontextprotocol/server` | Production dependency pinned to `2.0.0-beta.2` | Done |
+| 2 | Upgrade `@modelcontextprotocol/client` | Test-only dev dependency pinned to `2.0.0-beta.2` | Done |
+| 3 | Refresh npm lock data | Tarball URLs and integrity hashes now resolve beta.2 | Done |
+| 4 | Review beta.2 compatibility | No application source changes required | Done |
+| 5 | Run repository validation | Format, lint, typecheck, and all 265 tests pass | Done |
+| 6 | Deploy and smoke-test staging | Deployed; metadata/auth routes pass, Wrangler-token limitation documented | Done |
+
+Beta.2 adds ESM/CommonJS dual-package exports to both packages. The server also
+fixes the HTTP mapping for a post-dispatch `MissingRequiredClientCapabilityError`
+so an uncommitted response uses the specification-required `400 Bad Request`.
+This repository consumes the ESM/workerd exports and does not directly handle
+that SDK error, so neither release change requires source adaptation.
 
 ## Package changes
 
 | Package | Before | After |
 | --- | --- | --- |
 | `@modelcontextprotocol/sdk` | `^1.26.0` (dep) | removed |
-| `@modelcontextprotocol/server` | — | `2.0.0-beta.1` (dep) |
-| `@modelcontextprotocol/client` | — | `2.0.0-beta.1` (devDep, tests only) |
+| `@modelcontextprotocol/server` | — | `2.0.0-beta.2` (dep) |
+| `@modelcontextprotocol/client` | — | `2.0.0-beta.2` (devDep, tests only) |
 
 v2 is a package split: the server APIs move to `@modelcontextprotocol/server`
 (root export — there is no `/server/*` or `/types.js` subpath anymore) and the
 `Client` used in tests moves to `@modelcontextprotocol/client`.
 
 `@cfworker/json-schema` is **not** required as a direct dependency. In the v1
-alpha it had to be installed manually; `2.0.0-beta.1` bundles the Workers JSON
+alpha it had to be installed manually; the v2 beta bundles the Workers JSON
 Schema validator inline (`validators/cf-worker`) and selects it automatically on
 the `workerd`/`browser` export conditions via the package's `_shims` entry, so
 wrangler's bundle picks it up with no extra wiring.
@@ -85,20 +103,51 @@ precomputed artifacts:
 
 ## Validation
 
+### Current beta.2 upgrade
+
 ```sh
 npm run check   # format:check, lint, typecheck, test
 npm run deploy  # wrangler deploy --env staging
 ```
 
 - `format:check`, `lint`, `typecheck`: pass.
-- `npm test`: **261 passed** (16 files), including the e2e suite that drives the
-  real worker (`exports.default.fetch`) through the full Streamable HTTP
-  transport, tool dispatch, and a real Worker Loader isolate call — against
-  `2.0.0-beta.1`.
-- `npm run deploy`: deployed to staging. Worker startup 107 ms, no bundle/boot
-  errors (confirms the bundled `workerd` validator shim resolves on the edge).
+- `npm test`: **265 passed** (16 files), including the Worker integration suite.
+  One initial parallel run encountered transient five-second cold-start timeouts;
+  the affected test passed in isolation, ESM resolution was confirmed, and an
+  unchanged full rerun passed all tests in 9.85 seconds.
+- Staging deployed successfully with a 94 ms Worker startup:
 
-Staging deploy:
+  ```txt
+  Worker:     cloudflare-api-mcp-staging
+  URL:        https://staging.mcp.cloudflare.com
+  Version ID: 8dc659f6-c631-4961-9717-e73bd094dbeb (100% traffic)
+  ```
+
+- Deployed-worker smoke checks:
+  - `GET /.well-known/oauth-protected-resource` → `200`.
+  - `GET /.well-known/oauth-authorization-server` → `200`.
+  - unauthenticated `POST /mcp` → `401 invalid_token`.
+  - Wrangler OAuth token → production API identity probes return `200`.
+  - the same Wrangler token → staging API identity probes return `403`.
+  - authenticated `tools/list` through the staging Worker therefore returns
+    `403 insufficient_scope` before MCP dispatch, as expected for a production
+    token presented to `api.staging.cloudflare.com`.
+
+  The token was read directly from `wrangler auth token --json`, was never
+  printed or persisted, and cannot exercise authenticated MCP dispatch while the
+  staging Worker correctly targets the staging Cloudflare API. The full MCP
+  protocol, tool dispatch, and Worker Loader paths are covered by the passing
+  local Worker integration suite.
+
+### Original beta.1 migration baseline
+
+The initial v1-to-v2 migration passed 261 tests (16 files), including the e2e
+suite that drives the real worker (`exports.default.fetch`) through the full
+Streamable HTTP transport, tool dispatch, and a real Worker Loader isolate call.
+It was deployed to staging with a 107 ms startup and no bundle/boot errors,
+confirming the bundled `workerd` validator shim resolved on the edge.
+
+Historical beta.1 staging deploy:
 
 ```txt
 Worker:     cloudflare-api-mcp-staging
@@ -120,8 +169,7 @@ round-trip against `2.0.0-beta.1` is covered by the e2e test suite.
 
 ## Notes
 
-- `2.0.0-beta.1` was published within the last 3 days, so installing it requires
-  overriding the local `min-release-age` npm setting for the intentional install
-  (`npm install --min-release-age=0`).
+- The original `2.0.0-beta.1` install required overriding the local npm
+  `min-release-age`; beta.2 was old enough at upgrade time to install normally.
 - Tests still emit the existing `vitest-pool-workers` global-scope logging noise,
   but the run passes.
