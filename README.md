@@ -17,6 +17,8 @@ MCP URL: `https://mcp.cloudflare.com/mcp`
 
 ### Option 1: OAuth (Recommended)
 
+**Claude Code:** project `.mcp.json` should include `"type": "http"` for the remote URL (see example below).
+
 Just connect to the MCP server URL - you'll be redirected to Cloudflare to authorize and select permissions.
 
 #### Example JSON Configuration
