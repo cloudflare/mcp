@@ -22,8 +22,8 @@ at `fe731a8`.
 | 8   | Protect the HTTP boundary             | Static localhost/staging/production Host and Origin allowlists run before authentication; modern CORS preflight headers are served explicitly                 | Done    |
 | 9   | Add wire regressions                  | Modern discovery/list, concurrent Code Mode surfaces, stateless 2025 fallback, GET/DELETE rejection, Host/Origin policy, preflight, and real OAuth token flow | Done    |
 | 10  | Validate locally                      | `npm run check`: 17 files / 289 tests; `npm ci`, dependency tree, and production audit clean                                                                  | Done    |
-| 11  | Bundle staging configuration          | Wrangler dry run: 1294.38 KiB raw / 242.98 KiB gzip                                                                                                           | Done    |
-| 12  | Deploy and smoke-test production      | Performed separately after the reviewed branch is pushed and the pull request is opened                                                                        | Pending |
+| 11  | Bundle production configuration       | Production upload: 1294.29 KiB raw / 242.92 KiB gzip; 120 ms startup                                                                                           | Done   |
+| 12  | Deploy and smoke-test production      | Runtime commit `ba95888`; version `bca4d618-2eab-429b-a62a-71623c98c55e`; authenticated modern and legacy smokes passed                                        | Done   |
 
 ### Serving design
 
@@ -69,9 +69,13 @@ npx wrangler deploy --dry-run --env staging
   Worker Loader execution remains covered separately.
 - `npm ci`, `npm ls --all`, and the production dependency audit are clean. The
   unmet entries shown by `npm ls` are platform/framework optional dependencies.
-- The staging dry-run bundle is **1294.38 KiB raw / 242.98 KiB gzip**.
-  Production deployment and smoke-test results are recorded separately after
-  the reviewed branch is pushed.
+- Production deployed from runtime commit `ba95888` as version
+  `bca4d618-2eab-429b-a62a-71623c98c55e`: **1294.29 KiB raw / 242.92 KiB
+  gzip**, with a **120 ms** startup.
+- Live authenticated smoke tests passed for modern discovery, list, Code Mode
+  call, non-Code-Mode call, and the stateless legacy fallback. Public metadata,
+  auth rejection, CORS preflight, hostile-Origin rejection, no-session headers,
+  and authenticated GET `405` behavior also passed.
 
 ## Historical beta.2 upgrade tally (`2.0.0-beta.1` → `2.0.0-beta.2`)
 
