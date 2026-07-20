@@ -1,4 +1,3 @@
-import { AsyncLocalStorage } from 'node:async_hooks'
 import {
   createMcpHandler,
   hostHeaderValidationResponse,
@@ -23,22 +22,16 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
   'mcp.cloudflare.com'
 ]
 
-/** Request-local authenticated application context for the shared SDK handler. */
-const authPropsStorage = new AsyncLocalStorage<AuthProps>()
+function createAuthenticatedHandler(props: AuthProps) {
+  return createMcpHandler(({ requestInfo }) => {
+    if (!requestInfo) {
+      throw new Error('The Cloudflare MCP server requires an HTTP request')
+    }
 
-const handler = createMcpHandler(({ requestInfo }) => {
-  if (!requestInfo) {
-    throw new Error('The Cloudflare MCP server requires an HTTP request')
-  }
-
-  const props = authPropsStorage.getStore()
-  if (!props) {
-    throw new Error('Missing authenticated MCP request context')
-  }
-
-  const codemode = new URL(requestInfo.url).searchParams.get('codemode') !== 'false'
-  return createServer(props, codemode)
-})
+    const codemode = new URL(requestInfo.url).searchParams.get('codemode') !== 'false'
+    return createServer(props, codemode)
+  })
+}
 
 // Handler options are intentionally omitted. The SDK defaults to:
 // - stateless 2025 compatibility, with a fresh server and no protocol session
@@ -100,7 +93,8 @@ export async function handleAuthenticatedMcpRequest(
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)
-  return authPropsStorage.run(props, async () => withCors(await handler.fetch(request), request))
+  const handler = createAuthenticatedHandler(props)
+  return withCors(await handler.fetch(request), request)
 }
 
 /** ExportedHandler adapter required by workers-oauth-provider 0.8.x. */

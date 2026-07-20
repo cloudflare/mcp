@@ -4,7 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "lib": ["ES2022"],
-    "types": ["./worker-configuration.d.ts", "@cloudflare/vitest-pool-workers/types", "node"],
+    "types": ["./worker-configuration.d.ts", "@cloudflare/vitest-pool-workers/types"],
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,

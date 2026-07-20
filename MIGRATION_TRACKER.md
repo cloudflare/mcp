@@ -18,7 +18,7 @@ at `fe731a8`.
 | 4   | Retain published-client compatibility | The upstream default stateless 2025 fallback remains enabled; `legacy: 'reject'` is not set                                                                   | Done    |
 | 5   | Keep the protocol stateless           | No MCP session ID, transport storage, event replay state, Durable Object, SSE GET, or session DELETE path                                                     | Done    |
 | 6   | Preserve application and auth state   | OAuth grants, credentials, API-token identity cache, R2 spec artifacts, Analytics Engine, and Worker Loader infrastructure remain                             | Done    |
-| 7   | Preserve both auth modes              | Direct API tokens and provider-issued OAuth tokens both supply validated `AuthProps` to the request-local factory through Worker `AsyncLocalStorage`          | Done    |
+| 7   | Preserve both auth modes              | Direct API tokens and provider-issued OAuth tokens both pass validated `AuthProps` explicitly into a request-local handler factory                           | Done    |
 | 8   | Protect the HTTP boundary             | Static localhost/staging/production Host and Origin allowlists run before authentication; modern CORS preflight headers are served explicitly                 | Done    |
 | 9   | Add wire regressions                  | Modern discovery/list, concurrent Code Mode surfaces, stateless 2025 fallback, GET/DELETE rejection, Host/Origin policy, preflight, and real OAuth token flow | Done    |
 | 10  | Validate locally                      | `npm run check`: 17 files / 289 tests; `npm ci`, dependency tree, and production audit clean                                                                  | Done    |
@@ -27,16 +27,16 @@ at `fe731a8`.
 
 ### Serving design
 
-- A module-scoped upstream handler owns shared handler controls while its factory
-  returns a new `McpServer` for every HTTP request.
+- Each authenticated HTTP request creates an upstream handler whose factory
+  closes over the request's validated `AuthProps`, preserving the explicit data
+  flow used before this migration.
 - The repository has no dependency on the Agents SDK. The only MCP runtime
   packages are the split TypeScript SDK packages.
 - The existing `?codemode=false` request input is read from the factory's
   `requestInfo`, so concurrent requests can safely expose different tool
   surfaces without sharing a connected server.
-- Authentication remains outside the MCP SDK. Both verified auth paths enter a
-  request-local `AsyncLocalStorage<AuthProps>` scope before calling the handler;
-  the factory validates and captures those props in the fresh server.
+- No Node ambient types, async-context bridge, or implicit global auth state is
+  required.
 - Handler options are intentionally omitted, preserving the upstream defaults:
   `legacy: 'stateless'` and `responseMode: 'auto'`.
 - Ordinary modern responses remain JSON. The upstream stateless 2025 fallback
