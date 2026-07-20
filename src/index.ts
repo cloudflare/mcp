@@ -1,83 +1,51 @@
-import OAuthProvider, { getOAuthApi } from '@cloudflare/workers-oauth-provider'
-import { Hono } from 'hono'
-import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/server'
-import { createServer } from './server'
+import OAuthProvider, {
+  getOAuthApi,
+  type OAuthProviderOptions
+} from '@cloudflare/workers-oauth-provider'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
+import {
+  MCP_ROUTE,
+  handleAuthenticatedMcpRequest,
+  handleMcpPreflight,
+  oauthMcpHandler,
+  rejectInvalidMcpRequest
+} from './mcp-handler'
 import { processSpec, extractProducts } from './spec-processor'
 import { buildNonCodemodeTools, type OperationInfo } from './openapi'
-import type { AuthProps } from './auth/types'
 
 // GlobalOutbound lives with the execute tool (its only caller); wrangler
 // resolves the GLOBAL_OUTBOUND worker-loader entrypoint from this entry module,
 // so it must be re-exported here.
 export { GlobalOutbound } from './tools/execute'
 
-type McpContext = {
-  Bindings: Env
-}
-
-/**
- * Create an MCP response for the authenticated session described by `props`.
- */
-async function createMcpResponse(
-  request: Request,
-  ctx: ExecutionContext,
-  props: AuthProps
-): Promise<Response> {
-  const url = new URL(request.url)
-  const codemode = url.searchParams.get('codemode') !== 'false'
-  const server = await createServer(props, codemode)
-  const transport = new WebStandardStreamableHTTPServerTransport({
-    sessionIdGenerator: undefined,
-    enableJsonResponse: true,
-    retryInterval: 1000
-  })
-
-  await server.connect(transport)
-  const response = await transport.handleRequest(request)
-  ctx.waitUntil(transport.close())
-
-  return response
-}
-
-/**
- * Create MCP API handler using Hono
- */
-function createMcpHandler() {
-  const app = new Hono<McpContext>()
-
-  app.post('/mcp', async (c) => {
-    // Props are passed via ExecutionContext by workers-oauth-provider
-    const ctx = c.executionCtx as ExecutionContext & { props?: AuthProps }
-    const props = ctx.props
-    if (!props || !props.accessToken) {
-      return new Response(JSON.stringify({ error: 'Not authenticated' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' }
-      })
-    }
-    return createMcpResponse(c.req.raw, ctx, props)
-  })
-
-  return app
-}
-
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    const url = new URL(request.url)
+    const isMcpRoute = url.pathname === MCP_ROUTE
+    if (url.pathname.startsWith(MCP_ROUTE) && !isMcpRoute) {
+      return new Response('Not Found', { status: 404 })
+    }
+    if (isMcpRoute) {
+      // Validate Host and browser Origin before authentication so an invalid
+      // request cannot spend a bearer token on Cloudflare API identity probes.
+      const rejected = rejectInvalidMcpRequest(request)
+      if (rejected) return rejected
+      if (request.method === 'OPTIONS') return handleMcpPreflight(request)
+    }
+
     // Check for direct API token first (like GitHub MCP's PAT support)
-    if (isDirectApiToken(request)) {
+    if (isMcpRoute && isDirectApiToken(request)) {
       const response = await handleApiTokenRequest(request, (props) =>
-        createMcpResponse(request, ctx, props)
+        handleAuthenticatedMcpRequest(request, props)
       )
       if (response) return response
     }
 
     // OAuth mode - handle via workers-oauth-provider
-    const oauthOptions: ConstructorParameters<typeof OAuthProvider>[0] = {
+    const oauthOptions: OAuthProviderOptions<Env> = {
       apiHandlers: {
-        // @ts-ignore - Hono apps are compatible with ExportedHandler at runtime
-        '/mcp': createMcpHandler()
+        [MCP_ROUTE]: oauthMcpHandler
       },
       // @ts-ignore - Hono apps are compatible with ExportedHandler at runtime
       defaultHandler: createAuthHandlers(),

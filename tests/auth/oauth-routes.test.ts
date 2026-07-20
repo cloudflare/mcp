@@ -3,6 +3,7 @@ import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cfAccountsSuccess, cfSuccess } from '../helpers/cloudflare-api'
 import { clearKv } from '../helpers/kv'
+import { modernMcpRequest, parseMcpResult } from '../helpers/mcp'
 import { server } from '../setup/msw'
 
 /**
@@ -18,11 +19,12 @@ import { server } from '../setup/msw'
  */
 
 const REDIRECT_URI = 'https://app.example.com/cb'
+const MCP_ORIGIN = 'https://mcp.cloudflare.com'
 
 /** Register a client via the provider's RFC 7591 endpoint; returns its id. */
 async function registerClient(): Promise<string> {
   const res = await exports.default.fetch(
-    new Request('https://mcp.example.com/register', {
+    new Request(`${MCP_ORIGIN}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -36,12 +38,13 @@ async function registerClient(): Promise<string> {
 }
 
 function authorizeUrl(params: Record<string, string>): string {
-  const u = new URL('https://mcp.example.com/authorize')
+  const u = new URL(`${MCP_ORIGIN}/authorize`)
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v)
   return u.toString()
 }
 
 async function beginAuthorization(options: { state?: string; scopes?: string } = {}): Promise<{
+  clientId: string
   state: string
   sessionCookie: string
   location: string
@@ -65,7 +68,7 @@ async function beginAuthorization(options: { state?: string; scopes?: string } =
   expect(stateField && csrfField).toBeTruthy()
 
   const postRes = await exports.default.fetch(
-    new Request('https://mcp.example.com/authorize', {
+    new Request(`${MCP_ORIGIN}/authorize`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded', Cookie: csrfCookie },
       body: new URLSearchParams({
@@ -79,6 +82,7 @@ async function beginAuthorization(options: { state?: string; scopes?: string } =
   expect(postRes.status).toBe(302)
   const location = postRes.headers.get('location')!
   return {
+    clientId,
     state: new URL(location).searchParams.get('state')!,
     sessionCookie: cookiesFrom(postRes),
     location
@@ -195,7 +199,7 @@ describe('GET /oauth/callback', () => {
     // GET /oauth/callback -> 302 back to the client redirect URI with a code.
     const cbRes = await exports.default.fetch(
       new Request(
-        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(cfState)}`,
+        `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(cfState)}`,
         { headers: { Cookie: sessionCookie }, redirect: 'manual' }
       )
     )
@@ -216,6 +220,41 @@ describe('GET /oauth/callback', () => {
     expect(dp.blobs?.[3]).toBeFalsy()
   })
 
+  it('serves modern MCP from provider-issued authenticated props', async () => {
+    const { clientId, state, sessionCookie } = await beginAuthorization()
+    useCloudflareAuthSuccess()
+    const callback = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, {
+        headers: { Cookie: sessionCookie },
+        redirect: 'manual'
+      })
+    )
+    const code = new URL(callback.headers.get('location')!).searchParams.get('code')
+    expect(code).toBeTruthy()
+
+    const tokenResponse = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'authorization_code',
+          code: code!,
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI
+        }).toString()
+      })
+    )
+    expect(tokenResponse.status).toBe(200)
+    const { access_token } = (await tokenResponse.json()) as { access_token: string }
+
+    const mcpResponse = await exports.default.fetch(modernMcpRequest(access_token, 'tools/list'))
+    const mcpBody = await parseMcpResult(mcpResponse)
+
+    expect(mcpResponse.status).toBe(200)
+    expect(mcpBody.result?.resultType).toBe('complete')
+    expect(mcpBody.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
+  })
+
   it('preserves Unicode downstream client state without encoding it into upstream state', async () => {
     const downstreamState = 'client-state-🔐-你好'
     const { state, sessionCookie } = await beginAuthorization({ state: downstreamState })
@@ -223,10 +262,10 @@ describe('GET /oauth/callback', () => {
 
     useCloudflareAuthSuccess()
     const res = await exports.default.fetch(
-      new Request(
-        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`,
-        { headers: { Cookie: sessionCookie }, redirect: 'manual' }
-      )
+      new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, {
+        headers: { Cookie: sessionCookie },
+        redirect: 'manual'
+      })
     )
 
     expect(res.status).toBe(302)
@@ -248,7 +287,7 @@ describe('GET /oauth/callback', () => {
 
     const res = await exports.default.fetch(
       new Request(
-        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(legacyState)}`,
+        `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(legacyState)}`,
         { headers: { Cookie: sessionCookie }, redirect: 'manual' }
       )
     )
@@ -263,10 +302,9 @@ describe('GET /oauth/callback', () => {
     const { state } = await beginAuthorization()
 
     const res = await exports.default.fetch(
-      new Request(
-        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`,
-        { redirect: 'manual' }
-      )
+      new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, {
+        redirect: 'manual'
+      })
     )
 
     expect(res.status).toBe(400)
@@ -279,7 +317,7 @@ describe('GET /oauth/callback', () => {
 
     const res = await exports.default.fetch(
       new Request(
-        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(first.state)}`,
+        `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(first.state)}`,
         { headers: { Cookie: second.sessionCookie }, redirect: 'manual' }
       )
     )
@@ -291,7 +329,7 @@ describe('GET /oauth/callback', () => {
   it('rejects replay after a state token has completed authorization', async () => {
     const { state, sessionCookie } = await beginAuthorization()
     useCloudflareAuthSuccess()
-    const callbackUrl = `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`
+    const callbackUrl = `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`
 
     const first = await exports.default.fetch(
       new Request(callbackUrl, { headers: { Cookie: sessionCookie }, redirect: 'manual' })
@@ -306,7 +344,7 @@ describe('GET /oauth/callback', () => {
   })
 
   it('returns 400 invalid_request when the code is missing', async () => {
-    const res = await exports.default.fetch(new Request('https://mcp.example.com/oauth/callback'))
+    const res = await exports.default.fetch(new Request(`${MCP_ORIGIN}/oauth/callback`))
 
     expect(res.status).toBe(400)
     expect(await res.text()).toContain('invalid_request')
@@ -314,7 +352,7 @@ describe('GET /oauth/callback', () => {
 
   it('logs an auth_user error when state is missing', async () => {
     const res = await exports.default.fetch(
-      new Request('https://mcp.example.com/oauth/callback?code=authcode')
+      new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode`)
     )
 
     // No state -> validateOAuthState throws -> caught -> auth_user error logged.
@@ -328,10 +366,9 @@ describe('GET /oauth/callback', () => {
     ['oversized', 'x'.repeat(1024)]
   ])('rejects an %s state token as invalid_request', async (_, state) => {
     const res = await exports.default.fetch(
-      new Request(
-        `https://mcp.example.com/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`,
-        { headers: { Cookie: '__Host-CONSENTED_STATE=deadbeef' } }
-      )
+      new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, {
+        headers: { Cookie: '__Host-CONSENTED_STATE=deadbeef' }
+      })
     )
 
     expect(res.status).toBe(400)

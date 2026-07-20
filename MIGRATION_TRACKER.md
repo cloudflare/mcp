@@ -1,22 +1,88 @@
 # MCP TypeScript SDK v2 Migration Tracker
 
 Tracks the migration from `@modelcontextprotocol/sdk` v1 to the split v2
-packages, plus follow-up upgrades while v2 is in beta. Both packages are pinned
-to the latest beta published on npm, `2.0.0-beta.2` (verified 2026-07-06).
+packages and the later move to the stateless MCP `2026-07-28` HTTP handler.
+`@modelcontextprotocol/server` and the test-only client are exact-pinned to the
+latest published beta, `2.0.0-beta.4` (verified 2026-07-20).
 
-Current upgrade branch: `chore/mcp-sdk-beta-2`, created from `origin/main` at
-`3d46b04`.
+Current upgrade branch: `feat/mcp-sdk-v2-stateless`, created from `origin/main`
+at `fe731a8`.
 
-## Beta upgrade tally (`2.0.0-beta.1` → `2.0.0-beta.2`)
+## Stateless beta.4 handler migration
 
-| # | Change | Repository impact | Status |
-| --- | --- | --- | --- |
-| 1 | Upgrade `@modelcontextprotocol/server` | Production dependency pinned to `2.0.0-beta.2` | Done |
-| 2 | Upgrade `@modelcontextprotocol/client` | Test-only dev dependency pinned to `2.0.0-beta.2` | Done |
-| 3 | Refresh npm lock data | Tarball URLs and integrity hashes now resolve beta.2 | Done |
-| 4 | Review beta.2 compatibility | No application source changes required | Done |
-| 5 | Run repository validation | Format, lint, typecheck, and all 265 tests pass | Done |
-| 6 | Deploy and smoke-test staging | Deployed; metadata/auth routes pass, Wrangler-token limitation documented | Done |
+| #   | Change                                | Repository impact                                                                                                                                             | Status  |
+| --- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| 1   | Upgrade the split SDK packages        | Server and test client exact-pinned to `2.0.0-beta.4`; lockfile updated as one transaction                                                                    | Done    |
+| 2   | Adopt the upstream HTTP entry         | `src/mcp-handler.ts` uses `createMcpHandler(factory)` directly from `@modelcontextprotocol/server`                                                            | Done    |
+| 3   | Serve modern MCP                      | MCP `2026-07-28` requests use a fresh SDK v2 server factory                                                                                                   | Done    |
+| 4   | Retain published-client compatibility | The upstream default stateless 2025 fallback remains enabled; `legacy: 'reject'` is not set                                                                   | Done    |
+| 5   | Keep the protocol stateless           | No MCP session ID, transport storage, event replay state, Durable Object, SSE GET, or session DELETE path                                                     | Done    |
+| 6   | Preserve application and auth state   | OAuth grants, credentials, API-token identity cache, R2 spec artifacts, Analytics Engine, and Worker Loader infrastructure remain                             | Done    |
+| 7   | Preserve both auth modes              | Direct API tokens and provider-issued OAuth tokens both supply validated `AuthProps` to the request-local factory through Worker `AsyncLocalStorage`          | Done    |
+| 8   | Protect the HTTP boundary             | Static localhost/staging/production Host and Origin allowlists run before authentication; modern CORS preflight headers are served explicitly                 | Done    |
+| 9   | Add wire regressions                  | Modern discovery/list, concurrent Code Mode surfaces, stateless 2025 fallback, GET/DELETE rejection, Host/Origin policy, preflight, and real OAuth token flow | Done    |
+| 10  | Validate locally                      | `npm run check`: 17 files / 289 tests; `npm ci`, dependency tree, and production audit clean                                                                  | Done    |
+| 11  | Bundle staging configuration          | Wrangler dry run: 1294.38 KiB raw / 242.98 KiB gzip                                                                                                           | Done    |
+| 12  | Deploy and smoke-test production      | Performed separately after the reviewed branch is pushed and the pull request is opened                                                                        | Pending |
+
+### Serving design
+
+- A module-scoped upstream handler owns shared handler controls while its factory
+  returns a new `McpServer` for every HTTP request.
+- The repository has no dependency on the Agents SDK. The only MCP runtime
+  packages are the split TypeScript SDK packages.
+- The existing `?codemode=false` request input is read from the factory's
+  `requestInfo`, so concurrent requests can safely expose different tool
+  surfaces without sharing a connected server.
+- Authentication remains outside the MCP SDK. Both verified auth paths enter a
+  request-local `AsyncLocalStorage<AuthProps>` scope before calling the handler;
+  the factory validates and captures those props in the fresh server.
+- Handler options are intentionally omitted, preserving the upstream defaults:
+  `legacy: 'stateless'` and `responseMode: 'auto'`.
+- Ordinary modern responses remain JSON. The upstream stateless 2025 fallback
+  returns SSE for claimless legacy requests; this is compatible with Streamable
+  HTTP clients, which must accept both JSON and SSE, and no session ID is issued.
+- Browser Host/Origin trust is deployment-static. It must never be derived from
+  the incoming request URL, Host header, or Origin header.
+
+### Beta.4 validation
+
+```sh
+npm ci
+npm run check
+npm ls --all
+npm audit --omit=dev
+npx wrangler deploy --dry-run --env staging
+```
+
+- `format:check`, lint, typecheck, and all **289 tests in 17 files** pass.
+- Modern wire tests cover `server/discover`, `tools/list`, `resultType`, absent
+  `Mcp-Session-Id`, and concurrent Code Mode/non-Code-Mode factories.
+- Legacy wire tests prove claimless 2025 `tools/list` still works statelessly and
+  authenticated bodyless GET/DELETE requests return `405` without factory
+  construction, while unauthenticated requests remain protected with `401`.
+- Deployment tests cover accepted production Host/Origin, rejected foreign and
+  self-consistent attacker Host/Origin pairs, and authenticated modern CORS
+  preflight headers.
+- The real OAuth provider integration completes registration, authorization,
+  callback, code exchange, and a modern authenticated `tools/list`; direct-token
+  Worker Loader execution remains covered separately.
+- `npm ci`, `npm ls --all`, and the production dependency audit are clean. The
+  unmet entries shown by `npm ls` are platform/framework optional dependencies.
+- The staging dry-run bundle is **1294.38 KiB raw / 242.98 KiB gzip**.
+  Production deployment and smoke-test results are recorded separately after
+  the reviewed branch is pushed.
+
+## Historical beta.2 upgrade tally (`2.0.0-beta.1` → `2.0.0-beta.2`)
+
+| #   | Change                                 | Repository impact                                                         | Status |
+| --- | -------------------------------------- | ------------------------------------------------------------------------- | ------ |
+| 1   | Upgrade `@modelcontextprotocol/server` | Production dependency pinned to `2.0.0-beta.2`                            | Done   |
+| 2   | Upgrade `@modelcontextprotocol/client` | Test-only dev dependency pinned to `2.0.0-beta.2`                         | Done   |
+| 3   | Refresh npm lock data                  | Tarball URLs and integrity hashes now resolve beta.2                      | Done   |
+| 4   | Review beta.2 compatibility            | No application source changes required                                    | Done   |
+| 5   | Run repository validation              | Format, lint, typecheck, and all 265 tests pass                           | Done   |
+| 6   | Deploy and smoke-test staging          | Deployed; metadata/auth routes pass, Wrangler-token limitation documented | Done   |
 
 Beta.2 adds ESM/CommonJS dual-package exports to both packages. The server also
 fixes the HTTP mapping for a post-dispatch `MissingRequiredClientCapabilityError`
@@ -24,13 +90,13 @@ so an uncommitted response uses the specification-required `400 Bad Request`.
 This repository consumes the ESM/workerd exports and does not directly handle
 that SDK error, so neither release change requires source adaptation.
 
-## Package changes
+## Historical package split
 
-| Package | Before | After |
-| --- | --- | --- |
-| `@modelcontextprotocol/sdk` | `^1.26.0` (dep) | removed |
-| `@modelcontextprotocol/server` | — | `2.0.0-beta.2` (dep) |
-| `@modelcontextprotocol/client` | — | `2.0.0-beta.2` (devDep, tests only) |
+| Package                        | Before          | After                               |
+| ------------------------------ | --------------- | ----------------------------------- |
+| `@modelcontextprotocol/sdk`    | `^1.26.0` (dep) | removed                             |
+| `@modelcontextprotocol/server` | —               | `2.0.0-beta.2` (dep)                |
+| `@modelcontextprotocol/client` | —               | `2.0.0-beta.2` (devDep, tests only) |
 
 v2 is a package split: the server APIs move to `@modelcontextprotocol/server`
 (root export — there is no `/server/*` or `/types.js` subpath anymore) and the
@@ -42,14 +108,14 @@ Schema validator inline (`validators/cf-worker`) and selects it automatically on
 the `workerd`/`browser` export conditions via the package's `_shims` entry, so
 wrangler's bundle picks it up with no extra wiring.
 
-## Code changes
+## Historical v1-to-v2 code changes
 
 ### Imports (`@modelcontextprotocol/sdk/...` → `@modelcontextprotocol/server`)
 
-- `src/index.ts` — `WebStandardStreamableHTTPServerTransport`. This transport
-  still exists in v2 (root export, same options: `sessionIdGenerator`,
-  `enableJsonResponse`, `retryInterval`; same `handleRequest(request)` /
-  `close()`), so this is a one-line import repoint with no behavior change.
+- At this stage, `src/index.ts` continued using
+  `WebStandardStreamableHTTPServerTransport`. The beta.4 migration above later
+  replaced that raw transport wiring with the upstream `createMcpHandler`
+  factory entry.
 - `src/server.ts`, `src/metrics.ts` — `McpServer` (value / type).
 - `src/tools/{search,execute,docs-search}.ts` — `McpServer` type; `Tool` type.
 
@@ -103,7 +169,7 @@ precomputed artifacts:
 
 ## Validation
 
-### Current beta.2 upgrade
+### Historical beta.2 upgrade
 
 ```sh
 npm run check   # format:check, lint, typecheck, test

@@ -16,11 +16,11 @@
  *
  * Note: this server is stateless (a fresh McpServer per request) so it does not
  * emit `session_start` events the way the Durable-Object-backed Cloudflare MCP
- * servers do — `oninitialized` fires on a separate request from `initialize`
- * and can never observe the client info. The `blob4`/`blob5`/`double2` slots
- * reserved upstream for session client info are simply left unused here, which
- * keeps shared-dataset queries compatible. Client identity is available at the
- * HTTP layer via the User-Agent header instead.
+ * servers do. MCP 2026-07-28 has no protocol session or initialize handshake;
+ * the 2025 compatibility path also retains no initialization state between
+ * requests. The slots reserved upstream for session client info remain unused,
+ * keeping shared-dataset queries compatible. Client identity is available at
+ * the HTTP layer via the User-Agent header instead.
  */
 
 import { env } from 'cloudflare:workers'
@@ -232,9 +232,9 @@ export function recordToolCall(props: AuthProps, toolName: string, isError: bool
  *
  * Note: unlike the Durable-Object-backed Cloudflare MCP servers, this server is
  * stateless (a fresh McpServer per request), so there is no meaningful
- * `session_start` to log — `oninitialized` fires on a separate request from the
- * `initialize` handshake and can never see the client info. Client identity is
- * instead available at the HTTP layer via the User-Agent header.
+ * `session_start` to log. Modern MCP has no initialize handshake, and the
+ * stateless 2025 fallback retains no client lifecycle between requests. Client
+ * identity is instead available at the HTTP layer via the User-Agent header.
  */
 export function attachMetrics(server: McpServer, props?: AuthProps): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)

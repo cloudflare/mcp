@@ -11,7 +11,7 @@ import {
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
-import { callTool, mcpToolCallRequest, parseMcpResult } from './helpers/mcp'
+import { MCP_URL, callTool, mcpToolCallRequest, parseMcpResult } from './helpers/mcp'
 import { server } from './setup/msw'
 
 const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
@@ -151,7 +151,7 @@ describe('tool_call emission via the real worker', () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
     const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
     const base = mcpToolCallRequest(API_TOKEN, 'get_accounts', {})
-    const request = new Request('https://mcp.example.com/mcp?codemode=false', base)
+    const request = new Request(`${MCP_URL}?codemode=false`, base)
 
     const result = await parseMcpResult(await exports.default.fetch(request))
 

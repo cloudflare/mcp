@@ -18,12 +18,13 @@ When modifying MCP or OAuth functionality, **always check the latest published M
 ```
 cloudflare-mcp/
 ├── src/
-│   ├── index.ts                   # Worker entry point & OAuth/Hono routing
+│   ├── index.ts                   # Worker entry point & OAuth routing
+│   ├── mcp-handler.ts             # Stateless MCP HTTP handler & deployment guards
 │   ├── server.ts                  # MCP server setup & tool registration
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
-│   ├── metrics.ts                 # Analytics Engine metrics (session_start/tool_call)
+│   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Direct Cloudflare API token support
@@ -104,6 +105,14 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 1. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
 2. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
 
+### MCP HTTP serving
+
+- `src/mcp-handler.ts` uses `createMcpHandler(factory)` directly from `@modelcontextprotocol/server`; this repository does not depend on the Agents SDK.
+- The module-scoped handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path.
+- The factory creates a fresh `McpServer` for every request. No MCP session ID, protocol transport state, replay store, or Durable Object is used.
+- OAuth and direct API-token requests are verified before dispatch. Validated `AuthProps` reach the per-request factory through Worker `AsyncLocalStorage` and are captured by the new server.
+- Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
+
 ### Worker Loader API
 
 Code execution uses Cloudflare's Worker Loader API to dynamically create isolated worker instances. The API token is passed via props (never enters user code isolate). A `globalOutbound` service restricts network access.
@@ -136,7 +145,7 @@ Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the sh
 
 - `src/metrics.ts` mirrors the upstream `@repo/mcp-observability` schema. The blob/double layout is **positional and must not change**: `index1` = event type, `blob1`/`blob2` = server name/version (reserved), `blob3` = userId, `blob4` = toolName/errorMessage, `double1` = errorCode.
 - `attachMetrics()` in `src/server.ts` wraps Code-Mode `registerTool` calls; the lazy non-Code-Mode dispatcher records the same `tool_call` events directly. `auth_user` events are emitted from the OAuth handler.
-- **No `session_start`**: unlike the Durable-Object-backed servers, this server is stateless (a fresh `McpServer` per request), so `oninitialized` fires on a different request than `initialize` and can never see client info. Client identity comes from the HTTP `User-Agent` header (visible in zone HTTP analytics) instead.
+- **No `session_start`**: MCP `2026-07-28` has no protocol sessions or `initialize` handshake. The 2025 compatibility path also creates a fresh server for each request and retains no initialization state. Client identity remains visible at the HTTP layer through `User-Agent` (including zone HTTP analytics).
 - The tracker is tolerant of a missing binding (no-op in tests/local dev) and swallows write errors so metrics can never break a tool call.
 - Query via the Analytics Engine SQL API: `SELECT ... FROM 'mcp-metrics-production' WHERE blob1='cloudflare-api' AND index1='tool_call'`.
 
@@ -147,6 +156,7 @@ Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the sh
 - Search tool runs with no network access
 - OAuth uses PKCE (RFC 7636) for secure authorization
 - Cookie encryption for OAuth sessions (`MCP_COOKIE_ENCRYPTION_KEY`)
+- The `/mcp` route validates Host and present browser Origin headers against deployment-static allowlists before authentication
 
 ## Testing
 

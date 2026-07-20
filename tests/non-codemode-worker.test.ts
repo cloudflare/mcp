@@ -4,7 +4,13 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
-import { mcpToolCallRequest, mcpToolListRequest, parseMcpResult, toolText } from './helpers/mcp'
+import {
+  MCP_URL,
+  mcpToolCallRequest,
+  mcpToolListRequest,
+  parseMcpResult,
+  toolText
+} from './helpers/mcp'
 import { server } from './setup/msw'
 
 /**
@@ -46,7 +52,7 @@ const SPEC_PATHS = {
 /** POST a non-codemode tools/list to the real worker. */
 async function listNonCodemodeTools(token: string) {
   const base = mcpToolListRequest(token)
-  const req = new Request('https://mcp.example.com/mcp?codemode=false', base)
+  const req = new Request(`${MCP_URL}?codemode=false`, base)
   const result = (await parseMcpResult(await exports.default.fetch(req))) as unknown as {
     result?: {
       tools?: Array<{
@@ -62,7 +68,7 @@ async function listNonCodemodeTools(token: string) {
 /** POST a non-codemode tools/call to the real worker. */
 async function callNonCodemodeTool(token: string, name: string, args: Record<string, unknown>) {
   const base = mcpToolCallRequest(token, name, args)
-  const req = new Request('https://mcp.example.com/mcp?codemode=false', base)
+  const req = new Request(`${MCP_URL}?codemode=false`, base)
   return parseMcpResult(await exports.default.fetch(req))
 }
 
