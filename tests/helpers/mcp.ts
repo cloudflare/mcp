@@ -9,6 +9,7 @@ export interface McpToolResult {
   result?: {
     resultType?: string
     supportedVersions?: string[]
+    _meta?: Record<string, unknown>
     serverInfo?: { name: string; version: string }
     protocolVersion?: string
     content?: Array<{ type: string; text: string }>
@@ -72,9 +73,19 @@ export function modernMcpRequest(
     origin?: string
     host?: string
     headers?: Record<string, string>
+    includeClientInfo?: boolean
   } = {}
 ): Request {
   const name = typeof params.name === 'string' ? params.name : undefined
+  const clientInfo =
+    options.includeClientInfo === false
+      ? {}
+      : {
+          'io.modelcontextprotocol/clientInfo': {
+            name: 'cloudflare-mcp-tests',
+            version: '1.0.0'
+          }
+        }
   return new Request(options.url ?? MCP_URL, {
     method: 'POST',
     headers: {
@@ -96,10 +107,7 @@ export function modernMcpRequest(
         ...params,
         _meta: {
           'io.modelcontextprotocol/protocolVersion': MODERN_MCP_VERSION,
-          'io.modelcontextprotocol/clientInfo': {
-            name: 'cloudflare-mcp-tests',
-            version: '1.0.0'
-          },
+          ...clientInfo,
           'io.modelcontextprotocol/clientCapabilities': {}
         }
       }

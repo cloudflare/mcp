@@ -3,12 +3,18 @@
 Tracks the migration from `@modelcontextprotocol/sdk` v1 to the split v2
 packages and the later move to the stateless MCP `2026-07-28` HTTP handler.
 `@modelcontextprotocol/server` and the test-only client are exact-pinned to the
-latest published beta, `2.0.0-beta.4` (verified 2026-07-20).
+latest published beta, `2.0.0-beta.5` (verified 2026-07-21).
 
-Current upgrade branch: `feat/mcp-sdk-v2-stateless`, created from `origin/main`
-at `fe731a8`.
+## Beta.5 final 2026 wire alignment
 
-## Stateless beta.4 handler migration
+Beta.5 makes `io.modelcontextprotocol/clientInfo` optional on modern request
+envelopes and moves server identity from the `server/discover` result body to
+`_meta['io.modelcontextprotocol/serverInfo']`. The real beta.5 client test drives
+discovery, list, and call through the Worker without a legacy initialize, GET
+stream, or protocol session. `npm run check` passes 297 tests in 19 files; the
+production dependency audit and staging Wrangler dry-run are clean.
+
+## Historical stateless beta.4 handler migration
 
 | #   | Change                                | Repository impact                                                                                                                                             | Status  |
 | --- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |

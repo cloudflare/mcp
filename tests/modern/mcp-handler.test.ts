@@ -1,4 +1,5 @@
 import { env, exports } from 'cloudflare:workers'
+import { SERVER_INFO_META_KEY } from '@modelcontextprotocol/server'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
@@ -49,9 +50,23 @@ describe('MCP 2026-07-28 stateless handler', () => {
       result: {
         resultType: 'complete',
         supportedVersions: ['2026-07-28'],
-        serverInfo: { name: 'cloudflare-api', version: '0.1.0' }
+        _meta: {
+          [SERVER_INFO_META_KEY]: { name: 'cloudflare-api', version: '0.1.0' }
+        }
       }
     })
+    expect(body.result).not.toHaveProperty('serverInfo')
+  })
+
+  it('accepts a modern request without optional clientInfo', async () => {
+    const response = await exports.default.fetch(
+      modernMcpRequest(API_TOKEN, 'server/discover', {}, { includeClientInfo: false })
+    )
+    const body = await parseMcpResult(response)
+
+    expect(response.status).toBe(200)
+    expect(body.error).toBeUndefined()
+    expect(body.result?.supportedVersions).toEqual(['2026-07-28'])
   })
 
   it('serves modern tools/list with a complete result', async () => {

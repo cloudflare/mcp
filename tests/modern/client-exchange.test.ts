@@ -1,5 +1,9 @@
 import { env, exports } from 'cloudflare:workers'
-import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client'
+import {
+  Client,
+  SERVER_INFO_META_KEY,
+  StreamableHTTPClientTransport
+} from '@modelcontextprotocol/client'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { mockIdentityProbe } from '../helpers/cloudflare-api'
 import { clearKv } from '../helpers/kv'
@@ -73,8 +77,11 @@ describe('modern client exchange', () => {
       expect(client.getServerVersion()).toEqual({ name: 'cloudflare-api', version: '0.1.0' })
       expect(client.getDiscoverResult()).toMatchObject({
         supportedVersions: [MODERN_MCP_VERSION],
-        serverInfo: { name: 'cloudflare-api', version: '0.1.0' }
+        _meta: {
+          [SERVER_INFO_META_KEY]: { name: 'cloudflare-api', version: '0.1.0' }
+        }
       })
+      expect(client.getDiscoverResult()).not.toHaveProperty('serverInfo')
 
       const listed = await client.listTools()
       expect(listed.tools.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
