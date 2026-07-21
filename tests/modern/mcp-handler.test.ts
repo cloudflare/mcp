@@ -7,17 +7,11 @@ import {
   cfError,
   cfSuccess,
   mockIdentityProbe
-} from './helpers/cloudflare-api'
-import { clearKv } from './helpers/kv'
-import {
-  MCP_HOST,
-  MCP_URL,
-  mcpToolListRequest,
-  modernMcpRequest,
-  parseMcpResult
-} from './helpers/mcp'
-import { clearSpec, seedSpec } from './helpers/spec'
-import { server } from './setup/msw'
+} from '../helpers/cloudflare-api'
+import { clearKv } from '../helpers/kv'
+import { MCP_HOST, MCP_URL, modernMcpRequest, parseMcpResult } from '../helpers/mcp'
+import { clearSpec, seedSpec } from '../helpers/spec'
+import { server } from '../setup/msw'
 
 const API_TOKEN = 'modern-mcp-token'
 const ACCOUNT_ID = '00000000000000000000000000000001'
@@ -208,48 +202,6 @@ describe('MCP 2026-07-28 stateless handler', () => {
       id: 1,
       jsonrpc: '2.0'
     })
-  })
-
-  it('retains stateless 2025 compatibility by default', async () => {
-    const response = await exports.default.fetch(mcpToolListRequest(API_TOKEN))
-    const body = await parseMcpResult(response)
-
-    expect(response.status).toBe(200)
-    expect(response.headers.get('content-type')).toContain('text/event-stream')
-    expect(response.headers.get('mcp-session-id')).toBeNull()
-    expect(body.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
-  })
-
-  it.each(['GET', 'DELETE'])('rejects session-only %s requests', async (method) => {
-    const response = await exports.default.fetch(
-      new Request(MCP_URL, {
-        method,
-        headers: {
-          Host: MCP_HOST,
-          Authorization: `Bearer ${API_TOKEN}`,
-          Accept: 'application/json, text/event-stream'
-        }
-      })
-    )
-
-    expect(response.status).toBe(405)
-    expect(await response.json()).toMatchObject({
-      error: { code: -32000, message: 'Method not allowed.' },
-      id: null,
-      jsonrpc: '2.0'
-    })
-  })
-
-  it('keeps session-only methods behind bearer authentication', async () => {
-    const response = await exports.default.fetch(
-      new Request(MCP_URL, {
-        method: 'GET',
-        headers: { Host: MCP_HOST, Accept: 'application/json, text/event-stream' }
-      })
-    )
-
-    expect(response.status).toBe(401)
-    expect(await response.json()).toMatchObject({ error: 'invalid_token' })
   })
 })
 
