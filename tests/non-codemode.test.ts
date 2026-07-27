@@ -2,6 +2,7 @@ import { afterEach, describe, it, expect, vi } from 'vitest'
 import { Client } from '@modelcontextprotocol/client'
 import { InMemoryTransport, McpServer } from '@modelcontextprotocol/server'
 import { createServer } from '../src/server'
+import { CODEMODE_SERVER_INSTRUCTIONS } from '../src/constants'
 import {
   buildInputSchema,
   buildNonCodemodeTools,
@@ -739,7 +740,9 @@ describe('createServer with codemode=false', () => {
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
-    expect((server as any).server._instructions).toBeUndefined()
+    expect((server as any).server._instructions).toBe(CODEMODE_SERVER_INSTRUCTIONS)
+    expect((server as any).server._instructions).not.toContain('acct-1')
+    expect((server as any).server._instructions).not.toContain('Account 1')
     expect(execute.description).toContain('Available accounts')
     expect(execute.description).toContain('acct-1 (Account 1)')
     expect(execute.description).toContain('acct-30 (Account 30)')

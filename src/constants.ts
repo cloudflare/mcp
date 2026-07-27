@@ -13,6 +13,16 @@ export type ServerInfo = { name: string; version: string }
 export const SERVER_INFO: ServerInfo = { name: 'cloudflare-api', version: '0.1.0' }
 
 /**
+ * Concise, cross-product guidance advertised during MCP discovery and
+ * initialization. Keep each variant aligned with the tools exposed by its mode.
+ */
+export const CODEMODE_SERVER_INSTRUCTIONS =
+  'Use `docs` for product questions and `search` for exact API contracts before `execute`. Before changes, verify target IDs and current state; ask if the account, zone, or resource is ambiguous. Filter and paginate results.'
+
+export const NON_CODEMODE_SERVER_INSTRUCTIONS =
+  'Use `docs` for product questions and endpoint schemas as exact API contracts. Before changes, verify target IDs and current state; ask if the account, zone, or resource is ambiguous. Filter and paginate large results.'
+
+/**
  * TypeScript declarations describing the `cloudflare` helper and `accountId`
  * binding available to the `execute` tool's sandboxed code. Inlined into the
  * execute tool description.

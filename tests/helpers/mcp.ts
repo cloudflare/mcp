@@ -2,6 +2,7 @@ import { exports } from 'cloudflare:workers'
 
 export const MCP_URL = 'https://mcp.cloudflare.com/mcp'
 export const MCP_HOST = 'mcp.cloudflare.com'
+export const LEGACY_MCP_VERSION = '2025-11-25'
 export const MODERN_MCP_VERSION = '2026-07-28'
 
 /** Result envelope of an MCP request over Streamable HTTP. */
@@ -10,6 +11,7 @@ export interface McpToolResult {
     resultType?: string
     supportedVersions?: string[]
     serverInfo?: { name: string; version: string }
+    instructions?: string
     content?: Array<{ type: string; text: string }>
     isError?: boolean
     tools?: Array<{
@@ -19,6 +21,29 @@ export interface McpToolResult {
     }>
   }
   error?: { code: number; message: string }
+}
+
+/** Build an MCP 2025 initialization request to the worker's `/mcp` endpoint. */
+export function mcpInitializeRequest(token: string, id = 1): Request {
+  return new Request(MCP_URL, {
+    method: 'POST',
+    headers: {
+      Host: MCP_HOST,
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json, text/event-stream'
+    },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id,
+      method: 'initialize',
+      params: {
+        protocolVersion: LEGACY_MCP_VERSION,
+        capabilities: {},
+        clientInfo: { name: 'cloudflare-mcp-tests', version: '1.0.0' }
+      }
+    })
+  })
 }
 
 /** Build a legacy JSON-RPC `tools/list` request to the worker's `/mcp` endpoint. */
