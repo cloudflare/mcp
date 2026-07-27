@@ -4,11 +4,17 @@ import { registerNonCodemodeTools } from './tools/non-codemode'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { attachMetrics } from './metrics'
-import { SERVER_INFO } from './constants'
+import {
+  CODEMODE_SERVER_INSTRUCTIONS,
+  NON_CODEMODE_SERVER_INSTRUCTIONS,
+  SERVER_INFO
+} from './constants'
 import type { AuthProps } from './auth/types'
 
 export async function createServer(props: AuthProps, codemode = true): Promise<McpServer> {
-  const server = new McpServer(SERVER_INFO)
+  const server = new McpServer(SERVER_INFO, {
+    instructions: codemode ? CODEMODE_SERVER_INSTRUCTIONS : NON_CODEMODE_SERVER_INSTRUCTIONS
+  })
 
   if (!codemode) {
     await registerNonCodemodeTools(server, props)

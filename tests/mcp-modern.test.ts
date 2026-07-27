@@ -9,9 +9,11 @@ import {
   mockIdentityProbe
 } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
+import { CODEMODE_SERVER_INSTRUCTIONS, NON_CODEMODE_SERVER_INSTRUCTIONS } from '../src/constants'
 import {
   MCP_HOST,
   MCP_URL,
+  mcpInitializeRequest,
   mcpToolListRequest,
   modernMcpRequest,
   parseMcpResult
@@ -55,9 +57,22 @@ describe('MCP 2026-07-28 stateless handler', () => {
       result: {
         resultType: 'complete',
         supportedVersions: ['2026-07-28'],
-        serverInfo: { name: 'cloudflare-api', version: '0.1.0' }
+        serverInfo: { name: 'cloudflare-api', version: '0.1.0' },
+        instructions: CODEMODE_SERVER_INSTRUCTIONS
       }
     })
+  })
+
+  it('advertises mode-specific instructions for endpoint tools', async () => {
+    const response = await exports.default.fetch(
+      modernMcpRequest(API_TOKEN, 'server/discover', {}, { url: `${MCP_URL}?codemode=false` })
+    )
+    const body = await parseMcpResult(response)
+
+    expect(response.status).toBe(200)
+    expect(body.result?.instructions).toBe(NON_CODEMODE_SERVER_INSTRUCTIONS)
+    expect(body.result?.instructions).not.toContain('`search`')
+    expect(body.result?.instructions).not.toContain('`execute`')
   })
 
   it('serves modern tools/list with a complete result', async () => {
@@ -207,6 +222,17 @@ describe('MCP 2026-07-28 stateless handler', () => {
       error: { message: expect.stringContaining('Mcp-Method') },
       id: 1,
       jsonrpc: '2.0'
+    })
+  })
+
+  it('advertises the same instructions during MCP 2025 initialization', async () => {
+    const response = await exports.default.fetch(mcpInitializeRequest(API_TOKEN))
+    const body = await parseMcpResult(response)
+
+    expect(response.status).toBe(200)
+    expect(body.result).toMatchObject({
+      serverInfo: { name: 'cloudflare-api', version: '0.1.0' },
+      instructions: CODEMODE_SERVER_INSTRUCTIONS
     })
   })
 
