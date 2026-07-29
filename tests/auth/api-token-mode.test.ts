@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   buildAuthProps,
   cloudflareTokenOwner,
-  resolveCloudflareToken
+  resolveExternalToken
 } from '../../src/auth/api-token-mode'
 import { AUTH_PROPS_VERSION } from '../../src/auth/types'
 import { API_BASE, cfAccountsSuccess, cfError, cfSuccess } from '../helpers/cloudflare-api'
@@ -118,14 +118,14 @@ describe('buildAuthProps', () => {
   })
 })
 
-describe('resolveCloudflareToken', () => {
+describe('resolveExternalToken', () => {
   it('uses only /accounts for prefixed account tokens', async () => {
     const calls = mockIdentity({
       user: () => HttpResponse.json(cfSuccess(USER)),
       accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
     })
 
-    await expect(resolveCloudflareToken(resolverInput('cfat_account-token'))).resolves.toEqual({
+    await expect(resolveExternalToken(resolverInput('cfat_account-token'))).resolves.toEqual({
       props: {
         type: 'account_token',
         accessToken: 'cfat_account-token',
@@ -144,7 +144,7 @@ describe('resolveCloudflareToken', () => {
         accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
       })
 
-      await expect(resolveCloudflareToken(resolverInput(token))).resolves.toMatchObject({
+      await expect(resolveExternalToken(resolverInput(token))).resolves.toMatchObject({
         props: { type: 'user_token', accessToken: token, user: USER, accounts: [ACCOUNT] }
       })
       expect(calls.userCalls()).toBe(1)
@@ -159,7 +159,7 @@ describe('resolveCloudflareToken', () => {
     })
 
     await expect(
-      resolveCloudflareToken(resolverInput('legacy-account-token'))
+      resolveExternalToken(resolverInput('legacy-account-token'))
     ).resolves.toMatchObject({
       props: { type: 'account_token', account: ACCOUNT }
     })
@@ -174,7 +174,7 @@ describe('resolveCloudflareToken', () => {
     })
 
     const error = await expectExternalTokenError(
-      resolveCloudflareToken(resolverInput('cfut_user-token-no-user-scope')),
+      resolveExternalToken(resolverInput('cfut_user-token-no-user-scope')),
       'insufficient_scope',
       403
     )
@@ -188,7 +188,7 @@ describe('resolveCloudflareToken', () => {
     })
 
     const error = await expectExternalTokenError(
-      resolveCloudflareToken(resolverInput('cfat_account-token-no-read-scope')),
+      resolveExternalToken(resolverInput('cfat_account-token-no-read-scope')),
       'insufficient_scope',
       403
     )
@@ -204,8 +204,8 @@ describe('resolveCloudflareToken', () => {
     })
     const input = resolverInput('cfut_cached-user-token')
 
-    await resolveCloudflareToken(input)
-    await resolveCloudflareToken(input)
+    await resolveExternalToken(input)
+    await resolveExternalToken(input)
 
     expect(calls.userCalls()).toBe(1)
     expect(calls.accountCalls()).toBe(1)
@@ -222,7 +222,7 @@ describe('resolveCloudflareToken', () => {
       accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
     })
 
-    await expect(resolveCloudflareToken(resolverInput(token))).resolves.toMatchObject({
+    await expect(resolveExternalToken(resolverInput(token))).resolves.toMatchObject({
       props: { type: 'user_token', user: USER, accounts: [ACCOUNT] }
     })
     expect(calls.userCalls()).toBe(1)
@@ -236,7 +236,7 @@ describe('resolveCloudflareToken', () => {
     })
 
     const error = await expectExternalTokenError(
-      resolveCloudflareToken(resolverInput('malformed-token')),
+      resolveExternalToken(resolverInput('malformed-token')),
       'invalid_token',
       401
     )
@@ -254,7 +254,7 @@ describe('resolveCloudflareToken', () => {
     })
 
     const error = await expectExternalTokenError(
-      resolveCloudflareToken(resolverInput('cfoat_rate-limited-token')),
+      resolveExternalToken(resolverInput('cfoat_rate-limited-token')),
       'temporarily_unavailable',
       429
     )
@@ -268,7 +268,7 @@ describe('resolveCloudflareToken', () => {
     })
 
     await expectExternalTokenError(
-      resolveCloudflareToken(resolverInput('legacy-upstream-failure')),
+      resolveExternalToken(resolverInput('legacy-upstream-failure')),
       'server_error',
       502
     )

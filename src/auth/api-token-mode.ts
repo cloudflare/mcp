@@ -138,7 +138,7 @@ export function buildAuthProps(
  * access-token lookup misses. workers-oauth-provider owns bearer parsing,
  * standards-compliant error responses, and injection of the returned props.
  */
-export async function resolveCloudflareToken({
+export async function resolveExternalToken({
   token,
   env
 }: ResolveExternalTokenInput<Env>): Promise<ResolveExternalTokenResult> {

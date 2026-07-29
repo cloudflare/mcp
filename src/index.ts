@@ -3,7 +3,7 @@ import OAuthProvider, {
   type OAuthProviderOptions
 } from '@cloudflare/workers-oauth-provider'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
-import { resolveCloudflareToken } from './auth/api-token-mode'
+import { resolveExternalToken } from './auth/api-token-mode'
 import {
   MCP_ROUTE,
   handleMcpPreflight,
@@ -44,7 +44,7 @@ export default {
       authorizeEndpoint: '/authorize',
       tokenEndpoint: '/token',
       clientRegistrationEndpoint: '/register',
-      resolveExternalToken: resolveCloudflareToken,
+      resolveExternalToken,
       tokenExchangeCallback: (options) =>
         handleTokenExchangeCallback(
           options,
