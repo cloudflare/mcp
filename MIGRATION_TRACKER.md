@@ -19,20 +19,20 @@ router or legacy-version matrix is maintained in this repository.
 
 ## Historical stateless beta.4 handler migration
 
-| #   | Change                                | Repository impact                                                                                                                                             | Status  |
-| --- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| 1   | Upgrade the split SDK packages        | Server and test client exact-pinned to `2.0.0-beta.4`; lockfile updated as one transaction                                                                    | Done    |
-| 2   | Adopt the upstream HTTP entry         | `src/mcp-handler.ts` uses `createMcpHandler(factory)` directly from `@modelcontextprotocol/server`                                                            | Done    |
-| 3   | Serve modern MCP                      | MCP `2026-07-28` requests use a fresh SDK v2 server factory                                                                                                   | Done    |
-| 4   | Retain published-client compatibility | The upstream default stateless 2025 fallback remains enabled; `legacy: 'reject'` is not set                                                                   | Done    |
-| 5   | Keep the protocol stateless           | No MCP session ID, transport storage, event replay state, Durable Object, SSE GET, or session DELETE path                                                     | Done    |
-| 6   | Preserve application and auth state   | OAuth grants, credentials, API-token identity cache, R2 spec artifacts, Analytics Engine, and Worker Loader infrastructure remain                             | Done    |
-| 7   | Preserve both auth modes              | Direct API tokens and provider-issued OAuth tokens both pass validated `AuthProps` explicitly into a request-local handler factory                           | Done    |
-| 8   | Protect the HTTP boundary             | Static localhost/staging/production Host and Origin allowlists run before authentication; modern CORS preflight headers are served explicitly                 | Done    |
-| 9   | Add wire regressions                  | Modern discovery/list, concurrent Code Mode surfaces, stateless 2025 fallback, GET/DELETE rejection, Host/Origin policy, preflight, and real OAuth token flow | Done    |
-| 10  | Validate locally                      | `npm run check`: 17 files / 289 tests; `npm ci`, dependency tree, and production audit clean                                                                  | Done    |
-| 11  | Bundle production configuration       | Production upload: 1294.29 KiB raw / 242.92 KiB gzip; 120 ms startup                                                                                           | Done   |
-| 12  | Deploy and smoke-test production      | Runtime commit `ba95888`; version `bca4d618-2eab-429b-a62a-71623c98c55e`; authenticated modern and legacy smokes passed                                        | Done   |
+| #   | Change                                | Repository impact                                                                                                                                             | Status |
+| --- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| 1   | Upgrade the split SDK packages        | Server and test client exact-pinned to `2.0.0-beta.4`; lockfile updated as one transaction                                                                    | Done   |
+| 2   | Adopt the upstream HTTP entry         | `src/mcp-handler.ts` uses `createMcpHandler(factory)` directly from `@modelcontextprotocol/server`                                                            | Done   |
+| 3   | Serve modern MCP                      | MCP `2026-07-28` requests use a fresh SDK v2 server factory                                                                                                   | Done   |
+| 4   | Retain published-client compatibility | The upstream default stateless 2025 fallback remains enabled; `legacy: 'reject'` is not set                                                                   | Done   |
+| 5   | Keep the protocol stateless           | No MCP session ID, transport storage, event replay state, Durable Object, SSE GET, or session DELETE path                                                     | Done   |
+| 6   | Preserve application and auth state   | OAuth grants, credentials, API-token identity cache, R2 spec artifacts, Analytics Engine, and Worker Loader infrastructure remain                             | Done   |
+| 7   | Preserve both auth modes              | Direct API tokens and provider-issued OAuth tokens both pass validated `AuthProps` explicitly into a request-local handler factory                            | Done   |
+| 8   | Protect the HTTP boundary             | Static localhost/staging/production Host and Origin allowlists run before authentication; modern CORS preflight headers are served explicitly                 | Done   |
+| 9   | Add wire regressions                  | Modern discovery/list, concurrent Code Mode surfaces, stateless 2025 fallback, GET/DELETE rejection, Host/Origin policy, preflight, and real OAuth token flow | Done   |
+| 10  | Validate locally                      | `npm run check`: 17 files / 289 tests; `npm ci`, dependency tree, and production audit clean                                                                  | Done   |
+| 11  | Bundle production configuration       | Production upload: 1294.29 KiB raw / 242.92 KiB gzip; 120 ms startup                                                                                          | Done   |
+| 12  | Deploy and smoke-test production      | Runtime commit `ba95888`; version `bca4d618-2eab-429b-a62a-71623c98c55e`; authenticated modern and legacy smokes passed                                       | Done   |
 
 ### Serving design
 
@@ -240,7 +240,7 @@ Deployed-worker smoke checks:
 - `GET /.well-known/oauth-authorization-server` → `200`.
 - `POST /mcp` without auth → `401 invalid_token` (routes to the auth guard).
 
-A full authenticated `tools/list` / `tools/call` against the *staging* endpoint
+A full authenticated `tools/list` / `tools/call` against the _staging_ endpoint
 needs a token valid on the **staging** Cloudflare API (`api.staging.cloudflare.com`);
 a production API token returns `403` there (verified: prod API `200`, staging
 API `403` for the same token), independent of this migration. The protocol

@@ -10,7 +10,6 @@ export interface McpToolResult {
     resultType?: string
     supportedVersions?: string[]
     _meta?: Record<string, unknown>
-    serverInfo?: { name: string; version: string }
     content?: Array<{ type: string; text: string }>
     isError?: boolean
     tools?: Array<{
