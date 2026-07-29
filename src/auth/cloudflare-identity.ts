@@ -1,19 +1,65 @@
 import { env as cloudflareEnv } from 'cloudflare:workers'
+import { z } from 'zod'
 
 import { fetchWithRetry } from '../utils/fetch-retry'
 import {
+  AccountSchema,
   AccountsSchema,
   ACCOUNTS_PROBE_PAGE_SIZE,
   MAX_STORED_ACCOUNTS,
-  UserSchema,
-  type AccountSchema,
-  type UserSchema as UserIdentity
+  UserSchema
 } from './types'
 import { OAuthError } from './workers-oauth-utils'
 
 const env = cloudflareEnv as Env
+const API_TOKEN_IDENTITY_CALLER = 'api_token_identity_probe'
+const OAUTH_IDENTITY_CALLER = 'oauth_callback_identity_probe'
+// /accounts enforces a minimum page size of five. That is still enough to
+// prove the account-token invariant without fetching the 31-record user page.
+const ACCOUNT_TOKEN_PROBE_PAGE_SIZE = 5
 
 export type CloudflareTokenOwner = 'account' | 'unknown' | 'user'
+
+const AccountIdentitySchema = z.object({
+  type: z.literal('account'),
+  account: AccountSchema
+})
+
+const UserIdentitySchema = z.object({
+  type: z.literal('user'),
+  user: UserSchema,
+  accounts: AccountsSchema,
+  accountCount: z.number().int().nonnegative().optional()
+})
+
+export const CloudflareIdentitySchema = z.discriminatedUnion('type', [
+  AccountIdentitySchema,
+  UserIdentitySchema
+])
+
+export type CloudflareIdentity = z.infer<typeof CloudflareIdentitySchema>
+export type CloudflareUserIdentity = z.infer<typeof UserIdentitySchema>
+
+type AccountPage = {
+  accounts: z.infer<typeof AccountsSchema>
+  totalCount?: number
+}
+
+const UserResponseSchema = z.object({
+  success: z.boolean().optional(),
+  result: UserSchema.nullable().optional()
+})
+
+const AccountsResponseSchema = z.object({
+  success: z.boolean().optional(),
+  result: AccountsSchema.optional(),
+  result_info: z
+    .object({
+      count: z.number().optional(),
+      total_count: z.number().optional()
+    })
+    .optional()
+})
 
 function retryAfterHeaders(...responses: Response[]): Record<string, string> {
   return {
@@ -57,150 +103,185 @@ function throwIdentityProbeError(...responses: [Response, ...Response[]]): never
   throw new OAuthError('invalid_token', 'Access token is invalid or expired', statuses[0])
 }
 
-async function fetchIdentityProbes(
-  accessToken: string,
-  caller: string,
-  tokenOwner: CloudflareTokenOwner
-): Promise<{ user?: Response; accounts: Response }> {
-  const headers = { Authorization: `Bearer ${accessToken}` }
-
+async function fetchProbe(url: string, accessToken: string, caller: string): Promise<Response> {
   try {
-    // The cfat_ prefix proves this is account-owned, so /user cannot add
-    // identity information and would only spend another upstream request.
-    const userRequest =
-      tokenOwner === 'account'
-        ? Promise.resolve(undefined)
-        : fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }, { caller })
-    const [user, accounts] = await Promise.all([
-      userRequest,
-      fetchWithRetry(
-        `${env.CLOUDFLARE_API_BASE}/accounts?per_page=${ACCOUNTS_PROBE_PAGE_SIZE}`,
-        { headers },
-        { caller }
-      )
-    ])
-    return { user, accounts }
+    return await fetchWithRetry(
+      url,
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+      { caller }
+    )
   } catch (error) {
     console.error('Cloudflare API request failed', error)
     throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
   }
 }
 
-/** Resolve one Cloudflare credential into the identity stored in request props. */
-export async function getCloudflareIdentity(
+function fetchUser(accessToken: string, caller: string): Promise<Response> {
+  return fetchProbe(`${env.CLOUDFLARE_API_BASE}/user`, accessToken, caller)
+}
+
+function fetchAccounts(
   accessToken: string,
-  caller = 'oauth_callback_identity_probe',
-  tokenOwner: CloudflareTokenOwner = 'unknown'
-): Promise<{
-  user: UserIdentity | null
-  accounts: AccountSchema[]
-  accountCount?: number
-}> {
-  const { user: userResponse, accounts: accountsResponse } = await fetchIdentityProbes(
-    accessToken,
-    caller,
-    tokenOwner
-  )
+  caller: string,
+  pageSize = ACCOUNTS_PROBE_PAGE_SIZE
+): Promise<Response> {
+  return fetchProbe(`${env.CLOUDFLARE_API_BASE}/accounts?per_page=${pageSize}`, accessToken, caller)
+}
 
-  if (!accountsResponse.ok && (!userResponse || !userResponse.ok)) {
-    console.warn(
-      `Cloudflare API identity probe failed: user=${userResponse?.status ?? 'skipped'}, accounts=${accountsResponse.status}`
-    )
-    if (userResponse) throwIdentityProbeError(userResponse, accountsResponse)
-    throwIdentityProbeError(accountsResponse)
-  }
-  if (!accountsResponse.ok && userResponse?.ok && tokenOwner === 'user') {
-    throwIdentityProbeError(accountsResponse)
-  }
-
-  let accounts: AccountSchema[] = []
-  let totalAccountCount: number | undefined
-  if (accountsResponse.ok) {
-    try {
-      const json = (await accountsResponse.json()) as {
-        success?: boolean
-        result?: unknown
-        result_info?: { count?: unknown; total_count?: unknown }
-      }
-      if (json.success && json.result) {
-        const parsed = AccountsSchema.safeParse(json.result)
-        if (parsed.success) {
-          accounts = parsed.data
-          const reported = json.result_info?.total_count
-          if (typeof reported === 'number' && Number.isFinite(reported) && reported >= 0) {
-            totalAccountCount = reported
-          } else {
-            const pageCount = json.result_info?.count
-            totalAccountCount =
-              typeof pageCount === 'number' && Number.isFinite(pageCount) && pageCount >= 0
-                ? Math.max(pageCount, accounts.length)
-                : accounts.length
-            console.warn(
-              `Cloudflare API /accounts response is missing a valid result_info.total_count; ` +
-                `falling back to page count ${totalAccountCount}`
-            )
-          }
-        } else {
-          console.error(
-            'Cloudflare API /accounts payload did not match expected shape',
-            parsed.error
-          )
-        }
-      }
-    } catch (error) {
-      console.error('Cloudflare API /accounts response is not valid JSON', error)
+async function parseUser(response: Response): Promise<CloudflareUserIdentity['user'] | null> {
+  try {
+    const parsed = UserResponseSchema.safeParse(await response.json())
+    if (parsed.success && parsed.data.success && parsed.data.result) return parsed.data.result
+    if (!parsed.success) {
+      console.error('Cloudflare API /user payload did not match expected shape', parsed.error)
     }
+  } catch (error) {
+    console.error('Cloudflare API /user response is not valid JSON', error)
   }
+  return null
+}
 
-  // A prefixed account token must resolve to its one owning account. It never
-  // uses response-based inference and never calls /user.
-  if (!userResponse) {
-    if (accounts.length === 1) return { user: null, accounts }
+async function parseAccounts(response: Response): Promise<AccountPage> {
+  try {
+    const parsed = AccountsResponseSchema.safeParse(await response.json())
+    if (!parsed.success) {
+      console.error('Cloudflare API /accounts payload did not match expected shape', parsed.error)
+      return { accounts: [] }
+    }
+    if (!parsed.data.success || !parsed.data.result) return { accounts: [] }
+
+    const accounts = parsed.data.result
+    const reported = parsed.data.result_info?.total_count
+    if (reported !== undefined && Number.isFinite(reported) && reported >= 0) {
+      return { accounts, totalCount: reported }
+    }
+
+    const pageCount = parsed.data.result_info?.count
+    const totalCount =
+      pageCount !== undefined && Number.isFinite(pageCount) && pageCount >= 0
+        ? Math.max(pageCount, accounts.length)
+        : accounts.length
+    console.warn(
+      `Cloudflare API /accounts response is missing a valid result_info.total_count; ` +
+        `falling back to page count ${totalCount}`
+    )
+    return { accounts, totalCount }
+  } catch (error) {
+    console.error('Cloudflare API /accounts response is not valid JSON', error)
+    return { accounts: [] }
+  }
+}
+
+function accountIdentity(page: AccountPage): CloudflareIdentity {
+  if (page.accounts.length !== 1 || (page.totalCount !== undefined && page.totalCount !== 1)) {
     throw new OAuthError(
       'invalid_token',
       'Account token must resolve to exactly one Cloudflare account',
       401
     )
   }
+  return { type: 'account', account: page.accounts[0] }
+}
 
-  let user: UserIdentity | null = null
-  if (userResponse.ok) {
-    try {
-      const json = (await userResponse.json()) as { success?: boolean; result?: unknown }
-      if (json.success && json.result) {
-        const parsed = UserSchema.safeParse(json.result)
-        if (parsed.success) {
-          user = parsed.data
-        } else {
-          console.error('Cloudflare API /user payload did not match expected shape', parsed.error)
-        }
-      }
-    } catch (error) {
-      console.error('Cloudflare API /user response is not valid JSON', error)
-    }
-  } else if (tokenOwner === 'user' || userResponse.status >= 429) {
-    // Known user credentials can never become account credentials. Transient
-    // failures also cannot be used as evidence of account ownership.
-    throwIdentityProbeError(userResponse)
-  } else if (accounts.length > 0) {
-    // Only unprefixed legacy credentials use response-based owner inference.
-    return { user: null, accounts }
+function userIdentity(
+  user: CloudflareUserIdentity['user'],
+  page: AccountPage
+): CloudflareUserIdentity {
+  if (page.totalCount !== undefined && page.totalCount > MAX_STORED_ACCOUNTS) {
+    return { type: 'user', user, accounts: [], accountCount: page.totalCount }
+  }
+  return { type: 'user', user, accounts: page.accounts }
+}
+
+async function resolveAccountCredential(
+  accessToken: string,
+  caller: string
+): Promise<CloudflareIdentity> {
+  // One minimum-size page is enough to prove whether an account-owned token
+  // resolves to exactly one account without fetching the larger user page.
+  const accountsResponse = await fetchAccounts(accessToken, caller, ACCOUNT_TOKEN_PROBE_PAGE_SIZE)
+  if (!accountsResponse.ok) throwIdentityProbeError(accountsResponse)
+  return accountIdentity(await parseAccounts(accountsResponse))
+}
+
+async function resolveUserCredential(
+  accessToken: string,
+  caller: string
+): Promise<CloudflareUserIdentity> {
+  const [userResponse, accountsResponse] = await Promise.all([
+    fetchUser(accessToken, caller),
+    fetchAccounts(accessToken, caller)
+  ])
+  const failures = [userResponse, accountsResponse].filter((response) => !response.ok)
+  if (failures.length > 0) {
+    throwIdentityProbeError(failures[0], ...failures.slice(1))
   }
 
-  if (user) {
-    if (totalAccountCount !== undefined && totalAccountCount > MAX_STORED_ACCOUNTS) {
-      return { user, accounts: [], accountCount: totalAccountCount }
-    }
-    return { user, accounts }
+  const [user, accounts] = await Promise.all([
+    parseUser(userResponse),
+    parseAccounts(accountsResponse)
+  ])
+  if (!user) {
+    throw new OAuthError('invalid_token', 'Failed to verify token: no user information', 401)
+  }
+  return userIdentity(user, accounts)
+}
+
+async function resolveLegacyCredential(
+  accessToken: string,
+  caller: string
+): Promise<CloudflareIdentity> {
+  const [userResponse, accountsResponse] = await Promise.all([
+    fetchUser(accessToken, caller),
+    fetchAccounts(accessToken, caller)
+  ])
+  if (!accountsResponse.ok) {
+    if (!userResponse.ok) throwIdentityProbeError(userResponse, accountsResponse)
+    throwIdentityProbeError(accountsResponse)
   }
 
-  if (tokenOwner === 'unknown' && accounts.length > 0) {
-    return { user: null, accounts }
+  const [user, accounts] = await Promise.all([
+    userResponse.ok ? parseUser(userResponse) : Promise.resolve(null),
+    accountsResponse.ok ? parseAccounts(accountsResponse) : Promise.resolve({ accounts: [] })
+  ])
+  if (user) return userIdentity(user, accounts)
+
+  // A transient /user failure cannot prove account ownership.
+  if (!userResponse.ok && userResponse.status >= 429) throwIdentityProbeError(userResponse)
+  return accountIdentity(accounts)
+}
+
+/** Resolve a direct Cloudflare API or OAuth credential using its ownership hint. */
+export function resolveCloudflareCredential(
+  accessToken: string,
+  tokenOwner: CloudflareTokenOwner
+): Promise<CloudflareIdentity> {
+  switch (tokenOwner) {
+    case 'account':
+      return resolveAccountCredential(accessToken, API_TOKEN_IDENTITY_CALLER)
+    case 'user':
+      return resolveUserCredential(accessToken, API_TOKEN_IDENTITY_CALLER)
+    case 'unknown':
+      return resolveLegacyCredential(accessToken, API_TOKEN_IDENTITY_CALLER)
+  }
+}
+
+/** Resolve the upstream Cloudflare OAuth grant used by this server's OAuth flow. */
+export async function getCloudflareOAuthUser(accessToken: string): Promise<CloudflareUserIdentity> {
+  const [userResponse, accountsResponse] = await Promise.all([
+    fetchUser(accessToken, OAUTH_IDENTITY_CALLER),
+    fetchAccounts(accessToken, OAUTH_IDENTITY_CALLER)
+  ])
+  if (!userResponse.ok && !accountsResponse.ok) {
+    throwIdentityProbeError(userResponse, accountsResponse)
   }
 
-  throw new OAuthError(
-    'invalid_token',
-    'Failed to verify token: no user or account information',
-    401
-  )
+  const [user, accounts] = await Promise.all([
+    userResponse.ok ? parseUser(userResponse) : Promise.resolve(null),
+    accountsResponse.ok ? parseAccounts(accountsResponse) : Promise.resolve({ accounts: [] })
+  ])
+  if (!user) {
+    throw new OAuthError('server_error', 'Failed to fetch user information from Cloudflare', 500)
+  }
+  return userIdentity(user, accounts)
 }

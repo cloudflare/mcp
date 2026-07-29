@@ -2,12 +2,17 @@ import { OAuthError as ProviderOAuthError } from '@cloudflare/workers-oauth-prov
 import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { getCloudflareIdentity } from '../../src/auth/cloudflare-identity'
+import {
+  getCloudflareOAuthUser,
+  resolveCloudflareCredential
+} from '../../src/auth/cloudflare-identity'
 import { OAuthError } from '../../src/auth/workers-oauth-utils'
 import { API_BASE, cfAccountsSuccess, cfSuccess } from '../helpers/cloudflare-api'
 import { server } from '../setup/msw'
 
-/** Register MSW handlers for the identity-probe endpoints by path. */
+const USER = { id: 'user-1', email: 'user@example.com' }
+const ACCOUNT = { id: 'account-1', name: 'Account One' }
+
 function mockProbes(opts: { user?: () => Response; accounts?: () => Response }) {
   if (opts.user) server.use(http.get(`${API_BASE}/user`, opts.user))
   if (opts.accounts) server.use(http.get(`${API_BASE}/accounts`, opts.accounts))
@@ -40,12 +45,130 @@ async function expectOAuthError(
 
 afterEach(() => vi.restoreAllMocks())
 
-describe('getCloudflareIdentity', () => {
-  it('requests enough accounts for the prompt-list cutoff to be detected', async () => {
+describe('resolveCloudflareCredential', () => {
+  it('resolves an account-owned token with one minimum-size /accounts probe', async () => {
+    let userCalls = 0
     let accountsUrl = ''
     mockProbes({
-      user: () => HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' }))
+      user: () => {
+        userCalls++
+        return HttpResponse.json(cfSuccess(USER))
+      }
     })
+    server.use(
+      http.get(`${API_BASE}/accounts`, ({ request }) => {
+        accountsUrl = request.url
+        return HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+      })
+    )
+
+    await expect(resolveCloudflareCredential('cfat_token', 'account')).resolves.toEqual({
+      type: 'account',
+      account: ACCOUNT
+    })
+    expect(userCalls).toBe(0)
+    expect(new URL(accountsUrl).searchParams.get('per_page')).toBe('5')
+  })
+
+  it('requires both identity probes for a known user credential', async () => {
+    mockProbes({
+      user: () => HttpResponse.json(cfSuccess(USER)),
+      accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+    })
+
+    await expect(resolveCloudflareCredential('cfut_token', 'user')).resolves.toEqual({
+      type: 'user',
+      user: USER,
+      accounts: [ACCOUNT]
+    })
+  })
+
+  it('does not infer account ownership for a known user credential', async () => {
+    mockProbes({
+      user: () => new HttpResponse('Forbidden', { status: 403 }),
+      accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+    })
+
+    await expectOAuthError(
+      resolveCloudflareCredential('cfut_token', 'user'),
+      'insufficient_scope',
+      403
+    )
+  })
+
+  it.each([
+    ['forbidden user probe', () => new HttpResponse('Forbidden', { status: 403 })],
+    ['invalid user JSON', () => new HttpResponse('not-json', { status: 200 })],
+    ['unsuccessful user envelope', () => HttpResponse.json({ success: false })]
+  ] as const)('retains legacy account inference for an %s', async (_, userResponse) => {
+    mockProbes({
+      user: userResponse,
+      accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+    })
+
+    await expect(resolveCloudflareCredential('legacy-token', 'unknown')).resolves.toEqual({
+      type: 'account',
+      account: ACCOUNT
+    })
+  })
+
+  it('requires account discovery even when a legacy user probe succeeds', async () => {
+    mockProbes({
+      user: () => HttpResponse.json(cfSuccess(USER)),
+      accounts: () => new HttpResponse('Forbidden', { status: 403 })
+    })
+
+    await expectOAuthError(
+      resolveCloudflareCredential('legacy-token', 'unknown'),
+      'insufficient_scope',
+      403
+    )
+  })
+
+  it('never infers account ownership from a transient /user failure', async () => {
+    mockProbes({
+      user: () => new HttpResponse('rate limited', { status: 429 }),
+      accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+    })
+
+    await expectOAuthError(
+      resolveCloudflareCredential('legacy-token', 'unknown'),
+      'temporarily_unavailable',
+      429
+    )
+  })
+
+  it('requires an account token to resolve to exactly one account', async () => {
+    mockProbes({ accounts: () => HttpResponse.json(cfAccountsSuccess([])) })
+
+    await expectOAuthError(
+      resolveCloudflareCredential('cfat_token', 'account'),
+      'invalid_token',
+      401
+    )
+  })
+
+  it('rejects a truncated account-token page whose total count exceeds one', async () => {
+    mockProbes({
+      accounts: () =>
+        HttpResponse.json({
+          ...cfSuccess([ACCOUNT]),
+          result_info: { page: 1, per_page: 5, count: 1, total_count: 2 }
+        })
+    })
+
+    await expectOAuthError(
+      resolveCloudflareCredential('cfat_token', 'account'),
+      'invalid_token',
+      401
+    )
+  })
+})
+
+describe('user account metadata', () => {
+  it('requests one account past the prompt-list cutoff', async () => {
+    let accountsUrl = ''
+    mockProbes({ user: () => HttpResponse.json(cfSuccess(USER)) })
     server.use(
       http.get(`${API_BASE}/accounts`, ({ request }) => {
         accountsUrl = request.url
@@ -53,18 +176,18 @@ describe('getCloudflareIdentity', () => {
       })
     )
 
-    await getCloudflareIdentity('test-token')
+    await resolveCloudflareCredential('cfut_token', 'user')
 
     expect(new URL(accountsUrl).searchParams.get('per_page')).toBe('31')
   })
 
-  it('records the count but omits the records when a user has too many accounts', async () => {
+  it('stores only the count when the complete account list is too large', async () => {
     const accounts = Array.from({ length: 31 }, (_, index) => ({
       id: `account-${index + 1}`,
       name: `Account ${index + 1}`
     }))
     mockProbes({
-      user: () => HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' })),
+      user: () => HttpResponse.json(cfSuccess(USER)),
       accounts: () =>
         HttpResponse.json({
           ...cfSuccess(accounts),
@@ -72,20 +195,34 @@ describe('getCloudflareIdentity', () => {
         })
     })
 
-    await expect(getCloudflareIdentity('test-token')).resolves.toEqual({
-      user: { id: 'user-1', email: 'user@example.com' },
+    await expect(resolveCloudflareCredential('cfut_token', 'user')).resolves.toEqual({
+      type: 'user',
+      user: USER,
       accounts: [],
       accountCount: 137
     })
   })
 
-  it('warns and falls back to page count when total_count is missing', async () => {
+  it('keeps a verified user when an accounts payload is malformed', async () => {
+    mockProbes({
+      user: () => HttpResponse.json(cfSuccess(USER)),
+      accounts: () => new HttpResponse('not-json', { status: 200 })
+    })
+
+    await expect(resolveCloudflareCredential('cfut_token', 'user')).resolves.toEqual({
+      type: 'user',
+      user: USER,
+      accounts: []
+    })
+  })
+
+  it('falls back to the page count when total_count is missing', async () => {
     const accounts = Array.from({ length: 31 }, (_, index) => ({
       id: `account-${index + 1}`,
       name: `Account ${index + 1}`
     }))
     mockProbes({
-      user: () => HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' })),
+      user: () => HttpResponse.json(cfSuccess(USER)),
       accounts: () =>
         HttpResponse.json({
           ...cfSuccess(accounts),
@@ -94,8 +231,9 @@ describe('getCloudflareIdentity', () => {
     })
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-    await expect(getCloudflareIdentity('test-token')).resolves.toEqual({
-      user: { id: 'user-1', email: 'user@example.com' },
+    await expect(resolveCloudflareCredential('cfut_token', 'user')).resolves.toEqual({
+      type: 'user',
+      user: USER,
       accounts: [],
       accountCount: 31
     })
@@ -103,105 +241,70 @@ describe('getCloudflareIdentity', () => {
       expect.stringContaining('missing a valid result_info.total_count')
     )
   })
+})
 
-  it('keeps the full list when a user is under the cutoff', async () => {
-    const accounts = Array.from({ length: 25 }, (_, index) => ({
-      id: `account-${index + 1}`,
-      name: `Account ${index + 1}`
-    }))
+describe('getCloudflareOAuthUser', () => {
+  it('preserves OAuth availability when /accounts is forbidden', async () => {
     mockProbes({
-      user: () => HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' })),
-      accounts: () =>
-        HttpResponse.json({
-          ...cfSuccess(accounts),
-          result_info: { page: 1, per_page: 31, count: 25, total_count: 25 }
-        })
-    })
-
-    await expect(getCloudflareIdentity('test-token')).resolves.toEqual({
-      user: { id: 'user-1', email: 'user@example.com' },
-      accounts
-    })
-  })
-
-  it('accepts account-scoped token when /user fails but /accounts succeeds', async () => {
-    mockProbes({
-      user: () => new HttpResponse('Forbidden', { status: 403 }),
-      accounts: () =>
-        HttpResponse.json(cfAccountsSuccess([{ id: 'acc-1', name: 'Primary Account' }]))
-    })
-
-    await expect(getCloudflareIdentity('test-token')).resolves.toEqual({
-      user: null,
-      accounts: [{ id: 'acc-1', name: 'Primary Account' }]
-    })
-  })
-
-  it('accepts user tokens when /accounts fails but /user succeeds', async () => {
-    mockProbes({
-      user: () => HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' })),
+      user: () => HttpResponse.json(cfSuccess(USER)),
       accounts: () => new HttpResponse('Forbidden', { status: 403 })
     })
 
-    await expect(getCloudflareIdentity('test-token')).resolves.toEqual({
-      user: { id: 'user-1', email: 'user@example.com' },
+    await expect(getCloudflareOAuthUser('oauth-token')).resolves.toEqual({
+      type: 'user',
+      user: USER,
       accounts: []
     })
   })
 
-  it('throws insufficient_scope when both endpoints fail with 403', async () => {
+  it('rejects an OAuth result without a user', async () => {
     mockProbes({
       user: () => new HttpResponse('Forbidden', { status: 403 }),
-      accounts: () => new HttpResponse('Forbidden', { status: 403 })
+      accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
     })
 
-    await expectOAuthError(getCloudflareIdentity('test-token'), 'insufficient_scope', 403)
+    await expectOAuthError(getCloudflareOAuthUser('oauth-token'), 'server_error', 500)
   })
+})
 
+describe('identity probe errors', () => {
   it.each([
-    {
-      userStatus: 401,
-      accountsStatus: 401,
-      code: 'invalid_token',
-      statusCode: 401
-    },
-    {
-      userStatus: 429,
-      accountsStatus: 429,
-      code: 'temporarily_unavailable',
-      statusCode: 429
-    },
-    {
-      userStatus: 500,
-      accountsStatus: 500,
-      code: 'server_error',
-      statusCode: 502
-    },
-    {
-      userStatus: 418,
-      accountsStatus: 418,
-      code: 'invalid_token',
-      statusCode: 418
-    },
-    {
-      userStatus: 403,
-      accountsStatus: 500,
-      code: 'server_error',
-      statusCode: 502
-    }
-  ])(
-    'maps dual endpoint failures to OAuthError for /user=$userStatus /accounts=$accountsStatus',
-    async ({ userStatus, accountsStatus, code, statusCode }) => {
+    [401, 401, 'invalid_token', 401],
+    [429, 429, 'temporarily_unavailable', 429],
+    [500, 500, 'server_error', 502],
+    [418, 418, 'invalid_token', 418],
+    [403, 500, 'server_error', 502]
+  ] as const)(
+    'maps /user=%i and /accounts=%i to %s',
+    async (userStatus, accountsStatus, code, statusCode) => {
       mockProbes({
         user: () => new HttpResponse('upstream error', { status: userStatus }),
         accounts: () => new HttpResponse('upstream error', { status: accountsStatus })
       })
 
-      await expectOAuthError(getCloudflareIdentity('test-token'), code, statusCode)
+      await expectOAuthError(
+        resolveCloudflareCredential('legacy-token', 'unknown'),
+        code,
+        statusCode
+      )
     }
   )
 
-  it('preserves Retry-After from Cloudflare API 429 responses', async () => {
+  it('uses a default Retry-After when the upstream omits it', async () => {
+    mockProbes({
+      user: () => new HttpResponse('rate limited', { status: 429 }),
+      accounts: () => new HttpResponse('rate limited', { status: 429 })
+    })
+
+    const error = await expectOAuthError(
+      resolveCloudflareCredential('legacy-token', 'unknown'),
+      'temporarily_unavailable',
+      429
+    )
+    expect(error.headers).toEqual({ 'Retry-After': '30' })
+  })
+
+  it('preserves Retry-After from a rate-limited probe', async () => {
     mockProbes({
       user: () =>
         new HttpResponse('rate limited', { status: 429, headers: { 'Retry-After': '17' } }),
@@ -209,90 +312,20 @@ describe('getCloudflareIdentity', () => {
     })
 
     const error = await expectOAuthError(
-      getCloudflareIdentity('test-token'),
+      resolveCloudflareCredential('legacy-token', 'unknown'),
       'temporarily_unavailable',
       429
     )
     expect(error.headers).toEqual({ 'Retry-After': '17' })
   })
 
-  it('defaults Retry-After when Cloudflare API 429 responses omit it', async () => {
-    mockProbes({
-      user: () => new HttpResponse('rate limited', { status: 429 }),
-      accounts: () => new HttpResponse('rate limited', { status: 429 })
-    })
-
-    const error = await expectOAuthError(
-      getCloudflareIdentity('test-token'),
-      'temporarily_unavailable',
-      429
-    )
-    expect(error.headers).toEqual({ 'Retry-After': '30' })
-  })
-
-  it('falls back to account-scoped auth when /user is 200 but invalid JSON', async () => {
-    mockProbes({
-      user: () => new HttpResponse('not-json', { status: 200 }),
-      accounts: () =>
-        HttpResponse.json(cfAccountsSuccess([{ id: 'acc-1', name: 'Primary Account' }]))
-    })
-
-    await expect(getCloudflareIdentity('test-token')).resolves.toEqual({
-      user: null,
-      accounts: [{ id: 'acc-1', name: 'Primary Account' }]
-    })
-  })
-
-  it('falls back to account-scoped auth when /user is 200 with success=false', async () => {
-    mockProbes({
-      user: () => HttpResponse.json({ success: false }),
-      accounts: () =>
-        HttpResponse.json(cfAccountsSuccess([{ id: 'acc-1', name: 'Primary Account' }]))
-    })
-
-    await expect(getCloudflareIdentity('test-token')).resolves.toEqual({
-      user: null,
-      accounts: [{ id: 'acc-1', name: 'Primary Account' }]
-    })
-  })
-
-  it('keeps user auth when /accounts is 200 but invalid JSON', async () => {
-    mockProbes({
-      user: () => HttpResponse.json(cfSuccess({ id: 'user-1', email: 'user@example.com' })),
-      accounts: () => new HttpResponse('not-json', { status: 200 })
-    })
-
-    await expect(getCloudflareIdentity('test-token')).resolves.toEqual({
-      user: { id: 'user-1', email: 'user@example.com' },
-      accounts: []
-    })
-  })
-
-  it('rejects when /accounts returns empty result and /user fails', async () => {
-    mockProbes({
-      user: () => new HttpResponse('Forbidden', { status: 403 }),
-      accounts: () => HttpResponse.json(cfAccountsSuccess([]))
-    })
-
-    await expectOAuthError(getCloudflareIdentity('test-token'), 'invalid_token', 401)
-  })
-
-  it('rejects when /accounts payload shape is invalid and /user fails', async () => {
-    mockProbes({
-      user: () => new HttpResponse('Forbidden', { status: 403 }),
-      accounts: () => HttpResponse.json(cfSuccess([{ id: 'acc-1' }]))
-    })
-
-    await expectOAuthError(getCloudflareIdentity('test-token'), 'invalid_token', 401)
-  })
-
   it('maps a network failure to server_error', async () => {
-    // A transport-level failure (fetch rejecting) is BELOW MSW's HTTP
-    // abstraction — HttpResponse.error() leaks an unhandled rejection through
-    // @mswjs/interceptors. The fetch primitive is the correct seam for a
-    // network error, so spy it here. (vi.spyOn restored in afterEach.)
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new TypeError('network failed'))
 
-    await expectOAuthError(getCloudflareIdentity('test-token'), 'server_error', 502)
+    await expectOAuthError(
+      resolveCloudflareCredential('legacy-token', 'unknown'),
+      'server_error',
+      502
+    )
   })
 })

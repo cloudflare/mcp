@@ -93,7 +93,14 @@ describe('Cloudflare token ownership', () => {
 
 describe('buildAuthProps', () => {
   it('builds versioned user props', () => {
-    expect(buildAuthProps('token', USER, [ACCOUNT], 1)).toEqual({
+    expect(
+      buildAuthProps('token', {
+        type: 'user',
+        user: USER,
+        accounts: [ACCOUNT],
+        accountCount: 1
+      })
+    ).toEqual({
       type: 'user_token',
       accessToken: 'token',
       user: USER,
@@ -103,18 +110,12 @@ describe('buildAuthProps', () => {
     })
   })
 
-  it('builds account props only for exactly one account', () => {
-    expect(buildAuthProps('token', null, [ACCOUNT])).toEqual({
+  it('builds account props from an account identity', () => {
+    expect(buildAuthProps('token', { type: 'account', account: ACCOUNT })).toEqual({
       type: 'account_token',
       accessToken: 'token',
       account: ACCOUNT
     })
-    expect(() => buildAuthProps('token', null, [])).toThrow(
-      'Account token must resolve to exactly one Cloudflare account'
-    )
-    expect(() =>
-      buildAuthProps('token', null, [ACCOUNT, { id: 'account-2', name: 'Two' }])
-    ).toThrow('Account token must resolve to exactly one Cloudflare account')
   })
 })
 
@@ -214,7 +215,7 @@ describe('resolveExternalToken', () => {
   it('ignores malformed cached identity data and revalidates upstream', async () => {
     const token = 'cfut_invalid-cache-token'
     await env.OAUTH_KV.put(
-      `api-token-identity:v3:${await sha256Hex(token)}`,
+      `api-token-identity:v4:${await sha256Hex(token)}`,
       JSON.stringify({ user: 'not-an-object', accounts: [] })
     )
     const calls = mockIdentity({

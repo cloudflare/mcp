@@ -19,7 +19,7 @@ import {
   validateOAuthState,
   OAuthError
 } from './workers-oauth-utils'
-import { getCloudflareIdentity } from './cloudflare-identity'
+import { getCloudflareOAuthUser } from './cloudflare-identity'
 import { MetricsTracker, AuthUser } from '../metrics'
 import { SERVER_INFO } from '../constants'
 
@@ -532,36 +532,26 @@ export function createAuthHandlers() {
         })
       ])
 
-      // Fetch user and accounts
-      const { user, accounts, accountCount } = await getCloudflareIdentity(access_token)
-
-      // Account-scoped tokens (user: null) are only supported via API token mode
-      // (see api-token-mode.ts). The OAuth flow always requires a user identity.
-      if (!user) {
-        return new OAuthError(
-          'server_error',
-          'Failed to fetch user information from Cloudflare'
-        ).toHtmlResponse()
-      }
+      const identity = await getCloudflareOAuthUser(access_token)
 
       // Complete authorization
       const { redirectTo } = await env.OAUTH_PROVIDER.completeAuthorization({
         request: oauthReqInfo,
-        userId: user.id,
-        metadata: { label: user.email },
+        userId: identity.user.id,
+        metadata: { label: identity.user.email },
         scope: oauthReqInfo.scope,
         props: {
           type: 'user_token',
-          user,
-          accounts,
-          accountCount,
+          user: identity.user,
+          accounts: identity.accounts,
+          accountCount: identity.accountCount,
           version: AUTH_PROPS_VERSION,
           accessToken: access_token,
           refreshToken: refresh_token
         } satisfies AuthProps
       })
 
-      metrics.logEvent(new AuthUser({ userId: user.id }))
+      metrics.logEvent(new AuthUser({ userId: identity.user.id }))
 
       return new Response(null, {
         status: 302,
