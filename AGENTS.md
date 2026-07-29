@@ -62,21 +62,21 @@ Node 22+ required.
 
 ## Commands
 
-| Command                | What it does                                  |
-| ---------------------- | --------------------------------------------- |
-| `npm run dev`          | Start local dev server (wrangler dev)         |
-| `npm run deploy`       | Deploy to staging                             |
-| `npm run deploy:prod`  | Deploy to production                          |
-| `npm run types`        | Generate worker type definitions              |
-| `npm run typecheck`    | TypeScript type checking (no emit)            |
-| `npm run lint`         | Lint with oxlint                              |
-| `npm run format`       | Format with oxfmt                             |
-| `npm run format:check` | Check formatting without modifying            |
-| `npm run test`         | Run vitest test suite                         |
-| `npm run test:watch`   | Run vitest in watch mode                      |
-| `npm run check`        | Run all checks (format, lint, typecheck, test)|
-| `npm run seed:staging` | Seed OpenAPI spec to staging R2               |
-| `npm run seed:prod`    | Seed OpenAPI spec to production R2            |
+| Command                | What it does                                   |
+| ---------------------- | ---------------------------------------------- |
+| `npm run dev`          | Start local dev server (wrangler dev)          |
+| `npm run deploy`       | Deploy to staging                              |
+| `npm run deploy:prod`  | Deploy to production                           |
+| `npm run types`        | Generate worker type definitions               |
+| `npm run typecheck`    | TypeScript type checking (no emit)             |
+| `npm run lint`         | Lint with oxlint                               |
+| `npm run format`       | Format with oxfmt                              |
+| `npm run format:check` | Check formatting without modifying             |
+| `npm run test`         | Run vitest test suite                          |
+| `npm run test:watch`   | Run vitest in watch mode                       |
+| `npm run check`        | Run all checks (format, lint, typecheck, test) |
+| `npm run seed:staging` | Seed OpenAPI spec to staging R2                |
+| `npm run seed:prod`    | Seed OpenAPI spec to production R2             |
 
 ## Code standards
 
@@ -172,6 +172,7 @@ npm run test:watch    # Watch mode
 ```
 
 **Unit/integration coverage areas:**
+
 - Scheduled handler (spec fetching & processing)
 - Auth token detection and parsing
 - Auth props building and validation

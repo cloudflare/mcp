@@ -6,7 +6,7 @@ import {
 } from '@cloudflare/workers-oauth-provider'
 import { z } from 'zod'
 
-import { getUserAndAccounts, type CloudflareTokenOwner } from './oauth-handler'
+import { getCloudflareIdentity, type CloudflareTokenOwner } from './cloudflare-identity'
 import { OAuthError } from './workers-oauth-utils'
 
 import {
@@ -59,7 +59,7 @@ async function getCachedApiTokenIdentity(
     console.warn('api_token_identity_probe kv-cache read failed', error)
   }
 
-  const identity = await getUserAndAccounts(token, 'api_token_identity_probe', tokenOwner)
+  const identity = await getCloudflareIdentity(token, 'api_token_identity_probe', tokenOwner)
 
   try {
     await kv.put(cacheKey, JSON.stringify(identity), {
