@@ -3,10 +3,9 @@ import OAuthProvider, {
   type OAuthProviderOptions
 } from '@cloudflare/workers-oauth-provider'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
-import { isDirectApiToken, handleApiTokenRequest } from './auth/api-token-mode'
+import { resolveCloudflareToken } from './auth/api-token-mode'
 import {
   MCP_ROUTE,
-  handleAuthenticatedMcpRequest,
   handleMcpPreflight,
   oauthMcpHandler,
   rejectInvalidMcpRequest
@@ -34,15 +33,8 @@ export default {
       if (request.method === 'OPTIONS') return handleMcpPreflight(request)
     }
 
-    // Check for direct API token first (like GitHub MCP's PAT support)
-    if (isMcpRoute && isDirectApiToken(request)) {
-      const response = await handleApiTokenRequest(request, (props) =>
-        handleAuthenticatedMcpRequest(request, props)
-      )
-      if (response) return response
-    }
-
-    // OAuth mode - handle via workers-oauth-provider
+    // workers-oauth-provider resolves its own access tokens first, then delegates
+    // direct Cloudflare API/OAuth credentials to resolveExternalToken.
     const oauthOptions: OAuthProviderOptions<Env> = {
       apiHandlers: {
         [MCP_ROUTE]: oauthMcpHandler
@@ -52,6 +44,7 @@ export default {
       authorizeEndpoint: '/authorize',
       tokenEndpoint: '/token',
       clientRegistrationEndpoint: '/register',
+      resolveExternalToken: resolveCloudflareToken,
       tokenExchangeCallback: (options) =>
         handleTokenExchangeCallback(
           options,

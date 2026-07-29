@@ -10,8 +10,8 @@
 
 When modifying MCP or OAuth functionality, **always check the latest published MCP specification**:
 
-- **Specification:** https://modelcontextprotocol.io/specification/2025-11-25
-- **Authorization section:** https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization
+- **Specification:** https://modelcontextprotocol.io/specification/2026-07-28
+- **Authorization section:** https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization
 
 ## Repository structure
 
@@ -27,7 +27,8 @@ cloudflare-mcp/
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
-│   │   ├── api-token-mode.ts      # Direct Cloudflare API token support
+│   │   ├── api-token-mode.ts      # Prefix classification & external resolver
+│   │   ├── cloudflare-identity.ts # Owner-aware Cloudflare API identity probes
 │   │   ├── cloudflare-auth.ts     # PKCE & OAuth utilities
 │   │   ├── oauth-handler.ts       # OAuth authorization flow
 │   │   ├── derived-oauth-scopes.ts # Canonical production OAuth scope API metadata
@@ -120,10 +121,12 @@ Code execution uses Cloudflare's Worker Loader API to dynamically create isolate
 
 ### Authentication
 
-Two modes via Zod discriminated union (`AuthProps`):
+Two credential paths produce the same Zod-validated `AuthProps` union:
 
-- **OAuth mode** (default): Uses `@cloudflare/workers-oauth-provider` with PKCE. Supports both account-scoped and user-scoped tokens.
-- **API token mode**: Direct Cloudflare API tokens bypass OAuth. Detection: OAuth tokens have 3 colon-separated parts; API tokens don't.
+- **OAuth mode** (default): `@cloudflare/workers-oauth-provider` validates its own access tokens and restores encrypted Cloudflare OAuth props. The upstream authorization-code and refresh flows use PKCE and remain separate from direct credential resolution.
+- **Direct Cloudflare credential mode**: after the provider's internal lookup misses, `resolveExternalToken` validates the bearer against the Cloudflare API and returns request-local props. Prefixes are owner hints: `cfat_` account tokens query only `/accounts`; `cfut_` user API tokens and `cfoat_` Cloudflare OAuth credentials query `/user` and `/accounts`; unprefixed legacy tokens retain response-based inference. Expected failures use the provider's `ExternalTokenError`, which generates RFC 6750/9728 `401`/`403` challenges and preserves retry guidance.
+
+Validated direct-credential identity is cached by token hash in `OAUTH_KV`; provider-issued MCP tokens never invoke the external resolver.
 
 The consent picker uses the production catalog returned by `GET /oauth/scopes` in every deployment. Staging may register additional scopes, but the MCP picker exposes them only after they reach production. Only the user, account, and offline-access OAuth bootstrap scopes sit outside the API catalog. Terraform registration must land before deploying picker additions. The app does not impose a scope-count cap.
 

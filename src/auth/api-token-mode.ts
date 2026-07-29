@@ -1,17 +1,38 @@
-import { env as cloudflareEnv } from 'cloudflare:workers'
+import {
+  ExternalTokenError,
+  type OAuthTokenErrorCode,
+  type ResolveExternalTokenInput,
+  type ResolveExternalTokenResult
+} from '@cloudflare/workers-oauth-provider'
+import { z } from 'zod'
 
-import { getUserAndAccounts } from './oauth-handler'
+import { getUserAndAccounts, type CloudflareTokenOwner } from './oauth-handler'
 import { OAuthError } from './workers-oauth-utils'
 
-import { AUTH_PROPS_VERSION, type AccountSchema, type AuthProps, type UserSchema } from './types'
+import {
+  AccountsSchema,
+  AUTH_PROPS_VERSION,
+  UserSchema,
+  type AccountSchema,
+  type AuthProps,
+  type UserSchema as UserIdentity
+} from './types'
 
-const env = cloudflareEnv as Env
 const API_TOKEN_IDENTITY_CACHE_TTL_SECONDS = 2_592_000
 
-type ApiTokenIdentity = {
-  user: UserSchema | null
-  accounts: AccountSchema[]
-  accountCount?: number
+const ApiTokenIdentitySchema = z.object({
+  user: UserSchema.nullable(),
+  accounts: AccountsSchema,
+  accountCount: z.number().int().nonnegative().optional()
+})
+
+type ApiTokenIdentity = z.infer<typeof ApiTokenIdentitySchema>
+
+/** Prefixes are trusted only as owner hints; unprefixed legacy credentials remain supported. */
+export function cloudflareTokenOwner(token: string): CloudflareTokenOwner {
+  if (token.startsWith('cfat_')) return 'account'
+  if (token.startsWith('cfut_') || token.startsWith('cfoat_')) return 'user'
+  return 'unknown'
 }
 
 async function hashApiToken(token: string): Promise<string> {
@@ -19,24 +40,29 @@ async function hashApiToken(token: string): Promise<string> {
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('')
 }
 
-async function getCachedApiTokenIdentity(token: string): Promise<ApiTokenIdentity> {
+async function getCachedApiTokenIdentity(
+  token: string,
+  tokenOwner: CloudflareTokenOwner,
+  kv: KVNamespace
+): Promise<ApiTokenIdentity> {
   const tokenHash = await hashApiToken(token)
-  // v2 namespace: abandons pre-versioning entries that may hold a truncated
-  // first page of accounts rather than the full (or count-only) list.
-  const cacheKey = `api-token-identity:v2:${tokenHash}`
+  const cacheKey = `api-token-identity:v3:${tokenHash}`
+
   try {
-    const cached = await env.OAUTH_KV.get<ApiTokenIdentity>(cacheKey, 'json')
-    if (cached) {
-      return cached
+    const cachedValue = await kv.get(cacheKey, 'json')
+    if (cachedValue !== null) {
+      const cached = ApiTokenIdentitySchema.safeParse(cachedValue)
+      if (cached.success) return cached.data
+      console.warn('api_token_identity_probe ignored invalid cache entry')
     }
   } catch (error) {
     console.warn('api_token_identity_probe kv-cache read failed', error)
   }
 
-  const identity = await getUserAndAccounts(token, 'api_token_identity_probe')
+  const identity = await getUserAndAccounts(token, 'api_token_identity_probe', tokenOwner)
 
   try {
-    await env.OAUTH_KV.put(cacheKey, JSON.stringify(identity), {
+    await kv.put(cacheKey, JSON.stringify(identity), {
       expirationTtl: API_TOKEN_IDENTITY_CACHE_TTL_SECONDS
     })
   } catch (error) {
@@ -46,97 +72,39 @@ async function getCachedApiTokenIdentity(token: string): Promise<ApiTokenIdentit
   return identity
 }
 
-/**
- * Check if the request contains a direct Cloudflare API token
- * (as opposed to an OAuth token issued by workers-oauth-provider)
- *
- * OAuth tokens have format: userId:grantId:secret (3 colon-separated parts)
- * Direct API tokens do NOT have this format
- */
-export function isDirectApiToken(request: Request): boolean {
-  const authHeader = request.headers.get('Authorization')
-  if (!authHeader?.startsWith('Bearer ')) return false
-
-  const token = authHeader.slice(7)
-  const parts = token.split(':')
-
-  // OAuth tokens have exactly 3 parts separated by colons
-  return parts.length !== 3
-}
-
-/**
- * Extract bearer token from request
- */
-export function extractBearerToken(request: Request): string | null {
-  const authHeader = request.headers.get('Authorization')
-  if (!authHeader?.startsWith('Bearer ')) return null
-  return authHeader.slice(7)
-}
-
-/**
- * Handle requests with direct Cloudflare API tokens
- * Returns null if this is not an API token request (let OAuth handle it)
- */
-export async function handleApiTokenRequest(
-  request: Request,
-  createMcpResponse: (props: AuthProps) => Promise<Response>
-): Promise<Response | null> {
-  if (!isDirectApiToken(request)) {
-    return null
-  }
-
-  const token = extractBearerToken(request)
-  if (!token) {
-    return new Response(JSON.stringify({ error: 'Authorization header required' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' }
-    })
-  }
-
-  try {
-    const { user, accounts, accountCount } = await getCachedApiTokenIdentity(token)
-
-    // Account-scoped token
-    if (!user) {
-      if (accounts.length === 0) {
-        return new Response(JSON.stringify({ error: 'Invalid token' }), {
-          status: 401,
-          headers: { 'Content-Type': 'application/json' }
-        })
+function externalTokenError(
+  error: OAuthError,
+  tokenOwner: CloudflareTokenOwner
+): {
+  code: OAuthTokenErrorCode
+  statusCode: number
+  requiredScopes?: string[]
+} {
+  switch (error.code) {
+    case 'invalid_token':
+      return { code: 'invalid_token', statusCode: 401 }
+    case 'insufficient_scope':
+      return {
+        code: 'insufficient_scope',
+        statusCode: 403,
+        requiredScopes: tokenOwner === 'account' ? ['account:read'] : ['user:read', 'account:read']
       }
-      if (accounts.length > 1) {
-        return new Response(
-          JSON.stringify({
-            error: 'Token has access to multiple accounts - use account_id parameter'
-          }),
-          { status: 400, headers: { 'Content-Type': 'application/json' } }
-        )
-      }
-      const props = buildAuthProps(token, null, accounts)
-      return createMcpResponse(props)
-    }
-
-    // User token
-    const props = buildAuthProps(token, user, accounts, accountCount)
-    return createMcpResponse(props)
-  } catch (err) {
-    if (err instanceof OAuthError) {
-      return err.toResponse()
-    }
-    return new Response(JSON.stringify({ error: 'Token verification failed' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' }
-    })
+    case 'temporarily_unavailable':
+      return { code: 'temporarily_unavailable', statusCode: error.statusCode }
+    case 'server_error':
+      return { code: 'server_error', statusCode: error.statusCode }
+    default:
+      return error.statusCode >= 500
+        ? { code: 'server_error', statusCode: 502 }
+        : { code: 'invalid_token', statusCode: 401 }
   }
 }
 
-/**
- * Build AuthProps from verified token info
- */
+/** Build the request props consumed by the MCP tool layer from a verified Cloudflare credential. */
 export function buildAuthProps(
   token: string,
-  user?: { id: string; email: string } | null,
-  accounts?: Array<{ id: string; name: string }>,
+  user: UserIdentity | null,
+  accounts: AccountSchema[],
   accountCount?: number
 ): AuthProps {
   if (user) {
@@ -144,19 +112,55 @@ export function buildAuthProps(
       type: 'user_token',
       accessToken: token,
       user,
-      accounts: accounts || [],
+      accounts,
       accountCount,
       version: AUTH_PROPS_VERSION
     }
   }
 
-  if (!accounts || accounts.length === 0) {
-    throw new Error('Cannot build auth props: no user or account information')
+  if (accounts.length !== 1) {
+    throw new OAuthError(
+      'invalid_token',
+      'Account token must resolve to exactly one Cloudflare account',
+      401
+    )
   }
 
   return {
     type: 'account_token',
     accessToken: token,
     account: accounts[0]
+  }
+}
+
+/**
+ * Resolve direct Cloudflare API and OAuth credentials after the provider's own
+ * access-token lookup misses. workers-oauth-provider owns bearer parsing,
+ * standards-compliant error responses, and injection of the returned props.
+ */
+export async function resolveCloudflareToken({
+  token,
+  env
+}: ResolveExternalTokenInput<Env>): Promise<ResolveExternalTokenResult> {
+  const tokenOwner = cloudflareTokenOwner(token)
+  try {
+    const { user, accounts, accountCount } = await getCachedApiTokenIdentity(
+      token,
+      tokenOwner,
+      env.OAUTH_KV
+    )
+
+    return { props: buildAuthProps(token, user, accounts, accountCount) }
+  } catch (error) {
+    if (error instanceof OAuthError) {
+      const { code, statusCode, requiredScopes } = externalTokenError(error, tokenOwner)
+      throw new ExternalTokenError(code, {
+        description: error.description,
+        statusCode,
+        headers: error.headers,
+        requiredScopes
+      })
+    }
+    throw error
   }
 }

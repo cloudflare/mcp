@@ -72,6 +72,8 @@ async function beginAuthorization(options: { state?: string; scopes?: string } =
         response_type: 'code',
         client_id: clientId,
         redirect_uri: REDIRECT_URI,
+        code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+        code_challenge_method: 'S256',
         scope: options.scopes ?? 'user:read',
         ...(options.state === undefined ? {} : { state: options.state })
       })
@@ -162,6 +164,8 @@ describe('GET /authorize', () => {
           response_type: 'code',
           client_id: clientId,
           redirect_uri: REDIRECT_URI,
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256',
           scope: 'user:read'
         })
       )
@@ -302,7 +306,9 @@ describe('GET /authorize', () => {
         authorizeUrl({
           response_type: 'code',
           client_id: 'does-not-exist',
-          redirect_uri: REDIRECT_URI
+          redirect_uri: REDIRECT_URI,
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256'
         })
       )
     )

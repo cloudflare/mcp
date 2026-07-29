@@ -256,6 +256,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(response.headers.get('www-authenticate')).toMatch(
       /^Bearer .*resource_metadata="https:\/\/mcp\.cloudflare\.com\/\.well-known\/oauth-protected-resource\/mcp"/
     )
+    expect(await response.text()).toBe('')
   })
 })
 

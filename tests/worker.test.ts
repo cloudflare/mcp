@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it } from 'vitest'
-import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
+import { API_BASE, cfAccountsSuccess, cfSuccess } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { callTool, toolText } from './helpers/mcp'
 import { server } from './setup/msw'
@@ -21,16 +21,23 @@ import { server } from './setup/msw'
 
 const ACCOUNT_ID = '00000000000000000000000000000001'
 
-// A direct (non-OAuth) API token: NOT 3 colon-separated parts, so the worker
-// treats it as a direct Cloudflare API token rather than an OAuth bearer.
-const API_TOKEN = 'test-api-token-e2e'
+// A prefixed account-owned Cloudflare API token. The OAuth provider tries its
+// own token store first, then delegates the miss to the external token resolver.
+const API_TOKEN = 'cfat_test-api-token-e2e'
 
 afterEach(() => clearKv(env.OAUTH_KV))
 
 describe('worker: execute tool call', () => {
   it('runs code in a Worker Loader isolate and returns the mocked API result', async () => {
-    // Real getUserAndAccounts resolves this token to a single-account token.
-    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'E2E Test Account' }] })
+    // Account prefixes skip /user. MSW fails this test if an unregistered /user
+    // request occurs, so only register the one expected identity probe.
+    let accountProbeCalls = 0
+    server.use(
+      http.get(`${API_BASE}/accounts`, () => {
+        accountProbeCalls++
+        return HttpResponse.json(cfAccountsSuccess([{ id: ACCOUNT_ID, name: 'E2E Test Account' }]))
+      })
+    )
 
     // The Cloudflare API call the executed code makes, forwarded by GlobalOutbound.
     let verifyCalled = false
@@ -59,6 +66,7 @@ describe('worker: execute tool call', () => {
     expect(text).toContain('"status": "active"')
     expect(text).toContain('token-1')
 
+    expect(accountProbeCalls).toBe(1)
     // The forwarded API call really went through GlobalOutbound -> MSW.
     expect(verifyCalled).toBe(true)
   })

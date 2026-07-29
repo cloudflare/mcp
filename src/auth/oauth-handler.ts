@@ -315,17 +315,20 @@ function getRetryAfterHeader(...responses: Response[]): Record<string, string> {
   }
 }
 
-function throwCombinedCloudflareApiError(userResp: Response, accountsResp: Response): never {
-  const statuses = [userResp.status, accountsResp.status]
+function throwCloudflareApiError(...responses: [Response, ...Response[]]): never {
+  const statuses = responses.map((response) => response.status)
 
   if (statuses.some((status) => status >= 500)) {
     throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
   }
 
   if (statuses.includes(429)) {
-    throw new OAuthError('temporarily_unavailable', 'Rate limited, try again later', 429, {
-      ...getRetryAfterHeader(userResp, accountsResp)
-    })
+    throw new OAuthError(
+      'temporarily_unavailable',
+      'Rate limited, try again later',
+      429,
+      getRetryAfterHeader(...responses)
+    )
   }
 
   if (statuses.includes(401)) {
@@ -333,27 +336,47 @@ function throwCombinedCloudflareApiError(userResp: Response, accountsResp: Respo
   }
 
   if (statuses.includes(403)) {
-    throw new OAuthError('insufficient_scope', 'Insufficient permissions', 403)
+    throw new OAuthError(
+      'insufficient_scope',
+      'Token lacks required user:read or account:read scope',
+      403
+    )
   }
 
-  throw new OAuthError('invalid_token', 'Failed to verify token', userResp.status)
+  if (statuses.includes(400)) {
+    throw new OAuthError(
+      'invalid_token',
+      'Access token appears malformed; reauthenticate and try again',
+      401
+    )
+  }
+
+  throw new OAuthError('invalid_token', 'Access token is invalid or expired', statuses[0])
 }
+
+export type CloudflareTokenOwner = 'account' | 'unknown' | 'user'
 
 async function fetchCloudflareProbes(
   accessToken: string,
-  caller = 'oauth_callback_identity_probe'
-): Promise<[Response, Response]> {
+  caller: string,
+  tokenOwner: CloudflareTokenOwner
+): Promise<{ user?: Response; accounts: Response }> {
   const headers = { Authorization: `Bearer ${accessToken}` }
 
   try {
-    return await Promise.all([
-      fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }, { caller }),
+    const userRequest =
+      tokenOwner === 'account'
+        ? Promise.resolve(undefined)
+        : fetchWithRetry(`${env.CLOUDFLARE_API_BASE}/user`, { headers }, { caller })
+    const [user, accounts] = await Promise.all([
+      userRequest,
       fetchWithRetry(
         `${env.CLOUDFLARE_API_BASE}/accounts?per_page=${ACCOUNTS_PROBE_PAGE_SIZE}`,
         { headers },
         { caller }
       )
     ])
+    return { user, accounts }
   } catch (error) {
     console.error('Cloudflare API request failed', error)
     throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
@@ -361,43 +384,38 @@ async function fetchCloudflareProbes(
 }
 
 /**
- * Fetch user and accounts from Cloudflare API
+ * Resolve the identity and account access of a Cloudflare credential. Prefixes
+ * are owner hints: account-owned `cfat_` tokens skip `/user`; user-owned
+ * `cfut_` and `cfoat_` credentials require user identity; legacy unprefixed
+ * values retain response-based owner inference.
  */
 export async function getUserAndAccounts(
   accessToken: string,
-  caller = 'oauth_callback_identity_probe'
+  caller = 'oauth_callback_identity_probe',
+  tokenOwner: CloudflareTokenOwner = 'unknown'
 ): Promise<{
   user: UserSchema | null
   accounts: AccountSchema[]
   accountCount?: number
 }> {
-  const [userResp, accountsResp] = await fetchCloudflareProbes(accessToken, caller)
+  const { user: userResp, accounts: accountsResp } = await fetchCloudflareProbes(
+    accessToken,
+    caller,
+    tokenOwner
+  )
 
-  // Check for upstream errors before parsing
-  if (!userResp.ok && !accountsResp.ok) {
-    console.error(`Cloudflare API error: user=${userResp.status}, accounts=${accountsResp.status}`)
-    throwCombinedCloudflareApiError(userResp, accountsResp)
+  if (!accountsResp.ok && (!userResp || !userResp.ok)) {
+    console.warn(
+      `Cloudflare API identity probe failed: user=${userResp?.status ?? 'skipped'}, accounts=${accountsResp.status}`
+    )
+    if (userResp) throwCloudflareApiError(userResp, accountsResp)
+    throwCloudflareApiError(accountsResp)
   }
 
-  // Parse user from response
-  let user: UserSchema | null = null
-  if (userResp.ok) {
-    try {
-      const json = (await userResp.json()) as { success?: boolean; result?: unknown }
-      if (json.success && json.result) {
-        const parsed = UserSchema.safeParse(json.result)
-        if (parsed.success) {
-          user = parsed.data
-        } else {
-          console.error('Cloudflare API /user payload did not match expected shape', parsed.error)
-        }
-      }
-    } catch (error) {
-      console.error('Cloudflare API /user response is not valid JSON', error)
-    }
+  if (!accountsResp.ok && userResp?.ok && tokenOwner === 'user') {
+    throwCloudflareApiError(accountsResp)
   }
 
-  // Parse accounts from response
   let accounts: AccountSchema[] = []
   let totalAccountCount: number | undefined
   if (accountsResp.ok) {
@@ -437,17 +455,44 @@ export async function getUserAndAccounts(
     }
   }
 
+  if (!userResp) {
+    if (accounts.length === 1) return { user: null, accounts }
+    throw new OAuthError(
+      'invalid_token',
+      'Account token must resolve to exactly one Cloudflare account',
+      401
+    )
+  }
+
+  let user: UserSchema | null = null
+  if (userResp.ok) {
+    try {
+      const json = (await userResp.json()) as { success?: boolean; result?: unknown }
+      if (json.success && json.result) {
+        const parsed = UserSchema.safeParse(json.result)
+        if (parsed.success) {
+          user = parsed.data
+        } else {
+          console.error('Cloudflare API /user payload did not match expected shape', parsed.error)
+        }
+      }
+    } catch (error) {
+      console.error('Cloudflare API /user response is not valid JSON', error)
+    }
+  } else if (tokenOwner === 'user' || userResp.status >= 429) {
+    throwCloudflareApiError(userResp)
+  } else if (accounts.length > 0) {
+    return { user: null, accounts }
+  }
+
   if (user) {
-    // Don't persist a long account list. Prefer the API-reported total; the
-    // page count fallback preserves availability if pagination metadata drifts.
     if (totalAccountCount !== undefined && totalAccountCount > MAX_STORED_ACCOUNTS) {
       return { user, accounts: [], accountCount: totalAccountCount }
     }
     return { user, accounts }
   }
 
-  // Account-scoped token - user will be null
-  if (accounts.length > 0) {
+  if (tokenOwner === 'unknown' && accounts.length > 0) {
     return { user: null, accounts }
   }
 

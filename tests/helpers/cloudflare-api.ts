@@ -28,8 +28,8 @@ export function cfError(errors: Array<{ code: number; message: string }>, result
 }
 
 /**
- * Register MSW handlers for the API-token identity probe (`/user` + `/accounts`)
- * so a direct token resolves through the REAL `getUserAndAccounts` code path.
+ * Register MSW handlers for legacy/user credential identity probes
+ * (`/user` + `/accounts`) through the real external-token resolver.
  *
  * - `user: null` (default) -> account-scoped token (single account pinned)
  * - `user` provided        -> user token
