@@ -131,7 +131,8 @@ describe('resolveExternalToken', () => {
         type: 'account_token',
         accessToken: 'cfat_account-token',
         account: ACCOUNT
-      }
+      },
+      audience: env.MCP_RESOURCE
     })
     expect(calls.userCalls()).toBe(0)
     expect(calls.accountCalls()).toBe(1)
@@ -146,7 +147,8 @@ describe('resolveExternalToken', () => {
       })
 
       await expect(resolveExternalToken(resolverInput(token))).resolves.toMatchObject({
-        props: { type: 'user_token', accessToken: token, user: USER, accounts: [ACCOUNT] }
+        props: { type: 'user_token', accessToken: token, user: USER, accounts: [ACCOUNT] },
+        audience: env.MCP_RESOURCE
       })
       expect(calls.userCalls()).toBe(1)
       expect(calls.accountCalls()).toBe(1)

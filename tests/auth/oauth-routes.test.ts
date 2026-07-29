@@ -21,6 +21,7 @@ import { server } from '../setup/msw'
 
 const REDIRECT_URI = 'https://app.example.com/cb'
 const MCP_ORIGIN = 'https://mcp.cloudflare.com'
+const MCP_RESOURCE = `${MCP_ORIGIN}/mcp`
 const DOWNSTREAM_CODE_VERIFIER = 'test-downstream-code-verifier'
 const DOWNSTREAM_CODE_CHALLENGE = 'I4fhllfHqqQsgap17V2SDI0scSei8H7U0e0rZBDIcbo'
 
@@ -42,6 +43,7 @@ async function registerClient(): Promise<string> {
 
 function authorizeUrl(params: Record<string, string>): string {
   const u = new URL(`${MCP_ORIGIN}/authorize`)
+  u.searchParams.set('resource', MCP_RESOURCE)
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v)
   u.searchParams.set('code_challenge', DOWNSTREAM_CODE_CHALLENGE)
   u.searchParams.set('code_challenge_method', 'S256')
@@ -73,6 +75,7 @@ async function beginAuthorization(options: { state?: string; scopes?: string } =
         response_type: 'code',
         client_id: clientId,
         redirect_uri: REDIRECT_URI,
+        resource: MCP_RESOURCE,
         code_challenge: DOWNSTREAM_CODE_CHALLENGE,
         code_challenge_method: 'S256',
         scope: options.scopes ?? 'user:read',
@@ -163,6 +166,29 @@ afterEach(async () => {
   await clearKv(env.OAUTH_KV)
 })
 
+describe('OAuth metadata policy', () => {
+  it('advertises the canonical MCP endpoint as the protected resource', async () => {
+    const response = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/.well-known/oauth-protected-resource/mcp`)
+    )
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toMatchObject({ resource: MCP_RESOURCE })
+  })
+
+  it('advertises RFC 9207 authorization response issuer support', async () => {
+    const response = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/.well-known/oauth-authorization-server`)
+    )
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toMatchObject({
+      issuer: MCP_ORIGIN,
+      authorization_response_iss_parameter_supported: true
+    })
+  })
+})
+
 describe('GET /authorize', () => {
   it('renders the consent dialog for a registered client', async () => {
     const clientId = await registerClient()
@@ -173,6 +199,7 @@ describe('GET /authorize', () => {
           response_type: 'code',
           client_id: clientId,
           redirect_uri: REDIRECT_URI,
+          resource: MCP_RESOURCE,
           code_challenge: DOWNSTREAM_CODE_CHALLENGE,
           code_challenge_method: 'S256',
           scope: 'user:read'
@@ -226,6 +253,32 @@ describe('GET /authorize', () => {
       'offline_access',
       'account:read'
     ])
+  })
+
+  it('rejects a resource other than the canonical MCP endpoint', async () => {
+    const clientId = await registerClient()
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          resource: MCP_ORIGIN,
+          state: 'client-state'
+        })
+      ),
+      { redirect: 'manual' }
+    )
+
+    expect(response.status).toBe(302)
+    const redirect = new URL(response.headers.get('location')!)
+    expect(redirect.origin + redirect.pathname).toBe(REDIRECT_URI)
+    expect(redirect.searchParams.get('error')).toBe('invalid_request')
+    expect(redirect.searchParams.get('state')).toBe('client-state')
+    expect(redirect.searchParams.get('iss')).toBe(MCP_ORIGIN)
+    expect(response.headers.get('cache-control')).toBe('no-store')
+    expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
+    expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
   })
 
   it('rejects unknown requested scopes instead of silently downgrading them', async () => {
@@ -338,6 +391,7 @@ describe('GET /authorize', () => {
       response_type: 'code',
       client_id: clientId,
       redirect_uri: REDIRECT_URI,
+      resource: MCP_RESOURCE,
       state: 'client-state'
     }).toString()
     const response = await exports.default.fetch(new Request(url), { redirect: 'manual' })
@@ -381,6 +435,7 @@ describe('GET /authorize', () => {
           response_type: 'code',
           client_id: 'does-not-exist',
           redirect_uri: REDIRECT_URI,
+          resource: MCP_RESOURCE,
           code_challenge: DOWNSTREAM_CODE_CHALLENGE,
           code_challenge_method: 'S256'
         })
@@ -466,6 +521,7 @@ describe('GET /oauth/callback', () => {
     const redirect = new URL(cbRes.headers.get('location')!)
     expect(redirect.origin + redirect.pathname).toBe(REDIRECT_URI)
     expect(redirect.searchParams.get('code')).toBeTruthy()
+    expect(redirect.searchParams.get('iss')).toBe(MCP_ORIGIN)
 
     // A successful login records an auth_user datapoint with the userId (blob3)
     // and no error message (blob4).
@@ -497,17 +553,28 @@ describe('GET /oauth/callback', () => {
     const code = new URL(callback.headers.get('location')!).searchParams.get('code')
     expect(code).toBeTruthy()
 
+    const tokenParams = {
+      grant_type: 'authorization_code',
+      code: code!,
+      client_id: clientId,
+      redirect_uri: REDIRECT_URI,
+      code_verifier: DOWNSTREAM_CODE_VERIFIER
+    }
+    const missingResourceResponse = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(tokenParams).toString()
+      })
+    )
+    expect(missingResourceResponse.status).toBe(400)
+    await expect(missingResourceResponse.json()).resolves.toMatchObject({ error: 'invalid_target' })
+
     const tokenResponse = await exports.default.fetch(
       new Request(`${MCP_ORIGIN}/token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          grant_type: 'authorization_code',
-          code: code!,
-          client_id: clientId,
-          redirect_uri: REDIRECT_URI,
-          code_verifier: DOWNSTREAM_CODE_VERIFIER
-        }).toString()
+        body: new URLSearchParams({ ...tokenParams, resource: MCP_RESOURCE }).toString()
       })
     )
     expect(tokenResponse.status).toBe(200)
@@ -538,7 +605,8 @@ describe('GET /oauth/callback', () => {
           code: code!,
           client_id: clientId,
           redirect_uri: REDIRECT_URI,
-          code_verifier: DOWNSTREAM_CODE_VERIFIER
+          code_verifier: DOWNSTREAM_CODE_VERIFIER,
+          resource: MCP_RESOURCE
         }).toString()
       })
     )

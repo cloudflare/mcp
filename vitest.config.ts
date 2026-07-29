@@ -11,7 +11,8 @@ export default defineConfig({
         bindings: {
           MCP_COOKIE_ENCRYPTION_KEY: 'test-cookie-encryption-key-0000000000000000',
           CLOUDFLARE_CLIENT_ID: 'test-client-id',
-          CLOUDFLARE_CLIENT_SECRET: 'test-client-secret'
+          CLOUDFLARE_CLIENT_SECRET: 'test-client-secret',
+          MCP_RESOURCE: 'https://mcp.cloudflare.com/mcp'
         }
       }
     })

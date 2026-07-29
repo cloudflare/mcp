@@ -120,7 +120,12 @@ export async function resolveExternalToken({
   const tokenOwner = cloudflareTokenOwner(token)
   try {
     const identity = await getCachedIdentity(token, tokenOwner, env.OAUTH_KV)
-    return { props: buildAuthProps(token, identity) }
+    return {
+      props: buildAuthProps(token, identity),
+      // Cloudflare API tokens are opaque credentials, so successful identity
+      // validation establishes their local protected-resource audience.
+      audience: env.MCP_RESOURCE
+    }
   } catch (error) {
     if (error instanceof OAuthError) throw externalTokenError(error, tokenOwner)
     throw error
