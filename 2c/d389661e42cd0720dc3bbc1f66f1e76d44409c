@@ -1,0 +1,23 @@
+AGENTS.md
+  s_bb4c3ad7e99a91::t_474f21c72176f6 30-31,64-78,172
+src/auth/oauth-handler.ts
+  s_bb4c3ad7e99a91::t_5f5eadd8388fe0 17,29,554
+tests/auth/cloudflare-identity.test.ts
+  s_bb4c3ad7e99a91::t_36eb9b0ae0c35f 1-298
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2cd389661e42cd0720dc3bbc1f66f1e76d44409c",
+  "prompts": {},
+  "sessions": {
+    "s_bb4c3ad7e99a91": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019faf0e-5407-7a96-b4b7-55057dab3db1",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
