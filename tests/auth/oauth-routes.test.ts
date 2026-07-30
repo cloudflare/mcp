@@ -273,6 +273,8 @@ describe('GET /authorize', () => {
           response_type: 'code',
           client_id: clientId,
           redirect_uri: REDIRECT_URI,
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256',
           scope: 'user:read'
         })
       )
