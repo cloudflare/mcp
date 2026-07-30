@@ -2,7 +2,7 @@ import scopeData from './derived-oauth-scopes.json'
 
 /** Metadata returned by the public OAuth scope catalog. */
 export interface ScopeDefinition {
-  description: string
+  name: string
   category: string
 }
 

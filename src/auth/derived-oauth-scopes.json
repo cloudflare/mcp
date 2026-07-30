@@ -1,1522 +1,1526 @@
 {
   "access-acct.read": {
-    "description": "Access: Organizations, Identity Providers, and Groups Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Organizations, Identity Providers, and Groups Read"
   },
   "access-acct.revoke": {
-    "description": "Access: Organizations, Identity Providers, and Groups Revoke",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Organizations, Identity Providers, and Groups Revoke"
   },
   "access-acct.write": {
-    "description": "Access: Organizations, Identity Providers, and Groups Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Organizations, Identity Providers, and Groups Write"
   },
   "access-app.read": {
-    "description": "Access: Apps Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps Read"
   },
   "access-app.revoke": {
-    "description": "Access: Apps Revoke",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps Revoke"
   },
   "access-app.write": {
-    "description": "Access: Apps Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps Write"
   },
   "access-audit-log.read": {
-    "description": "Access: Audit Logs Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Audit Logs Read"
   },
   "access-certificate.read": {
-    "description": "Access: Mutual TLS Certificates Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Mutual TLS Certificates Read"
   },
   "access-certificate.write": {
-    "description": "Access: Mutual TLS Certificates Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Mutual TLS Certificates Write"
   },
   "access-custom-page.read": {
-    "description": "Access: Custom Pages Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Custom Pages Read"
   },
   "access-custom-page.write": {
-    "description": "Access: Custom Pages Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Custom Pages Write"
   },
   "access-device-posture.read": {
-    "description": "Access: Device Posture Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Device Posture Read"
   },
   "access-device-posture.write": {
-    "description": "Access: Device Posture Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Device Posture Write"
   },
   "access-group.read": {
-    "description": "Access: Groups Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Groups Read"
   },
   "access-group.write": {
-    "description": "Access: Groups Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Groups Write"
   },
   "access-idp.read": {
-    "description": "Access: Identity Providers Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Identity Providers Read"
   },
   "access-idp.write": {
-    "description": "Access: Identity Providers Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Identity Providers Write"
   },
   "access-key.read": {
-    "description": "Access: Keys Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Keys Read"
   },
   "access-key.write": {
-    "description": "Access: Keys Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Keys Write"
   },
   "access-org.read": {
-    "description": "Access: Organizations Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Organizations Read"
   },
   "access-org.revoke": {
-    "description": "Access: Organizations Revoke",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Organizations Revoke"
   },
   "access-org.write": {
-    "description": "Access: Organizations Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Organizations Write"
   },
   "access-policy-test.read": {
-    "description": "Access: Policy Test Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Policy Test Read"
   },
   "access-policy-test.write": {
-    "description": "Access: Policy Test Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Policy Test Write"
   },
   "access-policy.read": {
-    "description": "Access: Policies Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Policies Read"
   },
   "access-policy.write": {
-    "description": "Access: Policies Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Policies Write"
   },
   "access-population.read": {
-    "description": "Access: Population Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Population Read"
   },
   "access-population.write": {
-    "description": "Access: Population Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Population Write"
   },
   "access-saml-certificate.read": {
-    "description": "Access: SAML Certificates Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: SAML Certificates Read"
   },
   "access-saml-certificate.write": {
-    "description": "Access: SAML Certificates Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: SAML Certificates Write"
   },
   "access-scim-log.read": {
-    "description": "Access: SCIM Logs Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: SCIM Logs Read"
   },
   "access-seats.write": {
-    "description": "Zero Trust: Seats Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Zero Trust: Seats Write"
   },
   "access-service-token.read": {
-    "description": "Access: Service Tokens Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Service Tokens Read"
   },
   "access-service-token.write": {
-    "description": "Access: Service Tokens Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Service Tokens Write"
   },
   "access-ssh-auditing.read": {
-    "description": "Access: SSH Auditing Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: SSH Auditing Read"
   },
   "access-ssh-auditing.write": {
-    "description": "Access: SSH Auditing Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: SSH Auditing Write"
   },
   "access-tag.read": {
-    "description": "Access: Tags Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Tags Read"
   },
   "access-tag.write": {
-    "description": "Access: Tags Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Tags Write"
   },
   "access-users.read": {
-    "description": "Access: Users Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Users Read"
   },
   "access-users.write": {
-    "description": "Access: Users Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Users Write"
   },
   "access.read": {
-    "description": "Access: Apps and Policies Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps and Policies Read"
   },
   "access.revoke": {
-    "description": "Access: Apps and Policies Revoke",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps and Policies Revoke"
   },
   "access.write": {
-    "description": "Access: Apps and Policies Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps and Policies Write"
   },
   "account-analytics.read": {
-    "description": "Account Analytics Read",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Account Analytics Read"
   },
   "account-api-gateway.read": {
-    "description": "Account API Gateway Read",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Account API Gateway Read"
   },
   "account-api-gateway.write": {
-    "description": "Account API Gateway",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Account API Gateway"
   },
   "account-custom-asset.read": {
-    "description": "Account Custom Asset Read",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Account Custom Asset Read"
   },
   "account-custom-asset.write": {
-    "description": "Account Custom Asset Write",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Account Custom Asset Write"
   },
   "account-custom-error-rules.read": {
-    "description": "Account Custom Error Rules Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Account Custom Error Rules Read"
   },
   "account-custom-error-rules.write": {
-    "description": "Account Custom Error Rules Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Account Custom Error Rules Write"
   },
   "account-custom-pages.read": {
-    "description": "Account Custom Pages Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Account Custom Pages Read"
   },
   "account-custom-pages.write": {
-    "description": "Account Custom Pages Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Account Custom Pages Write"
   },
   "account-disable-esc.read": {
-    "description": "Disable ESC Read",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Disable ESC Read"
   },
   "account-disable-esc.write": {
-    "description": "Disable ESC Write",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Disable ESC Write"
   },
   "account-dns-settings.read": {
-    "description": "Account DNS Settings Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Account DNS Settings Read"
   },
   "account-dns-settings.write": {
-    "description": "Account DNS Settings Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Account DNS Settings Write"
   },
   "account-firewall-access-rules.read": {
-    "description": "Account Firewall Access Rules Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Account Firewall Access Rules Read"
   },
   "account-firewall-access-rules.write": {
-    "description": "Account Firewall Access Rules Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Account Firewall Access Rules Write"
   },
   "account-logs.read": {
-    "description": "Logs Read",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Logs Read"
   },
   "account-logs.write": {
-    "description": "Logs Write",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Logs Write"
   },
   "account-rule-lists.read": {
-    "description": "Account Rule Lists Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Account Rule Lists Read"
   },
   "account-rule-lists.write": {
-    "description": "Account Rule Lists Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Account Rule Lists Write"
   },
   "account-rulesets.read": {
-    "description": "Account Rulesets Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Account Rulesets Read"
   },
   "account-rulesets.write": {
-    "description": "Account Rulesets Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Account Rulesets Write"
   },
   "account-security-center-insights.read": {
-    "description": "Account Security Center Insights Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Account Security Center Insights Read"
   },
   "account-security-center-insights.write": {
-    "description": "Account Security Center Insights Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Account Security Center Insights Write"
   },
   "account-settings.read": {
-    "description": "Account Settings Read",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Account Settings Read"
   },
   "account-settings.write": {
-    "description": "Account Settings Write",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Account Settings Write"
   },
   "account-ssl-and-certificates.read": {
-    "description": "Account: SSL and Certificates Read",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Account: SSL and Certificates Read"
   },
   "account-ssl-and-certificates.write": {
-    "description": "Account: SSL and Certificates Write",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Account: SSL and Certificates Write"
   },
   "account-waf.read": {
-    "description": "Account WAF Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Account WAF Read"
   },
   "account-waf.write": {
-    "description": "Account WAF Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Account WAF Write"
   },
   "account-waiting-rooms.read": {
-    "description": "Account Waiting Rooms Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Account Waiting Rooms Read"
   },
   "address-maps.read": {
-    "description": "Address Maps Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Address Maps Read"
   },
   "address-maps.write": {
-    "description": "Address Maps Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Address Maps Write"
   },
   "agent-memory.write": {
-    "description": "Agent Memory Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Agent Memory Write"
   },
   "agw.read": {
-    "description": "Agents Gateway Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Agents Gateway Read"
   },
   "agw.run": {
-    "description": "Agents Gateway Run",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Agents Gateway Run"
   },
   "agw.write": {
-    "description": "Agents Gateway Write",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Agents Gateway Write"
   },
   "ai-search.index": {
-    "description": "AI Search Index Engine",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Search Index Engine"
   },
   "ai-search.metadata_read": {
-    "description": "AI Search Metadata Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Search Metadata Read"
   },
   "ai-search.read": {
-    "description": "AI Search Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Search Read"
   },
   "ai-search.run": {
-    "description": "AI Search Run",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Search Run"
   },
   "ai-search.write": {
-    "description": "AI Search Write",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Search Write"
   },
   "ai.read": {
-    "description": "Workers AI Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Workers AI Read"
   },
   "ai.write": {
-    "description": "Workers AI Write",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Workers AI Write"
   },
   "aiaudit.read": {
-    "description": "AI Audit Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Audit Read"
   },
   "aiaudit.write": {
-    "description": "AI Audit Write",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Audit Write"
   },
   "aig.metadata_read": {
-    "description": "AI Gateway Metadata Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Gateway Metadata Read"
   },
   "aig.read": {
-    "description": "AI Gateway Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Gateway Read"
   },
   "aig.run": {
-    "description": "AI Gateway Run",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Gateway Run"
   },
   "aig.write": {
-    "description": "AI Gateway Write",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "AI Gateway Write"
   },
   "analytics.read": {
-    "description": "Analytics Read",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Analytics Read"
   },
   "api-gateway.read": {
-    "description": "Domain API Gateway Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Domain API Gateway Read"
   },
   "api-gateway.write": {
-    "description": "Domain API Gateway",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Domain API Gateway"
   },
   "apps.write": {
-    "description": "Apps Write",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Apps Write"
   },
   "argotunnel.read": {
-    "description": "Cloudflare Tunnel Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare Tunnel Read"
   },
   "argotunnel.write": {
-    "description": "Cloudflare Tunnel Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare Tunnel Write"
   },
   "artifacts.read": {
-    "description": "Artifacts Read",
-    "category": "Other"
+    "category": "Other",
+    "name": "Artifacts Read"
   },
   "artifacts.write": {
-    "description": "Artifacts Write",
-    "category": "Other"
+    "category": "Other",
+    "name": "Artifacts Write"
   },
   "bot-management-feedback.read": {
-    "description": "Bot Management Feedback Report Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Bot Management Feedback Report Read"
   },
   "bot-management-feedback.write": {
-    "description": "Bot Management Feedback Report Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Bot Management Feedback Report Write"
   },
   "bot-management.read": {
-    "description": "Bot Management Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Bot Management Read"
   },
   "bot-management.write": {
-    "description": "Bot Management Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Bot Management Write"
   },
   "browser-rendering.read": {
-    "description": "Browser Run Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Browser Run Read"
   },
   "browser-rendering.write": {
-    "description": "Browser Run Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Browser Run Write"
   },
   "cache-settings.read": {
-    "description": "Cache Settings Read",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Cache Settings Read"
   },
   "cache-settings.write": {
-    "description": "Cache Settings Write",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Cache Settings Write"
   },
   "cache.purge": {
-    "description": "Cache Purge",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Cache Purge"
   },
   "calls.read": {
-    "description": "Calls Read",
-    "category": "Media"
+    "category": "Media",
+    "name": "Calls Read"
   },
   "calls.write": {
-    "description": "Calls Write",
-    "category": "Media"
+    "category": "Media",
+    "name": "Calls Write"
   },
   "casb.read": {
-    "description": "CASB Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "CASB Read"
   },
   "casb.write": {
-    "description": "CASB Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "CASB Write"
   },
   "cf-agents.read": {
-    "description": "CF Agents Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "CF Agents Read"
   },
   "cf-agents.write": {
-    "description": "CF Agents Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "CF Agents Write"
   },
   "challenge-widgets.read": {
-    "description": "Turnstile Sites Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Turnstile Sites Read"
   },
   "challenge-widgets.write": {
-    "description": "Turnstile Sites Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Turnstile Sites Write"
   },
   "chinanetwork-steering.read": {
-    "description": "China Network Steering Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "China Network Steering Read"
   },
   "chinanetwork-steering.write": {
-    "description": "China Network Steering Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "China Network Steering Write"
   },
   "cloud-connector.read": {
-    "description": "Cloud Connector Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Cloud Connector Read"
   },
   "cloud-connector.write": {
-    "description": "Cloud Connector Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Cloud Connector Write"
   },
   "cloud-email-security.read": {
-    "description": "Cloud Email Security: Read",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Cloud Email Security: Read"
   },
   "cloud-email-security.write": {
-    "description": "Cloud Email Security: Write",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Cloud Email Security: Write"
   },
   "cloudchamber.read": {
-    "description": "Cloudchamber Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Cloudchamber Read"
   },
   "cloudchamber.write": {
-    "description": "Cloudchamber Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Cloudchamber Write"
   },
   "cloudforce-one.read": {
-    "description": "Cloudforce One Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Cloudforce One Read"
   },
   "cloudforce-one.write": {
-    "description": "Cloudforce One Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Cloudforce One Write"
   },
   "config-settings.read": {
-    "description": "Config Settings Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Config Settings Read"
   },
   "config-settings.write": {
-    "description": "Config Settings Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Config Settings Write"
   },
   "connectivity-directory.admin": {
-    "description": "Connectivity Directory Admin",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Connectivity Directory Admin"
   },
   "connectivity-directory.bind": {
-    "description": "Connectivity Directory Bind",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Connectivity Directory Bind"
   },
   "connectivity-directory.read": {
-    "description": "Connectivity Directory Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Connectivity Directory Read"
   },
   "constellation.read": {
-    "description": "Constellation Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Constellation Read"
   },
   "constellation.write": {
-    "description": "Constellation Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Constellation Write"
   },
   "containers.read": {
-    "description": "Workers Containers Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Containers Read"
   },
   "containers.write": {
-    "description": "Workers Containers Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Containers Write"
   },
   "custom-errors.read": {
-    "description": "Custom Errors Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Custom Errors Read"
   },
   "custom-errors.write": {
-    "description": "Custom Errors Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Custom Errors Write"
   },
   "custom-pages.read": {
-    "description": "Custom Pages Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Custom Pages Read"
   },
   "custom-pages.write": {
-    "description": "Custom Pages Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Custom Pages Write"
   },
   "d1.metadata_read": {
-    "description": "D1 Metadata Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "D1 Metadata Read"
   },
   "d1.read": {
-    "description": "D1 Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "D1 Read"
   },
   "d1.write": {
-    "description": "D1 Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "D1 Write"
   },
   "ddos-botnet-feed.read": {
-    "description": "DDoS Botnet Feed Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "DDoS Botnet Feed Read"
   },
   "ddos-botnet-feed.write": {
-    "description": "DDoS Botnet Feed Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "DDoS Botnet Feed Write"
   },
   "ddos-protection.read": {
-    "description": "DDoS Protection Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "DDoS Protection Read"
   },
   "ddos-protection.write": {
-    "description": "DDoS Protection Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "DDoS Protection Write"
   },
   "dls.read": {
-    "description": "DLS: Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "DLS: Read"
   },
   "dls.write": {
-    "description": "DLS: Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "DLS: Write"
   },
   "dns-firewall.read": {
-    "description": "DNS Firewall Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "DNS Firewall Read"
   },
   "dns-firewall.write": {
-    "description": "DNS Firewall Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "DNS Firewall Write"
   },
   "dns-view.read": {
-    "description": "DNS View Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "DNS View Read"
   },
   "dns-view.write": {
-    "description": "DNS View Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "DNS View Write"
   },
   "dns.read": {
-    "description": "DNS Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "DNS Read"
   },
   "dns.write": {
-    "description": "DNS Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "DNS Write"
   },
   "domain-page-shield.read": {
-    "description": "Domain Page Shield Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Domain Page Shield Read"
   },
   "domain-page.shield": {
-    "description": "Domain Page Shield",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Domain Page Shield"
   },
   "dynamic-redirect.read": {
-    "description": "Dynamic URL Redirects Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Dynamic URL Redirects Read"
   },
   "dynamic-redirect.write": {
-    "description": "Dynamic URL Redirects Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Dynamic URL Redirects Write"
   },
   "email-routing-account-rule.read": {
-    "description": "Email Routing Account Rules Read",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Routing Account Rules Read"
   },
   "email-routing-address.read": {
-    "description": "Email Routing Addresses Read",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Routing Addresses Read"
   },
   "email-routing-address.write": {
-    "description": "Email Routing Addresses Write",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Routing Addresses Write"
   },
   "email-routing-rule.read": {
-    "description": "Email Routing Rules Read",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Routing Rules Read"
   },
   "email-routing-rule.write": {
-    "description": "Email Routing Rules Write",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Routing Rules Write"
   },
   "email-routing-suppression.read": {
-    "description": "Email Routing Suppressions Read",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Routing Suppressions Read"
   },
   "email-routing-suppression.write": {
-    "description": "Email Routing Suppressions Write",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Routing Suppressions Write"
   },
   "email-security-dmarcreports.read": {
-    "description": "Email Security DMARC Reports Read",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Security DMARC Reports Read"
   },
   "email-security-dmarcreports.write": {
-    "description": "Email Security DMARC Reports Write",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Security DMARC Reports Write"
   },
   "email-sending.read": {
-    "description": "Email Sending Read",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Sending Read"
   },
   "email-sending.write": {
-    "description": "Email Sending Write",
-    "category": "Email & Messaging"
+    "category": "Email & Messaging",
+    "name": "Email Sending Write"
   },
   "fbm.admin": {
-    "description": "Magic Network Monitoring Admin",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Network Monitoring Admin"
   },
   "fbm.read": {
-    "description": "Magic Network Monitoring Config Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Network Monitoring Config Read"
   },
   "fbm.write": {
-    "description": "Magic Network Monitoring Config Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Network Monitoring Config Write"
   },
   "field-extractor.read": {
-    "description": "Field Extractors Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Field Extractors Read"
   },
   "field-extractor.write": {
-    "description": "Field Extractors Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Field Extractors Write"
   },
   "firewall-for-ai.read": {
-    "description": "Firewall for AI Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Firewall for AI Read"
   },
   "firewall-for-ai.write": {
-    "description": "Firewall for AI Write",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Firewall for AI Write"
   },
   "firewall-services.read": {
-    "description": "Firewall Services Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Firewall Services Read"
   },
   "firewall-services.write": {
-    "description": "Firewall Services Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Firewall Services Write"
   },
   "flagship.evaluate": {
-    "description": "Flagship Evaluate",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Flagship Evaluate"
   },
   "flagship.read": {
-    "description": "Flagship Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Flagship Read"
   },
   "flagship.write": {
-    "description": "Flagship Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Flagship Write"
   },
   "fraud-detection-pii.read": {
-    "description": "Account Abuse Protection PII Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Account Abuse Protection PII Read"
   },
   "fraud-detection.read": {
-    "description": "Fraud Detection Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Fraud Detection Read"
   },
   "fraud-detection.write": {
-    "description": "Fraud Detection Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Fraud Detection Write"
   },
   "fraud-events.write": {
-    "description": "Fraud Events Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Fraud Events Write"
   },
   "fraud-feedback.read": {
-    "description": "Fraud Feedback Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Fraud Feedback Read"
   },
   "fraud-feedback.write": {
-    "description": "Fraud Feedback Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Fraud Feedback Write"
   },
   "healthcheck.read": {
-    "description": "Health Checks Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Health Checks Read"
   },
   "healthcheck.write": {
-    "description": "Health Checks Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Health Checks Write"
   },
   "http-applications.read": {
-    "description": "HTTP Applications Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "HTTP Applications Read"
   },
   "http-applications.write": {
-    "description": "HTTP Applications Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "HTTP Applications Write"
   },
   "http-ddos-managed-ruleset.read": {
-    "description": "HTTP DDoS Managed Ruleset Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "HTTP DDoS Managed Ruleset Read"
   },
   "http-ddos-managed-ruleset.write": {
-    "description": "HTTP DDoS Managed Ruleset Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "HTTP DDoS Managed Ruleset Write"
   },
   "images.metadata_read": {
-    "description": "Images Metadata Read",
-    "category": "Media"
+    "category": "Media",
+    "name": "Images Metadata Read"
   },
   "images.read": {
-    "description": "Images Read",
-    "category": "Media"
+    "category": "Media",
+    "name": "Images Read"
   },
   "images.write": {
-    "description": "Images Write",
-    "category": "Media"
+    "category": "Media",
+    "name": "Images Write"
   },
   "integration.write": {
-    "description": "Integration Write",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Integration Write"
   },
   "intel.read": {
-    "description": "Intel Read",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Intel Read"
   },
   "intel.write": {
-    "description": "Intel Write",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Intel Write"
   },
   "iot.read": {
-    "description": "IOT Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "IOT Read"
   },
   "iot.write": {
-    "description": "IOT Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "IOT Write"
   },
   "ip-prefix-bgp-on-demand.read": {
-    "description": "IP Prefixes: BGP On Demand Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "IP Prefixes: BGP On Demand Read"
   },
   "ip-prefix-bgp-on-demand.write": {
-    "description": "IP Prefixes: BGP On Demand Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "IP Prefixes: BGP On Demand Write"
   },
   "ip-prefix.read": {
-    "description": "IP Prefixes: Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "IP Prefixes: Read"
   },
   "ip-prefix.write": {
-    "description": "IP Prefixes: Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "IP Prefixes: Write"
   },
   "l4-ddos-managed-ruleset.read": {
-    "description": "L4 DDoS Managed Ruleset Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "L4 DDoS Managed Ruleset Read"
   },
   "l4-ddos-managed-ruleset.write": {
-    "description": "L4 DDoS Managed Ruleset Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "L4 DDoS Managed Ruleset Write"
   },
   "load-balancers-account.read": {
-    "description": "Load Balancers Account Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Load Balancers Account Read"
   },
   "load-balancers-account.write": {
-    "description": "Load Balancers Account Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Load Balancers Account Write"
   },
   "load-balancers.read": {
-    "description": "Load Balancers Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Load Balancers Read"
   },
   "load-balancers.write": {
-    "description": "Load Balancers Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Load Balancers Write"
   },
   "load-balancing-monitors-and-pools.read": {
-    "description": "Load Balancing: Monitors and Pools Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Load Balancing: Monitors and Pools Read"
   },
   "load-balancing-monitors-and-pools.write": {
-    "description": "Load Balancing: Monitors and Pools Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Load Balancing: Monitors and Pools Write"
   },
   "logs.read": {
-    "description": "Logs Read",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Logs Read"
   },
   "logs.write": {
-    "description": "Logs Write",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Logs Write"
   },
   "magic-firewall.read": {
-    "description": "Magic Firewall Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Firewall Read"
   },
   "magic-firewall.write": {
-    "description": "Magic Firewall Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Firewall Write"
   },
   "magic-transit.read": {
-    "description": "Magic Transit Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Transit Read"
   },
   "magic-transit.write": {
-    "description": "Magic Transit Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Transit Write"
   },
   "magic-wan.read": {
-    "description": "Magic WAN Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic WAN Read"
   },
   "magic-wan.write": {
-    "description": "Magic WAN Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic WAN Write"
   },
   "managed-headers.read": {
-    "description": "Managed headers Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Managed headers Read"
   },
   "managed-headers.write": {
-    "description": "Managed headers Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Managed headers Write"
   },
   "mass-url-redirects.read": {
-    "description": "Mass URL Redirects Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Mass URL Redirects Read"
   },
   "mass-url-redirects.write": {
-    "description": "Mass URL Redirects Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Mass URL Redirects Write"
   },
   "mcp-portals.read": {
-    "description": "MCP Portals Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "MCP Portals Read"
   },
   "mcp-portals.write": {
-    "description": "MCP Portals Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "MCP Portals Write"
   },
   "memberships.read": {
-    "description": "Memberships Read",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Memberships Read"
   },
   "memberships.write": {
-    "description": "Memberships Write",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Memberships Write"
   },
   "messaging.edit": {
-    "description": "Messaging Edit",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Messaging Edit"
   },
   "messaging.metadata_read": {
-    "description": "Messaging Metadata Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Messaging Metadata Read"
   },
   "messaging.read": {
-    "description": "Messaging Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Messaging Read"
   },
   "moq.read": {
-    "description": "MoQ Read",
-    "category": "Media"
+    "category": "Media",
+    "name": "MoQ Read"
   },
   "moq.write": {
-    "description": "MoQ Write",
-    "category": "Media"
+    "category": "Media",
+    "name": "MoQ Write"
   },
   "notifications.read": {
-    "description": "Notifications Read",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Notifications Read"
   },
   "notifications.write": {
-    "description": "Notifications Write",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "Notifications Write"
   },
   "origin.read": {
-    "description": "Origin Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Origin Read"
   },
   "origin.write": {
-    "description": "Origin Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Origin Write"
   },
   "page-rules.read": {
-    "description": "Page Rules Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Page Rules Read"
   },
   "page-rules.write": {
-    "description": "Page Rules Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Page Rules Write"
   },
   "page-shield.read": {
-    "description": "Page Shield Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Page Shield Read"
   },
   "page.read": {
-    "description": "Pages Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Pages Read"
   },
   "page.shield": {
-    "description": "Page Shield",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Page Shield"
   },
   "page.write": {
-    "description": "Pages Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Pages Write"
   },
   "pages.metadata_read": {
-    "description": "Pages Metadata Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Pages Metadata Read"
   },
   "payments-gateway.read": {
-    "description": "Payments Gateway Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Payments Gateway Read"
   },
   "payments-gateway.write": {
-    "description": "Payments Gateway Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Payments Gateway Write"
   },
   "pcaps-api.read": {
-    "description": "Magic Firewall Packet Captures - Read PCAPs API",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Firewall Packet Captures - Read PCAPs API"
   },
   "pcaps-api.write": {
-    "description": "Magic Firewall Packet Captures - Write PCAPs API",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Magic Firewall Packet Captures - Write PCAPs API"
   },
   "pipelines.read": {
-    "description": "Pipelines Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Pipelines Read"
   },
   "pipelines.send": {
-    "description": "Pipelines Send",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Pipelines Send"
   },
   "pipelines.write": {
-    "description": "Pipelines Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Pipelines Write"
   },
   "precursor.read": {
-    "description": "Precursor Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Precursor Read"
   },
   "precursor.write": {
-    "description": "Precursor Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Precursor Write"
   },
   "pubsub.read": {
-    "description": "Pubsub Configuration Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Pubsub Configuration Read"
   },
   "pubsub.write": {
-    "description": "Pubsub Configuration Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Pubsub Configuration Write"
   },
   "query-cache.read": {
-    "description": "Hyperdrive Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Hyperdrive Read"
   },
   "query-cache.write": {
-    "description": "Hyperdrive Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Hyperdrive Write"
   },
   "queues.metadata_read": {
-    "description": "Queues Metadata Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Queues Metadata Read"
   },
   "queues.read": {
-    "description": "Queues Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Queues Read"
   },
   "queues.write": {
-    "description": "Queues Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Queues Write"
   },
   "r2-catalog-sql.read": {
-    "description": "Workers R2 SQL Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers R2 SQL Read"
   },
   "r2-catalog.read": {
-    "description": "Workers R2 Data Catalog Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers R2 Data Catalog Read"
   },
   "r2-catalog.write": {
-    "description": "Workers R2 Data Catalog Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers R2 Data Catalog Write"
   },
   "radar.read": {
-    "description": "Radar Read",
-    "category": "Analytics & Logs"
+    "category": "Analytics & Logs",
+    "name": "Radar Read"
   },
   "rag.read": {
-    "description": "Auto Rag Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Auto Rag Read"
   },
   "rag.run": {
-    "description": "Auto Rag Write Run Engine",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Auto Rag Write Run Engine"
   },
   "rag.write": {
-    "description": "Auto Rag Write",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Auto Rag Write"
   },
   "realtime.admin": {
-    "description": "Realtime Admin",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Realtime Admin"
+  },
+  "realtime.read": {
+    "category": "Developer Platform",
+    "name": "Realtime Read"
   },
   "realtime.write": {
-    "description": "Realtime",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Realtime"
   },
   "registrar-domains.admin": {
-    "description": "Registrar Domains Admin",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Registrar Domains Admin"
   },
   "registrar-domains.read": {
-    "description": "Registrar Domains Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Registrar Domains Read"
   },
   "registrar-sandbox-domains.admin": {
-    "description": "Registrar Sandbox Domains Admin",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Registrar Sandbox Domains Admin"
   },
   "registrar-sandbox-domains.read": {
-    "description": "Registrar Sandbox Domains Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Registrar Sandbox Domains Read"
   },
   "reports-application-security-report.read": {
-    "description": "Application Security Reports Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Application Security Reports Read"
   },
   "request-tracer.read": {
-    "description": "Allow Request Tracer Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Allow Request Tracer Read"
   },
   "resource-library.read": {
-    "description": "Resource Library Read",
-    "category": "Other"
+    "category": "Other",
+    "name": "Resource Library Read"
   },
   "resource-library.write": {
-    "description": "Resource Library Write",
-    "category": "Other"
+    "category": "Other",
+    "name": "Resource Library Write"
   },
   "resource-sharing.read": {
-    "description": "Resource Sharing Read",
-    "category": "Other"
+    "category": "Other",
+    "name": "Resource Sharing Read"
   },
   "response-compression.read": {
-    "description": "Response Compression Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Response Compression Read"
   },
   "response-compression.write": {
-    "description": "Response Compression Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Response Compression Write"
   },
   "sanitize.read": {
-    "description": "Sanitize Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Sanitize Read"
   },
   "sanitize.write": {
-    "description": "Sanitize Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Sanitize Write"
   },
   "scim-provisioning.write": {
-    "description": "SCIM Provisioning",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "SCIM Provisioning"
   },
   "secrets-store.read": {
-    "description": "Secrets Store Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Secrets Store Read"
   },
   "secrets-store.write": {
-    "description": "Secrets Store Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Secrets Store Write"
   },
   "select-configuration.read": {
-    "description": "Select Configuration Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Select Configuration Read"
   },
   "select-configuration.write": {
-    "description": "Select Configuration Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Select Configuration Write"
   },
   "snippets.read": {
-    "description": "Snippets Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Snippets Read"
   },
   "snippets.write": {
-    "description": "Snippets Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Snippets Write"
   },
   "ssl-and-certificates.read": {
-    "description": "SSL and Certificates Read",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "SSL and Certificates Read"
   },
   "ssl-and-certificates.write": {
-    "description": "SSL and Certificates Write",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "SSL and Certificates Write"
   },
   "stream.metadata_read": {
-    "description": "Stream Metadata Read",
-    "category": "Media"
+    "category": "Media",
+    "name": "Stream Metadata Read"
   },
   "stream.read": {
-    "description": "Stream Read",
-    "category": "Media"
+    "category": "Media",
+    "name": "Stream Read"
   },
   "stream.write": {
-    "description": "Stream Write",
-    "category": "Media"
+    "category": "Media",
+    "name": "Stream Write"
   },
   "tag.read": {
-    "description": "Tag Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Tag Read"
   },
   "tag.write": {
-    "description": "Tag Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Tag Write"
   },
   "teams-cds-compute-account.read": {
-    "description": "Cloudflare CDS Compute Account Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare CDS Compute Account Read"
   },
   "teams-cds-compute-account.write": {
-    "description": "Cloudflare CDS Compute Account Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare CDS Compute Account Write"
   },
   "teams-connector-cloudflared.monitoring": {
-    "description": "Cloudflare One Connector Monitoring: cloudflared",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Connector Monitoring: cloudflared"
   },
   "teams-connector-cloudflared.read": {
-    "description": "Cloudflare One Connector: cloudflared Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Connector: cloudflared Read"
   },
   "teams-connector-cloudflared.write": {
-    "description": "Cloudflare One Connector: cloudflared Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Connector: cloudflared Write"
   },
   "teams-connector-warp.read": {
-    "description": "Cloudflare One Connector: WARP Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Connector: WARP Read"
   },
   "teams-connector-warp.write": {
-    "description": "Cloudflare One Connector: WARP Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Connector: WARP Write"
   },
   "teams-connectors.read": {
-    "description": "Cloudflare One Connectors Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Connectors Read"
   },
   "teams-connectors.write": {
-    "description": "Cloudflare One Connectors Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Connectors Write"
   },
   "teams-dex.read": {
-    "description": "Cloudflare DEX Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare DEX Read"
   },
   "teams-dex.write": {
-    "description": "Cloudflare DEX Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare DEX Write"
   },
   "teams-networks.read": {
-    "description": "Cloudflare One Networks Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Networks Read"
   },
   "teams-networks.write": {
-    "description": "Cloudflare One Networks Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare One Networks Write"
   },
   "teams-pii.read": {
-    "description": "Zero Trust: PII Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Zero Trust: PII Read"
   },
   "teams-resilience.read": {
-    "description": "Zero Trust Resilience Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Zero Trust Resilience Read"
   },
   "teams-resilience.write": {
-    "description": "Zero Trust Resilience Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Zero Trust Resilience Write"
   },
   "teams-secure.location": {
-    "description": "Cloudflare Zero Trust Secure DNS Locations Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Cloudflare Zero Trust Secure DNS Locations Write"
   },
   "teams.read": {
-    "description": "Zero Trust Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Zero Trust Read"
   },
   "teams.report": {
-    "description": "Zero Trust Report",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Zero Trust Report"
   },
   "teams.write": {
-    "description": "Zero Trust Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Zero Trust Write"
   },
   "transform-rules.read": {
-    "description": "Transform Rules Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Transform Rules Read"
   },
   "transform-rules.write": {
-    "description": "Transform Rules Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Transform Rules Write"
   },
   "trust-and-safety.read": {
-    "description": "Trust and Safety Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Trust and Safety Read"
   },
   "trust-and-safety.write": {
-    "description": "Trust and Safety Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Trust and Safety Write"
   },
   "url-scanner.read": {
-    "description": "URL Scanner Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "URL Scanner Read"
   },
   "url-scanner.write": {
-    "description": "URL Scanner Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "URL Scanner Write"
   },
   "user-details.read": {
-    "description": "User Details Read",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "User Details Read"
   },
   "user-details.write": {
-    "description": "User Details Write",
-    "category": "Account & Billing"
+    "category": "Account & Billing",
+    "name": "User Details Write"
   },
   "vectorize.read": {
-    "description": "Vectorize Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Vectorize Read"
   },
   "vectorize.write": {
-    "description": "Vectorize Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Vectorize Write"
   },
   "waiting-rooms.read": {
-    "description": "Waiting Rooms Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Waiting Rooms Read"
   },
   "waiting-rooms.write": {
-    "description": "Waiting Rooms Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Waiting Rooms Write"
   },
   "web3-hostnames.read": {
-    "description": "Web3 Hostnames Read",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Web3 Hostnames Read"
   },
   "web3-hostnames.write": {
-    "description": "Web3 Hostnames Write",
-    "category": "Network Services"
+    "category": "Network Services",
+    "name": "Web3 Hostnames Write"
   },
   "websearch.metadata_read": {
-    "description": "Websearch Metadata Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Websearch Metadata Read"
   },
   "websearch.read": {
-    "description": "Websearch Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Websearch Read"
   },
   "websearch.run": {
-    "description": "Websearch Run",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Websearch Run"
   },
   "websearch.write": {
-    "description": "Websearch Write",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Websearch Write"
   },
   "workers-ci.read": {
-    "description": "Workers CI Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers CI Read"
   },
   "workers-ci.write": {
-    "description": "Workers CI Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers CI Write"
   },
   "workers-kv-storage.metadata_read": {
-    "description": "Workers KV Storage Metadata Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers KV Storage Metadata Read"
   },
   "workers-kv-storage.read": {
-    "description": "Workers KV Storage Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers KV Storage Read"
   },
   "workers-kv-storage.write": {
-    "description": "Workers KV Storage Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers KV Storage Write"
   },
   "workers-observability-telemetry.write": {
-    "description": "Workers Observability Telemetry Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Observability Telemetry Write"
   },
   "workers-observability.read": {
-    "description": "Workers Observability Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Observability Read"
   },
   "workers-observability.write": {
-    "description": "Workers Observability Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Observability Write"
   },
   "workers-r2-bucket-item.read": {
-    "description": "Workers R2 Storage Bucket Item Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers R2 Storage Bucket Item Read"
   },
   "workers-r2-bucket-item.write": {
-    "description": "Workers R2 Storage Bucket Item Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers R2 Storage Bucket Item Write"
   },
   "workers-r2.metadata_read": {
-    "description": "Workers R2 Storage Metadata Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers R2 Storage Metadata Read"
   },
   "workers-r2.read": {
-    "description": "Workers R2 Storage Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers R2 Storage Read"
   },
   "workers-r2.write": {
-    "description": "Workers R2 Storage Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers R2 Storage Write"
   },
   "workers-routes.read": {
-    "description": "Workers Routes Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Routes Read"
   },
   "workers-routes.write": {
-    "description": "Workers Routes Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Routes Write"
   },
   "workers-scripts.bind": {
-    "description": "Workers Scripts Bind",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Scripts Bind"
   },
   "workers-scripts.read": {
-    "description": "Workers Scripts Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Scripts Read"
   },
   "workers-scripts.write": {
-    "description": "Workers Scripts Write",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Scripts Write"
   },
   "workers-tail.read": {
-    "description": "Workers Tail Read",
-    "category": "Developer Platform"
+    "category": "Developer Platform",
+    "name": "Workers Tail Read"
   },
   "workers_ai.metadata_read": {
-    "description": "Workers AI Metadata Read",
-    "category": "AI & Machine Learning"
+    "category": "AI & Machine Learning",
+    "name": "Workers AI Metadata Read"
   },
   "zaraz.edit": {
-    "description": "Zaraz Edit",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Zaraz Edit"
   },
   "zaraz.read": {
-    "description": "Zaraz Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Zaraz Read"
   },
   "zaraz.write": {
-    "description": "Zaraz Admin",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Zaraz Admin"
   },
   "zone-access.read": {
-    "description": "Access: Apps and Policies Read",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps and Policies Read"
   },
   "zone-access.revoke": {
-    "description": "Access: Apps and Policies Revoke",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps and Policies Revoke"
   },
   "zone-access.write": {
-    "description": "Access: Apps and Policies Write",
-    "category": "Cloudflare One / Zero Trust"
+    "category": "Cloudflare One / Zero Trust",
+    "name": "Access: Apps and Policies Write"
   },
   "zone-custom-asset.read": {
-    "description": "Zone Custom Asset Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone Custom Asset Read"
   },
   "zone-custom-asset.write": {
-    "description": "Zone Custom Asset Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone Custom Asset Write"
   },
   "zone-disable-esc.read": {
-    "description": "Disable ESC Read",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Disable ESC Read"
   },
   "zone-disable-esc.write": {
-    "description": "Disable ESC Write",
-    "category": "Cache & Performance"
+    "category": "Cache & Performance",
+    "name": "Disable ESC Write"
   },
   "zone-dns-settings.read": {
-    "description": "Zone DNS Settings Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone DNS Settings Read"
   },
   "zone-dns-settings.write": {
-    "description": "Zone DNS Settings Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone DNS Settings Write"
   },
   "zone-security-center-insights.read": {
-    "description": "Zone Security Center Insights Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Zone Security Center Insights Read"
   },
   "zone-security-center-insights.write": {
-    "description": "Zone Security Center Insights Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Zone Security Center Insights Write"
   },
   "zone-settings.read": {
-    "description": "Zone Settings Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone Settings Read"
   },
   "zone-settings.write": {
-    "description": "Zone Settings Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone Settings Write"
   },
   "zone-transform-rules.read": {
-    "description": "Zone Transform Rules Read",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Zone Transform Rules Read"
   },
   "zone-transform-rules.write": {
-    "description": "Zone Transform Rules Write",
-    "category": "Rules & Configuration"
+    "category": "Rules & Configuration",
+    "name": "Zone Transform Rules Write"
   },
   "zone-versioning.read": {
-    "description": "Zone Versioning Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone Versioning Read"
   },
   "zone-versioning.write": {
-    "description": "Zone Versioning Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone Versioning Write"
   },
   "zone-waf.read": {
-    "description": "Zone WAF Read",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Zone WAF Read"
   },
   "zone-waf.write": {
-    "description": "Zone WAF Write",
-    "category": "App Security"
+    "category": "App Security",
+    "name": "Zone WAF Write"
   },
   "zone.read": {
-    "description": "Zone Read",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone Read"
   },
   "zone.write": {
-    "description": "Zone Write",
-    "category": "DNS & Zones"
+    "category": "DNS & Zones",
+    "name": "Zone Write"
   }
 }

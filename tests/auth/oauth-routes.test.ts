@@ -43,6 +43,12 @@ function authorizeUrl(params: Record<string, string>): string {
   return u.toString()
 }
 
+function embeddedTemplateScopes(html: string): Record<string, string[]> {
+  const encoded = html.match(/const TEMPLATES = ([^;]+);/)?.[1]
+  expect(encoded).toBeTruthy()
+  return JSON.parse(encoded!) as Record<string, string[]>
+}
+
 async function beginAuthorization(options: { state?: string; scopes?: string } = {}): Promise<{
   clientId: string
   state: string
@@ -156,12 +162,67 @@ describe('GET /authorize', () => {
     // Consent form with CSRF protection and a session-binding cookie.
     expect(body).toContain('<form')
     expect(res.headers.get('Set-Cookie')).toBeTruthy()
-    // The production picker is populated from API token permission groups and uses their categories.
+    // The picker uses the canonical production API catalog and preserves custom templates.
     expect(body).toContain('data-scope="dns.read"')
     expect(body).toContain('data-category="DNS &amp; Zones"')
     expect(body).not.toContain('data-scope="dns_records:read"')
+    expect(body).toContain('cf-mcp-consent:user-templates:v1')
+    expect(body).toContain('Save as template')
+
+    const templates = embeddedTemplateScopes(body)
+    expect(Object.keys(templates)).toEqual(['read-only', 'full-access'])
+    expect(templates['read-only']).toHaveLength(194)
+    expect(templates['read-only']).toContain('teams-pii.read')
+    expect(templates['full-access']).toHaveLength(384)
+    expect(templates['full-access']).toContain('logs.write')
+    expect(templates['full-access']).toContain('ssl-and-certificates.read')
+    expect(templates['full-access']).toContain('realtime.read')
+    expect(templates['full-access']).not.toContain('realtime.realtime')
     // Happy path emits no auth_user event.
     expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
+  })
+
+  it('silently drops stale custom-template scopes outside the catalog', async () => {
+    const clientId = await registerClient()
+    const authRes = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'user:read'
+        })
+      )
+    )
+    const html = await authRes.text()
+    const state = html.match(/name="state" value="([^"]+)"/)?.[1]
+    const csrfToken = html.match(/name="csrf_token" value="([^"]+)"/)?.[1]
+    expect(state && csrfToken).toBeTruthy()
+
+    const form = new URLSearchParams({ state: state!, csrf_token: csrfToken! })
+    form.append('scopes', 'dns.read')
+    form.append('scopes', 'removed-from-catalog.read')
+    const response = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/authorize`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Cookie: cookiesFrom(authRes)
+        },
+        body: form.toString(),
+        redirect: 'manual'
+      })
+    )
+
+    expect(response.status).toBe(302)
+    const forwardedScopes = new URL(response.headers.get('location')!).searchParams
+      .get('scope')!
+      .split(' ')
+    expect(forwardedScopes).toContain('dns.read')
+    expect(forwardedScopes).toContain('user:read')
+    expect(forwardedScopes).toContain('account:read')
+    expect(forwardedScopes).toContain('offline_access')
+    expect(forwardedScopes).not.toContain('removed-from-catalog.read')
   })
 
   it('logs an auth_user error and 500s for an unknown client', async () => {

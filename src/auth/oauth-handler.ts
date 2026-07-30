@@ -7,14 +7,7 @@ import {
   getAuthToken,
   refreshAuthToken
 } from './cloudflare-auth'
-import {
-  ALL_SCOPES,
-  DEFAULT_TEMPLATE,
-  MAX_SCOPES,
-  REQUIRED_SCOPES,
-  SCOPE_CATEGORIES,
-  SCOPE_TEMPLATES
-} from './scopes'
+import { DEFAULT_TEMPLATE, REQUIRED_SCOPES, SCOPE_DEFINITIONS, SCOPE_TEMPLATES } from './scopes'
 import {
   UserSchema,
   AccountsSchema,
@@ -52,6 +45,7 @@ interface AuthEnv extends Env {
 }
 
 const env = cloudflareEnv as AuthEnv
+const ALLOWED_SCOPES = new Set(Object.keys(SCOPE_DEFINITIONS))
 const REFRESH_GUARD_PREFIX = 'oauth:refresh-guard'
 
 const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
@@ -602,10 +596,8 @@ export function createAuthHandlers() {
         csrfToken,
         setCookie: csrfCookie,
         scopeTemplates: SCOPE_TEMPLATES,
-        allScopes: ALL_SCOPES,
-        scopeCategories: SCOPE_CATEGORIES,
+        scopeDefinitions: SCOPE_DEFINITIONS,
         defaultTemplate: DEFAULT_TEMPLATE,
-        maxScopes: MAX_SCOPES,
         requiredScopes: REQUIRED_SCOPES
       })
     } catch (e) {
@@ -636,10 +628,10 @@ export function createAuthHandlers() {
 
       const oauthReqInfo = state.oauthReqInfo as AuthRequest
 
-      // Checkboxes are the source of truth — accept whatever the frontend sends
-      const scopesToRequest = (
-        selectedScopes && selectedScopes.length > 0 ? selectedScopes : []
-      ).slice(0, MAX_SCOPES)
+      // Drop stale custom-template entries and always restore required bootstrap scopes.
+      const scopesToRequest = Array.from(
+        new Set([...(selectedScopes ?? []), ...REQUIRED_SCOPES])
+      ).filter((scope) => ALLOWED_SCOPES.has(scope))
 
       // Update oauthReqInfo with selected scopes
       oauthReqInfo.scope = scopesToRequest
