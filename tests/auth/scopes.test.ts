@@ -18,20 +18,13 @@ import {
 
 const ENVIRONMENTS = ['production', 'staging'] as const satisfies readonly ScopeEnvironment[]
 
-const PRODUCTION_ONLY_SCOPES = [
-  'field-extractor.read',
-  'field-extractor.write',
-  'messaging.edit',
-  'messaging.metadata_read',
-  'messaging.read',
-  'payments-gateway.read',
-  'payments-gateway.write',
-  'websearch.metadata_read',
-  'websearch.read',
-  'websearch.write'
-] as const
+const PRODUCTION_ONLY_SCOPES = [] as const
 
 const STAGING_ONLY_SCOPES = [
+  'agent-memory.read',
+  'audit-logs.read',
+  'custom-ns.write',
+  'realtime.read',
   'teams-gateway.read',
   'teams-gateway.write',
   'workers-scripts.edit',
@@ -126,9 +119,9 @@ function difference(left: Set<string>, right: Set<string>): string[] {
 }
 
 describe('API-token-derived scopes', () => {
-  it('contains the complete 380-scope set for each environment', () => {
+  it('contains the complete environment-specific scope sets', () => {
     expect(Object.keys(PRODUCTION_DERIVED_SCOPES)).toHaveLength(380)
-    expect(Object.keys(STAGING_DERIVED_SCOPES)).toHaveLength(380)
+    expect(Object.keys(STAGING_DERIVED_SCOPES)).toHaveLength(394)
   })
 
   it('uses dot notation and complete picker metadata', () => {
@@ -165,16 +158,19 @@ describe('scope configurations', () => {
     )
   })
 
-  it.each(ENVIRONMENTS)(
+  it.each([
+    ['production', 383],
+    ['staging', 397]
+  ] as const)(
     '%s retains only OAuth bootstrap scopes outside the derived set',
-    (environment) => {
+    (environment, count) => {
       const scopes = new Set(Object.keys(getScopeConfiguration(environment).allScopes))
 
       expect(new Set([...scopes].filter((scope) => scope.includes(':')))).toEqual(
         new Set(['user:read', 'account:read'])
       )
       expect(scopes).toContain('offline_access')
-      expect(scopes).toHaveLength(383)
+      expect(scopes).toHaveLength(count)
     }
   )
 

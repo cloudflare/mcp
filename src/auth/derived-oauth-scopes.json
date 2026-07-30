@@ -692,6 +692,14 @@
       "description": "Grants write access to MNM rules and update access to account settings",
       "category": "Network Services"
     },
+    "field-extractor.read": {
+      "description": "Grants read access to account field extractors",
+      "category": "App Security"
+    },
+    "field-extractor.write": {
+      "description": "Grants read and edit access to account field extractors",
+      "category": "App Security"
+    },
     "firewall-for-ai.read": {
       "description": "Grants read access to Firewall for AI settings.",
       "category": "AI & Machine Learning"
@@ -912,6 +920,18 @@
       "description": "Grants write access to a user's account memberships",
       "category": "Account & Billing"
     },
+    "messaging.edit": {
+      "description": "Grants full read and write access to Messaging configuration and message content, plus permission to send and receive messages.",
+      "category": "Developer Platform"
+    },
+    "messaging.metadata_read": {
+      "description": "Grants read access to Messaging configuration and metadata without access to message content or session data.",
+      "category": "Developer Platform"
+    },
+    "messaging.read": {
+      "description": "Grants read access to Messaging configuration and message content.",
+      "category": "Developer Platform"
+    },
     "moq.read": {
       "description": "Grants read access to MoQ relay configuration",
       "category": "Media"
@@ -963,6 +983,14 @@
     "pages.metadata_read": {
       "description": "Grants read access to Cloudflare Pages metadata and configuration",
       "category": "Developer Platform"
+    },
+    "payments-gateway.read": {
+      "description": "Grants read access to Payment Required rules",
+      "category": "Rules & Configuration"
+    },
+    "payments-gateway.write": {
+      "description": "Grants write access to Payment Required rules",
+      "category": "Rules & Configuration"
     },
     "pcaps-api.read": {
       "description": "Grants read access to Packet Captures",
@@ -1052,7 +1080,7 @@
       "description": "Grants admin access to Realtime configuration",
       "category": "Developer Platform"
     },
-    "realtime.realtime": {
+    "realtime.write": {
       "description": "Grants access to Realtime configuration excluding sensitive data",
       "category": "Developer Platform"
     },
@@ -1300,8 +1328,20 @@
       "description": "Grants write access to Web3 Hostnames",
       "category": "Network Services"
     },
+    "websearch.metadata_read": {
+      "description": "Grants read access to Cloudflare Websearch configuration and metadata without access to search results.",
+      "category": "AI & Machine Learning"
+    },
+    "websearch.read": {
+      "description": "Grants access to reading data from Cloudflare Websearch",
+      "category": "AI & Machine Learning"
+    },
     "websearch.run": {
       "description": "Grants access to run Cloudflare Websearch queries",
+      "category": "AI & Machine Learning"
+    },
+    "websearch.write": {
+      "description": "Grants access to reading and writing data from Cloudflare Websearch",
       "category": "AI & Machine Learning"
     },
     "workers-ci.read": {
@@ -1481,48 +1521,7 @@
       "category": "DNS & Zones"
     }
   },
-  "productionOnly": {
-    "field-extractor.read": {
-      "description": "Grants read access to account field extractors",
-      "category": "App Security"
-    },
-    "field-extractor.write": {
-      "description": "Grants read and edit access to account field extractors",
-      "category": "App Security"
-    },
-    "messaging.edit": {
-      "description": "Grants full read and write access to Messaging configuration and message content, plus permission to send and receive messages.",
-      "category": "Developer Platform"
-    },
-    "messaging.metadata_read": {
-      "description": "Grants read access to Messaging configuration and metadata without access to message content or session data.",
-      "category": "Developer Platform"
-    },
-    "messaging.read": {
-      "description": "Grants read access to Messaging configuration and message content.",
-      "category": "Developer Platform"
-    },
-    "payments-gateway.read": {
-      "description": "Grants read access to Payment Required rules",
-      "category": "Rules & Configuration"
-    },
-    "payments-gateway.write": {
-      "description": "Grants write access to Payment Required rules",
-      "category": "Rules & Configuration"
-    },
-    "websearch.metadata_read": {
-      "description": "Grants read access to Cloudflare Websearch configuration and metadata without access to search results.",
-      "category": "AI & Machine Learning"
-    },
-    "websearch.read": {
-      "description": "Grants access to reading data from Cloudflare Websearch",
-      "category": "AI & Machine Learning"
-    },
-    "websearch.write": {
-      "description": "Grants access to reading and writing data from Cloudflare Websearch",
-      "category": "AI & Machine Learning"
-    }
-  },
+  "productionOnly": {},
   "stagingOverrides": {
     "agw.run": {
       "description": "Grants access to run Agents Gateway",
@@ -1584,6 +1583,10 @@
       "description": "Grants write access to Bulk Redirects",
       "category": "Rules & Configuration"
     },
+    "moq.write": {
+      "description": "Grants read/write access to MoQ relay configuration and access to MoQ Bench",
+      "category": "Media"
+    },
     "origin.read": {
       "description": "Grants read access to Origin Rules",
       "category": "Rules & Configuration"
@@ -1591,6 +1594,10 @@
     "origin.write": {
       "description": "Grants write access to Origin Rules",
       "category": "Rules & Configuration"
+    },
+    "realtime.write": {
+      "description": "Grants read and write access to Realtime SFU, TURN, and RealtimeKit configuration",
+      "category": "Developer Platform"
     },
     "request-tracer.read": {
       "description": "Grants read access to Trace",
@@ -1615,13 +1622,25 @@
     "transform-rules.write": {
       "description": "Grants write access to Transform Rules",
       "category": "Rules & Configuration"
-    },
-    "workers-scripts.write": {
-      "description": "Full create, read, update, and delete access to all Workers resources. Previously named Workers Scripts Write.",
-      "category": "Developer Platform"
     }
   },
   "stagingOnly": {
+    "agent-memory.read": {
+      "description": "Grants read access to Agent Memory",
+      "category": "Developer Platform"
+    },
+    "audit-logs.read": {
+      "description": "Grants read access to Audit Logs",
+      "category": "Analytics & Logs"
+    },
+    "custom-ns.write": {
+      "description": "Grants write access to Custom NS",
+      "category": "DNS & Zones"
+    },
+    "realtime.read": {
+      "description": "Grants read access to Realtime SFU, TURN, and RealtimeKit configuration",
+      "category": "Developer Platform"
+    },
     "teams-gateway.read": {
       "description": "Grants read access to Zero Trust Gateway",
       "category": "Cloudflare One / Zero Trust"
