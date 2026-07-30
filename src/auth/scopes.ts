@@ -1,172 +1,208 @@
-/**
- * All available OAuth scopes for the Cloudflare API MCP server.
- * If you need to add a new scope, first register it with the OAuth provider, then add it here.
- * Run tests to validate: npm test
- */
-export const ALL_SCOPES = {
-  // Core (required for basic functionality)
-  offline_access: 'Grants refresh tokens for long-lived access',
-  'user:read': 'See your user info such as name, email address, and account memberships',
-  'account:read': 'See your account info such as account details, analytics, and memberships',
+import {
+  PRODUCTION_DERIVED_SCOPES,
+  STAGING_DERIVED_SCOPES,
+  type ScopeDefinition
+} from './derived-oauth-scopes'
 
-  // Access
-  'access:read': 'View Access policies',
-  'access:write': 'Configure Access policies',
+/** OAuth environment whose API-token-derived scopes are registered for this deployment. */
+export type ScopeEnvironment = 'production' | 'staging'
 
-  // Workers Platform
-  'workers:read': 'See Cloudflare Workers data',
-  'workers:write': 'Create and modify Cloudflare Workers',
-  'workers_scripts:write': 'Upload and modify Worker scripts',
-  'workers_kv:write': 'Create and modify KV namespaces and data',
-  'workers_routes:write': 'Configure Worker routes',
-  'workers_tail:read': 'View Worker logs via tail',
-  'workers_deployments:read': 'View Worker deployment history and status',
-  'workers_builds:read': 'View Worker builds',
-  'workers_builds:write': 'Trigger Worker builds',
-  'workers_observability:read': 'View Worker metrics and traces',
-  'workers_observability:write': 'Configure Worker observability',
-  'workers_observability_telemetry:write': 'Write Worker telemetry data',
-
-  // Pages & D1
-  'pages:read': 'View Cloudflare Pages projects',
-  'pages:write': 'Create and modify Cloudflare Pages projects',
-  'd1:write': 'Create and modify D1 databases',
-
-  // AI & Machine Learning
-  'ai:read': 'View AI models and inference results',
-  'ai:write': 'Run AI inference',
-  'aig:read': 'View AI Gateway configurations',
-  'aig:write': 'Configure AI Gateway',
-  'aiaudit:read': 'View AI audit logs',
-  'aiaudit:write': 'Configure AI auditing',
-  'ai-search:read': 'View AI Search configurations',
-  'ai-search:write': 'Configure AI Search',
-  'ai-search:run': 'Execute AI Search queries',
-
-  // DNS Management
-  'dns_records:read': 'View DNS records',
-  'dns_records:edit': 'Create and modify DNS records',
-  'dns_settings:read': 'View DNS settings',
-  'dns_analytics:read': 'View DNS analytics',
-  'zone:read': 'View zone configurations',
-
-  // Observability & Logging
-  'logpush:read': 'View Logpush jobs',
-  'logpush:write': 'Configure Logpush jobs',
-  'auditlogs:read': 'View audit logs',
-  'account-analytics.read': 'View account analytics such as RUM and Web Analytics data',
-  'logs.read': 'View logs',
-  'logs.write': 'Manage logs',
-
-  // Infrastructure & Networking
-  'account-ssl-and-certificates.write': 'Manage account-level SSL certificates',
-  'ssl-and-certificates.read': 'View zone-level SSL certificates and configuration',
-  'ssl-and-certificates.write': 'Manage zone-level SSL certificates and configuration',
-  'lb:read': 'View load balancer configurations',
-  'lb:edit': 'Configure load balancers',
-  'notification:read': 'View notification policies',
-  'notification:write': 'Configure notifications',
-
-  // Queues & Pipelines
-  'queues:write': 'Create and modify Queues',
-  'pipelines:read': 'View Pipeline configurations',
-  'pipelines:setup': 'Set up Pipelines',
-  'pipelines:write': 'Modify Pipelines',
-
-  // Storage & Data
-  'r2_catalog:write': 'Manage R2 buckets and objects',
-  'vectorize:write': 'Create and modify Vectorize indexes',
-  'query_cache:write': 'Configure query cache',
-  'secrets_store:read': 'View secrets',
-  'secrets_store:write': 'Create and modify secrets',
-
-  // Browser & Containers
-  'browser:read': 'View Browser Rendering configurations',
-  'browser:write': 'Configure Browser Rendering',
-  'containers:write': 'Manage containers',
-
-  // Teams & Security
-  'teams:read': 'View Cloudflare Zero Trust configurations',
-  'teams:write': 'Configure Cloudflare Zero Trust',
-  'teams:pii': 'Access PII in Zero Trust logs',
-  'teams:secure_location': 'Manage secure locations',
-  'sso-connector:read': 'View SSO connectors',
-  'sso-connector:write': 'Configure SSO connectors',
-
-  // Connectivity
-  'connectivity:admin': 'Full connectivity administration',
-  'connectivity:bind': 'Bind connectivity resources',
-  'connectivity:read': 'View connectivity configurations',
-
-  // Cloudflare One
-  'cfone:read': 'View Cloudflare One configurations',
-  'cfone:write': 'Configure Cloudflare One',
-
-  // DEX (Digital Experience)
-  'dex:read': 'View DEX configurations',
-  'dex:write': 'Configure DEX',
-
-  // URL Scanner & Radar
-  'url_scanner:read': 'View URL Scanner results',
-  'url_scanner:write': 'Configure URL Scanner',
-  'radar:read': 'View Radar threat intelligence',
-
-  // MCP Portals
-  'mcp_portals:read': 'View MCP Portal configurations',
-  'mcp_portals:write': 'Create and modify MCP Portals',
-
-  // Email
-  'email_routing:write': 'Configure email routing rules',
-  'email_sending:write': 'Send emails via Email Workers',
-
-  // Registrar
-  'registrar-domains.read': 'View existing & new Registrar domains',
-  'registrar-domains.admin': 'Manage existing & new Registrar domains',
-
-  // Snippets
-  'snippets.read': 'View Snippets',
-  'snippets.write': 'Create and modify Snippets'
-} as const
+const CORE_SCOPE_DEFINITIONS = {
+  offline_access: {
+    description: 'Grants refresh tokens for long-lived access',
+    category: 'Core'
+  },
+  'user:read': {
+    description: 'See your user info such as name, email address, and account memberships',
+    category: 'Core'
+  },
+  'account:read': {
+    description: 'See your account info such as account details, analytics, and memberships',
+    category: 'Core'
+  }
+} as const satisfies Record<string, ScopeDefinition>
 
 /**
- * Maximum number of scopes that can be requested in a single OAuth authorization.
- * Undefined means the MCP server does not impose an app-side scope cap.
+ * Legacy internal scopes whose permissions are not fully available through API-token-derived scopes.
+ * Keep these in the picker until an API-token role exposes all of their remaining permissions.
  */
+const SPECIAL_LEGACY_SCOPES = {
+  'access:read': {
+    description: 'See Cloudflare Access data not yet covered by derived scopes',
+    category: 'Cloudflare One / Zero Trust'
+  },
+  'access:write': {
+    description: 'Manage Cloudflare Access data not yet covered by derived scopes',
+    category: 'Cloudflare One / Zero Trust'
+  },
+  'workers:write': {
+    description: 'Manage legacy Workers resources not yet covered by derived scopes',
+    category: 'Developer Platform'
+  },
+  'workers_scripts:write': {
+    description: 'Manage privileged Worker script settings not yet covered by derived scopes',
+    category: 'Developer Platform'
+  },
+  'd1:write': {
+    description: 'Manage legacy D1 resources not yet covered by derived scopes',
+    category: 'Developer Platform'
+  },
+  'pipelines:setup': {
+    description: 'Generate R2 tokens for Workers Pipelines',
+    category: 'Developer Platform'
+  },
+  'query_cache:write': {
+    description: 'Manage legacy Hyperdrive resources not yet covered by derived scopes',
+    category: 'Developer Platform'
+  },
+  'containers:write': {
+    description: 'Manage legacy Workers Containers resources not yet covered by derived scopes',
+    category: 'Developer Platform'
+  },
+  'teams:read': {
+    description: 'View Zero Trust data not yet covered by derived scopes',
+    category: 'Cloudflare One / Zero Trust'
+  },
+  'teams:write': {
+    description: 'Manage Zero Trust data not yet covered by derived scopes',
+    category: 'Cloudflare One / Zero Trust'
+  },
+  'sso-connector:read': {
+    description: 'View SSO connectors',
+    category: 'Cloudflare One / Zero Trust'
+  },
+  'sso-connector:write': {
+    description: 'Manage SSO connectors',
+    category: 'Cloudflare One / Zero Trust'
+  },
+  'cfone:write': {
+    description: 'Manage Cloudforce One data not yet covered by derived scopes',
+    category: 'App Security'
+  }
+} as const satisfies Record<string, ScopeDefinition>
+
+/** Staging's derived Cloudforce One scope does not yet cover detection-rule reads. */
+const STAGING_ONLY_SPECIAL_LEGACY_SCOPES = {
+  'cfone:read': {
+    description: 'View Cloudforce One data not yet covered by staging derived scopes',
+    category: 'App Security'
+  }
+} as const satisfies Record<string, ScopeDefinition>
+
+const FULL_ACCESS_EXCLUSIONS = new Set<string>([
+  // Sensitive PII scopes are opt-in only.
+  'fraud-detection-pii.read',
+  'teams-pii.read',
+  // High-volume write access is opt-in only.
+  'logs.write',
+  // Redundant when the write scope is selected.
+  'ssl-and-certificates.read'
+])
+
+export type ScopeName =
+  | keyof typeof CORE_SCOPE_DEFINITIONS
+  | keyof typeof SPECIAL_LEGACY_SCOPES
+  | keyof typeof STAGING_ONLY_SPECIAL_LEGACY_SCOPES
+  | keyof typeof PRODUCTION_DERIVED_SCOPES
+  | keyof typeof STAGING_DERIVED_SCOPES
+
+export interface ScopeTemplate {
+  name: string
+  description: string
+  scopes: readonly ScopeName[]
+}
+
+export interface ScopeConfiguration {
+  allScopes: Record<string, string>
+  scopeCategories: Record<string, string>
+  scopeTemplates: Record<TemplateName, ScopeTemplate>
+}
+
+/** Maximum scopes requested in one authorization. Undefined means no app-side cap. */
 export const MAX_SCOPES: number | undefined = undefined
 
-export type ScopeName = keyof typeof ALL_SCOPES
-
-/** Scopes required for basic functionality - always included */
-export const REQUIRED_SCOPES: ScopeName[] = ['user:read', 'offline_access', 'account:read']
-
-const yoloScopes = (Object.keys(ALL_SCOPES) as ScopeName[]).filter(
-  (scope) => !['teams:pii', 'logs.write', 'ssl-and-certificates.read'].includes(scope)
-)
-
-const readOnlyScopes = Array.from(
-  new Set<ScopeName>([
-    ...REQUIRED_SCOPES,
-    ...(Object.keys(ALL_SCOPES) as ScopeName[]).filter((s) => s.match(/[.:]read$/))
-  ])
-)
+/** Scopes required for identity, account discovery, and refresh tokens. */
+export const REQUIRED_SCOPES = [
+  'user:read',
+  'offline_access',
+  'account:read'
+] as const satisfies readonly ScopeName[]
 
 /** Scope templates for quick selection. `custom` is surfaced client-side only. */
-export const SCOPE_TEMPLATES = {
-  'read-only': {
-    name: 'Read only',
-    description:
-      'View resources without making changes. Safest for exploration and read workflows.',
-    scopes: readOnlyScopes
-  },
-  yolo: {
-    name: 'Full access',
-    description:
-      'Everything the MCP server can do. Skips sensitive PII and deprecated scopes. Use with trusted clients only.',
-    scopes: yoloScopes
-  }
-} as const
+export type TemplateName = 'read-only' | 'yolo'
 
-export type TemplateName = keyof typeof SCOPE_TEMPLATES
-
-/** Default template - read only is safest */
+/** Default template; read-only is safest. */
 export const DEFAULT_TEMPLATE: TemplateName = 'read-only'
+
+function isReadOnlyScope(scope: string): boolean {
+  if (scope.includes('pii')) return false
+  const action = scope.split(/[:.]/).at(-1)
+  return (
+    action === 'read' ||
+    action === 'metadata_read' ||
+    action === 'monitoring' ||
+    action === 'report'
+  )
+}
+
+function createScopeConfiguration(environment: ScopeEnvironment): ScopeConfiguration {
+  const derivedScopes =
+    environment === 'staging' ? STAGING_DERIVED_SCOPES : PRODUCTION_DERIVED_SCOPES
+  const definitions: Record<string, ScopeDefinition> = {
+    ...CORE_SCOPE_DEFINITIONS,
+    ...SPECIAL_LEGACY_SCOPES,
+    ...(environment === 'staging' ? STAGING_ONLY_SPECIAL_LEGACY_SCOPES : {}),
+    ...derivedScopes
+  }
+
+  const allScopes = Object.fromEntries(
+    Object.entries(definitions).map(([scope, definition]) => [scope, definition.description])
+  )
+  const scopeCategories = Object.fromEntries(
+    Object.entries(definitions).map(([scope, definition]) => [scope, definition.category])
+  )
+  const scopeNames = Object.keys(definitions) as ScopeName[]
+  const readOnlyScopes = Array.from(
+    new Set<ScopeName>([...REQUIRED_SCOPES, ...scopeNames.filter(isReadOnlyScope)])
+  )
+  const fullAccessScopes = scopeNames.filter((scope) => !FULL_ACCESS_EXCLUSIONS.has(scope))
+
+  return {
+    allScopes,
+    scopeCategories,
+    scopeTemplates: {
+      'read-only': {
+        name: 'Read only',
+        description:
+          'View resources without making changes. Safest for exploration and read workflows.',
+        scopes: readOnlyScopes
+      },
+      yolo: {
+        name: 'Full access',
+        description:
+          'Everything the MCP server can do. Skips sensitive PII, high-volume, and redundant scopes. Use with trusted clients only.',
+        scopes: fullAccessScopes
+      }
+    }
+  }
+}
+
+const CONFIGURATIONS: Record<ScopeEnvironment, ScopeConfiguration> = {
+  production: createScopeConfiguration('production'),
+  staging: createScopeConfiguration('staging')
+}
+
+export function getScopeEnvironment(apiBase: string): ScopeEnvironment {
+  return new URL(apiBase).hostname === 'api.staging.cloudflare.com' ? 'staging' : 'production'
+}
+
+export function getScopeConfiguration(environment: ScopeEnvironment): ScopeConfiguration {
+  return CONFIGURATIONS[environment]
+}
+
+/** Production defaults retained for callers and tests that do not select an environment. */
+export const {
+  allScopes: ALL_SCOPES,
+  scopeCategories: SCOPE_CATEGORIES,
+  scopeTemplates: SCOPE_TEMPLATES
+} = CONFIGURATIONS.production

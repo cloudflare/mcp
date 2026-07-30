@@ -156,6 +156,10 @@ describe('GET /authorize', () => {
     // Consent form with CSRF protection and a session-binding cookie.
     expect(body).toContain('<form')
     expect(res.headers.get('Set-Cookie')).toBeTruthy()
+    // The production picker is populated from API token permission groups and uses their categories.
+    expect(body).toContain('data-scope="dns.read"')
+    expect(body).toContain('data-category="DNS &amp; Zones"')
+    expect(body).not.toContain('data-scope="dns_records:read"')
     // Happy path emits no auth_user event.
     expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
   })

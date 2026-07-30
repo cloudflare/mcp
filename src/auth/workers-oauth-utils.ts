@@ -213,6 +213,7 @@ export interface ApprovalDialogOptions {
   setCookie: string
   scopeTemplates?: Record<string, ScopeTemplate>
   allScopes?: Record<string, string>
+  scopeCategories?: Record<string, string>
   defaultTemplate?: string
   maxScopes?: number
   requiredScopes?: readonly string[]
@@ -293,8 +294,49 @@ const RESOURCE_LABELS: Record<string, string> = {
  */
 function humanize(key: string): string {
   if (RESOURCE_LABELS[key]) return RESOURCE_LABELS[key]
-  const spaced = key.replace(/[_-]/g, ' ')
-  return spaced.charAt(0).toUpperCase() + spaced.slice(1)
+
+  const acronyms = new Map(
+    [
+      'ai',
+      'api',
+      'bgp',
+      'cds',
+      'cf',
+      'd1',
+      'ddos',
+      'dex',
+      'dls',
+      'dmarc',
+      'dns',
+      'fbm',
+      'http',
+      'idp',
+      'iot',
+      'ip',
+      'l4',
+      'mcp',
+      'mtls',
+      'pcaps',
+      'pii',
+      'r2',
+      'saml',
+      'scim',
+      'sso',
+      'ssh',
+      'ssl',
+      'tls',
+      'url',
+      'vpc',
+      'waf',
+      'wan',
+      'warp'
+    ].map((word) => [word, word.toUpperCase()])
+  )
+
+  return key
+    .split(/[_-]/g)
+    .map((word) => acronyms.get(word) ?? word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
 }
 
 interface ScopeRow {
@@ -369,16 +411,22 @@ const CATEGORY_MAP: Record<string, string> = {
 
 const CATEGORY_ORDER = [
   'Core',
-  'Access',
   'Developer Platform',
   'AI & Machine Learning',
   'DNS & Zones',
+  'App Security',
+  'Rules & Configuration',
+  'Cloudflare One / Zero Trust',
   'Analytics & Logs',
+  'Network Services',
+  'Media',
+  'Email & Messaging',
+  'Cache & Performance',
+  'Account & Billing',
+  // Fallback categories retained for callers that do not supply permission-group metadata.
+  'Access',
   'Networking',
   'Browser & Rendering',
-  'Email & Messaging',
-  'App Security',
-  'Cloudflare One / Zero Trust',
   'Other'
 ]
 
@@ -387,7 +435,8 @@ const CATEGORY_ORDER = [
  */
 function groupScopesByCategory(
   allScopes: Record<string, string>,
-  requiredScopes: Set<string>
+  requiredScopes: Set<string>,
+  scopeCategories: Record<string, string>
 ): CategoryGroup[] {
   const byResource = new Map<string, ScopeRow>()
 
@@ -402,11 +451,14 @@ function groupScopesByCategory(
       resource = splitScope[0]
     }
 
-    const category = CATEGORY_MAP[resource] ?? 'Other'
-    if (!byResource.has(resource)) {
-      byResource.set(resource, { resource, label: humanize(resource), category, actions: [] })
+    const category = scopeCategories[scope] ?? CATEGORY_MAP[resource] ?? 'Other'
+    // The same resource can expose actions in different permission-group categories
+    // (for example, Pages access versus Page Shield). Keep those rows separate.
+    const resourceKey = `${category}\u0000${resource}`
+    if (!byResource.has(resourceKey)) {
+      byResource.set(resourceKey, { resource, label: humanize(resource), category, actions: [] })
     }
-    byResource.get(resource)!.actions.push({
+    byResource.get(resourceKey)!.actions.push({
       action,
       scope,
       desc,
@@ -416,12 +468,22 @@ function groupScopesByCategory(
 
   const actionRank: Record<string, number> = {
     read: 0,
+    metadata_read: 0,
+    monitoring: 0,
+    report: 0,
     write: 1,
     edit: 1,
+    index: 2,
     run: 2,
+    evaluate: 2,
+    realtime: 2,
+    send: 2,
     admin: 3,
     bind: 4,
     setup: 5,
+    location: 6,
+    purge: 8,
+    revoke: 8,
     pii: 9,
     secure_location: 9,
     grant: -1
@@ -456,12 +518,23 @@ function groupScopesByCategory(
 
 const ACTION_LABELS: Record<string, string> = {
   read: 'Read',
+  metadata_read: 'Metadata',
+  monitoring: 'Monitor',
+  report: 'Report',
   write: 'Write',
   edit: 'Edit',
+  index: 'Index',
   run: 'Run',
+  evaluate: 'Evaluate',
+  realtime: 'Realtime',
+  send: 'Send',
   admin: 'Admin',
   bind: 'Bind',
   setup: 'Setup',
+  location: 'Locations',
+  shield: 'Shield',
+  purge: 'Purge',
+  revoke: 'Revoke',
   pii: 'PII',
   secure_location: 'Locations',
   grant: 'Grant'
@@ -478,6 +551,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     setCookie,
     scopeTemplates = {},
     allScopes = {},
+    scopeCategories = {},
     defaultTemplate,
     maxScopes,
     requiredScopes = []
@@ -486,7 +560,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   const encodedState = encodeBase64Utf8(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
   const requiredSet = new Set(requiredScopes)
-  const categories = groupScopesByCategory(allScopes, requiredSet)
+  const categories = groupScopesByCategory(allScopes, requiredSet, scopeCategories)
 
   const renderRow = (row: ScopeRow): string => {
     const pills = row.actions
