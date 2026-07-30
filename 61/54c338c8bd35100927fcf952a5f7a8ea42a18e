@@ -1,0 +1,23 @@
+AGENTS.md
+  s_a19b74e16b9f7c::t_b8d8fdaa00b619 33-34,128
+src/auth/derived-oauth-scopes.json
+  s_a19b74e16b9f7c::t_db4fef69236ca7 2-1520
+src/auth/derived-oauth-scopes.ts
+  s_a19b74e16b9f7c::t_ed567e26ca2082 3,11-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6154c338c8bd35100927fcf952a5f7a8ea42a18e",
+  "prompts": {},
+  "sessions": {
+    "s_a19b74e16b9f7c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fb1f2-2c28-7629-bb8e-448832daea3a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
