@@ -171,12 +171,12 @@ describe('GET /authorize', () => {
 
     const templates = embeddedTemplateScopes(body)
     expect(Object.keys(templates)).toEqual(['read-only', 'full-access'])
-    expect(templates['read-only']).toHaveLength(194)
+    expect(templates['read-only']).toHaveLength(193)
     expect(templates['read-only']).toContain('teams-pii.read')
-    expect(templates['full-access']).toHaveLength(384)
+    expect(templates['full-access']).toHaveLength(383)
     expect(templates['full-access']).toContain('logs.write')
     expect(templates['full-access']).toContain('ssl-and-certificates.read')
-    expect(templates['full-access']).toContain('realtime.read')
+    expect(templates['full-access']).not.toContain('realtime.read')
     expect(templates['full-access']).not.toContain('realtime.realtime')
     // Happy path emits no auth_user event.
     expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
