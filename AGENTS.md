@@ -30,8 +30,8 @@ cloudflare-mcp/
 │   │   ├── api-token-mode.ts      # Direct Cloudflare API token support
 │   │   ├── cloudflare-auth.ts     # PKCE & OAuth utilities
 │   │   ├── oauth-handler.ts       # OAuth authorization flow
-│   │   ├── derived-oauth-scopes.ts # Generated API-token-derived OAuth scope metadata
-│   │   ├── scopes.ts              # Environment-specific picker config and OAuth bootstrap scopes
+│   │   ├── derived-oauth-scopes.ts # Canonical production OAuth scope API metadata
+│   │   ├── scopes.ts              # Canonical picker config and OAuth bootstrap scopes
 │   │   └── workers-oauth-utils.ts # OAuth provider helpers
 ├── tests/                         # Vitest suite (top-level, mirrors src/)
 │   ├── index.test.ts
@@ -125,7 +125,7 @@ Two modes via Zod discriminated union (`AuthProps`):
 - **OAuth mode** (default): Uses `@cloudflare/workers-oauth-provider` with PKCE. Supports both account-scoped and user-scoped tokens.
 - **API token mode**: Direct Cloudflare API tokens bypass OAuth. Detection: OAuth tokens have 3 colon-separated parts; API tokens don't.
 
-The consent picker mirrors API-token-derived OAuth scopes from the permission-group source of truth. Production and staging use their corresponding permission-group sets; only the user, account, and offline-access OAuth bootstrap scopes sit outside those derived sets. Terraform registration must land before deploying picker additions. The app does not impose a scope-count cap.
+The consent picker uses the production catalog returned by `GET /oauth/scopes` in every deployment. Staging may register additional scopes, but the MCP picker exposes them only after they reach production. Only the user, account, and offline-access OAuth bootstrap scopes sit outside the API catalog. Terraform registration must land before deploying picker additions. The app does not impose a scope-count cap.
 
 ### OpenAPI spec processing
 

@@ -1,11 +1,4 @@
-import {
-  PRODUCTION_DERIVED_SCOPES,
-  STAGING_DERIVED_SCOPES,
-  type ScopeDefinition
-} from './derived-oauth-scopes'
-
-/** OAuth environment whose API-token-derived scopes are registered for this deployment. */
-export type ScopeEnvironment = 'production' | 'staging'
+import { DERIVED_OAUTH_SCOPES, type ScopeDefinition } from './derived-oauth-scopes'
 
 const CORE_SCOPE_DEFINITIONS = {
   offline_access: {
@@ -32,21 +25,12 @@ const FULL_ACCESS_EXCLUSIONS = new Set<string>([
   'ssl-and-certificates.read'
 ])
 
-export type ScopeName =
-  | keyof typeof CORE_SCOPE_DEFINITIONS
-  | keyof typeof PRODUCTION_DERIVED_SCOPES
-  | keyof typeof STAGING_DERIVED_SCOPES
+export type ScopeName = keyof typeof CORE_SCOPE_DEFINITIONS | keyof typeof DERIVED_OAUTH_SCOPES
 
 export interface ScopeTemplate {
   name: string
   description: string
   scopes: readonly ScopeName[]
-}
-
-export interface ScopeConfiguration {
-  allScopes: Record<string, string>
-  scopeCategories: Record<string, string>
-  scopeTemplates: Record<TemplateName, ScopeTemplate>
 }
 
 /** Maximum scopes requested in one authorization. Undefined means no app-side cap. */
@@ -76,62 +60,38 @@ function isReadOnlyScope(scope: string): boolean {
   )
 }
 
-function createScopeConfiguration(environment: ScopeEnvironment): ScopeConfiguration {
-  const derivedScopes =
-    environment === 'staging' ? STAGING_DERIVED_SCOPES : PRODUCTION_DERIVED_SCOPES
-  const definitions: Record<string, ScopeDefinition> = {
-    ...CORE_SCOPE_DEFINITIONS,
-    ...derivedScopes
-  }
+const definitions: Record<string, ScopeDefinition> = {
+  ...CORE_SCOPE_DEFINITIONS,
+  ...DERIVED_OAUTH_SCOPES
+}
 
-  const allScopes = Object.fromEntries(
-    Object.entries(definitions).map(([scope, definition]) => [scope, definition.description])
-  )
-  const scopeCategories = Object.fromEntries(
-    Object.entries(definitions).map(([scope, definition]) => [scope, definition.category])
-  )
-  const scopeNames = Object.keys(definitions) as ScopeName[]
-  const readOnlyScopes = Array.from(
-    new Set<ScopeName>([...REQUIRED_SCOPES, ...scopeNames.filter(isReadOnlyScope)])
-  )
-  const fullAccessScopes = scopeNames.filter((scope) => !FULL_ACCESS_EXCLUSIONS.has(scope))
+/** Canonical production OAuth scopes available in every deployment's picker. */
+export const ALL_SCOPES = Object.fromEntries(
+  Object.entries(definitions).map(([scope, definition]) => [scope, definition.description])
+)
 
-  return {
-    allScopes,
-    scopeCategories,
-    scopeTemplates: {
-      'read-only': {
-        name: 'Read only',
-        description:
-          'View resources without making changes. Safest for exploration and read workflows.',
-        scopes: readOnlyScopes
-      },
-      yolo: {
-        name: 'Full access',
-        description:
-          'Everything the MCP server can do. Skips sensitive PII, high-volume, and redundant scopes. Use with trusted clients only.',
-        scopes: fullAccessScopes
-      }
-    }
+/** Public API categories used to group scopes in the picker. */
+export const SCOPE_CATEGORIES = Object.fromEntries(
+  Object.entries(definitions).map(([scope, definition]) => [scope, definition.category])
+)
+
+const scopeNames = Object.keys(definitions) as ScopeName[]
+const readOnlyScopes = Array.from(
+  new Set<ScopeName>([...REQUIRED_SCOPES, ...scopeNames.filter(isReadOnlyScope)])
+)
+const fullAccessScopes = scopeNames.filter((scope) => !FULL_ACCESS_EXCLUSIONS.has(scope))
+
+export const SCOPE_TEMPLATES: Record<TemplateName, ScopeTemplate> = {
+  'read-only': {
+    name: 'Read only',
+    description:
+      'View resources without making changes. Safest for exploration and read workflows.',
+    scopes: readOnlyScopes
+  },
+  yolo: {
+    name: 'Full access',
+    description:
+      'Everything the MCP server can do. Skips sensitive PII, high-volume, and redundant scopes. Use with trusted clients only.',
+    scopes: fullAccessScopes
   }
 }
-
-const CONFIGURATIONS: Record<ScopeEnvironment, ScopeConfiguration> = {
-  production: createScopeConfiguration('production'),
-  staging: createScopeConfiguration('staging')
-}
-
-export function getScopeEnvironment(apiBase: string): ScopeEnvironment {
-  return new URL(apiBase).hostname === 'api.staging.cloudflare.com' ? 'staging' : 'production'
-}
-
-export function getScopeConfiguration(environment: ScopeEnvironment): ScopeConfiguration {
-  return CONFIGURATIONS[environment]
-}
-
-/** Production defaults retained for callers and tests that do not select an environment. */
-export const {
-  allScopes: ALL_SCOPES,
-  scopeCategories: SCOPE_CATEGORIES,
-  scopeTemplates: SCOPE_TEMPLATES
-} = CONFIGURATIONS.production

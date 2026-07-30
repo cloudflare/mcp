@@ -8,11 +8,12 @@ import {
   refreshAuthToken
 } from './cloudflare-auth'
 import {
+  ALL_SCOPES,
   DEFAULT_TEMPLATE,
   MAX_SCOPES,
   REQUIRED_SCOPES,
-  getScopeConfiguration,
-  getScopeEnvironment
+  SCOPE_CATEGORIES,
+  SCOPE_TEMPLATES
 } from './scopes'
 import {
   UserSchema,
@@ -557,16 +558,13 @@ async function redirectToCloudflare(
  */
 export function createAuthHandlers() {
   const app = new Hono()
-  const { allScopes, scopeCategories, scopeTemplates } = getScopeConfiguration(
-    getScopeEnvironment(env.CLOUDFLARE_API_BASE)
-  )
 
   // GET /authorize - Show consent dialog or redirect if previously approved
   app.get('/authorize', async (c) => {
     try {
       const oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw)
       // Use default template scopes initially
-      const defaultScopes = [...scopeTemplates[DEFAULT_TEMPLATE].scopes]
+      const defaultScopes = [...SCOPE_TEMPLATES[DEFAULT_TEMPLATE].scopes]
       oauthReqInfo.scope = defaultScopes
 
       if (!oauthReqInfo.clientId) {
@@ -603,9 +601,9 @@ export function createAuthHandlers() {
         state: { oauthReqInfo },
         csrfToken,
         setCookie: csrfCookie,
-        scopeTemplates,
-        allScopes,
-        scopeCategories,
+        scopeTemplates: SCOPE_TEMPLATES,
+        allScopes: ALL_SCOPES,
+        scopeCategories: SCOPE_CATEGORIES,
         defaultTemplate: DEFAULT_TEMPLATE,
         maxScopes: MAX_SCOPES,
         requiredScopes: REQUIRED_SCOPES

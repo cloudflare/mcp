@@ -1,41 +1,14 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-  PRODUCTION_DERIVED_SCOPES,
-  STAGING_DERIVED_SCOPES
-} from '../../src/auth/derived-oauth-scopes'
+import { DERIVED_OAUTH_SCOPES } from '../../src/auth/derived-oauth-scopes'
 import {
   ALL_SCOPES,
   DEFAULT_TEMPLATE,
   MAX_SCOPES,
   REQUIRED_SCOPES,
   SCOPE_CATEGORIES,
-  SCOPE_TEMPLATES,
-  getScopeConfiguration,
-  getScopeEnvironment,
-  type ScopeEnvironment
+  SCOPE_TEMPLATES
 } from '../../src/auth/scopes'
-
-const ENVIRONMENTS = ['production', 'staging'] as const satisfies readonly ScopeEnvironment[]
-
-const PRODUCTION_ONLY_SCOPES = [] as const
-
-const STAGING_ONLY_SCOPES = [
-  'agent-memory.read',
-  'audit-logs.read',
-  'custom-ns.write',
-  'realtime.read',
-  'teams-gateway.read',
-  'teams-gateway.write',
-  'workers-scripts.edit',
-  'workers-scripts.metadata_read',
-  'workers-vpc.admin',
-  'workers-vpc.bind',
-  'workers-vpc.read',
-  'workflows.metadata_read',
-  'workflows.read',
-  'workflows.write'
-] as const
 
 const REPLACED_LEGACY_SCOPES = [
   'access:read',
@@ -110,127 +83,83 @@ const REPLACED_LEGACY_SCOPES = [
   'email_sending:write'
 ] as const
 
-function sorted(values: Iterable<string>): string[] {
-  return [...values].sort()
-}
-
-function difference(left: Set<string>, right: Set<string>): string[] {
-  return [...left].filter((value) => !right.has(value))
-}
-
-describe('API-token-derived scopes', () => {
-  it('contains the complete environment-specific scope sets', () => {
-    expect(Object.keys(PRODUCTION_DERIVED_SCOPES)).toHaveLength(380)
-    expect(Object.keys(STAGING_DERIVED_SCOPES)).toHaveLength(394)
+describe('canonical OAuth scope catalog', () => {
+  it('contains the 380 production scopes returned by the public API', () => {
+    expect(Object.keys(DERIVED_OAUTH_SCOPES)).toHaveLength(380)
   })
 
   it('uses dot notation and complete picker metadata', () => {
-    for (const scopes of [PRODUCTION_DERIVED_SCOPES, STAGING_DERIVED_SCOPES]) {
-      for (const [scope, definition] of Object.entries(scopes)) {
-        expect(scope).toMatch(/^[a-z0-9_-]+\.[a-z0-9_-]+$/)
-        expect(definition.description.length).toBeGreaterThan(0)
-        expect(definition.category.length).toBeGreaterThan(0)
-      }
+    for (const [scope, definition] of Object.entries(DERIVED_OAUTH_SCOPES)) {
+      expect(scope).toMatch(/^[a-z0-9_-]+\.[a-z0-9_-]+$/)
+      expect(definition.description.length).toBeGreaterThan(0)
+      expect(definition.category.length).toBeGreaterThan(0)
     }
   })
 
-  it('tracks the intentional environment differences', () => {
-    const production = new Set(Object.keys(PRODUCTION_DERIVED_SCOPES))
-    const staging = new Set(Object.keys(STAGING_DERIVED_SCOPES))
-
-    expect(sorted(difference(production, staging))).toEqual(sorted(PRODUCTION_ONLY_SCOPES))
-    expect(sorted(difference(staging, production))).toEqual(sorted(STAGING_ONLY_SCOPES))
-  })
-
-  it('uses only the active Realtime labels', () => {
-    expect(PRODUCTION_DERIVED_SCOPES).toHaveProperty('realtime.admin')
-    expect(PRODUCTION_DERIVED_SCOPES).toHaveProperty('realtime.write')
-    expect(PRODUCTION_DERIVED_SCOPES).not.toHaveProperty('realtime.read')
-    expect(PRODUCTION_DERIVED_SCOPES).not.toHaveProperty('realtime.realtime')
-
-    expect(STAGING_DERIVED_SCOPES).toHaveProperty('realtime.admin')
-    expect(STAGING_DERIVED_SCOPES).toHaveProperty('realtime.read')
-    expect(STAGING_DERIVED_SCOPES).toHaveProperty('realtime.write')
-    expect(STAGING_DERIVED_SCOPES).not.toHaveProperty('realtime.realtime')
-  })
-})
-
-describe('scope configurations', () => {
-  it.each(ENVIRONMENTS)('%s includes every derived scope and complete metadata', (environment) => {
-    const configuration = getScopeConfiguration(environment)
-    const derived =
-      environment === 'production' ? PRODUCTION_DERIVED_SCOPES : STAGING_DERIVED_SCOPES
-
-    for (const scope of Object.keys(derived)) {
-      expect(configuration.allScopes).toHaveProperty(scope)
-      expect(configuration.scopeCategories).toHaveProperty(scope)
-    }
-    expect(sorted(Object.keys(configuration.allScopes))).toEqual(
-      sorted(Object.keys(configuration.scopeCategories))
-    )
+  it('uses only the production Realtime labels', () => {
+    expect(DERIVED_OAUTH_SCOPES).toHaveProperty('realtime.admin')
+    expect(DERIVED_OAUTH_SCOPES).toHaveProperty('realtime.write')
+    expect(DERIVED_OAUTH_SCOPES).not.toHaveProperty('realtime.read')
+    expect(DERIVED_OAUTH_SCOPES).not.toHaveProperty('realtime.realtime')
   })
 
   it.each([
-    ['production', 383],
-    ['staging', 397]
-  ] as const)(
-    '%s retains only OAuth bootstrap scopes outside the derived set',
-    (environment, count) => {
-      const scopes = new Set(Object.keys(getScopeConfiguration(environment).allScopes))
+    'agent-memory.read',
+    'audit-logs.read',
+    'custom-ns.write',
+    'teams-gateway.read',
+    'workers-vpc.read',
+    'workflows.read'
+  ])('does not expose staging-only scope %s', (scope) => {
+    expect(DERIVED_OAUTH_SCOPES).not.toHaveProperty(scope)
+  })
+})
 
-      expect(new Set([...scopes].filter((scope) => scope.includes(':')))).toEqual(
-        new Set(['user:read', 'account:read'])
-      )
-      expect(scopes).toContain('offline_access')
-      expect(scopes).toHaveLength(count)
+describe('scope configuration', () => {
+  it('includes every canonical scope and category', () => {
+    for (const scope of Object.keys(DERIVED_OAUTH_SCOPES)) {
+      expect(ALL_SCOPES).toHaveProperty(scope)
+      expect(SCOPE_CATEGORIES).toHaveProperty(scope)
     }
-  )
-
-  it.each(REPLACED_LEGACY_SCOPES)('removes replaceable legacy scope %s', (scope) => {
-    expect(getScopeConfiguration('production').allScopes).not.toHaveProperty(scope)
-    expect(getScopeConfiguration('staging').allScopes).not.toHaveProperty(scope)
+    expect(Object.keys(ALL_SCOPES).sort()).toEqual(Object.keys(SCOPE_CATEGORIES).sort())
   })
 
-  it('uses production as the exported default', () => {
-    const production = getScopeConfiguration('production')
+  it('retains only OAuth bootstrap scopes outside the canonical catalog', () => {
+    const scopes = new Set(Object.keys(ALL_SCOPES))
 
-    expect(ALL_SCOPES).toBe(production.allScopes)
-    expect(SCOPE_CATEGORIES).toBe(production.scopeCategories)
-    expect(SCOPE_TEMPLATES).toBe(production.scopeTemplates)
+    expect(new Set([...scopes].filter((scope) => scope.includes(':')))).toEqual(
+      new Set(['user:read', 'account:read'])
+    )
+    expect(scopes).toContain('offline_access')
+    expect(scopes).toHaveLength(383)
   })
 
-  it('selects scope environment from the Cloudflare API base', () => {
-    expect(getScopeEnvironment('https://api.staging.cloudflare.com/client/v4')).toBe('staging')
-    expect(getScopeEnvironment('https://api.cloudflare.com/client/v4')).toBe('production')
+  it.each(REPLACED_LEGACY_SCOPES)('removes legacy scope %s', (scope) => {
+    expect(ALL_SCOPES).not.toHaveProperty(scope)
   })
 })
 
 describe('scope templates', () => {
-  it('has a valid default template in every environment', () => {
-    for (const environment of ENVIRONMENTS) {
-      expect(getScopeConfiguration(environment).scopeTemplates[DEFAULT_TEMPLATE]).toBeDefined()
-    }
+  it('has a valid default template', () => {
+    expect(SCOPE_TEMPLATES[DEFAULT_TEMPLATE]).toBeDefined()
   })
 
-  it.each(ENVIRONMENTS)('%s templates contain only registered scopes', (environment) => {
-    const { allScopes, scopeTemplates } = getScopeConfiguration(environment)
-    const registeredScopes = new Set(Object.keys(allScopes))
+  it('contains only registered scopes', () => {
+    const registeredScopes = new Set(Object.keys(ALL_SCOPES))
 
-    for (const template of Object.values(scopeTemplates)) {
+    for (const template of Object.values(SCOPE_TEMPLATES)) {
       for (const scope of template.scopes) expect(registeredScopes).toContain(scope)
     }
   })
 
-  it.each(ENVIRONMENTS)('%s templates include all required scopes', (environment) => {
-    const { scopeTemplates } = getScopeConfiguration(environment)
-
-    for (const template of Object.values(scopeTemplates)) {
+  it('includes all required scopes', () => {
+    for (const template of Object.values(SCOPE_TEMPLATES)) {
       for (const scope of REQUIRED_SCOPES) expect(template.scopes).toContain(scope)
     }
   })
 
-  it.each(ENVIRONMENTS)('%s read-only template excludes writes and PII', (environment) => {
-    const readOnly = getScopeConfiguration(environment).scopeTemplates['read-only'].scopes
+  it('keeps writes and PII out of the read-only template', () => {
+    const readOnly = SCOPE_TEMPLATES['read-only'].scopes
 
     expect(
       readOnly.some((scope) => /[.:](write|edit|admin|bind|setup|run|index)$/.test(scope))
@@ -239,18 +168,15 @@ describe('scope templates', () => {
     expect(readOnly).toContain('aig.metadata_read')
   })
 
-  it.each(ENVIRONMENTS)(
-    '%s full-access template skips sensitive and redundant scopes',
-    (environment) => {
-      const fullAccess = getScopeConfiguration(environment).scopeTemplates.yolo.scopes
+  it('keeps sensitive, high-volume, and redundant scopes out of full access', () => {
+    const fullAccess = SCOPE_TEMPLATES.yolo.scopes
 
-      expect(fullAccess).not.toContain('fraud-detection-pii.read')
-      expect(fullAccess).not.toContain('teams-pii.read')
-      expect(fullAccess).not.toContain('logs.write')
-      expect(fullAccess).not.toContain('ssl-and-certificates.read')
-      expect(fullAccess).toContain('ssl-and-certificates.write')
-    }
-  )
+    expect(fullAccess).not.toContain('fraud-detection-pii.read')
+    expect(fullAccess).not.toContain('teams-pii.read')
+    expect(fullAccess).not.toContain('logs.write')
+    expect(fullAccess).not.toContain('ssl-and-certificates.read')
+    expect(fullAccess).toContain('ssl-and-certificates.write')
+  })
 })
 
 describe('MAX_SCOPES', () => {

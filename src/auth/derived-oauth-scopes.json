@@ -1,1685 +1,1522 @@
 {
-  "common": {
-    "access-acct.read": {
-      "description": "Can read Cloudflare Access account resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-acct.revoke": {
-      "description": "Can revoke user sessions to Cloudflare Access account resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-acct.write": {
-      "description": "Can read and edit Cloudflare Access account resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-app.read": {
-      "description": "Can read Cloudflare Access applications",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-app.revoke": {
-      "description": "Can revoke Cloudflare Access application tokens",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-app.write": {
-      "description": "Can read and edit Cloudflare Access applications",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-audit-log.read": {
-      "description": "Can read Cloudflare Access audit logs",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-certificate.read": {
-      "description": "Can read Cloudflare Access mTLS certificates",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-certificate.write": {
-      "description": "Can read and edit Cloudflare Access mTLS certificates",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-custom-page.read": {
-      "description": "Can read Cloudflare Access Custom Pages",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-custom-page.write": {
-      "description": "Can read and edit Cloudflare Access Custom Pages",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-device-posture.read": {
-      "description": "Can read Cloudflare Access Device Posture",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-device-posture.write": {
-      "description": "Can read and edit Cloudflare Access Device Posture",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-group.read": {
-      "description": "Can read Cloudflare Access group resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-group.write": {
-      "description": "Can read and edit Cloudflare Access group resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-idp.read": {
-      "description": "Can read Cloudflare Access identity provider resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-idp.write": {
-      "description": "Can read and edit Cloudflare Access identity provider resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-key.read": {
-      "description": "Can read Cloudflare Access keys",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-key.write": {
-      "description": "Can read and edit Cloudflare Access keys",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-org.read": {
-      "description": "Can read Cloudflare Access organization resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-org.revoke": {
-      "description": "Can revoke user sessions of organizations",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-org.write": {
-      "description": "Can read and edit Cloudflare Access organization resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-policy-test.read": {
-      "description": "Can read Cloudflare Access Policy Tests",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-policy-test.write": {
-      "description": "Can read and edit Cloudflare Access Policy Tests",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-policy.read": {
-      "description": "Can read Cloudflare Access policies",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-policy.write": {
-      "description": "Can read and edit Cloudflare Access policies",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-population.read": {
-      "description": "Can read Cloudflare Access Populations",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-population.write": {
-      "description": "Can read and edit Cloudflare Access Populations",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-saml-certificate.read": {
-      "description": "Can read Cloudflare Access SAML certificates",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-saml-certificate.write": {
-      "description": "Can read and edit Cloudflare Access SAML certificates",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-scim-log.read": {
-      "description": "Can read SCIM audit logs",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-seats.write": {
-      "description": "Can read and edit the Zero Trust seats your organization can use (and be billed for)",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-service-token.read": {
-      "description": "Can read Cloudflare Access Service Tokens",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-service-token.write": {
-      "description": "Can read and edit Cloudflare Access Service Tokens",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-ssh-auditing.read": {
-      "description": "Can read Cloudflare Access SSH certificate authorities (CAs)",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-ssh-auditing.write": {
-      "description": "Can read and edit Cloudflare Access SSH certificate authorities (CAs)",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-tag.read": {
-      "description": "Can read Cloudflare Access tags",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-tag.write": {
-      "description": "Can read and edit Cloudflare Access tags",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-users.read": {
-      "description": "Can read Cloudflare Access user resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access-users.write": {
-      "description": "Can read and edit Cloudflare Access user resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access.read": {
-      "description": "Can read Cloudflare Access applications and policies",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access.revoke": {
-      "description": "Can revoke Cloudflare Access application tokens",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "access.write": {
-      "description": "Can read and edit Cloudflare Access applications and policies",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "account-analytics.read": {
-      "description": "Grants read access to analytics",
-      "category": "Analytics & Logs"
-    },
-    "account-api-gateway.read": {
-      "description": "Grants read access to API-Gateway Management (including API Shield) across the whole account",
-      "category": "Account & Billing"
-    },
-    "account-api-gateway.write": {
-      "description": "Grants full access to API-Gateway Management (including API Shield) across the whole account",
-      "category": "Account & Billing"
-    },
-    "account-custom-asset.read": {
-      "description": "Grants read access to account custom assets",
-      "category": "Account & Billing"
-    },
-    "account-custom-asset.write": {
-      "description": "Grants write access to account custom assets",
-      "category": "Account & Billing"
-    },
-    "account-custom-error-rules.read": {
-      "description": "Grants read access to account custom error rules",
-      "category": "Rules & Configuration"
-    },
-    "account-custom-error-rules.write": {
-      "description": "Grants write access to account custom error rules",
-      "category": "Rules & Configuration"
-    },
-    "account-custom-pages.read": {
-      "description": "Grants read access to account custom pages",
-      "category": "Rules & Configuration"
-    },
-    "account-custom-pages.write": {
-      "description": "Grants write access to account custom pages",
-      "category": "Rules & Configuration"
-    },
-    "account-disable-esc.read": {
-      "description": "Grants read access to Cloudflare Disable ESC",
-      "category": "Cache & Performance"
-    },
-    "account-disable-esc.write": {
-      "description": "Grants write access to Cloudflare Disable ESC",
-      "category": "Cache & Performance"
-    },
-    "account-dns-settings.read": {
-      "description": "Grants read access to Account DNS Settings",
-      "category": "DNS & Zones"
-    },
-    "account-dns-settings.write": {
-      "description": "Grants write access to Account DNS Settings",
-      "category": "DNS & Zones"
-    },
-    "account-firewall-access-rules.read": {
-      "description": "Grants read access to account firewall access rules",
-      "category": "App Security"
-    },
-    "account-firewall-access-rules.write": {
-      "description": "Grants write access to account firewall access rules",
-      "category": "App Security"
-    },
-    "account-logs.read": {
-      "description": "Grants read access to logs and logpush jobs",
-      "category": "Analytics & Logs"
-    },
-    "account-logs.write": {
-      "description": "Grants write access to logpush jobs",
-      "category": "Analytics & Logs"
-    },
-    "account-rule-lists.read": {
-      "description": "Grants read access to Rule Lists",
-      "category": "Rules & Configuration"
-    },
-    "account-rule-lists.write": {
-      "description": "Grants write access to Rule Lists",
-      "category": "Rules & Configuration"
-    },
-    "account-rulesets.read": {
-      "description": "Grants read access to Account Rulesets",
-      "category": "Rules & Configuration"
-    },
-    "account-rulesets.write": {
-      "description": "Grants write access to Account Rulesets",
-      "category": "Rules & Configuration"
-    },
-    "account-security-center-insights.read": {
-      "description": "Grants read access to Security Center Insights",
-      "category": "App Security"
-    },
-    "account-security-center-insights.write": {
-      "description": "Grants write access to Security Center Insights",
-      "category": "App Security"
-    },
-    "account-settings.read": {
-      "description": "Grants read access to Account resources, account membership, and account level features",
-      "category": "Account & Billing"
-    },
-    "account-settings.write": {
-      "description": "Grants write access to Account resources, account membership, and account level features",
-      "category": "Account & Billing"
-    },
-    "account-ssl-and-certificates.read": {
-      "description": "Grants read access to SSL MTLS certificates or Certificate Store",
-      "category": "Cache & Performance"
-    },
-    "account-ssl-and-certificates.write": {
-      "description": "Grants read and write access to SSL MTLS certificates or Certificate Store",
-      "category": "Cache & Performance"
-    },
-    "account-waf.read": {
-      "description": "Grants read access to Account WAF",
-      "category": "App Security"
-    },
-    "account-waf.write": {
-      "description": "grants write access to account waf",
-      "category": "App Security"
-    },
-    "account-waiting-rooms.read": {
-      "description": "Grants read access to Waiting Rooms",
-      "category": "Network Services"
-    },
-    "address-maps.read": {
-      "description": "Grants read access to Address Maps",
-      "category": "Network Services"
-    },
-    "address-maps.write": {
-      "description": "Grants write access to Address Maps",
-      "category": "Network Services"
-    },
-    "agent-memory.write": {
-      "description": "Grants write access to Agent Memory",
-      "category": "Developer Platform"
-    },
-    "agw.read": {
-      "description": "Grants access to reading Agents Gateway",
-      "category": "AI & Machine Learning"
-    },
-    "agw.run": {
-      "description": "Grants access to running Agents Gateway",
-      "category": "AI & Machine Learning"
-    },
-    "agw.write": {
-      "description": "Grants access to reading and editing Agents Gateway",
-      "category": "AI & Machine Learning"
-    },
-    "ai-search.index": {
-      "description": "Grants access to run AI Search Index Engine",
-      "category": "AI & Machine Learning"
-    },
-    "ai-search.metadata_read": {
-      "description": "Grants read access to AI Search configuration and metadata without access to search results or indexed content.",
-      "category": "AI & Machine Learning"
-    },
-    "ai-search.read": {
-      "description": "Grants access to reading data from AI Search",
-      "category": "AI & Machine Learning"
-    },
-    "ai-search.run": {
-      "description": "Grants access to run AI Search",
-      "category": "AI & Machine Learning"
-    },
-    "ai-search.write": {
-      "description": "Grants access to reading and writing data from AI Search",
-      "category": "AI & Machine Learning"
-    },
-    "ai.read": {
-      "description": "Grants access to invoke Workers AI models",
-      "category": "AI & Machine Learning"
-    },
-    "ai.write": {
-      "description": "Grants access to invoke Workers AI models and edit assets",
-      "category": "AI & Machine Learning"
-    },
-    "aiaudit.read": {
-      "description": "Grants access to reading AI Audit",
-      "category": "AI & Machine Learning"
-    },
-    "aiaudit.write": {
-      "description": "Grants access to reading and editing AI Audit",
-      "category": "AI & Machine Learning"
-    },
-    "aig.metadata_read": {
-      "description": "Grants read access to AI Gateway configuration without access to provider config secrets",
-      "category": "AI & Machine Learning"
-    },
-    "aig.read": {
-      "description": "Grants access to reading AI Gateways",
-      "category": "AI & Machine Learning"
-    },
-    "aig.run": {
-      "description": "Grants access to run AI Gateways",
-      "category": "AI & Machine Learning"
-    },
-    "aig.write": {
-      "description": "Grants access to reading and editing AI Gateways",
-      "category": "AI & Machine Learning"
-    },
-    "analytics.read": {
-      "description": "Grants read access to analytics",
-      "category": "Analytics & Logs"
-    },
-    "api-gateway.read": {
-      "description": "Grants read access to API-Gateway Management (including API Shield)",
-      "category": "App Security"
-    },
-    "api-gateway.write": {
-      "description": "Grants full access to API-Gateway Management (including API Shield)",
-      "category": "App Security"
-    },
-    "apps.write": {
-      "description": "Grants full access to Cloudflare Apps",
-      "category": "Account & Billing"
-    },
-    "argotunnel.read": {
-      "description": "Grants access to view Cloudflare Tunnels",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "argotunnel.write": {
-      "description": "Grants access to create and delete Cloudflare Tunnels",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "artifacts.read": {
-      "description": "Grants read access to Artifacts",
-      "category": "Other"
-    },
-    "artifacts.write": {
-      "description": "Grants read and write access to Artifacts",
-      "category": "Other"
-    },
-    "bot-management-feedback.read": {
-      "description": "Grants read access to BOT Management Feedback Reports",
-      "category": "App Security"
-    },
-    "bot-management-feedback.write": {
-      "description": "Grants write access to BOT Management Feedback Reports",
-      "category": "App Security"
-    },
-    "bot-management.read": {
-      "description": "Grants read access to BOT Management",
-      "category": "App Security"
-    },
-    "bot-management.write": {
-      "description": "Grants write access to BOT Management",
-      "category": "App Security"
-    },
-    "browser-rendering.read": {
-      "description": "Grants read access to Browser Run API",
-      "category": "Developer Platform"
-    },
-    "browser-rendering.write": {
-      "description": "Grants write access to Browser Run API",
-      "category": "Developer Platform"
-    },
-    "cache-settings.read": {
-      "description": "Grants read access to cache settings phase",
-      "category": "Cache & Performance"
-    },
-    "cache-settings.write": {
-      "description": "Grants write access to cache settings phase",
-      "category": "Cache & Performance"
-    },
-    "cache.purge": {
-      "description": "Grants access to purge cache",
-      "category": "Cache & Performance"
-    },
-    "calls.read": {
-      "description": "Grants read access to Calls configuration",
-      "category": "Media"
-    },
-    "calls.write": {
-      "description": "Grants read/write access to Calls configuration",
-      "category": "Media"
-    },
-    "casb.read": {
-      "description": "Grants read access to Cloudflare CASB",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "casb.write": {
-      "description": "Grants write access to Cloudflare CASB",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "cf-agents.read": {
-      "description": "Grants read access to CF Agents",
-      "category": "Developer Platform"
-    },
-    "cf-agents.write": {
-      "description": "Grants write access to CF Agents",
-      "category": "Developer Platform"
-    },
-    "challenge-widgets.read": {
-      "description": "Grants read access to Turnstile",
-      "category": "App Security"
-    },
-    "challenge-widgets.write": {
-      "description": "Grants write access to Turnstile",
-      "category": "App Security"
-    },
-    "chinanetwork-steering.read": {
-      "description": "Grants read access to China Network Steering",
-      "category": "Network Services"
-    },
-    "chinanetwork-steering.write": {
-      "description": "Grants write access to China Network Steering",
-      "category": "Network Services"
-    },
-    "cloud-connector.read": {
-      "description": "Grants read access to Cloud Connector",
-      "category": "Developer Platform"
-    },
-    "cloud-connector.write": {
-      "description": "Grants write access to Cloud Connector",
-      "category": "Developer Platform"
-    },
-    "cloud-email-security.read": {
-      "description": "Grants read access to Cloudflare Cloud Email Security",
-      "category": "Email & Messaging"
-    },
-    "cloud-email-security.write": {
-      "description": "Grants write access to Cloudflare Cloud Email Security",
-      "category": "Email & Messaging"
-    },
-    "cloudchamber.read": {
-      "description": "Grants read access to Cloudchamber deployments",
-      "category": "Developer Platform"
-    },
-    "cloudchamber.write": {
-      "description": "Grants write access to Cloudchamber deployments",
-      "category": "Developer Platform"
-    },
-    "cloudforce-one.read": {
-      "description": "Grants read access to Cloudforce One",
-      "category": "App Security"
-    },
-    "cloudforce-one.write": {
-      "description": "Grants read access to Cloudforce One",
-      "category": "App Security"
-    },
-    "config-settings.read": {
-      "description": "Grants read access to config settings phase",
-      "category": "Rules & Configuration"
-    },
-    "config-settings.write": {
-      "description": "Grants write access to config settings phase",
-      "category": "Rules & Configuration"
-    },
-    "connectivity-directory.admin": {
-      "description": "Can view, edit, create, and delete Connectivity Directory Services and Networks, including the ability to create Services that bind to Cloudflare Tunnel",
-      "category": "Network Services"
-    },
-    "connectivity-directory.bind": {
-      "description": "Can read, list, and bind to Connectivity Directory services and networks, as well as read and list Cloudflare Tunnels",
-      "category": "Network Services"
-    },
-    "connectivity-directory.read": {
-      "description": "Can view Connectivity Directory services, networks, and Cloudflare Tunnels",
-      "category": "Network Services"
-    },
-    "constellation.read": {
-      "description": "Grants read access to Constellation configuration and models",
-      "category": "Developer Platform"
-    },
-    "constellation.write": {
-      "description": "Grants write access to Constellation configuration and models",
-      "category": "Developer Platform"
-    },
-    "containers.read": {
-      "description": "Grants read access to Workers Containers",
-      "category": "Developer Platform"
-    },
-    "containers.write": {
-      "description": "Grants write access to Workers Containers",
-      "category": "Developer Platform"
-    },
-    "custom-errors.read": {
-      "description": "Grants read access to custom errors phase",
-      "category": "Rules & Configuration"
-    },
-    "custom-errors.write": {
-      "description": "Grants write access to custom errors phase",
-      "category": "Rules & Configuration"
-    },
-    "custom-pages.read": {
-      "description": "Grants read access to custom pages",
-      "category": "Rules & Configuration"
-    },
-    "custom-pages.write": {
-      "description": "Grants write access to custom pages",
-      "category": "Rules & Configuration"
-    },
-    "d1.metadata_read": {
-      "description": "Grants read access to D1 configuration",
-      "category": "Developer Platform"
-    },
-    "d1.read": {
-      "description": "Grants read access to D1 configuration and SQL queries",
-      "category": "Developer Platform"
-    },
-    "d1.write": {
-      "description": "Grants write access to D1 configuration and SQL queries",
-      "category": "Developer Platform"
-    },
-    "ddos-botnet-feed.read": {
-      "description": "Grants read access to Botnet Feed reports",
-      "category": "App Security"
-    },
-    "ddos-botnet-feed.write": {
-      "description": "Grants write access to Botnet Feed configuration",
-      "category": "App Security"
-    },
-    "ddos-protection.read": {
-      "description": "Grants read access to DDoS protection",
-      "category": "App Security"
-    },
-    "ddos-protection.write": {
-      "description": "Grants write access to DDoS protection",
-      "category": "App Security"
-    },
-    "dls.read": {
-      "description": "Grants read access to Data Localization Suite regions, BYOIP prefix bindings, and regional hostnames",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "dls.write": {
-      "description": "Grants write access to BYOIP prefix bindings and regional hostnames, and read access to Data Localization Suite regions",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "dns-firewall.read": {
-      "description": "Grants read access to DNS Firewall",
-      "category": "DNS & Zones"
-    },
-    "dns-firewall.write": {
-      "description": "Grants write access to DNS Firewall",
-      "category": "DNS & Zones"
-    },
-    "dns-view.read": {
-      "description": "Grants read access to DNS Views",
-      "category": "DNS & Zones"
-    },
-    "dns-view.write": {
-      "description": "Grants write access to DNS Views",
-      "category": "DNS & Zones"
-    },
-    "dns.read": {
-      "description": "Grants read access to DNS",
-      "category": "DNS & Zones"
-    },
-    "dns.write": {
-      "description": "Grants write access to DNS",
-      "category": "DNS & Zones"
-    },
-    "domain-page-shield.read": {
-      "description": "Grants read access to Page Shield",
-      "category": "App Security"
-    },
-    "domain-page.shield": {
-      "description": "Grants write access to Page Shield",
-      "category": "App Security"
-    },
-    "dynamic-redirect.read": {
-      "description": "Grants read access to Dynamic URL Redirect",
-      "category": "Rules & Configuration"
-    },
-    "dynamic-redirect.write": {
-      "description": "Grants write access to Dynamic URL Redirect",
-      "category": "Rules & Configuration"
-    },
-    "email-routing-account-rule.read": {
-      "description": "Grants read access to account-level Email Routing rules",
-      "category": "Email & Messaging"
-    },
-    "email-routing-address.read": {
-      "description": "Grants read access to Email Routing target addresses",
-      "category": "Email & Messaging"
-    },
-    "email-routing-address.write": {
-      "description": "Grants full access to Email Routing target addresses",
-      "category": "Email & Messaging"
-    },
-    "email-routing-rule.read": {
-      "description": "Grants read access to Email Routing rules",
-      "category": "Email & Messaging"
-    },
-    "email-routing-rule.write": {
-      "description": "Grants full access to Email Routing rules",
-      "category": "Email & Messaging"
-    },
-    "email-routing-suppression.read": {
-      "description": "Grants read access to Email Routing target suppression",
-      "category": "Email & Messaging"
-    },
-    "email-routing-suppression.write": {
-      "description": "Grants full access to Email Routing target suppressions",
-      "category": "Email & Messaging"
-    },
-    "email-security-dmarcreports.read": {
-      "description": "Grants read access to Email Security dmarc reports",
-      "category": "Email & Messaging"
-    },
-    "email-security-dmarcreports.write": {
-      "description": "Grants full access to Email Security dmarc reports",
-      "category": "Email & Messaging"
-    },
-    "email-sending.read": {
-      "description": "Grants access to reading data from Email Sending",
-      "category": "Email & Messaging"
-    },
-    "email-sending.write": {
-      "description": "Grants access to reading and writing data from Email Sending",
-      "category": "Email & Messaging"
-    },
-    "fbm.admin": {
-      "description": "Grants admin access to MNM settings",
-      "category": "Network Services"
-    },
-    "fbm.read": {
-      "description": "Grants read access to MNM config and rules",
-      "category": "Network Services"
-    },
-    "fbm.write": {
-      "description": "Grants write access to MNM rules and update access to account settings",
-      "category": "Network Services"
-    },
-    "field-extractor.read": {
-      "description": "Grants read access to account field extractors",
-      "category": "App Security"
-    },
-    "field-extractor.write": {
-      "description": "Grants read and edit access to account field extractors",
-      "category": "App Security"
-    },
-    "firewall-for-ai.read": {
-      "description": "Grants read access to Firewall for AI settings.",
-      "category": "AI & Machine Learning"
-    },
-    "firewall-for-ai.write": {
-      "description": "Grants full access to Firewall for AI settings.",
-      "category": "AI & Machine Learning"
-    },
-    "firewall-services.read": {
-      "description": "Grants read access to Firewall resources",
-      "category": "App Security"
-    },
-    "firewall-services.write": {
-      "description": "Grants write access to Firewall resources",
-      "category": "App Security"
-    },
-    "flagship.evaluate": {
-      "description": "Grants access to evaluating Flagship flags",
-      "category": "Developer Platform"
-    },
-    "flagship.read": {
-      "description": "Grants access to reading Flagship flags",
-      "category": "Developer Platform"
-    },
-    "flagship.write": {
-      "description": "Grants access to reading and editing Flagship flags",
-      "category": "Developer Platform"
-    },
-    "fraud-detection-pii.read": {
-      "description": "Grants read access to Account Abuse Protection PII data",
-      "category": "App Security"
-    },
-    "fraud-detection.read": {
-      "description": "Grants read access to Fraud Detection",
-      "category": "App Security"
-    },
-    "fraud-detection.write": {
-      "description": "Grants write access to Fraud Detection",
-      "category": "App Security"
-    },
-    "fraud-events.write": {
-      "description": "Grants write access to submit fraud detection events via the API",
-      "category": "App Security"
-    },
-    "fraud-feedback.read": {
-      "description": "Grants read access to fraud detection feedback",
-      "category": "App Security"
-    },
-    "fraud-feedback.write": {
-      "description": "Grants write access to submit fraud detection feedback",
-      "category": "App Security"
-    },
-    "healthcheck.read": {
-      "description": "Grants read access to Health Checks",
-      "category": "Network Services"
-    },
-    "healthcheck.write": {
-      "description": "Grants write access to Health Checks",
-      "category": "Network Services"
-    },
-    "http-applications.read": {
-      "description": "Grants read-only access to HTTP Applications",
-      "category": "App Security"
-    },
-    "http-applications.write": {
-      "description": "Grants full access to HTTP Applications",
-      "category": "App Security"
-    },
-    "http-ddos-managed-ruleset.read": {
-      "description": "Grants read access to HTTP DDoS Managed Ruleset",
-      "category": "App Security"
-    },
-    "http-ddos-managed-ruleset.write": {
-      "description": "Grants write access to HTTP DDoS Managed Ruleset",
-      "category": "App Security"
-    },
-    "images.metadata_read": {
-      "description": "Grants read access to Images metadata and configuration without access to image content",
-      "category": "Media"
-    },
-    "images.read": {
-      "description": "Grants read access to Images",
-      "category": "Media"
-    },
-    "images.write": {
-      "description": "Grants write access to upload Images",
-      "category": "Media"
-    },
-    "integration.write": {
-      "description": "Grants write access to integrations",
-      "category": "Account & Billing"
-    },
-    "intel.read": {
-      "description": "Grants read access to Intel API",
-      "category": "Analytics & Logs"
-    },
-    "intel.write": {
-      "description": "Grants write access to Intel API",
-      "category": "Analytics & Logs"
-    },
-    "iot.read": {
-      "description": "Grants read access to IOT devices",
-      "category": "App Security"
-    },
-    "iot.write": {
-      "description": "Grants full access to IOT devices",
-      "category": "App Security"
-    },
-    "ip-prefix-bgp-on-demand.read": {
-      "description": "Grants access to read ip prefix bgp configuration",
-      "category": "Network Services"
-    },
-    "ip-prefix-bgp-on-demand.write": {
-      "description": "Grants access to read and change ip prefix bgp configuration",
-      "category": "Network Services"
-    },
-    "ip-prefix.read": {
-      "description": "Grants access to read ip prefix settings",
-      "category": "Network Services"
-    },
-    "ip-prefix.write": {
-      "description": "Grants access to read/write ip prefix settings",
-      "category": "Network Services"
-    },
-    "l4-ddos-managed-ruleset.read": {
-      "description": "Grants read access to L4 DDoS Managed Ruleset",
-      "category": "App Security"
-    },
-    "l4-ddos-managed-ruleset.write": {
-      "description": "Grants write access to L4 DDoS Managed Ruleset",
-      "category": "App Security"
-    },
-    "load-balancers-account.read": {
-      "description": "Grants read access to account load balancers and associated resources",
-      "category": "Network Services"
-    },
-    "load-balancers-account.write": {
-      "description": "Grants write access to account load balancers and associated resources",
-      "category": "Network Services"
-    },
-    "load-balancers.read": {
-      "description": "Grants read access to load balancers and associated resources",
-      "category": "Network Services"
-    },
-    "load-balancers.write": {
-      "description": "Grants write access to load balancers and associated resources",
-      "category": "Network Services"
-    },
-    "load-balancing-monitors-and-pools.read": {
-      "description": "Grants read access to account level load balancer resources",
-      "category": "Network Services"
-    },
-    "load-balancing-monitors-and-pools.write": {
-      "description": "Grants write access to account level load balancer resources",
-      "category": "Network Services"
-    },
-    "logs.read": {
-      "description": "Grants read access to logs and logpush jobs",
-      "category": "Analytics & Logs"
-    },
-    "logs.write": {
-      "description": "Grants write access to logpush jobs",
-      "category": "Analytics & Logs"
-    },
-    "magic-firewall.read": {
-      "description": "Grants read access to Magic Firewall",
-      "category": "Network Services"
-    },
-    "magic-firewall.write": {
-      "description": "Grants write access to Magic Firewall",
-      "category": "Network Services"
-    },
-    "magic-transit.read": {
-      "description": "Grants read access to Magic Transit",
-      "category": "Network Services"
-    },
-    "magic-transit.write": {
-      "description": "Grants write access to Magic Transit",
-      "category": "Network Services"
-    },
-    "magic-wan.read": {
-      "description": "Grants read access to Magic WAN",
-      "category": "Network Services"
-    },
-    "magic-wan.write": {
-      "description": "Grants write access to Magic WAN",
-      "category": "Network Services"
-    },
-    "managed-headers.read": {
-      "description": "Grants read access to managed headers phases",
-      "category": "Rules & Configuration"
-    },
-    "managed-headers.write": {
-      "description": "Grants write access to managed headers phases",
-      "category": "Rules & Configuration"
-    },
-    "mass-url-redirects.read": {
-      "description": "Grants read access to Mass URL Redirect",
-      "category": "Rules & Configuration"
-    },
-    "mass-url-redirects.write": {
-      "description": "Grants write access to Mass URL Redirect",
-      "category": "Rules & Configuration"
-    },
-    "mcp-portals.read": {
-      "description": "Grants access to reading MCP Portals",
-      "category": "Developer Platform"
-    },
-    "mcp-portals.write": {
-      "description": "Grants access to reading and editing MCP Portals",
-      "category": "Developer Platform"
-    },
-    "memberships.read": {
-      "description": "Grants read access to a user's account memberships,",
-      "category": "Account & Billing"
-    },
-    "memberships.write": {
-      "description": "Grants write access to a user's account memberships",
-      "category": "Account & Billing"
-    },
-    "messaging.edit": {
-      "description": "Grants full read and write access to Messaging configuration and message content, plus permission to send and receive messages.",
-      "category": "Developer Platform"
-    },
-    "messaging.metadata_read": {
-      "description": "Grants read access to Messaging configuration and metadata without access to message content or session data.",
-      "category": "Developer Platform"
-    },
-    "messaging.read": {
-      "description": "Grants read access to Messaging configuration and message content.",
-      "category": "Developer Platform"
-    },
-    "moq.read": {
-      "description": "Grants read access to MoQ relay configuration",
-      "category": "Media"
-    },
-    "moq.write": {
-      "description": "Grants read/write access to MoQ relay configuration",
-      "category": "Media"
-    },
-    "notifications.read": {
-      "description": "Grants read access to notifications",
-      "category": "Account & Billing"
-    },
-    "notifications.write": {
-      "description": "Grants write access to Notifications",
-      "category": "Account & Billing"
-    },
-    "origin.read": {
-      "description": "Grants read access to origin phase",
-      "category": "Rules & Configuration"
-    },
-    "origin.write": {
-      "description": "Grants write access to origin phase",
-      "category": "Rules & Configuration"
-    },
-    "page-rules.read": {
-      "description": "Grants read access to Page Rules",
-      "category": "App Security"
-    },
-    "page-rules.write": {
-      "description": "Grants write access to Page Rules",
-      "category": "App Security"
-    },
-    "page-shield.read": {
-      "description": "Grants read access to Page Shield across the whole account",
-      "category": "App Security"
-    },
-    "page.read": {
-      "description": "Grants read access to Cloudflare Pages",
-      "category": "Developer Platform"
-    },
-    "page.shield": {
-      "description": "Grants write access to Page Shield",
-      "category": "App Security"
-    },
-    "page.write": {
-      "description": "Grants write access to Cloudflare Pages",
-      "category": "Developer Platform"
-    },
-    "pages.metadata_read": {
-      "description": "Grants read access to Cloudflare Pages metadata and configuration",
-      "category": "Developer Platform"
-    },
-    "payments-gateway.read": {
-      "description": "Grants read access to Payment Required rules",
-      "category": "Rules & Configuration"
-    },
-    "payments-gateway.write": {
-      "description": "Grants write access to Payment Required rules",
-      "category": "Rules & Configuration"
-    },
-    "pcaps-api.read": {
-      "description": "Grants read access to Packet Captures",
-      "category": "Network Services"
-    },
-    "pcaps-api.write": {
-      "description": "Grants write access to Packet Captures",
-      "category": "Network Services"
-    },
-    "pipelines.read": {
-      "description": "Grants read access to Cloudflare Pipelines",
-      "category": "Developer Platform"
-    },
-    "pipelines.send": {
-      "description": "Grants access to Send Events to Cloudflare Pipelines",
-      "category": "Developer Platform"
-    },
-    "pipelines.write": {
-      "description": "Grants write access to Cloudflare Pipelines",
-      "category": "Developer Platform"
-    },
-    "precursor.read": {
-      "description": "Grants read access to Precursor",
-      "category": "App Security"
-    },
-    "precursor.write": {
-      "description": "Grants write access to Precursor",
-      "category": "App Security"
-    },
-    "pubsub.read": {
-      "description": "Grants read access to Pubsub Configurations",
-      "category": "Developer Platform"
-    },
-    "pubsub.write": {
-      "description": "Grants full access to Pubsub Configurations",
-      "category": "Developer Platform"
-    },
-    "query-cache.read": {
-      "description": "Grants read access to Hyperdrive configuration",
-      "category": "Developer Platform"
-    },
-    "query-cache.write": {
-      "description": "Grants write access to Hyperdrive configuration",
-      "category": "Developer Platform"
-    },
-    "queues.metadata_read": {
-      "description": "Grants read access to Cloudflare Queues configuration",
-      "category": "Developer Platform"
-    },
-    "queues.read": {
-      "description": "Grants read access to Cloudflare Queues",
-      "category": "Developer Platform"
-    },
-    "queues.write": {
-      "description": "Grants write access to Cloudflare Queues",
-      "category": "Developer Platform"
-    },
-    "r2-catalog-sql.read": {
-      "description": "Grants access to read-only SQL queries against R2 Data Catalog",
-      "category": "Developer Platform"
-    },
-    "r2-catalog.read": {
-      "description": "Grants read access to R2 Data Catalog",
-      "category": "Developer Platform"
-    },
-    "r2-catalog.write": {
-      "description": "Grants write access to R2 Data Catalog",
-      "category": "Developer Platform"
-    },
-    "radar.read": {
-      "description": "Grants access to reading Radar",
-      "category": "Analytics & Logs"
-    },
-    "rag.read": {
-      "description": "Grants access to reading data from Auto Rag",
-      "category": "AI & Machine Learning"
-    },
-    "rag.run": {
-      "description": "Grants access to run Auto RAG engine",
-      "category": "AI & Machine Learning"
-    },
-    "rag.write": {
-      "description": "Grants access to reading and writing data from Auto Rag",
-      "category": "AI & Machine Learning"
-    },
-    "realtime.admin": {
-      "description": "Grants admin access to Realtime configuration",
-      "category": "Developer Platform"
-    },
-    "realtime.write": {
-      "description": "Grants access to Realtime configuration excluding sensitive data",
-      "category": "Developer Platform"
-    },
-    "registrar-domains.admin": {
-      "description": "Grants admin access to Cloudflare Registrar domains",
-      "category": "DNS & Zones"
-    },
-    "registrar-domains.read": {
-      "description": "Grants read access to Cloudflare Registrar domains",
-      "category": "DNS & Zones"
-    },
-    "registrar-sandbox-domains.admin": {
-      "description": "Grants admin access to Cloudflare Registrar Sandbox domains",
-      "category": "DNS & Zones"
-    },
-    "registrar-sandbox-domains.read": {
-      "description": "Grants read access to Cloudflare Registrar Sandbox domains",
-      "category": "DNS & Zones"
-    },
-    "reports-application-security-report.read": {
-      "description": "Can read Application Security Reports",
-      "category": "App Security"
-    },
-    "request-tracer.read": {
-      "description": "Allows read access to request tracer API",
-      "category": "App Security"
-    },
-    "resource-library.read": {
-      "description": "Grants access to reading resource library applications",
-      "category": "Other"
-    },
-    "resource-library.write": {
-      "description": "Grants access to reading and editing resource library",
-      "category": "Other"
-    },
-    "resource-sharing.read": {
-      "description": "Grants access to reading resource shares",
-      "category": "Other"
-    },
-    "response-compression.read": {
-      "description": "Grants read access to the response compression phase",
-      "category": "Rules & Configuration"
-    },
-    "response-compression.write": {
-      "description": "Grants write access to the response compression phase",
-      "category": "Rules & Configuration"
-    },
-    "sanitize.read": {
-      "description": "Grants read access to sanitization",
-      "category": "App Security"
-    },
-    "sanitize.write": {
-      "description": "Grants write access to sanitization",
-      "category": "App Security"
-    },
-    "scim-provisioning.write": {
-      "description": "Grants membership permissions needed for SCIM provisioning",
-      "category": "Account & Billing"
-    },
-    "secrets-store.read": {
-      "description": "Grants read access to Secrets Store",
-      "category": "Developer Platform"
-    },
-    "secrets-store.write": {
-      "description": "Grants write access to Secrets Store",
-      "category": "Developer Platform"
-    },
-    "select-configuration.read": {
-      "description": "Grants read access to select configuration",
-      "category": "Rules & Configuration"
-    },
-    "select-configuration.write": {
-      "description": "Grants write access to select configuration",
-      "category": "Rules & Configuration"
-    },
-    "snippets.read": {
-      "description": "Grants read access to Snippets",
-      "category": "Rules & Configuration"
-    },
-    "snippets.write": {
-      "description": "Grants write access to Snippets",
-      "category": "Rules & Configuration"
-    },
-    "ssl-and-certificates.read": {
-      "description": "Grants read access to SSL configuration and cert management",
-      "category": "Cache & Performance"
-    },
-    "ssl-and-certificates.write": {
-      "description": "Grants write access to SSL configuration and cert management",
-      "category": "Cache & Performance"
-    },
-    "stream.metadata_read": {
-      "description": "Grants read access to Cloudflare Stream metadata, excluding sensitive content such as caption files and live input secrets",
-      "category": "Media"
-    },
-    "stream.read": {
-      "description": "Grants read access to Cloudflare Stream",
-      "category": "Media"
-    },
-    "stream.write": {
-      "description": "Grants write access to Cloudflare Stream",
-      "category": "Media"
-    },
-    "tag.read": {
-      "description": "Grants access to reading resource tags",
-      "category": "App Security"
-    },
-    "tag.write": {
-      "description": "Grants access to reading and editing resource tags",
-      "category": "App Security"
-    },
-    "teams-cds-compute-account.read": {
-      "description": "Grants read access to Cloudflare CDS compute account resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-cds-compute-account.write": {
-      "description": "Grants write access to Cloudflare CDS compute account resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-connector-cloudflared.monitoring": {
-      "description": "Grants access to stream logs from cloudflared connectors",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-connector-cloudflared.read": {
-      "description": "Grants read access to cloudflared connectors",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-connector-cloudflared.write": {
-      "description": "Grants write access to cloudflared connectors",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-connector-warp.read": {
-      "description": "Grants read access to WARP Connectors",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-connector-warp.write": {
-      "description": "Grants write access to WARP Connectors",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-connectors.read": {
-      "description": "Grants read access to Cloudflare One connectors",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-connectors.write": {
-      "description": "Grants write access to Cloudflare One connectors",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-dex.read": {
-      "description": "Grants read access to Cloudflare DEX",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-dex.write": {
-      "description": "Grants full access to Cloudflare DEX",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-networks.read": {
-      "description": "Grants read access to Cloudflare One routes, subnets, and virtual networks",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-networks.write": {
-      "description": "Grants write access to Cloudflare One routes, subnets, and virtual networks",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-pii.read": {
-      "description": "Grants read access to Cloudflare Zero Trust PII.",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-resilience.read": {
-      "description": "Grants read access to Cloudflare Zero Trust Resilience resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-resilience.write": {
-      "description": "Grants write access to Cloudflare Zero Trust Resilience resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-secure.location": {
-      "description": "Grants access to create and edit secure DNS Locations only in teams (Zero Trust)",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams.read": {
-      "description": "Grants read access to Cloudflare Zero Trust resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams.report": {
-      "description": "Grants reporting access to Cloudflare Zero Trust",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams.write": {
-      "description": "Grants write access to Cloudflare Zero Trust resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "transform-rules.read": {
-      "description": "Grants read access to transform rules",
-      "category": "Rules & Configuration"
-    },
-    "transform-rules.write": {
-      "description": "Grants write access to transform rules",
-      "category": "Rules & Configuration"
-    },
-    "trust-and-safety.read": {
-      "description": "Grants access to read abuse reports and abuse actions",
-      "category": "App Security"
-    },
-    "trust-and-safety.write": {
-      "description": "Grants access to interact with abuse reports and abuse actions",
-      "category": "App Security"
-    },
-    "url-scanner.read": {
-      "description": "Grants read access to URL Scanner API",
-      "category": "App Security"
-    },
-    "url-scanner.write": {
-      "description": "Grants write access to URL Scanner API",
-      "category": "App Security"
-    },
-    "user-details.read": {
-      "description": "Grants read access to user details",
-      "category": "Account & Billing"
-    },
-    "user-details.write": {
-      "description": "Grants write access to user details",
-      "category": "Account & Billing"
-    },
-    "vectorize.read": {
-      "description": "Grants read access to Vectorize configuration",
-      "category": "Developer Platform"
-    },
-    "vectorize.write": {
-      "description": "Grants write access to Vectorize configuration",
-      "category": "Developer Platform"
-    },
-    "waiting-rooms.read": {
-      "description": "Grants read access to Waiting Rooms",
-      "category": "Network Services"
-    },
-    "waiting-rooms.write": {
-      "description": "Grants write access to Waiting Rooms",
-      "category": "Network Services"
-    },
-    "web3-hostnames.read": {
-      "description": "Grants read access to Web3 Hostnames",
-      "category": "Network Services"
-    },
-    "web3-hostnames.write": {
-      "description": "Grants write access to Web3 Hostnames",
-      "category": "Network Services"
-    },
-    "websearch.metadata_read": {
-      "description": "Grants read access to Cloudflare Websearch configuration and metadata without access to search results.",
-      "category": "AI & Machine Learning"
-    },
-    "websearch.read": {
-      "description": "Grants access to reading data from Cloudflare Websearch",
-      "category": "AI & Machine Learning"
-    },
-    "websearch.run": {
-      "description": "Grants access to run Cloudflare Websearch queries",
-      "category": "AI & Machine Learning"
-    },
-    "websearch.write": {
-      "description": "Grants access to reading and writing data from Cloudflare Websearch",
-      "category": "AI & Machine Learning"
-    },
-    "workers-ci.read": {
-      "description": "Grants read access to Workers CI",
-      "category": "Developer Platform"
-    },
-    "workers-ci.write": {
-      "description": "Grants write access to Workers CI",
-      "category": "Developer Platform"
-    },
-    "workers-kv-storage.metadata_read": {
-      "description": "Grants read access to Workers KV configuration and analytics",
-      "category": "Developer Platform"
-    },
-    "workers-kv-storage.read": {
-      "description": "Grants read access to Cloudflare Workers KV Storage",
-      "category": "Developer Platform"
-    },
-    "workers-kv-storage.write": {
-      "description": "Grants write access to Cloudflare Workers KV Storage",
-      "category": "Developer Platform"
-    },
-    "workers-observability-telemetry.write": {
-      "description": "Grants write access for Telemetry to Cloudflare Workers Observability",
-      "category": "Developer Platform"
-    },
-    "workers-observability.read": {
-      "description": "Grants read access to Cloudflare Workers Observability",
-      "category": "Developer Platform"
-    },
-    "workers-observability.write": {
-      "description": "Grants read and write access to Cloudflare Workers Observability",
-      "category": "Developer Platform"
-    },
-    "workers-r2-bucket-item.read": {
-      "description": "Grants read access to Cloudflare R2 Bucket Scoped Storage",
-      "category": "Developer Platform"
-    },
-    "workers-r2-bucket-item.write": {
-      "description": "Grants write access to Cloudflare R2 Bucket Scoped Storage",
-      "category": "Developer Platform"
-    },
-    "workers-r2.metadata_read": {
-      "description": "Grants read access to Cloudflare Workers R2 Storage metadata",
-      "category": "Developer Platform"
-    },
-    "workers-r2.read": {
-      "description": "Grants read access to Cloudflare R2 Storage",
-      "category": "Developer Platform"
-    },
-    "workers-r2.write": {
-      "description": "Grants write access to Cloudflare R2 Storage",
-      "category": "Developer Platform"
-    },
-    "workers-routes.read": {
-      "description": "Grants read access to Cloudflare Workers and Workers KV Storage",
-      "category": "Developer Platform"
-    },
-    "workers-routes.write": {
-      "description": "Grants write access to Cloudflare Workers and Workers KV Storage",
-      "category": "Developer Platform"
-    },
-    "workers-scripts.bind": {
-      "description": "Grants permission to attach product bindings to Cloudflare Workers scripts.",
-      "category": "Developer Platform"
-    },
-    "workers-scripts.read": {
-      "description": "Grants read access to Cloudflare Workers scripts",
-      "category": "Developer Platform"
-    },
-    "workers-scripts.write": {
-      "description": "Grants write access to Cloudflare Workers scripts",
-      "category": "Developer Platform"
-    },
-    "workers-tail.read": {
-      "description": "Grants `wrangler tail` read permissions",
-      "category": "Developer Platform"
-    },
-    "workers_ai.metadata_read": {
-      "description": "Grants read-only access to Workers AI metadata (model catalog, finetune list, tasks, authors) without access to inference or mutation endpoints.",
-      "category": "AI & Machine Learning"
-    },
-    "zaraz.edit": {
-      "description": "Can edit Zaraz settings.",
-      "category": "App Security"
-    },
-    "zaraz.read": {
-      "description": "Grants read access to Zaraz settings.",
-      "category": "App Security"
-    },
-    "zaraz.write": {
-      "description": "Can edit and publish Zaraz settings.",
-      "category": "App Security"
-    },
-    "zone-access.read": {
-      "description": "Grants read access to Cloudflare Access zone resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "zone-access.revoke": {
-      "description": "Grants ability to revoke all tokens to Cloudflare Access zone resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "zone-access.write": {
-      "description": "Grants write access to Cloudflare Access zone resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "zone-custom-asset.read": {
-      "description": "Grants read access to zone custom assets",
-      "category": "DNS & Zones"
-    },
-    "zone-custom-asset.write": {
-      "description": "Grants write access to zone custom assets",
-      "category": "DNS & Zones"
-    },
-    "zone-disable-esc.read": {
-      "description": "Grants read access to Cloudflare Disable ESC",
-      "category": "Cache & Performance"
-    },
-    "zone-disable-esc.write": {
-      "description": "Grants write access to Cloudflare Disable ESC",
-      "category": "Cache & Performance"
-    },
-    "zone-dns-settings.read": {
-      "description": "Grants read access to Zone DNS Settings",
-      "category": "DNS & Zones"
-    },
-    "zone-dns-settings.write": {
-      "description": "Grants write access to Zone DNS Settings",
-      "category": "DNS & Zones"
-    },
-    "zone-security-center-insights.read": {
-      "description": "Grants read access to Zone Security Center Insights",
-      "category": "App Security"
-    },
-    "zone-security-center-insights.write": {
-      "description": "Grants write access to Zone Security Center Insights",
-      "category": "App Security"
-    },
-    "zone-settings.read": {
-      "description": "Grants read access to zone settings",
-      "category": "DNS & Zones"
-    },
-    "zone-settings.write": {
-      "description": "Grants write access to zone settings",
-      "category": "DNS & Zones"
-    },
-    "zone-transform-rules.read": {
-      "description": "Grants read access to transform rules at zone level",
-      "category": "Rules & Configuration"
-    },
-    "zone-transform-rules.write": {
-      "description": "Grants write access to transform rules at zone level",
-      "category": "Rules & Configuration"
-    },
-    "zone-versioning.read": {
-      "description": "Grants read-only access to Zone Versioning",
-      "category": "DNS & Zones"
-    },
-    "zone-versioning.write": {
-      "description": "Grants full access to Zone Versioning",
-      "category": "DNS & Zones"
-    },
-    "zone-waf.read": {
-      "description": "Grants read access to Zone WAF",
-      "category": "App Security"
-    },
-    "zone-waf.write": {
-      "description": "Grants write access to Zone WAF",
-      "category": "App Security"
-    },
-    "zone.read": {
-      "description": "Grants read access to zone management",
-      "category": "DNS & Zones"
-    },
-    "zone.write": {
-      "description": "Grants write access to zone management",
-      "category": "DNS & Zones"
-    }
+  "access-acct.read": {
+    "description": "Access: Organizations, Identity Providers, and Groups Read",
+    "category": "Cloudflare One / Zero Trust"
   },
-  "productionOnly": {},
-  "stagingOverrides": {
-    "agw.run": {
-      "description": "Grants access to run Agents Gateway",
-      "category": "AI & Machine Learning"
-    },
-    "cache-settings.read": {
-      "description": "Grants read access to Cache Rules",
-      "category": "Cache & Performance"
-    },
-    "cache-settings.write": {
-      "description": "Grants write access to Cache Rules",
-      "category": "Cache & Performance"
-    },
-    "config-settings.read": {
-      "description": "Grants read access to Configuration Rules",
-      "category": "Rules & Configuration"
-    },
-    "config-settings.write": {
-      "description": "Grants write access to Configuration Rules",
-      "category": "Rules & Configuration"
-    },
-    "custom-errors.read": {
-      "description": "Grants read access to Custom Errors",
-      "category": "Rules & Configuration"
-    },
-    "custom-errors.write": {
-      "description": "Grants write access to Custom Errors",
-      "category": "Rules & Configuration"
-    },
-    "custom-pages.read": {
-      "description": "Grants read access to Custom Pages",
-      "category": "Rules & Configuration"
-    },
-    "custom-pages.write": {
-      "description": "Grants write access to Custom Pages",
-      "category": "Rules & Configuration"
-    },
-    "dynamic-redirect.read": {
-      "description": "Grants read access to Single Redirects",
-      "category": "Rules & Configuration"
-    },
-    "dynamic-redirect.write": {
-      "description": "Grants write access to Single Redirects",
-      "category": "Rules & Configuration"
-    },
-    "managed-headers.read": {
-      "description": "Grants read access to Managed Transforms",
-      "category": "Rules & Configuration"
-    },
-    "managed-headers.write": {
-      "description": "Grants write access to Managed Transforms",
-      "category": "Rules & Configuration"
-    },
-    "mass-url-redirects.read": {
-      "description": "Grants read access to Bulk Redirects",
-      "category": "Rules & Configuration"
-    },
-    "mass-url-redirects.write": {
-      "description": "Grants write access to Bulk Redirects",
-      "category": "Rules & Configuration"
-    },
-    "moq.write": {
-      "description": "Grants read/write access to MoQ relay configuration and access to MoQ Bench",
-      "category": "Media"
-    },
-    "origin.read": {
-      "description": "Grants read access to Origin Rules",
-      "category": "Rules & Configuration"
-    },
-    "origin.write": {
-      "description": "Grants write access to Origin Rules",
-      "category": "Rules & Configuration"
-    },
-    "realtime.write": {
-      "description": "Grants read and write access to Realtime SFU, TURN, and RealtimeKit configuration",
-      "category": "Developer Platform"
-    },
-    "request-tracer.read": {
-      "description": "Grants read access to Trace",
-      "category": "App Security"
-    },
-    "response-compression.read": {
-      "description": "Grants read access to Compression Rules",
-      "category": "Rules & Configuration"
-    },
-    "response-compression.write": {
-      "description": "Grants write access to the Compression Rules",
-      "category": "Rules & Configuration"
-    },
-    "teams.write": {
-      "description": "Can read and edit Cloudflare Zero Trust resources",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "transform-rules.read": {
-      "description": "Grants read access to Transform Rules",
-      "category": "Rules & Configuration"
-    },
-    "transform-rules.write": {
-      "description": "Grants write access to Transform Rules",
-      "category": "Rules & Configuration"
-    }
+  "access-acct.revoke": {
+    "description": "Access: Organizations, Identity Providers, and Groups Revoke",
+    "category": "Cloudflare One / Zero Trust"
   },
-  "stagingOnly": {
-    "agent-memory.read": {
-      "description": "Grants read access to Agent Memory",
-      "category": "Developer Platform"
-    },
-    "audit-logs.read": {
-      "description": "Grants read access to Audit Logs",
-      "category": "Analytics & Logs"
-    },
-    "custom-ns.write": {
-      "description": "Grants write access to Custom NS",
-      "category": "DNS & Zones"
-    },
-    "realtime.read": {
-      "description": "Grants read access to Realtime SFU, TURN, and RealtimeKit configuration",
-      "category": "Developer Platform"
-    },
-    "teams-gateway.read": {
-      "description": "Grants read access to Zero Trust Gateway",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "teams-gateway.write": {
-      "description": "Grants write access to Zero Trust Gateway",
-      "category": "Cloudflare One / Zero Trust"
-    },
-    "workers-scripts.edit": {
-      "description": "Read, update, and deploy Workers. Includes script content, settings, versions, deployments, and previews. Cannot create or delete Workers — use Workers Admin for that. Routes and observability require separate per-feature token roles.",
-      "category": "Developer Platform"
-    },
-    "workers-scripts.metadata_read": {
-      "description": "View Workers metadata, settings, and observability without access to script source content.",
-      "category": "Developer Platform"
-    },
-    "workers-vpc.admin": {
-      "description": "Can view, edit, create, and delete Workers VPC Services and Networks, including the ability to create Services that bind to Cloudflare Tunnel",
-      "category": "Developer Platform"
-    },
-    "workers-vpc.bind": {
-      "description": "Can read, list, and bind to Workers VPC services and networks, as well as read and list Cloudflare Tunnels",
-      "category": "Developer Platform"
-    },
-    "workers-vpc.read": {
-      "description": "Can view Workers VPC services, networks, and Cloudflare Tunnels",
-      "category": "Developer Platform"
-    },
-    "workflows.metadata_read": {
-      "description": "Grants read access to Cloudflare Workflows configuration",
-      "category": "Developer Platform"
-    },
-    "workflows.read": {
-      "description": "Grants read access to Cloudflare Workflows configuration and instance data",
-      "category": "Developer Platform"
-    },
-    "workflows.write": {
-      "description": "Grants write access to Cloudflare Workflows configuration and instance data",
-      "category": "Developer Platform"
-    }
+  "access-acct.write": {
+    "description": "Access: Organizations, Identity Providers, and Groups Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-app.read": {
+    "description": "Access: Apps Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-app.revoke": {
+    "description": "Access: Apps Revoke",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-app.write": {
+    "description": "Access: Apps Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-audit-log.read": {
+    "description": "Access: Audit Logs Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-certificate.read": {
+    "description": "Access: Mutual TLS Certificates Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-certificate.write": {
+    "description": "Access: Mutual TLS Certificates Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-custom-page.read": {
+    "description": "Access: Custom Pages Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-custom-page.write": {
+    "description": "Access: Custom Pages Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-device-posture.read": {
+    "description": "Access: Device Posture Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-device-posture.write": {
+    "description": "Access: Device Posture Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-group.read": {
+    "description": "Access: Groups Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-group.write": {
+    "description": "Access: Groups Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-idp.read": {
+    "description": "Access: Identity Providers Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-idp.write": {
+    "description": "Access: Identity Providers Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-key.read": {
+    "description": "Access: Keys Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-key.write": {
+    "description": "Access: Keys Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-org.read": {
+    "description": "Access: Organizations Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-org.revoke": {
+    "description": "Access: Organizations Revoke",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-org.write": {
+    "description": "Access: Organizations Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-policy-test.read": {
+    "description": "Access: Policy Test Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-policy-test.write": {
+    "description": "Access: Policy Test Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-policy.read": {
+    "description": "Access: Policies Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-policy.write": {
+    "description": "Access: Policies Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-population.read": {
+    "description": "Access: Population Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-population.write": {
+    "description": "Access: Population Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-saml-certificate.read": {
+    "description": "Access: SAML Certificates Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-saml-certificate.write": {
+    "description": "Access: SAML Certificates Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-scim-log.read": {
+    "description": "Access: SCIM Logs Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-seats.write": {
+    "description": "Zero Trust: Seats Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-service-token.read": {
+    "description": "Access: Service Tokens Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-service-token.write": {
+    "description": "Access: Service Tokens Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-ssh-auditing.read": {
+    "description": "Access: SSH Auditing Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-ssh-auditing.write": {
+    "description": "Access: SSH Auditing Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-tag.read": {
+    "description": "Access: Tags Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-tag.write": {
+    "description": "Access: Tags Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-users.read": {
+    "description": "Access: Users Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access-users.write": {
+    "description": "Access: Users Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access.read": {
+    "description": "Access: Apps and Policies Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access.revoke": {
+    "description": "Access: Apps and Policies Revoke",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "access.write": {
+    "description": "Access: Apps and Policies Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "account-analytics.read": {
+    "description": "Account Analytics Read",
+    "category": "Analytics & Logs"
+  },
+  "account-api-gateway.read": {
+    "description": "Account API Gateway Read",
+    "category": "Account & Billing"
+  },
+  "account-api-gateway.write": {
+    "description": "Account API Gateway",
+    "category": "Account & Billing"
+  },
+  "account-custom-asset.read": {
+    "description": "Account Custom Asset Read",
+    "category": "Account & Billing"
+  },
+  "account-custom-asset.write": {
+    "description": "Account Custom Asset Write",
+    "category": "Account & Billing"
+  },
+  "account-custom-error-rules.read": {
+    "description": "Account Custom Error Rules Read",
+    "category": "Rules & Configuration"
+  },
+  "account-custom-error-rules.write": {
+    "description": "Account Custom Error Rules Write",
+    "category": "Rules & Configuration"
+  },
+  "account-custom-pages.read": {
+    "description": "Account Custom Pages Read",
+    "category": "Rules & Configuration"
+  },
+  "account-custom-pages.write": {
+    "description": "Account Custom Pages Write",
+    "category": "Rules & Configuration"
+  },
+  "account-disable-esc.read": {
+    "description": "Disable ESC Read",
+    "category": "Cache & Performance"
+  },
+  "account-disable-esc.write": {
+    "description": "Disable ESC Write",
+    "category": "Cache & Performance"
+  },
+  "account-dns-settings.read": {
+    "description": "Account DNS Settings Read",
+    "category": "DNS & Zones"
+  },
+  "account-dns-settings.write": {
+    "description": "Account DNS Settings Write",
+    "category": "DNS & Zones"
+  },
+  "account-firewall-access-rules.read": {
+    "description": "Account Firewall Access Rules Read",
+    "category": "App Security"
+  },
+  "account-firewall-access-rules.write": {
+    "description": "Account Firewall Access Rules Write",
+    "category": "App Security"
+  },
+  "account-logs.read": {
+    "description": "Logs Read",
+    "category": "Analytics & Logs"
+  },
+  "account-logs.write": {
+    "description": "Logs Write",
+    "category": "Analytics & Logs"
+  },
+  "account-rule-lists.read": {
+    "description": "Account Rule Lists Read",
+    "category": "Rules & Configuration"
+  },
+  "account-rule-lists.write": {
+    "description": "Account Rule Lists Write",
+    "category": "Rules & Configuration"
+  },
+  "account-rulesets.read": {
+    "description": "Account Rulesets Read",
+    "category": "Rules & Configuration"
+  },
+  "account-rulesets.write": {
+    "description": "Account Rulesets Write",
+    "category": "Rules & Configuration"
+  },
+  "account-security-center-insights.read": {
+    "description": "Account Security Center Insights Read",
+    "category": "App Security"
+  },
+  "account-security-center-insights.write": {
+    "description": "Account Security Center Insights Write",
+    "category": "App Security"
+  },
+  "account-settings.read": {
+    "description": "Account Settings Read",
+    "category": "Account & Billing"
+  },
+  "account-settings.write": {
+    "description": "Account Settings Write",
+    "category": "Account & Billing"
+  },
+  "account-ssl-and-certificates.read": {
+    "description": "Account: SSL and Certificates Read",
+    "category": "Cache & Performance"
+  },
+  "account-ssl-and-certificates.write": {
+    "description": "Account: SSL and Certificates Write",
+    "category": "Cache & Performance"
+  },
+  "account-waf.read": {
+    "description": "Account WAF Read",
+    "category": "App Security"
+  },
+  "account-waf.write": {
+    "description": "Account WAF Write",
+    "category": "App Security"
+  },
+  "account-waiting-rooms.read": {
+    "description": "Account Waiting Rooms Read",
+    "category": "Network Services"
+  },
+  "address-maps.read": {
+    "description": "Address Maps Read",
+    "category": "Network Services"
+  },
+  "address-maps.write": {
+    "description": "Address Maps Write",
+    "category": "Network Services"
+  },
+  "agent-memory.write": {
+    "description": "Agent Memory Write",
+    "category": "Developer Platform"
+  },
+  "agw.read": {
+    "description": "Agents Gateway Read",
+    "category": "AI & Machine Learning"
+  },
+  "agw.run": {
+    "description": "Agents Gateway Run",
+    "category": "AI & Machine Learning"
+  },
+  "agw.write": {
+    "description": "Agents Gateway Write",
+    "category": "AI & Machine Learning"
+  },
+  "ai-search.index": {
+    "description": "AI Search Index Engine",
+    "category": "AI & Machine Learning"
+  },
+  "ai-search.metadata_read": {
+    "description": "AI Search Metadata Read",
+    "category": "AI & Machine Learning"
+  },
+  "ai-search.read": {
+    "description": "AI Search Read",
+    "category": "AI & Machine Learning"
+  },
+  "ai-search.run": {
+    "description": "AI Search Run",
+    "category": "AI & Machine Learning"
+  },
+  "ai-search.write": {
+    "description": "AI Search Write",
+    "category": "AI & Machine Learning"
+  },
+  "ai.read": {
+    "description": "Workers AI Read",
+    "category": "AI & Machine Learning"
+  },
+  "ai.write": {
+    "description": "Workers AI Write",
+    "category": "AI & Machine Learning"
+  },
+  "aiaudit.read": {
+    "description": "AI Audit Read",
+    "category": "AI & Machine Learning"
+  },
+  "aiaudit.write": {
+    "description": "AI Audit Write",
+    "category": "AI & Machine Learning"
+  },
+  "aig.metadata_read": {
+    "description": "AI Gateway Metadata Read",
+    "category": "AI & Machine Learning"
+  },
+  "aig.read": {
+    "description": "AI Gateway Read",
+    "category": "AI & Machine Learning"
+  },
+  "aig.run": {
+    "description": "AI Gateway Run",
+    "category": "AI & Machine Learning"
+  },
+  "aig.write": {
+    "description": "AI Gateway Write",
+    "category": "AI & Machine Learning"
+  },
+  "analytics.read": {
+    "description": "Analytics Read",
+    "category": "Analytics & Logs"
+  },
+  "api-gateway.read": {
+    "description": "Domain API Gateway Read",
+    "category": "App Security"
+  },
+  "api-gateway.write": {
+    "description": "Domain API Gateway",
+    "category": "App Security"
+  },
+  "apps.write": {
+    "description": "Apps Write",
+    "category": "Account & Billing"
+  },
+  "argotunnel.read": {
+    "description": "Cloudflare Tunnel Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "argotunnel.write": {
+    "description": "Cloudflare Tunnel Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "artifacts.read": {
+    "description": "Artifacts Read",
+    "category": "Other"
+  },
+  "artifacts.write": {
+    "description": "Artifacts Write",
+    "category": "Other"
+  },
+  "bot-management-feedback.read": {
+    "description": "Bot Management Feedback Report Read",
+    "category": "App Security"
+  },
+  "bot-management-feedback.write": {
+    "description": "Bot Management Feedback Report Write",
+    "category": "App Security"
+  },
+  "bot-management.read": {
+    "description": "Bot Management Read",
+    "category": "App Security"
+  },
+  "bot-management.write": {
+    "description": "Bot Management Write",
+    "category": "App Security"
+  },
+  "browser-rendering.read": {
+    "description": "Browser Run Read",
+    "category": "Developer Platform"
+  },
+  "browser-rendering.write": {
+    "description": "Browser Run Write",
+    "category": "Developer Platform"
+  },
+  "cache-settings.read": {
+    "description": "Cache Settings Read",
+    "category": "Cache & Performance"
+  },
+  "cache-settings.write": {
+    "description": "Cache Settings Write",
+    "category": "Cache & Performance"
+  },
+  "cache.purge": {
+    "description": "Cache Purge",
+    "category": "Cache & Performance"
+  },
+  "calls.read": {
+    "description": "Calls Read",
+    "category": "Media"
+  },
+  "calls.write": {
+    "description": "Calls Write",
+    "category": "Media"
+  },
+  "casb.read": {
+    "description": "CASB Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "casb.write": {
+    "description": "CASB Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "cf-agents.read": {
+    "description": "CF Agents Read",
+    "category": "Developer Platform"
+  },
+  "cf-agents.write": {
+    "description": "CF Agents Write",
+    "category": "Developer Platform"
+  },
+  "challenge-widgets.read": {
+    "description": "Turnstile Sites Read",
+    "category": "App Security"
+  },
+  "challenge-widgets.write": {
+    "description": "Turnstile Sites Write",
+    "category": "App Security"
+  },
+  "chinanetwork-steering.read": {
+    "description": "China Network Steering Read",
+    "category": "Network Services"
+  },
+  "chinanetwork-steering.write": {
+    "description": "China Network Steering Write",
+    "category": "Network Services"
+  },
+  "cloud-connector.read": {
+    "description": "Cloud Connector Read",
+    "category": "Developer Platform"
+  },
+  "cloud-connector.write": {
+    "description": "Cloud Connector Write",
+    "category": "Developer Platform"
+  },
+  "cloud-email-security.read": {
+    "description": "Cloud Email Security: Read",
+    "category": "Email & Messaging"
+  },
+  "cloud-email-security.write": {
+    "description": "Cloud Email Security: Write",
+    "category": "Email & Messaging"
+  },
+  "cloudchamber.read": {
+    "description": "Cloudchamber Read",
+    "category": "Developer Platform"
+  },
+  "cloudchamber.write": {
+    "description": "Cloudchamber Write",
+    "category": "Developer Platform"
+  },
+  "cloudforce-one.read": {
+    "description": "Cloudforce One Read",
+    "category": "App Security"
+  },
+  "cloudforce-one.write": {
+    "description": "Cloudforce One Write",
+    "category": "App Security"
+  },
+  "config-settings.read": {
+    "description": "Config Settings Read",
+    "category": "Rules & Configuration"
+  },
+  "config-settings.write": {
+    "description": "Config Settings Write",
+    "category": "Rules & Configuration"
+  },
+  "connectivity-directory.admin": {
+    "description": "Connectivity Directory Admin",
+    "category": "Network Services"
+  },
+  "connectivity-directory.bind": {
+    "description": "Connectivity Directory Bind",
+    "category": "Network Services"
+  },
+  "connectivity-directory.read": {
+    "description": "Connectivity Directory Read",
+    "category": "Network Services"
+  },
+  "constellation.read": {
+    "description": "Constellation Read",
+    "category": "Developer Platform"
+  },
+  "constellation.write": {
+    "description": "Constellation Write",
+    "category": "Developer Platform"
+  },
+  "containers.read": {
+    "description": "Workers Containers Read",
+    "category": "Developer Platform"
+  },
+  "containers.write": {
+    "description": "Workers Containers Write",
+    "category": "Developer Platform"
+  },
+  "custom-errors.read": {
+    "description": "Custom Errors Read",
+    "category": "Rules & Configuration"
+  },
+  "custom-errors.write": {
+    "description": "Custom Errors Write",
+    "category": "Rules & Configuration"
+  },
+  "custom-pages.read": {
+    "description": "Custom Pages Read",
+    "category": "Rules & Configuration"
+  },
+  "custom-pages.write": {
+    "description": "Custom Pages Write",
+    "category": "Rules & Configuration"
+  },
+  "d1.metadata_read": {
+    "description": "D1 Metadata Read",
+    "category": "Developer Platform"
+  },
+  "d1.read": {
+    "description": "D1 Read",
+    "category": "Developer Platform"
+  },
+  "d1.write": {
+    "description": "D1 Write",
+    "category": "Developer Platform"
+  },
+  "ddos-botnet-feed.read": {
+    "description": "DDoS Botnet Feed Read",
+    "category": "App Security"
+  },
+  "ddos-botnet-feed.write": {
+    "description": "DDoS Botnet Feed Write",
+    "category": "App Security"
+  },
+  "ddos-protection.read": {
+    "description": "DDoS Protection Read",
+    "category": "App Security"
+  },
+  "ddos-protection.write": {
+    "description": "DDoS Protection Write",
+    "category": "App Security"
+  },
+  "dls.read": {
+    "description": "DLS: Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "dls.write": {
+    "description": "DLS: Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "dns-firewall.read": {
+    "description": "DNS Firewall Read",
+    "category": "DNS & Zones"
+  },
+  "dns-firewall.write": {
+    "description": "DNS Firewall Write",
+    "category": "DNS & Zones"
+  },
+  "dns-view.read": {
+    "description": "DNS View Read",
+    "category": "DNS & Zones"
+  },
+  "dns-view.write": {
+    "description": "DNS View Write",
+    "category": "DNS & Zones"
+  },
+  "dns.read": {
+    "description": "DNS Read",
+    "category": "DNS & Zones"
+  },
+  "dns.write": {
+    "description": "DNS Write",
+    "category": "DNS & Zones"
+  },
+  "domain-page-shield.read": {
+    "description": "Domain Page Shield Read",
+    "category": "App Security"
+  },
+  "domain-page.shield": {
+    "description": "Domain Page Shield",
+    "category": "App Security"
+  },
+  "dynamic-redirect.read": {
+    "description": "Dynamic URL Redirects Read",
+    "category": "Rules & Configuration"
+  },
+  "dynamic-redirect.write": {
+    "description": "Dynamic URL Redirects Write",
+    "category": "Rules & Configuration"
+  },
+  "email-routing-account-rule.read": {
+    "description": "Email Routing Account Rules Read",
+    "category": "Email & Messaging"
+  },
+  "email-routing-address.read": {
+    "description": "Email Routing Addresses Read",
+    "category": "Email & Messaging"
+  },
+  "email-routing-address.write": {
+    "description": "Email Routing Addresses Write",
+    "category": "Email & Messaging"
+  },
+  "email-routing-rule.read": {
+    "description": "Email Routing Rules Read",
+    "category": "Email & Messaging"
+  },
+  "email-routing-rule.write": {
+    "description": "Email Routing Rules Write",
+    "category": "Email & Messaging"
+  },
+  "email-routing-suppression.read": {
+    "description": "Email Routing Suppressions Read",
+    "category": "Email & Messaging"
+  },
+  "email-routing-suppression.write": {
+    "description": "Email Routing Suppressions Write",
+    "category": "Email & Messaging"
+  },
+  "email-security-dmarcreports.read": {
+    "description": "Email Security DMARC Reports Read",
+    "category": "Email & Messaging"
+  },
+  "email-security-dmarcreports.write": {
+    "description": "Email Security DMARC Reports Write",
+    "category": "Email & Messaging"
+  },
+  "email-sending.read": {
+    "description": "Email Sending Read",
+    "category": "Email & Messaging"
+  },
+  "email-sending.write": {
+    "description": "Email Sending Write",
+    "category": "Email & Messaging"
+  },
+  "fbm.admin": {
+    "description": "Magic Network Monitoring Admin",
+    "category": "Network Services"
+  },
+  "fbm.read": {
+    "description": "Magic Network Monitoring Config Read",
+    "category": "Network Services"
+  },
+  "fbm.write": {
+    "description": "Magic Network Monitoring Config Write",
+    "category": "Network Services"
+  },
+  "field-extractor.read": {
+    "description": "Field Extractors Read",
+    "category": "App Security"
+  },
+  "field-extractor.write": {
+    "description": "Field Extractors Write",
+    "category": "App Security"
+  },
+  "firewall-for-ai.read": {
+    "description": "Firewall for AI Read",
+    "category": "AI & Machine Learning"
+  },
+  "firewall-for-ai.write": {
+    "description": "Firewall for AI Write",
+    "category": "AI & Machine Learning"
+  },
+  "firewall-services.read": {
+    "description": "Firewall Services Read",
+    "category": "App Security"
+  },
+  "firewall-services.write": {
+    "description": "Firewall Services Write",
+    "category": "App Security"
+  },
+  "flagship.evaluate": {
+    "description": "Flagship Evaluate",
+    "category": "Developer Platform"
+  },
+  "flagship.read": {
+    "description": "Flagship Read",
+    "category": "Developer Platform"
+  },
+  "flagship.write": {
+    "description": "Flagship Write",
+    "category": "Developer Platform"
+  },
+  "fraud-detection-pii.read": {
+    "description": "Account Abuse Protection PII Read",
+    "category": "App Security"
+  },
+  "fraud-detection.read": {
+    "description": "Fraud Detection Read",
+    "category": "App Security"
+  },
+  "fraud-detection.write": {
+    "description": "Fraud Detection Write",
+    "category": "App Security"
+  },
+  "fraud-events.write": {
+    "description": "Fraud Events Write",
+    "category": "App Security"
+  },
+  "fraud-feedback.read": {
+    "description": "Fraud Feedback Read",
+    "category": "App Security"
+  },
+  "fraud-feedback.write": {
+    "description": "Fraud Feedback Write",
+    "category": "App Security"
+  },
+  "healthcheck.read": {
+    "description": "Health Checks Read",
+    "category": "Network Services"
+  },
+  "healthcheck.write": {
+    "description": "Health Checks Write",
+    "category": "Network Services"
+  },
+  "http-applications.read": {
+    "description": "HTTP Applications Read",
+    "category": "App Security"
+  },
+  "http-applications.write": {
+    "description": "HTTP Applications Write",
+    "category": "App Security"
+  },
+  "http-ddos-managed-ruleset.read": {
+    "description": "HTTP DDoS Managed Ruleset Read",
+    "category": "App Security"
+  },
+  "http-ddos-managed-ruleset.write": {
+    "description": "HTTP DDoS Managed Ruleset Write",
+    "category": "App Security"
+  },
+  "images.metadata_read": {
+    "description": "Images Metadata Read",
+    "category": "Media"
+  },
+  "images.read": {
+    "description": "Images Read",
+    "category": "Media"
+  },
+  "images.write": {
+    "description": "Images Write",
+    "category": "Media"
+  },
+  "integration.write": {
+    "description": "Integration Write",
+    "category": "Account & Billing"
+  },
+  "intel.read": {
+    "description": "Intel Read",
+    "category": "Analytics & Logs"
+  },
+  "intel.write": {
+    "description": "Intel Write",
+    "category": "Analytics & Logs"
+  },
+  "iot.read": {
+    "description": "IOT Read",
+    "category": "App Security"
+  },
+  "iot.write": {
+    "description": "IOT Write",
+    "category": "App Security"
+  },
+  "ip-prefix-bgp-on-demand.read": {
+    "description": "IP Prefixes: BGP On Demand Read",
+    "category": "Network Services"
+  },
+  "ip-prefix-bgp-on-demand.write": {
+    "description": "IP Prefixes: BGP On Demand Write",
+    "category": "Network Services"
+  },
+  "ip-prefix.read": {
+    "description": "IP Prefixes: Read",
+    "category": "Network Services"
+  },
+  "ip-prefix.write": {
+    "description": "IP Prefixes: Write",
+    "category": "Network Services"
+  },
+  "l4-ddos-managed-ruleset.read": {
+    "description": "L4 DDoS Managed Ruleset Read",
+    "category": "App Security"
+  },
+  "l4-ddos-managed-ruleset.write": {
+    "description": "L4 DDoS Managed Ruleset Write",
+    "category": "App Security"
+  },
+  "load-balancers-account.read": {
+    "description": "Load Balancers Account Read",
+    "category": "Network Services"
+  },
+  "load-balancers-account.write": {
+    "description": "Load Balancers Account Write",
+    "category": "Network Services"
+  },
+  "load-balancers.read": {
+    "description": "Load Balancers Read",
+    "category": "Network Services"
+  },
+  "load-balancers.write": {
+    "description": "Load Balancers Write",
+    "category": "Network Services"
+  },
+  "load-balancing-monitors-and-pools.read": {
+    "description": "Load Balancing: Monitors and Pools Read",
+    "category": "Network Services"
+  },
+  "load-balancing-monitors-and-pools.write": {
+    "description": "Load Balancing: Monitors and Pools Write",
+    "category": "Network Services"
+  },
+  "logs.read": {
+    "description": "Logs Read",
+    "category": "Analytics & Logs"
+  },
+  "logs.write": {
+    "description": "Logs Write",
+    "category": "Analytics & Logs"
+  },
+  "magic-firewall.read": {
+    "description": "Magic Firewall Read",
+    "category": "Network Services"
+  },
+  "magic-firewall.write": {
+    "description": "Magic Firewall Write",
+    "category": "Network Services"
+  },
+  "magic-transit.read": {
+    "description": "Magic Transit Read",
+    "category": "Network Services"
+  },
+  "magic-transit.write": {
+    "description": "Magic Transit Write",
+    "category": "Network Services"
+  },
+  "magic-wan.read": {
+    "description": "Magic WAN Read",
+    "category": "Network Services"
+  },
+  "magic-wan.write": {
+    "description": "Magic WAN Write",
+    "category": "Network Services"
+  },
+  "managed-headers.read": {
+    "description": "Managed headers Read",
+    "category": "Rules & Configuration"
+  },
+  "managed-headers.write": {
+    "description": "Managed headers Write",
+    "category": "Rules & Configuration"
+  },
+  "mass-url-redirects.read": {
+    "description": "Mass URL Redirects Read",
+    "category": "Rules & Configuration"
+  },
+  "mass-url-redirects.write": {
+    "description": "Mass URL Redirects Write",
+    "category": "Rules & Configuration"
+  },
+  "mcp-portals.read": {
+    "description": "MCP Portals Read",
+    "category": "Developer Platform"
+  },
+  "mcp-portals.write": {
+    "description": "MCP Portals Write",
+    "category": "Developer Platform"
+  },
+  "memberships.read": {
+    "description": "Memberships Read",
+    "category": "Account & Billing"
+  },
+  "memberships.write": {
+    "description": "Memberships Write",
+    "category": "Account & Billing"
+  },
+  "messaging.edit": {
+    "description": "Messaging Edit",
+    "category": "Developer Platform"
+  },
+  "messaging.metadata_read": {
+    "description": "Messaging Metadata Read",
+    "category": "Developer Platform"
+  },
+  "messaging.read": {
+    "description": "Messaging Read",
+    "category": "Developer Platform"
+  },
+  "moq.read": {
+    "description": "MoQ Read",
+    "category": "Media"
+  },
+  "moq.write": {
+    "description": "MoQ Write",
+    "category": "Media"
+  },
+  "notifications.read": {
+    "description": "Notifications Read",
+    "category": "Account & Billing"
+  },
+  "notifications.write": {
+    "description": "Notifications Write",
+    "category": "Account & Billing"
+  },
+  "origin.read": {
+    "description": "Origin Read",
+    "category": "Rules & Configuration"
+  },
+  "origin.write": {
+    "description": "Origin Write",
+    "category": "Rules & Configuration"
+  },
+  "page-rules.read": {
+    "description": "Page Rules Read",
+    "category": "App Security"
+  },
+  "page-rules.write": {
+    "description": "Page Rules Write",
+    "category": "App Security"
+  },
+  "page-shield.read": {
+    "description": "Page Shield Read",
+    "category": "App Security"
+  },
+  "page.read": {
+    "description": "Pages Read",
+    "category": "Developer Platform"
+  },
+  "page.shield": {
+    "description": "Page Shield",
+    "category": "App Security"
+  },
+  "page.write": {
+    "description": "Pages Write",
+    "category": "Developer Platform"
+  },
+  "pages.metadata_read": {
+    "description": "Pages Metadata Read",
+    "category": "Developer Platform"
+  },
+  "payments-gateway.read": {
+    "description": "Payments Gateway Read",
+    "category": "Rules & Configuration"
+  },
+  "payments-gateway.write": {
+    "description": "Payments Gateway Write",
+    "category": "Rules & Configuration"
+  },
+  "pcaps-api.read": {
+    "description": "Magic Firewall Packet Captures - Read PCAPs API",
+    "category": "Network Services"
+  },
+  "pcaps-api.write": {
+    "description": "Magic Firewall Packet Captures - Write PCAPs API",
+    "category": "Network Services"
+  },
+  "pipelines.read": {
+    "description": "Pipelines Read",
+    "category": "Developer Platform"
+  },
+  "pipelines.send": {
+    "description": "Pipelines Send",
+    "category": "Developer Platform"
+  },
+  "pipelines.write": {
+    "description": "Pipelines Write",
+    "category": "Developer Platform"
+  },
+  "precursor.read": {
+    "description": "Precursor Read",
+    "category": "App Security"
+  },
+  "precursor.write": {
+    "description": "Precursor Write",
+    "category": "App Security"
+  },
+  "pubsub.read": {
+    "description": "Pubsub Configuration Read",
+    "category": "Developer Platform"
+  },
+  "pubsub.write": {
+    "description": "Pubsub Configuration Write",
+    "category": "Developer Platform"
+  },
+  "query-cache.read": {
+    "description": "Hyperdrive Read",
+    "category": "Developer Platform"
+  },
+  "query-cache.write": {
+    "description": "Hyperdrive Write",
+    "category": "Developer Platform"
+  },
+  "queues.metadata_read": {
+    "description": "Queues Metadata Read",
+    "category": "Developer Platform"
+  },
+  "queues.read": {
+    "description": "Queues Read",
+    "category": "Developer Platform"
+  },
+  "queues.write": {
+    "description": "Queues Write",
+    "category": "Developer Platform"
+  },
+  "r2-catalog-sql.read": {
+    "description": "Workers R2 SQL Read",
+    "category": "Developer Platform"
+  },
+  "r2-catalog.read": {
+    "description": "Workers R2 Data Catalog Read",
+    "category": "Developer Platform"
+  },
+  "r2-catalog.write": {
+    "description": "Workers R2 Data Catalog Write",
+    "category": "Developer Platform"
+  },
+  "radar.read": {
+    "description": "Radar Read",
+    "category": "Analytics & Logs"
+  },
+  "rag.read": {
+    "description": "Auto Rag Read",
+    "category": "AI & Machine Learning"
+  },
+  "rag.run": {
+    "description": "Auto Rag Write Run Engine",
+    "category": "AI & Machine Learning"
+  },
+  "rag.write": {
+    "description": "Auto Rag Write",
+    "category": "AI & Machine Learning"
+  },
+  "realtime.admin": {
+    "description": "Realtime Admin",
+    "category": "Developer Platform"
+  },
+  "realtime.write": {
+    "description": "Realtime",
+    "category": "Developer Platform"
+  },
+  "registrar-domains.admin": {
+    "description": "Registrar Domains Admin",
+    "category": "DNS & Zones"
+  },
+  "registrar-domains.read": {
+    "description": "Registrar Domains Read",
+    "category": "DNS & Zones"
+  },
+  "registrar-sandbox-domains.admin": {
+    "description": "Registrar Sandbox Domains Admin",
+    "category": "DNS & Zones"
+  },
+  "registrar-sandbox-domains.read": {
+    "description": "Registrar Sandbox Domains Read",
+    "category": "DNS & Zones"
+  },
+  "reports-application-security-report.read": {
+    "description": "Application Security Reports Read",
+    "category": "App Security"
+  },
+  "request-tracer.read": {
+    "description": "Allow Request Tracer Read",
+    "category": "App Security"
+  },
+  "resource-library.read": {
+    "description": "Resource Library Read",
+    "category": "Other"
+  },
+  "resource-library.write": {
+    "description": "Resource Library Write",
+    "category": "Other"
+  },
+  "resource-sharing.read": {
+    "description": "Resource Sharing Read",
+    "category": "Other"
+  },
+  "response-compression.read": {
+    "description": "Response Compression Read",
+    "category": "Rules & Configuration"
+  },
+  "response-compression.write": {
+    "description": "Response Compression Write",
+    "category": "Rules & Configuration"
+  },
+  "sanitize.read": {
+    "description": "Sanitize Read",
+    "category": "App Security"
+  },
+  "sanitize.write": {
+    "description": "Sanitize Write",
+    "category": "App Security"
+  },
+  "scim-provisioning.write": {
+    "description": "SCIM Provisioning",
+    "category": "Account & Billing"
+  },
+  "secrets-store.read": {
+    "description": "Secrets Store Read",
+    "category": "Developer Platform"
+  },
+  "secrets-store.write": {
+    "description": "Secrets Store Write",
+    "category": "Developer Platform"
+  },
+  "select-configuration.read": {
+    "description": "Select Configuration Read",
+    "category": "Rules & Configuration"
+  },
+  "select-configuration.write": {
+    "description": "Select Configuration Write",
+    "category": "Rules & Configuration"
+  },
+  "snippets.read": {
+    "description": "Snippets Read",
+    "category": "Rules & Configuration"
+  },
+  "snippets.write": {
+    "description": "Snippets Write",
+    "category": "Rules & Configuration"
+  },
+  "ssl-and-certificates.read": {
+    "description": "SSL and Certificates Read",
+    "category": "Cache & Performance"
+  },
+  "ssl-and-certificates.write": {
+    "description": "SSL and Certificates Write",
+    "category": "Cache & Performance"
+  },
+  "stream.metadata_read": {
+    "description": "Stream Metadata Read",
+    "category": "Media"
+  },
+  "stream.read": {
+    "description": "Stream Read",
+    "category": "Media"
+  },
+  "stream.write": {
+    "description": "Stream Write",
+    "category": "Media"
+  },
+  "tag.read": {
+    "description": "Tag Read",
+    "category": "App Security"
+  },
+  "tag.write": {
+    "description": "Tag Write",
+    "category": "App Security"
+  },
+  "teams-cds-compute-account.read": {
+    "description": "Cloudflare CDS Compute Account Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-cds-compute-account.write": {
+    "description": "Cloudflare CDS Compute Account Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-connector-cloudflared.monitoring": {
+    "description": "Cloudflare One Connector Monitoring: cloudflared",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-connector-cloudflared.read": {
+    "description": "Cloudflare One Connector: cloudflared Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-connector-cloudflared.write": {
+    "description": "Cloudflare One Connector: cloudflared Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-connector-warp.read": {
+    "description": "Cloudflare One Connector: WARP Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-connector-warp.write": {
+    "description": "Cloudflare One Connector: WARP Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-connectors.read": {
+    "description": "Cloudflare One Connectors Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-connectors.write": {
+    "description": "Cloudflare One Connectors Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-dex.read": {
+    "description": "Cloudflare DEX Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-dex.write": {
+    "description": "Cloudflare DEX Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-networks.read": {
+    "description": "Cloudflare One Networks Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-networks.write": {
+    "description": "Cloudflare One Networks Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-pii.read": {
+    "description": "Zero Trust: PII Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-resilience.read": {
+    "description": "Zero Trust Resilience Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-resilience.write": {
+    "description": "Zero Trust Resilience Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams-secure.location": {
+    "description": "Cloudflare Zero Trust Secure DNS Locations Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams.read": {
+    "description": "Zero Trust Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams.report": {
+    "description": "Zero Trust Report",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "teams.write": {
+    "description": "Zero Trust Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "transform-rules.read": {
+    "description": "Transform Rules Read",
+    "category": "Rules & Configuration"
+  },
+  "transform-rules.write": {
+    "description": "Transform Rules Write",
+    "category": "Rules & Configuration"
+  },
+  "trust-and-safety.read": {
+    "description": "Trust and Safety Read",
+    "category": "App Security"
+  },
+  "trust-and-safety.write": {
+    "description": "Trust and Safety Write",
+    "category": "App Security"
+  },
+  "url-scanner.read": {
+    "description": "URL Scanner Read",
+    "category": "App Security"
+  },
+  "url-scanner.write": {
+    "description": "URL Scanner Write",
+    "category": "App Security"
+  },
+  "user-details.read": {
+    "description": "User Details Read",
+    "category": "Account & Billing"
+  },
+  "user-details.write": {
+    "description": "User Details Write",
+    "category": "Account & Billing"
+  },
+  "vectorize.read": {
+    "description": "Vectorize Read",
+    "category": "Developer Platform"
+  },
+  "vectorize.write": {
+    "description": "Vectorize Write",
+    "category": "Developer Platform"
+  },
+  "waiting-rooms.read": {
+    "description": "Waiting Rooms Read",
+    "category": "Network Services"
+  },
+  "waiting-rooms.write": {
+    "description": "Waiting Rooms Write",
+    "category": "Network Services"
+  },
+  "web3-hostnames.read": {
+    "description": "Web3 Hostnames Read",
+    "category": "Network Services"
+  },
+  "web3-hostnames.write": {
+    "description": "Web3 Hostnames Write",
+    "category": "Network Services"
+  },
+  "websearch.metadata_read": {
+    "description": "Websearch Metadata Read",
+    "category": "AI & Machine Learning"
+  },
+  "websearch.read": {
+    "description": "Websearch Read",
+    "category": "AI & Machine Learning"
+  },
+  "websearch.run": {
+    "description": "Websearch Run",
+    "category": "AI & Machine Learning"
+  },
+  "websearch.write": {
+    "description": "Websearch Write",
+    "category": "AI & Machine Learning"
+  },
+  "workers-ci.read": {
+    "description": "Workers CI Read",
+    "category": "Developer Platform"
+  },
+  "workers-ci.write": {
+    "description": "Workers CI Write",
+    "category": "Developer Platform"
+  },
+  "workers-kv-storage.metadata_read": {
+    "description": "Workers KV Storage Metadata Read",
+    "category": "Developer Platform"
+  },
+  "workers-kv-storage.read": {
+    "description": "Workers KV Storage Read",
+    "category": "Developer Platform"
+  },
+  "workers-kv-storage.write": {
+    "description": "Workers KV Storage Write",
+    "category": "Developer Platform"
+  },
+  "workers-observability-telemetry.write": {
+    "description": "Workers Observability Telemetry Write",
+    "category": "Developer Platform"
+  },
+  "workers-observability.read": {
+    "description": "Workers Observability Read",
+    "category": "Developer Platform"
+  },
+  "workers-observability.write": {
+    "description": "Workers Observability Write",
+    "category": "Developer Platform"
+  },
+  "workers-r2-bucket-item.read": {
+    "description": "Workers R2 Storage Bucket Item Read",
+    "category": "Developer Platform"
+  },
+  "workers-r2-bucket-item.write": {
+    "description": "Workers R2 Storage Bucket Item Write",
+    "category": "Developer Platform"
+  },
+  "workers-r2.metadata_read": {
+    "description": "Workers R2 Storage Metadata Read",
+    "category": "Developer Platform"
+  },
+  "workers-r2.read": {
+    "description": "Workers R2 Storage Read",
+    "category": "Developer Platform"
+  },
+  "workers-r2.write": {
+    "description": "Workers R2 Storage Write",
+    "category": "Developer Platform"
+  },
+  "workers-routes.read": {
+    "description": "Workers Routes Read",
+    "category": "Developer Platform"
+  },
+  "workers-routes.write": {
+    "description": "Workers Routes Write",
+    "category": "Developer Platform"
+  },
+  "workers-scripts.bind": {
+    "description": "Workers Scripts Bind",
+    "category": "Developer Platform"
+  },
+  "workers-scripts.read": {
+    "description": "Workers Scripts Read",
+    "category": "Developer Platform"
+  },
+  "workers-scripts.write": {
+    "description": "Workers Scripts Write",
+    "category": "Developer Platform"
+  },
+  "workers-tail.read": {
+    "description": "Workers Tail Read",
+    "category": "Developer Platform"
+  },
+  "workers_ai.metadata_read": {
+    "description": "Workers AI Metadata Read",
+    "category": "AI & Machine Learning"
+  },
+  "zaraz.edit": {
+    "description": "Zaraz Edit",
+    "category": "App Security"
+  },
+  "zaraz.read": {
+    "description": "Zaraz Read",
+    "category": "App Security"
+  },
+  "zaraz.write": {
+    "description": "Zaraz Admin",
+    "category": "App Security"
+  },
+  "zone-access.read": {
+    "description": "Access: Apps and Policies Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "zone-access.revoke": {
+    "description": "Access: Apps and Policies Revoke",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "zone-access.write": {
+    "description": "Access: Apps and Policies Write",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "zone-custom-asset.read": {
+    "description": "Zone Custom Asset Read",
+    "category": "DNS & Zones"
+  },
+  "zone-custom-asset.write": {
+    "description": "Zone Custom Asset Write",
+    "category": "DNS & Zones"
+  },
+  "zone-disable-esc.read": {
+    "description": "Disable ESC Read",
+    "category": "Cache & Performance"
+  },
+  "zone-disable-esc.write": {
+    "description": "Disable ESC Write",
+    "category": "Cache & Performance"
+  },
+  "zone-dns-settings.read": {
+    "description": "Zone DNS Settings Read",
+    "category": "DNS & Zones"
+  },
+  "zone-dns-settings.write": {
+    "description": "Zone DNS Settings Write",
+    "category": "DNS & Zones"
+  },
+  "zone-security-center-insights.read": {
+    "description": "Zone Security Center Insights Read",
+    "category": "App Security"
+  },
+  "zone-security-center-insights.write": {
+    "description": "Zone Security Center Insights Write",
+    "category": "App Security"
+  },
+  "zone-settings.read": {
+    "description": "Zone Settings Read",
+    "category": "DNS & Zones"
+  },
+  "zone-settings.write": {
+    "description": "Zone Settings Write",
+    "category": "DNS & Zones"
+  },
+  "zone-transform-rules.read": {
+    "description": "Zone Transform Rules Read",
+    "category": "Rules & Configuration"
+  },
+  "zone-transform-rules.write": {
+    "description": "Zone Transform Rules Write",
+    "category": "Rules & Configuration"
+  },
+  "zone-versioning.read": {
+    "description": "Zone Versioning Read",
+    "category": "DNS & Zones"
+  },
+  "zone-versioning.write": {
+    "description": "Zone Versioning Write",
+    "category": "DNS & Zones"
+  },
+  "zone-waf.read": {
+    "description": "Zone WAF Read",
+    "category": "App Security"
+  },
+  "zone-waf.write": {
+    "description": "Zone WAF Write",
+    "category": "App Security"
+  },
+  "zone.read": {
+    "description": "Zone Read",
+    "category": "DNS & Zones"
+  },
+  "zone.write": {
+    "description": "Zone Write",
+    "category": "DNS & Zones"
   }
 }
