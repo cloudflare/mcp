@@ -141,6 +141,18 @@ describe('API-token-derived scopes', () => {
     expect(sorted(difference(production, staging))).toEqual(sorted(PRODUCTION_ONLY_SCOPES))
     expect(sorted(difference(staging, production))).toEqual(sorted(STAGING_ONLY_SCOPES))
   })
+
+  it('uses only the active Realtime labels', () => {
+    expect(PRODUCTION_DERIVED_SCOPES).toHaveProperty('realtime.admin')
+    expect(PRODUCTION_DERIVED_SCOPES).toHaveProperty('realtime.write')
+    expect(PRODUCTION_DERIVED_SCOPES).not.toHaveProperty('realtime.read')
+    expect(PRODUCTION_DERIVED_SCOPES).not.toHaveProperty('realtime.realtime')
+
+    expect(STAGING_DERIVED_SCOPES).toHaveProperty('realtime.admin')
+    expect(STAGING_DERIVED_SCOPES).toHaveProperty('realtime.read')
+    expect(STAGING_DERIVED_SCOPES).toHaveProperty('realtime.write')
+    expect(STAGING_DERIVED_SCOPES).not.toHaveProperty('realtime.realtime')
+  })
 })
 
 describe('scope configurations', () => {
