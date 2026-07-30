@@ -1,0 +1,19 @@
+src/auth/derived-oauth-scopes.json
+  s_a19b74e16b9f7c::t_9c93bfed8b2f05 695-702,923-934,987-994,1083,1331-1338,1343-1346,1524,1586-1589,1598-1601,1628-1643
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "b32cd34cce2caceed2b02bf9f35ff8bf3f5bef77",
+  "prompts": {},
+  "sessions": {
+    "s_a19b74e16b9f7c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fb1f2-2c28-7629-bb8e-448832daea3a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
