@@ -1,0 +1,19 @@
+tests/auth/oauth-routes.test.ts
+  s_a19b74e16b9f7c::t_60d82113928419 174,176,179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "cf1ab25bb6d26532791fc42c4425cbd5f0a1959a",
+  "prompts": {},
+  "sessions": {
+    "s_a19b74e16b9f7c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fb1f2-2c28-7629-bb8e-448832daea3a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
