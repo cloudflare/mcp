@@ -22,73 +22,6 @@ const CORE_SCOPE_DEFINITIONS = {
   }
 } as const satisfies Record<string, ScopeDefinition>
 
-/**
- * Legacy internal scopes whose permissions are not fully available through API-token-derived scopes.
- * Keep these in the picker until an API-token role exposes all of their remaining permissions.
- */
-const SPECIAL_LEGACY_SCOPES = {
-  'access:read': {
-    description: 'See Cloudflare Access data not yet covered by derived scopes',
-    category: 'Cloudflare One / Zero Trust'
-  },
-  'access:write': {
-    description: 'Manage Cloudflare Access data not yet covered by derived scopes',
-    category: 'Cloudflare One / Zero Trust'
-  },
-  'workers:write': {
-    description: 'Manage legacy Workers resources not yet covered by derived scopes',
-    category: 'Developer Platform'
-  },
-  'workers_scripts:write': {
-    description: 'Manage privileged Worker script settings not yet covered by derived scopes',
-    category: 'Developer Platform'
-  },
-  'd1:write': {
-    description: 'Manage legacy D1 resources not yet covered by derived scopes',
-    category: 'Developer Platform'
-  },
-  'pipelines:setup': {
-    description: 'Generate R2 tokens for Workers Pipelines',
-    category: 'Developer Platform'
-  },
-  'query_cache:write': {
-    description: 'Manage legacy Hyperdrive resources not yet covered by derived scopes',
-    category: 'Developer Platform'
-  },
-  'containers:write': {
-    description: 'Manage legacy Workers Containers resources not yet covered by derived scopes',
-    category: 'Developer Platform'
-  },
-  'teams:read': {
-    description: 'View Zero Trust data not yet covered by derived scopes',
-    category: 'Cloudflare One / Zero Trust'
-  },
-  'teams:write': {
-    description: 'Manage Zero Trust data not yet covered by derived scopes',
-    category: 'Cloudflare One / Zero Trust'
-  },
-  'sso-connector:read': {
-    description: 'View SSO connectors',
-    category: 'Cloudflare One / Zero Trust'
-  },
-  'sso-connector:write': {
-    description: 'Manage SSO connectors',
-    category: 'Cloudflare One / Zero Trust'
-  },
-  'cfone:write': {
-    description: 'Manage Cloudforce One data not yet covered by derived scopes',
-    category: 'App Security'
-  }
-} as const satisfies Record<string, ScopeDefinition>
-
-/** Staging's derived Cloudforce One scope does not yet cover detection-rule reads. */
-const STAGING_ONLY_SPECIAL_LEGACY_SCOPES = {
-  'cfone:read': {
-    description: 'View Cloudforce One data not yet covered by staging derived scopes',
-    category: 'App Security'
-  }
-} as const satisfies Record<string, ScopeDefinition>
-
 const FULL_ACCESS_EXCLUSIONS = new Set<string>([
   // Sensitive PII scopes are opt-in only.
   'fraud-detection-pii.read',
@@ -101,8 +34,6 @@ const FULL_ACCESS_EXCLUSIONS = new Set<string>([
 
 export type ScopeName =
   | keyof typeof CORE_SCOPE_DEFINITIONS
-  | keyof typeof SPECIAL_LEGACY_SCOPES
-  | keyof typeof STAGING_ONLY_SPECIAL_LEGACY_SCOPES
   | keyof typeof PRODUCTION_DERIVED_SCOPES
   | keyof typeof STAGING_DERIVED_SCOPES
 
@@ -150,8 +81,6 @@ function createScopeConfiguration(environment: ScopeEnvironment): ScopeConfigura
     environment === 'staging' ? STAGING_DERIVED_SCOPES : PRODUCTION_DERIVED_SCOPES
   const definitions: Record<string, ScopeDefinition> = {
     ...CORE_SCOPE_DEFINITIONS,
-    ...SPECIAL_LEGACY_SCOPES,
-    ...(environment === 'staging' ? STAGING_ONLY_SPECIAL_LEGACY_SCOPES : {}),
     ...derivedScopes
   }
 

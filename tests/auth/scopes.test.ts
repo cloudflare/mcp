@@ -44,24 +44,12 @@ const STAGING_ONLY_SCOPES = [
   'workflows.write'
 ] as const
 
-const PRODUCTION_SPECIAL_LEGACY_SCOPES = [
+const REPLACED_LEGACY_SCOPES = [
   'access:read',
   'access:write',
+  'workers:read',
   'workers:write',
   'workers_scripts:write',
-  'd1:write',
-  'pipelines:setup',
-  'query_cache:write',
-  'containers:write',
-  'teams:read',
-  'teams:write',
-  'sso-connector:read',
-  'sso-connector:write',
-  'cfone:write'
-] as const
-
-const REPLACED_LEGACY_SCOPES = [
-  'workers:read',
   'workers_kv:write',
   'workers_routes:write',
   'workers_tail:read',
@@ -73,6 +61,7 @@ const REPLACED_LEGACY_SCOPES = [
   'workers_observability_telemetry:write',
   'pages:read',
   'pages:write',
+  'd1:write',
   'ai:read',
   'ai:write',
   'aig:read',
@@ -96,16 +85,27 @@ const REPLACED_LEGACY_SCOPES = [
   'notification:write',
   'queues:write',
   'pipelines:read',
+  'pipelines:setup',
   'pipelines:write',
   'r2_catalog:write',
   'vectorize:write',
+  'query_cache:write',
   'secrets_store:read',
   'secrets_store:write',
   'browser:read',
   'browser:write',
+  'containers:write',
+  'teams:read',
+  'teams:write',
+  'teams:pii',
+  'teams:secure_location',
+  'sso-connector:read',
+  'sso-connector:write',
   'connectivity:admin',
   'connectivity:bind',
   'connectivity:read',
+  'cfone:read',
+  'cfone:write',
   'dex:read',
   'dex:write',
   'url_scanner:read',
@@ -165,29 +165,18 @@ describe('scope configurations', () => {
     )
   })
 
-  it('retains OAuth bootstrap and special production legacy scopes only', () => {
-    const productionScopes = new Set(Object.keys(getScopeConfiguration('production').allScopes))
-    const expectedColonScopes = new Set([
-      'user:read',
-      'account:read',
-      ...PRODUCTION_SPECIAL_LEGACY_SCOPES
-    ])
+  it.each(ENVIRONMENTS)(
+    '%s retains only OAuth bootstrap scopes outside the derived set',
+    (environment) => {
+      const scopes = new Set(Object.keys(getScopeConfiguration(environment).allScopes))
 
-    expect(new Set([...productionScopes].filter((scope) => scope.includes(':')))).toEqual(
-      expectedColonScopes
-    )
-    expect(productionScopes).toContain('offline_access')
-    expect(productionScopes).toHaveLength(396)
-  })
-
-  it('retains the additional special Cloudforce One read scope in staging only', () => {
-    const productionScopes = new Set(Object.keys(getScopeConfiguration('production').allScopes))
-    const stagingScopes = new Set(Object.keys(getScopeConfiguration('staging').allScopes))
-
-    expect(productionScopes).not.toContain('cfone:read')
-    expect(stagingScopes).toContain('cfone:read')
-    expect(stagingScopes).toHaveLength(397)
-  })
+      expect(new Set([...scopes].filter((scope) => scope.includes(':')))).toEqual(
+        new Set(['user:read', 'account:read'])
+      )
+      expect(scopes).toContain('offline_access')
+      expect(scopes).toHaveLength(383)
+    }
+  )
 
   it.each(REPLACED_LEGACY_SCOPES)('removes replaceable legacy scope %s', (scope) => {
     expect(getScopeConfiguration('production').allScopes).not.toHaveProperty(scope)
