@@ -1,0 +1,19 @@
+tests/auth/scopes.test.ts
+  s_a19b74e16b9f7c::t_ea8ff5eb010f96 47,50,64,88,92,97-103,107-108,168-171,173-179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "eb003b9cd890056ff18affa17fd799aaed127e9b",
+  "prompts": {},
+  "sessions": {
+    "s_a19b74e16b9f7c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fb1f2-2c28-7629-bb8e-448832daea3a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
