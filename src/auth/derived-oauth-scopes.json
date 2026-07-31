@@ -1079,6 +1079,10 @@
     "category": "Developer Platform",
     "name": "Realtime Admin"
   },
+  "realtime.read": {
+    "category": "Developer Platform",
+    "name": "Realtime Read"
+  },
   "realtime.write": {
     "category": "Developer Platform",
     "name": "Realtime"
