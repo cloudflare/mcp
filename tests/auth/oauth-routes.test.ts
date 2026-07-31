@@ -105,14 +105,14 @@ async function beginAuthorization(options: { state?: string; scopes?: string } =
   }
 }
 
-function useCloudflareAuthSuccess(): void {
+function useCloudflareAuthSuccess(scope = 'user:read'): void {
   server.use(
     http.post('https://dash.cloudflare.com/oauth2/token', () =>
       HttpResponse.json({
         access_token: 'access-token',
         expires_in: 3600,
         refresh_token: 'refresh-token',
-        scope: 'user:read',
+        scope,
         token_type: 'bearer'
       })
     ),
@@ -397,6 +397,67 @@ describe('GET /oauth/callback', () => {
     const dp = authUserCall![0] as Datapoint
     expect(dp.blobs?.[2]).toBe('user-1')
     expect(dp.blobs?.[3]).toBeFalsy()
+  })
+
+  it('carries a requested write scope through login to a real MCP API write', async () => {
+    const { clientId, state, sessionCookie, location } = await beginAuthorization({
+      scopes: 'access.write'
+    })
+    const upstreamScopes = new URL(location).searchParams.get('scope')?.split(' ') ?? []
+    expect(upstreamScopes).toEqual(
+      expect.arrayContaining(['access.write', 'user:read', 'account:read', 'offline_access'])
+    )
+
+    useCloudflareAuthSuccess('access.write user:read account:read offline_access')
+    const callback = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, {
+        headers: { Cookie: sessionCookie },
+        redirect: 'manual'
+      })
+    )
+    const code = new URL(callback.headers.get('location')!).searchParams.get('code')
+    expect(code).toBeTruthy()
+
+    const tokenResponse = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'authorization_code',
+          code: code!,
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          code_verifier: DOWNSTREAM_CODE_VERIFIER
+        }).toString()
+      })
+    )
+    expect(tokenResponse.status).toBe(200)
+    const token = (await tokenResponse.json()) as { access_token: string; scope: string }
+    expect(token.scope.split(' ')).toContain('access.write')
+
+    let writeAuthorization: string | null = null
+    server.use(
+      http.post(
+        'https://api.cloudflare.com/client/v4/accounts/acc-1/access/apps',
+        ({ request }) => {
+          writeAuthorization = request.headers.get('Authorization')
+          return HttpResponse.json(cfSuccess({ id: 'app-1', name: 'Created app' }))
+        }
+      )
+    )
+    const codeMode = `async () => cloudflare.request({ method: "POST", path: "/accounts/acc-1/access/apps", body: { name: "Created app" } })`
+    const mcpResponse = await exports.default.fetch(
+      modernMcpRequest(token.access_token, 'tools/call', {
+        name: 'execute',
+        arguments: { code: codeMode }
+      })
+    )
+    const mcpBody = await parseMcpResult(mcpResponse)
+
+    expect(mcpResponse.status).toBe(200)
+    expect(mcpBody.result?.isError).toBeFalsy()
+    expect(mcpBody.result?.content?.[0]?.text).toContain('Created app')
+    expect(writeAuthorization).toBe('Bearer access-token')
   })
 
   it('serves modern MCP from provider-issued authenticated props', async () => {
