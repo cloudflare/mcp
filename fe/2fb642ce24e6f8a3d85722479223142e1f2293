@@ -1,0 +1,33 @@
+package-lock.json
+  s_0dcf98ebe7290d::t_0c10db05ff3932 11,170-172
+package.json
+  s_0dcf98ebe7290d::t_34ce3610d84d51 22
+tests/mcp-modern.test.ts
+  s_1fd2f6fcd4817a::t_0a8f7d541084fa 256-258
+tests/non-codemode.test.ts
+  s_0dcf98ebe7290d::t_0119228f69921f 73-93,95,129-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "fe2fb642ce24e6f8a3d85722479223142e1f2293",
+  "prompts": {},
+  "sessions": {
+    "s_0dcf98ebe7290d": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fb578-1ec2-7d35-a226-13cbfdd8a143",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    },
+    "s_1fd2f6fcd4817a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019faf61-5373-7c6d-87c2-3460c1e5723d",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
