@@ -253,7 +253,9 @@ describe('MCP 2026-07-28 stateless handler', () => {
     )
 
     expect(response.status).toBe(401)
-    expect(await response.json()).toMatchObject({ error: 'invalid_token' })
+    expect(response.headers.get('www-authenticate')).toMatch(
+      /^Bearer .*resource_metadata="https:\/\/mcp\.cloudflare\.com\/\.well-known\/oauth-protected-resource\/mcp"/
+    )
   })
 })
 

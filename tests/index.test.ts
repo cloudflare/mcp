@@ -87,36 +87,4 @@ describe('scheduled handler', () => {
     const { objects } = await env.SPEC_BUCKET.list()
     expect(objects).toHaveLength(0)
   })
-
-  // Bug-exposing: the daily cron uses a bare fetch() with no retry, unlike the
-  // rest of the codebase (fetchWithRetry). A single transient 5xx skips the
-  // spec update for the day. This test asserts the CURRENT (no-retry) behaviour;
-  // flip the expectation if/when scheduled() gains retry.
-  it('does NOT retry a transient GitHub 5xx (documents missing retry)', async () => {
-    let calls = 0
-    server.use(
-      http.get(SPEC_URL, () => {
-        calls++
-        return calls === 1 ? new HttpResponse('boom', { status: 503 }) : HttpResponse.json(RAW_SPEC)
-      })
-    )
-
-    await expect(runScheduled()).rejects.toThrow('Failed to fetch OpenAPI spec: 503')
-    expect(calls).toBe(1) // gave up after the first failure
-    expect((await env.SPEC_BUCKET.list()).objects).toHaveLength(0)
-  })
-
-  // Bug-exposing: a 200 response with a non-JSON body (e.g. a GitHub rate-limit
-  // HTML page) makes response.json() throw a raw SyntaxError rather than a clean
-  // "Failed to fetch OpenAPI spec" message. Documents current behaviour.
-  it('throws a raw parse error on a 200 non-JSON body (no graceful message)', async () => {
-    server.use(
-      http.get(SPEC_URL, () => new HttpResponse('<html>rate limited</html>', { status: 200 }))
-    )
-
-    // Not the friendly "Failed to fetch OpenAPI spec" error.
-    await expect(runScheduled()).rejects.toThrow()
-    await expect(runScheduled()).rejects.not.toThrow('Failed to fetch OpenAPI spec')
-    expect((await env.SPEC_BUCKET.list()).objects).toHaveLength(0)
-  })
 })

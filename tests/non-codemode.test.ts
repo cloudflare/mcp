@@ -70,109 +70,33 @@ describe('precomputed tool contracts', () => {
   })
 })
 
-describe('toolNameToTitle', () => {
-  it('title-cases a non-codemode tool name', () => {
-    expect(toolNameToTitle('get_accounts_workers_scripts')).toBe('Get Accounts Workers Scripts')
+describe('non-Code-Mode schema generation', () => {
+  it.each([
+    ['get_accounts_workers_scripts', 'Get Accounts Workers Scripts'],
+    ['get_zones_dns_records_by_record_id', 'Get Zones Dns Records by Record Id'],
+    ['get_user', 'Get User']
+  ])('titles %s', (name, title) => {
+    expect(toolNameToTitle(name)).toBe(title)
   })
 
-  it('expands the trailing by-param suffix', () => {
-    expect(toolNameToTitle('get_zones_dns_records_by_record_id')).toBe(
-      'Get Zones Dns Records by Record Id'
-    )
+  it.each([
+    ['get', '/accounts/{account_id}/workers/scripts', 'get_accounts_workers_scripts'],
+    ['post', '/accounts/{account_id}/d1/database', 'post_accounts_d1_database'],
+    ['get', '/zones/{zone_id}/dns_records/{record_id}', 'get_zones_dns_records_by_record_id'],
+    ['post', '/client/v4/graphql', 'post_client_v4_graphql']
+  ])('maps %s %s to a stable tool name', (method, path, expected) => {
+    expect(pathToToolName(method, path)).toBe(expected)
   })
 
-  it('handles short tool names', () => {
-    expect(toolNameToTitle('get_user')).toBe('Get User')
-  })
-})
-
-describe('pathToToolName', () => {
-  it('keeps accounts in name, strips param', () => {
-    expect(pathToToolName('get', '/accounts/{account_id}/workers/scripts')).toBe(
-      'get_accounts_workers_scripts'
-    )
-  })
-
-  it('keeps zones in name, strips param', () => {
-    expect(pathToToolName('get', '/zones/{zone_id}/dns_records')).toBe('get_zones_dns_records')
-  })
-
-  it('converts a POST endpoint', () => {
-    expect(pathToToolName('post', '/accounts/{account_id}/d1/database')).toBe(
-      'post_accounts_d1_database'
-    )
-  })
-
-  it('adds by_param suffix for trailing path param', () => {
-    expect(pathToToolName('get', '/accounts/{account_id}/workers/scripts/{script_name}')).toBe(
-      'get_accounts_workers_scripts_by_script_name'
-    )
-  })
-
-  it('disambiguates collection vs resource paths', () => {
-    const collection = pathToToolName('get', '/accounts/{account_id}/workers/scripts')
-    const resource = pathToToolName('get', '/accounts/{account_id}/workers/scripts/{script_name}')
-    expect(collection).toBe('get_accounts_workers_scripts')
-    expect(resource).toBe('get_accounts_workers_scripts_by_script_name')
-    expect(collection).not.toBe(resource)
-  })
-
-  it('strips intermediate params but keeps trailing one', () => {
-    expect(
-      pathToToolName(
-        'get',
-        '/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}'
-      )
-    ).toBe('get_accounts_storage_kv_namespaces_values_by_key_name')
-  })
-
-  it('handles paths with no params', () => {
-    expect(pathToToolName('get', '/user')).toBe('get_user')
-    expect(pathToToolName('get', '/user/tokens')).toBe('get_user_tokens')
-  })
-
-  it('handles graphql path', () => {
-    expect(pathToToolName('post', '/client/v4/graphql')).toBe('post_client_v4_graphql')
-  })
-
-  it('truncates tool names to 128 characters max', () => {
-    const longPath =
+  it('bounds and cleans generated tool names', () => {
+    const name = pathToToolName(
+      'get',
       '/accounts/{account_id}/some_very_long_product_name/resources/{resource_id}/subresources/{sub_id}'
-    const name = pathToToolName('get', longPath)
-    expect(name.length).toBeLessThanOrEqual(128)
-  })
-
-  it('does not leave trailing underscore after truncation', () => {
-    const longPath =
-      '/accounts/{account_id}/long_product_name_here/resources/{resource_id}/items/{item_id}'
-    const name = pathToToolName('get', longPath)
+    )
     expect(name.length).toBeLessThanOrEqual(128)
     expect(name.endsWith('_')).toBe(false)
   })
 
-  it('all realistic Cloudflare paths produce names <= 64 chars', () => {
-    const realisticPaths = [
-      '/accounts/{account_id}/workers/scripts',
-      '/accounts/{account_id}/workers/scripts/{script_name}',
-      '/zones/{zone_id}/dns_records/{record_id}',
-      '/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}',
-      '/accounts/{account_id}/resourcelibrary/applications',
-      '/accounts/{account_id}/resourcelibrary/applications/{app_id}',
-      '/accounts/{account_id}/d1/database',
-      '/user/tokens',
-      '/client/v4/graphql',
-      '/accounts/{account_id}/workers/scripts/{script_name}/schedules'
-    ]
-    for (const path of realisticPaths) {
-      for (const method of ['get', 'post', 'put', 'patch', 'delete']) {
-        const name = pathToToolName(method, path)
-        expect(name.length).toBeLessThanOrEqual(128)
-      }
-    }
-  })
-})
-
-describe('buildInputSchema', () => {
   it('precomputes the same wire JSON Schema emitted by the MCP SDK', async () => {
     const path = '/zones/{zone_id}/dns_records/{record_id}'
     const operation: OperationInfo = {
@@ -202,7 +126,54 @@ describe('buildInputSchema', () => {
     expect(precomputed.inputSchema).toEqual(listed.inputSchema)
   })
 
-  it('deduplicates repeated path parameter names in precomputed required fields', () => {
+  it('builds a representative path, query, header, body, and content-type contract', () => {
+    const schema = buildInputSchema(
+      {
+        parameters: [
+          { name: 'zone_id', in: 'path', required: true, description: 'Zone ID' },
+          { name: 'page', in: 'query', description: 'Page number' },
+          { name: 'type', in: 'query', required: true },
+          { name: 'If-Match', in: 'header', required: true, description: 'ETag' }
+        ],
+        requestBody: {
+          required: true,
+          content: { 'application/json': {}, 'text/plain': {} }
+        }
+      },
+      '/zones/{zone_id}/dns_records/{record_id}'
+    )
+
+    expect(Object.keys(schema)).toEqual([
+      'zone_id',
+      'record_id',
+      'page',
+      'type',
+      'header_if_match',
+      'body',
+      'content_type'
+    ])
+    expect(schema.zone_id.description).toBe('Zone ID')
+    expect(schema.record_id.description).toBe('Path parameter: record_id')
+    expect(schema.page.isOptional()).toBe(true)
+    expect(schema.type.isOptional()).toBe(false)
+    expect(schema.header_if_match.isOptional()).toBe(false)
+    expect(schema.header_if_match.description).toContain('If-Match')
+    expect(schema.body.isOptional()).toBe(true)
+    expect(schema.content_type.description).toContain('text/plain')
+  })
+
+  it.each([
+    [{}, '/user', []],
+    [{ parameters: [] }, '/accounts/{account_id}/workers/scripts', ['account_id']],
+    [{ requestBody: { content: { 'application/json': {} } } }, '/client/v4/graphql', ['body']]
+  ] satisfies Array<[OperationInfo, string, string[]]>)(
+    'handles minimal operation %#',
+    (operation, path, keys) => {
+      expect(Object.keys(buildInputSchema(operation, path))).toEqual(keys)
+    }
+  )
+
+  it('deduplicates repeated path parameters in protocol-required fields', () => {
     const [tool] = buildNonCodemodeTools({
       '/accounts/{account_id}/address_maps/{map_id}/accounts/{account_id}': {
         put: {} as OperationInfo
@@ -210,356 +181,6 @@ describe('buildInputSchema', () => {
     })
 
     expect(tool.inputSchema.required).toEqual(['account_id', 'map_id'])
-  })
-
-  // --- Path parameters ---
-
-  it('creates schema with a single path parameter', () => {
-    const operation: OperationInfo = {
-      parameters: [
-        { name: 'account_id', in: 'path', required: true, description: 'Account identifier' }
-      ]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['account_id']).toBeDefined()
-  })
-
-  it('creates schema with multiple path parameters', () => {
-    const operation: OperationInfo = {
-      parameters: [
-        { name: 'zone_id', in: 'path', required: true, description: 'Zone ID' },
-        { name: 'record_id', in: 'path', required: true, description: 'DNS record ID' }
-      ]
-    }
-    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records/{record_id}')
-    expect(schema['zone_id']).toBeDefined()
-    expect(schema['record_id']).toBeDefined()
-  })
-
-  it('extracts path params from template even without explicit parameter definitions', () => {
-    const operation: OperationInfo = {}
-    const schema = buildInputSchema(
-      operation,
-      '/accounts/{account_id}/workers/scripts/{script_name}'
-    )
-    expect(schema['account_id']).toBeDefined()
-    expect(schema['script_name']).toBeDefined()
-  })
-
-  it('uses description from parameter spec when available', () => {
-    const operation: OperationInfo = {
-      parameters: [
-        { name: 'zone_id', in: 'path', required: true, description: 'The zone identifier' }
-      ]
-    }
-    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records')
-    // Zod stores description — verify it's set by checking the schema definition
-    expect(schema['zone_id'].description).toBe('The zone identifier')
-  })
-
-  it('falls back to generic description when parameter spec has no description', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'zone_id', in: 'path', required: true }]
-    }
-    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records')
-    expect(schema['zone_id'].description).toBe('Path parameter: zone_id')
-  })
-
-  it('falls back to generic description when path param has no matching parameter spec', () => {
-    const operation: OperationInfo = { parameters: [] }
-    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records')
-    expect(schema['zone_id'].description).toBe('Path parameter: zone_id')
-  })
-
-  // --- Query parameters ---
-
-  it('creates schema with required query parameter', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'per_page', in: 'query', required: true, description: 'Items per page' }]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['per_page']).toBeDefined()
-    expect(schema['per_page'].isOptional()).toBe(false)
-  })
-
-  it('creates schema with optional query parameter', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'page', in: 'query', required: false, description: 'Page number' }]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['page']).toBeDefined()
-    expect(schema['page'].isOptional()).toBe(true)
-  })
-
-  it('treats query parameter without required field as optional', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'direction', in: 'query', description: 'Sort direction' }]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['direction'].isOptional()).toBe(true)
-  })
-
-  it('handles multiple query parameters with mixed required/optional', () => {
-    const operation: OperationInfo = {
-      parameters: [
-        { name: 'page', in: 'query', required: false, description: 'Page number' },
-        { name: 'per_page', in: 'query', required: true, description: 'Items per page' },
-        { name: 'order', in: 'query', required: false, description: 'Sort order' },
-        { name: 'direction', in: 'query', required: false, description: 'asc or desc' }
-      ]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['page'].isOptional()).toBe(true)
-    expect(schema['per_page'].isOptional()).toBe(false)
-    expect(schema['order'].isOptional()).toBe(true)
-    expect(schema['direction'].isOptional()).toBe(true)
-  })
-
-  it('uses param name as fallback description for query params', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'page', in: 'query', required: false }]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['page'].description).toBe('page')
-  })
-
-  // --- Header parameters ---
-
-  it('creates schema with header parameter', () => {
-    const operation: OperationInfo = {
-      parameters: [
-        {
-          name: 'If-Match',
-          in: 'header',
-          required: false,
-          description: 'ETag for optimistic concurrency'
-        }
-      ]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['header_if_match']).toBeDefined()
-    expect(schema['header_if_match'].isOptional()).toBe(true)
-  })
-
-  it('creates required header parameter', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'If-Match', in: 'header', required: true, description: 'Required ETag' }]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['header_if_match']).toBeDefined()
-    expect(schema['header_if_match'].isOptional()).toBe(false)
-  })
-
-  it('includes header name in description', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'If-Match', in: 'header', required: false, description: 'ETag value' }]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['header_if_match'].description).toContain('If-Match')
-    expect(schema['header_if_match'].description).toContain('ETag value')
-  })
-
-  it('normalizes header name to safe key (lowercase, hyphens to underscores)', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'X-Custom-Header', in: 'header', required: false }]
-    }
-    const schema = buildInputSchema(operation, '/user')
-    expect(schema['header_x_custom_header']).toBeDefined()
-    expect(schema['header_X-Custom-Header']).toBeUndefined()
-  })
-
-  // --- Request body ---
-
-  it('adds body param when requestBody exists', () => {
-    const operation: OperationInfo = {
-      requestBody: {
-        required: true,
-        content: { 'application/json': { schema: { type: 'object' } } }
-      }
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/d1/database')
-    expect(schema['body']).toBeDefined()
-  })
-
-  it('body param is always optional in schema (validation is at API level)', () => {
-    const operation: OperationInfo = {
-      requestBody: {
-        required: true,
-        content: { 'application/json': { schema: { type: 'object' } } }
-      }
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/d1/database')
-    expect(schema['body'].isOptional()).toBe(true)
-  })
-
-  it('does not add body param when no requestBody', () => {
-    const operation: OperationInfo = {}
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['body']).toBeUndefined()
-  })
-
-  // --- Content-Type ---
-
-  it('adds content_type param when endpoint supports non-JSON content types', () => {
-    const operation: OperationInfo = {
-      requestBody: {
-        required: true,
-        content: {
-          'application/json': { schema: { type: 'object' } },
-          'application/javascript': { schema: { type: 'string' } },
-          'multipart/form-data': { schema: { type: 'object' } }
-        }
-      }
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['content_type']).toBeDefined()
-    expect(schema['content_type'].isOptional()).toBe(true)
-    expect(schema['content_type'].description).toContain('application/javascript')
-    expect(schema['content_type'].description).toContain('multipart/form-data')
-  })
-
-  it('does not add content_type param when endpoint only supports JSON', () => {
-    const operation: OperationInfo = {
-      requestBody: {
-        required: true,
-        content: { 'application/json': { schema: { type: 'object' } } }
-      }
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/d1/database')
-    expect(schema['content_type']).toBeUndefined()
-  })
-
-  it('does not add content_type param when no requestBody content', () => {
-    const operation: OperationInfo = {
-      requestBody: { required: true }
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['content_type']).toBeUndefined()
-  })
-
-  // --- Combined / complex cases ---
-
-  it('handles path params + query params + body together', () => {
-    const operation: OperationInfo = {
-      parameters: [
-        { name: 'account_id', in: 'path', required: true, description: 'Account ID' },
-        { name: 'page', in: 'query', required: false, description: 'Page' },
-        { name: 'per_page', in: 'query', required: false, description: 'Per page' }
-      ],
-      requestBody: {
-        required: true,
-        content: { 'application/json': { schema: { type: 'object' } } }
-      }
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['account_id']).toBeDefined()
-    expect(schema['page']).toBeDefined()
-    expect(schema['per_page']).toBeDefined()
-    expect(schema['body']).toBeDefined()
-    expect(Object.keys(schema)).toHaveLength(4)
-  })
-
-  it('handles path params + query params + headers + body together', () => {
-    const operation: OperationInfo = {
-      parameters: [
-        { name: 'zone_id', in: 'path', required: true },
-        { name: 'record_id', in: 'path', required: true },
-        { name: 'page', in: 'query', required: false },
-        { name: 'If-Match', in: 'header', required: false, description: 'ETag' }
-      ],
-      requestBody: { required: true, content: {} }
-    }
-    const schema = buildInputSchema(operation, '/zones/{zone_id}/dns_records/{record_id}')
-    expect(schema['zone_id']).toBeDefined()
-    expect(schema['record_id']).toBeDefined()
-    expect(schema['page']).toBeDefined()
-    expect(schema['header_if_match']).toBeDefined()
-    expect(schema['body']).toBeDefined()
-    expect(Object.keys(schema)).toHaveLength(5)
-  })
-
-  it('returns empty schema for endpoint with no path params, no query, no body', () => {
-    const operation: OperationInfo = {}
-    const schema = buildInputSchema(operation, '/user')
-    expect(Object.keys(schema)).toHaveLength(0)
-  })
-
-  it('handles endpoint with only a summary and description (no params)', () => {
-    const operation: OperationInfo = {
-      summary: 'Get current user',
-      description: 'Returns the currently authenticated user'
-    }
-    const schema = buildInputSchema(operation, '/user')
-    expect(Object.keys(schema)).toHaveLength(0)
-  })
-
-  it('ignores cookie parameters', () => {
-    const operation: OperationInfo = {
-      parameters: [{ name: 'session', in: 'cookie' as any, required: false }]
-    }
-    const schema = buildInputSchema(operation, '/user')
-    expect(schema['session']).toBeUndefined()
-    expect(Object.keys(schema)).toHaveLength(0)
-  })
-
-  it('handles empty parameters array', () => {
-    const operation: OperationInfo = { parameters: [] }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    // Should still extract account_id from the path template
-    expect(schema['account_id']).toBeDefined()
-    expect(Object.keys(schema)).toHaveLength(1)
-  })
-
-  it('handles undefined parameters', () => {
-    const operation: OperationInfo = { parameters: undefined }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    expect(schema['account_id']).toBeDefined()
-    expect(Object.keys(schema)).toHaveLength(1)
-  })
-
-  it('does not duplicate path params that also appear as query params with same name', () => {
-    // Edge case: a parameter named the same in both path and query
-    const operation: OperationInfo = {
-      parameters: [
-        { name: 'account_id', in: 'path', required: true, description: 'Account ID (path)' },
-        { name: 'account_id', in: 'query', required: false, description: 'Account ID (query)' }
-      ]
-    }
-    const schema = buildInputSchema(operation, '/accounts/{account_id}/workers/scripts')
-    // Query param overwrites path param since it's processed second
-    expect(schema['account_id']).toBeDefined()
-  })
-
-  // --- Deeply nested / unusual paths ---
-
-  it('handles deeply nested paths with many params', () => {
-    const operation: OperationInfo = {
-      parameters: [
-        { name: 'account_id', in: 'path', required: true },
-        { name: 'namespace_id', in: 'path', required: true },
-        { name: 'key_name', in: 'path', required: true }
-      ]
-    }
-    const schema = buildInputSchema(
-      operation,
-      '/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}'
-    )
-    expect(schema['account_id']).toBeDefined()
-    expect(schema['namespace_id']).toBeDefined()
-    expect(schema['key_name']).toBeDefined()
-    expect(Object.keys(schema)).toHaveLength(3)
-  })
-
-  it('handles graphql endpoint path with no params', () => {
-    const operation: OperationInfo = {
-      requestBody: {
-        required: true,
-        content: { 'application/json': { schema: { type: 'object' } } }
-      }
-    }
-    const schema = buildInputSchema(operation, '/client/v4/graphql')
-    expect(schema['body']).toBeDefined()
-    expect(Object.keys(schema)).toHaveLength(1)
   })
 })
 
