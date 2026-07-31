@@ -232,9 +232,9 @@ describe('GET /authorize', () => {
     expect(await response.text()).toContain('Unknown OAuth scope: access:write')
   })
 
-  it('shows consent when an approved client requests a broader scope', async () => {
+  it('always shows consent, including for repeated read-only requests', async () => {
     const clientId = await registerClient()
-    const initialResponse = await exports.default.fetch(
+    const request = () =>
       new Request(
         authorizeUrl({
           response_type: 'code',
@@ -243,57 +243,14 @@ describe('GET /authorize', () => {
           scope: 'user:read'
         })
       )
-    )
-    const initialHtml = await initialResponse.text()
-    const state = initialHtml.match(/name="state" value="([^"]+)"/)?.[1]
-    const csrfToken = initialHtml.match(/name="csrf_token" value="([^"]+)"/)?.[1]
-    expect(state && csrfToken).toBeTruthy()
 
-    const approvalResponse = await exports.default.fetch(
-      new Request(`${MCP_ORIGIN}/authorize`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Cookie: cookiesFrom(initialResponse)
-        },
-        body: new URLSearchParams({
-          state: state!,
-          csrf_token: csrfToken!,
-          scopes: 'user:read'
-        }).toString(),
-        redirect: 'manual'
-      })
-    )
-    expect(approvalResponse.status).toBe(302)
-    const approvalCookie = cookiesFrom(approvalResponse)
+    const firstResponse = await exports.default.fetch(request())
+    const secondResponse = await exports.default.fetch(request())
 
-    const repeatedReadResponse = await exports.default.fetch(
-      new Request(
-        authorizeUrl({
-          response_type: 'code',
-          client_id: clientId,
-          redirect_uri: REDIRECT_URI,
-          scope: 'user:read'
-        }),
-        { headers: { Cookie: approvalCookie }, redirect: 'manual' }
-      )
-    )
-    expect(repeatedReadResponse.status).toBe(302)
-
-    const upgradeResponse = await exports.default.fetch(
-      new Request(
-        authorizeUrl({
-          response_type: 'code',
-          client_id: clientId,
-          redirect_uri: REDIRECT_URI,
-          scope: 'access.write'
-        }),
-        { headers: { Cookie: approvalCookie } }
-      )
-    )
-
-    expect(upgradeResponse.status).toBe(200)
-    expect(embeddedInitialScopes(await upgradeResponse.text())).toContain('access.write')
+    expect(firstResponse.status).toBe(200)
+    expect(secondResponse.status).toBe(200)
+    expect(await firstResponse.text()).toContain('<form')
+    expect(await secondResponse.text()).toContain('<form')
   })
 
   it('silently drops stale custom-template scopes outside the catalog', async () => {

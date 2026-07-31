@@ -6,10 +6,8 @@ import {
   type ClientInfo
 } from '@cloudflare/workers-oauth-provider'
 
-const APPROVED_CLIENTS_COOKIE = '__Host-MCP_APPROVED_CLIENTS'
 const CSRF_COOKIE = '__Host-CSRF_TOKEN'
 const STATE_COOKIE = '__Host-CONSENTED_STATE'
-const ONE_YEAR_IN_SECONDS = 31536000
 const OAuthStateToken = z.uuid()
 const LegacyOAuthState = z.object({ state: OAuthStateToken }).passthrough()
 const MAX_LEGACY_OAUTH_STATE_LENGTH = 32_768
@@ -84,108 +82,6 @@ export class OAuthError extends ProviderOAuthError {
     const title = titles[this.code] || 'Authorization Error'
     return renderErrorPage(title, this.description, `Error code: ${this.code}`, this.statusCode)
   }
-}
-
-/**
- * Imports a secret key string for HMAC-SHA256 signing.
- */
-async function importKey(secret: string): Promise<CryptoKey> {
-  if (!secret) {
-    throw new Error('Cookie secret is not defined')
-  }
-  const enc = new TextEncoder()
-  return crypto.subtle.importKey(
-    'raw',
-    enc.encode(secret),
-    { hash: 'SHA-256', name: 'HMAC' },
-    false,
-    ['sign', 'verify']
-  )
-}
-
-/**
- * Signs data using HMAC-SHA256.
- */
-async function signData(key: CryptoKey, data: string): Promise<string> {
-  const enc = new TextEncoder()
-  const signatureBuffer = await crypto.subtle.sign('HMAC', key, enc.encode(data))
-  return Array.from(new Uint8Array(signatureBuffer))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
-}
-
-/**
- * Verifies an HMAC-SHA256 signature.
- */
-async function verifySignature(
-  key: CryptoKey,
-  signatureHex: string,
-  data: string
-): Promise<boolean> {
-  const enc = new TextEncoder()
-  try {
-    const signatureBytes = new Uint8Array(
-      signatureHex.match(/.{1,2}/g)!.map((byte) => Number.parseInt(byte, 16))
-    )
-    return await crypto.subtle.verify('HMAC', key, signatureBytes.buffer, enc.encode(data))
-  } catch {
-    return false
-  }
-}
-
-/**
- * Parses the signed cookie and verifies its integrity.
- */
-async function getApprovedClientsFromCookie(
-  cookieHeader: string | null,
-  secret: string
-): Promise<string[] | null> {
-  if (!cookieHeader) return null
-
-  const cookies = cookieHeader.split(';').map((c) => c.trim())
-  const targetCookie = cookies.find((c) => c.startsWith(`${APPROVED_CLIENTS_COOKIE}=`))
-
-  if (!targetCookie) return null
-
-  const cookieValue = targetCookie.substring(APPROVED_CLIENTS_COOKIE.length + 1)
-  const parts = cookieValue.split('.')
-
-  if (parts.length !== 2) return null
-
-  const [signatureHex, base64Payload] = parts
-  const payload = atob(base64Payload)
-
-  const key = await importKey(secret)
-  const isValid = await verifySignature(key, signatureHex, payload)
-
-  if (!isValid) return null
-
-  try {
-    const approvedClients = JSON.parse(payload)
-    if (
-      !Array.isArray(approvedClients) ||
-      !approvedClients.every((item) => typeof item === 'string')
-    ) {
-      return null
-    }
-    return approvedClients as string[]
-  } catch {
-    return null
-  }
-}
-
-/**
- * Checks if a given client ID has already been approved by the user.
- */
-export async function clientIdAlreadyApproved(
-  request: Request,
-  clientId: string,
-  cookieSecret: string
-): Promise<boolean> {
-  if (!clientId) return false
-  const cookieHeader = request.headers.get('Cookie')
-  const approvedClients = await getApprovedClientsFromCookie(cookieHeader, cookieSecret)
-  return approvedClients?.includes(clientId) ?? false
 }
 
 /**
@@ -1436,7 +1332,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
  */
 export interface ParsedApprovalResult {
   state: { oauthReqInfo?: AuthRequest }
-  headers: Record<string, string>
   selectedScopes?: string[]
   selectedTemplate?: string
 }
@@ -1444,10 +1339,7 @@ export interface ParsedApprovalResult {
 /**
  * Parses the form submission from the approval dialog.
  */
-export async function parseRedirectApproval(
-  request: Request,
-  cookieSecret: string
-): Promise<ParsedApprovalResult> {
+export async function parseRedirectApproval(request: Request): Promise<ParsedApprovalResult> {
   if (request.method !== 'POST') {
     throw new OAuthError('invalid_request', 'Invalid request method', 405)
   }
@@ -1483,23 +1375,8 @@ export async function parseRedirectApproval(
   const selectedScopes = formData.getAll('scopes').filter((s): s is string => typeof s === 'string')
   const selectedTemplate = formData.get('scope_template')
 
-  // Update approved clients cookie
-  const existingApprovedClients =
-    (await getApprovedClientsFromCookie(request.headers.get('Cookie'), cookieSecret)) || []
-  const updatedApprovedClients = Array.from(
-    new Set([...existingApprovedClients, state.oauthReqInfo.clientId])
-  )
-
-  const payload = JSON.stringify(updatedApprovedClients)
-  const key = await importKey(cookieSecret)
-  const signature = await signData(key, payload)
-  const newCookieValue = `${signature}.${btoa(payload)}`
-
   return {
     state,
-    headers: {
-      'Set-Cookie': `${APPROVED_CLIENTS_COOKIE}=${newCookieValue}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=${ONE_YEAR_IN_SECONDS}`
-    },
     selectedScopes: selectedScopes.length > 0 ? selectedScopes : undefined,
     selectedTemplate: typeof selectedTemplate === 'string' ? selectedTemplate : undefined
   }

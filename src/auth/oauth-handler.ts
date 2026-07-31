@@ -19,7 +19,6 @@ import {
   type AccountSchema
 } from './types'
 import {
-  clientIdAlreadyApproved,
   createOAuthState,
   bindStateToSession,
   generateCSRFProtection,
@@ -553,7 +552,7 @@ async function redirectToCloudflare(
 export function createAuthHandlers() {
   const app = new Hono()
 
-  // GET /authorize - Show consent dialog or redirect if previously approved
+  // GET /authorize - Show the requested scopes in the consent dialog
   app.get('/authorize', async (c) => {
     try {
       const oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw)
@@ -578,29 +577,6 @@ export function createAuthHandlers() {
         return new OAuthError('invalid_request', 'Missing client_id').toHtmlResponse()
       }
 
-      // The approval cookie records only the client ID, not its approved scope set. Only skip
-      // consent when this request stays within the default read-only grant; broader requests
-      // must be shown so a previous approval cannot silently downgrade a scope upgrade.
-      const defaultScopeSet = new Set<string>(defaultScopes)
-      const canReuseApproval = scopesToRequest.every((scope) => defaultScopeSet.has(scope))
-      if (
-        canReuseApproval &&
-        (await clientIdAlreadyApproved(
-          c.req.raw,
-          oauthReqInfo.clientId,
-          env.MCP_COOKIE_ENCRYPTION_KEY
-        ))
-      ) {
-        const { codeChallenge, codeVerifier } = await generatePKCECodes()
-        const stateToken = await createOAuthState(oauthReqInfo, env.OAUTH_KV, codeVerifier)
-        const { setCookie: sessionCookie } = await bindStateToSession(stateToken)
-
-        return redirectToCloudflare(c.req.url, stateToken, codeChallenge, scopesToRequest, {
-          'Set-Cookie': sessionCookie
-        })
-      }
-
-      // Client not approved - show consent dialog with scope selection
       const { token: csrfToken, setCookie: csrfCookie } = generateCSRFProtection()
 
       return renderApprovalDialog(c.req.raw, {
@@ -636,10 +612,7 @@ export function createAuthHandlers() {
   // POST /authorize - Handle consent form submission
   app.post('/authorize', async (c) => {
     try {
-      const { state, headers, selectedScopes } = await parseRedirectApproval(
-        c.req.raw,
-        env.MCP_COOKIE_ENCRYPTION_KEY
-      )
+      const { state, selectedScopes } = await parseRedirectApproval(c.req.raw)
 
       if (!state.oauthReqInfo) {
         return new OAuthError('invalid_request', 'Missing OAuth request info').toHtmlResponse()
@@ -667,10 +640,6 @@ export function createAuthHandlers() {
         scopesToRequest
       )
 
-      // Add both cookies
-      if (headers['Set-Cookie']) {
-        redirectResponse.headers.append('Set-Cookie', headers['Set-Cookie'])
-      }
       redirectResponse.headers.append('Set-Cookie', sessionCookie)
 
       return redirectResponse
