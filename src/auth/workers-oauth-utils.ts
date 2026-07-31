@@ -220,6 +220,7 @@ export interface ApprovalDialogOptions {
   scopeDefinitions: Record<string, ScopeDefinition>
   defaultTemplate: string
   requiredScopes: readonly string[]
+  initialScopes: readonly string[]
 }
 
 /**
@@ -457,7 +458,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     scopeTemplates,
     scopeDefinitions,
     defaultTemplate,
-    requiredScopes
+    requiredScopes,
+    initialScopes
   } = options
 
   const encodedState = encodeBase64Utf8(JSON.stringify(state))
@@ -1114,6 +1116,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       const TEMPLATES = ${templateDataJson};
       const TEMPLATE_META = ${templateMetaJson};
       const DEFAULT_TEMPLATE = ${JSON.stringify(defaultTemplate ?? null)};
+      const INITIAL_SCOPES = ${JSON.stringify(initialScopes)};
       const REQUIRED = new Set(${JSON.stringify(Array.from(requiredSet))});
       const ALL_SCOPES = new Set(${JSON.stringify(Object.keys(scopeDefinitions))});
       const LS_KEY = 'cf-mcp-consent:user-templates:v1';
@@ -1403,7 +1406,14 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       });
 
       renderTemplates();
-      applyTemplate(DEFAULT_TEMPLATE || Object.keys(TEMPLATES)[0] || '__custom__');
+      selected.clear();
+      for (const scope of INITIAL_SCOPES) if (ALL_SCOPES.has(scope)) selected.add(scope);
+      for (const scope of REQUIRED) selected.add(scope);
+      const initialTemplate = matchesExistingTemplate();
+      activeTemplate = initialTemplate || '__custom__';
+      dirty = !initialTemplate;
+      updateActiveTemplateUI();
+      syncPills();
       onSearch();
     })();
   </script>

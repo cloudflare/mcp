@@ -557,27 +557,45 @@ export function createAuthHandlers() {
   app.get('/authorize', async (c) => {
     try {
       const oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw)
-      // Use default template scopes initially
       const defaultScopes = [...SCOPE_TEMPLATES[DEFAULT_TEMPLATE].scopes]
-      oauthReqInfo.scope = defaultScopes
+      const requestedScopes = oauthReqInfo.scope ?? []
+      const unknownScopes = requestedScopes.filter((scope) => !ALLOWED_SCOPES.has(scope))
+      if (unknownScopes.length > 0) {
+        return new OAuthError(
+          'invalid_scope',
+          `Unknown OAuth scope: ${unknownScopes.join(', ')}`
+        ).toHtmlResponse()
+      }
+      const scopesToRequest = Array.from(
+        new Set([
+          ...(requestedScopes.length > 0 ? requestedScopes : defaultScopes),
+          ...REQUIRED_SCOPES
+        ])
+      )
+      oauthReqInfo.scope = scopesToRequest
 
       if (!oauthReqInfo.clientId) {
         return new OAuthError('invalid_request', 'Missing client_id').toHtmlResponse()
       }
 
-      // Check if client was previously approved - skip consent if so
+      // The approval cookie records only the client ID, not its approved scope set. Only skip
+      // consent when this request stays within the default read-only grant; broader requests
+      // must be shown so a previous approval cannot silently downgrade a scope upgrade.
+      const defaultScopeSet = new Set<string>(defaultScopes)
+      const canReuseApproval = scopesToRequest.every((scope) => defaultScopeSet.has(scope))
       if (
-        await clientIdAlreadyApproved(
+        canReuseApproval &&
+        (await clientIdAlreadyApproved(
           c.req.raw,
           oauthReqInfo.clientId,
           env.MCP_COOKIE_ENCRYPTION_KEY
-        )
+        ))
       ) {
         const { codeChallenge, codeVerifier } = await generatePKCECodes()
         const stateToken = await createOAuthState(oauthReqInfo, env.OAUTH_KV, codeVerifier)
         const { setCookie: sessionCookie } = await bindStateToSession(stateToken)
 
-        return redirectToCloudflare(c.req.url, stateToken, codeChallenge, defaultScopes, {
+        return redirectToCloudflare(c.req.url, stateToken, codeChallenge, scopesToRequest, {
           'Set-Cookie': sessionCookie
         })
       }
@@ -598,7 +616,8 @@ export function createAuthHandlers() {
         scopeTemplates: SCOPE_TEMPLATES,
         scopeDefinitions: SCOPE_DEFINITIONS,
         defaultTemplate: DEFAULT_TEMPLATE,
-        requiredScopes: REQUIRED_SCOPES
+        requiredScopes: REQUIRED_SCOPES,
+        initialScopes: scopesToRequest
       })
     } catch (e) {
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize Error', e) }))

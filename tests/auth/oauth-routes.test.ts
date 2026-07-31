@@ -20,6 +20,8 @@ import { server } from '../setup/msw'
 
 const REDIRECT_URI = 'https://app.example.com/cb'
 const MCP_ORIGIN = 'https://mcp.cloudflare.com'
+const DOWNSTREAM_CODE_VERIFIER = 'test-downstream-code-verifier'
+const DOWNSTREAM_CODE_CHALLENGE = 'I4fhllfHqqQsgap17V2SDI0scSei8H7U0e0rZBDIcbo'
 
 /** Register a client via the provider's RFC 7591 endpoint; returns its id. */
 async function registerClient(): Promise<string> {
@@ -40,6 +42,8 @@ async function registerClient(): Promise<string> {
 function authorizeUrl(params: Record<string, string>): string {
   const u = new URL(`${MCP_ORIGIN}/authorize`)
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v)
+  u.searchParams.set('code_challenge', DOWNSTREAM_CODE_CHALLENGE)
+  u.searchParams.set('code_challenge_method', 'S256')
   return u.toString()
 }
 
@@ -47,6 +51,12 @@ function embeddedTemplateScopes(html: string): Record<string, string[]> {
   const encoded = html.match(/const TEMPLATES = ([^;]+);/)?.[1]
   expect(encoded).toBeTruthy()
   return JSON.parse(encoded!) as Record<string, string[]>
+}
+
+function embeddedInitialScopes(html: string): string[] {
+  const encoded = html.match(/const INITIAL_SCOPES = ([^;]+);/)?.[1]
+  expect(encoded).toBeTruthy()
+  return JSON.parse(encoded!) as string[]
 }
 
 async function beginAuthorization(options: { state?: string; scopes?: string } = {}): Promise<{
@@ -62,7 +72,7 @@ async function beginAuthorization(options: { state?: string; scopes?: string } =
         response_type: 'code',
         client_id: clientId,
         redirect_uri: REDIRECT_URI,
-        scope: 'user:read',
+        scope: options.scopes ?? 'user:read',
         ...(options.state === undefined ? {} : { state: options.state })
       })
     )
@@ -181,6 +191,109 @@ describe('GET /authorize', () => {
     expect(templates['full-access']).not.toContain('realtime.realtime')
     // Happy path emits no auth_user event.
     expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
+  })
+
+  it('preserves valid requested scopes and preselects them with required scopes', async () => {
+    const clientId = await registerClient()
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'access.write'
+        })
+      )
+    )
+
+    expect(response.status).toBe(200)
+    expect(embeddedInitialScopes(await response.text())).toEqual([
+      'access.write',
+      'user:read',
+      'offline_access',
+      'account:read'
+    ])
+  })
+
+  it('rejects unknown requested scopes instead of silently downgrading them', async () => {
+    const clientId = await registerClient()
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'access:write'
+        })
+      )
+    )
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toContain('Unknown OAuth scope: access:write')
+  })
+
+  it('shows consent when an approved client requests a broader scope', async () => {
+    const clientId = await registerClient()
+    const initialResponse = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'user:read'
+        })
+      )
+    )
+    const initialHtml = await initialResponse.text()
+    const state = initialHtml.match(/name="state" value="([^"]+)"/)?.[1]
+    const csrfToken = initialHtml.match(/name="csrf_token" value="([^"]+)"/)?.[1]
+    expect(state && csrfToken).toBeTruthy()
+
+    const approvalResponse = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/authorize`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Cookie: cookiesFrom(initialResponse)
+        },
+        body: new URLSearchParams({
+          state: state!,
+          csrf_token: csrfToken!,
+          scopes: 'user:read'
+        }).toString(),
+        redirect: 'manual'
+      })
+    )
+    expect(approvalResponse.status).toBe(302)
+    const approvalCookie = cookiesFrom(approvalResponse)
+
+    const repeatedReadResponse = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'user:read'
+        }),
+        { headers: { Cookie: approvalCookie }, redirect: 'manual' }
+      )
+    )
+    expect(repeatedReadResponse.status).toBe(302)
+
+    const upgradeResponse = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'access.write'
+        }),
+        { headers: { Cookie: approvalCookie } }
+      )
+    )
+
+    expect(upgradeResponse.status).toBe(200)
+    expect(embeddedInitialScopes(await upgradeResponse.text())).toContain('access.write')
   })
 
   it('silently drops stale custom-template scopes outside the catalog', async () => {
@@ -306,7 +419,8 @@ describe('GET /oauth/callback', () => {
           grant_type: 'authorization_code',
           code: code!,
           client_id: clientId,
-          redirect_uri: REDIRECT_URI
+          redirect_uri: REDIRECT_URI,
+          code_verifier: DOWNSTREAM_CODE_VERIFIER
         }).toString()
       })
     )
