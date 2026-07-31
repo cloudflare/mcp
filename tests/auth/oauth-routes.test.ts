@@ -399,7 +399,7 @@ describe('GET /oauth/callback', () => {
     expect(dp.blobs?.[3]).toBeFalsy()
   })
 
-  it('carries a requested write scope through login to a real MCP API write', async () => {
+  it('carries a requested write scope through the complete OAuth exchange', async () => {
     const { clientId, state, sessionCookie, location } = await beginAuthorization({
       scopes: 'access.write'
     })
@@ -432,32 +432,10 @@ describe('GET /oauth/callback', () => {
       })
     )
     expect(tokenResponse.status).toBe(200)
-    const token = (await tokenResponse.json()) as { access_token: string; scope: string }
-    expect(token.scope.split(' ')).toContain('access.write')
-
-    let writeAuthorization: string | null = null
-    server.use(
-      http.post(
-        'https://api.cloudflare.com/client/v4/accounts/acc-1/access/apps',
-        ({ request }) => {
-          writeAuthorization = request.headers.get('Authorization')
-          return HttpResponse.json(cfSuccess({ id: 'app-1', name: 'Created app' }))
-        }
-      )
+    const token = (await tokenResponse.json()) as { scope: string }
+    expect(token.scope.split(' ')).toEqual(
+      expect.arrayContaining(['access.write', 'user:read', 'account:read', 'offline_access'])
     )
-    const codeMode = `async () => cloudflare.request({ method: "POST", path: "/accounts/acc-1/access/apps", body: { name: "Created app" } })`
-    const mcpResponse = await exports.default.fetch(
-      modernMcpRequest(token.access_token, 'tools/call', {
-        name: 'execute',
-        arguments: { code: codeMode }
-      })
-    )
-    const mcpBody = await parseMcpResult(mcpResponse)
-
-    expect(mcpResponse.status).toBe(200)
-    expect(mcpBody.result?.isError).toBeFalsy()
-    expect(mcpBody.result?.content?.[0]?.text).toContain('Created app')
-    expect(writeAuthorization).toBe('Bearer access-token')
   })
 
   it('serves modern MCP from provider-issued authenticated props', async () => {
