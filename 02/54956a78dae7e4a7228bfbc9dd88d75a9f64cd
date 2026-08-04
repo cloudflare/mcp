@@ -1,0 +1,23 @@
+src/index.ts
+  s_dc4fa941113de4::t_38496a42a5da9f 59
+vitest.config.ts
+  s_dc4fa941113de4::t_3492dcf941daa1 14-15
+wrangler.jsonc
+  s_dc4fa941113de4::t_6b42eba37a42f5 21,107,158
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0254956a78dae7e4a7228bfbc9dd88d75a9f64cd",
+  "prompts": {},
+  "sessions": {
+    "s_dc4fa941113de4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fce49-e8e4-73f1-8cc9-3c8dbda8bd36",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
