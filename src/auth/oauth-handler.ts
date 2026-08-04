@@ -54,9 +54,8 @@ function authErrorMessage(prefix: string, e: unknown): string {
 
 /**
  * Refresh the upstream Cloudflare grant when workers-oauth-provider refreshes
- * its downstream access token. Cloudflare's OAuth server accepts concurrent
- * reuse of a refresh token during its grace period and returns the same rotated
- * credentials, so no application-level singleflight or KV guard is needed.
+ * its downstream access token. The per-grant admission gate rejects competing
+ * provider exchanges so they cannot independently rotate downstream tokens.
  */
 export async function handleTokenExchangeCallback(
   options: TokenExchangeCallbackOptions,

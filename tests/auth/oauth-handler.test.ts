@@ -5,10 +5,9 @@ import {
 } from '@cloudflare/workers-oauth-provider'
 import { env } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { handleTokenExchangeCallback } from '../../src/auth/oauth-handler'
-import { clearRefreshAdmissionsForTesting } from '../../src/auth/refresh-admission-gate'
 import { OAuthError } from '../../src/auth/workers-oauth-utils'
 import { clearKv } from '../helpers/kv'
 import { server } from '../setup/msw'
@@ -22,13 +21,16 @@ function mockOAuthHelpers() {
   }
 }
 
+let grantId: string
+let grantSequence = 0
+
 function refreshCallback(refreshToken = 'old-refresh-token', getHelpers?: () => OAuthHelpers) {
   return handleTokenExchangeCallback(
     {
       grantType: GrantType.REFRESH_TOKEN,
       clientId: 'mcp-client',
       userId: 'user-1',
-      grantId: 'grant-exact',
+      grantId,
       scope: [],
       requestedScope: [],
       props: {
@@ -58,9 +60,12 @@ const expectedRefreshResult = {
 
 const OAUTH_TOKEN_URL = 'https://dash.cloudflare.com/oauth2/token'
 
+beforeEach(() => {
+  grantId = `grant-${++grantSequence}`
+})
+
 afterEach(async () => {
   vi.restoreAllMocks()
-  clearRefreshAdmissionsForTesting()
   await clearKv(env.OAUTH_KV)
 })
 
@@ -180,7 +185,7 @@ describe('handleTokenExchangeCallback', () => {
       statusCode: 400
     })
     expect(helpers.revokeGrant).toHaveBeenCalledOnce()
-    expect(helpers.revokeGrant).toHaveBeenCalledWith('grant-exact', 'user-1')
+    expect(helpers.revokeGrant).toHaveBeenCalledWith(grantId, 'user-1')
   })
 
   it('does not revoke the grant for transient upstream failures', async () => {

@@ -1,21 +1,23 @@
+import { z } from 'zod'
+
 import { OAuthError } from './workers-oauth-utils'
 
 const ADMISSION_PREFIX = 'oauth:refresh-admission:v1'
-const ADMISSION_WINDOW_MS = 90_000
-const ADMISSION_TTL_SECONDS = 120
+// Collapse the concurrent request burst without consuming Cloudflare OAuth's
+// 90-second upstream retry grace. If provider persistence fails after the
+// callback succeeds, the client can retry while that upstream token is valid.
+const ADMISSION_WINDOW_MS = 10_000
+const ADMISSION_TTL_SECONDS = 60
 const CLAIM_SETTLE_MS = 100
 
 const localBlocks = new Map<string, number>()
 
-/** Clear isolate-local admission state between workerd tests. */
-export function clearRefreshAdmissionsForTesting(): void {
-  localBlocks.clear()
-}
+const AdmissionRecord = z.object({
+  owner: z.string().min(1),
+  blockedUntil: z.number().finite()
+})
 
-type AdmissionRecord = {
-  owner: string
-  blockedUntil: number
-}
+type AdmissionRecord = z.infer<typeof AdmissionRecord>
 
 function admissionKey(userId: string, grantId: string): string {
   return `${ADMISSION_PREFIX}:${userId}:${grantId}`
@@ -34,20 +36,10 @@ function rejectAdmission(blockedUntil: number): never {
   )
 }
 
-function isTerminalRefreshError(error: unknown): boolean {
-  return (
-    error instanceof OAuthError &&
-    ['invalid_grant', 'invalid_client', 'unauthorized_client'].includes(error.code)
-  )
-}
-
 async function readAdmission(kv: KVNamespace, key: string): Promise<AdmissionRecord | null> {
   try {
-    const value = await kv.get(key, 'json')
-    if (!value || typeof value !== 'object') return null
-    const { owner, blockedUntil } = value as Partial<AdmissionRecord>
-    if (typeof owner !== 'string' || typeof blockedUntil !== 'number') return null
-    return { owner, blockedUntil }
+    const parsed = AdmissionRecord.safeParse(await kv.get(key, 'json'))
+    return parsed.success ? parsed.data : null
   } catch (error) {
     console.warn('Refresh admission: failed to read KV claim', error)
     return null
@@ -56,9 +48,10 @@ async function readAdmission(kv: KVNamespace, key: string): Promise<AdmissionRec
 
 async function releaseAdmission(kv: KVNamespace, key: string, owner: string): Promise<void> {
   localBlocks.delete(key)
+  const current = await readAdmission(kv, key)
+  if (current?.owner !== owner) return
   try {
-    const current = await readAdmission(kv, key)
-    if (current?.owner === owner) await kv.delete(key)
+    await kv.delete(key)
   } catch (error) {
     console.warn('Refresh admission: failed to release KV claim', error)
   }
@@ -116,7 +109,10 @@ export async function withRefreshAdmission<T>(
   try {
     return await refresh()
   } catch (error) {
-    if (!isTerminalRefreshError(error)) await releaseAdmission(kv, key, owner)
+    // The callback did not produce credentials, so no downstream rotation can
+    // follow. Release every failure; terminal invalid_grant revocation belongs
+    // to the caller that owns the downstream grant lifecycle.
+    await releaseAdmission(kv, key, owner)
     throw error
   }
 }
