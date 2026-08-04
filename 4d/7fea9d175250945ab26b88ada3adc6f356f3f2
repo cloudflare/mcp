@@ -1,0 +1,21 @@
+package-lock.json
+  s_41e4d933b7aacf::t_e363c9ee9ae40c 11,171-172
+package.json
+  s_41e4d933b7aacf::t_b3745dd1540987 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "4d7fea9d175250945ab26b88ada3adc6f356f3f2",
+  "prompts": {},
+  "sessions": {
+    "s_41e4d933b7aacf": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fcc52-11a9-76d0-8c10-984266179b16",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
