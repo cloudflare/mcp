@@ -1,0 +1,19 @@
+AGENTS.md
+  s_1fd2f6fcd4817a::t_475b4fba8f55af 65-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6c2498eb6f158778ef024afaa75a8a94c09e1acf",
+  "prompts": {},
+  "sessions": {
+    "s_1fd2f6fcd4817a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019faf61-5373-7c6d-87c2-3460c1e5723d",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
