@@ -5,7 +5,8 @@
 	"main": "src/index.ts",
 	"compatibility_date": "2026-01-12",
 	"compatibility_flags": [
-		"nodejs_compat"
+		"nodejs_compat",
+		"global_fetch_strictly_public"
 	],
 	"observability": {
 		"logs": {

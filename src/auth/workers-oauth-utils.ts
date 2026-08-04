@@ -112,6 +112,7 @@ export interface ScopeDefinition {
  */
 export interface ApprovalDialogOptions {
   client: ClientInfo | null
+  redirectUri: string
   server: {
     name: string
     logo?: string
@@ -137,6 +138,55 @@ function sanitizeHtml(unsafe: string): string {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;')
+}
+
+function hostnameFromUrl(value: string, requireHttps = false): string | undefined {
+  try {
+    const url = new URL(value)
+    if (requireHttps && url.protocol !== 'https:') return undefined
+    return url.hostname || undefined
+  } catch {
+    return undefined
+  }
+}
+
+function isLoopbackHostname(hostname: string): boolean {
+  const normalized = hostname.toLowerCase()
+  if (normalized === 'localhost' || normalized === '::1' || normalized === '[::1]') return true
+
+  const octets = normalized.split('.')
+  return (
+    octets.length === 4 &&
+    octets[0] === '127' &&
+    octets.every((octet) => /^\d{1,3}$/.test(octet) && Number(octet) <= 255)
+  )
+}
+
+/**
+ * MCP requires authorization redirects to use HTTPS, except for loopback
+ * callbacks used by native clients. Reject URL features that make the
+ * destination ambiguous or are forbidden for OAuth redirect endpoints.
+ */
+export function isAllowedOAuthRedirectUri(value: string): boolean {
+  if (value !== value.trim()) return false
+
+  try {
+    const url = new URL(value)
+    if (!url.hostname || url.username || url.password || url.hash) return false
+    if (url.protocol === 'https:') return true
+    return url.protocol === 'http:' && isLoopbackHostname(url.hostname)
+  } catch {
+    return false
+  }
+}
+
+function isLoopbackRedirectUri(value: string): boolean {
+  try {
+    const url = new URL(value)
+    return url.protocol === 'http:' && isLoopbackHostname(url.hostname)
+  } catch {
+    return false
+  }
 }
 
 /**
@@ -356,6 +406,7 @@ const ACTION_LABELS: Record<string, string> = {
 export function renderApprovalDialog(request: Request, options: ApprovalDialogOptions): Response {
   const {
     client,
+    redirectUri,
     state,
     csrfToken,
     setCookie,
@@ -368,6 +419,12 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
   const encodedState = encodeBase64Utf8(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
+  const redirectHostname = hostnameFromUrl(redirectUri)
+  if (!redirectHostname) {
+    throw new OAuthError('invalid_request', 'Redirect URI must include a hostname')
+  }
+  const clientIdHostname = client ? hostnameFromUrl(client.clientId, true) : undefined
+  const isLocalRedirect = isLoopbackRedirectUri(redirectUri)
   const requiredSet = new Set(requiredScopes)
   const categories = groupScopesByCategory(scopeDefinitions, requiredSet)
 
@@ -509,7 +566,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .card-subtitle { font-size: 14px; color: var(--cf-text-subtle); letter-spacing: -0.16px; }
     .card-body { padding: 1.5rem 2rem; }
 
-    /* Client badge */
+    /* Client identity */
+    .client-identity { margin-bottom: 1.5rem; }
     .client-badge {
       display: inline-flex;
       align-items: center;
@@ -519,7 +577,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       border-radius: var(--border-radius);
       font-size: 14px;
       font-weight: 500;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.75rem;
       border: 1px solid var(--cf-hairline);
     }
     .client-badge-icon {
@@ -532,6 +590,39 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       justify-content: center;
     }
     .client-badge-icon svg { width: 12px; height: 12px; }
+    .client-details {
+      border: 1px solid var(--cf-hairline);
+      border-radius: var(--border-radius);
+      background: var(--cf-elevated);
+      overflow: hidden;
+    }
+    .client-detail {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.55rem 0.85rem;
+    }
+    .client-detail + .client-detail { border-top: 1px solid var(--cf-hairline); }
+    .client-detail-label { color: var(--cf-text-subtle); }
+    .client-detail-hostname {
+      color: var(--cf-text-default);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+      text-align: right;
+    }
+    .local-redirect-warning {
+      margin-top: 0.75rem;
+      padding: 0.75rem 0.85rem;
+      border: 1px solid var(--cf-orange);
+      border-radius: var(--border-radius);
+      background: rgba(246, 130, 31, 0.08);
+      color: var(--cf-text-default);
+      font-size: 13px;
+      line-height: 1.45;
+    }
 
     /* Section labels (match dashboard 'Edit policy' heading: 14px/500/subtle) */
     .section { margin-bottom: 1.5rem; }
@@ -946,13 +1037,36 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       </div>
 
       <div class="card-body">
-        <div class="client-badge">
-          <span class="client-badge-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-          </span>
-          ${clientName}
+        <div class="client-identity">
+          <div class="client-badge">
+            <span class="client-badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </span>
+            ${clientName}
+          </div>
+          <div class="client-details" aria-label="OAuth client identity and redirect destination">
+            ${
+              clientIdHostname
+                ? `<div class="client-detail">
+              <span class="client-detail-label">Client ID hostname</span>
+              <strong class="client-detail-hostname">${sanitizeHtml(clientIdHostname)}</strong>
+            </div>`
+                : ''
+            }
+            <div class="client-detail">
+              <span class="client-detail-label">Redirect URI hostname</span>
+              <strong class="client-detail-hostname">${sanitizeHtml(redirectHostname)}</strong>
+            </div>
+          </div>
+          ${
+            isLocalRedirect
+              ? `<div class="local-redirect-warning" role="alert">
+            Local redirect: this client will receive the authorization code on this device. Only continue if you trust the application that opened this page.
+          </div>`
+              : ''
+          }
         </div>
 
         <form method="post" action="${new URL(request.url).pathname}" id="authForm">

@@ -13,6 +13,7 @@ import {
   createOAuthState,
   bindStateToSession,
   generateCSRFProtection,
+  isAllowedOAuthRedirectUri,
   parseRedirectApproval,
   renderApprovalDialog,
   renderErrorPage,
@@ -141,6 +142,30 @@ async function redirectToCloudflare(
   })
 }
 
+function cimdUnavailableResponse(): Response {
+  return new OAuthError(
+    'temporarily_unavailable',
+    'Client metadata is temporarily unavailable. Please try again.',
+    503,
+    { 'Retry-After': '30' }
+  ).toHtmlResponse()
+}
+
+function cimdCallbackFailureResponse(): Response {
+  return new OAuthError(
+    'server_error',
+    'Client metadata could not be verified after sign-in. Restart authorization from your MCP client.',
+    500
+  ).toHtmlResponse()
+}
+
+function invalidRedirectUriResponse(): Response {
+  return new OAuthError(
+    'invalid_request',
+    'Redirect URI must use HTTPS or a local loopback address'
+  ).toHtmlResponse()
+}
+
 /**
  * Create OAuth route handlers using patterns from workers-oauth-provider
  */
@@ -155,7 +180,7 @@ export function createAuthHandlers() {
         oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw)
       } catch (error) {
         if (error instanceof AuthorizationError) {
-          if (!error.redirectUri) {
+          if (!error.redirectUri || !isAllowedOAuthRedirectUri(error.redirectUri)) {
             return new OAuthError(error.code, error.description).toHtmlResponse()
           }
           const redirect = new URL(error.redirectUri)
@@ -169,14 +194,12 @@ export function createAuthHandlers() {
           })
         }
         if (error instanceof CimdFetchError) {
-          return new OAuthError(
-            'temporarily_unavailable',
-            'Client metadata is temporarily unavailable. Please try again.',
-            503,
-            { 'Retry-After': '30' }
-          ).toHtmlResponse()
+          return cimdUnavailableResponse()
         }
         throw error
+      }
+      if (!isAllowedOAuthRedirectUri(oauthReqInfo.redirectUri)) {
+        return invalidRedirectUriResponse()
       }
       const defaultScopes = [...SCOPE_TEMPLATES[DEFAULT_TEMPLATE].scopes]
       const requestedScopes = oauthReqInfo.scope ?? []
@@ -199,6 +222,7 @@ export function createAuthHandlers() {
 
       return renderApprovalDialog(c.req.raw, {
         client: await env.OAUTH_PROVIDER.lookupClient(oauthReqInfo.clientId),
+        redirectUri: oauthReqInfo.redirectUri,
         server: {
           name: 'Cloudflare API MCP',
           logo: 'https://www.cloudflare.com/favicon.ico',
@@ -214,6 +238,7 @@ export function createAuthHandlers() {
         initialScopes: scopesToRequest
       })
     } catch (e) {
+      if (e instanceof CimdFetchError) return cimdUnavailableResponse()
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize Error', e) }))
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
@@ -237,6 +262,9 @@ export function createAuthHandlers() {
       }
 
       const oauthReqInfo = state.oauthReqInfo as AuthRequest
+      if (!isAllowedOAuthRedirectUri(oauthReqInfo.redirectUri)) {
+        return invalidRedirectUriResponse()
+      }
 
       // Drop stale custom-template entries and always restore required bootstrap scopes.
       const scopesToRequest = Array.from(
@@ -289,6 +317,12 @@ export function createAuthHandlers() {
         env.OAUTH_KV
       )
 
+      if (!isAllowedOAuthRedirectUri(oauthReqInfo.redirectUri)) {
+        const response = invalidRedirectUriResponse()
+        response.headers.append('Set-Cookie', clearCookie)
+        return response
+      }
+
       if (!oauthReqInfo.clientId) {
         return new OAuthError('invalid_request', 'Invalid OAuth request info').toHtmlResponse()
       }
@@ -321,6 +355,10 @@ export function createAuthHandlers() {
         } satisfies AuthProps
       })
 
+      if (!isAllowedOAuthRedirectUri(redirectTo)) {
+        throw new OAuthError('server_error', 'Authorization produced an unsafe redirect URI')
+      }
+
       metrics.logEvent(new AuthUser({ userId: identity.user.id }))
 
       return new Response(null, {
@@ -331,6 +369,7 @@ export function createAuthHandlers() {
         }
       })
     } catch (e) {
+      if (e instanceof CimdFetchError) return cimdCallbackFailureResponse()
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', e) }))
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()

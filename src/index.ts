@@ -44,6 +44,7 @@ export default {
       authorizeEndpoint: '/authorize',
       tokenEndpoint: '/token',
       clientRegistrationEndpoint: '/register',
+      clientIdMetadataDocumentEnabled: true,
       resolveExternalToken,
       tokenExchangeCallback: (options) =>
         handleTokenExchangeCallback(

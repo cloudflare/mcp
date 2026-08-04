@@ -7,7 +7,7 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --env staging",
     "deploy:prod": "wrangler deploy --env production",
-    "types": "wrangler types",
+    "types": "wrangler types --env-file .env_example",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint src/",
     "format": "oxfmt --write src/",
