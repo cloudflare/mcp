@@ -623,6 +623,7 @@ describe('GET /oauth/callback', () => {
     expect(probes.accountCalls()).toBe(1)
     expect(mcpBody.result?.resultType).toBe('complete')
     expect(mcpBody.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
+    expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(1)
   })
 
   it('preserves Unicode downstream client state without encoding it into upstream state', async () => {

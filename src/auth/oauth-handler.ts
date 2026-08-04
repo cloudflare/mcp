@@ -293,21 +293,14 @@ export function createAuthHandlers() {
         return new OAuthError('invalid_request', 'Invalid OAuth request info').toHtmlResponse()
       }
 
-      // Exchange code for tokens and ensure client is registered
-      const [{ access_token, refresh_token }] = await Promise.all([
-        getAuthToken({
-          client_id: env.CLOUDFLARE_CLIENT_ID,
-          client_secret: env.CLOUDFLARE_CLIENT_SECRET,
-          redirect_uri: new URL('/oauth/callback', c.req.url).href,
-          code,
-          code_verifier: codeVerifier,
-          oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
-        }),
-        env.OAUTH_PROVIDER.createClient({
-          clientId: oauthReqInfo.clientId,
-          tokenEndpointAuthMethod: 'none'
-        })
-      ])
+      const { access_token, refresh_token } = await getAuthToken({
+        client_id: env.CLOUDFLARE_CLIENT_ID,
+        client_secret: env.CLOUDFLARE_CLIENT_SECRET,
+        redirect_uri: new URL('/oauth/callback', c.req.url).href,
+        code,
+        code_verifier: codeVerifier,
+        oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
+      })
 
       const identity = await getCloudflareOAuthUser(access_token)
 
