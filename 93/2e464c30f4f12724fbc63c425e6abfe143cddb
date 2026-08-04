@@ -1,0 +1,27 @@
+src/auth/cloudflare-auth.ts
+  s_41e4d933b7aacf::t_008706367710d8 1,92-97,100,135,167
+src/tools/execute.ts
+  s_41e4d933b7aacf::t_31deb7e0bd3510 1,8,310-312,332-337
+src/tools/non-codemode.ts
+  s_41e4d933b7aacf::t_e020fbc3b97e2d 1,14,20,44,46-47,54-57,59-65,127-130,134
+src/tools/search.ts
+  s_41e4d933b7aacf::t_ea023fc0faab9d 1,5,112-116
+src/utils/schema.ts
+  s_41e4d933b7aacf::t_ee055ec1bd686f 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "932e464c30f4f12724fbc63c425e6abfe143cddb",
+  "prompts": {},
+  "sessions": {
+    "s_41e4d933b7aacf": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fcc52-11a9-76d0-8c10-984266179b16",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
