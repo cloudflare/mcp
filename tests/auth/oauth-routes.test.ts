@@ -311,6 +311,69 @@ describe('GET /authorize', () => {
     expect(forwardedScopes).not.toContain('removed-from-catalog.read')
   })
 
+  it('does not redirect a known client with an invalid redirect URI', async () => {
+    const clientId = await registerClient()
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: 'https://attacker.example/callback',
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256'
+        })
+      ),
+      { redirect: 'manual' }
+    )
+
+    expect(response.status).toBe(400)
+    expect(response.headers.get('location')).toBeNull()
+    expect(await response.text()).toContain('Invalid redirect URI')
+  })
+
+  it('redirects a known client PKCE error with state and issuer', async () => {
+    const clientId = await registerClient()
+    const url = new URL(`${MCP_ORIGIN}/authorize`)
+    url.search = new URLSearchParams({
+      response_type: 'code',
+      client_id: clientId,
+      redirect_uri: REDIRECT_URI,
+      state: 'client-state'
+    }).toString()
+    const response = await exports.default.fetch(new Request(url), { redirect: 'manual' })
+
+    expect(response.status).toBe(302)
+    const redirect = new URL(response.headers.get('location')!)
+    expect(redirect.origin + redirect.pathname).toBe(REDIRECT_URI)
+    expect(redirect.searchParams.get('error')).toBe('invalid_request')
+    expect(redirect.searchParams.get('state')).toBe('client-state')
+    expect(redirect.searchParams.get('iss')).toBe(MCP_ORIGIN)
+    expect(response.headers.get('cache-control')).toBe('no-store')
+  })
+
+  it('redirects an unsupported response type with the correct OAuth code', async () => {
+    const clientId = await registerClient()
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'unsupported',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          state: 'client-state',
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256'
+        })
+      ),
+      { redirect: 'manual' }
+    )
+
+    expect(response.status).toBe(302)
+    const redirect = new URL(response.headers.get('location')!)
+    expect(redirect.searchParams.get('error')).toBe('unsupported_response_type')
+    expect(redirect.searchParams.get('state')).toBe('client-state')
+    expect(redirect.searchParams.get('iss')).toBe(MCP_ORIGIN)
+  })
+
   it('returns a local invalid_request page for an unknown client', async () => {
     const res = await exports.default.fetch(
       new Request(
@@ -368,7 +431,7 @@ describe('GET /authorize', () => {
     )
 
     expect(response.status).toBe(400)
-    expect(await response.text()).toContain('Missing client_id')
+    expect(await response.text()).toContain('client_id is required')
     expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
   })
 })

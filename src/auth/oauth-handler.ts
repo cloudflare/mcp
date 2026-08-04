@@ -25,9 +25,9 @@ import { MetricsTracker, AuthUser } from '../metrics'
 import { SERVER_INFO } from '../constants'
 
 import {
+  AuthorizationError,
   CimdFetchError,
   type AuthRequest,
-  type ClientInfo,
   type OAuthHelpers,
   type TokenExchangeCallbackOptions,
   type TokenExchangeCallbackResult
@@ -150,19 +150,24 @@ export function createAuthHandlers() {
   // GET /authorize - Show the requested scopes in the consent dialog
   app.get('/authorize', async (c) => {
     try {
-      const requestedClientId = new URL(c.req.url).searchParams.get('client_id')
-      if (!requestedClientId) {
-        return new OAuthError('invalid_request', 'Missing client_id').toHtmlResponse()
-      }
-
-      // Unknown clients cannot be redirected safely because their redirect URI
-      // has not been validated. Classify definitive absence before the provider's
-      // parseAuthRequest(), which currently throws a plain Error for this case.
-      // Lookup failures still throw and remain visible as server errors.
-      let client: ClientInfo | null
+      let oauthReqInfo: AuthRequest
       try {
-        client = await env.OAUTH_PROVIDER.lookupClient(requestedClientId)
+        oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw)
       } catch (error) {
+        if (error instanceof AuthorizationError) {
+          if (!error.redirectUri) {
+            return new OAuthError(error.code, error.description).toHtmlResponse()
+          }
+          const redirect = new URL(error.redirectUri)
+          redirect.searchParams.set('error', error.code)
+          redirect.searchParams.set('error_description', error.description)
+          if (error.state) redirect.searchParams.set('state', error.state)
+          if (error.issuer) redirect.searchParams.set('iss', error.issuer)
+          return new Response(null, {
+            status: 302,
+            headers: { Location: redirect.href, 'Cache-Control': 'no-store' }
+          })
+        }
         if (error instanceof CimdFetchError) {
           return new OAuthError(
             'temporarily_unavailable',
@@ -173,11 +178,6 @@ export function createAuthHandlers() {
         }
         throw error
       }
-      if (!client) {
-        return new OAuthError('invalid_request', 'Invalid client_id').toHtmlResponse()
-      }
-
-      const oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw)
       const defaultScopes = [...SCOPE_TEMPLATES[DEFAULT_TEMPLATE].scopes]
       const requestedScopes = oauthReqInfo.scope ?? []
       const unknownScopes = requestedScopes.filter((scope) => !ALLOWED_SCOPES.has(scope))
@@ -198,7 +198,7 @@ export function createAuthHandlers() {
       const { token: csrfToken, setCookie: csrfCookie } = generateCSRFProtection()
 
       return renderApprovalDialog(c.req.raw, {
-        client,
+        client: await env.OAUTH_PROVIDER.lookupClient(oauthReqInfo.clientId),
         server: {
           name: 'Cloudflare API MCP',
           logo: 'https://www.cloudflare.com/favicon.ico',
