@@ -1,3 +1,4 @@
+import { CimdFetchError, type OAuthHelpers } from '@cloudflare/workers-oauth-provider'
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -310,7 +311,7 @@ describe('GET /authorize', () => {
     expect(forwardedScopes).not.toContain('removed-from-catalog.read')
   })
 
-  it('logs an auth_user error and 500s for an unknown client', async () => {
+  it('returns a local invalid_request page for an unknown client', async () => {
     const res = await exports.default.fetch(
       new Request(
         authorizeUrl({
@@ -323,10 +324,52 @@ describe('GET /authorize', () => {
       )
     )
 
-    // OAuthProvider rejects the unknown client; the route maps it to an error
-    // page and records an auth_user failure datapoint.
-    expect(res.status).toBe(500)
-    expect(writtenEvents(metricsSpy)).toContain('auth_user')
+    expect(res.status).toBe(400)
+    expect(await res.text()).toContain('Invalid client_id')
+    expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
+  })
+
+  it('returns a local retryable error when CIMD metadata resolution fails', async () => {
+    vi.spyOn(
+      (env as Env & { OAUTH_PROVIDER: OAuthHelpers }).OAUTH_PROVIDER,
+      'lookupClient'
+    ).mockRejectedValueOnce(
+      new CimdFetchError('https://client.example.com/oauth.json', new Error('upstream timeout'))
+    )
+
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: 'https://client.example.com/oauth.json',
+          redirect_uri: REDIRECT_URI,
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256'
+        })
+      )
+    )
+
+    expect(response.status).toBe(503)
+    expect(response.headers.get('retry-after')).toBe('30')
+    expect(await response.text()).toContain('Client metadata is temporarily unavailable')
+    expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
+  })
+
+  it('returns a local invalid_request page when client_id is missing', async () => {
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          redirect_uri: REDIRECT_URI,
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256'
+        })
+      )
+    )
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toContain('Missing client_id')
+    expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
   })
 })
 

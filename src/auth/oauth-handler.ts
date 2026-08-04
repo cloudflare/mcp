@@ -24,11 +24,13 @@ import { withRefreshAdmission } from './refresh-admission-gate'
 import { MetricsTracker, AuthUser } from '../metrics'
 import { SERVER_INFO } from '../constants'
 
-import type {
-  AuthRequest,
-  OAuthHelpers,
-  TokenExchangeCallbackOptions,
-  TokenExchangeCallbackResult
+import {
+  CimdFetchError,
+  type AuthRequest,
+  type ClientInfo,
+  type OAuthHelpers,
+  type TokenExchangeCallbackOptions,
+  type TokenExchangeCallbackResult
 } from '@cloudflare/workers-oauth-provider'
 
 interface AuthEnv extends Env {
@@ -148,6 +150,33 @@ export function createAuthHandlers() {
   // GET /authorize - Show the requested scopes in the consent dialog
   app.get('/authorize', async (c) => {
     try {
+      const requestedClientId = new URL(c.req.url).searchParams.get('client_id')
+      if (!requestedClientId) {
+        return new OAuthError('invalid_request', 'Missing client_id').toHtmlResponse()
+      }
+
+      // Unknown clients cannot be redirected safely because their redirect URI
+      // has not been validated. Classify definitive absence before the provider's
+      // parseAuthRequest(), which currently throws a plain Error for this case.
+      // Lookup failures still throw and remain visible as server errors.
+      let client: ClientInfo | null
+      try {
+        client = await env.OAUTH_PROVIDER.lookupClient(requestedClientId)
+      } catch (error) {
+        if (error instanceof CimdFetchError) {
+          return new OAuthError(
+            'temporarily_unavailable',
+            'Client metadata is temporarily unavailable. Please try again.',
+            503,
+            { 'Retry-After': '30' }
+          ).toHtmlResponse()
+        }
+        throw error
+      }
+      if (!client) {
+        return new OAuthError('invalid_request', 'Invalid client_id').toHtmlResponse()
+      }
+
       const oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw)
       const defaultScopes = [...SCOPE_TEMPLATES[DEFAULT_TEMPLATE].scopes]
       const requestedScopes = oauthReqInfo.scope ?? []
@@ -166,14 +195,10 @@ export function createAuthHandlers() {
       )
       oauthReqInfo.scope = scopesToRequest
 
-      if (!oauthReqInfo.clientId) {
-        return new OAuthError('invalid_request', 'Missing client_id').toHtmlResponse()
-      }
-
       const { token: csrfToken, setCookie: csrfCookie } = generateCSRFProtection()
 
       return renderApprovalDialog(c.req.raw, {
-        client: await env.OAUTH_PROVIDER.lookupClient(oauthReqInfo.clientId),
+        client,
         server: {
           name: 'Cloudflare API MCP',
           logo: 'https://www.cloudflare.com/favicon.ico',
