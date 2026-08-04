@@ -23,14 +23,20 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
 ]
 
 function createAuthenticatedHandler(props: AuthProps) {
-  return createMcpHandler(({ requestInfo }) => {
-    if (!requestInfo) {
-      throw new Error('The Cloudflare MCP server requires an HTTP request')
-    }
+  return createMcpHandler(
+    ({ requestInfo }) => {
+      if (!requestInfo) {
+        throw new Error('The Cloudflare MCP server requires an HTTP request')
+      }
 
-    const codemode = new URL(requestInfo.url).searchParams.get('codemode') !== 'false'
-    return createServer(props, codemode)
-  })
+      const codemode = new URL(requestInfo.url).searchParams.get('codemode') !== 'false'
+      return createServer(props, codemode)
+    },
+    // This server publishes no change notifications and intentionally keeps no
+    // long-lived request state. Reject subscriptions/listen before the SDK opens
+    // an SSE stream and pins an isolate.
+    { maxSubscriptions: 0 }
+  )
 }
 
 // Handler options are intentionally omitted. The SDK defaults to:

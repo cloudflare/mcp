@@ -64,6 +64,22 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(body.result).not.toHaveProperty('serverInfo')
   })
 
+  it('rejects subscriptions instead of opening a long-lived stream', async () => {
+    const response = await exports.default.fetch(
+      modernMcpRequest(API_TOKEN, 'subscriptions/listen', {
+        notifications: { toolsListChanged: true }
+      })
+    )
+    const body = await parseMcpResult(response)
+
+    expect(response.status).toBe(200)
+    expect(response.headers.get('content-type')).toContain('application/json')
+    expect(response.headers.get('content-type')).not.toContain('text/event-stream')
+    expect(body).toMatchObject({
+      error: { code: -32603, message: 'Subscription limit reached' }
+    })
+  })
+
   it('serves modern tools/list with a complete result', async () => {
     const response = await exports.default.fetch(modernMcpRequest(API_TOKEN, 'tools/list'))
     const body = await parseMcpResult(response)
