@@ -3,11 +3,14 @@ import {
   OAuthError as ProviderOAuthError,
   type OAuthHelpers
 } from '@cloudflare/workers-oauth-provider'
+import { env } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { handleTokenExchangeCallback } from '../../src/auth/oauth-handler'
+import { clearRefreshAdmissionsForTesting } from '../../src/auth/refresh-admission-gate'
 import { OAuthError } from '../../src/auth/workers-oauth-utils'
+import { clearKv } from '../helpers/kv'
 import { server } from '../setup/msw'
 
 /** Minimal OAuthHelpers mock backing the revoke-on-invalid_grant path. */
@@ -55,7 +58,11 @@ const expectedRefreshResult = {
 
 const OAUTH_TOKEN_URL = 'https://dash.cloudflare.com/oauth2/token'
 
-afterEach(() => vi.restoreAllMocks())
+afterEach(async () => {
+  vi.restoreAllMocks()
+  clearRefreshAdmissionsForTesting()
+  await clearKv(env.OAUTH_KV)
+})
 
 describe('handleTokenExchangeCallback', () => {
   it('refreshes upstream tokens and returns updated auth props', async () => {
@@ -78,13 +85,14 @@ describe('handleTokenExchangeCallback', () => {
     expect(form?.get('refresh_token')).toBe('old-refresh-token')
   })
 
-  it('allows concurrent upstream refreshes and accepts the idempotent replacement', async () => {
+  it('admits one concurrent refresh per grant and rejects competitors as retryable', async () => {
     let calls = 0
     server.use(
       http.post(OAUTH_TOKEN_URL, async ({ request }) => {
         calls++
         const form = await request.formData()
         expect(form.get('refresh_token')).toBe('old-refresh-token')
+        await new Promise((resolve) => setTimeout(resolve, 50))
         return HttpResponse.json({
           access_token: 'new-access-token',
           refresh_token: 'new-refresh-token',
@@ -95,10 +103,69 @@ describe('handleTokenExchangeCallback', () => {
       })
     )
 
-    const results = await Promise.all(Array.from({ length: 10 }, () => refreshCallback()))
+    const results = await Promise.allSettled(Array.from({ length: 10 }, () => refreshCallback()))
+    const fulfilled = results.filter((result) => result.status === 'fulfilled')
+    const rejected = results.filter((result) => result.status === 'rejected')
 
-    expect(calls).toBe(10)
-    expect(results).toEqual(Array.from({ length: 10 }, () => expectedRefreshResult))
+    expect(calls).toBe(1)
+    expect(fulfilled).toEqual([{ status: 'fulfilled', value: expectedRefreshResult }])
+    expect(rejected).toHaveLength(9)
+    for (const result of rejected) {
+      expect(result.reason).toMatchObject({
+        code: 'temporarily_unavailable',
+        statusCode: 429,
+        headers: { 'Retry-After': expect.any(String) }
+      })
+    }
+  })
+
+  it('retains a successful admission tombstone for immediate grant retries', async () => {
+    server.use(
+      http.post(OAUTH_TOKEN_URL, () =>
+        HttpResponse.json({
+          access_token: 'new-access-token',
+          refresh_token: 'new-refresh-token',
+          expires_in: 1234,
+          scope: 'read',
+          token_type: 'bearer'
+        })
+      )
+    )
+
+    await expect(refreshCallback()).resolves.toEqual(expectedRefreshResult)
+    await expect(refreshCallback()).rejects.toMatchObject({
+      code: 'temporarily_unavailable',
+      statusCode: 429
+    })
+  })
+
+  it('releases admission after a transient upstream failure', async () => {
+    let calls = 0
+    server.use(
+      http.post(OAUTH_TOKEN_URL, () => {
+        calls++
+        if (calls === 1) {
+          return HttpResponse.text('rate limited', {
+            status: 429,
+            headers: { 'Retry-After': '1' }
+          })
+        }
+        return HttpResponse.json({
+          access_token: 'new-access-token',
+          refresh_token: 'new-refresh-token',
+          expires_in: 1234,
+          scope: 'read',
+          token_type: 'bearer'
+        })
+      })
+    )
+
+    await expect(refreshCallback()).rejects.toMatchObject({
+      code: 'temporarily_unavailable',
+      statusCode: 429
+    })
+    await expect(refreshCallback()).resolves.toEqual(expectedRefreshResult)
+    expect(calls).toBe(2)
   })
 
   it('revokes the exact callback grant when upstream returns invalid_grant', async () => {

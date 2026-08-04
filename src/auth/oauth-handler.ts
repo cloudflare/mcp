@@ -20,6 +20,7 @@ import {
   OAuthError
 } from './workers-oauth-utils'
 import { getCloudflareOAuthUser } from './cloudflare-identity'
+import { withRefreshAdmission } from './refresh-admission-gate'
 import { MetricsTracker, AuthUser } from '../metrics'
 import { SERVER_INFO } from '../constants'
 
@@ -67,23 +68,30 @@ export async function handleTokenExchangeCallback(
 
   const props = AuthPropsSchema.parse(options.props)
   if (props.type !== 'user_token' || !props.refreshToken) return undefined
+  if (!options.userId || !options.grantId) {
+    throw new Error('Refresh token exchange is missing its grant identity')
+  }
+  const grant = { userId: options.userId, grantId: options.grantId }
+  const upstreamRefreshToken = props.refreshToken
 
   try {
-    const { access_token, refresh_token, expires_in } = await refreshAuthToken({
-      client_id: clientId,
-      client_secret: clientSecret,
-      refresh_token: props.refreshToken,
-      oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
-    })
+    return await withRefreshAdmission(env.OAUTH_KV, grant, async () => {
+      const { access_token, refresh_token, expires_in } = await refreshAuthToken({
+        client_id: clientId,
+        client_secret: clientSecret,
+        refresh_token: upstreamRefreshToken,
+        oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
+      })
 
-    return {
-      newProps: {
-        ...props,
-        accessToken: access_token,
-        refreshToken: refresh_token
-      } satisfies AuthProps,
-      accessTokenTTL: expires_in
-    }
+      return {
+        newProps: {
+          ...props,
+          accessToken: access_token,
+          refreshToken: refresh_token
+        } satisfies AuthProps,
+        accessTokenTTL: expires_in
+      }
+    })
   } catch (error) {
     // A genuine upstream invalid_grant is permanent. Revoke only this exact
     // downstream grant so the client reauthorizes instead of retrying forever.

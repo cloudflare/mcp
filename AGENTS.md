@@ -31,6 +31,7 @@ cloudflare-mcp/
 │   │   ├── cloudflare-identity.ts # Owner-aware Cloudflare API identity probes
 │   │   ├── cloudflare-auth.ts     # PKCE & OAuth utilities
 │   │   ├── oauth-handler.ts       # OAuth authorization flow
+│   │   ├── refresh-admission-gate.ts # Best-effort per-grant KV refresh admission
 │   │   ├── derived-oauth-scopes.ts # Canonical production OAuth scope API metadata
 │   │   ├── scopes.ts              # Canonical picker config and OAuth bootstrap scopes
 │   │   └── workers-oauth-utils.ts # OAuth provider helpers
@@ -127,6 +128,8 @@ Two credential paths produce the same Zod-validated `AuthProps` union:
 - **Direct Cloudflare credential mode**: after the provider's internal lookup misses, `resolveExternalToken` validates the bearer against the Cloudflare API and returns request-local props. Prefixes are owner hints: `cfat_` account tokens query only `/accounts`; `cfut_` user API tokens and `cfoat_` Cloudflare OAuth credentials query `/user` and `/accounts`; unprefixed legacy tokens retain response-based inference. Expected failures use the provider's `ExternalTokenError`, which generates RFC 6750/9728 `401`/`403` challenges and preserves retry guidance.
 
 Validated direct-credential identity is cached by token hash in `OAUTH_KV`; provider-issued MCP tokens never invoke the external resolver.
+
+Downstream refreshes pass through a best-effort per-grant admission gate. An isolate-local block deterministically rejects same-isolate competitors; an owner-verified KV claim reduces cross-isolate races. A successful callback retains a 90-second tombstone so current/previous-token retries receive structured `429 temporarily_unavailable` responses instead of independently rotating downstream refresh tokens. KV is eventually consistent, so this is load shedding and race reduction rather than a linearizable mutex.
 
 The consent picker uses the production catalog returned by `GET /oauth/scopes` in every deployment. Staging may register additional scopes, but the MCP picker exposes them only after they reach production. Only the user, account, and offline-access OAuth bootstrap scopes sit outside the API catalog. Terraform registration must land before deploying picker additions. The app does not impose a scope-count cap.
 
