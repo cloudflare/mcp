@@ -273,7 +273,7 @@ describe('GET /authorize', () => {
     expect(response.status).toBe(302)
     const redirect = new URL(response.headers.get('location')!)
     expect(redirect.origin + redirect.pathname).toBe(REDIRECT_URI)
-    expect(redirect.searchParams.get('error')).toBe('invalid_request')
+    expect(redirect.searchParams.get('error')).toBe('invalid_target')
     expect(redirect.searchParams.get('state')).toBe('client-state')
     expect(redirect.searchParams.get('iss')).toBe(MCP_ORIGIN)
     expect(response.headers.get('cache-control')).toBe('no-store')
@@ -560,21 +560,24 @@ describe('GET /oauth/callback', () => {
       redirect_uri: REDIRECT_URI,
       code_verifier: DOWNSTREAM_CODE_VERIFIER
     }
-    const missingResourceResponse = await exports.default.fetch(
+    const mismatchedResourceResponse = await exports.default.fetch(
       new Request(`${MCP_ORIGIN}/token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(tokenParams).toString()
+        body: new URLSearchParams({ ...tokenParams, resource: `${MCP_ORIGIN}/other` }).toString()
       })
     )
-    expect(missingResourceResponse.status).toBe(400)
-    await expect(missingResourceResponse.json()).resolves.toMatchObject({ error: 'invalid_target' })
+    expect(mismatchedResourceResponse.status).toBe(400)
+    await expect(mismatchedResourceResponse.json()).resolves.toMatchObject({
+      error: 'invalid_target'
+    })
 
+    // Omitting resource inherits the grant's canonical MCP resource binding.
     const tokenResponse = await exports.default.fetch(
       new Request(`${MCP_ORIGIN}/token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ ...tokenParams, resource: MCP_RESOURCE }).toString()
+        body: new URLSearchParams(tokenParams).toString()
       })
     )
     expect(tokenResponse.status).toBe(200)

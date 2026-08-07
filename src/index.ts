@@ -39,7 +39,6 @@ export default {
       apiHandlers: {
         [MCP_ROUTE]: oauthMcpHandler
       },
-      // @ts-ignore - Hono apps are compatible with ExportedHandler at runtime
       defaultHandler: createAuthHandlers(),
       authorizeEndpoint: '/authorize',
       tokenEndpoint: '/token',
