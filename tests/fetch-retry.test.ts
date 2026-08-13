@@ -203,6 +203,83 @@ describe('fetchWithRetry', () => {
     expect(mock).toHaveBeenCalledTimes(2)
   })
 
+  it('retries a Request with a body after a 429 without consuming it', async () => {
+    const bodies: string[] = []
+    const mock = vi.fn().mockImplementation(async (input: Request) => {
+      bodies.push(await input.text())
+      return bodies.length === 1
+        ? new Response('rate limited', { status: 429 })
+        : new Response('ok', { status: 200 })
+    })
+    globalThis.fetch = mock
+
+    const request = new Request('https://api.example.com/test', {
+      method: 'POST',
+      body: '{"key":"value"}'
+    })
+    const result = await fetchWithRetry(request, undefined, {
+      maxRetries: 3,
+      baseDelayMs: 1,
+      jitter: false
+    })
+
+    expect(result.status).toBe(200)
+    expect(bodies).toEqual(['{"key":"value"}', '{"key":"value"}'])
+  })
+
+  it('retries a Request with a body after a network error', async () => {
+    const bodies: string[] = []
+    const mock = vi
+      .fn()
+      // Real fetch can consume the body before the connection fails.
+      .mockImplementationOnce(async (input: Request) => {
+        await input.text()
+        throw new Error('network failure')
+      })
+      .mockImplementation(async (input: Request) => {
+        bodies.push(await input.text())
+        return new Response('ok', { status: 200 })
+      })
+    globalThis.fetch = mock
+
+    const request = new Request('https://api.example.com/test', {
+      method: 'POST',
+      body: '{"key":"value"}'
+    })
+    const result = await fetchWithRetry(request, undefined, {
+      maxRetries: 1,
+      baseDelayMs: 1,
+      jitter: false
+    })
+
+    expect(result.status).toBe(200)
+    expect(bodies).toEqual(['{"key":"value"}'])
+  })
+
+  it('sends the original Request on the final attempt', async () => {
+    const request = new Request('https://api.example.com/test', {
+      method: 'POST',
+      body: '{"key":"value"}'
+    })
+    const seen: Request[] = []
+    const mock = vi.fn().mockImplementation(async (input: Request) => {
+      seen.push(input)
+      return new Response('rate limited', { status: 429 })
+    })
+    globalThis.fetch = mock
+
+    const result = await fetchWithRetry(request, undefined, {
+      maxRetries: 1,
+      baseDelayMs: 1,
+      jitter: false
+    })
+
+    expect(result.status).toBe(429)
+    expect(seen).toHaveLength(2)
+    expect(seen[0]).not.toBe(request)
+    expect(seen[1]).toBe(request)
+  })
+
   it('passes through request init options', async () => {
     const mockResponse = new Response('ok', { status: 200 })
     globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
