@@ -1,0 +1,31 @@
+package-lock.json
+  s_2d0b00dd9a01bd::t_21e68fea810820 11,170-172
+package.json
+  s_2d0b00dd9a01bd::t_8ba9df0727049f 22
+src/auth/workers-oauth-utils.ts
+  s_f7fecf4dcc750d::t_b52c0506d74668 192-197,200-202,204-224,265,284-285,287,296-299,396
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "89667194e76d4d074b6a285a43f6e04ca9b91061",
+  "prompts": {},
+  "sessions": {
+    "s_2d0b00dd9a01bd": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019febcb-d6d4-748b-8198-260e5d3ee9c1",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    },
+    "s_f7fecf4dcc750d": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019fece5-bba6-74ea-8017-7b45ca56cee1",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
