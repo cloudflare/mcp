@@ -189,84 +189,39 @@ function isLoopbackRedirectUri(value: string): boolean {
   }
 }
 
-/**
- * Override labels for resources whose humanized form would mangle acronyms
- * or brand names (e.g. `url_scanner` → "Url scanner", `cfone` → "Cfone").
- */
-const RESOURCE_LABELS: Record<string, string> = {
-  access: 'Access',
-  ai: 'AI',
-  aig: 'AI Gateway',
-  aiaudit: 'AI Audit',
-  'ai-search': 'AI Search',
-  'account-analytics': 'Account analytics',
-  containers: 'Containers',
-  d1: 'D1',
-  logs: 'Logs',
-  offline_access: 'Offline access',
-  pages: 'Pages',
-  pipelines: 'Pipelines',
-  queues: 'Queues',
-  radar: 'Radar',
-  'account-ssl-and-certificates': 'Account SSL and Certificates',
-  'ssl-and-certificates': 'SSL and Certificates',
-  teams: 'Teams (Zero Trust)',
-  snippets: 'Snippets',
-  user: 'User',
-  account: 'Account',
-  vectorize: 'Vectorize',
-  zone: 'Zone'
+/** Convert a scope action such as `metadata_read` to its catalog-name form. */
+function catalogActionName(action: string): string {
+  return action
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
 }
 
-/**
- * Turn a resource key like `workers_scripts` into a human-readable label.
- * Falls back to title-casing unknown keys.
- */
-function humanize(key: string): string {
-  if (RESOURCE_LABELS[key]) return RESOURCE_LABELS[key]
+/** Derive a resource stem from the catalog name by removing its scope action. */
+function catalogNameStem(name: string, action: string): string {
+  if (action === 'grant') return name
 
-  const acronyms = new Map(
-    [
-      'ai',
-      'api',
-      'bgp',
-      'cds',
-      'cf',
-      'd1',
-      'ddos',
-      'dex',
-      'dls',
-      'dmarc',
-      'dns',
-      'fbm',
-      'http',
-      'idp',
-      'iot',
-      'ip',
-      'l4',
-      'mcp',
-      'mtls',
-      'pcaps',
-      'pii',
-      'r2',
-      'saml',
-      'scim',
-      'sso',
-      'ssh',
-      'ssl',
-      'tls',
-      'url',
-      'vpc',
-      'waf',
-      'wan',
-      'warp'
-    ].map((word) => [word, word.toUpperCase()])
-  )
+  const escapedAction = catalogActionName(action).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const stem = name
+    .replace(new RegExp(`\\b${escapedAction}\\b`, 'i'), '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s+([:;,])/g, '$1')
+    .replace(/[-:;,]\s*$/, '')
+    .trim()
 
-  return key
-    .split(/[_-]/g)
-    .map((word) => acronyms.get(word) ?? word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+  return stem || name
+}
+
+/** Prefer the catalog-name stem shared by the most actions for a resource. */
+function selectCatalogNameStem(candidates: string[]): string {
+  const counts = new Map<string, number>()
+  for (const candidate of candidates) {
+    counts.set(candidate, (counts.get(candidate) ?? 0) + 1)
+  }
+
+  return [...counts.entries()].sort(
+    ([a, countA], [b, countB]) => countB - countA || a.length - b.length || a.localeCompare(b)
+  )[0]![0]
 }
 
 interface ScopeRow {
@@ -307,6 +262,7 @@ function groupScopesByCategory(
   requiredScopes: Set<string>
 ): CategoryGroup[] {
   const byResource = new Map<string, ScopeRow>()
+  const labelsByResource = new Map<string, string[]>()
 
   for (const [scope, definition] of Object.entries(scopeDefinitions)) {
     const desc = definition.name
@@ -325,14 +281,20 @@ function groupScopesByCategory(
     // (for example, Pages access versus Page Shield). Keep those rows separate.
     const resourceKey = `${category}\u0000${resource}`
     if (!byResource.has(resourceKey)) {
-      byResource.set(resourceKey, { resource, label: humanize(resource), category, actions: [] })
+      byResource.set(resourceKey, { resource, label: '', category, actions: [] })
+      labelsByResource.set(resourceKey, [])
     }
+    labelsByResource.get(resourceKey)!.push(catalogNameStem(definition.name, action))
     byResource.get(resourceKey)!.actions.push({
       action,
       scope,
       desc,
       required: requiredScopes.has(scope)
     })
+  }
+
+  for (const [resourceKey, row] of byResource) {
+    row.label = selectCatalogNameStem(labelsByResource.get(resourceKey)!)
   }
 
   const actionRank: Record<string, number> = {
@@ -431,7 +393,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   const renderRow = (row: ScopeRow): string => {
     const pills = row.actions
       .map((a) => {
-        const label = ACTION_LABELS[a.action] ?? humanize(a.action)
+        const label = ACTION_LABELS[a.action] ?? catalogActionName(a.action)
         const classes = ['pill']
         if (a.required) classes.push('pill--required')
         return `<button type="button" class="${classes.join(' ')}" data-scope="${sanitizeHtml(a.scope)}" data-action="${sanitizeHtml(a.action)}" data-required="${a.required ? '1' : ''}" title="${sanitizeHtml(a.scope)} — ${sanitizeHtml(a.desc)}" aria-pressed="false"><span class="pill-box" aria-hidden="true"></span><span class="pill-label">${sanitizeHtml(label)}</span></button>`
