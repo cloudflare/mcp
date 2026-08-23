@@ -2,7 +2,7 @@
 
 ## Project overview
 
-`cloudflare-mcp` is a token-efficient Model Context Protocol (MCP) server that exposes the entire Cloudflare API (~2,500 endpoints) using Cloudflare's **Code Mode** pattern. Instead of registering thousands of MCP tools, it uses just two tools (`search` and `execute`) that let agents write JavaScript to query the OpenAPI spec and call APIs — fitting all 2,500 endpoints into ~1,000 tokens.
+`cloudflare-mcp` is a token-efficient Model Context Protocol (MCP) server that exposes the entire Cloudflare API (~2,500 endpoints) using Cloudflare's **Code Mode** pattern. Instead of registering thousands of MCP tools, it uses just three tools (`docs`, `search`, and `execute`) that let agents search Cloudflare documentation, query the OpenAPI spec, and call APIs — fitting all 2,500 endpoints into ~1,000 tokens.
 
 **Production URL:** `mcp.cloudflare.com`
 
@@ -102,12 +102,13 @@ Node 22+ required.
 
 ## Architecture
 
-### Two-tool Code Mode pattern
+### Three-tool Code Mode pattern
 
-The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle everything:
+The core innovation: instead of 2,500 MCP tools (~244K tokens), three tools handle everything:
 
-1. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
-2. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
+1. **`docs` tool** — Searches Cloudflare documentation using AI Search.
+2. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
+3. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
 
 ### MCP HTTP serving
 
