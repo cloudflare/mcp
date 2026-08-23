@@ -41,8 +41,9 @@ cloudflare-mcp/
 │   ├── executor.test.ts
 │   ├── spec-processor.test.ts
 │   ├── truncate.test.ts
-│   └── e2e/                       # End-to-end tests (real worker via exports.default.fetch)
-│       └── tool-call.test.ts
+│   ├── setup/msw.ts               # Outbound fetch mocks
+│   ├── worker.test.ts             # Code Mode Worker integration
+│   └── non-codemode-worker.test.ts # Non-Code-Mode Worker integration
 ├── scripts/
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
 ├── .github/workflows/
@@ -184,13 +185,13 @@ npm run test:watch    # Watch mode
 - Response truncation
 - Metrics event mapping & path normalization
 
-**End-to-end (`tests/e2e/`):**
+**Worker integration (`tests/worker.test.ts`):**
 Drives the real worker via `exports.default.fetch()` (from `cloudflare:workers`), the
 pattern from the [Cloudflare vitest recipes](https://developers.cloudflare.com/workers/testing/vitest-integration/recipes/).
 A full JSON-RPC `tools/call` for `execute` runs real code inside a Worker Loader
 isolate and is forwarded through the real `GlobalOutbound` proxy. The **only** mock
 is outbound `fetch()`, declared with **MSW** (`server.use(http.get(...))`) — see
-`tests/e2e/msw-server.ts` and `tests/e2e/msw-setup.ts`. MSW intercepts both the
+`tests/setup/msw.ts`. MSW intercepts both the
 auth-guard `/user`+`/accounts` probes and the GlobalOutbound-forwarded API call.
 Everything else — auth, MCP transport, tool dispatch, Worker Loader — is the real
 code path.
