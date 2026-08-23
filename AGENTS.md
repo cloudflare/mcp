@@ -21,7 +21,11 @@ cloudflare-mcp/
 │   ├── index.ts                   # Worker entry point & OAuth routing
 │   ├── mcp-handler.ts             # Stateless MCP HTTP handler & deployment guards
 │   ├── server.ts                  # MCP server setup & tool registration
-│   ├── executor.ts                # Code executor (Worker Loader API)
+│   ├── tools/
+│   │   ├── docs-search.ts         # Cloudflare documentation search
+│   │   ├── search.ts              # Code Mode OpenAPI search
+│   │   ├── execute.ts             # Code Mode API execution
+│   │   └── non-codemode.ts        # Non-Code-Mode tool dispatch
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
