@@ -47,6 +47,7 @@ cloudflare-mcp/
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
+│   ├── semgrep.yml                # Security scanning
 │   └── bonk.yml                   # AI code review
 ├── wrangler.jsonc                 # Workers config (dev/staging/prod)
 ├── .oxfmtrc.json                  # oxfmt formatter config
