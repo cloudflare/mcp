@@ -169,7 +169,6 @@ Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the sh
 - `globalOutbound` service restricts execute tool to Cloudflare API URLs only
 - Search tool runs with no network access
 - OAuth uses PKCE (RFC 7636) for secure authorization
-- Cookie encryption for OAuth sessions (`MCP_COOKIE_ENCRYPTION_KEY`)
 - The `/mcp` route validates Host and present browser Origin headers against deployment-static allowlists before authentication
 
 ## Testing
