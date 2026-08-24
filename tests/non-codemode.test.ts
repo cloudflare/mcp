@@ -464,13 +464,13 @@ describe('createServer with codemode=false', () => {
         account_id: 'acct-123'
       })
 
-      expect(globalThis.fetch).toHaveBeenCalledWith(
-        'https://api.cloudflare.com/client/v4/accounts/acct-123/workers/scripts',
-        expect.objectContaining({
-          method: 'GET',
-          headers: expect.objectContaining({ Authorization: 'Bearer test-token' })
-        })
+      const [calledUrl, calledOpts] = (globalThis.fetch as any).mock.calls[0]
+      expect(calledUrl).toBe(
+        'https://api.cloudflare.com/client/v4/accounts/acct-123/workers/scripts'
       )
+      expect(calledOpts.method).toBe('GET')
+      expect(calledOpts.headers['Authorization']).toBe('Bearer test-token')
+      expect(calledOpts.headers['User-Agent']).toBe('cloudflare-mcp')
 
       expect(result.isError).toBeFalsy()
       expect(result.content[0].text).toContain('my-worker')

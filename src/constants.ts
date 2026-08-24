@@ -12,6 +12,9 @@ export type ServerInfo = { name: string; version: string }
  */
 export const SERVER_INFO: ServerInfo = { name: 'cloudflare-api', version: '0.1.0' }
 
+/** User-Agent header sent on all outbound requests to Cloudflare APIs. */
+export const USER_AGENT = 'cloudflare-mcp'
+
 /**
  * TypeScript declarations describing the `cloudflare` helper and `accountId`
  * binding available to the `execute` tool's sandboxed code. Inlined into the
