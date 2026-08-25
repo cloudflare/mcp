@@ -203,7 +203,7 @@ describe('fetchWithRetry', () => {
     expect(mock).toHaveBeenCalledTimes(2)
   })
 
-  it('passes through request init options', async () => {
+  it('passes through request init options and injects User-Agent', async () => {
     const mockResponse = new Response('ok', { status: 200 })
     globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
 
@@ -215,7 +215,7 @@ describe('fetchWithRetry', () => {
 
     expect(globalThis.fetch).toHaveBeenCalledWith('https://api.example.com/test', {
       method: 'POST',
-      headers: { Authorization: 'Bearer token' },
+      headers: { Authorization: 'Bearer token', 'User-Agent': 'cloudflare-mcp' },
       body: '{"key":"value"}'
     })
   })

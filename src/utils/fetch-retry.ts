@@ -1,3 +1,5 @@
+import { USER_AGENT } from '../constants'
+
 export interface RetryOptions {
   maxRetries?: number
   baseDelayMs?: number
@@ -46,9 +48,33 @@ export async function fetchWithRetry(
   let lastResponse: Response | undefined
   let lastError: unknown
 
+  // Inject User-Agent so Cloudflare can identify traffic from this server.
+  // When input is a Request, clone it to preserve its headers alongside the new header.
+  // When input is a string/URL, merge into init.headers as a plain object.
+  let fetchInput: RequestInfo
+  let fetchInit: RequestInit | undefined
+  if (input instanceof Request) {
+    const headers = new Headers(input.headers)
+    headers.set('User-Agent', USER_AGENT)
+    fetchInput = new Request(input, { headers })
+    fetchInit = init
+  } else {
+    fetchInput = input
+    // Spread existing headers as a plain object to preserve casing, then set User-Agent last
+    // so it always takes precedence over any caller-supplied value.
+    const existingHeaders =
+      init?.headers instanceof Headers
+        ? Object.fromEntries(init.headers)
+        : ((init?.headers as Record<string, string> | undefined) ?? {})
+    fetchInit = {
+      ...init,
+      headers: { ...existingHeaders, 'User-Agent': USER_AGENT }
+    }
+  }
+
   for (let attempt = 0; attempt <= opts.maxRetries; attempt++) {
     try {
-      const response = await fetch(input, init)
+      const response = await fetch(fetchInput, fetchInit)
 
       if (response.status !== 429) {
         return response
