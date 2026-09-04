@@ -15,7 +15,12 @@ export interface McpToolResult {
     tools?: Array<{
       name: string
       title?: string
-      annotations?: { title?: string; readOnlyHint?: boolean }
+      annotations?: {
+        title?: string
+        readOnlyHint?: boolean
+        openWorldHint?: boolean
+        destructiveHint?: boolean
+      }
     }>
   }
   error?: { code: number; message: string }

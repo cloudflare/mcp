@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json",
+  "schema_version": 1,
+  "app_info": {
+    "display_name": "Cloudflare",
+    "subtitle": "Manage Cloudflare resources",
+    "description": "Cloudflare helps users search product documentation, discover API endpoints, and read, create, update, or delete resources across their Cloudflare accounts through ChatGPT.",
+    "category": "DEVELOPER_TOOLS"
+  },
+  "tools": {
+    "docs": {
+      "annotations": {
+        "readOnlyHint": false,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Records a tool-call usage metric while retrieving documentation results and does not modify user resources.",
+        "open_world_justification": "Returns Cloudflare developer documentation results without publishing content or changing public or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke, or irreversibly change Cloudflare resources."
+      }
+    },
+    "search": {
+      "annotations": {
+        "readOnlyHint": false,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Records a tool-call usage metric while evaluating code against an isolated OpenAPI specification and does not modify user resources.",
+        "open_world_justification": "Runs without network access and cannot change public internet state or third-party systems.",
+        "destructive_justification": "Cannot delete, overwrite, revoke, or otherwise change Cloudflare resources."
+      }
+    },
+    "execute": {
+      "annotations": {
+        "readOnlyHint": false,
+        "openWorldHint": true,
+        "destructiveHint": true
+      },
+      "justifications": {
+        "read_only_justification": "Can issue Cloudflare API requests that create, update, or delete resources within the user's granted permissions.",
+        "open_world_justification": "Can deploy or modify internet-facing Cloudflare services and resources through the Cloudflare API.",
+        "destructive_justification": "Can invoke delete, overwrite, revoke, or other irreversible Cloudflare API operations within the user's granted permissions."
+      }
+    }
+  },
+  "test_cases": [
+    {
+      "description": "Search Cloudflare documentation for a product workflow.",
+      "user_prompt": "Explain how Cloudflare D1 point-in-time recovery works and cite the relevant Cloudflare documentation.",
+      "file_attachment_urls": null,
+      "tools_triggered": "docs",
+      "expected_output": "Explains the recovery workflow using relevant Cloudflare documentation results and includes the source URLs.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Discover an API endpoint without calling it.",
+      "user_prompt": "Find the Cloudflare API endpoint and required parameters for listing Workers scripts, but do not make the API call.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search",
+      "expected_output": "Returns the matching endpoint, HTTP method, and required parameters without changing or retrieving account resources.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Read resources from the user's Cloudflare account.",
+      "user_prompt": "List the Workers scripts in my Cloudflare account.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search, execute",
+      "expected_output": "Discovers the appropriate endpoint and returns the Workers scripts available to the authorized account.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Create a Cloudflare resource.",
+      "user_prompt": "Create a KV namespace named chatgpt-submission-test in my Cloudflare account.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search, execute",
+      "expected_output": "Discovers the creation endpoint, creates the namespace in the selected account, and reports its resulting name and identifier.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Exercise confirmation for an irreversible Cloudflare API operation.",
+      "user_prompt": "Delete the KV namespace named chatgpt-submission-test from my Cloudflare account.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search, execute",
+      "expected_output": "Identifies the namespace, requests confirmation before deletion, and reports the Cloudflare API result after confirmation.",
+      "expected_output_url": null
+    }
+  ],
+  "negative_test_cases": [
+    {
+      "description": "Do not trigger for an unrelated weather request.",
+      "user_prompt": "What will the weather be in Chicago tomorrow?",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because weather forecasting is outside its supported workflows.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not trigger for generic JavaScript help.",
+      "user_prompt": "Refactor this JavaScript function to use async and await.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because the request does not involve Cloudflare documentation or Cloudflare account resources.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not trigger for another cloud provider.",
+      "user_prompt": "Create an Amazon S3 bucket named quarterly-exports in my AWS account.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because it cannot manage AWS resources.",
+      "expected_output_url": null
+    }
+  ]
+}

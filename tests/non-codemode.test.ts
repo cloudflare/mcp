@@ -65,8 +65,12 @@ describe('precomputed tool contracts', () => {
     const [tool] = await listTools(server)
     expect(tool.name).toBe('docs')
     expect(tool.title).toBe('Cloudflare Docs Search')
-    expect(tool.annotations?.title).toBe('Cloudflare Docs Search')
-    expect(tool.annotations?.readOnlyHint).toBe(true)
+    expect(tool.annotations).toMatchObject({
+      title: 'Cloudflare Docs Search',
+      readOnlyHint: false,
+      openWorldHint: false,
+      destructiveHint: false
+    })
   })
 })
 

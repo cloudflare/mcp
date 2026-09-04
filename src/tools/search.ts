@@ -113,7 +113,9 @@ export async function registerSearchTool(server: McpServer): Promise<void> {
       }),
       annotations: {
         title: 'Cloudflare API Spec Search',
-        readOnlyHint: true
+        readOnlyHint: false,
+        openWorldHint: false,
+        destructiveHint: false
       }
     },
     async ({ code }) => {

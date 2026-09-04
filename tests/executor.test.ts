@@ -47,7 +47,12 @@ describe('codemode tool titles', () => {
 
     const result = await callTool(API_TOKEN, 'execute', null, { method: 'tools/list' })
     const tool = result.result?.tools?.find((t: { name: string }) => t.name === 'execute')
-    expect(tool?.annotations?.title).toBe('Cloudflare API Code Executor')
+    expect(tool?.annotations).toMatchObject({
+      title: 'Cloudflare API Code Executor',
+      readOnlyHint: false,
+      openWorldHint: true,
+      destructiveHint: true
+    })
     expect(tool?.title).toBe('Cloudflare API Code Executor')
   })
 
@@ -58,8 +63,12 @@ describe('codemode tool titles', () => {
     const result = await callTool(API_TOKEN, 'search', null, { method: 'tools/list' })
     const tool = result.result?.tools?.find((t: { name: string }) => t.name === 'search')
     expect(tool?.title).toBe('Cloudflare API Spec Search')
-    expect(tool?.annotations?.readOnlyHint).toBe(true)
-    expect(tool?.annotations?.title).toBe('Cloudflare API Spec Search')
+    expect(tool?.annotations).toMatchObject({
+      title: 'Cloudflare API Spec Search',
+      readOnlyHint: false,
+      openWorldHint: false,
+      destructiveHint: false
+    })
   })
 })
 
