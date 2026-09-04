@@ -89,7 +89,12 @@ export const DOCS_TOOL: Tool = {
     required: ['results'],
     additionalProperties: false
   },
-  annotations: { title: 'Cloudflare Docs Search', readOnlyHint: true }
+  annotations: {
+    title: 'Cloudflare Docs Search',
+    readOnlyHint: false,
+    openWorldHint: false,
+    destructiveHint: false
+  }
 }
 
 export async function runDocsTool(query: string) {
@@ -128,7 +133,9 @@ export function registerDocsTool(server: McpServer) {
       }),
       annotations: {
         title: 'Cloudflare Docs Search',
-        readOnlyHint: true
+        readOnlyHint: false,
+        openWorldHint: false,
+        destructiveHint: false
       }
     },
     ({ query }) => runDocsTool(query)

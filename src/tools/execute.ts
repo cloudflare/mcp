@@ -244,7 +244,7 @@ function executeToolDescription(props?: AuthProps): string {
   const types = cloudflareTypesForAccount(props)
   const accountSelection = accountSelectionDescription(props)
 
-  return `Execute JavaScript code against the Cloudflare API. First use the 'search' tool to find the right endpoints, then write code using the cloudflare.request() function.
+  return `Execute JavaScript code that can read, create, update, or delete resources through the Cloudflare API. First use the 'search' tool to find the right endpoints, then write code using the cloudflare.request() function.
 
 Available in your code:
 ${types}${accountSelection}
@@ -309,7 +309,12 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
         inputSchema: z.object({
           code: z.string().describe('JavaScript async arrow function to execute')
         }),
-        annotations: { title: 'Cloudflare API Code Executor' }
+        annotations: {
+          title: 'Cloudflare API Code Executor',
+          readOnlyHint: false,
+          openWorldHint: true,
+          destructiveHint: true
+        }
       },
       async ({ code }) => {
         try {
@@ -332,7 +337,12 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
         code: z.string().describe('JavaScript async arrow function to execute'),
         account_id: z.string().optional().describe(accountIdParamDescription())
       }),
-      annotations: { title: 'Cloudflare API Code Executor' }
+      annotations: {
+        title: 'Cloudflare API Code Executor',
+        readOnlyHint: false,
+        openWorldHint: true,
+        destructiveHint: true
+      }
     },
     async ({ code, account_id }) => {
       try {
