@@ -2,7 +2,7 @@
 
 ## Project overview
 
-`cloudflare-mcp` is a token-efficient Model Context Protocol (MCP) server that exposes the entire Cloudflare API (~2,500 endpoints) using Cloudflare's **Code Mode** pattern. Instead of registering thousands of MCP tools, it uses just two tools (`search` and `execute`) that let agents write JavaScript to query the OpenAPI spec and call APIs — fitting all 2,500 endpoints into ~1,000 tokens.
+`cloudflare-mcp` is a token-efficient Model Context Protocol (MCP) server that exposes the entire Cloudflare API (~3,300 endpoints) using Cloudflare's **Code Mode** pattern. Instead of registering thousands of MCP tools, it uses just three tools (`docs`, `search`, and `execute`) that let agents search Cloudflare documentation, query the OpenAPI spec, and call APIs — fitting all ~3,300 endpoints into ~1,000 tokens.
 
 **Production URL:** `mcp.cloudflare.com`
 
@@ -21,7 +21,11 @@ cloudflare-mcp/
 │   ├── index.ts                   # Worker entry point & OAuth routing
 │   ├── mcp-handler.ts             # Stateless MCP HTTP handler & deployment guards
 │   ├── server.ts                  # MCP server setup & tool registration
-│   ├── executor.ts                # Code executor (Worker Loader API)
+│   ├── tools/
+│   │   ├── docs-search.ts         # Cloudflare documentation search
+│   │   ├── search.ts              # Code Mode OpenAPI search
+│   │   ├── execute.ts             # Code Mode API execution
+│   │   └── non-codemode.ts        # Non-Code-Mode tool dispatch
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
@@ -41,12 +45,14 @@ cloudflare-mcp/
 │   ├── executor.test.ts
 │   ├── spec-processor.test.ts
 │   ├── truncate.test.ts
-│   └── e2e/                       # End-to-end tests (real worker via exports.default.fetch)
-│       └── tool-call.test.ts
+│   ├── setup/msw.ts               # Outbound fetch mocks
+│   ├── worker.test.ts             # Code Mode Worker integration
+│   └── non-codemode-worker.test.ts # Non-Code-Mode Worker integration
 ├── scripts/
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
+│   ├── semgrep.yml                # Security scanning
 │   └── bonk.yml                   # AI code review
 ├── wrangler.jsonc                 # Workers config (dev/staging/prod)
 ├── .oxfmtrc.json                  # oxfmt formatter config
@@ -101,12 +107,13 @@ Node 22+ required.
 
 ## Architecture
 
-### Two-tool Code Mode pattern
+### Three-tool Code Mode pattern
 
-The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle everything:
+The core innovation: instead of ~3,300 MCP tools (~244K tokens), three tools handle everything:
 
-1. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
-2. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
+1. **`docs` tool** — Searches Cloudflare documentation using AI Search.
+2. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
+3. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
 
 ### MCP HTTP serving
 
@@ -162,7 +169,6 @@ Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the sh
 - `globalOutbound` service restricts execute tool to Cloudflare API URLs only
 - Search tool runs with no network access
 - OAuth uses PKCE (RFC 7636) for secure authorization
-- Cookie encryption for OAuth sessions (`MCP_COOKIE_ENCRYPTION_KEY`)
 - The `/mcp` route validates Host and present browser Origin headers against deployment-static allowlists before authentication
 
 ## Testing
@@ -182,13 +188,13 @@ npm run test:watch    # Watch mode
 - Response truncation
 - Metrics event mapping & path normalization
 
-**End-to-end (`tests/e2e/`):**
+**Worker integration (`tests/worker.test.ts`):**
 Drives the real worker via `exports.default.fetch()` (from `cloudflare:workers`), the
 pattern from the [Cloudflare vitest recipes](https://developers.cloudflare.com/workers/testing/vitest-integration/recipes/).
 A full JSON-RPC `tools/call` for `execute` runs real code inside a Worker Loader
 isolate and is forwarded through the real `GlobalOutbound` proxy. The **only** mock
 is outbound `fetch()`, declared with **MSW** (`server.use(http.get(...))`) — see
-`tests/e2e/msw-server.ts` and `tests/e2e/msw-setup.ts`. MSW intercepts both the
+`tests/setup/msw.ts`. MSW intercepts both the
 auth-guard `/user`+`/accounts` probes and the GlobalOutbound-forwarded API call.
 Everything else — auth, MCP transport, tool dispatch, Worker Loader — is the real
 code path.
