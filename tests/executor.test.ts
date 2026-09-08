@@ -117,6 +117,43 @@ describe('execute: REST responses', () => {
     })
     expect(text).toContain('raw-value')
   })
+
+  it('normalizes successful JSON without a REST success envelope', async () => {
+    const text = await runExecute(`/accounts/${ACCOUNT_ID}/analytics_engine/sql`, {
+      data: [[1]],
+      meta: [{ name: 'count', type: 'UInt64' }],
+      rows: 1
+    })
+    expect(text).not.toContain('Cloudflare API error')
+    expect(text).toContain('"success": true')
+    expect(text).toContain('"rows": 1')
+    expect(text).toContain('"UInt64"')
+  })
+
+  it('parses vendor +json responses as structured result data', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/scim/v2/Groups`
+    server.use(
+      http.get(`${API_BASE}${path}`, () =>
+        new HttpResponse(
+          JSON.stringify({
+            Resources: [{ id: 'g1', displayName: 'Admins' }],
+            totalResults: 1
+          }),
+          { headers: { 'Content-Type': 'application/scim+json' } }
+        )
+      )
+    )
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const response = await cloudflare.request({ method: "GET", path: "${path}" });
+        return response.result.Resources[0].displayName;
+      }`
+    })
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toContain('Admins')
+    expect(toolText(result)).not.toContain('Cloudflare API error')
+  })
 })
 
 describe('execute: GraphQL responses', () => {
