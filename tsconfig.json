@@ -14,5 +14,5 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "tests/**/*", "worker-configuration.d.ts"]
+  "include": ["src/**/*", "tests/**/*", "evals/**/*", "worker-configuration.d.ts"]
 }

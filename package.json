@@ -15,6 +15,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
+    "eval": "vitest run --config vitest.config.evals.ts",
+    "eval:watch": "vitest --config vitest.config.evals.ts",
     "seed:staging": "tsx scripts/seed-r2.ts staging",
     "seed:prod": "tsx scripts/seed-r2.ts production"
   },
@@ -25,9 +27,13 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@ai-sdk/anthropic": "^4.0.49",
+    "@ai-sdk/google": "^4.0.64",
+    "@ai-sdk/openai": "^4.0.60",
     "@cloudflare/vitest-pool-workers": "^0.16.18",
     "@modelcontextprotocol/client": "2.0.0",
     "@types/node": "^25.0.6",
+    "ai": "^7.0.93",
     "msw": "^2.14.6",
     "oxfmt": "^0.31.0",
     "oxlint": "^1.46.0",
