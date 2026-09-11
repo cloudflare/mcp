@@ -5,6 +5,7 @@ import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
+import { registerCloudflareSkills } from './skills'
 import type { AuthProps } from './auth/types'
 
 export async function createServer(props: AuthProps, codemode = true): Promise<McpServer> {
@@ -18,6 +19,7 @@ export async function createServer(props: AuthProps, codemode = true): Promise<M
   // Track tool_call metrics for every Code-Mode tool registered below. The
   // metrics wrapper also mirrors tool.title into annotations.title.
   attachMetrics(server, props)
+  registerCloudflareSkills(server)
   registerDocsTool(server)
   await registerSearchTool(server)
   registerExecuteTool(server, props)
