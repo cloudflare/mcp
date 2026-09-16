@@ -13,6 +13,9 @@ import {
 import { processSpec, extractProducts } from './spec-processor'
 import { buildNonCodemodeTools, type OperationInfo } from './openapi'
 
+const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
+const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
+
 // GlobalOutbound lives with the execute tool (its only caller); wrangler
 // resolves the GLOBAL_OUTBOUND worker-loader entrypoint from this entry module,
 // so it must be re-exported here.
@@ -21,6 +24,12 @@ export { GlobalOutbound } from './tools/execute'
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
+    if (url.pathname === OPENAI_APPS_CHALLENGE_PATH) {
+      return new Response(OPENAI_APPS_CHALLENGE_TOKEN, {
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      })
+    }
+
     const isMcpRoute = url.pathname === MCP_ROUTE
     if (url.pathname.startsWith(MCP_ROUTE) && !isMcpRoute) {
       return new Response('Not Found', { status: 404 })
