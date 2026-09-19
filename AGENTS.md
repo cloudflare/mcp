@@ -45,6 +45,8 @@ cloudflare-mcp/
 │       └── tool-call.test.ts
 ├── scripts/
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
+├── docs/
+│   └── connection-guides/         # Client-specific MCP setup guides
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
 │   └── bonk.yml                   # AI code review
