@@ -41,14 +41,26 @@ cloudflare-mcp/
 │   ├── executor.test.ts
 │   ├── spec-processor.test.ts
 │   ├── truncate.test.ts
+│   ├── eval-harness.test.ts       # Regression test for evals/harness.ts (scripted model, no API key)
 │   └── e2e/                       # End-to-end tests (real worker via exports.default.fetch)
 │       └── tool-call.test.ts
+├── evals/                         # LLM evals for search/execute tool usage (see evals/README.md)
+│   ├── models.ts                  # Model roster, gated on provider API keys
+│   ├── harness.ts                 # runAgentTask(): live tools/list -> AI SDK tools -> generateText
+│   ├── fixtures.ts                # Small fixed OpenAPI spec slice seeded by each eval
+│   ├── search.eval.ts
+│   ├── execute.eval.ts
+│   ├── end-to-end.eval.ts
+│   └── setup/msw-passthrough.ts   # Lets model-provider API hosts through the strict MSW mock
 ├── scripts/
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
+│   ├── evals.yml                  # Nightly LLM eval run (manual dispatch too)
 │   └── bonk.yml                   # AI code review
 ├── wrangler.jsonc                 # Workers config (dev/staging/prod)
+├── vitest.config.ts               # Regular test suite config
+├── vitest.config.evals.ts         # Eval suite config (longer timeout, evals/**/*.eval.ts)
 ├── .oxfmtrc.json                  # oxfmt formatter config
 └── README.md
 ```
@@ -76,6 +88,8 @@ Node 22+ required.
 | `npm run test`         | Run vitest test suite                         |
 | `npm run test:watch`   | Run vitest in watch mode                      |
 | `npm run check`        | Run all checks (format, lint, typecheck, test)|
+| `npm run eval`         | Run LLM evals (needs a provider API key — see `evals/README.md`) |
+| `npm run eval:watch`   | Run LLM evals in watch mode                   |
 | `npm run seed:staging` | Seed OpenAPI spec to staging R2               |
 | `npm run seed:prod`    | Seed OpenAPI spec to production R2            |
 

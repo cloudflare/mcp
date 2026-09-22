@@ -15,6 +15,8 @@ export interface McpToolResult {
     tools?: Array<{
       name: string
       title?: string
+      description?: string
+      inputSchema?: Record<string, unknown>
       annotations?: {
         title?: string
         readOnlyHint?: boolean
