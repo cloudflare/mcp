@@ -50,4 +50,21 @@ describe('truncateResponse', () => {
     const arr = [1, 2, 3]
     expect(truncateResponse(arr)).toBe(JSON.stringify(arr, null, 2))
   })
+
+  it('should represent undefined instead of throwing', () => {
+    expect(truncateResponse(undefined)).toBe('undefined')
+  })
+
+  it('should represent BigInt instead of throwing', () => {
+    expect(truncateResponse(1n)).toBe('1n')
+    expect(truncateResponse({ count: 1n })).toBe(JSON.stringify({ count: '1n' }, null, 2))
+  })
+
+  it('should represent circular objects instead of throwing', () => {
+    const cyclic: { self?: unknown } = {}
+    cyclic.self = cyclic
+    const result = truncateResponse(cyclic)
+    expect(result).toContain('[Circular]')
+    expect(result).not.toContain('Converting circular structure')
+  })
 })

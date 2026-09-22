@@ -128,9 +128,14 @@ export default class CodeExecutor extends WorkerEntrypoint {
         });
 
         const responseContentType = response.headers.get("content-type") || "";
+        const mediaType = responseContentType.split(";")[0].trim().toLowerCase();
+        const isJsonCompatible =
+          mediaType === "application/json" ||
+          mediaType === "text/json" ||
+          mediaType.endsWith("+json");
 
         // Handle non-JSON responses (e.g., KV values)
-        if (!responseContentType.includes("application/json")) {
+        if (!isJsonCompatible) {
           const text = await response.text();
           if (!response.ok) {
             throw new Error("Cloudflare API error: " + response.status + " " + text);
@@ -170,14 +175,27 @@ export default class CodeExecutor extends WorkerEntrypoint {
           };
         }
 
-        // Handle REST API responses
-        if (!data.success) {
-          const errorList = Array.isArray(data.errors) ? data.errors : [];
-          const errors = errorList.map(e => e.code + ": " + e.message).join(", ");
-          throw new Error("Cloudflare API error: " + (errors || response.status));
+        // Traditional Cloudflare REST envelope: object with a boolean \`success\`.
+        const isRestEnvelope =
+          data !== null &&
+          typeof data === "object" &&
+          !Array.isArray(data) &&
+          typeof data.success === "boolean";
+
+        if (isRestEnvelope) {
+          if (!data.success) {
+            const errorList = Array.isArray(data.errors) ? data.errors : [];
+            const errors = errorList.map(e => e.code + ": " + e.message).join(", ");
+            throw new Error("Cloudflare API error: " + (errors || response.status));
+          }
+          return { ...data, status: response.status };
         }
 
-        return { ...data, status: response.status };
+        // Direct JSON (Analytics Engine, SCIM +json, arrays, primitives, etc.)
+        if (!response.ok) {
+          throw new Error("Cloudflare API error: " + response.status + " " + JSON.stringify(data));
+        }
+        return { success: true, status: response.status, result: data };
       }
     };
 
