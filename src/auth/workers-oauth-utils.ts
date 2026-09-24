@@ -621,7 +621,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         </div>
 
         <div class="radio-group" role="radiogroup" aria-labelledby="templateLegend" aria-describedby="templateHelp">
-          <div class="radio-legend" id="templateLegend">Access template</div>
+          <div class="radio-legend" id="templateLegend">Base scopes</div>
           <div class="radio-cards" id="templates"></div>
           ${requestedScopesHtml}
           <p class="radio-description" id="templateHelp">You can narrow permissions further on the Cloudflare authorization screen.</p>
