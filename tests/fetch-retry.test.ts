@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { fetchWithRetry, computeRetryDelay, type RetryOptions } from '../src/utils/fetch-retry'
+import {
+  fetchWithRetry,
+  computeRetryDelay,
+  serverRetryDelayMs,
+  type RetryOptions
+} from '../src/utils/fetch-retry'
 
 describe('computeRetryDelay', () => {
   // computeRetryDelay takes the resolved options without `caller`.
@@ -8,6 +13,7 @@ describe('computeRetryDelay', () => {
     baseDelayMs: 1000,
     backoffFactor: 2,
     maxDelayMs: 30_000,
+    maxTotalDelayMs: 30_000,
     jitter: false
   }
 
@@ -22,19 +28,14 @@ describe('computeRetryDelay', () => {
     expect(computeRetryDelay(5, defaults)).toBe(30_000) // 1000 * 2^5 = 32000, capped at 30000
   })
 
-  it('respects Retry-After header (seconds)', () => {
-    expect(computeRetryDelay(0, defaults, '5')).toBe(5000)
-    expect(computeRetryDelay(0, defaults, '2')).toBe(2000)
+  it('honours a server-given wait exactly, with no jitter', () => {
+    expect(computeRetryDelay(0, { ...defaults, jitter: true }, 5000)).toBe(5000)
+    expect(computeRetryDelay(2, defaults, 0)).toBe(0)
   })
 
-  it('caps Retry-After at maxDelayMs', () => {
-    expect(computeRetryDelay(0, defaults, '60')).toBe(30_000) // 60s capped at 30s
-  })
-
-  it('ignores invalid Retry-After values', () => {
-    expect(computeRetryDelay(0, defaults, 'invalid')).toBe(1000)
-    expect(computeRetryDelay(0, defaults, '0')).toBe(1000)
-    expect(computeRetryDelay(0, defaults, '-1')).toBe(1000)
+  it('does not retry when the server asks for longer than maxDelayMs', () => {
+    // Retrying at 30s against a 60s wait only spends the same quota on another 429.
+    expect(computeRetryDelay(0, defaults, 60_000)).toBeUndefined()
   })
 
   it('applies jitter between 50% and 100%', () => {
@@ -48,6 +49,35 @@ describe('computeRetryDelay', () => {
     }
     // With 50 samples, we should get some variation
     expect(results.size).toBeGreaterThan(1)
+  })
+})
+
+describe('serverRetryDelayMs', () => {
+  const headers = (init: Record<string, string>) => new Headers(init)
+
+  it('reads Retry-After as seconds or as an HTTP date', () => {
+    expect(serverRetryDelayMs(headers({ 'Retry-After': '5' }))).toBe(5000)
+    expect(serverRetryDelayMs(headers({ 'Retry-After': '0' }))).toBe(0)
+    const now = Date.parse('Wed, 21 Oct 2026 07:28:00 GMT')
+    expect(serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:28:12 GMT' }), now)).toBe(12_000)
+    expect(serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:27:00 GMT' }), now)).toBe(0)
+  })
+
+  it("falls back to the Cloudflare API's Ratelimit reset for an exhausted limit", () => {
+    expect(serverRetryDelayMs(headers({ Ratelimit: '"default";r=0;t=30' }))).toBe(30_000)
+    // Quota left: no reason to wait for the reset.
+    expect(serverRetryDelayMs(headers({ Ratelimit: '"default";r=50;t=30' }))).toBeUndefined()
+    // Several limits: wait for every exhausted one.
+    expect(serverRetryDelayMs(headers({ Ratelimit: '"burst";r=0;t=4, "default";r=0;t=120' }))).toBe(120_000)
+    // Retry-After wins when both are present.
+    expect(serverRetryDelayMs(headers({ 'Retry-After': '2', Ratelimit: '"default";r=0;t=30' }))).toBe(2000)
+  })
+
+  it('ignores values it cannot read', () => {
+    expect(serverRetryDelayMs(headers({ 'Retry-After': 'soon' }))).toBeUndefined()
+    expect(serverRetryDelayMs(headers({ 'Retry-After': '-1' }))).toBeUndefined()
+    expect(serverRetryDelayMs(headers({ 'Retry-After': '1.5' }))).toBeUndefined()
+    expect(serverRetryDelayMs(headers({}))).toBeUndefined()
   })
 })
 
@@ -239,6 +269,56 @@ describe('fetchWithRetry', () => {
     expect(result.status).toBe(200)
     // Retry-After: 1 means 1000ms minimum
     expect(elapsed).toBeGreaterThanOrEqual(900) // allow small timing variance
+  })
+
+  it('returns the 429 at once when the server asks to wait beyond maxDelayMs', async () => {
+    const mock = vi
+      .fn()
+      .mockResolvedValue(new Response('rate limited', { status: 429, headers: { 'Retry-After': '300' } }))
+    globalThis.fetch = mock
+
+    const result = await fetchWithRetry('https://api.example.com/user', undefined, { caller: 'probe' })
+
+    expect(result.status).toBe(429)
+    expect(result.headers.get('Retry-After')).toBe('300')
+    expect(mock).toHaveBeenCalledTimes(1)
+    expect(warnSpy).toHaveBeenCalledWith(
+      'fetchWithRetry: 429 caller=probe url=https://api.example.com/user on attempt 1/4, not retrying: the server asks for 300s retry-after=300'
+    )
+  })
+
+  it('waits for the Ratelimit reset when there is no Retry-After', async () => {
+    const mock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        new Response('rate limited', { status: 429, headers: { Ratelimit: '"default";r=0;t=1' } })
+      )
+      .mockResolvedValueOnce(new Response('ok', { status: 200 }))
+    globalThis.fetch = mock
+
+    const start = Date.now()
+    const result = await fetchWithRetry('https://api.example.com/test', undefined, { baseDelayMs: 10 })
+
+    expect(result.status).toBe(200)
+    expect(Date.now() - start).toBeGreaterThanOrEqual(900)
+    expect(warnSpy).toHaveBeenCalledWith(
+      'fetchWithRetry: 429 url=https://api.example.com/test on attempt 1/4, retrying in 1000ms ratelimit="default";r=0;t=1'
+    )
+  })
+
+  it('stops once the total wait would pass maxTotalDelayMs', async () => {
+    const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
+    globalThis.fetch = mock
+
+    // Backoff 10ms, then 20ms: the second wait would bring the total to 30ms, over the 25ms budget.
+    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+      baseDelayMs: 10,
+      jitter: false,
+      maxTotalDelayMs: 25
+    })
+
+    expect(result.status).toBe(429)
+    expect(mock).toHaveBeenCalledTimes(2)
   })
 
   it('handles mixed network errors and 429s', async () => {
