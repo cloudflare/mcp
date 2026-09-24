@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { env, exports, WorkerEntrypoint } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { CLOUDFLARE_TYPES } from '../constants'
-import { truncateResponse } from '../truncate'
+import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { formatError } from '../utils/errors'
 import {
@@ -294,8 +294,14 @@ function accountIdParamDescription(): string {
  *  - Account token (pinned account): `account_id` is fixed, not a parameter.
  *  - User token: `account_id` selects the account, and may be omitted for
  *    account-independent discovery calls such as `GET /accounts`.
+ *
+ * `formatResult` turns the value the code returns into the tool's text output.
  */
-export function registerExecuteTool(server: McpServer, props: AuthProps): void {
+export function registerExecuteTool(
+  server: McpServer,
+  props: AuthProps,
+  formatResult: FormatToolResult
+): void {
   const apiToken = props.accessToken
   const description = executeToolDescription(props)
   const pinnedAccountId = accountTokenId(props)
@@ -319,7 +325,7 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
       async ({ code }) => {
         try {
           const result = await runExecute(code, pinnedAccountId, apiToken)
-          return { content: [{ type: 'text', text: truncateResponse(result) }] }
+          return { content: [{ type: 'text', text: formatResult(result) }] }
         } catch (error) {
           return formatError(error)
         }
@@ -352,7 +358,7 @@ export function registerExecuteTool(server: McpServer, props: AuthProps): void {
         const effectiveAccountId = account_id || autoResolvedAccountId(props)
 
         const result = await runExecute(code, effectiveAccountId, apiToken)
-        return { content: [{ type: 'text', text: truncateResponse(result) }] }
+        return { content: [{ type: 'text', text: formatResult(result) }] }
       } catch (error) {
         return formatError(error)
       }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { truncateResponse } from '../src/truncate'
+import { stringifyResponse, truncateResponse } from '../src/truncate'
 
 describe('truncateResponse', () => {
   it('should return string content unchanged if under limit', () => {
@@ -49,5 +49,25 @@ describe('truncateResponse', () => {
   it('should handle arrays', () => {
     const arr = [1, 2, 3]
     expect(truncateResponse(arr)).toBe(JSON.stringify(arr, null, 2))
+  })
+
+  it('should render undefined as text instead of throwing', () => {
+    expect(truncateResponse(undefined)).toBe('undefined')
+  })
+})
+
+describe('stringifyResponse', () => {
+  it('returns oversized strings whole', () => {
+    const longString = 'x'.repeat(30000)
+    expect(stringifyResponse(longString)).toBe(longString)
+  })
+
+  it('pretty-prints oversized values whole', () => {
+    const largeArray = Array(5000).fill({ key: 'value', nested: { a: 1, b: 2 } })
+    expect(stringifyResponse(largeArray)).toBe(JSON.stringify(largeArray, null, 2))
+  })
+
+  it('renders undefined as text', () => {
+    expect(stringifyResponse(undefined)).toBe('undefined')
   })
 })

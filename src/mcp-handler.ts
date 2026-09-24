@@ -5,7 +5,7 @@ import {
   localhostAllowedOrigins,
   originValidationResponse
 } from '@modelcontextprotocol/server'
-import { createServer } from './server'
+import { createServer, type ServerOptions } from './server'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
 
 export const MCP_ROUTE = '/mcp'
@@ -22,6 +22,18 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
   'mcp.cloudflare.com'
 ]
 
+/**
+ * Read the server options from the MCP URL query string. Each option stays on
+ * unless the client passes exactly `false`, e.g. `/mcp?codemode=false`.
+ */
+function serverOptionsFromUrl(url: string): ServerOptions {
+  const params = new URL(url).searchParams
+  return {
+    codemode: params.get('codemode') !== 'false',
+    truncateToolResult: params.get('truncateToolResult') !== 'false'
+  }
+}
+
 function createAuthenticatedHandler(props: AuthProps) {
   return createMcpHandler(
     ({ requestInfo }) => {
@@ -29,8 +41,7 @@ function createAuthenticatedHandler(props: AuthProps) {
         throw new Error('The Cloudflare MCP server requires an HTTP request')
       }
 
-      const codemode = new URL(requestInfo.url).searchParams.get('codemode') !== 'false'
-      return createServer(props, codemode)
+      return createServer(props, serverOptionsFromUrl(requestInfo.url))
     },
     // This server publishes no change notifications and intentionally keeps no
     // long-lived request state. Reject subscriptions/listen before the SDK opens

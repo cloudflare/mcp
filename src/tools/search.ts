@@ -3,7 +3,7 @@ import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { SPEC_TYPES } from '../openapi'
 import { getProducts, getSpec } from '../isolate-cache'
-import { truncateResponse } from '../truncate'
+import type { FormatToolResult } from '../truncate'
 import { formatError } from '../utils/errors'
 
 interface SearchExecutorEntrypoint {
@@ -98,9 +98,13 @@ async () => {
 
 /**
  * Register the `search` tool: runs sandboxed JavaScript against the
- * pre-resolved OpenAPI spec (no network access).
+ * pre-resolved OpenAPI spec (no network access). `formatResult` turns the
+ * value the code returns into the tool's text output.
  */
-export async function registerSearchTool(server: McpServer): Promise<void> {
+export async function registerSearchTool(
+  server: McpServer,
+  formatResult: FormatToolResult
+): Promise<void> {
   const products = await getProducts()
 
   server.registerTool(
@@ -121,7 +125,7 @@ export async function registerSearchTool(server: McpServer): Promise<void> {
     async ({ code }) => {
       try {
         const result = await runSearch(code)
-        return { content: [{ type: 'text', text: truncateResponse(result) }] }
+        return { content: [{ type: 'text', text: formatResult(result) }] }
       } catch (error) {
         return formatError(error)
       }

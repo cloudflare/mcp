@@ -276,6 +276,84 @@ describe('MCP 2026-07-28 stateless handler', () => {
   })
 })
 
+describe('tool result truncation', () => {
+  // ~94K characters as pretty JSON, well past the ~24K-character cap.
+  const ROWS = Array.from({ length: 2_000 }, (_, i) => ({ id: `worker-${i}`, i }))
+  const ROWS_CODE = `async () => Array.from({ length: 2000 }, (_, i) => ({ id: "worker-" + i, i }))`
+
+  async function callToolText(
+    name: string,
+    args: Record<string, unknown>,
+    url = MCP_URL
+  ): Promise<string> {
+    const response = await exports.default.fetch(
+      modernMcpRequest(API_TOKEN, 'tools/call', { name, arguments: args }, { url })
+    )
+    const body = await parseMcpResult(response)
+    expect(body.result?.isError).toBeFalsy()
+    return body.result?.content?.[0]?.text ?? ''
+  }
+
+  it('truncates an oversized result by default', async () => {
+    const text = await callToolText('execute', { code: ROWS_CODE })
+
+    expect(text).toContain('--- TRUNCATED ---')
+    expect(text.length).toBeLessThan(JSON.stringify(ROWS, null, 2).length)
+  })
+
+  it('returns the whole execute result with ?truncateToolResult=false', async () => {
+    const text = await callToolText(
+      'execute',
+      { code: ROWS_CODE },
+      `${MCP_URL}?truncateToolResult=false`
+    )
+
+    expect(JSON.parse(text)).toEqual(ROWS)
+  })
+
+  it('returns the whole search result with ?truncateToolResult=false', async () => {
+    const text = await callToolText(
+      'search',
+      { code: ROWS_CODE },
+      `${MCP_URL}?truncateToolResult=false`
+    )
+
+    expect(JSON.parse(text)).toEqual(ROWS)
+  })
+
+  it('returns the whole endpoint tool response with ?codemode=false&truncateToolResult=false', async () => {
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
+        HttpResponse.json(cfSuccess(ROWS))
+      )
+    )
+
+    const text = await callToolText(
+      'get_accounts_workers_scripts',
+      {},
+      `${MCP_URL}?codemode=false&truncateToolResult=false`
+    )
+
+    expect(JSON.parse(text)).toEqual(cfSuccess(ROWS))
+  })
+
+  it('keeps truncating for any value other than false', async () => {
+    const text = await callToolText(
+      'execute',
+      { code: ROWS_CODE },
+      `${MCP_URL}?truncateToolResult=0`
+    )
+
+    expect(text).toContain('--- TRUNCATED ---')
+  })
+
+  it('returns text for code that returns nothing', async () => {
+    const text = await callToolText('execute', { code: 'async () => {}' })
+
+    expect(text).toBe('undefined')
+  })
+})
+
 describe('MCP deployment boundary', () => {
   it('does not treat longer path prefixes as the MCP endpoint', async () => {
     const response = await exports.default.fetch(

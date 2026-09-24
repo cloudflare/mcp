@@ -236,7 +236,7 @@ describe('createServer with codemode=false', () => {
     )
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('test-account'), false)
+    const server = await createServer(acctProps('test-account'), { codemode: false })
 
     expect(Object.keys((server as any)._registeredTools)).toEqual([])
     const tools = await listTools(server)
@@ -255,7 +255,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('test-account'), false)
+    const server = await createServer(acctProps('test-account'), { codemode: false })
 
     // CPU guard: non-Code-Mode must dispatch lazily, never register one SDK
     // handler/Zod schema per endpoint during server creation.
@@ -284,7 +284,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('test-account'), false)
+    const server = await createServer(acctProps('test-account'), { codemode: false })
 
     const tools = await listTools(server)
     const listTool = tools.find((tool) => tool.name === 'get_accounts_workers_scripts')
@@ -298,7 +298,7 @@ describe('createServer with codemode=false', () => {
 
   it('registers docs with the Cloudflare docs server description and output schema', async () => {
     await seedSpec({})
-    const server = await createServer(acctProps('test-account'), true)
+    const server = await createServer(acctProps('test-account'))
 
     const docsTool = (server as any)._registeredTools['docs']
     expect(docsTool.description).toContain(
@@ -319,7 +319,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     await removeNonCodemodeTools()
-    const server = await createServer(bareUserProps, false)
+    const server = await createServer(bareUserProps, { codemode: false })
 
     const tools = await listTools(server)
     expect(tools).toEqual(
@@ -337,7 +337,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('test-account'), true)
+    const server = await createServer(acctProps('test-account'))
 
     const tools = (server as any)._registeredTools
     const toolNames = Object.keys(tools)
@@ -360,7 +360,7 @@ describe('createServer with codemode=false', () => {
     }
     await seedSpec({})
 
-    const server = await createServer(props, true)
+    const server = await createServer(props)
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
@@ -387,7 +387,7 @@ describe('createServer with codemode=false', () => {
     }
     await seedSpec({})
 
-    const server = await createServer(props, true)
+    const server = await createServer(props)
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
@@ -412,7 +412,7 @@ describe('createServer with codemode=false', () => {
     }
     await seedSpec({})
 
-    const server = await createServer(props, true)
+    const server = await createServer(props)
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
@@ -431,7 +431,7 @@ describe('createServer with codemode=false', () => {
     }
     await seedSpec({})
 
-    const server = await createServer(props, true)
+    const server = await createServer(props)
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
@@ -458,7 +458,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-123'), false)
+    const server = await createServer(acctProps('acct-123'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [{ id: 'my-worker' }] })
@@ -498,7 +498,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(bareUserProps, false)
+    const server = await createServer(bareUserProps, { codemode: false })
 
     const result = await callTool(server, 'delete_zones_dns_records_by_record_id', {})
     expect(result.isError).toBe(true)
@@ -514,7 +514,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(bareUserProps, false)
+    const server = await createServer(bareUserProps, { codemode: false })
 
     // Provide zone_id but not record_id
     const result = await callTool(server, 'delete_zones_dns_records_by_record_id', {
@@ -539,7 +539,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
@@ -568,7 +568,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
@@ -598,7 +598,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: { id: 'new-db' } })
@@ -633,7 +633,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
@@ -668,7 +668,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
@@ -690,7 +690,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: [] })
@@ -721,7 +721,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
@@ -756,7 +756,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
@@ -780,7 +780,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchText('raw-kv-value-here')
@@ -806,7 +806,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson(
@@ -831,7 +831,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network failure'))
@@ -853,7 +853,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-1'), false)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })
@@ -888,7 +888,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(props, false)
+    const server = await createServer(props, { codemode: false })
 
     const listedTools = await listTools(server)
     const listedTool = listedTools.find((item) => item.name === 'get_accounts_workers_scripts')
@@ -919,7 +919,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(props, false)
+    const server = await createServer(props, { codemode: false })
     const result = await callTool(server, 'get_accounts_workers_scripts', {})
 
     expect(result.isError).toBe(true)
@@ -939,7 +939,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(acctProps('acct-123'), false)
+    const server = await createServer(acctProps('acct-123'), { codemode: false })
 
     const tools = await listTools(server)
     const tool = tools.find((item) => item.name === 'get_accounts_workers_scripts')
@@ -965,7 +965,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(props, false)
+    const server = await createServer(props, { codemode: false })
 
     const tools = await listTools(server)
     const tool = tools.find((item) => item.name === 'get_accounts_workers_scripts')
@@ -981,7 +981,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(bareUserProps, false)
+    const server = await createServer(bareUserProps, { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: { id: 'u1', email: 'a@b.com' } })
@@ -1011,7 +1011,7 @@ describe('createServer with codemode=false', () => {
     }
 
     await seedSpec(specPaths)
-    const server = await createServer(bareUserProps, false)
+    const server = await createServer(bareUserProps, { codemode: false })
 
     const originalFetch = globalThis.fetch
     globalThis.fetch = mockFetchJson({ success: true, result: {} })

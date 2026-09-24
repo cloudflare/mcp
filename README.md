@@ -76,6 +76,16 @@ When code mode is disabled:
 
 > **Note:** Disabling code mode significantly increases the token cost (~244k tokens vs ~1k tokens). Only disable it when necessary for composition with other code mode systems.
 
+### Disable Tool Result Truncation
+
+The server caps each tool result at ~6,000 tokens by default. Clients that bound results themselves can turn the cap off with the `?truncateToolResult=false` query parameter. Code mode clients are the main case. They parse each tool result as JSON and run more code on it before anything reaches the model, so they need the whole result. The parameter works with or without code mode and covers `search`, `execute`, and every endpoint tool.
+
+```
+https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
+```
+
+> **Note:** Without the cap, a broad query can return megabytes. Only turn it off when your client bounds what reaches the model.
+
 ## The Problem
 
 The Cloudflare OpenAPI spec is **2 million tokens**. Even with native MCP tools using minimal schemas, it's still **~244k tokens**. Traditional MCP servers that expose every endpoint as a tool leak this entire context to the main agent.

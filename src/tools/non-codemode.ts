@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { McpServer, CallToolResult, Tool } from '@modelcontextprotocol/server'
-import { truncateResponse } from '../truncate'
+import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { getNonCodemodeToolMap, getNonCodemodeTools } from '../isolate-cache'
 import {
@@ -20,8 +20,13 @@ import type { AuthProps } from '../auth/types'
  * Unlike `registerTool`, these handlers do not create ~3,000 closures and Zod
  * schemas per HTTP request. `tools/list` serves the precomputed JSON artifact;
  * `tools/call` validates and dispatches only the requested operation.
+ * `formatResult` turns each API response body into the tool's text output.
  */
-export async function registerNonCodemodeTools(server: McpServer, props: AuthProps): Promise<void> {
+export async function registerNonCodemodeTools(
+  server: McpServer,
+  props: AuthProps,
+  formatResult: FormatToolResult
+): Promise<void> {
   const tools = await getNonCodemodeTools()
   const toolsByName = await getNonCodemodeToolMap()
   const resolvedAccountId = autoResolvedAccountId(props)
@@ -55,7 +60,13 @@ export async function registerNonCodemodeTools(server: McpServer, props: AuthPro
             .object(zodInputSchemaFromJson(tool.inputSchema))
             .safeParse(request.params.arguments ?? {})
           result = parsed.success
-            ? await callNonCodemodeTool(baseTool, parsed.data, resolvedAccountId, props.accessToken)
+            ? await callNonCodemodeTool(
+                baseTool,
+                parsed.data,
+                resolvedAccountId,
+                props.accessToken,
+                formatResult
+              )
             : validationError(name, parsed.error)
         }
       }
@@ -72,7 +83,8 @@ async function callNonCodemodeTool(
   tool: NonCodemodeTool,
   params: Record<string, unknown>,
   resolvedAccountId: string | undefined,
-  apiToken: string
+  apiToken: string,
+  formatResult: FormatToolResult
 ): Promise<CallToolResult> {
   let resolvedPath = tool.path
   const pathParams = [...tool.path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1])
@@ -113,7 +125,7 @@ async function callNonCodemodeTool(
     : await response.text()
 
   return {
-    content: [{ type: 'text', text: truncateResponse(text) }],
+    content: [{ type: 'text', text: formatResult(text) }],
     isError: !response.ok
   }
 }

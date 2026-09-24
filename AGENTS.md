@@ -146,6 +146,8 @@ The consent picker uses the production catalog returned by `GET /oauth/scopes` i
 
 Responses capped at ~6,000 tokens (~24KB). Truncation notice included with original size to prompt agents to write more specific queries.
 
+Clients that bound results themselves can pass `?truncateToolResult=false` to get whole results from `search`, `execute`, and the endpoint tools. `src/mcp-handler.ts` reads it next to `?codemode=false`; both are on unless the value is exactly `false`.
+
 ### Usage metrics (Analytics Engine)
 
 Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the shared `mcp-metrics-{dev,staging,production}` dataset — the same dataset used by the per-product Cloudflare MCP servers (`cloudflare/mcp-server-cloudflare`), so this server shows up alongside them under server name `cloudflare-api`.
