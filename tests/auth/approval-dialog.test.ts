@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { REQUIRED_SCOPES, SCOPE_DEFINITIONS, SCOPE_TEMPLATES } from '../../src/auth/scopes'
 import {
   isAllowedOAuthRedirectUri,
   renderApprovalDialog,
@@ -20,6 +21,7 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
     csrfToken: 'test-csrf-token',
     setCookie: '__Host-CSRF_TOKEN=test-csrf-token',
     scopeTemplates: {},
+    scopeDefinitions: {},
     requiredScopes: [],
     initialScopes: [],
     ...options
@@ -104,6 +106,39 @@ describe('OAuth approval dialog identity details', () => {
     expect(text).toContain(
       'Local redirect: this client will receive the authorization code on this device.'
     )
+  })
+})
+
+describe('OAuth approval dialog templates', () => {
+  const templates = {
+    scopeTemplates: SCOPE_TEMPLATES,
+    scopeDefinitions: SCOPE_DEFINITIONS,
+    requiredScopes: REQUIRED_SCOPES
+  }
+
+  it('lists the scopes a client asked for when they match no template', async () => {
+    const body = await render({
+      ...templates,
+      initialScopes: ['zone.write', 'dns.read', ...REQUIRED_SCOPES]
+    })
+
+    const text = visibleText(body)
+    expect(text).toContain('This client asked for:')
+    expect(text).toContain('Zone Write')
+    expect(text).toContain('DNS Read')
+    // Identity scopes are part of every template, so they are not listed.
+    expect(text).not.toContain('User Read')
+    expect(body).toContain('const INITIAL_TEMPLATE = "__requested__";')
+  })
+
+  it('preselects a matching template without listing requested scopes', async () => {
+    const body = await render({
+      ...templates,
+      initialScopes: [...SCOPE_TEMPLATES['read-only'].scopes, ...REQUIRED_SCOPES]
+    })
+
+    expect(visibleText(body)).not.toContain('This client asked for')
+    expect(body).toContain('const INITIAL_TEMPLATE = "read-only";')
   })
 })
 
