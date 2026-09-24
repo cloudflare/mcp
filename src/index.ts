@@ -1,4 +1,5 @@
-import OAuthProvider, { type OAuthProviderOptions } from '@cloudflare/workers-oauth-provider'
+import OAuthProvider from '@cloudflare/workers-oauth-provider'
+import { env as workerEnv } from 'cloudflare:workers'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { resolveExternalToken } from './auth/api-token-mode'
 import {
@@ -17,6 +18,36 @@ const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc
 // resolves the GLOBAL_OUTBOUND worker-loader entrypoint from this entry module,
 // so it must be re-exported here.
 export { GlobalOutbound } from './tools/execute'
+
+// Built once per isolate: constructing the provider validates its whole configuration, which used to
+// run on every request. The module-scope `env` from cloudflare:workers carries the same bindings and
+// secrets the request's env does.
+// workers-oauth-provider resolves its own access tokens first, then delegates
+// direct Cloudflare API/OAuth credentials to resolveExternalToken.
+const oauthProvider = new OAuthProvider<Env>({
+  apiHandlers: {
+    [MCP_ROUTE]: oauthMcpHandler
+  },
+  defaultHandler: createAuthHandlers(),
+  authorizeEndpoint: '/authorize',
+  tokenEndpoint: '/token',
+  clientRegistrationEndpoint: '/register',
+  clientIdMetadataDocumentEnabled: true,
+  resolveExternalToken,
+  // An upstream invalid_grant thrown here revokes the grant (workers-oauth-provider 1.x).
+  tokenExchangeCallback: (options) =>
+    handleTokenExchangeCallback(
+      options,
+      workerEnv.CLOUDFLARE_CLIENT_ID,
+      workerEnv.CLOUDFLARE_CLIENT_SECRET
+    ),
+  resourceMetadata: {
+    resource: workerEnv.MCP_RESOURCE,
+    resource_name: 'Cloudflare API MCP Server'
+  },
+  accessTokenTTL: 3600,
+  refreshTokenTTL: 2592000 // 30 days
+})
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -39,33 +70,7 @@ export default {
       if (request.method === 'OPTIONS') return handleMcpPreflight(request)
     }
 
-    // workers-oauth-provider resolves its own access tokens first, then delegates
-    // direct Cloudflare API/OAuth credentials to resolveExternalToken.
-    const oauthOptions: OAuthProviderOptions<Env> = {
-      apiHandlers: {
-        [MCP_ROUTE]: oauthMcpHandler
-      },
-      defaultHandler: createAuthHandlers(),
-      authorizeEndpoint: '/authorize',
-      tokenEndpoint: '/token',
-      clientRegistrationEndpoint: '/register',
-      clientIdMetadataDocumentEnabled: true,
-      resolveExternalToken,
-      // An upstream invalid_grant thrown here revokes the grant (workers-oauth-provider 1.x).
-      tokenExchangeCallback: (options) =>
-        handleTokenExchangeCallback(
-          options,
-          env.CLOUDFLARE_CLIENT_ID,
-          env.CLOUDFLARE_CLIENT_SECRET
-        ),
-      resourceMetadata: {
-        resource: env.MCP_RESOURCE,
-        resource_name: 'Cloudflare API MCP Server'
-      },
-      accessTokenTTL: 3600,
-      refreshTokenTTL: 2592000 // 30 days
-    }
-    return new OAuthProvider(oauthOptions).fetch(request, env, ctx)
+    return oauthProvider.fetch(request, env, ctx)
   },
 
   async scheduled(
