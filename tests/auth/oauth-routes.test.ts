@@ -174,9 +174,7 @@ describe('OAuth metadata policy', () => {
 
     expect(response.status).toBe(200)
     expect(response.headers.get('Content-Type')).toBe('text/plain; charset=utf-8')
-    await expect(response.text()).resolves.toBe(
-      'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
-    )
+    await expect(response.text()).resolves.toBe('dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc')
   })
 
   it('advertises the canonical MCP endpoint as the protected resource', async () => {

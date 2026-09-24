@@ -2,29 +2,51 @@ import { z } from 'zod'
 
 import { OAuthError } from './workers-oauth-utils'
 
-/**
- * Convert an upstream Cloudflare OAuth error response to an OAuthError.
- * 4xx: preserves the status code with a safe message.
- * 5xx: uses 502 Bad Gateway (we're proxying).
- */
-function retryAfterHeaders(response: Response): Record<string, string> | undefined {
-  const retryAfter = response.headers.get('Retry-After') ?? '30'
-  return response.status === 429 ? { 'Retry-After': retryAfter } : undefined
+/** The RFC 6749 §5.2 `error` code from a token-endpoint error body, JSON or form-encoded. */
+function upstreamOAuthErrorCode(body: string): string | undefined {
+  try {
+    const parsed: unknown = JSON.parse(body)
+    if (
+      parsed &&
+      typeof parsed === 'object' &&
+      typeof (parsed as { error?: unknown }).error === 'string'
+    ) {
+      return (parsed as { error: string }).error
+    }
+  } catch {
+    // Not JSON; try form encoding below.
+  }
+  return new URLSearchParams(body).get('error') ?? undefined
 }
 
-function throwUpstreamError(response: Response, context: string): never {
+/**
+ * Convert an upstream Cloudflare OAuth error into the OAuthError workers-oauth-provider acts on,
+ * from the RFC 6749 `error` field rather than the HTTP status:
+ * - retryable (429, 5xx, `temporarily_unavailable`) → `temporarily_unavailable`: the grant is kept;
+ * - `invalid_grant` → `invalid_grant`: the provider revokes the grant and the client reauthorizes;
+ * - anything else, including our own client credentials being rejected → `server_error`, never an
+ *   `invalid_client` that would make the MCP client doubt its own registration.
+ */
+function throwUpstreamError(response: Response, body: string, context: string): never {
   const status = response.status
-  if (status >= 500) {
-    throw new OAuthError('server_error', `${context}: upstream service unavailable`, 502)
+  const code = upstreamOAuthErrorCode(body)
+  if (code === 'temporarily_unavailable' || status === 429 || status >= 500) {
+    throw new OAuthError(
+      'temporarily_unavailable',
+      `${context}: upstream temporarily unavailable, try again later`,
+      status === 429 ? 429 : 503,
+      { 'Retry-After': response.headers.get('Retry-After') ?? '30' }
+    )
   }
-  const codeMap: Record<number, [string, string]> = {
-    400: ['invalid_grant', `${context}: invalid or expired grant`],
-    401: ['invalid_client', `${context}: invalid client credentials`],
-    403: ['unauthorized_client', `${context}: insufficient permissions`],
-    429: ['temporarily_unavailable', `${context}: rate limited, try again later`]
+  // A 400 without a readable error keeps its historical meaning, so a dead refresh token still revokes.
+  if (code === 'invalid_grant' || (code === undefined && status === 400)) {
+    throw new OAuthError('invalid_grant', `${context}: invalid or expired grant`, 400)
   }
-  const [code, desc] = codeMap[status] || ['invalid_grant', `${context}: request failed`]
-  throw new OAuthError(code, desc, status, retryAfterHeaders(response))
+  throw new OAuthError(
+    'server_error',
+    `${context}: upstream rejected the request (${code ?? status})`,
+    502
+  )
 }
 
 const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
@@ -128,8 +150,9 @@ export async function getAuthToken(params: {
   })
 
   if (!resp.ok) {
-    console.error(`Token exchange failed: ${resp.status}`, await resp.text())
-    throwUpstreamError(resp, 'Token exchange failed')
+    const body = await resp.text()
+    console.error(`Token exchange failed: ${resp.status}`, body)
+    throwUpstreamError(resp, body, 'Token exchange failed')
   }
 
   return AuthorizationToken.parse(await resp.json())
@@ -160,8 +183,9 @@ export async function refreshAuthToken(params: {
   })
 
   if (!resp.ok) {
-    console.error(`Token refresh failed: ${resp.status}`, await resp.text())
-    throwUpstreamError(resp, 'Token refresh failed')
+    const body = await resp.text()
+    console.error(`Token refresh failed: ${resp.status}`, body)
+    throwUpstreamError(resp, body, 'Token refresh failed')
   }
 
   return AuthorizationToken.parse(await resp.json())
