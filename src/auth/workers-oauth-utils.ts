@@ -483,6 +483,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .radio-legend { font-weight: 500; }
     .radio-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
     .radio-card {
+      position: relative;
       display: flex;
       align-items: center;
       border: 1px solid var(--kumo-hairline);
@@ -501,23 +502,26 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       cursor: pointer;
     }
     .radio-card-label { flex: 1; min-width: 0; font-weight: 500; overflow-wrap: anywhere; }
-    /* Kumo Button variant="ghost" shape="square" size="sm" */
+    /* Sits on the card's top-right corner so the radio stays where it is on every card */
     .radio-card-remove {
+      position: absolute;
+      top: -8px;
+      right: -8px;
       display: grid;
       place-content: center;
-      flex-shrink: 0;
-      width: 26px;
-      height: 26px;
-      margin-right: 0.5rem;
+      width: 20px;
+      height: 20px;
       border: 0;
-      border-radius: 6px;
-      background: transparent;
+      border-radius: 50%;
+      background: var(--kumo-base);
+      box-shadow: 0 0 0 1px var(--kumo-line), var(--kumo-shadow-xs);
       color: var(--kumo-text-subtle);
       cursor: pointer;
     }
-    .radio-card-remove:hover { background: var(--kumo-fill); color: var(--kumo-text-default); }
+    .radio-card-remove::after { content: ''; position: absolute; inset: -6px; }
+    .radio-card-remove:hover { background: var(--kumo-tint); color: var(--kumo-text-default); }
     .radio-card-remove:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
-    .radio-card-remove svg { width: 14px; height: 14px; fill: currentColor; }
+    .radio-card-remove svg { width: 10px; height: 10px; fill: currentColor; }
     .radio-input {
       appearance: none;
       display: grid;
@@ -620,7 +624,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           <div class="radio-legend" id="templateLegend">Access template</div>
           <div class="radio-cards" id="templates"></div>
           ${requestedScopesHtml}
-          <p class="radio-description" id="templateHelp">Choose Full access if the application needs to make changes. You can narrow permissions further on the Cloudflare authorization screen.</p>
+          <p class="radio-description" id="templateHelp">You can narrow permissions further on the Cloudflare authorization screen.</p>
         </div>
 
         <form method="post" action="${new URL(request.url).pathname}" id="authForm">
