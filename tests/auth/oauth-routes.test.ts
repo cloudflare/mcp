@@ -224,12 +224,15 @@ describe('GET /authorize', () => {
     // Consent form with CSRF protection and a session-binding cookie.
     expect(body).toContain('<form')
     expect(res.headers.get('Set-Cookie')).toBeTruthy()
-    // The picker uses the canonical production API catalog and preserves custom templates.
-    expect(body).toContain('data-scope="dns.read"')
-    expect(body).toContain('data-category="DNS &amp; Zones"')
-    expect(body).not.toContain('data-scope="dns_records:read"')
+    // Cloudflare's authorization screen picks individual scopes. This page offers
+    // the built-in templates, plus any saved in the browser by the old picker, and
+    // says where to narrow them. New templates can no longer be saved.
+    expect(body).not.toContain('data-scope=')
+    expect(body).not.toContain('Save as template')
     expect(body).toContain('cf-mcp-consent:user-templates:v1')
-    expect(body).toContain('Save as template')
+    expect(body).toContain(
+      'You can narrow scopes further on the Cloudflare authorization screen.'
+    )
 
     const templates = embeddedTemplateScopes(body)
     expect(Object.keys(templates)).toEqual(['read-only', 'full-access'])
@@ -259,12 +262,16 @@ describe('GET /authorize', () => {
     )
 
     expect(response.status).toBe(200)
-    expect(embeddedInitialScopes(await response.text())).toEqual([
+    const html = await response.text()
+    expect(embeddedInitialScopes(html)).toEqual([
       'access.write',
       'user:read',
       'offline_access',
       'account:read'
     ])
+    // The page lists what the client asked for, by name.
+    expect(html).toContain('This client asked for:')
+    expect(html).toContain('<li class="badge">Access: Apps and Policies Write</li>')
   })
 
   it('rejects a resource other than the canonical MCP endpoint', async () => {

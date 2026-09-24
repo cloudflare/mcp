@@ -33,7 +33,7 @@ cloudflare-mcp/
 │   │   ├── oauth-handler.ts       # OAuth authorization flow
 │   │   ├── refresh-admission-gate.ts # Best-effort per-grant KV refresh admission
 │   │   ├── derived-oauth-scopes.ts # Canonical production OAuth scope API metadata
-│   │   ├── scopes.ts              # Canonical picker config and OAuth bootstrap scopes
+│   │   ├── scopes.ts              # Consent templates and OAuth bootstrap scopes
 │   │   └── workers-oauth-utils.ts # OAuth provider helpers
 ├── tests/                         # Vitest suite (top-level, mirrors src/)
 │   ├── index.test.ts
@@ -131,7 +131,7 @@ Validated direct-credential identity is cached by token hash in `OAUTH_KV`; prov
 
 Downstream refreshes pass through a best-effort per-grant admission gate. An isolate-local block deterministically rejects same-isolate competitors; an owner-verified KV claim reduces cross-isolate races. A successful callback retains a short 10-second tombstone so the concurrent request burst receives structured `429 temporarily_unavailable` responses instead of independently rotating downstream refresh tokens, while preserving most of Cloudflare OAuth's 90-second upstream retry grace for provider persistence failures. Callback errors release admission. KV is eventually consistent, so this is load shedding and race reduction rather than a linearizable mutex.
 
-The consent picker uses the production catalog returned by `GET /oauth/scopes` in every deployment. Staging may register additional scopes, but the MCP picker exposes them only after they reach production. Only the user, account, and offline-access OAuth bootstrap scopes sit outside the API catalog. Terraform registration must land before deploying picker additions. The app does not impose a scope-count cap.
+The consent page offers read-only and full-access templates built from the production catalog returned by `GET /oauth/scopes` in every deployment. It has no per-scope picker. Cloudflare's authorization screen can only narrow the requested scopes, so the template is the most a user can grant there. Templates saved in the browser by the old picker still appear and can be removed, but new ones can't be created. Staging may register additional scopes, but the templates include them only after they reach production. Only the user, account, and offline-access OAuth bootstrap scopes sit outside the API catalog. Terraform registration must land before deploying template additions. The app does not impose a scope-count cap.
 
 ### OpenAPI spec processing
 

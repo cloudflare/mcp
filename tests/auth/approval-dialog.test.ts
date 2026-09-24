@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { REQUIRED_SCOPES, SCOPE_DEFINITIONS, SCOPE_TEMPLATES } from '../../src/auth/scopes'
 import {
   isAllowedOAuthRedirectUri,
   renderApprovalDialog,
@@ -21,7 +22,6 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
     setCookie: '__Host-CSRF_TOKEN=test-csrf-token',
     scopeTemplates: {},
     scopeDefinitions: {},
-    defaultTemplate: '',
     requiredScopes: [],
     initialScopes: [],
     ...options
@@ -30,8 +30,25 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
   return response.text()
 }
 
+/**
+ * Text inside `<main>` as a person reads it, with whitespace collapsed. The
+ * page's script and styles sit outside `<main>`, so skipping everything
+ * between `<` and `>` leaves only the visible text.
+ */
+function visibleText(html: string): string {
+  const main = html.slice(html.indexOf('<main'), html.indexOf('</main>'))
+  let text = ''
+  let inTag = false
+  for (const char of main) {
+    if (char === '<') inTag = true
+    else if (char === '>') inTag = false
+    else if (!inTag) text += char
+  }
+  return text.replace(/\s+/g, ' ')
+}
+
 describe('OAuth approval dialog identity details', () => {
-  it('shows parsed CIMD and redirect hostnames without exposing other URL components', async () => {
+  it('shows the full CIMD client ID and redirect URLs without credentials', async () => {
     const body = await render({
       client: {
         clientId: 'https://identity.example/oauth/client.json?sensitive=client-query',
@@ -44,17 +61,18 @@ describe('OAuth approval dialog identity details', () => {
       redirectUri: 'https://user@callback.example:8443/oauth/callback?sensitive=redirect-query'
     })
 
-    expect(body).toContain('Client ID hostname</span>')
-    expect(body).toContain('>identity.example</strong>')
-    expect(body).toContain('Redirect URI hostname</span>')
-    expect(body).toContain('>callback.example</strong>')
-    expect(body).not.toContain('client-query')
-    expect(body).not.toContain('redirect-query')
+    const text = visibleText(body)
+    expect(text).toContain(
+      'Client ID https://identity.example/oauth/client.json?sensitive=client-query'
+    )
+    expect(text).toContain(
+      'Redirect URI https://callback.example:8443/oauth/callback?sensitive=redirect-query'
+    )
+    expect(text).not.toContain('Local redirect:')
     expect(body).not.toContain('user@')
-    expect(body).not.toContain(':8443')
   })
 
-  it('does not present an opaque or non-HTTPS client ID as a trusted hostname', async () => {
+  it('does not present an opaque or non-HTTPS client ID as a trusted identity', async () => {
     const body = await render({
       client: {
         clientId: 'http://untrusted.example/client.json',
@@ -64,11 +82,12 @@ describe('OAuth approval dialog identity details', () => {
       }
     })
 
-    expect(body).not.toContain('Client ID hostname</span>')
+    const text = visibleText(body)
+    expect(text).not.toContain('Client ID')
     expect(body).not.toContain('untrusted.example')
     expect(body).not.toContain('<img src=x onerror=alert(1)>')
     expect(body).toContain('&lt;img src=x onerror=alert(1)&gt;')
-    expect(body).toContain('>callback.example</strong>')
+    expect(text).toContain('Redirect URI https://callback.example/oauth/callback')
   })
 
   it('warns when a native client redirects to a loopback listener', async () => {
@@ -82,8 +101,44 @@ describe('OAuth approval dialog identity details', () => {
       redirectUri: 'http://localhost:3210/callback'
     })
 
-    expect(body).toContain('Local redirect:')
-    expect(body).toContain('>localhost</strong>')
+    const text = visibleText(body)
+    expect(text).toContain('Redirect URI http://localhost:3210/callback')
+    expect(text).toContain(
+      'Local redirect: this client will receive the authorization code on this device.'
+    )
+  })
+})
+
+describe('OAuth approval dialog templates', () => {
+  const templates = {
+    scopeTemplates: SCOPE_TEMPLATES,
+    scopeDefinitions: SCOPE_DEFINITIONS,
+    requiredScopes: REQUIRED_SCOPES
+  }
+
+  it('lists the scopes a client asked for when they match no template', async () => {
+    const body = await render({
+      ...templates,
+      initialScopes: ['zone.write', 'dns.read', ...REQUIRED_SCOPES]
+    })
+
+    const text = visibleText(body)
+    expect(text).toContain('This client asked for:')
+    expect(text).toContain('Zone Write')
+    expect(text).toContain('DNS Read')
+    // Identity scopes are part of every template, so they are not listed.
+    expect(text).not.toContain('User Read')
+    expect(body).toContain('const INITIAL_TEMPLATE = "__requested__";')
+  })
+
+  it('preselects a matching template without listing requested scopes', async () => {
+    const body = await render({
+      ...templates,
+      initialScopes: [...SCOPE_TEMPLATES['read-only'].scopes, ...REQUIRED_SCOPES]
+    })
+
+    expect(visibleText(body)).not.toContain('This client asked for')
+    expect(body).toContain('const INITIAL_TEMPLATE = "read-only";')
   })
 })
 
