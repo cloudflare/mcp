@@ -20,8 +20,6 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
     csrfToken: 'test-csrf-token',
     setCookie: '__Host-CSRF_TOKEN=test-csrf-token',
     scopeTemplates: {},
-    scopeDefinitions: {},
-    defaultTemplate: '',
     requiredScopes: [],
     initialScopes: [],
     ...options

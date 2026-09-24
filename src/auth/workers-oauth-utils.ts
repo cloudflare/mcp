@@ -6,6 +6,8 @@ import {
   type ClientInfo
 } from '@cloudflare/workers-oauth-provider'
 
+import type { ScopeTemplate } from './scopes'
+
 const CSRF_COOKIE = '__Host-CSRF_TOKEN'
 const STATE_COOKIE = '__Host-CONSENTED_STATE'
 const OAuthStateToken = z.uuid()
@@ -93,21 +95,6 @@ export class OAuthError extends ProviderOAuthError {
 }
 
 /**
- * Scope template for preset selections
- */
-export interface ScopeTemplate {
-  name: string
-  description: string
-  tagline?: string
-  scopes: readonly string[]
-}
-
-export interface ScopeDefinition {
-  name: string
-  category: string
-}
-
-/**
  * Configuration for the approval dialog
  */
 export interface ApprovalDialogOptions {
@@ -122,8 +109,6 @@ export interface ApprovalDialogOptions {
   csrfToken: string
   setCookie: string
   scopeTemplates: Record<string, ScopeTemplate>
-  scopeDefinitions: Record<string, ScopeDefinition>
-  defaultTemplate: string
   requiredScopes: readonly string[]
   initialScopes: readonly string[]
 }
@@ -212,8 +197,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     csrfToken,
     setCookie,
     scopeTemplates,
-    scopeDefinitions,
-    defaultTemplate,
     requiredScopes,
     initialScopes
   } = options
@@ -232,13 +215,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.scopes]))
   )
 
-  const templateMetaJson = JSON.stringify(
-    Object.fromEntries(
-      Object.entries(scopeTemplates).map(([k, v]) => [
-        k,
-        { name: v.name, tagline: v.tagline ?? '', description: v.description }
-      ])
-    )
+  const templateNamesJson = JSON.stringify(
+    Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.name]))
   )
 
   const htmlContent = `
@@ -268,10 +246,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       --cf-text-default: #262626;     /* neutral-900 oklch(21% ...)    */
       --cf-text-subtle: #808080;      /* neutral-500 oklch(55.6% 0 0)  */
       --cf-text-inactive: #a3a3a3;    /* neutral-400 oklch(70.8% 0 0)  */
-      --cf-info: #2b7fff;             /* kumo-info (blue-500)          */
-      --cf-info-tint: rgba(219, 234, 254, 0.45); /* kumo-info-tint oklch(93.2% 0.032 255.6 / 0.45) */
-      --cf-info-text: #193cb8;        /* text-kumo-info (blue-800)     */
-      --cf-red: #c0392b;
       --border-radius: 8px;
       --border-radius-lg: 12px;
     }
@@ -307,8 +281,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .main {
       flex: 1;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
+      justify-content: center;
       padding: 2rem;
     }
     .card {
@@ -433,65 +407,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       color: var(--cf-brand-hover);
       box-shadow: inset 0 0 0 1px var(--cf-brand);
     }
-    .tmpl[aria-pressed="true"] .tmpl-tag { color: var(--cf-brand); }
     .tmpl .tmpl-name { font-size: 14px; font-weight: 500; letter-spacing: -0.14px; }
-    .tmpl .tmpl-tag {
-      font-size: 12px;
-      color: var(--cf-text-subtle);
-      letter-spacing: -0.12px;
-      font-weight: 500;
-    }
-    .tmpl .tmpl-delete {
-      width: 16px;
-      height: 16px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      color: currentColor;
-      opacity: 0.5;
-      padding: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      margin-left: 0.15rem;
-    }
-    .tmpl[data-user="1"] .tmpl-delete { display: inline-flex; }
-    .tmpl .tmpl-delete:hover { opacity: 1; color: var(--cf-red); }
-    .tmpl[aria-pressed="true"] .tmpl-delete:hover { color: var(--cf-red); opacity: 1; }
     .tmpl--custom { border-style: dashed; }
-
-    /* Kumo Banner (variant="default", size="sm"):
-       bg-kumo-info-tint text-kumo-info items-center gap-2 rounded-md px-3 py-2 text-sm */
-    .banner {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      width: 100%;
-      max-width: 640px;
-      margin-bottom: 0.75rem;
-      padding: 0.5rem 0.75rem;
-      border-radius: 6px;
-      background: var(--cf-info-tint);
-      color: var(--cf-info-text);
-      font-size: 13px;
-    }
-    .banner-icon {
-      display: flex;
-      flex-shrink: 0;
-      align-items: center;
-      height: 1.25em;
-      fill: var(--cf-info);
-    }
-    .banner-icon svg { width: 1em; height: 1em; }
-    .banner-text {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      column-gap: 0.375rem;
-      min-width: 0;
-      line-height: 1.375;
-    }
-    .banner-title { font-weight: 500; }
 
     /* Actions */
     .actions {
@@ -551,16 +468,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   </header>
 
   <main class="main">
-    <div class="banner">
-      <span class="banner-icon" aria-hidden="true">
-        <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z"/></svg>
-      </span>
-      <p class="banner-text">
-        <span class="banner-title">Permissions have moved.</span>
-        <span class="banner-description">Choose them on the Cloudflare authorization screen.</span>
-      </p>
-    </div>
-
     <div class="card">
       <div class="card-header">
         <h1 class="card-title">Authorize Application</h1>
@@ -629,12 +536,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   <script>
     (function() {
       const TEMPLATES = ${templateDataJson};
-      const TEMPLATE_META = ${templateMetaJson};
-      const DEFAULT_TEMPLATE = ${JSON.stringify(defaultTemplate ?? null)};
+      const TEMPLATE_NAMES = ${templateNamesJson};
       const INITIAL_SCOPES = ${JSON.stringify(initialScopes)};
       const REQUIRED = new Set(${JSON.stringify(Array.from(requiredSet))});
-      const ALL_SCOPES = new Set(${JSON.stringify(Object.keys(scopeDefinitions))});
-      const LS_KEY = 'cf-mcp-consent:user-templates:v1';
 
       const selected = new Set();
       let activeTemplate = null;
@@ -646,25 +550,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       const hiddenScopesEl = document.getElementById('hiddenScopes');
       const continueBtn = document.getElementById('continueBtn');
 
-      function loadUserTemplates() {
-        try {
-          const raw = localStorage.getItem(LS_KEY);
-          if (!raw) return [];
-          const parsed = JSON.parse(raw);
-          if (!Array.isArray(parsed)) return [];
-          return parsed
-            .filter(t => t && typeof t.name === 'string' && Array.isArray(t.scopes))
-            .map(t => ({
-              name: String(t.name).slice(0, 40),
-              scopes: t.scopes.filter(s => typeof s === 'string' && ALL_SCOPES.has(s))
-            }));
-        } catch { return []; }
-      }
-
-      function saveUserTemplates(list) {
-        try { localStorage.setItem(LS_KEY, JSON.stringify(list)); } catch {}
-      }
-
       function escapeHtml(s) {
         return String(s)
           .replace(/&/g, '&amp;')
@@ -675,68 +560,31 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       }
 
       function renderTemplates() {
-        const user = loadUserTemplates();
-        const entries = [];
-        for (const [key, meta] of Object.entries(TEMPLATE_META)) {
-          entries.push({ key, name: meta.name, tagline: meta.tagline, user: false });
-        }
-        for (const t of user) {
-          entries.push({ key: 'user:' + t.name, name: t.name, tagline: '', user: true });
-        }
+        const entries = Object.entries(TEMPLATE_NAMES).map(([key, name]) => ({ key, name, custom: false }));
         if (showCustom) {
-          entries.push({ key: '__custom__', name: 'Custom', tagline: '', user: false, custom: true });
+          entries.push({ key: '__custom__', name: 'Custom', custom: true });
         }
 
         templatesEl.innerHTML = entries.map(e => {
           const classes = ['tmpl'];
           if (e.custom) classes.push('tmpl--custom');
           return \`
-            <button type="button" class="\${classes.join(' ')}" data-key="\${escapeHtml(e.key)}" data-user="\${e.user ? '1' : ''}" aria-pressed="false" role="radio">
+            <button type="button" class="\${classes.join(' ')}" data-key="\${escapeHtml(e.key)}" aria-pressed="false" role="radio">
               <span class="tmpl-name">\${escapeHtml(e.name)}</span>
-              \${e.tagline ? '<span class="tmpl-tag">' + escapeHtml(e.tagline) + '</span>' : ''}
-              \${e.user ? '<span class="tmpl-delete" data-delete="' + escapeHtml(e.key) + '" aria-label="Delete template" title="Delete"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m4 4 8 8M12 4l-8 8"/></svg></span>' : ''}
             </button>
           \`;
         }).join('');
 
         templatesEl.querySelectorAll('.tmpl').forEach(btn => {
-          btn.addEventListener('click', (ev) => {
-            if (ev.target.closest('[data-delete]')) return;
-            applyTemplate(btn.dataset.key);
-          });
+          btn.addEventListener('click', () => applyTemplate(btn.dataset.key));
         });
-        templatesEl.querySelectorAll('[data-delete]').forEach(el => {
-          el.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            const key = el.dataset.delete;
-            const name = key.slice('user:'.length);
-            const next = loadUserTemplates().filter(t => t.name !== name);
-            saveUserTemplates(next);
-            if (activeTemplate === key) {
-              applyTemplate(DEFAULT_TEMPLATE || '__custom__');
-            }
-            renderTemplates();
-            updateActiveTemplateUI();
-          });
-        });
-      }
-
-      function resolveTemplateScopes(key) {
-        if (key === '__custom__') return INITIAL_SCOPES;
-        if (TEMPLATES[key]) return TEMPLATES[key];
-        if (key && key.startsWith('user:')) {
-          const name = key.slice('user:'.length);
-          const found = loadUserTemplates().find(t => t.name === name);
-          return found ? found.scopes : null;
-        }
-        return null;
       }
 
       function applyTemplate(key) {
-        const scopes = resolveTemplateScopes(key);
+        const scopes = key === '__custom__' ? INITIAL_SCOPES : TEMPLATES[key];
         if (!scopes) return;
         selected.clear();
-        for (const s of scopes) if (ALL_SCOPES.has(s)) selected.add(s);
+        for (const s of scopes) selected.add(s);
         for (const r of REQUIRED) selected.add(r);
         activeTemplate = key;
         updateActiveTemplateUI();
@@ -757,12 +605,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           const s = Array.from(withReq).sort().join(',');
           if (s === currentScopes) return key;
         }
-        for (const t of loadUserTemplates()) {
-          const withReq = new Set(t.scopes);
-          for (const r of REQUIRED) withReq.add(r);
-          const s = Array.from(withReq).sort().join(',');
-          if (s === currentScopes) return 'user:' + t.name;
-        }
         return null;
       }
 
@@ -775,17 +617,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           input.value = s;
           hiddenScopesEl.appendChild(input);
         }
-        if (activeTemplate && activeTemplate !== '__custom__') {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = 'scope_template';
-          input.value = activeTemplate;
-          hiddenScopesEl.appendChild(input);
-        }
         continueBtn.disabled = selected.size === 0;
       }
 
-      for (const scope of INITIAL_SCOPES) if (ALL_SCOPES.has(scope)) selected.add(scope);
+      for (const scope of INITIAL_SCOPES) selected.add(scope);
       for (const scope of REQUIRED) selected.add(scope);
       activeTemplate = matchesExistingTemplate() || '__custom__';
       showCustom = activeTemplate === '__custom__';
@@ -814,7 +649,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 export interface ParsedApprovalResult {
   state: { oauthReqInfo?: AuthRequest }
   selectedScopes?: string[]
-  selectedTemplate?: string
 }
 
 /**
@@ -852,14 +686,12 @@ export async function parseRedirectApproval(request: Request): Promise<ParsedApp
     throw new OAuthError('invalid_request', 'Invalid state data')
   }
 
-  // Extract selected scopes (from checkboxes) and template
+  // Scopes from the chosen template, sent as hidden form fields
   const selectedScopes = formData.getAll('scopes').filter((s): s is string => typeof s === 'string')
-  const selectedTemplate = formData.get('scope_template')
 
   return {
     state,
-    selectedScopes: selectedScopes.length > 0 ? selectedScopes : undefined,
-    selectedTemplate: typeof selectedTemplate === 'string' ? selectedTemplate : undefined
+    selectedScopes: selectedScopes.length > 0 ? selectedScopes : undefined
   }
 }
 

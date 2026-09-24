@@ -17,9 +17,9 @@ const CORE_SCOPE_DEFINITIONS = {
 
 export type ScopeName = keyof typeof CORE_SCOPE_DEFINITIONS | keyof typeof DERIVED_OAUTH_SCOPES
 
+/** A preset set of scopes offered on the consent page. */
 export interface ScopeTemplate {
   name: string
-  description: string
   scopes: readonly ScopeName[]
 }
 
@@ -59,13 +59,10 @@ const readOnlyScopes = Array.from(
 export const SCOPE_TEMPLATES: Record<TemplateName, ScopeTemplate> = {
   'read-only': {
     name: 'Read only',
-    description:
-      'View resources without making changes. Safest for exploration and read workflows.',
     scopes: readOnlyScopes
   },
   'full-access': {
     name: 'Full access',
-    description: 'Every OAuth scope available to the MCP server. Use with trusted clients only.',
     scopes: scopeNames
   }
 }
