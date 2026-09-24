@@ -186,6 +186,146 @@ function isLoopbackRedirectUri(value: string): boolean {
 }
 
 /**
+ * Kumo's stacked Cloudflare logo with the current brand cloud colours. The
+ * wordmark uses `currentColor`, so it follows the text colour in dark mode.
+ */
+const CLOUDFLARE_LOGO_SVG = `<svg viewBox="0 0 425.6 143.63" role="img" aria-label="Cloudflare"><path fill="#ff5e1f" d="M360.8,90.69l1-3.6c1.24-4.28.78-8.24-1.3-11.15a11.32,11.32,0,0,0-9-4.43l-73.35-.94a1.49,1.49,0,0,1-1.16-.61,1.51,1.51,0,0,1-.15-1.33,2,2,0,0,1,1.7-1.3l74-.94c8.78-.4,18.29-7.53,21.62-16.22l4.22-11a2.51,2.51,0,0,0,.16-.94,2.35,2.35,0,0,0-.05-.52,48.21,48.21,0,0,0-92.7-5,21.69,21.69,0,0,0-34.58,15.15,22,22,0,0,0,.56,7.59,30.83,30.83,0,0,0-29.93,30.82,31.22,31.22,0,0,0,.32,4.46A1.44,1.44,0,0,0,223.68,92H359.13A1.79,1.79,0,0,0,360.8,90.69Z"/><path fill="#ff9911" d="M385.24,40c-.68,0-1.36,0-2,0a1.55,1.55,0,0,0-.31.07,1.14,1.14,0,0,0-.74.78l-2.89,10c-1.24,4.28-.77,8.24,1.31,11.14a11.3,11.3,0,0,0,9,4.44l15.63.94a1.44,1.44,0,0,1,1.12.6,1.5,1.5,0,0,1,.16,1.34,2,2,0,0,1-1.7,1.3l-16.24.94c-8.82.4-18.33,7.52-21.66,16.21l-1.17,3.07a.87.87,0,0,0,.77,1.18h55.94a1.49,1.49,0,0,0,1.45-1.07A40.15,40.15,0,0,0,385.24,40Z"/><path fill="currentColor" d="M47.34 108.53 L56.88 108.53 L56.88 134.59 L73.54 134.59 L73.54 142.94 L47.34 142.94 L47.34 108.53M83.42,125.84v-.10c0-9.88,8-17.9,18.58-17.9s18.48,7.92,18.48,17.8v.1c0,9.88-8,17.89-18.58,17.89s-18.48-7.91-18.48-17.79m27.33,0v-.1c0-5-3.59-9.29-8.85-9.29s-8.7,4.23-8.7,9.19v.1c0,5,3.59,9.29,8.8,9.29s8.75-4.23,8.75-9.19M132.15,127.85V108.53h9.69v19.13c0,5,2.51,7.32,6.34,7.32s6.34-2.26,6.34-7.08V108.53h9.69v19.08c0,11.11-6.34,16-16.13,16s-15.93-5-15.93-15.73M178.8,108.53h13.27c12.29,0,19.42,7.08,19.42,17v.1c0,9.93-7.22,17.3-19.61,17.3H178.8Zm13.42,26c5.71,0,9.49-3.15,9.49-8.7v-.1c0-5.51-3.78-8.7-9.49-8.7h-3.88v17.5ZM225.35 108.53 L252.88 108.53 L252.88 116.89 L234.89 116.89 L234.89 122.74 L251.16 122.74 L251.16 130.65 L234.89 130.65 L234.89 142.94 L225.35 142.94 L225.35 108.53M266.15 108.53 L275.69 108.53 L275.69 134.59 L292.35 134.59 L292.35 142.94 L266.15 142.94 L266.15 108.53M317.27,108.29h9.19l14.65,34.65H330.89l-2.51-6.14H315.11l-2.46,6.14h-10Zm8.36,21.09-3.84-9.79-3.88,9.79ZM353.4,108.53h16.27c5.26,0,8.89,1.38,11.21,3.74a10.69,10.69,0,0,1,3,8v.1A10.89,10.89,0,0,1,376.85,131l8.21,12H374l-6.93-10.42h-4.18v10.42H353.4Zm15.83,16.52c3.24,0,5.11-1.57,5.11-4.08v-.1c0-2.7-2-4.08-5.16-4.08h-6.25v8.26ZM397.68 108.53 L425.36 108.53 L425.36 116.64 L407.12 116.64 L407.12 121.85 L423.64 121.85 L423.64 129.38 L407.12 129.38 L407.12 134.83 L425.61 134.83 L425.61 142.94 L397.68 142.94 L397.68 108.53M26.46,129.87A8.44,8.44,0,0,1,18.58,135c-5.21,0-8.8-4.33-8.8-9.29v-.1c0-5,3.49-9.19,8.7-9.19a8.63,8.63,0,0,1,8.18,5.7H36.72c-1.61-8.19-8.81-14.31-18.14-14.31C8,107.84,0,115.86,0,125.74v.09c0,9.89,7.86,17.8,18.48,17.8,9.08,0,16.18-5.88,18.05-13.76Z"/></svg>`
+
+/** Font links shared by the consent and error pages. The dashboard uses Inter. */
+const PAGE_FONT_LINKS = `<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">`
+
+/**
+ * Kumo 2.14 colour tokens for light and dark mode, resolved from
+ * `@cloudflare/kumo/styles` so these standalone pages match the dashboard, plus
+ * the page chrome shared by the consent and error pages. The brand accent is
+ * Cloudflare's Aerospace Orange, the colour the marketing site and dashboard
+ * use for filled brand surfaces.
+ */
+const PAGE_CHROME_CSS = `
+    :root {
+      color-scheme: light dark;
+      --kumo-canvas: light-dark(oklch(98.75% 0 0), oklch(10% 0 0));
+      --kumo-elevated: light-dark(oklch(98% 0 0), oklch(12% 0 0));
+      --kumo-base: light-dark(#fff, oklch(17% 0 0));
+      --kumo-tint: light-dark(oklch(97% 0 0), oklch(26.9% 0 0));
+      --kumo-contrast: light-dark(oklch(12% 0 0), oklch(98.5% 0 0));
+      --kumo-interact: light-dark(oklch(87% 0 0), oklch(37.1% 0 0));
+      --kumo-line: light-dark(oklch(14.5% 0 0 / 0.1), oklch(32% 0 0));
+      --kumo-hairline: light-dark(oklch(93.5% 0 0), oklch(26.9% 0 0));
+      --kumo-text-default: light-dark(oklch(20.5% 0 0), oklch(97% 0 0));
+      --kumo-text-subtle: light-dark(oklch(55.6% 0 0), oklch(70.8% 0 0));
+      --kumo-warning: light-dark(oklch(73.9% 0.177 58.2), oklch(64.5% 0.168 50));
+      --kumo-warning-tint: light-dark(oklch(93.1% 0.107 94.6 / 0.2), oklch(35.3% 0.079 65 / 0.37));
+      --kumo-text-warning: light-dark(oklch(59.7% 0.144 57.5), oklch(75% 0.183 55.934));
+      --kumo-danger: light-dark(oklch(63.7% 0.237 25.331), oklch(57.7% 0.245 27.325));
+      --kumo-danger-tint: light-dark(oklch(93.6% 0.032 17.7 / 0.42), oklch(42.9% 0.176 28.7 / 0.17));
+      --kumo-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --brand: #ff5e1f;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--kumo-canvas);
+      color: var(--kumo-text-default);
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--kumo-base);
+      border-bottom: 1px solid var(--kumo-line);
+    }
+    .cf-logo { display: flex; color: var(--kumo-text-default); }
+    .cf-logo svg { width: auto; height: 32px; }
+    .cf-logo-divider { width: 1px; height: 24px; margin: 0 0.5rem; background: var(--kumo-line); }
+    .cf-logo-product { color: var(--kumo-text-subtle); }
+    .main { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 2rem; }
+    /* Kumo surface: rounded-lg bg-kumo-base shadow-xs ring ring-kumo-line */
+    .card {
+      width: 100%;
+      max-width: 640px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--kumo-base);
+      box-shadow: 0 0 0 1px var(--kumo-line), var(--kumo-shadow-xs);
+    }
+    /* Kumo Button size="base": h-9 px-3 rounded-lg text-base font-medium shadow-xs */
+    .button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      padding: 0 0.75rem;
+      overflow: hidden;
+      border: 0;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      user-select: none;
+    }
+    .button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+    .button:disabled { cursor: not-allowed; opacity: 0.5; }
+    .button-secondary {
+      background: var(--kumo-base);
+      color: var(--kumo-text-default);
+      box-shadow: 0 0 0 1px var(--kumo-line), var(--kumo-shadow-xs);
+    }
+    .button-secondary:hover:not(:disabled) { background: var(--kumo-tint); }
+    /* Kumo Button variant="primary" with the brand accent as its emphasis colour */
+    .button-primary {
+      color: #fff;
+      background: color-mix(in oklch, var(--brand), white 30%);
+      box-shadow: 0 0 0 1px color-mix(in oklch, var(--brand), black 10%), var(--kumo-shadow-xs);
+    }
+    .button-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(color-mix(in oklch, var(--brand), white 15%), var(--brand));
+      box-shadow: inset 0 1px 0 0 color-mix(in oklch, var(--brand), white 30%);
+    }
+    .button-primary:hover:not(:disabled)::before {
+      background: linear-gradient(color-mix(in oklch, var(--brand), white 30%), var(--brand));
+    }
+    .button-label { position: relative; }
+    .footer {
+      padding: 1rem 2rem;
+      background: var(--kumo-base);
+      border-top: 1px solid var(--kumo-line);
+      color: var(--kumo-text-subtle);
+      font-size: 12px;
+      text-align: center;
+    }
+    .footer a { color: inherit; text-decoration: none; }
+    .footer a:hover { color: var(--kumo-text-default); text-decoration: underline; }`
+
+/** Header shared by the consent and error pages. */
+const PAGE_HEADER_HTML = `<header class="header">
+    <a href="https://cloudflare.com" class="cf-logo">${CLOUDFLARE_LOGO_SVG}</a>
+    <div class="cf-logo-divider"></div>
+    <span class="cf-logo-product">MCP Server</span>
+  </header>`
+
+/** Footer shared by the consent and error pages. */
+const PAGE_FOOTER_HTML = `<footer class="footer">
+    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
+    <a href="https://cloudflare.com/terms">Terms</a> ·
+    <a href="https://developers.cloudflare.com">Docs</a>
+  </footer>`
+
+/**
  * Renders an approval dialog for OAuth authorization with access templates.
  * Users choose individual scopes on Cloudflare's authorization screen.
  */
@@ -215,8 +355,13 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.scopes]))
   )
 
-  const templateNamesJson = JSON.stringify(
-    Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.name]))
+  const templateLabelsJson = JSON.stringify(
+    Object.fromEntries(
+      Object.entries(scopeTemplates).map(([k, v]) => [
+        k,
+        { name: v.name, description: v.description }
+      ])
+    )
   )
 
   const htmlContent = `
@@ -226,251 +371,129 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Authorize ${clientName} | Cloudflare</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      /* Kumo-derived tokens (see @cloudflare/kumo/theme-kumo.css) */
-      --cf-brand: #f6821f;
-      --cf-brand-hover: #e5750f;
-      --cf-brand-tint: rgba(246, 130, 31, 0.08);
-      --cf-base: #ffffff;             /* kumo-base */
-      --cf-canvas: #fbfbfb;           /* kumo-canvas  oklch(98.75% 0 0) */
-      --cf-elevated: #fafafa;         /* kumo-elevated oklch(98% 0 0)  */
-      --cf-tint: #f7f7f7;             /* neutral-100  oklch(97% 0 0)   */
-      --cf-recessed: #f5f5f5;         /* kumo-recessed oklch(96% 0 0)  */
-      --cf-hairline: #eeeeee;         /* kumo-hairline oklch(93.5% 0 0)*/
-      --cf-interact: #d4d4d4;         /* neutral-300 oklch(87% 0 0)    */
-      --cf-contrast: #262626;         /* kumo-contrast (checked state) */
-      --cf-text-default: #262626;     /* neutral-900 oklch(21% ...)    */
-      --cf-text-subtle: #808080;      /* neutral-500 oklch(55.6% 0 0)  */
-      --cf-text-inactive: #a3a3a3;    /* neutral-400 oklch(70.8% 0 0)  */
-      --border-radius: 8px;
-      --border-radius-lg: 12px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      font-feature-settings: 'cv11', 'ss01';
-      font-size: 14px;
-      line-height: 1.5;
-      letter-spacing: -0.01em;
-      color: var(--cf-text-default);
-      background: var(--cf-canvas);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header */
-    .header {
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      border-bottom: 1px solid var(--cf-hairline);
-      background: white;
-    }
-    .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
-    .cf-logo img { height: 32px; width: auto; }
-    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-interact); margin: 0 0.5rem; }
-    .cf-logo-product { font-size: 14px; color: var(--cf-text-subtle); }
-
-    /* Main */
-    .main {
-      flex: 1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 2rem;
-    }
-    .card {
-      background: var(--cf-base);
-      border: 1px solid var(--cf-hairline);
-      border-radius: var(--border-radius-lg);
-      width: 100%;
-      max-width: 640px;
-      overflow: hidden;
-    }
-    .card-header {
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid var(--cf-hairline);
-      text-align: center;
-    }
-    .card-title { font-size: 18px; font-weight: 600; color: var(--cf-text-default); letter-spacing: -0.18px; margin-bottom: 0.25rem; }
-    .card-subtitle { font-size: 14px; color: var(--cf-text-subtle); letter-spacing: -0.16px; }
+  ${PAGE_FONT_LINKS}
+  <style>${PAGE_CHROME_CSS}
+    .card-header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--kumo-line); text-align: center; }
+    /* Kumo Text variant="heading" size="lg" */
+    .card-title { font-size: 20px; font-weight: 600; line-height: 1.4; }
+    .card-subtitle { margin-top: 0.25rem; color: var(--kumo-text-subtle); font-size: 13px; }
     .card-body { padding: 1.5rem 2rem; }
 
     /* Client identity */
-    .client-identity { margin-bottom: 1.5rem; }
+    .client-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; margin-bottom: 1.5rem; }
     .client-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--cf-elevated);
       padding: 0.45rem 0.85rem;
-      border-radius: var(--border-radius);
-      font-size: 14px;
+      border-radius: 8px;
+      background: var(--kumo-elevated);
+      box-shadow: 0 0 0 1px var(--kumo-hairline);
       font-weight: 500;
-      margin-bottom: 0.75rem;
-      border: 1px solid var(--cf-hairline);
     }
     .client-badge-icon {
-      width: 20px;
-      height: 20px;
-      background: var(--cf-brand);
-      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background: var(--brand);
     }
     .client-badge-icon svg { width: 12px; height: 12px; }
     .client-details {
-      border: 1px solid var(--cf-hairline);
-      border-radius: var(--border-radius);
-      background: var(--cf-elevated);
+      align-self: stretch;
       overflow: hidden;
-    }
-    .client-detail {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.55rem 0.85rem;
-    }
-    .client-detail + .client-detail { border-top: 1px solid var(--cf-hairline); }
-    .client-detail-label { flex-shrink: 0; color: var(--cf-text-subtle); }
-    /* Kumo body text for URLs: the host in the default colour, the rest subtle. */
-    .client-detail-url {
-      min-width: 0;
-      color: var(--cf-text-default);
-      overflow-wrap: anywhere;
-      text-align: right;
-    }
-    .url-dim { color: var(--cf-text-subtle); }
-    .local-redirect-warning {
-      margin-top: 0.75rem;
-      padding: 0.75rem 0.85rem;
-      border: 1px solid var(--cf-orange);
-      border-radius: var(--border-radius);
-      background: rgba(246, 130, 31, 0.08);
-      color: var(--cf-text-default);
+      border-radius: 8px;
+      background: var(--kumo-elevated);
+      box-shadow: 0 0 0 1px var(--kumo-hairline);
       font-size: 13px;
-      line-height: 1.45;
     }
-
-    /* Section labels (match dashboard 'Edit policy' heading: 14px/500/subtle) */
-    .section { margin-bottom: 1.5rem; }
-    .section-label {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: -0.16px;
-      color: var(--cf-text-subtle);
-      margin-bottom: 0.75rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    /* Kumo Field description: text-sm leading-snug text-kumo-subtle */
-    .section-help {
-      margin-top: 0.5rem;
-      font-size: 13px;
-      line-height: 1.375;
-      color: var(--cf-text-subtle);
-    }
-
-    /* Templates */
-    .templates {
+    .client-detail { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.55rem 0.85rem; }
+    .client-detail + .client-detail { border-top: 1px solid var(--kumo-hairline); }
+    .client-detail-label { flex-shrink: 0; color: var(--kumo-text-subtle); }
+    .client-detail-url { min-width: 0; overflow-wrap: anywhere; text-align: right; }
+    .url-dim { color: var(--kumo-text-subtle); }
+    /* Kumo Banner variant="alert": bg-kumo-warning-tint text-kumo-warning */
+    .banner-alert {
+      align-self: stretch;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      background: var(--kumo-warning-tint);
+      color: var(--kumo-text-warning);
     }
-    .tmpl {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.45rem 0.8rem;
-      border: 1px solid var(--cf-interact);
-      border-radius: var(--border-radius);
-      background: var(--cf-base);
+    .banner-icon { display: flex; flex-shrink: 0; align-items: center; height: 1.375em; fill: var(--kumo-warning); }
+    .banner-icon svg { width: 1em; height: 1em; }
+    .banner-text { padding-top: 1px; font-size: 13px; line-height: 1.375; }
+
+    /* Kumo Radio.Group appearance="card" orientation="horizontal" */
+    .radio-group { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+    .radio-legend { font-weight: 500; }
+    .radio-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+    .radio-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border: 1px solid var(--kumo-hairline);
+      border-radius: 8px;
+      background: var(--kumo-base);
       cursor: pointer;
-      font-family: inherit;
-      color: var(--cf-text-default);
-      transition: all 0.12s ease;
     }
-    .tmpl:hover { border-color: var(--cf-text-subtle); background: var(--cf-elevated); }
-    .tmpl[aria-pressed="true"] {
-      background: var(--cf-brand-tint);
-      border-color: var(--cf-brand);
-      color: var(--cf-brand-hover);
-      box-shadow: inset 0 0 0 1px var(--cf-brand);
+    .radio-card:hover, .radio-card:has(.radio-input:checked) { background: var(--kumo-tint); }
+    .radio-card:has(.radio-input:checked) { border-color: var(--kumo-interact); }
+    .radio-card-text { display: flex; flex: 1; flex-direction: column; gap: 0.125rem; min-width: 0; }
+    .radio-card-label { font-weight: 500; }
+    .radio-card-description { color: var(--kumo-text-subtle); font-size: 13px; }
+    .radio-input {
+      appearance: none;
+      display: grid;
+      place-content: center;
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      border-radius: 50%;
+      background: var(--kumo-base);
+      box-shadow: 0 0 0 2px var(--kumo-line);
+      cursor: pointer;
     }
-    .tmpl .tmpl-name { font-size: 14px; font-weight: 500; letter-spacing: -0.14px; }
-    .tmpl--custom { border-style: dashed; }
+    .radio-card:hover .radio-input { box-shadow: 0 0 0 2px var(--kumo-hairline); }
+    .radio-input:checked { background: var(--kumo-contrast); }
+    .radio-input:checked::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--kumo-base); }
+    .radio-input:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+    .radio-description { color: var(--kumo-text-subtle); font-size: 13px; line-height: 1.375; }
 
     /* Actions */
     .actions {
       display: flex;
+      flex-wrap: wrap;
       justify-content: flex-end;
       gap: 0.5rem;
       padding-top: 1rem;
-      border-top: 1px solid var(--cf-hairline);
-      flex-wrap: wrap;
+      border-top: 1px solid var(--kumo-line);
     }
-    .button {
-      padding: 0.55rem 1rem;
-      border-radius: var(--border-radius);
-      font-weight: 500;
-      cursor: pointer;
-      border: 1px solid transparent;
-      font-size: 14px;
-      font-family: inherit;
-      transition: all 0.15s ease;
-      text-align: center;
-    }
-    .button-primary { background: var(--cf-brand); color: white; border-color: var(--cf-brand); min-width: 200px; }
-    .button-primary:hover { background: var(--cf-brand-hover); border-color: var(--cf-brand-hover); }
-    .button-primary:disabled { background: var(--cf-tint); border-color: var(--cf-hairline); color: var(--cf-text-inactive); cursor: not-allowed; }
-    .button-ghost {
-      background: transparent;
-      color: var(--cf-text-subtle);
-    }
-    .button-ghost:hover { color: var(--cf-text-default); }
-
-    /* Footer */
-    .footer {
-      padding: 1rem 2rem;
-      text-align: center;
-      font-size: 12px;
-      color: var(--cf-text-inactive);
-      border-top: 1px solid var(--cf-hairline);
-      background: white;
-    }
-    .footer a { color: var(--cf-text-subtle); text-decoration: none; }
-    .footer a:hover { color: var(--cf-brand); }
+    .actions .button-primary { min-width: 200px; }
 
     @media (max-width: 600px) {
       .main { padding: 1rem; }
       .card-body { padding: 1.25rem; }
-      .button-primary { flex: 1 1 100%; order: -1; }
+      .radio-cards { grid-template-columns: 1fr; }
+      .actions .button { flex: 1 1 100%; }
+      .actions .button-primary { order: -1; }
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <a href="https://cloudflare.com" class="cf-logo">
-      <img src="https://www.cloudflare.com/img/logo-cloudflare-dark.svg" alt="Cloudflare" height="32">
-    </a>
-    <div class="cf-logo-divider"></div>
-    <span class="cf-logo-product">MCP Server</span>
-  </header>
+  ${PAGE_HEADER_HTML}
 
   <main class="main">
     <div class="card">
       <div class="card-header">
-        <h1 class="card-title">Authorize Application</h1>
+        <h1 class="card-title">Authorize application</h1>
         <p class="card-subtitle">Grant access to Cloudflare API</p>
       </div>
 
@@ -500,11 +523,18 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           </div>
           ${
             isLocalRedirect
-              ? `<div class="local-redirect-warning" role="alert">
-            Local redirect: this client will receive the authorization code on this device. Only continue if you trust the application that opened this page.
+              ? `<div class="banner-alert" role="alert">
+            <span class="banner-icon" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"/></svg></span>
+            <p class="banner-text">Local redirect: this client will receive the authorization code on this device. Only continue if you trust the application that opened this page.</p>
           </div>`
               : ''
           }
+        </div>
+
+        <div class="radio-group" role="radiogroup" aria-labelledby="templateLegend" aria-describedby="templateHelp">
+          <div class="radio-legend" id="templateLegend">Access template</div>
+          <div class="radio-cards" id="templates"></div>
+          <p class="radio-description" id="templateHelp">Choose Full access if the application needs to make changes. You can narrow permissions further on the Cloudflare authorization screen.</p>
         </div>
 
         <form method="post" action="${new URL(request.url).pathname}" id="authForm">
@@ -512,39 +542,32 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           <input type="hidden" name="csrf_token" value="${csrfToken}">
           <div id="hiddenScopes"></div>
 
-          <div class="section">
-            <div class="section-label">Access template</div>
-            <div class="templates" id="templates" role="radiogroup" aria-label="Permission templates"></div>
-            <p class="section-help">Choose Full access if the application needs to make changes. You can narrow permissions further on the Cloudflare authorization screen.</p>
-          </div>
-
           <div class="actions">
-            <button type="button" class="button button-ghost" onclick="window.close()">Cancel</button>
-            <button type="submit" class="button button-primary" id="continueBtn">Continue</button>
+            <button type="button" class="button button-secondary" onclick="window.close()">Cancel</button>
+            <button type="submit" class="button button-primary" id="continueBtn"><span class="button-label">Continue</span></button>
           </div>
         </form>
       </div>
     </div>
   </main>
 
-  <footer class="footer">
-    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
-    <a href="https://cloudflare.com/terms">Terms</a> ·
-    <a href="https://developers.cloudflare.com">Docs</a>
-  </footer>
+  ${PAGE_FOOTER_HTML}
 
   <script>
     (function() {
       const TEMPLATES = ${templateDataJson};
-      const TEMPLATE_NAMES = ${templateNamesJson};
+      const TEMPLATE_LABELS = ${templateLabelsJson};
       const INITIAL_SCOPES = ${JSON.stringify(initialScopes)};
       const REQUIRED = new Set(${JSON.stringify(Array.from(requiredSet))});
+      // The scopes the client asked for. They are the most the user can grant;
+      // Cloudflare's authorization screen can only narrow them.
+      const REQUESTED = '__requested__';
 
       const selected = new Set();
       let activeTemplate = null;
-      // "Custom" restores the scopes the client requested. It only appears
-      // when those scopes match no template.
-      let showCustom = false;
+      // "Requested permissions" only appears when the client's requested
+      // scopes match no template.
+      let showRequested = false;
 
       const templatesEl = document.getElementById('templates');
       const hiddenScopesEl = document.getElementById('hiddenScopes');
@@ -560,28 +583,28 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       }
 
       function renderTemplates() {
-        const entries = Object.entries(TEMPLATE_NAMES).map(([key, name]) => ({ key, name, custom: false }));
-        if (showCustom) {
-          entries.push({ key: '__custom__', name: 'Custom', custom: true });
+        const entries = Object.entries(TEMPLATE_LABELS).map(([key, label]) => ({ key, ...label }));
+        if (showRequested) {
+          entries.push({ key: REQUESTED, name: 'Requested permissions', description: 'The permissions this client asked for.' });
         }
 
-        templatesEl.innerHTML = entries.map(e => {
-          const classes = ['tmpl'];
-          if (e.custom) classes.push('tmpl--custom');
-          return \`
-            <button type="button" class="\${classes.join(' ')}" data-key="\${escapeHtml(e.key)}" aria-pressed="false" role="radio">
-              <span class="tmpl-name">\${escapeHtml(e.name)}</span>
-            </button>
-          \`;
-        }).join('');
+        templatesEl.innerHTML = entries.map(e => \`
+          <label class="radio-card">
+            <span class="radio-card-text">
+              <span class="radio-card-label">\${escapeHtml(e.name)}</span>
+              <span class="radio-card-description">\${escapeHtml(e.description)}</span>
+            </span>
+            <input type="radio" class="radio-input" name="template" value="\${escapeHtml(e.key)}">
+          </label>
+        \`).join('');
 
-        templatesEl.querySelectorAll('.tmpl').forEach(btn => {
-          btn.addEventListener('click', () => applyTemplate(btn.dataset.key));
+        templatesEl.querySelectorAll('.radio-input').forEach(input => {
+          input.addEventListener('change', () => applyTemplate(input.value));
         });
       }
 
       function applyTemplate(key) {
-        const scopes = key === '__custom__' ? INITIAL_SCOPES : TEMPLATES[key];
+        const scopes = key === REQUESTED ? INITIAL_SCOPES : TEMPLATES[key];
         if (!scopes) return;
         selected.clear();
         for (const s of scopes) selected.add(s);
@@ -592,8 +615,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       }
 
       function updateActiveTemplateUI() {
-        templatesEl.querySelectorAll('.tmpl').forEach(btn => {
-          btn.setAttribute('aria-pressed', btn.dataset.key === activeTemplate ? 'true' : 'false');
+        templatesEl.querySelectorAll('.radio-input').forEach(input => {
+          input.checked = input.value === activeTemplate;
         });
       }
 
@@ -622,8 +645,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
       for (const scope of INITIAL_SCOPES) selected.add(scope);
       for (const scope of REQUIRED) selected.add(scope);
-      activeTemplate = matchesExistingTemplate() || '__custom__';
-      showCustom = activeTemplate === '__custom__';
+      activeTemplate = matchesExistingTemplate() || REQUESTED;
+      showRequested = activeTemplate === REQUESTED;
       renderTemplates();
       updateActiveTemplateUI();
       renderHiddenInputs();
@@ -766,137 +789,39 @@ export function renderErrorPage(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${sanitizeHtml(title)} | Cloudflare</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --cf-orange: #f6821f;
-      --cf-orange-hover: #e5750f;
-      --cf-text: #313131;
-      --cf-text-muted: #707070;
-      --cf-text-light: #9c9c9c;
-      --cf-bg: #ffffff;
-      --cf-bg-muted: #f7f7f7;
-      --cf-bg-alt: #fafafa;
-      --cf-border: #e5e5e5;
-      --cf-border-strong: #d4d4d4;
-      --cf-red: #c0392b;
-      --cf-red-light: rgba(192, 57, 43, 0.08);
-      --border-radius: 8px;
-      --border-radius-lg: 12px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      font-feature-settings: 'cv11', 'ss01';
-      font-size: 14px;
-      line-height: 1.5;
-      color: var(--cf-text-default);
-      background: var(--cf-canvas);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    .header {
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      border-bottom: 1px solid var(--cf-hairline);
-      background: var(--cf-base);
-    }
-    .cf-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
-    .cf-logo img { height: 32px; width: auto; }
-    .cf-logo-divider { width: 1px; height: 24px; background: var(--cf-interact); margin: 0 0.5rem; }
-    .cf-logo-product { font-size: 14px; color: var(--cf-text-subtle); }
-    .main {
-      flex: 1;
+  ${PAGE_FONT_LINKS}
+  <style>${PAGE_CHROME_CSS}
+    .main { align-items: center; }
+    .card { max-width: 440px; padding: 2.5rem 2rem; text-align: center; }
+    .error-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
-    }
-    .card {
-      background: var(--cf-base);
-      border: 1px solid var(--cf-hairline);
-      border-radius: var(--border-radius-lg);
-      width: 100%;
-      max-width: 440px;
-      overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-      text-align: center;
-      padding: 2.5rem 2rem;
-    }
-    .error-icon {
       width: 56px;
       height: 56px;
-      background: var(--cf-red-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: var(--kumo-danger-tint);
     }
-    .error-icon svg { width: 28px; height: 28px; color: var(--cf-red); }
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--cf-text-default);
-      margin-bottom: 0.5rem;
-    }
-    .card-message {
-      font-size: 0.95rem;
-      color: var(--cf-text-subtle);
-      margin-bottom: 1.5rem;
-    }
+    .error-icon svg { width: 28px; height: 28px; color: var(--kumo-danger); }
+    .card-title { margin-bottom: 0.5rem; font-size: 20px; font-weight: 600; line-height: 1.4; }
+    .card-message { margin-bottom: 1.5rem; color: var(--kumo-text-subtle); }
     .error-details {
-      background: var(--cf-elevated);
-      border: 1px solid var(--cf-hairline);
-      border-radius: var(--border-radius);
+      margin-bottom: 1.5rem;
       padding: 0.75rem 1rem;
-      font-family: ui-monospace, 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
-      font-size: 0.8rem;
-      color: var(--cf-text-subtle);
+      border-radius: 8px;
+      background: var(--kumo-elevated);
+      box-shadow: 0 0 0 1px var(--kumo-hairline);
+      color: var(--kumo-text-subtle);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
       text-align: left;
       word-break: break-word;
-      margin-bottom: 1.5rem;
     }
-    .button {
-      display: inline-block;
-      padding: 0.55rem 1.25rem;
-      border-radius: var(--border-radius);
-      font-family: inherit;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      background: var(--cf-brand);
-      color: white;
-      border: 1px solid var(--cf-brand);
-      cursor: pointer;
-      transition: background 0.12s ease, border-color 0.12s ease;
-    }
-    .button:hover { background: var(--cf-brand-hover); border-color: var(--cf-brand-hover); }
-    .footer {
-      padding: 1rem 2rem;
-      text-align: center;
-      font-size: 12px;
-      color: var(--cf-text-inactive);
-      border-top: 1px solid var(--cf-hairline);
-      background: var(--cf-base);
-    }
-    .footer a { color: var(--cf-text-subtle); text-decoration: none; }
-    .footer a:hover { color: var(--cf-brand); }
   </style>
 </head>
 <body>
-  <header class="header">
-    <a href="https://cloudflare.com" class="cf-logo">
-      <img src="https://www.cloudflare.com/img/logo-cloudflare-dark.svg" alt="Cloudflare" height="32">
-    </a>
-    <div class="cf-logo-divider"></div>
-    <span class="cf-logo-product">MCP Server</span>
-  </header>
+  ${PAGE_HEADER_HTML}
   <main class="main">
     <div class="card">
       <div class="error-icon">
@@ -909,14 +834,10 @@ export function renderErrorPage(
       <h1 class="card-title">${sanitizeHtml(title)}</h1>
       <p class="card-message">${sanitizeHtml(message)}</p>
       ${details ? `<div class="error-details">${sanitizeHtml(details)}</div>` : ''}
-      <a href="javascript:window.close()" class="button" onclick="window.close(); return false;">Close window</a>
+      <a href="javascript:window.close()" class="button button-primary" onclick="window.close(); return false;"><span class="button-label">Close window</span></a>
     </div>
   </main>
-  <footer class="footer">
-    <a href="https://cloudflare.com/privacypolicy">Privacy</a> ·
-    <a href="https://cloudflare.com/terms">Terms</a> ·
-    <a href="https://developers.cloudflare.com">Docs</a>
-  </footer>
+  ${PAGE_FOOTER_HTML}
 </body>
 </html>
 `
