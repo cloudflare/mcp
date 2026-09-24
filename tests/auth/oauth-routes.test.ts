@@ -224,11 +224,12 @@ describe('GET /authorize', () => {
     // Consent form with CSRF protection and a session-binding cookie.
     expect(body).toContain('<form')
     expect(res.headers.get('Set-Cookie')).toBeTruthy()
-    // Cloudflare's authorization screen picks individual scopes. This page only
-    // offers the built-in templates and says where to narrow them.
+    // Cloudflare's authorization screen picks individual scopes. This page offers
+    // the built-in templates, plus any saved in the browser by the old picker, and
+    // says where to narrow them. New templates can no longer be saved.
     expect(body).not.toContain('data-scope=')
     expect(body).not.toContain('Save as template')
-    expect(body).not.toContain('localStorage')
+    expect(body).toContain('cf-mcp-consent:user-templates:v1')
     expect(body).toContain(
       'You can narrow permissions further on the Cloudflare authorization screen.'
     )
