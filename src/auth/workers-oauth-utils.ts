@@ -6,6 +6,7 @@ import {
   type ClientInfo
 } from '@cloudflare/workers-oauth-provider'
 
+import type { ScopeDefinition } from './derived-oauth-scopes'
 import type { ScopeTemplate } from './scopes'
 
 const CSRF_COOKIE = '__Host-CSRF_TOKEN'
@@ -109,6 +110,7 @@ export interface ApprovalDialogOptions {
   csrfToken: string
   setCookie: string
   scopeTemplates: Record<string, ScopeTemplate>
+  scopeDefinitions: Readonly<Record<string, ScopeDefinition>>
   requiredScopes: readonly string[]
   initialScopes: readonly string[]
 }
@@ -216,6 +218,8 @@ const PAGE_CHROME_CSS = `
       --kumo-hairline: light-dark(oklch(93.5% 0 0), oklch(26.9% 0 0));
       --kumo-text-default: light-dark(oklch(20.5% 0 0), oklch(97% 0 0));
       --kumo-text-subtle: light-dark(oklch(55.6% 0 0), oklch(70.8% 0 0));
+      --kumo-fill: light-dark(oklch(92.2% 0 0), oklch(26.9% 0 0));
+      --kumo-text-badge: light-dark(oklch(26.9% 0 0), oklch(92.2% 0 0));
       --kumo-warning: light-dark(oklch(73.9% 0.177 58.2), oklch(64.5% 0.168 50));
       --kumo-warning-tint: light-dark(oklch(93.1% 0.107 94.6 / 0.2), oklch(35.3% 0.079 65 / 0.37));
       --kumo-text-warning: light-dark(oklch(59.7% 0.144 57.5), oklch(75% 0.183 55.934));
@@ -325,6 +329,32 @@ const PAGE_FOOTER_HTML = `<footer class="footer">
     <a href="https://developers.cloudflare.com">Docs</a>
   </footer>`
 
+/** Template key for the scopes the client asked for when they match no template. */
+const REQUESTED_TEMPLATE = '__requested__'
+
+/** Most requested scope names listed before the rest are summarised as a count. */
+const MAX_LISTED_SCOPES = 12
+
+/**
+ * Find the template whose scopes, plus the required scopes, are exactly
+ * `scopes`. The consent page preselects it; otherwise it offers the client's
+ * own request as "Requested permissions".
+ */
+function matchingTemplate(
+  templates: Readonly<Record<string, ScopeTemplate>>,
+  scopes: readonly string[],
+  requiredScopes: readonly string[]
+): string | undefined {
+  const wanted = new Set([...scopes, ...requiredScopes])
+  for (const [key, template] of Object.entries(templates)) {
+    const offered = new Set([...template.scopes, ...requiredScopes])
+    if (offered.size === wanted.size && [...offered].every((scope) => wanted.has(scope))) {
+      return key
+    }
+  }
+  return undefined
+}
+
 /**
  * Renders an approval dialog for OAuth authorization with access templates.
  * Users choose individual scopes on Cloudflare's authorization screen.
@@ -337,6 +367,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     csrfToken,
     setCookie,
     scopeTemplates,
+    scopeDefinitions,
     requiredScopes,
     initialScopes
   } = options
@@ -355,14 +386,32 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.scopes]))
   )
 
-  const templateLabelsJson = JSON.stringify(
-    Object.fromEntries(
-      Object.entries(scopeTemplates).map(([k, v]) => [
-        k,
-        { name: v.name, description: v.description }
-      ])
-    )
+  const templateNamesJson = JSON.stringify(
+    Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.name]))
   )
+
+  const initialTemplate =
+    matchingTemplate(scopeTemplates, initialScopes, requiredScopes) ?? REQUESTED_TEMPLATE
+  // List what the client asked for beyond the identity scopes every template
+  // includes. A client that asked only for those sees them listed instead.
+  const extraScopes = initialScopes.filter((scope) => !requiredSet.has(scope))
+  const listedNames = (extraScopes.length > 0 ? extraScopes : initialScopes).map(
+    (scope) => scopeDefinitions[scope]?.name ?? scope
+  )
+  const requestedScopesHtml =
+    initialTemplate === REQUESTED_TEMPLATE
+      ? `<div class="requested-scopes" id="requestedScopes">
+            <p class="requested-scopes-label">This client asked for:</p>
+            <ul class="scope-badges">${listedNames
+              .slice(0, MAX_LISTED_SCOPES)
+              .map((name) => `<li class="badge">${sanitizeHtml(name)}</li>`)
+              .join('')}${
+              listedNames.length > MAX_LISTED_SCOPES
+                ? `<li class="scope-badges-more">and ${listedNames.length - MAX_LISTED_SCOPES} more</li>`
+                : ''
+            }</ul>
+          </div>`
+      : ''
 
   const htmlContent = `
 <!DOCTYPE html>
@@ -435,9 +484,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .radio-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
     .radio-card {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 0.75rem;
-      padding: 0.75rem;
+      padding: 0.625rem 0.75rem;
       border: 1px solid var(--kumo-hairline);
       border-radius: 8px;
       background: var(--kumo-base);
@@ -445,9 +494,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     }
     .radio-card:hover, .radio-card:has(.radio-input:checked) { background: var(--kumo-tint); }
     .radio-card:has(.radio-input:checked) { border-color: var(--kumo-interact); }
-    .radio-card-text { display: flex; flex: 1; flex-direction: column; gap: 0.125rem; min-width: 0; }
-    .radio-card-label { font-weight: 500; }
-    .radio-card-description { color: var(--kumo-text-subtle); font-size: 13px; }
+    .radio-card-label { flex: 1; min-width: 0; font-weight: 500; }
     .radio-input {
       appearance: none;
       display: grid;
@@ -466,6 +513,21 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .radio-input:checked::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--kumo-base); }
     .radio-input:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
     .radio-description { color: var(--kumo-text-subtle); font-size: 13px; line-height: 1.375; }
+    .requested-scopes { display: flex; flex-direction: column; gap: 0.5rem; }
+    .requested-scopes[hidden] { display: none; }
+    .requested-scopes-label { color: var(--kumo-text-subtle); font-size: 13px; }
+    .scope-badges { display: flex; flex-wrap: wrap; gap: 0.375rem; list-style: none; }
+    /* Kumo Badge variant="secondary": bg-kumo-fill text-kumo-badge-neutral-subtle */
+    .badge {
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      background: var(--kumo-fill);
+      color: var(--kumo-text-badge);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.333;
+    }
+    .scope-badges-more { align-self: center; color: var(--kumo-text-subtle); font-size: 12px; }
 
     /* Actions */
     .actions {
@@ -534,6 +596,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         <div class="radio-group" role="radiogroup" aria-labelledby="templateLegend" aria-describedby="templateHelp">
           <div class="radio-legend" id="templateLegend">Access template</div>
           <div class="radio-cards" id="templates"></div>
+          ${requestedScopesHtml}
           <p class="radio-description" id="templateHelp">Choose Full access if the application needs to make changes. You can narrow permissions further on the Cloudflare authorization screen.</p>
         </div>
 
@@ -556,22 +619,23 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   <script>
     (function() {
       const TEMPLATES = ${templateDataJson};
-      const TEMPLATE_LABELS = ${templateLabelsJson};
+      const TEMPLATE_NAMES = ${templateNamesJson};
       const INITIAL_SCOPES = ${JSON.stringify(initialScopes)};
       const REQUIRED = new Set(${JSON.stringify(Array.from(requiredSet))});
       // The scopes the client asked for. They are the most the user can grant;
       // Cloudflare's authorization screen can only narrow them.
-      const REQUESTED = '__requested__';
+      const REQUESTED = ${JSON.stringify(REQUESTED_TEMPLATE)};
+      // The server preselects the matching template, or REQUESTED when the
+      // client's scopes match none. Only then is "Requested permissions" offered.
+      const INITIAL_TEMPLATE = ${JSON.stringify(initialTemplate)};
 
       const selected = new Set();
       let activeTemplate = null;
-      // "Requested permissions" only appears when the client's requested
-      // scopes match no template.
-      let showRequested = false;
 
       const templatesEl = document.getElementById('templates');
       const hiddenScopesEl = document.getElementById('hiddenScopes');
       const continueBtn = document.getElementById('continueBtn');
+      const requestedScopesEl = document.getElementById('requestedScopes');
 
       function escapeHtml(s) {
         return String(s)
@@ -583,17 +647,14 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       }
 
       function renderTemplates() {
-        const entries = Object.entries(TEMPLATE_LABELS).map(([key, label]) => ({ key, ...label }));
-        if (showRequested) {
-          entries.push({ key: REQUESTED, name: 'Requested permissions', description: 'The permissions this client asked for.' });
+        const entries = Object.entries(TEMPLATE_NAMES).map(([key, name]) => ({ key, name }));
+        if (INITIAL_TEMPLATE === REQUESTED) {
+          entries.push({ key: REQUESTED, name: 'Requested permissions' });
         }
 
         templatesEl.innerHTML = entries.map(e => \`
           <label class="radio-card">
-            <span class="radio-card-text">
-              <span class="radio-card-label">\${escapeHtml(e.name)}</span>
-              <span class="radio-card-description">\${escapeHtml(e.description)}</span>
-            </span>
+            <span class="radio-card-label">\${escapeHtml(e.name)}</span>
             <input type="radio" class="radio-input" name="template" value="\${escapeHtml(e.key)}">
           </label>
         \`).join('');
@@ -618,17 +679,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         templatesEl.querySelectorAll('.radio-input').forEach(input => {
           input.checked = input.value === activeTemplate;
         });
-      }
-
-      function matchesExistingTemplate() {
-        const currentScopes = Array.from(selected).sort().join(',');
-        for (const [key, scopes] of Object.entries(TEMPLATES)) {
-          const withReq = new Set(scopes);
-          for (const r of REQUIRED) withReq.add(r);
-          const s = Array.from(withReq).sort().join(',');
-          if (s === currentScopes) return key;
-        }
-        return null;
+        if (requestedScopesEl) requestedScopesEl.hidden = activeTemplate !== REQUESTED;
       }
 
       function renderHiddenInputs() {
@@ -643,13 +694,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         continueBtn.disabled = selected.size === 0;
       }
 
-      for (const scope of INITIAL_SCOPES) selected.add(scope);
-      for (const scope of REQUIRED) selected.add(scope);
-      activeTemplate = matchesExistingTemplate() || REQUESTED;
-      showRequested = activeTemplate === REQUESTED;
       renderTemplates();
-      updateActiveTemplateUI();
-      renderHiddenInputs();
+      applyTemplate(INITIAL_TEMPLATE);
     })();
   </script>
 </body>

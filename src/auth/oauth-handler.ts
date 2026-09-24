@@ -232,6 +232,7 @@ export function createAuthHandlers() {
         csrfToken,
         setCookie: csrfCookie,
         scopeTemplates: SCOPE_TEMPLATES,
+        scopeDefinitions: SCOPE_DEFINITIONS,
         requiredScopes: REQUIRED_SCOPES,
         initialScopes: scopesToRequest
       })

@@ -261,12 +261,16 @@ describe('GET /authorize', () => {
     )
 
     expect(response.status).toBe(200)
-    expect(embeddedInitialScopes(await response.text())).toEqual([
+    const html = await response.text()
+    expect(embeddedInitialScopes(html)).toEqual([
       'access.write',
       'user:read',
       'offline_access',
       'account:read'
     ])
+    // The page lists what the client asked for, by name.
+    expect(html).toContain('This client asked for:')
+    expect(html).toContain('<li class="badge">Access: Apps and Policies Write</li>')
   })
 
   it('rejects a resource other than the canonical MCP endpoint', async () => {
