@@ -28,12 +28,21 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
   return response.text()
 }
 
-/** Page text as a person reads it: no tags, scripts or styles, whitespace collapsed. */
+/**
+ * Text inside `<main>` as a person reads it, with whitespace collapsed. The
+ * page's script and styles sit outside `<main>`, so skipping everything
+ * between `<` and `>` leaves only the visible text.
+ */
 function visibleText(html: string): string {
-  return html
-    .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, ' ')
-    .replace(/<[^>]+>/g, '')
-    .replace(/\s+/g, ' ')
+  const main = html.slice(html.indexOf('<main'), html.indexOf('</main>'))
+  let text = ''
+  let inTag = false
+  for (const char of main) {
+    if (char === '<') inTag = true
+    else if (char === '>') inTag = false
+    else if (!inTag) text += char
+  }
+  return text.replace(/\s+/g, ' ')
 }
 
 describe('OAuth approval dialog identity details', () => {
