@@ -264,6 +264,54 @@ describe('resolveExternalToken', () => {
     expect(error.headers).toEqual({ 'Retry-After': '17' })
   })
 
+  it('backs a rate-limited token off for its Retry-After window instead of probing again', async () => {
+    const calls = mockIdentity({
+      user: () =>
+        HttpResponse.json(cfError([], null), { status: 429, headers: { 'Retry-After': '90' } }),
+      accounts: () => HttpResponse.json(cfError([], null), { status: 429 })
+    })
+    const input = resolverInput('cfut_backoff-token')
+
+    await expectExternalTokenError(resolveExternalToken(input), 'temporarily_unavailable', 429)
+    expect([calls.userCalls(), calls.accountCalls()]).toEqual([1, 1])
+
+    // Within the window: answered from the marker, Cloudflare isn't asked (or rate-limited) again.
+    const repeat = await expectExternalTokenError(
+      resolveExternalToken(input),
+      'temporarily_unavailable',
+      429
+    )
+    expect([calls.userCalls(), calls.accountCalls()]).toEqual([1, 1])
+    expect(Number(repeat.headers?.['Retry-After'])).toBeGreaterThan(0)
+    expect(Number(repeat.headers?.['Retry-After'])).toBeLessThanOrEqual(90)
+
+    // Other tokens are unaffected.
+    await expectExternalTokenError(
+      resolveExternalToken(resolverInput('cfut_other-token')),
+      'temporarily_unavailable',
+      429
+    )
+    expect([calls.userCalls(), calls.accountCalls()]).toEqual([2, 2])
+  })
+
+  it("backs off for at least 60 seconds, KV's minimum TTL, even for a shorter Retry-After", async () => {
+    mockIdentity({
+      user: () =>
+        HttpResponse.json(cfError([], null), { status: 429, headers: { 'Retry-After': '17' } }),
+      accounts: () => HttpResponse.json(cfError([], null), { status: 429 })
+    })
+    const token = 'cfut_short-backoff-token'
+    await expectExternalTokenError(
+      resolveExternalToken(resolverInput(token)),
+      'temporarily_unavailable',
+      429
+    )
+    const until = Number(
+      await env.OAUTH_KV.get(`api-token-identity-backoff:v1:${await sha256Hex(token)}`)
+    )
+    expect(until - Math.floor(Date.now() / 1000)).toBeGreaterThanOrEqual(59)
+  })
+
   it('maps upstream failures to server_error', async () => {
     mockIdentity({
       user: () => HttpResponse.json(cfError([], null), { status: 502 }),

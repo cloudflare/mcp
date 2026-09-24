@@ -14,6 +14,7 @@ import { AUTH_PROPS_VERSION, type AuthProps } from './types'
 import { OAuthError } from './workers-oauth-utils'
 
 const API_TOKEN_IDENTITY_CACHE_TTL_SECONDS = 2_592_000
+const API_TOKEN_IDENTITY_BACKOFF_MIN_SECONDS = 60
 
 /** Prefixes are ownership hints; unprefixed legacy credentials remain supported. */
 export function cloudflareTokenOwner(token: string): CloudflareTokenOwner {
@@ -32,8 +33,9 @@ async function getCachedIdentity(
   tokenOwner: CloudflareTokenOwner,
   kv: KVNamespace
 ): Promise<CloudflareIdentity> {
-  const cacheKey = `api-token-identity:v4:${await hashApiToken(token)}`
-
+  const tokenHash = await hashApiToken(token)
+  const cacheKey = `api-token-identity:v4:${tokenHash}`
+  const backoffKey = `api-token-identity-backoff:v1:${tokenHash}`
   try {
     const cachedValue = await kv.get(cacheKey, 'json')
     if (cachedValue !== null) {
@@ -45,8 +47,38 @@ async function getCachedIdentity(
     console.warn('api_token_identity_probe kv-cache read failed', error)
   }
 
-  const identity = await resolveCloudflareCredential(token, tokenOwner)
+  // A token Cloudflare just rate-limited backs off here instead of probing (and being limited) again.
+  const now = Math.floor(Date.now() / 1000)
+  try {
+    const backoffUntil = Number(await kv.get(backoffKey))
+    if (backoffUntil > now) {
+      throw new OAuthError('temporarily_unavailable', 'Rate limited, try again later', 429, {
+        'Retry-After': String(backoffUntil - now)
+      })
+    }
+  } catch (error) {
+    if (error instanceof OAuthError) throw error
+    console.warn('api_token_identity_probe kv-backoff read failed', error)
+  }
 
+  let identity: CloudflareIdentity
+  try {
+    identity = await resolveCloudflareCredential(token, tokenOwner)
+  } catch (error) {
+    if (error instanceof OAuthError && error.code === 'temporarily_unavailable') {
+      // KV's minimum TTL is 60 seconds, so the window is at least that long.
+      const retryAfter = Math.max(
+        API_TOKEN_IDENTITY_BACKOFF_MIN_SECONDS,
+        Number(error.headers?.['Retry-After']) || 0
+      )
+      try {
+        await kv.put(backoffKey, String(now + retryAfter), { expirationTtl: retryAfter })
+      } catch (writeError) {
+        console.warn('api_token_identity_probe kv-backoff write failed', writeError)
+      }
+    }
+    throw error
+  }
   try {
     await kv.put(cacheKey, JSON.stringify(identity), {
       expirationTtl: API_TOKEN_IDENTITY_CACHE_TTL_SECONDS
@@ -54,7 +86,6 @@ async function getCachedIdentity(
   } catch (error) {
     console.warn('api_token_identity_probe kv-cache write failed', error)
   }
-
   return identity
 }
 

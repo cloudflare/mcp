@@ -105,10 +105,12 @@ function throwIdentityProbeError(...responses: [Response, ...Response[]]): never
 
 async function fetchProbe(url: string, accessToken: string, caller: string): Promise<Response> {
   try {
+    // No retries: a 429 here is the token's own Cloudflare API quota. Retrying (up to 4 attempts on
+    // two endpoints) spent that quota faster and was the Worker's top error; surface Retry-After instead.
     return await fetchWithRetry(
       url,
       { headers: { Authorization: `Bearer ${accessToken}` } },
-      { caller }
+      { caller, maxRetries: 0 }
     )
   } catch (error) {
     console.error('Cloudflare API request failed', error)
