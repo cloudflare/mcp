@@ -1,8 +1,4 @@
-import {
-  GrantType,
-  OAuthError as ProviderOAuthError,
-  type OAuthHelpers
-} from '@cloudflare/workers-oauth-provider'
+import { GrantType, OAuthError as ProviderOAuthError } from '@cloudflare/workers-oauth-provider'
 import { env } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -12,27 +8,20 @@ import { OAuthError } from '../../src/auth/workers-oauth-utils'
 import { clearKv } from '../helpers/kv'
 import { server } from '../setup/msw'
 
-/** Minimal OAuthHelpers mock backing the revoke-on-invalid_grant path. */
-function mockOAuthHelpers() {
-  return {
-    revokeGrant: vi.fn(async () => undefined)
-  } as unknown as OAuthHelpers & {
-    revokeGrant: ReturnType<typeof vi.fn>
-  }
-}
-
 let grantId: string
 let grantSequence = 0
 
-function refreshCallback(refreshToken = 'old-refresh-token', getHelpers?: () => OAuthHelpers) {
+function refreshCallback(refreshToken = 'old-refresh-token') {
   return handleTokenExchangeCallback(
     {
       grantType: GrantType.REFRESH_TOKEN,
       clientId: 'mcp-client',
+      subjectClientId: 'mcp-client',
       userId: 'user-1',
       grantId,
       scope: [],
       requestedScope: [],
+      resource: 'https://mcp.cloudflare.com/mcp',
       props: {
         type: 'user_token',
         accessToken: 'old-access-token',
@@ -42,8 +31,7 @@ function refreshCallback(refreshToken = 'old-refresh-token', getHelpers?: () => 
       }
     },
     'client-id',
-    'client-secret',
-    getHelpers
+    'client-secret'
   )
 }
 
@@ -173,47 +161,29 @@ describe('handleTokenExchangeCallback', () => {
     expect(calls).toBe(2)
   })
 
-  it('revokes the exact callback grant when upstream returns invalid_grant', async () => {
+  it('throws the provider OAuthError invalid_grant for a dead upstream grant, which the provider revokes', async () => {
     server.use(
       http.post(OAUTH_TOKEN_URL, () => HttpResponse.text('invalid grant', { status: 400 }))
     )
-    const helpers = mockOAuthHelpers()
 
-    await expect(refreshCallback('old-refresh-token', () => helpers)).rejects.toMatchObject({
-      name: 'OAuthError',
-      code: 'invalid_grant',
-      statusCode: 400
-    })
-    expect(helpers.revokeGrant).toHaveBeenCalledOnce()
-    expect(helpers.revokeGrant).toHaveBeenCalledWith(grantId, 'user-1')
+    // workers-oauth-provider 1.x revokes the grant for any invalid_grant thrown here
+    // (covered end to end in oauth-routes.test.ts), so the callback only has to throw it.
+    const error = await refreshCallback('old-refresh-token').catch((thrown: unknown) => thrown)
+    expect(error).toBeInstanceOf(ProviderOAuthError)
+    expect(error).toMatchObject({ name: 'OAuthError', code: 'invalid_grant', statusCode: 400 })
   })
 
-  it('does not revoke the grant for transient upstream failures', async () => {
+  it('throws temporarily_unavailable for transient upstream failures, which keeps the grant', async () => {
     server.use(
       http.post(OAUTH_TOKEN_URL, () =>
         HttpResponse.text('rate limited', { status: 429, headers: { 'Retry-After': '17' } })
       )
     )
-    const helpers = mockOAuthHelpers()
 
-    await expect(refreshCallback('old-refresh-token', () => helpers)).rejects.toMatchObject({
+    await expect(refreshCallback('old-refresh-token')).rejects.toMatchObject({
       code: 'temporarily_unavailable',
       statusCode: 429,
       headers: { 'Retry-After': '17' }
-    })
-    expect(helpers.revokeGrant).not.toHaveBeenCalled()
-  })
-
-  it('still throws invalid_grant when revoking the grant fails', async () => {
-    server.use(
-      http.post(OAUTH_TOKEN_URL, () => HttpResponse.text('invalid grant', { status: 400 }))
-    )
-    const helpers = mockOAuthHelpers()
-    vi.mocked(helpers.revokeGrant).mockRejectedValueOnce(new Error('KV unavailable'))
-
-    await expect(refreshCallback('old-refresh-token', () => helpers)).rejects.toMatchObject({
-      code: 'invalid_grant',
-      statusCode: 400
     })
   })
 

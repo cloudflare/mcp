@@ -103,9 +103,8 @@ describe('Client ID Metadata Documents', () => {
     const html = await authorization.text()
     expect(html).toContain('CIMD Test Client')
 
-    const state = html.match(/name="state" value="([^"]+)"/)?.[1]
-    const csrfToken = html.match(/name="csrf_token" value="([^"]+)"/)?.[1]
-    expect(state && csrfToken).toBeTruthy()
+    const handle = html.match(/name="handle" value="([^"]+)"/)?.[1]
+    expect(handle).toBeTruthy()
 
     const approval = await exports.default.fetch(
       new Request(`${MCP_ORIGIN}/authorize`, {
@@ -114,11 +113,7 @@ describe('Client ID Metadata Documents', () => {
           'Content-Type': 'application/x-www-form-urlencoded',
           Cookie: cookiesFrom(authorization)
         },
-        body: new URLSearchParams({
-          state: state!,
-          csrf_token: csrfToken!,
-          scopes: 'user:read'
-        }).toString(),
+        body: new URLSearchParams({ handle: handle!, scopes: 'user:read' }).toString(),
         redirect: 'manual'
       })
     )
@@ -221,7 +216,10 @@ describe('Client ID Metadata Documents', () => {
 
     expect(response.status).toBe(400)
     expect(response.headers.get('location')).toBeNull()
-    expect(await response.text()).toContain('resource parameter must exactly match')
+    // 1.x compares the resource exactly against the canonical .../mcp (no origin-only matching).
+    expect(await response.text()).toContain(
+      'resource parameter must name exactly one configured protected resource'
+    )
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
   })
 
@@ -239,9 +237,8 @@ describe('Client ID Metadata Documents', () => {
     const authorization = await exports.default.fetch(new Request(authorizeUrl()))
     expect(authorization.status).toBe(200)
     const html = await authorization.text()
-    const state = html.match(/name="state" value="([^"]+)"/)?.[1]
-    const csrfToken = html.match(/name="csrf_token" value="([^"]+)"/)?.[1]
-    expect(state && csrfToken).toBeTruthy()
+    const handle = html.match(/name="handle" value="([^"]+)"/)?.[1]
+    expect(handle).toBeTruthy()
 
     const approval = await exports.default.fetch(
       new Request(`${MCP_ORIGIN}/authorize`, {
@@ -250,11 +247,7 @@ describe('Client ID Metadata Documents', () => {
           'Content-Type': 'application/x-www-form-urlencoded',
           Cookie: cookiesFrom(authorization)
         },
-        body: new URLSearchParams({
-          state: state!,
-          csrf_token: csrfToken!,
-          scopes: 'user:read'
-        }).toString(),
+        body: new URLSearchParams({ handle: handle!, scopes: 'user:read' }).toString(),
         redirect: 'manual'
       })
     )
@@ -275,7 +268,8 @@ describe('Client ID Metadata Documents', () => {
     expect(callback.headers.get('location')).toBeNull()
     expect(callback.headers.get('retry-after')).toBeNull()
     expect(await callback.text()).toContain('Restart authorization from your MCP client')
-    expect((await env.OAUTH_KV.list({ prefix: 'oauth:state:' })).keys).toHaveLength(0)
+    // The upstream transaction was consumed at the callback.
+    expect((await env.OAUTH_KV.list({ prefix: 'transaction:' })).keys).toHaveLength(0)
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
     expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(0)
   })

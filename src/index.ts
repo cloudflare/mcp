@@ -1,7 +1,4 @@
-import OAuthProvider, {
-  getOAuthApi,
-  type OAuthProviderOptions
-} from '@cloudflare/workers-oauth-provider'
+import OAuthProvider, { type OAuthProviderOptions } from '@cloudflare/workers-oauth-provider'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { resolveExternalToken } from './auth/api-token-mode'
 import {
@@ -54,24 +51,19 @@ export default {
       clientRegistrationEndpoint: '/register',
       clientIdMetadataDocumentEnabled: true,
       resolveExternalToken,
+      // An upstream invalid_grant thrown here revokes the grant (workers-oauth-provider 1.x).
       tokenExchangeCallback: (options) =>
         handleTokenExchangeCallback(
           options,
           env.CLOUDFLARE_CLIENT_ID,
-          env.CLOUDFLARE_CLIENT_SECRET,
-          // Lazily build helpers (only invoked on terminal invalid_grant) so we
-          // can revoke the dead grant. env.OAUTH_PROVIDER is NOT injected during
-          // the token endpoint, so we must construct the API explicitly here.
-          () => getOAuthApi(oauthOptions, env)
+          env.CLOUDFLARE_CLIENT_SECRET
         ),
       resourceMetadata: {
         resource: env.MCP_RESOURCE,
         resource_name: 'Cloudflare API MCP Server'
       },
       accessTokenTTL: 3600,
-      refreshTokenTTL: 2592000, // 30 days
-      // TODO: Remove after 2026-05-01 — all pre-0.4.0 grants will have expired by then
-      resourceMatchOriginOnly: true
+      refreshTokenTTL: 2592000 // 30 days
     }
     return new OAuthProvider(oauthOptions).fetch(request, env, ctx)
   },
