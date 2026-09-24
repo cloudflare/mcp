@@ -20,6 +20,8 @@ export type ScopeName = keyof typeof CORE_SCOPE_DEFINITIONS | keyof typeof DERIV
 /** A preset set of scopes offered on the consent page. */
 export interface ScopeTemplate {
   name: string
+  /** One line shown under the name on the consent page. */
+  description: string
   scopes: readonly ScopeName[]
 }
 
@@ -59,10 +61,12 @@ const readOnlyScopes = Array.from(
 export const SCOPE_TEMPLATES: Record<TemplateName, ScopeTemplate> = {
   'read-only': {
     name: 'Read only',
+    description: 'View resources without making changes.',
     scopes: readOnlyScopes
   },
   'full-access': {
     name: 'Full access',
+    description: 'View and change resources.',
     scopes: scopeNames
   }
 }
