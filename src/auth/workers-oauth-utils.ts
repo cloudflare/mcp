@@ -485,16 +485,39 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .radio-card {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.625rem 0.75rem;
       border: 1px solid var(--kumo-hairline);
       border-radius: 8px;
       background: var(--kumo-base);
-      cursor: pointer;
     }
     .radio-card:hover, .radio-card:has(.radio-input:checked) { background: var(--kumo-tint); }
     .radio-card:has(.radio-input:checked) { border-color: var(--kumo-interact); }
-    .radio-card-label { flex: 1; min-width: 0; font-weight: 500; }
+    .radio-card-main {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      padding: 0.625rem 0.75rem;
+      cursor: pointer;
+    }
+    .radio-card-label { flex: 1; min-width: 0; font-weight: 500; overflow-wrap: anywhere; }
+    /* Kumo Button variant="ghost" shape="square" size="sm" */
+    .radio-card-remove {
+      display: grid;
+      place-content: center;
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      margin-right: 0.5rem;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--kumo-text-subtle);
+      cursor: pointer;
+    }
+    .radio-card-remove:hover { background: var(--kumo-fill); color: var(--kumo-text-default); }
+    .radio-card-remove:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+    .radio-card-remove svg { width: 14px; height: 14px; fill: currentColor; }
     .radio-input {
       appearance: none;
       display: grid;
@@ -637,6 +660,30 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       const continueBtn = document.getElementById('continueBtn');
       const requestedScopesEl = document.getElementById('requestedScopes');
 
+      // Templates people saved in this browser with the old scope picker. They
+      // can still be picked or removed, but new ones can't be created. Scopes
+      // that have left the catalog are dropped by the server.
+      const SAVED_KEY = 'cf-mcp-consent:user-templates:v1';
+      const SAVED_PREFIX = 'saved:';
+      const REMOVE_ICON = '<svg viewBox="0 0 256 256" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>';
+
+      function loadSavedTemplates() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+          if (!Array.isArray(parsed)) return [];
+          return parsed
+            .filter(t => t && typeof t.name === 'string' && Array.isArray(t.scopes))
+            .map(t => ({ name: t.name.slice(0, 40), scopes: t.scopes.filter(s => typeof s === 'string') }));
+        } catch { return []; }
+      }
+
+      function removeSavedTemplate(name) {
+        try {
+          const kept = loadSavedTemplates().filter(t => t.name !== name);
+          localStorage.setItem(SAVED_KEY, JSON.stringify(kept));
+        } catch {}
+      }
+
       function escapeHtml(s) {
         return String(s)
           .replace(/&/g, '&amp;')
@@ -647,25 +694,49 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       }
 
       function renderTemplates() {
-        const entries = Object.entries(TEMPLATE_NAMES).map(([key, name]) => ({ key, name }));
+        const entries = Object.entries(TEMPLATE_NAMES).map(([key, name]) => ({ key, name, saved: false }));
+        for (const t of loadSavedTemplates()) {
+          entries.push({ key: SAVED_PREFIX + t.name, name: t.name, saved: true });
+        }
         if (INITIAL_TEMPLATE === REQUESTED) {
-          entries.push({ key: REQUESTED, name: 'Requested permissions' });
+          entries.push({ key: REQUESTED, name: 'Requested permissions', saved: false });
         }
 
         templatesEl.innerHTML = entries.map(e => \`
-          <label class="radio-card">
-            <span class="radio-card-label">\${escapeHtml(e.name)}</span>
-            <input type="radio" class="radio-input" name="template" value="\${escapeHtml(e.key)}">
-          </label>
+          <div class="radio-card">
+            <label class="radio-card-main">
+              <span class="radio-card-label">\${escapeHtml(e.name)}</span>
+              <input type="radio" class="radio-input" name="template" value="\${escapeHtml(e.key)}">
+            </label>
+            \${e.saved ? '<button type="button" class="radio-card-remove" data-name="' + escapeHtml(e.name) + '" aria-label="Remove saved template ' + escapeHtml(e.name) + '">' + REMOVE_ICON + '</button>' : ''}
+          </div>
         \`).join('');
 
         templatesEl.querySelectorAll('.radio-input').forEach(input => {
           input.addEventListener('change', () => applyTemplate(input.value));
         });
+        templatesEl.querySelectorAll('.radio-card-remove').forEach(button => {
+          button.addEventListener('click', () => {
+            const key = SAVED_PREFIX + button.dataset.name;
+            removeSavedTemplate(button.dataset.name);
+            renderTemplates();
+            if (activeTemplate === key) applyTemplate(INITIAL_TEMPLATE);
+            else updateActiveTemplateUI();
+          });
+        });
+      }
+
+      function templateScopes(key) {
+        if (key === REQUESTED) return INITIAL_SCOPES;
+        if (key.startsWith(SAVED_PREFIX)) {
+          const saved = loadSavedTemplates().find(t => SAVED_PREFIX + t.name === key);
+          return saved ? saved.scopes : null;
+        }
+        return TEMPLATES[key] || null;
       }
 
       function applyTemplate(key) {
-        const scopes = key === REQUESTED ? INITIAL_SCOPES : TEMPLATES[key];
+        const scopes = templateScopes(key);
         if (!scopes) return;
         selected.clear();
         for (const s of scopes) selected.add(s);
