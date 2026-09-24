@@ -44,10 +44,12 @@ describe('OAuth approval dialog identity details', () => {
       redirectUri: 'https://user@callback.example:8443/oauth/callback?sensitive=redirect-query'
     })
 
-    expect(body).toContain('Client ID hostname</span>')
-    expect(body).toContain('>identity.example</strong>')
-    expect(body).toContain('Redirect URI hostname</span>')
+    expect(body).toContain('title="Client ID hostname">identity.example</span>')
     expect(body).toContain('>callback.example</strong>')
+    expect(body).toContain(
+      'data-tip="Redirect URI hostname. The authorization code is sent to this host."'
+    )
+    expect(body).not.toContain('Local redirect:')
     expect(body).not.toContain('client-query')
     expect(body).not.toContain('redirect-query')
     expect(body).not.toContain('user@')
@@ -64,7 +66,7 @@ describe('OAuth approval dialog identity details', () => {
       }
     })
 
-    expect(body).not.toContain('Client ID hostname</span>')
+    expect(body).not.toContain('Client ID hostname')
     expect(body).not.toContain('untrusted.example')
     expect(body).not.toContain('<img src=x onerror=alert(1)>')
     expect(body).toContain('&lt;img src=x onerror=alert(1)&gt;')
@@ -82,7 +84,7 @@ describe('OAuth approval dialog identity details', () => {
       redirectUri: 'http://localhost:3210/callback'
     })
 
-    expect(body).toContain('Local redirect:')
+    expect(body).toContain('data-tip="Local redirect: this client will receive the authorization code')
     expect(body).toContain('>localhost</strong>')
   })
 })

@@ -214,7 +214,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     throw new OAuthError('invalid_request', 'Redirect URI must include a hostname')
   }
   const clientIdHostname = client ? hostnameFromUrl(client.clientId, true) : undefined
-  const isLocalRedirect = isLoopbackRedirectUri(redirectUri)
+  const redirectTip = isLoopbackRedirectUri(redirectUri)
+    ? 'Local redirect: this client will receive the authorization code on this device. Only continue if you trust the application that opened this page.'
+    : 'Redirect URI hostname. The authorization code is sent to this host.'
   const requiredSet = new Set(requiredScopes)
 
   const templateDataJson = JSON.stringify(
@@ -296,8 +298,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .main {
       flex: 1;
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       padding: 2rem;
     }
     .card {
@@ -317,18 +319,24 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .card-subtitle { font-size: 14px; color: var(--cf-text-subtle); letter-spacing: -0.16px; }
     .card-body { padding: 1.5rem 2rem; }
 
-    /* Client identity */
-    .client-identity { margin-bottom: 1.5rem; }
+    /* Client identity: who is asking (left) and where the code goes (right) */
+    .client-identity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
     .client-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      min-width: 0;
       background: var(--cf-elevated);
       padding: 0.45rem 0.85rem;
       border-radius: var(--border-radius);
       font-size: 14px;
       font-weight: 500;
-      margin-bottom: 0.75rem;
       border: 1px solid var(--cf-hairline);
     }
     .client-badge-icon {
@@ -341,38 +349,25 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       justify-content: center;
     }
     .client-badge-icon svg { width: 12px; height: 12px; }
-    .client-details {
-      border: 1px solid var(--cf-hairline);
-      border-radius: var(--border-radius);
-      background: var(--cf-elevated);
-      overflow: hidden;
+    .client-badge-host {
+      color: var(--cf-text-subtle);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      overflow-wrap: anywhere;
     }
-    .client-detail {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.55rem 0.85rem;
+    .client-redirect {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
     }
-    .client-detail + .client-detail { border-top: 1px solid var(--cf-hairline); }
-    .client-detail-label { color: var(--cf-text-subtle); }
-    .client-detail-hostname {
+    .client-redirect-hostname {
       color: var(--cf-text-default);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 13px;
       font-weight: 600;
       overflow-wrap: anywhere;
       text-align: right;
-    }
-    .local-redirect-warning {
-      margin-top: 0.75rem;
-      padding: 0.75rem 0.85rem;
-      border: 1px solid var(--cf-orange);
-      border-radius: var(--border-radius);
-      background: rgba(246, 130, 31, 0.08);
-      color: var(--cf-text-default);
-      font-size: 13px;
-      line-height: 1.45;
     }
 
     /* Section labels (match dashboard 'Edit policy' heading: 14px/500/subtle) */
@@ -439,6 +434,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .info-tip[data-tip]:hover::before,
     .info-tip[data-tip]:focus::after,
     .info-tip[data-tip]:focus::before { opacity: 1; }
+    /* Anchor the tooltip to the icon's right edge so the card doesn't clip it. */
+    .info-tip--end[data-tip]::after { left: auto; right: -6px; transform: none; }
 
     /* Templates */
     .templates {
@@ -500,7 +497,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-bottom: 1.5rem;
+      width: 100%;
+      max-width: 640px;
+      margin-bottom: 0.75rem;
       padding: 0.5rem 0.75rem;
       border-radius: 6px;
       background: var(--cf-info-tint);
@@ -528,6 +527,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     /* Actions */
     .actions {
       display: flex;
+      justify-content: flex-end;
       gap: 0.5rem;
       padding-top: 1rem;
       border-top: 1px solid var(--cf-hairline);
@@ -544,7 +544,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       transition: all 0.15s ease;
       text-align: center;
     }
-    .button-primary { background: var(--cf-brand); color: white; border-color: var(--cf-brand); flex: 1; }
+    .button-primary { background: var(--cf-brand); color: white; border-color: var(--cf-brand); min-width: 200px; }
     .button-primary:hover { background: var(--cf-brand-hover); border-color: var(--cf-brand-hover); }
     .button-primary:disabled { background: var(--cf-tint); border-color: var(--cf-hairline); color: var(--cf-text-inactive); cursor: not-allowed; }
     .button-ghost {
@@ -582,6 +582,16 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   </header>
 
   <main class="main">
+    <div class="banner">
+      <span class="banner-icon" aria-hidden="true">
+        <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z"/></svg>
+      </span>
+      <p class="banner-text">
+        <span class="banner-title">Permissions have moved.</span>
+        <span class="banner-description">Choose them on the Cloudflare authorization screen.</span>
+      </p>
+    </div>
+
     <div class="card">
       <div class="card-header">
         <h1 class="card-title">Authorize Application</h1>
@@ -597,28 +607,14 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
               </svg>
             </span>
             ${clientName}
+            ${clientIdHostname ? `<span class="client-badge-host" title="Client ID hostname">${sanitizeHtml(clientIdHostname)}</span>` : ''}
           </div>
-          <div class="client-details" aria-label="OAuth client identity and redirect destination">
-            ${
-              clientIdHostname
-                ? `<div class="client-detail">
-              <span class="client-detail-label">Client ID hostname</span>
-              <strong class="client-detail-hostname">${sanitizeHtml(clientIdHostname)}</strong>
-            </div>`
-                : ''
-            }
-            <div class="client-detail">
-              <span class="client-detail-label">Redirect URI hostname</span>
-              <strong class="client-detail-hostname">${sanitizeHtml(redirectHostname)}</strong>
-            </div>
+          <div class="client-redirect">
+            <strong class="client-redirect-hostname">${sanitizeHtml(redirectHostname)}</strong>
+            <span class="info-tip info-tip--end" tabindex="0" aria-label="${redirectTip}" data-tip="${redirectTip}">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
+            </span>
           </div>
-          ${
-            isLocalRedirect
-              ? `<div class="local-redirect-warning" role="alert">
-            Local redirect: this client will receive the authorization code on this device. Only continue if you trust the application that opened this page.
-          </div>`
-              : ''
-          }
         </div>
 
         <form method="post" action="${new URL(request.url).pathname}" id="authForm">
@@ -634,16 +630,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
               </span>
             </div>
             <div class="templates" id="templates" role="radiogroup" aria-label="Permission templates"></div>
-          </div>
-
-          <div class="banner">
-            <span class="banner-icon" aria-hidden="true">
-              <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z"/></svg>
-            </span>
-            <p class="banner-text">
-              <span class="banner-title">Permissions have moved.</span>
-              <span class="banner-description">Choose them on the Cloudflare authorization screen.</span>
-            </p>
           </div>
 
           <div class="actions">
