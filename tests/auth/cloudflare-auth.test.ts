@@ -137,19 +137,64 @@ describe('getAuthToken', () => {
     expect(authHeader).toBe(`Basic ${btoa('client-id:client-secret')}`)
   })
 
-  it('maps upstream 400 to invalid_grant', async () => {
-    const error = await expectAuthTokenOAuthError(new Response('bad code', { status: 400 }))
-    expect(error).toMatchObject({ code: 'invalid_grant', statusCode: 400 })
-  })
-
-  it('maps upstream 401 to invalid_client', async () => {
-    const error = await expectAuthTokenOAuthError(new Response('bad creds', { status: 401 }))
-    expect(error).toMatchObject({ code: 'invalid_client', statusCode: 401 })
-  })
-
-  it('maps upstream 5xx to a 502 server_error', async () => {
-    const error = await expectAuthTokenOAuthError(new Response('boom', { status: 503 }))
-    expect(error).toMatchObject({ code: 'server_error', statusCode: 502 })
+  it.each([
+    // The RFC 6749 error field decides, not the HTTP status.
+    [
+      'invalid_grant (JSON)',
+      Response.json({ error: 'invalid_grant' }, { status: 400 }),
+      'invalid_grant',
+      400
+    ],
+    [
+      'invalid_grant (form)',
+      new Response('error=invalid_grant', { status: 400 }),
+      'invalid_grant',
+      400
+    ],
+    [
+      'a 400 with no readable error',
+      new Response('bad code', { status: 400 }),
+      'invalid_grant',
+      400
+    ],
+    // Our client credentials: a server problem, never invalid_client to the MCP client.
+    [
+      'invalid_client',
+      Response.json({ error: 'invalid_client' }, { status: 401 }),
+      'server_error',
+      502
+    ],
+    ['a bare 401', new Response('bad creds', { status: 401 }), 'server_error', 502],
+    [
+      'unauthorized_client',
+      Response.json({ error: 'unauthorized_client' }, { status: 400 }),
+      'server_error',
+      502
+    ],
+    // A bug on our side must not revoke users' grants.
+    [
+      'invalid_request',
+      Response.json({ error: 'invalid_request' }, { status: 400 }),
+      'server_error',
+      502
+    ],
+    [
+      'invalid_scope',
+      Response.json({ error: 'invalid_scope' }, { status: 400 }),
+      'server_error',
+      502
+    ],
+    // Transient: retryable, the grant is kept.
+    ['a 5xx', new Response('boom', { status: 503 }), 'temporarily_unavailable', 503],
+    [
+      'temporarily_unavailable',
+      Response.json({ error: 'temporarily_unavailable' }, { status: 400 }),
+      'temporarily_unavailable',
+      503
+    ]
+  ])('maps %s', async (_label, response, code, statusCode) => {
+    const error = await expectAuthTokenOAuthError(response)
+    expect(error).toMatchObject({ code, statusCode })
   })
 
   it('throws (non-OAuth) when the token response shape is invalid', async () => {
