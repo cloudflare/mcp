@@ -338,7 +338,7 @@ const MAX_LISTED_SCOPES = 12
 /**
  * Find the template whose scopes, plus the required scopes, are exactly
  * `scopes`. The consent page preselects it; otherwise it offers the client's
- * own request as "Requested permissions".
+ * own request as "Requested scopes".
  */
 function matchingTemplate(
   templates: Readonly<Record<string, ScopeTemplate>>,
@@ -624,7 +624,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           <div class="radio-legend" id="templateLegend">Base scopes</div>
           <div class="radio-cards" id="templates"></div>
           ${requestedScopesHtml}
-          <p class="radio-description" id="templateHelp">You can narrow permissions further on the Cloudflare authorization screen.</p>
+          <p class="radio-description" id="templateHelp">You can narrow scopes further on the Cloudflare authorization screen.</p>
         </div>
 
         <form method="post" action="${new URL(request.url).pathname}" id="authForm">
@@ -653,7 +653,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       // Cloudflare's authorization screen can only narrow them.
       const REQUESTED = ${JSON.stringify(REQUESTED_TEMPLATE)};
       // The server preselects the matching template, or REQUESTED when the
-      // client's scopes match none. Only then is "Requested permissions" offered.
+      // client's scopes match none. Only then is "Requested scopes" offered.
       const INITIAL_TEMPLATE = ${JSON.stringify(initialTemplate)};
 
       const selected = new Set();
@@ -703,7 +703,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           entries.push({ key: SAVED_PREFIX + t.name, name: t.name, saved: true });
         }
         if (INITIAL_TEMPLATE === REQUESTED) {
-          entries.push({ key: REQUESTED, name: 'Requested permissions', saved: false });
+          entries.push({ key: REQUESTED, name: 'Requested scopes', saved: false });
         }
 
         templatesEl.innerHTML = entries.map(e => \`
