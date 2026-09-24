@@ -230,6 +230,9 @@ describe('GET /authorize', () => {
     expect(body).not.toContain('Save as template')
     expect(body).toContain('Permissions have moved.')
     expect(body).toContain('Choose them on the Cloudflare authorization screen.')
+    expect(body).toContain(
+      'You can narrow permissions further on the Cloudflare authorization screen.'
+    )
     expect(body).toContain('cf-mcp-consent:user-templates:v1')
 
     const templates = embeddedTemplateScopes(body)
