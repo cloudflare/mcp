@@ -681,6 +681,35 @@ describe('GET /oauth/callback', () => {
     )
   })
 
+  it('claims only the scopes Cloudflare granted, not every scope the user picked', async () => {
+    const { clientId, state, sessionCookie } = await beginAuthorization({ scopes: 'access.write' })
+    // The user picked access.write, but Cloudflare granted only the bootstrap scopes.
+    useCloudflareAuthSuccess('user:read account:read offline_access')
+    const callback = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, {
+        headers: { Cookie: sessionCookie },
+        redirect: 'manual'
+      })
+    )
+    const code = new URL(callback.headers.get('location')!).searchParams.get('code')!
+    const token = (await (
+      await exports.default.fetch(
+        new Request(`${MCP_ORIGIN}/token`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            grant_type: 'authorization_code',
+            code,
+            client_id: clientId,
+            redirect_uri: REDIRECT_URI,
+            code_verifier: DOWNSTREAM_CODE_VERIFIER
+          }).toString()
+        })
+      )
+    ).json()) as { scope: string }
+    expect(token.scope.split(' ').sort()).toEqual(['account:read', 'offline_access', 'user:read'])
+  })
+
   it('serves modern MCP without externally resolving the provider-issued token', async () => {
     const { clientId, state, sessionCookie } = await beginAuthorization()
     const probes = useCloudflareAuthSuccess()
