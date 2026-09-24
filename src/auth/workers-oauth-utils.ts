@@ -190,218 +190,8 @@ function isLoopbackRedirectUri(value: string): boolean {
 }
 
 /**
- * Override labels for resources whose humanized form would mangle acronyms
- * or brand names (e.g. `url_scanner` → "Url scanner", `cfone` → "Cfone").
- */
-const RESOURCE_LABELS: Record<string, string> = {
-  access: 'Access',
-  ai: 'AI',
-  aig: 'AI Gateway',
-  aiaudit: 'AI Audit',
-  'ai-search': 'AI Search',
-  'account-analytics': 'Account analytics',
-  containers: 'Containers',
-  d1: 'D1',
-  logs: 'Logs',
-  offline_access: 'Offline access',
-  pages: 'Pages',
-  pipelines: 'Pipelines',
-  queues: 'Queues',
-  radar: 'Radar',
-  'account-ssl-and-certificates': 'Account SSL and Certificates',
-  'ssl-and-certificates': 'SSL and Certificates',
-  teams: 'Teams (Zero Trust)',
-  snippets: 'Snippets',
-  user: 'User',
-  account: 'Account',
-  vectorize: 'Vectorize',
-  zone: 'Zone'
-}
-
-/**
- * Turn a resource key like `workers_scripts` into a human-readable label.
- * Falls back to title-casing unknown keys.
- */
-function humanize(key: string): string {
-  if (RESOURCE_LABELS[key]) return RESOURCE_LABELS[key]
-
-  const acronyms = new Map(
-    [
-      'ai',
-      'api',
-      'bgp',
-      'cds',
-      'cf',
-      'd1',
-      'ddos',
-      'dex',
-      'dls',
-      'dmarc',
-      'dns',
-      'fbm',
-      'http',
-      'idp',
-      'iot',
-      'ip',
-      'l4',
-      'mcp',
-      'mtls',
-      'pcaps',
-      'pii',
-      'r2',
-      'saml',
-      'scim',
-      'sso',
-      'ssh',
-      'ssl',
-      'tls',
-      'url',
-      'vpc',
-      'waf',
-      'wan',
-      'warp'
-    ].map((word) => [word, word.toUpperCase()])
-  )
-
-  return key
-    .split(/[_-]/g)
-    .map((word) => acronyms.get(word) ?? word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
-}
-
-interface ScopeRow {
-  resource: string
-  label: string
-  category: string
-  actions: Array<{ action: string; scope: string; desc: string; required: boolean }>
-}
-
-interface CategoryGroup {
-  category: string
-  rows: ScopeRow[]
-}
-
-/** Display order for the categories supplied by the public API catalog. */
-const CATEGORY_ORDER = [
-  'Core',
-  'Developer Platform',
-  'AI & Machine Learning',
-  'DNS & Zones',
-  'App Security',
-  'Rules & Configuration',
-  'Cloudflare One / Zero Trust',
-  'Analytics & Logs',
-  'Network Services',
-  'Media',
-  'Email & Messaging',
-  'Cache & Performance',
-  'Account & Billing',
-  'Other'
-]
-
-/**
- * Group scopes by resource, then bucket rows by category for accordion display.
- */
-function groupScopesByCategory(
-  scopeDefinitions: Record<string, ScopeDefinition>,
-  requiredScopes: Set<string>
-): CategoryGroup[] {
-  const byResource = new Map<string, ScopeRow>()
-
-  for (const [scope, definition] of Object.entries(scopeDefinitions)) {
-    const desc = definition.name
-    let resource: string
-    let action = 'grant'
-    const splitScope = scope.split(/[:.]/)
-    if (splitScope.length >= 2) {
-      resource = splitScope.slice(0, -1).join('-')
-      action = splitScope[splitScope.length - 1]
-    } else {
-      resource = splitScope[0]
-    }
-
-    const category = definition.category
-    // The same resource can expose actions in different permission-group categories
-    // (for example, Pages access versus Page Shield). Keep those rows separate.
-    const resourceKey = `${category}\u0000${resource}`
-    if (!byResource.has(resourceKey)) {
-      byResource.set(resourceKey, { resource, label: humanize(resource), category, actions: [] })
-    }
-    byResource.get(resourceKey)!.actions.push({
-      action,
-      scope,
-      desc,
-      required: requiredScopes.has(scope)
-    })
-  }
-
-  const actionRank: Record<string, number> = {
-    read: 0,
-    metadata_read: 0,
-    monitoring: 0,
-    report: 0,
-    write: 1,
-    edit: 1,
-    index: 2,
-    run: 2,
-    evaluate: 2,
-    send: 2,
-    admin: 3,
-    bind: 4,
-    location: 5,
-    shield: 6,
-    purge: 7,
-    revoke: 8
-  }
-  for (const row of byResource.values()) {
-    row.actions.sort((a, b) => {
-      const ra = actionRank[a.action] ?? 5
-      const rb = actionRank[b.action] ?? 5
-      return ra === rb ? a.action.localeCompare(b.action) : ra - rb
-    })
-  }
-
-  const byCategory = new Map<string, ScopeRow[]>()
-  for (const row of byResource.values()) {
-    if (!byCategory.has(row.category)) byCategory.set(row.category, [])
-    byCategory.get(row.category)!.push(row)
-  }
-  for (const rows of byCategory.values()) {
-    rows.sort((a, b) => a.label.localeCompare(b.label))
-  }
-
-  const ordered: CategoryGroup[] = []
-  for (const category of CATEGORY_ORDER) {
-    const rows = byCategory.get(category)
-    if (rows) ordered.push({ category, rows })
-  }
-  for (const [category, rows] of byCategory) {
-    if (!CATEGORY_ORDER.includes(category)) ordered.push({ category, rows })
-  }
-  return ordered
-}
-
-const ACTION_LABELS: Record<string, string> = {
-  read: 'Read',
-  metadata_read: 'Metadata',
-  monitoring: 'Monitor',
-  report: 'Report',
-  write: 'Write',
-  edit: 'Edit',
-  index: 'Index',
-  run: 'Run',
-  evaluate: 'Evaluate',
-  send: 'Send',
-  admin: 'Admin',
-  bind: 'Bind',
-  location: 'Locations',
-  shield: 'Shield',
-  purge: 'Purge',
-  revoke: 'Revoke'
-}
-
-/**
- * Renders an approval dialog for OAuth authorization with scope selection
+ * Renders an approval dialog for OAuth authorization with access templates.
+ * Users choose individual scopes on Cloudflare's authorization screen.
  */
 export function renderApprovalDialog(request: Request, options: ApprovalDialogOptions): Response {
   const {
@@ -426,45 +216,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   const clientIdHostname = client ? hostnameFromUrl(client.clientId, true) : undefined
   const isLocalRedirect = isLoopbackRedirectUri(redirectUri)
   const requiredSet = new Set(requiredScopes)
-  const categories = groupScopesByCategory(scopeDefinitions, requiredSet)
-
-  const renderRow = (row: ScopeRow): string => {
-    const pills = row.actions
-      .map((a) => {
-        const label = ACTION_LABELS[a.action] ?? humanize(a.action)
-        const classes = ['pill']
-        if (a.required) classes.push('pill--required')
-        return `<button type="button" class="${classes.join(' ')}" data-scope="${sanitizeHtml(a.scope)}" data-action="${sanitizeHtml(a.action)}" data-required="${a.required ? '1' : ''}" title="${sanitizeHtml(a.scope)} — ${sanitizeHtml(a.desc)}" aria-pressed="false"><span class="pill-box" aria-hidden="true"></span><span class="pill-label">${sanitizeHtml(label)}</span></button>`
-      })
-      .join('')
-    const hasRequired = row.actions.some((a) => a.required)
-    return `
-          <div class="row" data-resource="${sanitizeHtml(row.resource)}" data-search="${sanitizeHtml((row.label + ' ' + row.resource + ' ' + row.category).toLowerCase())}">
-            <div class="row-label">
-              <span class="row-name">${sanitizeHtml(row.label)}</span>
-              ${hasRequired ? '<span class="row-badge">Required</span>' : ''}
-            </div>
-            <div class="row-pills">${pills}</div>
-          </div>`
-  }
-
-  const categoriesHtml = categories
-    .map((g) => {
-      return `
-        <details class="cat" data-category="${sanitizeHtml(g.category)}">
-          <summary class="cat-summary">
-            <span class="cat-chevron" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
-            </span>
-            <span class="cat-name">${sanitizeHtml(g.category)}</span>
-            <span class="cat-count" data-count></span>
-          </summary>
-          <div class="cat-body">
-            ${g.rows.map(renderRow).join('')}
-          </div>
-        </details>`
-    })
-    .join('')
 
   const templateDataJson = JSON.stringify(
     Object.fromEntries(Object.entries(scopeTemplates).map(([k, v]) => [k, v.scopes]))
@@ -501,15 +252,15 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       --cf-tint: #f7f7f7;             /* neutral-100  oklch(97% 0 0)   */
       --cf-recessed: #f5f5f5;         /* kumo-recessed oklch(96% 0 0)  */
       --cf-hairline: #eeeeee;         /* kumo-hairline oklch(93.5% 0 0)*/
-      --cf-line: rgba(37, 37, 37, 0.1); /* kumo-line oklch(14.5% 0 0 / 0.1) */
       --cf-interact: #d4d4d4;         /* neutral-300 oklch(87% 0 0)    */
       --cf-contrast: #262626;         /* kumo-contrast (checked state) */
       --cf-text-default: #262626;     /* neutral-900 oklch(21% ...)    */
-      --cf-text-strong: #636363;      /* neutral-600 oklch(43.9% 0 0)  */
       --cf-text-subtle: #808080;      /* neutral-500 oklch(55.6% 0 0)  */
       --cf-text-inactive: #a3a3a3;    /* neutral-400 oklch(70.8% 0 0)  */
+      --cf-info: #2b7fff;             /* kumo-info (blue-500)          */
+      --cf-info-tint: rgba(219, 234, 254, 0.45); /* kumo-info-tint oklch(93.2% 0.032 255.6 / 0.45) */
+      --cf-info-text: #193cb8;        /* text-kumo-info (blue-800)     */
       --cf-red: #c0392b;
-      --border-radius-sm: 2px;
       --border-radius: 8px;
       --border-radius-lg: 12px;
     }
@@ -690,23 +441,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .info-tip[data-tip]:focus::before { opacity: 1; }
 
     /* Templates */
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .section-head .section-label { margin-bottom: 0; }
-    .template-clear {
-      border: none;
-      background: transparent;
-      color: var(--cf-text-subtle);
-      padding: 0;
-      font-size: 13px;
-      font-family: inherit;
-      cursor: pointer;
-    }
-    .template-clear:hover { color: var(--cf-text-default); }
     .templates {
       display: flex;
       flex-wrap: wrap;
@@ -760,208 +494,36 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .tmpl[aria-pressed="true"] .tmpl-delete:hover { color: var(--cf-red); opacity: 1; }
     .tmpl--custom { border-style: dashed; }
 
-    /* Matrix head */
-    .matrix-head {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-    .search {
-      flex: 1;
-      position: relative;
-    }
-    .search input {
-      width: 100%;
-      padding: 0.55rem 0.85rem 0.55rem 2rem;
-      border: 1px solid var(--cf-interact);
-      border-radius: var(--border-radius);
-      font-family: inherit;
-      font-size: 14px;
-      background: white;
-      color: var(--cf-text-default);
-      outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-    .search input:focus {
-      border-color: var(--cf-brand);
-      box-shadow: 0 0 0 3px var(--cf-brand-tint);
-    }
-    .search svg {
-      position: absolute;
-      left: 0.65rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 14px;
-      height: 14px;
-      color: var(--cf-text-inactive);
-    }
-    .counter {
-      font-size: 12px;
-      color: var(--cf-text-subtle);
-      white-space: nowrap;
-      font-weight: 500;
-      letter-spacing: -0.12px;
-    }
-
-    /* Categories (accordions). Kumo 'permission policies' panel — match
-       body canvas bg so the table looks recessed into the card. */
-    .categories {
-      background: var(--cf-canvas);
-      border-radius: var(--border-radius);
-      box-shadow: 0 0 0 1px var(--cf-hairline);
-      overflow: hidden;
-    }
-    .cat {
-      border-bottom: 1px dashed var(--cf-line);
-    }
-    .cat:last-child { border-bottom: none; }
-    .cat-summary {
-      list-style: none;
-      padding: 0.75rem 1rem;
+    /* Kumo Banner (variant="default", size="sm"):
+       bg-kumo-info-tint text-kumo-info items-center gap-2 rounded-md px-3 py-2 text-sm */
+    .banner {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--cf-text-default);
-      letter-spacing: -0.14px;
-      background: transparent;
-      transition: background 0.12s ease;
-      user-select: none;
-    }
-    .cat-summary::-webkit-details-marker { display: none; }
-    .cat-summary:hover { background: rgba(37, 37, 37, 0.03); }
-    .cat-chevron {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 14px;
-      height: 14px;
-      color: var(--cf-text-subtle);
-      transition: transform 0.2s ease;
-    }
-    .cat[open] > .cat-summary .cat-chevron { transform: rotate(90deg); }
-    .cat-name { flex: 1; }
-    .cat-count {
-      font-size: 12px;
-      color: var(--cf-text-subtle);
-      font-weight: 500;
-      font-variant-numeric: tabular-nums;
-    }
-    .cat-count.has { color: var(--cf-brand); }
-    .cat-body {
-      background: transparent;
-    }
-
-    /* Rows */
-    .row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 1rem;
-      align-items: center;
-      min-height: 48px;
-      padding: 0 1rem 0 2.4rem;
-      border-top: 1px dashed var(--cf-line);
-    }
-    .cat-body .row:first-child { border-top: none; }
-    .row.hidden { display: none; }
-    .row-label { min-width: 0; }
-    .row-name {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--cf-text-strong);
-      letter-spacing: -0.16px;
-    }
-    .row-badge {
-      margin-left: 0.5rem;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--cf-brand);
-      letter-spacing: -0.1px;
-    }
-    /* Kumo action-group container (dashboard "permission policies" row):
-       px-1.5 gap-3 ring-1 ring-kumo-line rounded-md h-7 bg-kumo-control */
-    .row-pills {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      height: 28px;
-      padding: 0 6px;
-      border-radius: 6px;
-      background: var(--cf-base);
-      box-shadow: 0 0 0 1px var(--cf-line);
-      flex-wrap: nowrap;
-    }
-    /* Action checkbox (matches Kumo Checkbox primitive).
-       The button element IS the checkbox; .pill-box is the 16px visual. */
-    .pill {
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: -0.13px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0;
-      margin: 0;
-      border: none;
-      background: transparent;
-      color: var(--cf-text-strong);
-      cursor: pointer;
-      min-height: 0;
-    }
-    .pill-box {
-      width: 16px;
-      height: 16px;
-      border-radius: var(--border-radius-sm);
-      background: var(--cf-base);
-      box-shadow: 0 0 0 1px var(--cf-hairline);
-      flex-shrink: 0;
-      position: relative;
-      transition: background 0.12s ease, box-shadow 0.12s ease;
-    }
-    .pill:hover .pill-box { box-shadow: 0 0 0 1px var(--cf-interact); }
-    .pill[aria-pressed="true"] .pill-box {
-      background-color: var(--cf-contrast);
-      box-shadow: 0 0 0 1px var(--cf-contrast);
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='3.5,8.2 6.5,11 12.5,5'/></svg>");
-      background-size: 12px 12px;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-    .pill-label { line-height: 1; }
-    .pill--required { cursor: not-allowed; opacity: 0.5; }
-    .pill[aria-pressed="true"].pill--required .pill-box {
-      background-color: var(--cf-text-inactive);
-      box-shadow: 0 0 0 1px var(--cf-text-inactive);
-    }
-    .pill:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    /* Save as inline */
-    .save-as {
-      display: none;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-      padding: 0.75rem;
-      background: var(--cf-tint);
-      border: 1px solid var(--cf-hairline);
-      border-radius: var(--border-radius);
-    }
-    .save-as.open { display: flex; }
-    .save-as input {
-      flex: 1;
+      margin-bottom: 1.5rem;
       padding: 0.5rem 0.75rem;
-      border: 1px solid var(--cf-interact);
       border-radius: 6px;
-      font-family: inherit;
-      font-size: 14px;
-      outline: none;
-      background: white;
+      background: var(--cf-info-tint);
+      color: var(--cf-info-text);
+      font-size: 13px;
     }
-    .save-as input:focus { border-color: var(--cf-brand); box-shadow: 0 0 0 3px var(--cf-brand-tint); }
+    .banner-icon {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      height: 1.25em;
+      fill: var(--cf-info);
+    }
+    .banner-icon svg { width: 1em; height: 1em; }
+    .banner-text {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      column-gap: 0.375rem;
+      min-width: 0;
+      line-height: 1.375;
+    }
+    .banner-title { font-weight: 500; }
 
     /* Actions */
     .actions {
@@ -985,13 +547,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .button-primary { background: var(--cf-brand); color: white; border-color: var(--cf-brand); flex: 1; }
     .button-primary:hover { background: var(--cf-brand-hover); border-color: var(--cf-brand-hover); }
     .button-primary:disabled { background: var(--cf-tint); border-color: var(--cf-hairline); color: var(--cf-text-inactive); cursor: not-allowed; }
-    .button-outline {
-      background: var(--cf-base);
-      border-color: var(--cf-interact);
-      color: var(--cf-text-default);
-    }
-    .button-outline:hover { background: var(--cf-elevated); border-color: var(--cf-text-subtle); }
-    .button-outline:disabled { border-color: var(--cf-hairline); color: var(--cf-text-inactive); cursor: not-allowed; background: var(--cf-base); }
     .button-ghost {
       background: transparent;
       color: var(--cf-text-subtle);
@@ -1013,9 +568,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     @media (max-width: 600px) {
       .main { padding: 1rem; }
       .card-body { padding: 1.25rem; }
-      .matrix-head { flex-direction: column; align-items: stretch; }
-      .row { grid-template-columns: 1fr; gap: 0.5rem; }
-      .row-pills { justify-content: flex-start; }
       .button-primary { flex: 1 1 100%; order: -1; }
     }
   </style>
@@ -1077,45 +629,25 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           <div class="section">
             <div class="section-label">
               Access template
-              <span class="info-tip" tabindex="0" data-tip="Pick a built-in preset or customize individual scopes. Save custom selections as templates (stored in this browser).">
+              <span class="info-tip" tabindex="0" data-tip="Choose which permissions to request from Cloudflare.">
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
               </span>
             </div>
             <div class="templates" id="templates" role="radiogroup" aria-label="Permission templates"></div>
           </div>
 
-          <div class="section">
-            <div class="section-head">
-              <div class="section-label">
-                Permissions
-                <span class="info-tip" tabindex="0" data-tip="Individual OAuth scopes granted to this client. Required scopes (user, account, offline access) are always included.">
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
-                </span>
-              </div>
-              <button type="button" class="template-clear" id="deselectAll">Deselect all</button>
-            </div>
-            <div class="matrix-head">
-              <div class="search">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
-                </svg>
-                <input type="search" id="search" placeholder="Search for permission groups..." autocomplete="off">
-              </div>
-              <div class="counter" id="counter"><strong>0</strong> / ${Object.keys(scopeDefinitions).length}</div>
-            </div>
-            <div class="categories" id="matrix">
-              ${categoriesHtml}
-            </div>
-            <div class="save-as" id="saveAs">
-              <input type="text" id="saveAsName" placeholder="Template name" maxlength="40">
-              <button type="button" class="button button-outline" id="saveAsConfirm">Save</button>
-              <button type="button" class="button button-ghost" id="saveAsCancel">Cancel</button>
-            </div>
+          <div class="banner">
+            <span class="banner-icon" aria-hidden="true">
+              <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z"/></svg>
+            </span>
+            <p class="banner-text">
+              <span class="banner-title">Permissions have moved.</span>
+              <span class="banner-description">Choose them on the Cloudflare authorization screen.</span>
+            </p>
           </div>
 
           <div class="actions">
             <button type="button" class="button button-ghost" onclick="window.close()">Cancel</button>
-            <button type="button" class="button button-outline" id="saveAsOpen" disabled>Save as template</button>
             <button type="submit" class="button button-primary" id="continueBtn">Continue</button>
           </div>
         </form>
@@ -1141,20 +673,13 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
       const selected = new Set();
       let activeTemplate = null;
-      let dirty = false;
+      // "Custom" restores the scopes the client requested. It only appears
+      // when those scopes match no template.
+      let showCustom = false;
 
       const templatesEl = document.getElementById('templates');
-      const matrixEl = document.getElementById('matrix');
-      const counterEl = document.getElementById('counter');
-      const searchEl = document.getElementById('search');
       const hiddenScopesEl = document.getElementById('hiddenScopes');
       const continueBtn = document.getElementById('continueBtn');
-      const saveAsOpen = document.getElementById('saveAsOpen');
-      const saveAs = document.getElementById('saveAs');
-      const saveAsName = document.getElementById('saveAsName');
-      const saveAsConfirm = document.getElementById('saveAsConfirm');
-      const saveAsCancel = document.getElementById('saveAsCancel');
-      const deselectAll = document.getElementById('deselectAll');
 
       function loadUserTemplates() {
         try {
@@ -1193,7 +718,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         for (const t of user) {
           entries.push({ key: 'user:' + t.name, name: t.name, tagline: '', user: true });
         }
-        entries.push({ key: '__custom__', name: 'Custom', tagline: '', user: false, custom: true });
+        if (showCustom) {
+          entries.push({ key: '__custom__', name: 'Custom', tagline: '', user: false, custom: true });
+        }
 
         templatesEl.innerHTML = entries.map(e => {
           const classes = ['tmpl'];
@@ -1210,12 +737,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         templatesEl.querySelectorAll('.tmpl').forEach(btn => {
           btn.addEventListener('click', (ev) => {
             if (ev.target.closest('[data-delete]')) return;
-            const key = btn.dataset.key;
-            if (key === '__custom__') {
-              setActiveTemplate('__custom__');
-              return;
-            }
-            applyTemplate(key);
+            applyTemplate(btn.dataset.key);
           });
         });
         templatesEl.querySelectorAll('[data-delete]').forEach(el => {
@@ -1235,6 +757,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       }
 
       function resolveTemplateScopes(key) {
+        if (key === '__custom__') return INITIAL_SCOPES;
         if (TEMPLATES[key]) return TEMPLATES[key];
         if (key && key.startsWith('user:')) {
           const name = key.slice('user:'.length);
@@ -1246,22 +769,13 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
       function applyTemplate(key) {
         const scopes = resolveTemplateScopes(key);
-        if (!scopes) {
-          setActiveTemplate('__custom__');
-          return;
-        }
+        if (!scopes) return;
         selected.clear();
         for (const s of scopes) if (ALL_SCOPES.has(s)) selected.add(s);
         for (const r of REQUIRED) selected.add(r);
-        dirty = false;
-        setActiveTemplate(key);
-        syncPills();
-      }
-
-      function setActiveTemplate(key) {
         activeTemplate = key;
         updateActiveTemplateUI();
-        updateFooter();
+        renderHiddenInputs();
       }
 
       function updateActiveTemplateUI() {
@@ -1287,40 +801,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         return null;
       }
 
-      function syncPills() {
-        matrixEl.querySelectorAll('.pill').forEach(pill => {
-          const scope = pill.dataset.scope;
-          pill.setAttribute('aria-pressed', selected.has(scope) ? 'true' : 'false');
-        });
-        updateCounter();
-        updateCategoryCounts();
-        renderHiddenInputs();
-      }
-
-      function updateCounter() {
-        counterEl.innerHTML = '<strong>' + selected.size + '</strong> / ' + ALL_SCOPES.size;
-      }
-
-      function updateCategoryCounts() {
-        matrixEl.querySelectorAll('.cat').forEach(cat => {
-          const pills = cat.querySelectorAll('.pill');
-          let on = 0;
-          pills.forEach(p => { if (selected.has(p.dataset.scope)) on++; });
-          const countEl = cat.querySelector('[data-count]');
-          if (countEl) {
-            countEl.textContent = on > 0 ? on + ' selected' : '';
-            countEl.classList.toggle('has', on > 0);
-          }
-        });
-      }
-
-      function updateFooter() {
-        const count = selected.size;
-        const onTemplate = !dirty && activeTemplate && activeTemplate !== '__custom__';
-        saveAsOpen.disabled = onTemplate || count === 0;
-        continueBtn.disabled = count === 0;
-      }
-
       function renderHiddenInputs() {
         hiddenScopesEl.innerHTML = '';
         for (const s of selected) {
@@ -1337,102 +817,16 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           input.value = activeTemplate;
           hiddenScopesEl.appendChild(input);
         }
+        continueBtn.disabled = selected.size === 0;
       }
 
-      function onPillClick(ev) {
-        const pill = ev.target.closest('.pill');
-        if (!pill || pill.disabled) return;
-        if (pill.dataset.required) return;
-        const scope = pill.dataset.scope;
-        if (selected.has(scope)) selected.delete(scope);
-        else selected.add(scope);
-        dirty = true;
-
-        const match = matchesExistingTemplate();
-        if (match) {
-          activeTemplate = match;
-          dirty = false;
-        } else {
-          activeTemplate = '__custom__';
-        }
-
-        updateActiveTemplateUI();
-        syncPills();
-        updateFooter();
-      }
-
-      function deselectOptionalScopes() {
-        selected.clear();
-        for (const r of REQUIRED) selected.add(r);
-        activeTemplate = '__custom__';
-        dirty = true;
-        updateActiveTemplateUI();
-        syncPills();
-        updateFooter();
-      }
-
-      function onSearch() {
-        const q = searchEl.value.trim().toLowerCase();
-        matrixEl.querySelectorAll('.row').forEach(row => {
-          const hay = row.dataset.search || '';
-          row.classList.toggle('hidden', q.length > 0 && !hay.includes(q));
-        });
-        matrixEl.querySelectorAll('.cat').forEach(cat => {
-          const visibleRows = cat.querySelectorAll('.row:not(.hidden)');
-          cat.classList.toggle('hidden', q.length > 0 && visibleRows.length === 0);
-          if (q.length > 0 && visibleRows.length > 0) cat.setAttribute('open', '');
-        });
-      }
-
-      function openSaveAs() {
-        saveAs.classList.add('open');
-        saveAsOpen.style.display = 'none';
-        saveAsName.value = '';
-        saveAsName.focus();
-      }
-      function closeSaveAs() {
-        saveAs.classList.remove('open');
-        saveAsOpen.style.display = '';
-      }
-      function confirmSaveAs() {
-        const name = saveAsName.value.trim().slice(0, 40);
-        if (!name) { saveAsName.focus(); return; }
-        if (TEMPLATE_META[name] || name === '__custom__') {
-          saveAsName.focus();
-          saveAsName.select();
-          return;
-        }
-        const list = loadUserTemplates().filter(t => t.name !== name);
-        list.push({ name, scopes: Array.from(selected) });
-        saveUserTemplates(list);
-        closeSaveAs();
-        renderTemplates();
-        setActiveTemplate('user:' + name);
-        dirty = false;
-        updateFooter();
-      }
-
-      matrixEl.addEventListener('click', onPillClick);
-      searchEl.addEventListener('input', onSearch);
-      saveAsOpen.addEventListener('click', openSaveAs);
-      saveAsCancel.addEventListener('click', closeSaveAs);
-      saveAsConfirm.addEventListener('click', confirmSaveAs);
-      deselectAll.addEventListener('click', deselectOptionalScopes);
-      saveAsName.addEventListener('keydown', (ev) => {
-        if (ev.key === 'Enter') { ev.preventDefault(); confirmSaveAs(); }
-        if (ev.key === 'Escape') { ev.preventDefault(); closeSaveAs(); }
-      });
-
-      renderTemplates();
-      selected.clear();
       for (const scope of INITIAL_SCOPES) if (ALL_SCOPES.has(scope)) selected.add(scope);
       for (const scope of REQUIRED) selected.add(scope);
-      const initialTemplate = matchesExistingTemplate();
-      activeTemplate = initialTemplate || '__custom__';
-      dirty = !initialTemplate;
+      activeTemplate = matchesExistingTemplate() || '__custom__';
+      showCustom = activeTemplate === '__custom__';
+      renderTemplates();
       updateActiveTemplateUI();
-      syncPills();
-      onSearch();
+      renderHiddenInputs();
     })();
   </script>
 </body>
