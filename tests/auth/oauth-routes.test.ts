@@ -62,6 +62,13 @@ function embeddedInitialScopes(html: string): string[] {
   return JSON.parse(encoded!) as string[]
 }
 
+/** The consent dialog posts back only this browser-bound handle; the request stays server-side. */
+function consentHandle(html: string): string {
+  const handle = html.match(/name="handle" value="([^"]+)"/)?.[1]
+  expect(handle).toBeTruthy()
+  return handle!
+}
+
 async function beginAuthorization(options: { state?: string; scopes?: string } = {}): Promise<{
   clientId: string
   state: string
@@ -84,18 +91,15 @@ async function beginAuthorization(options: { state?: string; scopes?: string } =
     )
   )
   const html = await authRes.text()
-  const csrfCookie = cookiesFrom(authRes)
-  const stateField = html.match(/name="state" value="([^"]+)"/)?.[1]
-  const csrfField = html.match(/name="csrf_token" value="([^"]+)"/)?.[1]
-  expect(stateField && csrfField).toBeTruthy()
+  const consentCookie = cookiesFrom(authRes)
+  const handle = consentHandle(html)
 
   const postRes = await exports.default.fetch(
     new Request(`${MCP_ORIGIN}/authorize`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded', Cookie: csrfCookie },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', Cookie: consentCookie },
       body: new URLSearchParams({
-        state: stateField!,
-        csrf_token: csrfField!,
+        handle,
         scopes: options.scopes ?? 'user:read'
       }).toString(),
       redirect: 'manual'
@@ -174,9 +178,7 @@ describe('OAuth metadata policy', () => {
 
     expect(response.status).toBe(200)
     expect(response.headers.get('Content-Type')).toBe('text/plain; charset=utf-8')
-    await expect(response.text()).resolves.toBe(
-      'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
-    )
+    await expect(response.text()).resolves.toBe('dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc')
   })
 
   it('advertises the canonical MCP endpoint as the protected resource', async () => {
@@ -346,11 +348,7 @@ describe('GET /authorize', () => {
       )
     )
     const html = await authRes.text()
-    const state = html.match(/name="state" value="([^"]+)"/)?.[1]
-    const csrfToken = html.match(/name="csrf_token" value="([^"]+)"/)?.[1]
-    expect(state && csrfToken).toBeTruthy()
-
-    const form = new URLSearchParams({ state: state!, csrf_token: csrfToken! })
+    const form = new URLSearchParams({ handle: consentHandle(html) })
     form.append('scopes', 'dns.read')
     form.append('scopes', 'removed-from-catalog.read')
     const response = await exports.default.fetch(
@@ -374,6 +372,44 @@ describe('GET /authorize', () => {
     expect(forwardedScopes).toContain('account:read')
     expect(forwardedScopes).toContain('offline_access')
     expect(forwardedScopes).not.toContain('removed-from-catalog.read')
+  })
+
+  it('sends Cancel back to the MCP client as access_denied, without going to Cloudflare', async () => {
+    const clientId = await registerClient()
+    const authRes = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256',
+          scope: 'user:read',
+          state: 'client-state'
+        })
+      )
+    )
+    const html = await authRes.text()
+    expect(html).toContain('name="decision" value="deny"')
+
+    const response = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/authorize`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Cookie: cookiesFrom(authRes)
+        },
+        body: new URLSearchParams({ handle: consentHandle(html), decision: 'deny' }).toString(),
+        redirect: 'manual'
+      })
+    )
+
+    expect(response.status).toBe(302)
+    const location = new URL(response.headers.get('location')!)
+    expect(location.origin + location.pathname).toBe(REDIRECT_URI)
+    expect(location.searchParams.get('error')).toBe('access_denied')
+    expect(location.searchParams.get('state')).toBe('client-state')
+    expect(location.searchParams.get('iss')).toBe(MCP_ORIGIN)
   })
 
   it('does not redirect a known client with an invalid redirect URI', async () => {
@@ -546,6 +582,52 @@ describe('GET /oauth/callback', () => {
     expect(dp.blobs?.[3]).toBeFalsy()
   })
 
+  it('revokes the grant when Cloudflare says the upstream refresh token is dead', async () => {
+    const { clientId, state, sessionCookie } = await beginAuthorization()
+    useCloudflareAuthSuccess()
+    const callback = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, {
+        headers: { Cookie: sessionCookie },
+        redirect: 'manual'
+      })
+    )
+    const code = new URL(callback.headers.get('location')!).searchParams.get('code')!
+    const token = (body: Record<string, string>) =>
+      exports.default.fetch(
+        new Request(`${MCP_ORIGIN}/token`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(body).toString()
+        })
+      )
+    const tokens = (await (
+      await token({
+        grant_type: 'authorization_code',
+        code,
+        client_id: clientId,
+        redirect_uri: REDIRECT_URI,
+        code_verifier: DOWNSTREAM_CODE_VERIFIER
+      })
+    ).json()) as { refresh_token: string }
+    expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(1)
+
+    // The user revoked the app at Cloudflare: the upstream refresh answers invalid_grant.
+    server.use(
+      http.post('https://dash.cloudflare.com/oauth2/token', () =>
+        HttpResponse.text('invalid grant', { status: 400 })
+      )
+    )
+    const refresh = await token({
+      grant_type: 'refresh_token',
+      refresh_token: tokens.refresh_token,
+      client_id: clientId
+    })
+    expect(refresh.status).toBe(400)
+    await expect(refresh.json()).resolves.toMatchObject({ error: 'invalid_grant' })
+    // workers-oauth-provider 1.x revoked the grant, so the client reauthorizes.
+    expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
+  })
+
   it('carries a requested write scope through the complete OAuth exchange', async () => {
     const { clientId, state, sessionCookie, location } = await beginAuthorization({
       scopes: 'access.write'
@@ -644,7 +726,8 @@ describe('GET /oauth/callback', () => {
   it('preserves Unicode downstream client state without encoding it into upstream state', async () => {
     const downstreamState = 'client-state-🔐-你好'
     const { state, sessionCookie } = await beginAuthorization({ state: downstreamState })
-    expect(state).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i)
+    // The upstream state is an opaque 256-bit handle; the client's state stays server-side.
+    expect(state).toMatch(/^[A-Za-z0-9_-]{43}$/)
 
     useCloudflareAuthSuccess()
     const res = await exports.default.fetch(
@@ -666,22 +749,44 @@ describe('GET /oauth/callback', () => {
     expect(large.location.length).toBeLessThan(2048)
   })
 
-  it('accepts an in-flight legacy base64-JSON state during deployment', async () => {
-    const { state, sessionCookie } = await beginAuthorization()
-    const legacyState = btoa(JSON.stringify({ state }))
+  it('finishes two authorizations started in the same browser, in either order', async () => {
+    const first = await beginAuthorization({ state: 'tab-a' })
+    const second = await beginAuthorization({ state: 'tab-b' })
     useCloudflareAuthSuccess()
+    const cookie = `${first.sessionCookie}; ${second.sessionCookie}`
+    const finish = (state: string) =>
+      exports.default.fetch(
+        new Request(
+          `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`,
+          {
+            headers: { Cookie: cookie },
+            redirect: 'manual'
+          }
+        )
+      )
+
+    const b = await finish(second.state)
+    const a = await finish(first.state)
+    expect(new URL(b.headers.get('location')!).searchParams.get('state')).toBe('tab-b')
+    expect(new URL(a.headers.get('location')!).searchParams.get('state')).toBe('tab-a')
+  })
+
+  it('tells the MCP client access_denied when the user declines at Cloudflare', async () => {
+    const { state, sessionCookie } = await beginAuthorization({ state: 'client-state' })
 
     const res = await exports.default.fetch(
       new Request(
-        `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(legacyState)}`,
+        `${MCP_ORIGIN}/oauth/callback?error=access_denied&state=${encodeURIComponent(state)}`,
         { headers: { Cookie: sessionCookie }, redirect: 'manual' }
       )
     )
 
     expect(res.status).toBe(302)
-    expect(
-      new URL(res.headers.get('location')!).origin + new URL(res.headers.get('location')!).pathname
-    ).toBe(REDIRECT_URI)
+    const location = new URL(res.headers.get('location')!)
+    expect(location.origin + location.pathname).toBe(REDIRECT_URI)
+    expect(location.searchParams.get('error')).toBe('access_denied')
+    expect(location.searchParams.get('state')).toBe('client-state')
+    expect(location.searchParams.get('iss')).toBe(MCP_ORIGIN)
   })
 
   it('rejects a valid state token without its session-binding cookie', async () => {
@@ -694,7 +799,7 @@ describe('GET /oauth/callback', () => {
     )
 
     expect(res.status).toBe(400)
-    expect(await res.text()).toContain('Missing session binding')
+    expect(await res.text()).toContain('not started in this browser')
   })
 
   it('rejects a valid state token bound to a different browser session', async () => {
@@ -709,7 +814,7 @@ describe('GET /oauth/callback', () => {
     )
 
     expect(res.status).toBe(400)
-    expect(await res.text()).toContain('State mismatch')
+    expect(await res.text()).toContain('not started in this browser')
   })
 
   it('rejects replay after a state token has completed authorization', async () => {
@@ -726,7 +831,7 @@ describe('GET /oauth/callback', () => {
       new Request(callbackUrl, { headers: { Cookie: sessionCookie }, redirect: 'manual' })
     )
     expect(replay.status).toBe(400)
-    expect(await replay.text()).toContain('Invalid or expired state')
+    expect(await replay.text()).toContain('expired or was already used')
   })
 
   it('returns 400 invalid_request when the code is missing', async () => {
@@ -741,7 +846,7 @@ describe('GET /oauth/callback', () => {
       new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode`)
     )
 
-    // No state -> validateOAuthState throws -> caught -> auth_user error logged.
+    // No state -> finishUpstream throws -> caught -> auth_user error logged.
     expect(res.status).toBe(400)
     expect(writtenEvents(metricsSpy)).toContain('auth_user')
   })
@@ -753,7 +858,7 @@ describe('GET /oauth/callback', () => {
   ])('rejects an %s state token as invalid_request', async (_, state) => {
     const res = await exports.default.fetch(
       new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, {
-        headers: { Cookie: '__Host-CONSENTED_STATE=deadbeef' }
+        headers: { Cookie: '__Host-oauth-upstream-0123456789abcdef=deadbeef' }
       })
     )
 

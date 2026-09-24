@@ -10,14 +10,10 @@ import {
 import { DEFAULT_TEMPLATE, REQUIRED_SCOPES, SCOPE_DEFINITIONS, SCOPE_TEMPLATES } from './scopes'
 import { AuthProps as AuthPropsSchema, AUTH_PROPS_VERSION, type AuthProps } from './types'
 import {
-  createOAuthState,
-  bindStateToSession,
-  generateCSRFProtection,
   isAllowedOAuthRedirectUri,
   parseRedirectApproval,
   renderApprovalDialog,
   renderErrorPage,
-  validateOAuthState,
   OAuthError
 } from './workers-oauth-utils'
 import { getCloudflareOAuthUser } from './cloudflare-identity'
@@ -59,12 +55,15 @@ function authErrorMessage(prefix: string, e: unknown): string {
  * Refresh the upstream Cloudflare grant when workers-oauth-provider refreshes
  * its downstream access token. The per-grant admission gate rejects competing
  * provider exchanges so they cannot independently rotate downstream tokens.
+ *
+ * A genuine upstream invalid_grant is permanent; refreshAuthToken throws it as
+ * OAuthError('invalid_grant') and workers-oauth-provider revokes this grant,
+ * so the client reauthorizes instead of retrying forever.
  */
 export async function handleTokenExchangeCallback(
   options: TokenExchangeCallbackOptions,
   clientId: string,
-  clientSecret: string,
-  getHelpers?: () => OAuthHelpers
+  clientSecret: string
 ): Promise<TokenExchangeCallbackResult | undefined> {
   if (options.grantType !== 'refresh_token') return undefined
 
@@ -76,42 +75,24 @@ export async function handleTokenExchangeCallback(
   const grant = { userId: options.userId, grantId: options.grantId }
   const upstreamRefreshToken = props.refreshToken
 
-  try {
-    return await withRefreshAdmission(env.OAUTH_KV, grant, async () => {
-      const { access_token, refresh_token, expires_in } = await refreshAuthToken({
-        client_id: clientId,
-        client_secret: clientSecret,
-        refresh_token: upstreamRefreshToken,
-        oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
-      })
-
-      return {
-        newProps: {
-          ...props,
-          accessToken: access_token,
-          refreshToken: refresh_token
-        } satisfies AuthProps,
-        accessTokenTTL: expires_in
-      }
+  // Awaited so the gate's synchronous rejection of competing refreshes is handled here.
+  return await withRefreshAdmission(env.OAUTH_KV, grant, async () => {
+    const { access_token, refresh_token, expires_in } = await refreshAuthToken({
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: upstreamRefreshToken,
+      oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
     })
-  } catch (error) {
-    // A genuine upstream invalid_grant is permanent. Revoke only this exact
-    // downstream grant so the client reauthorizes instead of retrying forever.
-    if (
-      error instanceof OAuthError &&
-      error.code === 'invalid_grant' &&
-      options.userId &&
-      options.grantId &&
-      getHelpers
-    ) {
-      try {
-        await getHelpers().revokeGrant(options.grantId, options.userId)
-      } catch (revokeError) {
-        console.error('Failed to revoke grant after upstream invalid_grant', revokeError)
-      }
+
+    return {
+      newProps: {
+        ...props,
+        accessToken: access_token,
+        refreshToken: refresh_token
+      } satisfies AuthProps,
+      accessTokenTTL: expires_in
     }
-    throw error
-  }
+  })
 }
 
 /**
@@ -218,7 +199,8 @@ export function createAuthHandlers() {
       )
       oauthReqInfo.scope = scopesToRequest
 
-      const { token: csrfToken, setCookie: csrfCookie } = generateCSRFProtection()
+      // The request stays server-side; the dialog posts back only this browser-bound handle.
+      const consent = await env.OAUTH_PROVIDER.beginConsent(oauthReqInfo)
 
       return renderApprovalDialog(c.req.raw, {
         client: await env.OAUTH_PROVIDER.lookupClient(oauthReqInfo.clientId),
@@ -228,9 +210,8 @@ export function createAuthHandlers() {
           logo: 'https://www.cloudflare.com/favicon.ico',
           description: 'Access the Cloudflare API through the Model Context Protocol.'
         },
-        state: { oauthReqInfo },
-        csrfToken,
-        setCookie: csrfCookie,
+        handle: consent.handle,
+        headers: consent.headers,
         scopeTemplates: SCOPE_TEMPLATES,
         scopeDefinitions: SCOPE_DEFINITIONS,
         defaultTemplate: DEFAULT_TEMPLATE,
@@ -255,15 +236,12 @@ export function createAuthHandlers() {
   // POST /authorize - Handle consent form submission
   app.post('/authorize', async (c) => {
     try {
-      const { state, selectedScopes } = await parseRedirectApproval(c.req.raw)
+      const { handle, decision, selectedScopes } = await parseRedirectApproval(c.req.raw)
 
-      if (!state.oauthReqInfo) {
-        return new OAuthError('invalid_request', 'Missing OAuth request info').toHtmlResponse()
-      }
-
-      const oauthReqInfo = state.oauthReqInfo as AuthRequest
-      if (!isAllowedOAuthRedirectUri(oauthReqInfo.redirectUri)) {
-        return invalidRedirectUriResponse()
+      if (decision === 'deny') {
+        // Back to the MCP client with access_denied, its state and iss.
+        const denied = await env.OAUTH_PROVIDER.denyConsent(c.req.raw, handle)
+        return new Response(null, { status: 302, headers: denied.headers })
       }
 
       // Drop stale custom-template entries and always restore required bootstrap scopes.
@@ -271,26 +249,37 @@ export function createAuthHandlers() {
         new Set([...(selectedScopes ?? []), ...REQUIRED_SCOPES])
       ).filter((scope) => ALLOWED_SCOPES.has(scope))
 
-      // Update oauthReqInfo with selected scopes
-      oauthReqInfo.scope = scopesToRequest
+      // The request comes back from storage, not from the form.
+      const approved = await env.OAUTH_PROVIDER.approveConsent(c.req.raw, handle, {
+        scope: scopesToRequest
+      })
+      if (!isAllowedOAuthRedirectUri(approved.request.redirectUri)) {
+        return invalidRedirectUriResponse()
+      }
 
-      // Create OAuth state and bind to session
+      // Create the upstream state only now, after consent, bound to this browser.
       const { codeChallenge, codeVerifier } = await generatePKCECodes()
-      const stateToken = await createOAuthState(oauthReqInfo, env.OAUTH_KV, codeVerifier)
-      const { setCookie: sessionCookie } = await bindStateToSession(stateToken)
+      const upstream = await env.OAUTH_PROVIDER.beginUpstream(approved.request, {
+        data: { codeVerifier },
+        headers: approved.headers
+      })
 
       const redirectResponse = await redirectToCloudflare(
         c.req.url,
-        stateToken,
+        upstream.state,
         codeChallenge,
         scopesToRequest
       )
-
-      redirectResponse.headers.append('Set-Cookie', sessionCookie)
+      for (const cookie of upstream.headers.getSetCookie()) {
+        redirectResponse.headers.append('Set-Cookie', cookie)
+      }
 
       return redirectResponse
     } catch (e) {
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize POST Error', e) }))
+      // Consent/upstream transaction expired, used, or opened in another browser: render locally.
+      if (e instanceof AuthorizationError)
+        return new OAuthError(e.code, e.description).toHtmlResponse()
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
       console.error(`Authorize POST error [${errorId}]:`, e)
@@ -306,21 +295,32 @@ export function createAuthHandlers() {
   // GET /oauth/callback - Handle Cloudflare OAuth redirect
   app.get('/oauth/callback', async (c) => {
     try {
-      const code = c.req.query('code')
-      if (!code) {
-        return new OAuthError('invalid_request', 'Missing code').toHtmlResponse()
-      }
-
-      // Validate state using dual validation (KV + session cookie)
-      const { oauthReqInfo, codeVerifier, clearCookie } = await validateOAuthState(
-        c.req.raw,
-        env.OAUTH_KV
-      )
+      // Recover the approved request (single use, bound to this browser by its cookie).
+      const {
+        request: oauthReqInfo,
+        data: { codeVerifier },
+        headers
+      } = await env.OAUTH_PROVIDER.finishUpstream<{ codeVerifier: string }>(c.req.raw)
 
       if (!isAllowedOAuthRedirectUri(oauthReqInfo.redirectUri)) {
         const response = invalidRedirectUriResponse()
-        response.headers.append('Set-Cookie', clearCookie)
+        for (const cookie of headers.getSetCookie()) response.headers.append('Set-Cookie', cookie)
         return response
+      }
+
+      // The user declined (or sign-in failed) at Cloudflare: tell the MCP client.
+      if (c.req.query('error')) {
+        const redirect = new URL(oauthReqInfo.redirectUri)
+        redirect.searchParams.set('error', 'access_denied')
+        if (oauthReqInfo.state) redirect.searchParams.set('state', oauthReqInfo.state)
+        if (oauthReqInfo.issuer) redirect.searchParams.set('iss', oauthReqInfo.issuer)
+        headers.set('Location', redirect.href)
+        return new Response(null, { status: 302, headers })
+      }
+
+      const code = c.req.query('code')
+      if (!code) {
+        return new OAuthError('invalid_request', 'Missing code').toHtmlResponse()
       }
 
       if (!oauthReqInfo.clientId) {
@@ -361,16 +361,14 @@ export function createAuthHandlers() {
 
       metrics.logEvent(new AuthUser({ userId: identity.user.id }))
 
-      return new Response(null, {
-        status: 302,
-        headers: {
-          Location: redirectTo,
-          'Set-Cookie': clearCookie
-        }
-      })
+      headers.set('Location', redirectTo)
+      return new Response(null, { status: 302, headers })
     } catch (e) {
       if (e instanceof CimdFetchError) return cimdCallbackFailureResponse()
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', e) }))
+      // Consent/upstream transaction expired, used, or opened in another browser: render locally.
+      if (e instanceof AuthorizationError)
+        return new OAuthError(e.code, e.description).toHtmlResponse()
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
       console.error(`Callback error [${errorId}]:`, e)

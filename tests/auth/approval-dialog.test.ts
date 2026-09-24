@@ -16,9 +16,8 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
     },
     redirectUri: 'https://callback.example/oauth/callback',
     server: { name: 'Cloudflare API MCP' },
-    state: {},
-    csrfToken: 'test-csrf-token',
-    setCookie: '__Host-CSRF_TOKEN=test-csrf-token',
+    handle: 'test-consent-handle',
+    headers: new Headers({ 'Set-Cookie': '__Host-oauth-consent-0123456789abcdef=test' }),
     scopeTemplates: {},
     scopeDefinitions: {},
     defaultTemplate: '',
@@ -31,6 +30,15 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
 }
 
 describe('OAuth approval dialog identity details', () => {
+  it('posts back only the consent handle, escaped, with an Allow and a Deny', async () => {
+    const body = await render({ handle: 'handle"><script>' })
+    expect(body).toContain('name="handle" value="handle&quot;&gt;&lt;script&gt;"')
+    expect(body).not.toContain('name="state"')
+    expect(body).not.toContain('name="csrf_token"')
+    expect(body).toContain('name="decision" value="deny"')
+    expect(body).toContain('name="decision" value="approve"')
+  })
+
   it('shows parsed CIMD and redirect hostnames without exposing other URL components', async () => {
     const body = await render({
       client: {

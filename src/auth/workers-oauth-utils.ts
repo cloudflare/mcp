@@ -1,43 +1,7 @@
-import { z } from 'zod'
-
 import {
   OAuthError as ProviderOAuthError,
-  type AuthRequest,
   type ClientInfo
 } from '@cloudflare/workers-oauth-provider'
-
-const CSRF_COOKIE = '__Host-CSRF_TOKEN'
-const STATE_COOKIE = '__Host-CONSENTED_STATE'
-const OAuthStateToken = z.uuid()
-const LegacyOAuthState = z.object({ state: OAuthStateToken }).passthrough()
-const MAX_LEGACY_OAUTH_STATE_LENGTH = 32_768
-
-function encodeBase64Utf8(value: string): string {
-  const bytes = new TextEncoder().encode(value)
-  let binary = ''
-  for (const byte of bytes) binary += String.fromCharCode(byte)
-  return btoa(binary)
-}
-
-function decodeBase64Utf8(value: string): string {
-  const binary = atob(value)
-  return new TextDecoder().decode(Uint8Array.from(binary, (char) => char.charCodeAt(0)))
-}
-
-function parseOAuthStateToken(state: string): string | undefined {
-  const current = OAuthStateToken.safeParse(state)
-  if (current.success) return current.data
-
-  // TODO: Remove this legacy base64-JSON reader after all OAuth flows started
-  // before the opaque-state deployment have exceeded the 600-second KV TTL.
-  if (state.length > MAX_LEGACY_OAUTH_STATE_LENGTH) return undefined
-  try {
-    const legacy = LegacyOAuthState.safeParse(JSON.parse(atob(state)))
-    return legacy.success ? legacy.data.state : undefined
-  } catch {
-    return undefined
-  }
-}
 
 /**
  * OAuth error class for handling OAuth-specific errors
@@ -118,9 +82,10 @@ export interface ApprovalDialogOptions {
     logo?: string
     description?: string
   }
-  state: Record<string, unknown>
-  csrfToken: string
-  setCookie: string
+  /** From `beginConsent()`: posted back so the provider can recover the stored request. */
+  handle: string
+  /** From `beginConsent()`: the browser binding cookie and anti-framing headers. */
+  headers: Headers
   scopeTemplates: Record<string, ScopeTemplate>
   scopeDefinitions: Record<string, ScopeDefinition>
   defaultTemplate: string
@@ -407,9 +372,8 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
   const {
     client,
     redirectUri,
-    state,
-    csrfToken,
-    setCookie,
+    handle,
+    headers,
     scopeTemplates,
     scopeDefinitions,
     defaultTemplate,
@@ -417,7 +381,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     initialScopes
   } = options
 
-  const encodedState = encodeBase64Utf8(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
   const redirectHostname = hostnameFromUrl(redirectUri)
   if (!redirectHostname) {
@@ -1070,8 +1033,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
         </div>
 
         <form method="post" action="${new URL(request.url).pathname}" id="authForm">
-          <input type="hidden" name="state" value="${encodedState}">
-          <input type="hidden" name="csrf_token" value="${csrfToken}">
+          <input type="hidden" name="handle" value="${sanitizeHtml(handle)}">
           <div id="hiddenScopes"></div>
 
           <div class="section">
@@ -1114,9 +1076,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           </div>
 
           <div class="actions">
-            <button type="button" class="button button-ghost" onclick="window.close()">Cancel</button>
+            <button type="submit" name="decision" value="deny" formnovalidate class="button button-ghost">Cancel</button>
             <button type="button" class="button button-outline" id="saveAsOpen" disabled>Save as template</button>
-            <button type="submit" class="button button-primary" id="continueBtn">Continue</button>
+            <button type="submit" name="decision" value="approve" class="button button-primary" id="continueBtn">Continue</button>
           </div>
         </form>
       </div>
@@ -1439,27 +1401,25 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 </html>
 `
 
-  return new Response(htmlContent, {
-    headers: {
-      'Content-Security-Policy': "frame-ancestors 'none'",
-      'Content-Type': 'text/html; charset=utf-8',
-      'Set-Cookie': setCookie,
-      'X-Frame-Options': 'DENY'
-    }
-  })
+  // beginConsent() headers: the browser binding cookie, frame-ancestors 'none', X-Frame-Options DENY
+  headers.set('Content-Type', 'text/html; charset=utf-8')
+  return new Response(htmlContent, { headers })
 }
 
 /**
- * Result of parsing the approval form submission.
+ * Result of parsing the approval form submission. The authorization request itself is not in the
+ * form: workers-oauth-provider keeps it server-side under `handle`.
  */
 export interface ParsedApprovalResult {
-  state: { oauthReqInfo?: AuthRequest }
+  handle: string
+  decision: 'approve' | 'deny'
   selectedScopes?: string[]
   selectedTemplate?: string
 }
 
 /**
- * Parses the form submission from the approval dialog.
+ * Parses the form submission from the approval dialog. CSRF protection and single use are
+ * enforced by `approveConsent()` / `denyConsent()`, which bind `handle` to this browser.
  */
 export async function parseRedirectApproval(request: Request): Promise<ParsedApprovalResult> {
   if (request.method !== 'POST') {
@@ -1467,30 +1427,9 @@ export async function parseRedirectApproval(request: Request): Promise<ParsedApp
   }
 
   const formData = await request.formData()
-
-  // Validate CSRF token
-  const tokenFromForm = formData.get('csrf_token')
-  if (!tokenFromForm || typeof tokenFromForm !== 'string') {
-    throw new OAuthError('invalid_request', 'Missing CSRF token')
-  }
-
-  const cookieHeader = request.headers.get('Cookie') || ''
-  const cookies = cookieHeader.split(';').map((c) => c.trim())
-  const csrfCookie = cookies.find((c) => c.startsWith(`${CSRF_COOKIE}=`))
-  const tokenFromCookie = csrfCookie ? csrfCookie.substring(CSRF_COOKIE.length + 1) : null
-
-  if (!tokenFromCookie || tokenFromForm !== tokenFromCookie) {
-    throw new OAuthError('access_denied', 'CSRF token mismatch', 403)
-  }
-
-  const encodedState = formData.get('state')
-  if (!encodedState || typeof encodedState !== 'string') {
-    throw new OAuthError('invalid_request', 'Missing state')
-  }
-
-  const state = JSON.parse(decodeBase64Utf8(encodedState))
-  if (!state.oauthReqInfo || !state.oauthReqInfo.clientId) {
-    throw new OAuthError('invalid_request', 'Invalid state data')
+  const handle = formData.get('handle')
+  if (!handle || typeof handle !== 'string') {
+    throw new OAuthError('invalid_request', 'Missing consent handle')
   }
 
   // Extract selected scopes (from checkboxes) and template
@@ -1498,66 +1437,12 @@ export async function parseRedirectApproval(request: Request): Promise<ParsedApp
   const selectedTemplate = formData.get('scope_template')
 
   return {
-    state,
+    handle,
+    decision: formData.get('decision') === 'deny' ? 'deny' : 'approve',
     selectedScopes: selectedScopes.length > 0 ? selectedScopes : undefined,
     selectedTemplate: typeof selectedTemplate === 'string' ? selectedTemplate : undefined
   }
 }
-
-/**
- * Generate CSRF protection token and cookie
- */
-export function generateCSRFProtection(): { token: string; setCookie: string } {
-  const token = crypto.randomUUID()
-  const setCookie = `${CSRF_COOKIE}=${token}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=600`
-  return { token, setCookie }
-}
-
-/**
- * Create OAuth state in KV
- */
-export async function createOAuthState(
-  oauthReqInfo: AuthRequest,
-  kv: KVNamespace,
-  codeVerifier: string
-): Promise<string> {
-  const stateToken = crypto.randomUUID()
-  await kv.put(`oauth:state:${stateToken}`, JSON.stringify({ oauthReqInfo, codeVerifier }), {
-    expirationTtl: 600
-  })
-  return stateToken
-}
-
-/**
- * Bind state token to session via cookie
- */
-export async function bindStateToSession(stateToken: string): Promise<{ setCookie: string }> {
-  const encoder = new TextEncoder()
-  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(stateToken))
-  const hashHex = Array.from(new Uint8Array(hashBuffer))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
-
-  return {
-    setCookie: `${STATE_COOKIE}=${hashHex}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=600`
-  }
-}
-
-/**
- * Schema for validating stored OAuth state
- */
-const StoredOAuthStateSchema = z.object({
-  oauthReqInfo: z
-    .object({
-      clientId: z.string(),
-      scope: z.array(z.string()).optional(),
-      state: z.string().optional(),
-      responseType: z.string().optional(),
-      redirectUri: z.string().optional()
-    })
-    .passthrough(),
-  codeVerifier: z.string().min(1)
-})
 
 /**
  * Renders a styled error page matching Cloudflare's design system
@@ -1738,70 +1623,4 @@ export function renderErrorPage(
       'X-Frame-Options': 'DENY'
     }
   })
-}
-
-/**
- * Validate OAuth state from request
- */
-export async function validateOAuthState(
-  request: Request,
-  kv: KVNamespace
-): Promise<{
-  oauthReqInfo: AuthRequest
-  codeVerifier: string
-  clearCookie: string
-}> {
-  const url = new URL(request.url)
-  const stateFromQuery = url.searchParams.get('state')
-
-  if (!stateFromQuery) {
-    throw new OAuthError('invalid_request', 'Missing state parameter')
-  }
-
-  const stateToken = parseOAuthStateToken(stateFromQuery)
-  if (!stateToken) {
-    throw new OAuthError('invalid_request', 'Invalid state parameter')
-  }
-
-  // Validate state exists in KV
-  const storedDataJson = await kv.get(`oauth:state:${stateToken}`)
-  if (!storedDataJson) {
-    throw new OAuthError('invalid_request', 'Invalid or expired state')
-  }
-
-  // Validate session binding cookie
-  const cookieHeader = request.headers.get('Cookie') || ''
-  const cookies = cookieHeader.split(';').map((c) => c.trim())
-  const stateCookie = cookies.find((c) => c.startsWith(`${STATE_COOKIE}=`))
-  const stateHash = stateCookie ? stateCookie.substring(STATE_COOKIE.length + 1) : null
-
-  if (!stateHash) {
-    throw new OAuthError('invalid_request', 'Missing session binding - restart authorization')
-  }
-
-  // Verify hash matches
-  const encoder = new TextEncoder()
-  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(stateToken))
-  const expectedHash = Array.from(new Uint8Array(hashBuffer))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
-
-  if (stateHash !== expectedHash) {
-    throw new OAuthError('invalid_request', 'State mismatch - possible CSRF attack')
-  }
-
-  // Parse and validate stored data
-  const parseResult = StoredOAuthStateSchema.safeParse(JSON.parse(storedDataJson))
-  if (!parseResult.success) {
-    throw new OAuthError('server_error', 'Invalid stored state data')
-  }
-
-  // Delete state (single use)
-  await kv.delete(`oauth:state:${stateToken}`)
-
-  return {
-    oauthReqInfo: parseResult.data.oauthReqInfo as AuthRequest,
-    codeVerifier: parseResult.data.codeVerifier,
-    clearCookie: `${STATE_COOKIE}=; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=0`
-  }
 }
