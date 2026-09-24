@@ -398,58 +398,13 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       align-items: center;
       gap: 6px;
     }
-    .info-tip {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 14px;
-      height: 14px;
-      color: var(--cf-text-inactive);
-      cursor: help;
-      position: relative;
+    /* Kumo Field description: text-sm leading-snug text-kumo-subtle */
+    .section-help {
+      margin-top: 0.5rem;
+      font-size: 13px;
+      line-height: 1.375;
+      color: var(--cf-text-subtle);
     }
-    .info-tip svg { width: 14px; height: 14px; }
-    .info-tip:hover { color: var(--cf-text-subtle); }
-    .info-tip[data-tip]::after {
-      content: attr(data-tip);
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--cf-contrast);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: -0.12px;
-      padding: 6px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
-      max-width: 280px;
-      white-space: normal;
-      width: max-content;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.12s ease;
-      z-index: 50;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    }
-    .info-tip[data-tip]::before {
-      content: '';
-      position: absolute;
-      bottom: calc(100% + 2px);
-      left: 50%;
-      transform: translateX(-50%);
-      border: 4px solid transparent;
-      border-top-color: var(--cf-contrast);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.12s ease;
-      z-index: 50;
-    }
-    .info-tip[data-tip]:hover::after,
-    .info-tip[data-tip]:hover::before,
-    .info-tip[data-tip]:focus::after,
-    .info-tip[data-tip]:focus::before { opacity: 1; }
 
     /* Templates */
     .templates {
@@ -651,13 +606,9 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           <div id="hiddenScopes"></div>
 
           <div class="section">
-            <div class="section-label">
-              Access template
-              <span class="info-tip" tabindex="0" data-tip="Choose which permissions to request from Cloudflare.">
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
-              </span>
-            </div>
+            <div class="section-label">Access template</div>
             <div class="templates" id="templates" role="radiogroup" aria-label="Permission templates"></div>
+            <p class="section-help">Choose Full access if the application needs to make changes. You can narrow permissions further on the Cloudflare authorization screen.</p>
           </div>
 
           <div class="actions">
