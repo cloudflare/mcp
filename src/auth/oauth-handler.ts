@@ -52,6 +52,21 @@ function authErrorMessage(prefix: string, e: unknown): string {
 }
 
 /**
+ * The scopes an MCP token may claim: those requested that Cloudflare actually granted. Cloudflare can
+ * grant fewer than requested (the account can't grant one, or the user narrows them on its consent);
+ * the MCP token must not claim more than the upstream token can do. Without an upstream `scope`,
+ * keep the requested scopes.
+ */
+export function grantedScopes(
+  requested: readonly string[],
+  upstreamScope: string | undefined
+): string[] {
+  if (!upstreamScope) return [...requested]
+  const granted = new Set(upstreamScope.split(/\s+/).filter(Boolean))
+  return requested.filter((scope) => granted.has(scope))
+}
+
+/**
  * Refresh the upstream Cloudflare grant when workers-oauth-provider refreshes
  * its downstream access token. The per-grant admission gate rejects competing
  * provider exchanges so they cannot independently rotate downstream tokens.
@@ -77,7 +92,7 @@ export async function handleTokenExchangeCallback(
 
   // Awaited so the gate's synchronous rejection of competing refreshes is handled here.
   return await withRefreshAdmission(env.OAUTH_KV, grant, async () => {
-    const { access_token, refresh_token, expires_in } = await refreshAuthToken({
+    const { access_token, refresh_token, expires_in, scope } = await refreshAuthToken({
       client_id: clientId,
       client_secret: clientSecret,
       refresh_token: upstreamRefreshToken,
@@ -90,7 +105,9 @@ export async function handleTokenExchangeCallback(
         accessToken: access_token,
         refreshToken: refresh_token
       } satisfies AuthProps,
-      accessTokenTTL: expires_in
+      accessTokenTTL: expires_in,
+      // The refreshed upstream token may carry fewer scopes; the MCP access token follows it.
+      accessTokenScope: grantedScopes(options.scope, scope)
     }
   })
 }
@@ -327,7 +344,11 @@ export function createAuthHandlers() {
         return new OAuthError('invalid_request', 'Invalid OAuth request info').toHtmlResponse()
       }
 
-      const { access_token, refresh_token } = await getAuthToken({
+      const {
+        access_token,
+        refresh_token,
+        scope: upstreamScope
+      } = await getAuthToken({
         client_id: env.CLOUDFLARE_CLIENT_ID,
         client_secret: env.CLOUDFLARE_CLIENT_SECRET,
         redirect_uri: new URL('/oauth/callback', c.req.url).href,
@@ -343,7 +364,7 @@ export function createAuthHandlers() {
         request: oauthReqInfo,
         userId: identity.user.id,
         metadata: { label: identity.user.email },
-        scope: oauthReqInfo.scope,
+        scope: grantedScopes(oauthReqInfo.scope, upstreamScope),
         props: {
           type: 'user_token',
           user: identity.user,

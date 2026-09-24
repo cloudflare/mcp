@@ -19,8 +19,8 @@ function refreshCallback(refreshToken = 'old-refresh-token') {
       subjectClientId: 'mcp-client',
       userId: 'user-1',
       grantId,
-      scope: [],
-      requestedScope: [],
+      scope: ['read', 'write'],
+      requestedScope: ['read', 'write'],
       resource: 'https://mcp.cloudflare.com/mcp',
       props: {
         type: 'user_token',
@@ -43,7 +43,9 @@ const expectedRefreshResult = {
     accounts: [{ id: 'account-1', name: 'Account 1' }],
     refreshToken: 'new-refresh-token'
   },
-  accessTokenTTL: 1234
+  accessTokenTTL: 1234,
+  // The upstream refresh granted `read` only (scope: 'read' below): the MCP token follows it.
+  accessTokenScope: ['read']
 }
 
 const OAUTH_TOKEN_URL = 'https://dash.cloudflare.com/oauth2/token'
@@ -159,6 +161,21 @@ describe('handleTokenExchangeCallback', () => {
     })
     await expect(refreshCallback()).resolves.toEqual(expectedRefreshResult)
     expect(calls).toBe(2)
+  })
+
+  it('narrows the MCP access token to the scopes the upstream refresh granted', async () => {
+    server.use(
+      http.post(OAUTH_TOKEN_URL, () =>
+        HttpResponse.json({
+          access_token: 'new-access-token',
+          refresh_token: 'new-refresh-token',
+          expires_in: 1234,
+          scope: 'write unrelated',
+          token_type: 'bearer'
+        })
+      )
+    )
+    await expect(refreshCallback()).resolves.toMatchObject({ accessTokenScope: ['write'] })
   })
 
   it('throws the provider OAuthError invalid_grant for a dead upstream grant, which the provider revokes', async () => {
