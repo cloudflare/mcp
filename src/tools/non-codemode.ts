@@ -120,12 +120,12 @@ async function callNonCodemodeTool(
     { caller: 'non_codemode_tool_call' }
   )
   const contentType = response.headers.get('content-type') || ''
-  const text = contentType.includes('application/json')
-    ? JSON.stringify(await response.json(), null, 2)
+  const result = contentType.includes('application/json')
+    ? await response.json()
     : await response.text()
 
   return {
-    content: [{ type: 'text', text: formatResult(text) }],
+    content: [{ type: 'text', text: formatResult(result) }],
     isError: !response.ok
   }
 }

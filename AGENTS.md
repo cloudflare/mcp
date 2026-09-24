@@ -144,7 +144,7 @@ The consent picker uses the production catalog returned by `GET /oauth/scopes` i
 
 ### Response truncation
 
-Responses capped at ~6,000 tokens (~24KB). Truncation notice included with original size to prompt agents to write more specific queries.
+Responses capped at ~6,000 tokens (~24KB). `src/truncate.ts` shrinks oversized JSON structurally so it stays valid JSON: arrays keep whole items from the start and end with a `--- TRUNCATED --- N more items` element, long strings are clipped, and objects drop their largest values first, naming them in a `--- TRUNCATED ---` entry. Plain text is cut at the cap and followed by a notice with the original size.
 
 Clients that bound results themselves can pass `?truncateToolResult=false` to get whole results from `search`, `execute`, and the endpoint tools. `src/mcp-handler.ts` reads it next to `?codemode=false`; both are on unless the value is exactly `false`.
 

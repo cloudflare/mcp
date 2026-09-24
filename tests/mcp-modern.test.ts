@@ -294,11 +294,28 @@ describe('tool result truncation', () => {
     return body.result?.content?.[0]?.text ?? ''
   }
 
-  it('truncates an oversized result by default', async () => {
+  it('truncates an oversized result to valid JSON by default', async () => {
     const text = await callToolText('execute', { code: ROWS_CODE })
+    const rows = JSON.parse(text)
 
-    expect(text).toContain('--- TRUNCATED ---')
-    expect(text.length).toBeLessThan(JSON.stringify(ROWS, null, 2).length)
+    expect(text.length).toBeLessThanOrEqual(24_000)
+    expect(rows.at(-1)).toMatch(/^--- TRUNCATED --- [\d,]+ more items$/)
+    expect(rows.slice(0, -1)).toEqual(ROWS.slice(0, rows.length - 1))
+  })
+
+  it('truncates an oversized endpoint tool response to valid JSON', async () => {
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
+        HttpResponse.json(cfSuccess(ROWS))
+      )
+    )
+
+    const text = await callToolText('get_accounts_workers_scripts', {}, `${MCP_URL}?codemode=false`)
+    const body = JSON.parse(text)
+
+    expect(text.length).toBeLessThanOrEqual(24_000)
+    expect(body.success).toBe(true)
+    expect(body.result.at(-1)).toMatch(/^--- TRUNCATED --- [\d,]+ more items$/)
   })
 
   it('returns the whole execute result with ?truncateToolResult=false', async () => {
