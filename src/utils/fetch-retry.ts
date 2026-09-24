@@ -74,7 +74,11 @@ export async function fetchWithRetry(
 
   for (let attempt = 0; attempt <= opts.maxRetries; attempt++) {
     try {
-      const response = await fetch(fetchInput, fetchInit)
+      // Sending a Request consumes its body, so retryable attempts must use a
+      // clone. The final attempt consumes `fetchInput` itself.
+      const attemptInput =
+        fetchInput instanceof Request && attempt < opts.maxRetries ? fetchInput.clone() : fetchInput
+      const response = await fetch(attemptInput, fetchInit)
 
       if (response.status !== 429) {
         return response

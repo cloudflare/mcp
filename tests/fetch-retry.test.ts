@@ -275,4 +275,56 @@ describe('fetchWithRetry', () => {
     expect(result.status).toBe(429)
     expect(mock).toHaveBeenCalledTimes(2)
   })
+
+  it('retries a Request with a body after a 429 without consuming it', async () => {
+    const bodies: string[] = []
+    const mock = vi.fn().mockImplementation(async (input: Request) => {
+      bodies.push(await input.text())
+      return bodies.length === 1
+        ? new Response('rate limited', { status: 429 })
+        : new Response('ok', { status: 200 })
+    })
+    globalThis.fetch = mock
+
+    const request = new Request('https://api.example.com/test', {
+      method: 'POST',
+      body: '{"key":"value"}'
+    })
+    const result = await fetchWithRetry(request, undefined, {
+      maxRetries: 3,
+      baseDelayMs: 1,
+      jitter: false
+    })
+
+    expect(result.status).toBe(200)
+    expect(bodies).toEqual(['{"key":"value"}', '{"key":"value"}'])
+  })
+
+  it('retries a Request with a body after a network error', async () => {
+    const bodies: string[] = []
+    const mock = vi
+      .fn()
+      .mockImplementationOnce(async (input: Request) => {
+        await input.text()
+        throw new Error('network failure')
+      })
+      .mockImplementation(async (input: Request) => {
+        bodies.push(await input.text())
+        return new Response('ok', { status: 200 })
+      })
+    globalThis.fetch = mock
+
+    const request = new Request('https://api.example.com/test', {
+      method: 'POST',
+      body: '{"key":"value"}'
+    })
+    const result = await fetchWithRetry(request, undefined, {
+      maxRetries: 1,
+      baseDelayMs: 1,
+      jitter: false
+    })
+
+    expect(result.status).toBe(200)
+    expect(bodies).toEqual(['{"key":"value"}'])
+  })
 })
