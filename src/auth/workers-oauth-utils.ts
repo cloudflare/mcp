@@ -140,11 +140,22 @@ function sanitizeHtml(unsafe: string): string {
     .replace(/'/g, '&#039;')
 }
 
-function hostnameFromUrl(value: string, requireHttps = false): string | undefined {
+/**
+ * Render a URL as the browser parsed it, without credentials or a fragment.
+ * The host keeps the default text colour and the scheme and path are dimmed,
+ * so the destination stays easy to spot in a long URL.
+ */
+function renderDisplayUrl(
+  value: string,
+  options: { readonly requireHttps: boolean } = { requireHttps: false }
+): string | undefined {
   try {
     const url = new URL(value)
-    if (requireHttps && url.protocol !== 'https:') return undefined
-    return url.hostname || undefined
+    if (!url.hostname) return undefined
+    if (options.requireHttps && url.protocol !== 'https:') return undefined
+    // Let long URLs wrap after a slash rather than mid-word on narrow screens.
+    const rest = sanitizeHtml(url.pathname + url.search).replace(/\//g, '/<wbr>')
+    return `<span class="client-detail-url"><span class="url-dim">${sanitizeHtml(url.protocol)}//</span>${sanitizeHtml(url.host)}<span class="url-dim">${rest}</span></span>`
   } catch {
     return undefined
   }
@@ -209,14 +220,12 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
 
   const encodedState = encodeBase64Utf8(JSON.stringify(state))
   const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
-  const redirectHostname = hostnameFromUrl(redirectUri)
-  if (!redirectHostname) {
+  const redirectUrl = renderDisplayUrl(redirectUri)
+  if (!redirectUrl) {
     throw new OAuthError('invalid_request', 'Redirect URI must include a hostname')
   }
-  const clientIdHostname = client ? hostnameFromUrl(client.clientId, true) : undefined
-  const redirectTip = isLoopbackRedirectUri(redirectUri)
-    ? 'Local redirect: this client will receive the authorization code on this device. Only continue if you trust the application that opened this page.'
-    : 'Redirect URI hostname. The authorization code is sent to this host.'
+  const clientIdUrl = client ? renderDisplayUrl(client.clientId, { requireHttps: true }) : undefined
+  const isLocalRedirect = isLoopbackRedirectUri(redirectUri)
   const requiredSet = new Set(requiredScopes)
 
   const templateDataJson = JSON.stringify(
@@ -319,24 +328,18 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .card-subtitle { font-size: 14px; color: var(--cf-text-subtle); letter-spacing: -0.16px; }
     .card-body { padding: 1.5rem 2rem; }
 
-    /* Client identity: who is asking (left) and where the code goes (right) */
-    .client-identity {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
+    /* Client identity */
+    .client-identity { margin-bottom: 1.5rem; }
     .client-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      min-width: 0;
       background: var(--cf-elevated);
       padding: 0.45rem 0.85rem;
       border-radius: var(--border-radius);
       font-size: 14px;
       font-weight: 500;
+      margin-bottom: 0.75rem;
       border: 1px solid var(--cf-hairline);
     }
     .client-badge-icon {
@@ -349,25 +352,38 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       justify-content: center;
     }
     .client-badge-icon svg { width: 12px; height: 12px; }
-    .client-badge-host {
-      color: var(--cf-text-subtle);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 12px;
-      overflow-wrap: anywhere;
+    .client-details {
+      border: 1px solid var(--cf-hairline);
+      border-radius: var(--border-radius);
+      background: var(--cf-elevated);
+      overflow: hidden;
     }
-    .client-redirect {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .client-detail {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.55rem 0.85rem;
+    }
+    .client-detail + .client-detail { border-top: 1px solid var(--cf-hairline); }
+    .client-detail-label { flex-shrink: 0; color: var(--cf-text-subtle); }
+    /* Kumo body text for URLs: the host in the default colour, the rest subtle. */
+    .client-detail-url {
       min-width: 0;
-    }
-    .client-redirect-hostname {
       color: var(--cf-text-default);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 13px;
-      font-weight: 600;
       overflow-wrap: anywhere;
       text-align: right;
+    }
+    .url-dim { color: var(--cf-text-subtle); }
+    .local-redirect-warning {
+      margin-top: 0.75rem;
+      padding: 0.75rem 0.85rem;
+      border: 1px solid var(--cf-orange);
+      border-radius: var(--border-radius);
+      background: rgba(246, 130, 31, 0.08);
+      color: var(--cf-text-default);
+      font-size: 13px;
+      line-height: 1.45;
     }
 
     /* Section labels (match dashboard 'Edit policy' heading: 14px/500/subtle) */
@@ -434,8 +450,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .info-tip[data-tip]:hover::before,
     .info-tip[data-tip]:focus::after,
     .info-tip[data-tip]:focus::before { opacity: 1; }
-    /* Anchor the tooltip to the icon's right edge so the card doesn't clip it. */
-    .info-tip--end[data-tip]::after { left: auto; right: -6px; transform: none; }
 
     /* Templates */
     .templates {
@@ -607,14 +621,28 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
               </svg>
             </span>
             ${clientName}
-            ${clientIdHostname ? `<span class="client-badge-host" title="Client ID hostname">${sanitizeHtml(clientIdHostname)}</span>` : ''}
           </div>
-          <div class="client-redirect">
-            <strong class="client-redirect-hostname">${sanitizeHtml(redirectHostname)}</strong>
-            <span class="info-tip info-tip--end" tabindex="0" aria-label="${redirectTip}" data-tip="${redirectTip}">
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 11V7.5"/><circle cx="8" cy="5" r="0.5" fill="currentColor"/></svg>
-            </span>
+          <div class="client-details" aria-label="OAuth client identity and redirect destination">
+            ${
+              clientIdUrl
+                ? `<div class="client-detail">
+              <span class="client-detail-label">Client ID</span>
+              ${clientIdUrl}
+            </div>`
+                : ''
+            }
+            <div class="client-detail">
+              <span class="client-detail-label">Redirect URI</span>
+              ${redirectUrl}
+            </div>
           </div>
+          ${
+            isLocalRedirect
+              ? `<div class="local-redirect-warning" role="alert">
+            Local redirect: this client will receive the authorization code on this device. Only continue if you trust the application that opened this page.
+          </div>`
+              : ''
+          }
         </div>
 
         <form method="post" action="${new URL(request.url).pathname}" id="authForm">

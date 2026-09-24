@@ -30,8 +30,16 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
   return response.text()
 }
 
+/** Page text as a person reads it: no tags, scripts or styles, whitespace collapsed. */
+function visibleText(html: string): string {
+  return html
+    .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, ' ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+}
+
 describe('OAuth approval dialog identity details', () => {
-  it('shows parsed CIMD and redirect hostnames without exposing other URL components', async () => {
+  it('shows the full CIMD client ID and redirect URLs without credentials', async () => {
     const body = await render({
       client: {
         clientId: 'https://identity.example/oauth/client.json?sensitive=client-query',
@@ -44,19 +52,18 @@ describe('OAuth approval dialog identity details', () => {
       redirectUri: 'https://user@callback.example:8443/oauth/callback?sensitive=redirect-query'
     })
 
-    expect(body).toContain('title="Client ID hostname">identity.example</span>')
-    expect(body).toContain('>callback.example</strong>')
-    expect(body).toContain(
-      'data-tip="Redirect URI hostname. The authorization code is sent to this host."'
+    const text = visibleText(body)
+    expect(text).toContain(
+      'Client ID https://identity.example/oauth/client.json?sensitive=client-query'
     )
-    expect(body).not.toContain('Local redirect:')
-    expect(body).not.toContain('client-query')
-    expect(body).not.toContain('redirect-query')
+    expect(text).toContain(
+      'Redirect URI https://callback.example:8443/oauth/callback?sensitive=redirect-query'
+    )
+    expect(text).not.toContain('Local redirect:')
     expect(body).not.toContain('user@')
-    expect(body).not.toContain(':8443')
   })
 
-  it('does not present an opaque or non-HTTPS client ID as a trusted hostname', async () => {
+  it('does not present an opaque or non-HTTPS client ID as a trusted identity', async () => {
     const body = await render({
       client: {
         clientId: 'http://untrusted.example/client.json',
@@ -66,11 +73,12 @@ describe('OAuth approval dialog identity details', () => {
       }
     })
 
-    expect(body).not.toContain('Client ID hostname')
+    const text = visibleText(body)
+    expect(text).not.toContain('Client ID')
     expect(body).not.toContain('untrusted.example')
     expect(body).not.toContain('<img src=x onerror=alert(1)>')
     expect(body).toContain('&lt;img src=x onerror=alert(1)&gt;')
-    expect(body).toContain('>callback.example</strong>')
+    expect(text).toContain('Redirect URI https://callback.example/oauth/callback')
   })
 
   it('warns when a native client redirects to a loopback listener', async () => {
@@ -84,8 +92,11 @@ describe('OAuth approval dialog identity details', () => {
       redirectUri: 'http://localhost:3210/callback'
     })
 
-    expect(body).toContain('data-tip="Local redirect: this client will receive the authorization code')
-    expect(body).toContain('>localhost</strong>')
+    const text = visibleText(body)
+    expect(text).toContain('Redirect URI http://localhost:3210/callback')
+    expect(text).toContain(
+      'Local redirect: this client will receive the authorization code on this device.'
+    )
   })
 })
 
