@@ -319,6 +319,24 @@ describe('identity probe errors', () => {
     expect(error.headers).toEqual({ 'Retry-After': '17' })
   })
 
+  it('derives Retry-After from the Ratelimit reset when the probe got none', async () => {
+    mockProbes({
+      user: () =>
+        new HttpResponse('rate limited', {
+          status: 429,
+          headers: { Ratelimit: '"default";r=0;t=240' }
+        }),
+      accounts: () => new HttpResponse('rate limited', { status: 429 })
+    })
+
+    const error = await expectOAuthError(
+      resolveCloudflareCredential('legacy-token', 'unknown'),
+      'temporarily_unavailable',
+      429
+    )
+    expect(error.headers).toEqual({ 'Retry-After': '240' })
+  })
+
   it('maps a network failure to server_error', async () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new TypeError('network failed'))
 

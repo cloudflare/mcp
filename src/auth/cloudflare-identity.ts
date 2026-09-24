@@ -1,7 +1,7 @@
 import { env as cloudflareEnv } from 'cloudflare:workers'
 import { z } from 'zod'
 
-import { fetchWithRetry } from '../utils/fetch-retry'
+import { fetchWithRetry, serverRetryDelayMs } from '../utils/fetch-retry'
 import {
   AccountSchema,
   AccountsSchema,
@@ -62,10 +62,9 @@ const AccountsResponseSchema = z.object({
 })
 
 function retryAfterHeaders(...responses: Response[]): Record<string, string> {
-  return {
-    'Retry-After':
-      responses.find((response) => response.status === 429)?.headers.get('Retry-After') ?? '30'
-  }
+  const limited = responses.find((response) => response.status === 429)
+  const waitMs = limited ? serverRetryDelayMs(limited.headers) : undefined
+  return { 'Retry-After': waitMs === undefined ? '30' : String(Math.ceil(waitMs / 1000)) }
 }
 
 function throwIdentityProbeError(...responses: [Response, ...Response[]]): never {
