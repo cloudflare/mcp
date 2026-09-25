@@ -306,6 +306,19 @@ describe('fetchWithRetry', () => {
     )
   })
 
+  it('by default waits at most 5 seconds in total', async () => {
+    const mock = vi
+      .fn()
+      .mockResolvedValue(new Response('rate limited', { status: 429, headers: { 'Retry-After': '6' } }))
+    globalThis.fetch = mock
+
+    // 6s is over the 5s default: no wait, the 429 goes straight back with its Retry-After.
+    const result = await fetchWithRetry('https://api.example.com/test')
+
+    expect(result.status).toBe(429)
+    expect(mock).toHaveBeenCalledTimes(1)
+  })
+
   it('stops once the total wait would pass maxTotalDelayMs', async () => {
     const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
     globalThis.fetch = mock
