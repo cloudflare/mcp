@@ -4,6 +4,10 @@ export interface RetryOptions {
   maxRetries?: number
   baseDelayMs?: number
   backoffFactor?: number
+  /**
+   * Longest single wait. Caps the backoff, and a server asking for longer isn't retried: sooner
+   * would only be another 429, so the caller gets it at once with the server's Retry-After.
+   */
   maxDelayMs?: number
   jitter?: boolean
   caller?: string
@@ -13,19 +17,56 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
   maxRetries: 3,
   baseDelayMs: 1000,
   backoffFactor: 2,
-  maxDelayMs: 30_000,
+  // A user waits on these calls: a few seconds slower beats a failure, but a longer server-given
+  // wait is worse than failing fast with the server's Retry-After.
+  maxDelayMs: 5_000,
   jitter: true
 }
+
+/**
+ * How long the server asked us to wait, in ms: `Retry-After` (seconds or an HTTP date), or else
+ * the reset time `t` of an exhausted (`r=0`) item in the Cloudflare API's `Ratelimit` header
+ * (`"default";r=0;t=30`). Undefined when the response says nothing usable.
+ */
+export function serverRetryDelayMs(headers: Headers, now = Date.now()): number | undefined {
+  const retryAfter = headers.get('Retry-After')?.trim()
+  if (retryAfter) {
+    if (/^\d+$/.test(retryAfter)) return Number(retryAfter) * 1000
+    // An HTTP date always has letters (`Wed, 21 Oct 2015 07:28:00 GMT`); `-1` would parse as a year.
+    const date = /[a-z]/i.test(retryAfter) ? Date.parse(retryAfter) : Number.NaN
+    if (!Number.isNaN(date)) return Math.max(0, date - now)
+  }
+  let resetMs: number | undefined
+  for (const item of (headers.get('Ratelimit') ?? '').split(',')) {
+    const remaining = /;\s*r=(\d+)/.exec(item)?.[1]
+    const reset = /;\s*t=(\d+)/.exec(item)?.[1]
+    if (remaining === '0' && reset !== undefined)
+      resetMs = Math.max(resetMs ?? 0, Number(reset) * 1000)
+  }
+  return resetMs
+}
+
+/**
+ * The wait before retry `attempt` (0-based). A server-given wait is honoured exactly when it fits
+ * `maxDelayMs`; when it doesn't, this returns undefined: don't retry, the answer would be another
+ * 429. Without one, exponential backoff with optional jitter.
+ */
+export function computeRetryDelay(
+  attempt: number,
+  opts: Required<Omit<RetryOptions, 'caller'>>
+): number
 export function computeRetryDelay(
   attempt: number,
   opts: Required<Omit<RetryOptions, 'caller'>>,
-  retryAfterHeader?: string | null
-): number {
-  if (retryAfterHeader) {
-    const seconds = Number(retryAfterHeader)
-    if (!Number.isNaN(seconds) && seconds > 0) {
-      return Math.min(seconds * 1000, opts.maxDelayMs)
-    }
+  serverDelayMs: number | undefined
+): number | undefined
+export function computeRetryDelay(
+  attempt: number,
+  opts: Required<Omit<RetryOptions, 'caller'>>,
+  serverDelayMs?: number
+): number | undefined {
+  if (serverDelayMs !== undefined) {
+    return serverDelayMs <= opts.maxDelayMs ? serverDelayMs : undefined
   }
 
   const exponentialDelay = opts.baseDelayMs * opts.backoffFactor ** attempt
@@ -83,10 +124,20 @@ export async function fetchWithRetry(
       lastResponse = response
 
       if (attempt < opts.maxRetries) {
-        const delay = computeRetryDelay(attempt, opts, response.headers.get('Retry-After'))
+        const serverDelay = serverRetryDelayMs(response.headers)
+        const delay = computeRetryDelay(attempt, opts, serverDelay)
+        const hints = rateLimitHints(response.headers)
+        if (delay === undefined) {
+          // Retrying before the server said to would only spend the same quota on another 429.
+          console.warn(
+            `fetchWithRetry: 429${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
+              `not retrying: the server asks for ${Math.ceil(serverDelay! / 1000)}s${hints}`
+          )
+          return response
+        }
         console.warn(
           `fetchWithRetry: 429${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-            `retrying in ${Math.round(delay)}ms`
+            `retrying in ${Math.round(delay)}ms${hints}`
         )
         await sleep(delay)
       }
@@ -94,7 +145,7 @@ export async function fetchWithRetry(
       lastError = error
 
       if (attempt < opts.maxRetries) {
-        const delay = computeRetryDelay(attempt, opts, null)
+        const delay = computeRetryDelay(attempt, opts)
         console.warn(
           `fetchWithRetry: network error${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
             `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : error}`
@@ -116,6 +167,16 @@ export async function fetchWithRetry(
     lastError
   )
   throw lastError
+}
+
+/** The raw rate-limit headers, for the log: what the API actually sends on a 429. */
+function rateLimitHints(headers: Headers): string {
+  const retryAfter = headers.get('Retry-After')
+  const ratelimit = headers.get('Ratelimit')
+  return (
+    (retryAfter === null ? '' : ` retry-after=${retryAfter}`) +
+    (ratelimit === null ? '' : ` ratelimit=${ratelimit}`)
+  )
 }
 
 function sleep(ms: number): Promise<void> {
