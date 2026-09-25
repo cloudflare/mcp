@@ -7,7 +7,13 @@ import {
   getAuthToken,
   refreshAuthToken
 } from './cloudflare-auth'
-import { DEFAULT_TEMPLATE, REQUIRED_SCOPES, SCOPE_DEFINITIONS, SCOPE_TEMPLATES } from './scopes'
+import {
+  ALL_SCOPES,
+  DEFAULT_TEMPLATE,
+  REQUIRED_SCOPES,
+  SCOPE_DEFINITIONS,
+  SCOPE_TEMPLATES
+} from './scopes'
 import { AuthProps as AuthPropsSchema, AUTH_PROPS_VERSION, type AuthProps } from './types'
 import {
   isAllowedOAuthRedirectUri,
@@ -35,7 +41,7 @@ interface AuthEnv extends Env {
 }
 
 const env = cloudflareEnv as AuthEnv
-const ALLOWED_SCOPES = new Set(Object.keys(SCOPE_DEFINITIONS))
+const ALLOWED_SCOPES = new Set<string>(ALL_SCOPES)
 const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
 
 /** Format an unknown thrown value into a stable `auth_user` error message. */

@@ -53,6 +53,13 @@ export const SCOPE_DEFINITIONS: Record<string, ScopeDefinition> = {
 }
 
 const scopeNames = Object.keys(SCOPE_DEFINITIONS) as ScopeName[]
+
+/**
+ * Every scope this server can grant: advertised as the authorization server's
+ * `scopes_supported` and enforced at /authorize. The MCP resource advertises no
+ * up-front baseline of its own; the consent page picks the scopes.
+ */
+export const ALL_SCOPES: readonly ScopeName[] = scopeNames
 const readOnlyScopes = Array.from(
   new Set<ScopeName>([...REQUIRED_SCOPES, ...scopeNames.filter(isReadOnlyScope)])
 )
