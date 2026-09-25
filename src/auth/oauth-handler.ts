@@ -7,7 +7,13 @@ import {
   getAuthToken,
   refreshAuthToken
 } from './cloudflare-auth'
-import { DEFAULT_TEMPLATE, REQUIRED_SCOPES, SCOPE_DEFINITIONS, SCOPE_TEMPLATES } from './scopes'
+import {
+  ALL_SCOPES,
+  DEFAULT_TEMPLATE,
+  REQUIRED_SCOPES,
+  SCOPE_DEFINITIONS,
+  SCOPE_TEMPLATES
+} from './scopes'
 import { AuthProps as AuthPropsSchema, AUTH_PROPS_VERSION, type AuthProps } from './types'
 import {
   isAllowedOAuthRedirectUri,
@@ -35,7 +41,7 @@ interface AuthEnv extends Env {
 }
 
 const env = cloudflareEnv as AuthEnv
-const ALLOWED_SCOPES = new Set(Object.keys(SCOPE_DEFINITIONS))
+const ALLOWED_SCOPES = new Set<string>(ALL_SCOPES)
 const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
 
 /** Format an unknown thrown value into a stable `auth_user` error message. */
@@ -191,11 +197,12 @@ export function createAuthHandlers() {
           `Unknown OAuth scope: ${unknownScopes.join(', ')}`
         ).toHtmlResponse()
       }
+      // Clients request the resource's required scopes (its 401 names them), which says nothing
+      // about what else they want: only a request beyond them overrides the default template.
+      const requiredScopes: readonly string[] = REQUIRED_SCOPES
+      const choseScopes = requestedScopes.some((scope) => !requiredScopes.includes(scope))
       const scopesToRequest = Array.from(
-        new Set([
-          ...(requestedScopes.length > 0 ? requestedScopes : defaultScopes),
-          ...REQUIRED_SCOPES
-        ])
+        new Set([...(choseScopes ? requestedScopes : defaultScopes), ...REQUIRED_SCOPES])
       )
       oauthReqInfo.scope = scopesToRequest
 
