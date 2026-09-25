@@ -202,10 +202,9 @@ describe('OAuth metadata policy', () => {
       authorization_response_iss_parameter_supported: true
     })
   })
-  it('advertises the scope catalogue on the authorization server, and no up-front baseline on the resource', async () => {
+  it('advertises the scope catalogue on the authorization server, and the required scopes on the resource', async () => {
     // Two lists with one name: the authorization server's is everything it can grant (RFC 8414);
-    // the resource's is what MCP clients request up front (RFC 9728). The consent page picks here,
-    // so the resource has none and its 401 names none.
+    // the resource's is what any access needs (RFC 9728), which clients request first.
     const server = (await (
       await exports.default.fetch(
         new Request(`${MCP_ORIGIN}/.well-known/oauth-authorization-server`)
@@ -218,7 +217,16 @@ describe('OAuth metadata policy', () => {
         new Request(`${MCP_ORIGIN}/.well-known/oauth-protected-resource/mcp`)
       )
     ).json()) as { scopes_supported?: string[] }
-    expect(resource.scopes_supported).toBeUndefined()
+    expect(resource.scopes_supported).toEqual(['user:read', 'account:read'])
+
+    const challenge = await exports.default.fetch(
+      new Request(MCP_RESOURCE, {
+        method: 'GET',
+        headers: { Host: 'mcp.cloudflare.com', Accept: 'application/json, text/event-stream' }
+      })
+    )
+    expect(challenge.status).toBe(401)
+    expect(challenge.headers.get('WWW-Authenticate')).toContain('scope="user:read account:read"')
   })
 })
 
@@ -264,6 +272,26 @@ describe('GET /authorize', () => {
     expect(templates['full-access']).not.toContain('realtime.realtime')
     // Happy path emits no auth_user event.
     expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
+  })
+
+  it('treats a request for only the required scopes as no preference: the read-only default', async () => {
+    // What an MCP client sends after reading the 401's scope="user:read account:read".
+    const clientId = await registerClient()
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'user:read account:read'
+        })
+      )
+    )
+
+    expect(response.status).toBe(200)
+    const initial = embeddedInitialScopes(await response.text())
+    expect(initial).toHaveLength(194)
+    expect(initial).toContain('dns.read')
   })
 
   it('preserves valid requested scopes and preselects them with required scopes', async () => {

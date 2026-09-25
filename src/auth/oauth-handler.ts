@@ -197,11 +197,12 @@ export function createAuthHandlers() {
           `Unknown OAuth scope: ${unknownScopes.join(', ')}`
         ).toHtmlResponse()
       }
+      // Clients request the resource's required scopes (its 401 names them), which says nothing
+      // about what else they want: only a request beyond them overrides the default template.
+      const requiredScopes: readonly string[] = REQUIRED_SCOPES
+      const choseScopes = requestedScopes.some((scope) => !requiredScopes.includes(scope))
       const scopesToRequest = Array.from(
-        new Set([
-          ...(requestedScopes.length > 0 ? requestedScopes : defaultScopes),
-          ...REQUIRED_SCOPES
-        ])
+        new Set([...(choseScopes ? requestedScopes : defaultScopes), ...REQUIRED_SCOPES])
       )
       oauthReqInfo.scope = scopesToRequest
 
