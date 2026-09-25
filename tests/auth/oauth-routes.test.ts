@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cfAccountsSuccess, cfSuccess } from '../helpers/cloudflare-api'
 import { clearKv } from '../helpers/kv'
 import { modernMcpRequest, parseMcpResult } from '../helpers/mcp'
+import { ALL_SCOPES } from '../../src/auth/scopes'
 import { server } from '../setup/msw'
 
 /**
@@ -200,6 +201,24 @@ describe('OAuth metadata policy', () => {
       issuer: MCP_ORIGIN,
       authorization_response_iss_parameter_supported: true
     })
+  })
+  it('advertises the scope catalogue on the authorization server, and no up-front baseline on the resource', async () => {
+    // Two lists with one name: the authorization server's is everything it can grant (RFC 8414);
+    // the resource's is what MCP clients request up front (RFC 9728). The consent page picks here,
+    // so the resource has none and its 401 names none.
+    const server = (await (
+      await exports.default.fetch(
+        new Request(`${MCP_ORIGIN}/.well-known/oauth-authorization-server`)
+      )
+    ).json()) as { scopes_supported?: string[] }
+    expect(server.scopes_supported).toEqual([...ALL_SCOPES])
+
+    const resource = (await (
+      await exports.default.fetch(
+        new Request(`${MCP_ORIGIN}/.well-known/oauth-protected-resource/mcp`)
+      )
+    ).json()) as { scopes_supported?: string[] }
+    expect(resource.scopes_supported).toBeUndefined()
   })
 })
 

@@ -1,5 +1,6 @@
 import OAuthProvider, { type OAuthProviderOptions } from '@cloudflare/workers-oauth-provider'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
+import { ALL_SCOPES } from './auth/scopes'
 import { resolveExternalToken } from './auth/api-token-mode'
 import {
   MCP_ROUTE,
@@ -58,6 +59,9 @@ export default {
           env.CLOUDFLARE_CLIENT_ID,
           env.CLOUDFLARE_CLIENT_SECRET
         ),
+      // The authorization server's catalogue. The resource advertises no up-front baseline
+      // (scopes_supported): the consent page picks the scopes, read-only by default.
+      scopesSupported: [...ALL_SCOPES],
       resourceMetadata: {
         resource: env.MCP_RESOURCE,
         resource_name: 'Cloudflare API MCP Server'
