@@ -13,7 +13,6 @@ describe('computeRetryDelay', () => {
     baseDelayMs: 1000,
     backoffFactor: 2,
     maxDelayMs: 30_000,
-    maxTotalDelayMs: 30_000,
     jitter: false
   }
 
@@ -306,7 +305,7 @@ describe('fetchWithRetry', () => {
     )
   })
 
-  it('by default waits at most 5 seconds in total', async () => {
+  it('by default honours a server-given wait of up to 5 seconds', async () => {
     const mock = vi
       .fn()
       .mockResolvedValue(new Response('rate limited', { status: 429, headers: { 'Retry-After': '6' } }))
@@ -319,19 +318,17 @@ describe('fetchWithRetry', () => {
     expect(mock).toHaveBeenCalledTimes(1)
   })
 
-  it('stops once the total wait would pass maxTotalDelayMs', async () => {
+  it('keeps all three backoff retries when the server gives no wait', async () => {
     const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
     globalThis.fetch = mock
 
-    // Backoff 10ms, then 20ms: the second wait would bring the total to 30ms, over the 25ms budget.
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
-      baseDelayMs: 10,
-      jitter: false,
-      maxTotalDelayMs: 25
+      baseDelayMs: 1,
+      jitter: false
     })
 
     expect(result.status).toBe(429)
-    expect(mock).toHaveBeenCalledTimes(2)
+    expect(mock).toHaveBeenCalledTimes(4)
   })
 
   it('handles mixed network errors and 429s', async () => {
