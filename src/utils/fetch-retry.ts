@@ -4,10 +4,11 @@ export interface RetryOptions {
   maxRetries?: number
   baseDelayMs?: number
   backoffFactor?: number
-  /** Longest single wait. A server asking for longer isn't retried: sooner would fail again. */
+  /**
+   * Longest single wait. Caps the backoff, and a server asking for longer isn't retried: sooner
+   * would only be another 429, so the caller gets it at once with the server's Retry-After.
+   */
   maxDelayMs?: number
-  /** Longest total wait across all retries of one call, so a tool call is slower, never stuck. */
-  maxTotalDelayMs?: number
   jitter?: boolean
   caller?: string
 }
@@ -16,10 +17,9 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
   maxRetries: 3,
   baseDelayMs: 1000,
   backoffFactor: 2,
-  // A user waits on these calls: a few seconds slower beats a failure, anything longer is worse than
-  // failing fast with the server's Retry-After.
+  // A user waits on these calls: a few seconds slower beats a failure, but a longer server-given
+  // wait is worse than failing fast with the server's Retry-After.
   maxDelayMs: 5_000,
-  maxTotalDelayMs: 5_000,
   jitter: true
 }
 
@@ -113,7 +113,6 @@ export async function fetchWithRetry(
     }
   }
 
-  let waited = 0
   for (let attempt = 0; attempt <= opts.maxRetries; attempt++) {
     try {
       const response = await fetch(fetchInput, fetchInit)
@@ -128,15 +127,11 @@ export async function fetchWithRetry(
         const serverDelay = serverRetryDelayMs(response.headers)
         const delay = computeRetryDelay(attempt, opts, serverDelay)
         const hints = rateLimitHints(response.headers)
-        if (delay === undefined || waited + delay > opts.maxTotalDelayMs) {
+        if (delay === undefined) {
           // Retrying before the server said to would only spend the same quota on another 429.
-          const reason =
-            delay === undefined
-              ? `the server asks for ${Math.ceil(serverDelay! / 1000)}s`
-              : `the ${opts.maxTotalDelayMs}ms retry budget is spent`
           console.warn(
             `fetchWithRetry: 429${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-              `not retrying: ${reason}${hints}`
+              `not retrying: the server asks for ${Math.ceil(serverDelay! / 1000)}s${hints}`
           )
           return response
         }
@@ -144,7 +139,6 @@ export async function fetchWithRetry(
           `fetchWithRetry: 429${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
             `retrying in ${Math.round(delay)}ms${hints}`
         )
-        waited += delay
         await sleep(delay)
       }
     } catch (error) {
