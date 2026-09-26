@@ -10,9 +10,7 @@ import {
   ACCOUNT_DISCOVERY_GUIDANCE,
   accountTokenId,
   autoResolvedAccountId,
-  inlineableAccounts,
-  isMultiAccountUser,
-  isSingleAccountUser
+  isMultiAccountUser
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
 
@@ -209,20 +207,10 @@ export default class CodeExecutor extends WorkerEntrypoint {
  * per call).
  */
 function cloudflareTypesForAccount(props?: AuthProps): string {
-  // Single-account user token: name the account so the LLM can confirm it.
-  if (isSingleAccountUser(props)) {
+  if (autoResolvedAccountId(props)) {
     return (
       CLOUDFLARE_TYPES +
-      `\n// accountId is pre-set to "${props.accounts[0].id}" (${props.accounts[0].name}) — use it directly in API paths.\n`
-    )
-  }
-
-  // Any other pinned account id (account-scoped token).
-  const pinnedAccountId = autoResolvedAccountId(props)
-  if (pinnedAccountId) {
-    return (
-      CLOUDFLARE_TYPES +
-      `\n// accountId is pre-set to "${pinnedAccountId}" — use it directly in API paths.\n`
+      `\n// accountId is pre-set to the account authorized for this session — use it directly in API paths.\n`
     )
   }
 
@@ -264,22 +252,9 @@ async () => {
 function accountSelectionDescription(props?: AuthProps): string {
   if (!isMultiAccountUser(props)) return ''
 
-  const accounts = inlineableAccounts(props)
-  if (accounts) {
-    const list = accounts.map((account) => `- ${account.id} (${account.name})`).join('\n')
-    return `
-
-Available accounts:
-${list}`
-  }
-
-  const access =
-    props.accountCount !== undefined
-      ? `This token has access to ${props.accountCount} Cloudflare accounts.`
-      : 'This token has access to multiple Cloudflare accounts.'
   return `
 
-${access} ${ACCOUNT_DISCOVERY_DESCRIPTION}`
+This token has access to multiple Cloudflare accounts. ${ACCOUNT_DISCOVERY_DESCRIPTION}`
 }
 
 function accountIdParamDescription(): string {

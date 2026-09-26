@@ -365,9 +365,9 @@ describe('createServer with codemode=false', () => {
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
     expect((server as any).server._instructions).toBeUndefined()
-    expect(execute.description).toContain('Available accounts')
-    expect(execute.description).toContain('acct-1 (Account 1)')
-    expect(execute.description).toContain('acct-30 (Account 30)')
+    expect(execute.description).not.toContain('Available accounts')
+    expect(execute.description).not.toContain('acct-1')
+    expect(execute.description).not.toContain('Account 1')
     expect(accountIdDescription).not.toContain('acct-1')
     expect(accountIdDescription).toBe(
       'Cloudflare account ID to scope execution to a singular account. Optional for account-independent calls.'
@@ -416,8 +416,8 @@ describe('createServer with codemode=false', () => {
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
-    expect(execute.description).toContain('fresh-acct-1 (Fresh Account 1)')
-    expect(execute.description).toContain('fresh-acct-20 (Fresh Account 20)')
+    expect(execute.description).not.toContain('fresh-acct-1')
+    expect(execute.description).not.toContain('Fresh Account 1')
     expect(accountIdDescription).not.toContain('fresh-acct-1')
   })
 
@@ -437,8 +437,8 @@ describe('createServer with codemode=false', () => {
 
     expect(accountIdDescription).not.toContain('137 accounts')
     expect(accountIdDescription).not.toContain('GET /accounts')
-    expect(execute.description).toContain('137 Cloudflare accounts')
-    expect(execute.description).not.toContain('multiple Cloudflare accounts')
+    expect(execute.description).not.toContain('137 Cloudflare accounts')
+    expect(execute.description).toContain('multiple Cloudflare accounts')
     expect(execute.description).toContain('GET /accounts')
     expect(execute.description).toContain('GET /accounts?name=')
   })
