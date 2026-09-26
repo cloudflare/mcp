@@ -203,8 +203,8 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
 /**
  * The `CLOUDFLARE_TYPES` block plus a per-session comment describing how
- * `accountId` is resolved for this token (pinned, single account, or chosen
- * per call).
+ * `accountId` is resolved for this token (pre-set for the session, or chosen
+ * per call). It never names the account, because clients cache tool metadata.
  */
 function cloudflareTypesForAccount(props?: AuthProps): string {
   if (autoResolvedAccountId(props)) {

@@ -1036,3 +1036,71 @@ describe('createServer with codemode=false', () => {
     }
   })
 })
+
+describe('tool metadata is identical for every user', () => {
+  afterEach(() => clearSpec())
+
+  function singleAccountUser(id: string, name: string, email: string): AuthProps {
+    return {
+      type: 'user_token',
+      accessToken: `token-${id}`,
+      user: { id: `user-${id}`, email },
+      accounts: [{ id, name }]
+    }
+  }
+
+  function multiAccountUser(prefix: string, email: string): AuthProps {
+    return {
+      type: 'user_token',
+      accessToken: `token-${prefix}`,
+      user: { id: `user-${prefix}`, email },
+      accounts: [
+        { id: `${prefix}-one`, name: `${prefix} One` },
+        { id: `${prefix}-two`, name: `${prefix} Two` }
+      ],
+      version: AUTH_PROPS_VERSION
+    }
+  }
+
+  function accountToken(id: string, name: string): AuthProps {
+    return {
+      type: 'account_token',
+      accessToken: `token-${id}`,
+      account: { id, name }
+    }
+  }
+
+  async function serializedTools(props: AuthProps, codemode: boolean): Promise<string> {
+    return JSON.stringify(await listTools(await createServer(props, { codemode })))
+  }
+
+  const alice = singleAccountUser('aaaa1111', "alice@example.com's Account", 'alice@example.com')
+  const bob = singleAccountUser('bbbb2222', "bob@example.com's Account", 'bob@example.com')
+
+  const cases: Array<[string, AuthProps, AuthProps]> = [
+    ['single-account users', alice, bob],
+    [
+      'multi-account users',
+      multiAccountUser('alice', 'alice@example.com'),
+      multiAccountUser('bob', 'bob@example.com')
+    ],
+    ['account tokens', accountToken('aaaa1111', 'Alice Inc'), accountToken('bbbb2222', 'Bob LLC')]
+  ]
+
+  for (const codemode of [true, false]) {
+    for (const [label, first, second] of cases) {
+      it(`matches across ${label} with codemode=${codemode}`, async () => {
+        await seedSpec({})
+        expect(await serializedTools(first, codemode)).toBe(await serializedTools(second, codemode))
+      })
+    }
+  }
+
+  it('never includes the account id, account name, or email of a single-account user', async () => {
+    await seedSpec({})
+    const tools = await serializedTools(alice, true)
+    expect(tools).toContain('pre-set to the account authorized for this session')
+    expect(tools).not.toContain('aaaa1111')
+    expect(tools).not.toContain('alice@example.com')
+  })
+})
