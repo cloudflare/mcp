@@ -3,7 +3,6 @@ import {
   accountTokenId,
   autoResolvedAccountId,
   hasIncompleteLegacyAccountList,
-  inlineableAccounts,
   isMultiAccountUser,
   isSingleAccountUser
 } from '../../src/auth/account-access'
@@ -90,24 +89,5 @@ describe('isMultiAccountUser', () => {
     expect(isMultiAccountUser(userToken({ accounts: accountList(1) }))).toBe(false)
     expect(isMultiAccountUser(accountToken)).toBe(false)
     expect(isMultiAccountUser(userToken({ accounts: [] }))).toBe(false)
-  })
-})
-
-describe('inlineableAccounts', () => {
-  it('returns the list for a versioned multi-account user', () => {
-    const accounts = accountList(3)
-    expect(inlineableAccounts(userToken({ accounts, version: AUTH_PROPS_VERSION }))).toEqual(
-      accounts
-    )
-  })
-
-  it('returns null when the list was omitted (count only)', () => {
-    expect(inlineableAccounts(userToken({ accounts: [], accountCount: 137 }))).toBeNull()
-  })
-
-  it('returns null for an incomplete legacy list', () => {
-    expect(
-      inlineableAccounts(userToken({ accounts: accountList(LEGACY_ACCOUNTS_PAGE_SIZE) }))
-    ).toBeNull()
   })
 })

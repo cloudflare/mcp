@@ -365,9 +365,9 @@ describe('createServer with codemode=false', () => {
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
     expect((server as any).server._instructions).toBeUndefined()
-    expect(execute.description).toContain('Available accounts')
-    expect(execute.description).toContain('acct-1 (Account 1)')
-    expect(execute.description).toContain('acct-30 (Account 30)')
+    expect(execute.description).not.toContain('Available accounts')
+    expect(execute.description).not.toContain('acct-1')
+    expect(execute.description).not.toContain('Account 1')
     expect(accountIdDescription).not.toContain('acct-1')
     expect(accountIdDescription).toBe(
       'Cloudflare account ID to scope execution to a singular account. Optional for account-independent calls.'
@@ -416,8 +416,8 @@ describe('createServer with codemode=false', () => {
     const execute = (server as any)._registeredTools['execute']
     const accountIdDescription = execute.inputSchema.shape.account_id.description
 
-    expect(execute.description).toContain('fresh-acct-1 (Fresh Account 1)')
-    expect(execute.description).toContain('fresh-acct-20 (Fresh Account 20)')
+    expect(execute.description).not.toContain('fresh-acct-1')
+    expect(execute.description).not.toContain('Fresh Account 1')
     expect(accountIdDescription).not.toContain('fresh-acct-1')
   })
 
@@ -437,8 +437,8 @@ describe('createServer with codemode=false', () => {
 
     expect(accountIdDescription).not.toContain('137 accounts')
     expect(accountIdDescription).not.toContain('GET /accounts')
-    expect(execute.description).toContain('137 Cloudflare accounts')
-    expect(execute.description).not.toContain('multiple Cloudflare accounts')
+    expect(execute.description).not.toContain('137 Cloudflare accounts')
+    expect(execute.description).toContain('multiple Cloudflare accounts')
     expect(execute.description).toContain('GET /accounts')
     expect(execute.description).toContain('GET /accounts?name=')
   })
@@ -1034,5 +1034,73 @@ describe('createServer with codemode=false', () => {
     } finally {
       globalThis.fetch = originalFetch
     }
+  })
+})
+
+describe('tool metadata is identical for every user', () => {
+  afterEach(() => clearSpec())
+
+  function singleAccountUser(id: string, name: string, email: string): AuthProps {
+    return {
+      type: 'user_token',
+      accessToken: `token-${id}`,
+      user: { id: `user-${id}`, email },
+      accounts: [{ id, name }]
+    }
+  }
+
+  function multiAccountUser(prefix: string, email: string): AuthProps {
+    return {
+      type: 'user_token',
+      accessToken: `token-${prefix}`,
+      user: { id: `user-${prefix}`, email },
+      accounts: [
+        { id: `${prefix}-one`, name: `${prefix} One` },
+        { id: `${prefix}-two`, name: `${prefix} Two` }
+      ],
+      version: AUTH_PROPS_VERSION
+    }
+  }
+
+  function accountToken(id: string, name: string): AuthProps {
+    return {
+      type: 'account_token',
+      accessToken: `token-${id}`,
+      account: { id, name }
+    }
+  }
+
+  async function serializedTools(props: AuthProps, codemode: boolean): Promise<string> {
+    return JSON.stringify(await listTools(await createServer(props, { codemode })))
+  }
+
+  const alice = singleAccountUser('aaaa1111', "alice@example.com's Account", 'alice@example.com')
+  const bob = singleAccountUser('bbbb2222', "bob@example.com's Account", 'bob@example.com')
+
+  const cases: Array<[string, AuthProps, AuthProps]> = [
+    ['single-account users', alice, bob],
+    [
+      'multi-account users',
+      multiAccountUser('alice', 'alice@example.com'),
+      multiAccountUser('bob', 'bob@example.com')
+    ],
+    ['account tokens', accountToken('aaaa1111', 'Alice Inc'), accountToken('bbbb2222', 'Bob LLC')]
+  ]
+
+  for (const codemode of [true, false]) {
+    for (const [label, first, second] of cases) {
+      it(`matches across ${label} with codemode=${codemode}`, async () => {
+        await seedSpec({})
+        expect(await serializedTools(first, codemode)).toBe(await serializedTools(second, codemode))
+      })
+    }
+  }
+
+  it('never includes the account id, account name, or email of a single-account user', async () => {
+    await seedSpec({})
+    const tools = await serializedTools(alice, true)
+    expect(tools).toContain('pre-set to the account authorized for this session')
+    expect(tools).not.toContain('aaaa1111')
+    expect(tools).not.toContain('alice@example.com')
   })
 })

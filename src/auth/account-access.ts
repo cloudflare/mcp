@@ -1,7 +1,6 @@
 import { LEGACY_ACCOUNTS_PAGE_SIZE, type AuthProps } from './types'
 
 type UserToken = Extract<AuthProps, { type: 'user_token' }>
-type Account = UserToken['accounts'][number]
 
 /** Concise Code-Mode guidance for unresolved multi-account execution errors. */
 export const ACCOUNT_DISCOVERY_GUIDANCE = 'Call GET /accounts to discover available accounts.'
@@ -59,14 +58,4 @@ export function isMultiAccountUser(props?: AuthProps): props is UserToken {
   if (hasIncompleteLegacyAccountList(props)) return true
   if (props.accounts.length > 1) return true
   return props.accounts.length === 0 && (props.accountCount ?? 0) > 1
-}
-
-/**
- * The accounts safe to inline into prompt metadata, or `null` when the list
- * isn't available/trustworthy (omitted large list or incomplete legacy list).
- */
-export function inlineableAccounts(props?: AuthProps): Account[] | null {
-  if (props?.type !== 'user_token') return null
-  if (hasIncompleteLegacyAccountList(props)) return null
-  return props.accounts.length > 1 ? props.accounts : null
 }
