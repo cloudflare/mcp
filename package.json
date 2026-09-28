@@ -25,7 +25,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.16.18",
+    "@cloudflare/vitest-pool-workers": "^0.20.3",
     "@modelcontextprotocol/client": "2.0.0",
     "@types/node": "^25.0.6",
     "msw": "^2.14.6",
@@ -34,6 +34,6 @@
     "tsx": "^4.22.4",
     "typescript": "^5.7.0",
     "vitest": "^4.1.8",
-    "wrangler": "^4.103.0"
+    "wrangler": "^4.120.0"
   }
 }
