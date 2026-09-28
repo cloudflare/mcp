@@ -182,10 +182,13 @@ describe('Client ID Metadata Documents', () => {
   })
 
   it.each([
-    'http://remote-client.example/callback',
-    'ftp://remote-client.example/callback',
-    'com.example.client:/callback'
-  ])('rejects a non-HTTPS, non-loopback redirect URI locally: %s', async (redirectUri) => {
+    // workers-oauth-provider refuses remote http itself, before our own check.
+    ['http://remote-client.example/callback', 'Invalid redirect URI'],
+    // Custom schemes pass the provider (allowPrivateUseRedirectUris, for Cursor) and are refused
+    // by our own isAllowedOAuthRedirectUri.
+    ['ftp://remote-client.example/callback', 'Redirect URI must use HTTPS or a local loopback address'],
+    ['com.example.client:/callback', 'Redirect URI must use HTTPS or a local loopback address']
+  ])('rejects a non-HTTPS, non-loopback redirect URI locally: %s', async (redirectUri, message) => {
     server.use(
       http.get(CIMD_CLIENT_ID, () => HttpResponse.json(cimdMetadata(CIMD_CLIENT_ID, redirectUri)))
     )
@@ -197,8 +200,7 @@ describe('Client ID Metadata Documents', () => {
 
     expect(response.status).toBe(400)
     expect(response.headers.get('location')).toBeNull()
-    // workers-oauth-provider 1.2 refuses the request's redirect URI itself, before our own check.
-    expect(await response.text()).toContain('Invalid redirect URI')
+    expect(await response.text()).toContain(message)
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
   })
 
