@@ -3,6 +3,7 @@ import { env as workerEnv } from 'cloudflare:workers'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { ALL_SCOPES, REQUIRED_SCOPES } from './auth/scopes'
 import { resolveExternalToken } from './auth/api-token-mode'
+import { logRefusedRegistration } from './auth/registration-log'
 import {
   MCP_ROUTE,
   handleMcpPreflight,
@@ -75,6 +76,16 @@ export default {
       const rejected = rejectInvalidMcpRequest(request)
       if (rejected) return rejected
       if (request.method === 'OPTIONS') return handleMcpPreflight(request)
+    }
+
+    // Temporary: record which clients workers-oauth-provider 1.2's redirect URI policy refuses.
+    if (url.pathname === '/register' && request.method === 'POST') {
+      const submitted = request.clone()
+      const response = await oauthProvider.fetch(request, env, ctx)
+      if (response.status === 400) {
+        ctx.waitUntil(logRefusedRegistration(submitted, response.clone()))
+      }
+      return response
     }
 
     return oauthProvider.fetch(request, env, ctx)
