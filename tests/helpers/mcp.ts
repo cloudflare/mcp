@@ -26,6 +26,29 @@ export interface McpToolResult {
   error?: { code: number; message: string }
 }
 
+/** Build the legacy JSON-RPC `initialize` request a 2025-era client sends first. */
+export function mcpInitializeRequest(token: string, url = MCP_URL): Request {
+  return new Request(url, {
+    method: 'POST',
+    headers: {
+      Host: MCP_HOST,
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json, text/event-stream'
+    },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'initialize',
+      params: {
+        protocolVersion: '2025-11-25',
+        capabilities: {},
+        clientInfo: { name: 'cloudflare-mcp-tests', version: '1.0.0' }
+      }
+    })
+  })
+}
+
 /** Build a legacy JSON-RPC `tools/list` request to the worker's `/mcp` endpoint. */
 export function mcpToolListRequest(token: string, id = 1): Request {
   return new Request(MCP_URL, {

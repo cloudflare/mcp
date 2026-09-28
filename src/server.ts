@@ -36,6 +36,12 @@ export async function createServer(
   const server = new McpServer(SERVER_INFO)
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
+  // This server never sends notifications/tools/list_changed. Tool lists change
+  // only on deploy or the daily spec refresh, and mcp-handler.ts rejects
+  // subscriptions/listen. Declare that before registerTool runs, because it
+  // otherwise advertises listChanged: true.
+  server.server.registerCapabilities({ tools: { listChanged: false } })
+
   if (!codemode) {
     await registerNonCodemodeTools(server, props, formatResult)
     return server

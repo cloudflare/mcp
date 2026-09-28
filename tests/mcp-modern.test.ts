@@ -13,6 +13,7 @@ import { clearKv } from './helpers/kv'
 import {
   MCP_HOST,
   MCP_URL,
+  mcpInitializeRequest,
   mcpToolListRequest,
   modernMcpRequest,
   parseMcpResult
@@ -62,6 +63,21 @@ describe('MCP 2026-07-28 stateless handler', () => {
       }
     })
     expect(body.result).not.toHaveProperty('serverInfo')
+  })
+
+  it.each([
+    ['Code Mode', MCP_URL],
+    ['non-Code-Mode', `${MCP_URL}?codemode=false`]
+  ])('advertises no tool list change notifications in %s', async (_surface, url) => {
+    const discover = await parseMcpResult(
+      await exports.default.fetch(modernMcpRequest(API_TOKEN, 'server/discover', {}, { url }))
+    )
+    const initialize = await parseMcpResult(
+      await exports.default.fetch(mcpInitializeRequest(API_TOKEN, url))
+    )
+
+    expect(discover.result).toMatchObject({ capabilities: { tools: { listChanged: false } } })
+    expect(initialize.result).toMatchObject({ capabilities: { tools: { listChanged: false } } })
   })
 
   it('rejects subscriptions instead of opening a long-lived stream', async () => {

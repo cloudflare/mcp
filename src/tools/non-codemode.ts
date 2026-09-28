@@ -22,6 +22,7 @@ import type { AuthProps } from '../auth/types'
  * schemas per HTTP request. `tools/list` serves the precomputed JSON artifact;
  * `tools/call` validates and dispatches only the requested operation.
  * `formatResult` turns each API response body into the tool's text output.
+ * `server` must already declare the `tools` capability, as `createServer` does.
  */
 export async function registerNonCodemodeTools(
   server: McpServer,
@@ -30,8 +31,6 @@ export async function registerNonCodemodeTools(
 ): Promise<void> {
   const tools = await getNonCodemodeTools()
   const toolsByName = await getNonCodemodeToolMap()
-
-  server.server.registerCapabilities({ tools: { listChanged: false } })
 
   server.server.setRequestHandler('tools/list', () => ({
     tools: [DOCS_TOOL, ...tools.map((tool) => toWireTool(toolForAccountAccess(tool)))]
