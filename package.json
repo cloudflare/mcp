@@ -33,7 +33,7 @@
     "oxlint": "^1.46.0",
     "tsx": "^4.22.4",
     "typescript": "^5.7.0",
-    "vitest": "^4.1.8",
+    "vitest": "^4.1.11",
     "workers-oauth-provider-0-10-2": "npm:@cloudflare/workers-oauth-provider@^0.10.2",
     "workers-oauth-provider-1-1-0": "npm:@cloudflare/workers-oauth-provider@^1.1.0",
     "wrangler": "^4.103.0"
