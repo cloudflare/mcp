@@ -636,7 +636,8 @@ describe('GET /oauth/callback', () => {
     expect(dp.blobs?.[3]).toBeFalsy()
   })
 
-  it('revokes the grant when Cloudflare says the upstream refresh token is dead', async () => {
+  /** Sign in end to end and exchange the code, returning a refresh() for the issued refresh token. */
+  async function signInAndIssueTokens(): Promise<{ refresh: () => Promise<Response> }> {
     const { clientId, state, sessionCookie } = await beginAuthorization()
     useCloudflareAuthSuccess()
     const callback = await exports.default.fetch(
@@ -664,6 +665,14 @@ describe('GET /oauth/callback', () => {
       })
     ).json()) as { refresh_token: string }
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(1)
+    return {
+      refresh: () =>
+        token({ grant_type: 'refresh_token', refresh_token: tokens.refresh_token, client_id: clientId })
+    }
+  }
+
+  it('revokes the grant when Cloudflare says the upstream refresh token is dead', async () => {
+    const { refresh } = await signInAndIssueTokens()
 
     // The user revoked the app at Cloudflare: the upstream refresh answers invalid_grant.
     server.use(
@@ -671,16 +680,42 @@ describe('GET /oauth/callback', () => {
         HttpResponse.text('invalid grant', { status: 400 })
       )
     )
-    const refresh = await token({
-      grant_type: 'refresh_token',
-      refresh_token: tokens.refresh_token,
-      client_id: clientId
-    })
-    expect(refresh.status).toBe(400)
-    await expect(refresh.json()).resolves.toMatchObject({ error: 'invalid_grant' })
+    const response = await refresh()
+    expect(response.status).toBe(400)
+    await expect(response.json()).resolves.toMatchObject({ error: 'invalid_grant' })
     // workers-oauth-provider 1.x revoked the grant, so the client reauthorizes.
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
   })
+
+  it.each([
+    // A bug on our side: before, a 400 mapped to invalid_grant and revoked every affected grant.
+    ['our request is rejected (invalid_request)', 400, { error: 'invalid_request' }, 502, 'server_error'],
+    // Our own client credentials: before, the MCP client was told invalid_client.
+    ['our client credentials are rejected (invalid_client)', 401, { error: 'invalid_client' }, 502, 'server_error'],
+    // An outage: before, a non-retryable 502 server_error.
+    ['Cloudflare is down (500)', 500, { error: 'server_error' }, 503, 'temporarily_unavailable']
+  ])(
+    'keeps the grant when the upstream refresh fails because %s, and it refreshes once Cloudflare recovers',
+    async (_label, upstreamStatus, upstreamBody, status, error) => {
+      const { refresh } = await signInAndIssueTokens()
+
+      server.use(
+        http.post('https://dash.cloudflare.com/oauth2/token', () =>
+          HttpResponse.json(upstreamBody, { status: upstreamStatus })
+        )
+      )
+      const failed = await refresh()
+      expect(failed.status).toBe(status)
+      await expect(failed.json()).resolves.toMatchObject({ error })
+      if (error === 'temporarily_unavailable') expect(failed.headers.get('Retry-After')).toBe('30')
+      expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(1)
+
+      useCloudflareAuthSuccess()
+      const recovered = await refresh()
+      expect(recovered.status).toBe(200)
+      await expect(recovered.json()).resolves.toMatchObject({ access_token: expect.any(String) })
+    }
+  )
 
   it('carries a requested write scope through the complete OAuth exchange', async () => {
     const { clientId, state, sessionCookie, location } = await beginAuthorization({
