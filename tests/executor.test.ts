@@ -155,6 +155,61 @@ describe('execute: retries', () => {
   })
 })
 
+describe('execute: rate-limit waits', () => {
+  it('returns the 429 at once when the API asks to wait longer than 5 seconds', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
+    let calls = 0
+    server.use(
+      http.get(`${API_BASE}${path}`, () => {
+        calls++
+        return HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+          status: 429,
+          headers: { 'Retry-After': '30' }
+        })
+      })
+    )
+
+    const started = Date.now()
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "${path}" })`
+    })
+
+    // Retrying sooner than 30 s would only spend the user's quota on another 429.
+    expect(calls).toBe(1)
+    expect(Date.now() - started).toBeLessThan(3000)
+    expect(toolText(result)).toContain('rate limited')
+  })
+
+  it('waits for the Ratelimit reset instead of retrying blindly', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
+    const resetAt = Date.now() + 2000
+    let calls = 0
+    server.use(
+      http.get(`${API_BASE}${path}`, () => {
+        calls++
+        // Like the API: limited until the window resets, saying when in the Ratelimit header.
+        const wait = Math.ceil((resetAt - Date.now()) / 1000)
+        return wait > 0
+          ? HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+              status: 429,
+              headers: { Ratelimit: `"default";r=0;t=${wait}` }
+            })
+          : HttpResponse.json(cfSuccess([]))
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "${path}" })`
+    })
+
+    expect(toolText(result)).toContain('"success": true')
+    // One wait for the reset, one retry; blind backoff retries early and needs more calls.
+    expect(calls).toBe(2)
+  })
+})
+
 describe('execute: GraphQL responses', () => {
   async function runGraphql(body: unknown): Promise<string> {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
