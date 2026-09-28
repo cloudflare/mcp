@@ -197,9 +197,8 @@ describe('Client ID Metadata Documents', () => {
 
     expect(response.status).toBe(400)
     expect(response.headers.get('location')).toBeNull()
-    expect(await response.text()).toContain(
-      'Redirect URI must use HTTPS or a local loopback address'
-    )
+    // workers-oauth-provider 1.2 refuses the request's redirect URI itself, before our own check.
+    expect(await response.text()).toContain('Invalid redirect URI')
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
   })
 
@@ -216,11 +215,27 @@ describe('Client ID Metadata Documents', () => {
 
     expect(response.status).toBe(400)
     expect(response.headers.get('location')).toBeNull()
-    // 1.x compares the resource exactly against the canonical .../mcp (no origin-only matching).
-    expect(await response.text()).toContain(
-      'resource parameter must name exactly one configured protected resource'
-    )
+    // The redirect URI is refused before the resource is checked, so no error can reach it.
+    expect(await response.text()).toContain('Invalid redirect URI')
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
+  })
+
+  it('resolves a document that also lists a redirect URI the policy refuses', async () => {
+    // A metadata document is shared by every server the client uses, so it may list a
+    // desktop app's private-use callback next to its https one.
+    server.use(
+      http.get(CIMD_CLIENT_ID, () =>
+        HttpResponse.json({
+          ...cimdMetadata(),
+          redirect_uris: [REDIRECT_URI, 'com.example.client:/callback']
+        })
+      )
+    )
+
+    const response = await exports.default.fetch(new Request(authorizeUrl()))
+
+    expect(response.status).toBe(200)
+    expect(await response.text()).toContain('name="handle"')
   })
 
   it('requires a fresh authorization when metadata fails during the callback', async () => {

@@ -63,12 +63,12 @@ export default {
       scopesSupported: [...ALL_SCOPES],
       resourceMetadata: {
         resource: env.MCP_RESOURCE,
-        resource_name: 'Cloudflare API MCP Server',
-        // The scopes any access needs, which the 401 names so clients request them (offline_access
-        // is dropped: it isn't a resource requirement). The consent page adds the rest, read-only by
-        // default. Becomes `requiredScopes` with workers-oauth-provider 1.2.
-        scopes_supported: [...REQUIRED_SCOPES]
+        resource_name: 'Cloudflare API MCP Server'
       },
+      // The scopes any access needs: published as the resource's scopes_supported and named in the
+      // 401, so clients request them (offline_access is dropped: it isn't a resource requirement).
+      // The consent page adds the rest, read-only by default.
+      requiredScopes: [...REQUIRED_SCOPES],
       accessTokenTTL: 3600,
       refreshTokenTTL: 2592000 // 30 days
     }

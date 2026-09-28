@@ -22,6 +22,7 @@ function refreshCallback(refreshToken = 'old-refresh-token') {
       scope: [],
       requestedScope: [],
       resource: 'https://mcp.cloudflare.com/mcp',
+      env,
       props: {
         type: 'user_token',
         accessToken: 'old-access-token',
