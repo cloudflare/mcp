@@ -89,6 +89,17 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(body.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
   })
 
+  it.each([
+    ['Code Mode', MCP_URL],
+    ['non-Code-Mode', `${MCP_URL}?codemode=false`]
+  ])('marks the %s tool list public for an hour', async (_surface, url) => {
+    const body = await parseMcpResult(
+      await exports.default.fetch(modernMcpRequest(API_TOKEN, 'tools/list', {}, { url }))
+    )
+
+    expect(body.result).toMatchObject({ ttlMs: 60 * 60 * 1000, cacheScope: 'public' })
+  })
+
   it('serves a modern Code Mode tools/call', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/tokens/verify`, () =>

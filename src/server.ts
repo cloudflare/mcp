@@ -4,9 +4,16 @@ import { registerNonCodemodeTools } from './tools/non-codemode'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { attachMetrics } from './metrics'
-import { SERVER_INFO } from './constants'
+import { ENDPOINT_TOOLS_SERVER_INFO, SERVER_INFO } from './constants'
 import { stringifyResponse, truncateResponse } from './truncate'
 import type { AuthProps } from './auth/types'
+
+/**
+ * How long a client may reuse a `tools/list` result. Tool lists change only on
+ * deploy or the daily spec refresh, and a warm isolate already serves the spec
+ * artifacts for up to an hour.
+ */
+const TOOL_LIST_TTL_MS = 60 * 60 * 1000
 
 /** Per-request options the client picks through the MCP URL query string. */
 export interface ServerOptions {
@@ -33,7 +40,12 @@ export async function createServer(
   props: AuthProps,
   { codemode = true, truncateToolResult = true }: ServerOptions = {}
 ): Promise<McpServer> {
-  const server = new McpServer(SERVER_INFO)
+  // Tool metadata is the same for every caller, and the "tool metadata is
+  // identical for every user" tests keep it that way. So clients and shared
+  // gateways may serve one caller's tool list to everyone until the TTL runs out.
+  const server = new McpServer(codemode ? SERVER_INFO : ENDPOINT_TOOLS_SERVER_INFO, {
+    cacheHints: { 'tools/list': { ttlMs: TOOL_LIST_TTL_MS, cacheScope: 'public' } }
+  })
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (!codemode) {

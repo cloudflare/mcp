@@ -115,6 +115,8 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request.
 - No MCP session ID, protocol transport state, replay store, Durable Object, or Node async-context bridge is used. The handler sets the SDK's `maxSubscriptions: 0` because this server publishes no change notifications; `subscriptions/listen` is rejected immediately instead of opening a long-lived SSE stream.
 - Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
+- On MCP `2026-07-28`, `tools/list` results carry `cacheScope: 'public'` and a one-hour `ttlMs`, so clients and shared gateways may serve one caller's tool list to every user. Tool metadata must never depend on the caller: no account IDs or names, and no branching on token shape. The "tool metadata is identical for every user" tests in `tests/non-codemode.test.ts` enforce this. ChatGPT goes further and freezes the tool list it scanned for a published app until a new version is reviewed.
+- Clients key cached tool lists by server `name@version`, so the `?codemode=false` surface reports its own name, `cloudflare-api-endpoints`. Metrics report `cloudflare-api` for both surfaces.
 
 ### Worker Loader API
 

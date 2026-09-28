@@ -5,12 +5,24 @@
 export type ServerInfo = { name: string; version: string }
 
 /**
- * Shared MCP server identity (name + version), consumed across layers: the MCP
- * server handshake (`new McpServer(SERVER_INFO)`) and the metrics tracker
- * (reported as blob1/blob2 on every datapoint, in both the request path and the
+ * Shared MCP server identity (name + version), consumed across layers: the Code
+ * Mode server handshake and the metrics tracker (reported as blob1/blob2 on
+ * every datapoint, for both tool surfaces, in both the request path and the
  * OAuth handler).
  */
 export const SERVER_INFO: ServerInfo = { name: 'cloudflare-api', version: '0.1.0' }
+
+/**
+ * MCP server identity of the `?codemode=false` surface, which lists one tool per
+ * API endpoint instead of the Code Mode tools. Clients key cached tool lists by
+ * server `name@version`, as the MCP TypeScript SDK client does, so this surface
+ * needs its own name or a shared cache could serve it the Code Mode list.
+ * Metrics keep reporting `SERVER_INFO`.
+ */
+export const ENDPOINT_TOOLS_SERVER_INFO: ServerInfo = {
+  name: 'cloudflare-api-endpoints',
+  version: SERVER_INFO.version
+}
 
 /** User-Agent header sent on all outbound requests to Cloudflare APIs. */
 export const USER_AGENT = 'cloudflare-mcp'

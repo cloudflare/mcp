@@ -1,5 +1,9 @@
 import { env, exports } from 'cloudflare:workers'
-import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client'
+import {
+  Client,
+  InMemoryResponseCacheStore,
+  StreamableHTTPClientTransport
+} from '@modelcontextprotocol/client'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
@@ -9,6 +13,25 @@ import { clearSpec, seedSpec } from './helpers/spec'
 const API_TOKEN = 'modern-client-token'
 const ACCOUNT_ID = '00000000000000000000000000000001'
 const SPEC_PATH = '/accounts/{account_id}/workers/scripts'
+
+type RecordedRequest = { method: string; rpcMethod?: string }
+
+/** A client `fetch` that sends each request to the worker as `token` and records it. */
+function workerFetchAs(token: string, requests: RecordedRequest[]) {
+  return async (input: RequestInfo | URL, init?: RequestInit) => {
+    const request = new Request(input, init)
+    const body =
+      request.method === 'POST'
+        ? ((await request.clone().json()) as { method?: string })
+        : undefined
+    const headers = new Headers(request.headers)
+    headers.set('Host', MCP_HOST)
+    headers.set('Authorization', `Bearer ${token}`)
+    const response = await exports.default.fetch(new Request(request, { headers }))
+    requests.push({ method: request.method, rpcMethod: body?.method })
+    return response
+  }
+}
 
 beforeEach(async () => {
   await seedSpec({
@@ -31,28 +54,13 @@ afterEach(async () => {
 
 describe('automatic protocol negotiation', () => {
   it('selects modern MCP, then lists and calls tools without a session', async () => {
-    const requests: Array<{ method: string; rpcMethod?: string }> = []
-    const workerFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-      const request = new Request(input, init)
-      const body =
-        request.method === 'POST'
-          ? ((await request.clone().json()) as { method?: string })
-          : undefined
-      const headers = new Headers(request.headers)
-      headers.set('Host', MCP_HOST)
-      headers.set('Authorization', `Bearer ${API_TOKEN}`)
-      const authenticated = new Request(request, { headers })
-      const response = await exports.default.fetch(authenticated)
-      requests.push({ method: request.method, rpcMethod: body?.method })
-      return response
-    }
-
+    const requests: RecordedRequest[] = []
     const client = new Client(
       { name: 'cloudflare-mcp-modern-client-test', version: '1.0.0' },
       { versionNegotiation: { mode: 'auto' } }
     )
     const transport = new StreamableHTTPClientTransport(new URL(MCP_URL), {
-      fetch: workerFetch
+      fetch: workerFetchAs(API_TOKEN, requests)
     })
 
     try {
@@ -81,6 +89,64 @@ describe('automatic protocol negotiation', () => {
       ])
     } finally {
       await client.close()
+    }
+  })
+})
+
+describe('tool list caching', () => {
+  it('shares one tool list across users without mixing the two tool surfaces', async () => {
+    // One response cache backing several principals, as a gateway would run it.
+    const store = new InMemoryResponseCacheStore()
+    const clients: Client[] = []
+
+    async function connect(user: string, url: string, requests: RecordedRequest[]) {
+      const client = new Client(
+        { name: 'cloudflare-mcp-cache-test', version: '1.0.0' },
+        { versionNegotiation: { mode: 'auto' }, responseCacheStore: store, cachePartition: user }
+      )
+      clients.push(client)
+      await client.connect(
+        new StreamableHTTPClientTransport(new URL(url), {
+          fetch: workerFetchAs(`${user}-token`, requests)
+        })
+      )
+      return client
+    }
+
+    const aliceRequests: RecordedRequest[] = []
+    const bobRequests: RecordedRequest[] = []
+    const endpointRequests: RecordedRequest[] = []
+
+    try {
+      const alice = await connect('alice', MCP_URL, aliceRequests)
+      const bob = await connect('bob', MCP_URL, bobRequests)
+      const endpoints = await connect('bob', `${MCP_URL}?codemode=false`, endpointRequests)
+
+      const codeModeTools = ['docs', 'search', 'execute']
+      expect((await alice.listTools()).tools.map((tool) => tool.name)).toEqual(codeModeTools)
+      expect((await bob.listTools()).tools.map((tool) => tool.name)).toEqual(codeModeTools)
+      expect((await endpoints.listTools()).tools.map((tool) => tool.name)).toEqual([
+        'docs',
+        'get_accounts_workers_scripts'
+      ])
+
+      // Bob reused Alice's list. The endpoint tools are a different server, so
+      // that client fetched its own.
+      expect(aliceRequests.map((request) => request.rpcMethod)).toEqual([
+        'server/discover',
+        'tools/list'
+      ])
+      expect(bobRequests.map((request) => request.rpcMethod)).toEqual(['server/discover'])
+      expect(endpointRequests.map((request) => request.rpcMethod)).toEqual([
+        'server/discover',
+        'tools/list'
+      ])
+      expect(endpoints.getServerVersion()).toEqual({
+        name: 'cloudflare-api-endpoints',
+        version: '0.1.0'
+      })
+    } finally {
+      await Promise.all(clients.map((client) => client.close()))
     }
   })
 })
