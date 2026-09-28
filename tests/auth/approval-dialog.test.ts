@@ -4,6 +4,7 @@ import { REQUIRED_SCOPES, SCOPE_DEFINITIONS, SCOPE_TEMPLATES } from '../../src/a
 import {
   isAllowedOAuthRedirectUri,
   renderApprovalDialog,
+  renderErrorPage,
   type ApprovalDialogOptions
 } from '../../src/auth/workers-oauth-utils'
 
@@ -46,6 +47,21 @@ function visibleText(html: string): string {
   }
   return text.replace(/\s+/g, ' ')
 }
+
+describe('OAuth page colour scheme', () => {
+  // Cloudflare's authorization screen, which follows the consent page, is always light.
+  it('renders the consent page in light mode regardless of the system preference', async () => {
+    const body = await render()
+    expect(body).toContain('color-scheme: light;')
+    expect(body).not.toContain('color-scheme: light dark')
+  })
+
+  it('renders the error page in light mode regardless of the system preference', async () => {
+    const body = await renderErrorPage('Server Error', 'Try again.').text()
+    expect(body).toContain('color-scheme: light;')
+    expect(body).not.toContain('color-scheme: light dark')
+  })
+})
 
 describe('OAuth approval dialog identity details', () => {
   it('posts back only the consent handle, escaped, with an Allow and a Deny', async () => {

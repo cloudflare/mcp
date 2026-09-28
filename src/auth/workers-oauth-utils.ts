@@ -163,10 +163,14 @@ const PAGE_FONT_LINKS = `<link rel="preconnect" href="https://fonts.googleapis.c
  * the page chrome shared by the consent and error pages. The brand accent is
  * Cloudflare's Aerospace Orange, the colour the marketing site and dashboard
  * use for filled brand surfaces.
+ *
+ * `color-scheme: light` selects the light side of every `light-dark()` token.
+ * Cloudflare's authorization screen, which follows the consent page, is always
+ * light, so a dark consent page would flash between the two.
  */
 const PAGE_CHROME_CSS = `
     :root {
-      color-scheme: light dark;
+      color-scheme: light;
       --kumo-canvas: light-dark(oklch(98.75% 0 0), oklch(10% 0 0));
       --kumo-elevated: light-dark(oklch(98% 0 0), oklch(12% 0 0));
       --kumo-base: light-dark(#fff, oklch(17% 0 0));
