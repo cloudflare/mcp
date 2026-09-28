@@ -9,13 +9,14 @@ import {
 
 function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
   const response = renderApprovalDialog(new Request('https://mcp.cloudflare.com/authorize'), {
-    client: {
+    consent: {
       clientId: 'opaque-client-id',
       clientName: 'Test client',
-      redirectUris: ['https://callback.example/oauth/callback'],
-      tokenEndpointAuthMethod: 'none'
+      redirectUri: 'https://callback.example/oauth/callback',
+      redirectHost: 'callback.example',
+      redirectIsLoopback: false,
+      scope: []
     },
-    redirectUri: 'https://callback.example/oauth/callback',
     server: { name: 'Cloudflare API MCP' },
     handle: 'test-consent-handle',
     headers: new Headers({ 'Set-Cookie': '__Host-oauth-consent-0123456789abcdef=test' }),
@@ -58,15 +59,15 @@ describe('OAuth approval dialog identity details', () => {
 
   it('shows the full CIMD client ID and redirect URLs without credentials', async () => {
     const body = await render({
-      client: {
+      consent: {
         clientId: 'https://identity.example/oauth/client.json?sensitive=client-query',
+        clientDomain: 'identity.example',
         clientName: 'CIMD client',
-        redirectUris: [
-          'https://user@callback.example:8443/oauth/callback?sensitive=redirect-query'
-        ],
-        tokenEndpointAuthMethod: 'none'
-      },
-      redirectUri: 'https://user@callback.example:8443/oauth/callback?sensitive=redirect-query'
+        redirectUri: 'https://user@callback.example:8443/oauth/callback?sensitive=redirect-query',
+        redirectHost: 'callback.example',
+        redirectIsLoopback: false,
+        scope: []
+      }
     })
 
     const text = visibleText(body)
@@ -80,13 +81,16 @@ describe('OAuth approval dialog identity details', () => {
     expect(body).not.toContain('user@')
   })
 
-  it('does not present an opaque or non-HTTPS client ID as a trusted identity', async () => {
+  it('does not present a registered client ID as a trusted identity', async () => {
+    // describeConsent() sets clientDomain only for a Client ID Metadata Document client.
     const body = await render({
-      client: {
+      consent: {
         clientId: 'http://untrusted.example/client.json',
         clientName: '<img src=x onerror=alert(1)>',
-        redirectUris: ['https://callback.example/oauth/callback'],
-        tokenEndpointAuthMethod: 'none'
+        redirectUri: 'https://callback.example/oauth/callback',
+        redirectHost: 'callback.example',
+        redirectIsLoopback: false,
+        scope: []
       }
     })
 
@@ -100,13 +104,15 @@ describe('OAuth approval dialog identity details', () => {
 
   it('warns when a native client redirects to a loopback listener', async () => {
     const body = await render({
-      client: {
+      consent: {
         clientId: 'https://client.example/oauth/client.json',
+        clientDomain: 'client.example',
         clientName: 'Native client',
-        redirectUris: ['http://localhost:3210/callback'],
-        tokenEndpointAuthMethod: 'none'
-      },
-      redirectUri: 'http://localhost:3210/callback'
+        redirectUri: 'http://localhost:3210/callback',
+        redirectHost: 'localhost',
+        redirectIsLoopback: true,
+        scope: []
+      }
     })
 
     const text = visibleText(body)

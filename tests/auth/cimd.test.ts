@@ -220,6 +220,27 @@ describe('Client ID Metadata Documents', () => {
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(0)
   })
 
+  it('shows the verified client ID and warns about a local redirect on the consent page', async () => {
+    const loopbackRedirect = 'http://127.0.0.1:3210/callback'
+    server.use(
+      http.get(CIMD_CLIENT_ID, () =>
+        HttpResponse.json({ ...cimdMetadata(), redirect_uris: [REDIRECT_URI, loopbackRedirect] })
+      )
+    )
+
+    const response = await exports.default.fetch(
+      new Request(authorizeUrl(CIMD_CLIENT_ID, loopbackRedirect))
+    )
+
+    expect(response.status).toBe(200)
+    const html = await response.text()
+    // describeConsent() supplies the name, the CIMD client ID and the loopback flag.
+    expect(html).toContain('CIMD Test Client')
+    expect(html).toContain('Client ID</span>')
+    expect(html).toContain('client.example.com<span class="url-dim">/<wbr>oauth/<wbr>client.json')
+    expect(html).toContain('Local redirect:')
+  })
+
   it('resolves a document that also lists a redirect URI the policy refuses', async () => {
     // A metadata document is shared by every server the client uses, so it may list a
     // desktop app's private-use callback next to its https one.

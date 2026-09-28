@@ -210,8 +210,7 @@ export function createAuthHandlers() {
       const consent = await env.OAUTH_PROVIDER.beginConsent(oauthReqInfo)
 
       return renderApprovalDialog(c.req.raw, {
-        client: await env.OAUTH_PROVIDER.lookupClient(oauthReqInfo.clientId),
-        redirectUri: oauthReqInfo.redirectUri,
+        consent: await env.OAUTH_PROVIDER.describeConsent(oauthReqInfo),
         server: {
           name: 'Cloudflare API MCP',
           logo: 'https://www.cloudflare.com/favicon.ico',

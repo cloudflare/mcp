@@ -1,6 +1,6 @@
 import {
   OAuthError as ProviderOAuthError,
-  type ClientInfo
+  type ConsentDescription
 } from '@cloudflare/workers-oauth-provider'
 
 import type { ScopeDefinition } from './derived-oauth-scopes'
@@ -63,8 +63,11 @@ export class OAuthError extends ProviderOAuthError {
  * Configuration for the approval dialog
  */
 export interface ApprovalDialogOptions {
-  client: ClientInfo | null
-  redirectUri: string
+  /**
+   * From `describeConsent()`: the client name, the verified domain of a Client ID Metadata
+   * Document client, the redirect URI and whether it is a local listener. Client-supplied.
+   */
+  consent: ConsentDescription
   server: {
     name: string
     logo?: string
@@ -137,15 +140,6 @@ export function isAllowedOAuthRedirectUri(value: string): boolean {
     const url = new URL(value)
     if (!url.hostname || url.username || url.password || url.hash) return false
     if (url.protocol === 'https:') return true
-    return url.protocol === 'http:' && isLoopbackHostname(url.hostname)
-  } catch {
-    return false
-  }
-}
-
-function isLoopbackRedirectUri(value: string): boolean {
-  try {
-    const url = new URL(value)
     return url.protocol === 'http:' && isLoopbackHostname(url.hostname)
   } catch {
     return false
@@ -326,8 +320,7 @@ function matchingTemplate(
  */
 export function renderApprovalDialog(request: Request, options: ApprovalDialogOptions): Response {
   const {
-    client,
-    redirectUri,
+    consent,
     handle,
     headers,
     scopeTemplates,
@@ -336,13 +329,17 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     initialScopes
   } = options
 
-  const clientName = client?.clientName ? sanitizeHtml(client.clientName) : 'Unknown MCP Client'
-  const redirectUrl = renderDisplayUrl(redirectUri)
+  const clientName = sanitizeHtml(consent.clientName)
+  const redirectUrl = renderDisplayUrl(consent.redirectUri)
   if (!redirectUrl) {
     throw new OAuthError('invalid_request', 'Redirect URI must include a hostname')
   }
-  const clientIdUrl = client ? renderDisplayUrl(client.clientId, { requireHttps: true }) : undefined
-  const isLocalRedirect = isLoopbackRedirectUri(redirectUri)
+  // Only a Client ID Metadata Document client's ID names a domain it controls; a registered
+  // client's ID is opaque and its name is self-asserted.
+  const clientIdUrl = consent.clientDomain
+    ? renderDisplayUrl(consent.clientId, { requireHttps: true })
+    : undefined
+  const isLocalRedirect = consent.redirectIsLoopback
   const requiredSet = new Set(requiredScopes)
 
   const templateDataJson = JSON.stringify(
