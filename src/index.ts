@@ -35,6 +35,13 @@ const oauthProvider = new OAuthProvider<Env>({
   tokenEndpoint: '/token',
   clientRegistrationEndpoint: '/register',
   clientIdMetadataDocumentEnabled: true,
+  // TODO(November 2026): remove once people have upgraded Cursor. Some Cursor versions register
+  // cursor://anysphere.cursor-mcp/oauth/callback next to their https and loopback callbacks, and
+  // workers-oauth-provider 1.2 refuses the whole registration because of it; 0.10 accepted it and
+  // Cursor signed in through the loopback callback. Our own /authorize check
+  // (isAllowedOAuthRedirectUri) still refuses a request that uses a custom scheme, and remote http
+  // stays refused at registration.
+  allowPrivateUseRedirectUris: true,
   resolveExternalToken,
   // An upstream invalid_grant thrown here revokes the grant (workers-oauth-provider 1.x).
   tokenExchangeCallback: (options) =>
