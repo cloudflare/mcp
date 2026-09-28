@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 
 import { REQUIRED_SCOPES, SCOPE_DEFINITIONS, SCOPE_TEMPLATES } from '../../src/auth/scopes'
 import {
-  isAllowedOAuthRedirectUri,
   renderApprovalDialog,
   renderErrorPage,
   type ApprovalDialogOptions
@@ -169,31 +168,5 @@ describe('OAuth approval dialog templates', () => {
 
     expect(visibleText(body)).not.toContain('This client asked for')
     expect(body).toContain('const INITIAL_TEMPLATE = "read-only";')
-  })
-})
-
-describe('OAuth redirect URI policy', () => {
-  it.each([
-    'https://client.example/callback',
-    'https://client.example:8443/callback?source=mcp',
-    'http://localhost:3210/callback',
-    'http://127.0.0.1:3210/callback',
-    'http://127.255.255.255:3210/callback',
-    'http://[::1]:3210/callback'
-  ])('allows HTTPS and local loopback callbacks: %s', (redirectUri) => {
-    expect(isAllowedOAuthRedirectUri(redirectUri)).toBe(true)
-  })
-
-  it.each([
-    'http://client.example/callback',
-    'http://localhost.example/callback',
-    'ftp://client.example/callback',
-    'com.example.app:/callback',
-    '//client.example/callback',
-    'https://user@client.example/callback',
-    'https://client.example/callback#fragment',
-    ' https://client.example/callback'
-  ])('rejects non-HTTPS remote or ambiguous callbacks: %s', (redirectUri) => {
-    expect(isAllowedOAuthRedirectUri(redirectUri)).toBe(false)
   })
 })

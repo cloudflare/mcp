@@ -16,7 +16,6 @@ import {
 } from './scopes'
 import { AuthProps as AuthPropsSchema, AUTH_PROPS_VERSION, type AuthProps } from './types'
 import {
-  isAllowedOAuthRedirectUri,
   parseRedirectApproval,
   renderApprovalDialog,
   renderErrorPage,
@@ -163,13 +162,6 @@ function cimdCallbackFailureResponse(): Response {
   ).toHtmlResponse()
 }
 
-function invalidRedirectUriResponse(): Response {
-  return new OAuthError(
-    'invalid_request',
-    'Redirect URI must use HTTPS or a local loopback address'
-  ).toHtmlResponse()
-}
-
 /**
  * Create OAuth route handlers using patterns from workers-oauth-provider
  */
@@ -184,7 +176,8 @@ export function createAuthHandlers() {
         oauthReqInfo = await env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw)
       } catch (error) {
         if (error instanceof AuthorizationError) {
-          if (!error.redirectUri || !isAllowedOAuthRedirectUri(error.redirectUri)) {
+          // workers-oauth-provider sets redirectUri only when the error may be sent there.
+          if (!error.redirectUri) {
             return new OAuthError(error.code, error.description).toHtmlResponse()
           }
           const redirect = new URL(error.redirectUri)
@@ -201,9 +194,6 @@ export function createAuthHandlers() {
           return cimdUnavailableResponse()
         }
         throw error
-      }
-      if (!isAllowedOAuthRedirectUri(oauthReqInfo.redirectUri)) {
-        return invalidRedirectUriResponse()
       }
       const defaultScopes = [...SCOPE_TEMPLATES[DEFAULT_TEMPLATE].scopes]
       const requestedScopes = oauthReqInfo.scope ?? []
@@ -275,10 +265,6 @@ export function createAuthHandlers() {
       const approved = await env.OAUTH_PROVIDER.approveConsent(c.req.raw, handle, {
         scope: scopesToRequest
       })
-      if (!isAllowedOAuthRedirectUri(approved.request.redirectUri)) {
-        return invalidRedirectUriResponse()
-      }
-
       // Create the upstream state only now, after consent, bound to this browser.
       const { codeChallenge, codeVerifier } = await generatePKCECodes()
       const upstream = await env.OAUTH_PROVIDER.beginUpstream(approved.request, {
@@ -323,12 +309,6 @@ export function createAuthHandlers() {
         data: { codeVerifier },
         headers
       } = await env.OAUTH_PROVIDER.finishUpstream<{ codeVerifier: string }>(c.req.raw)
-
-      if (!isAllowedOAuthRedirectUri(oauthReqInfo.redirectUri)) {
-        const response = invalidRedirectUriResponse()
-        for (const cookie of headers.getSetCookie()) response.headers.append('Set-Cookie', cookie)
-        return response
-      }
 
       // The user declined (or sign-in failed) at Cloudflare: tell the MCP client.
       if (c.req.query('error')) {
@@ -380,10 +360,6 @@ export function createAuthHandlers() {
           refreshToken: refresh_token
         } satisfies AuthProps
       })
-
-      if (!isAllowedOAuthRedirectUri(redirectTo)) {
-        throw new OAuthError('server_error', 'Authorization produced an unsafe redirect URI')
-      }
 
       metrics.logEvent(new AuthUser({ userId: identity.user.id }))
 

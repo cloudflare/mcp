@@ -116,36 +116,6 @@ function renderDisplayUrl(
   }
 }
 
-function isLoopbackHostname(hostname: string): boolean {
-  const normalized = hostname.toLowerCase()
-  if (normalized === 'localhost' || normalized === '::1' || normalized === '[::1]') return true
-
-  const octets = normalized.split('.')
-  return (
-    octets.length === 4 &&
-    octets[0] === '127' &&
-    octets.every((octet) => /^\d{1,3}$/.test(octet) && Number(octet) <= 255)
-  )
-}
-
-/**
- * MCP requires authorization redirects to use HTTPS, except for loopback
- * callbacks used by native clients. Reject URL features that make the
- * destination ambiguous or are forbidden for OAuth redirect endpoints.
- */
-export function isAllowedOAuthRedirectUri(value: string): boolean {
-  if (value !== value.trim()) return false
-
-  try {
-    const url = new URL(value)
-    if (!url.hostname || url.username || url.password || url.hash) return false
-    if (url.protocol === 'https:') return true
-    return url.protocol === 'http:' && isLoopbackHostname(url.hostname)
-  } catch {
-    return false
-  }
-}
-
 /**
  * Kumo's stacked Cloudflare logo with the current brand cloud colours. The
  * wordmark uses `currentColor`, so it follows the text colour in dark mode.
