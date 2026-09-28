@@ -178,6 +178,23 @@ describe('execute: no account resolved (multi-account user token)', () => {
     expect(toolText(result)).toContain('"success": true')
   })
 
+  it('binds accountId from an explicit account_id for multi-account users', async () => {
+    mockMultiAccountUser()
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
+        HttpResponse.json({ success: true, result: [] })
+      )
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      account_id: ACCOUNT_ID,
+      code: `async () => cloudflare.request({ method: "GET", path: \`/accounts/\${accountId}/workers/scripts\` })`
+    })
+
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toContain('"success": true')
+  })
+
   it('fails fast with a clear message when code reads the unset accountId', async () => {
     mockMultiAccountUser()
     const result = await callTool(API_TOKEN, 'execute', {
