@@ -52,6 +52,9 @@ export interface McpTool {
   }
 }
 
+/** Audiences that opt an operation in; `cf-cli` keeps parity with the cf CLI. */
+const MCP_AUDIENCES = new Set(['cf-cli', 'mcp'])
+
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace'] as const
 
 type Method = { group: string[]; method: Schema.method }
@@ -81,7 +84,9 @@ function mediaType(content: Record<string, unknown>): string | undefined {
 function exposed(operation: Record<string, unknown>): boolean {
   if (operation['x-fern-ignore'] === true) return false
   const audiences = operation['x-fern-audiences']
-  return audiences === undefined || audiences === null || strings(audiences).includes('mcp')
+  if (audiences === undefined || audiences === null) return true
+  // Everything the cf CLI exposes is exposed here too, plus explicit mcp opt-ins.
+  return strings(audiences).some((audience) => MCP_AUDIENCES.has(audience))
 }
 
 function buildTool(
@@ -267,7 +272,7 @@ function buildTool(
 /**
  * Generate `mcp-tools.json` from a bundled Forge API document.
  * Keeps hidden and deprecated methods; excludes x-fern-ignore and operations
- * explicitly assigned to audiences other than mcp. No network or SDK generation.
+ * whose explicit audiences include neither cf-cli nor mcp. No network or SDK generation.
  */
 export async function generateMcpTools(source: ForgeOpenApiDocument) {
   const document = structuredClone(source)

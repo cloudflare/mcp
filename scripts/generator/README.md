@@ -34,7 +34,7 @@ For endpoints with multiple body formats, `content_type` selects the body schema
 
 - `x-fern-sdk-group-name` and `x-fern-sdk-method-name` determine names. Command-tree aliases and Forge's name disambiguation are preserved. Named operations without operation IDs are included too; operations without Forge names are not invented here.
 - `x-fern-ignore: true` excludes operations, aliases, parameters and request fields. Referenced ignored fields are also excluded. Ignored/read-only fields are removed from the containing schema's required list.
-- Audience filtering follows the CLI's rule: absent/null audiences are included; an explicit `x-fern-audiences` list must include `mcp` instead of `cf-cli`.
+- Audience filtering matches the cf CLI: absent/null audiences are included; an explicit `x-fern-audiences` list must include `cf-cli` (or `mcp`). Operations tagged only `sdk` or `terraform` are excluded, as in cf.
 - Hidden products and deprecated methods remain available. Lifecycle status is recorded separately.
 - `x-forge-params` supplies `description`, `required`, `default`, `choices`, `array` and `hidden` overrides. Nested body fields use dotted API paths. `default: null` clears the schema default. CLI presentation/file flags such as `positional` and `fromFile` do not apply.
 - `x-forge-require-confirmation` appears in the description and makes the tool destructive even if its HTTP method is normally read-only. Other writes are conservatively destructive too. Hints are not authorization checks.

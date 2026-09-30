@@ -83,13 +83,15 @@ test('emits one self-contained artifact through the Forge lifecycle', async () =
   }
 })
 
-test('keeps hidden and deprecated methods; honors explicit ignores and MCP audiences', async () => {
+test('keeps hidden and deprecated methods; honors explicit ignores and cf-cli/MCP audiences', async () => {
   const paths: ForgeOpenApiDocument['paths'] = {}
   for (const [name, flags] of Object.entries({
     hidden: { 'x-forge-hidden': true },
     deprecated: { 'x-fern-availability': 'deprecated' },
     ignored: { 'x-fern-ignore': true },
     sdkOnly: { 'x-fern-audiences': ['sdk'] },
+    terraformOnly: { 'x-fern-audiences': 'terraform' },
+    cli: { 'x-fern-audiences': ['sdk', 'cf-cli'] },
     mcp: { 'x-fern-audiences': ['sdk', 'mcp'] },
     mcpString: { 'x-fern-audiences': 'mcp' }
   })) {
@@ -100,9 +102,9 @@ test('keeps hidden and deprecated methods; honors explicit ignores and MCP audie
   const artifact = await generate(document(paths))
   assert.deepEqual(
     artifact.tools.map((tool: { name: string }) => tool.name),
-    ['widgets_deprecated', 'widgets_hidden', 'widgets_mcp', 'widgets_mcpString']
+    ['widgets_cli', 'widgets_deprecated', 'widgets_hidden', 'widgets_mcp', 'widgets_mcpString']
   )
-  assert.equal(artifact.tools[0].status, 'deprecated')
+  assert.equal(artifact.tools[1].status, 'deprecated')
 })
 
 test('uses Forge aliases and normalized method names, without inventing names for ungrouped operations', async () => {
