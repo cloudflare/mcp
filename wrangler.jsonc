@@ -3,6 +3,9 @@
 	"name": "cloudflare-api-mcp-dev",
 	"account_id": "6702657b6aa048cf3081ff3ff3c9c52f",
 	"main": "src/index.ts",
+	"build": {
+		"command": "npm run build:generator"
+	},
 	"compatibility_date": "2026-01-12",
 	"compatibility_flags": [
 		"nodejs_compat",
@@ -54,8 +57,28 @@
 			"dataset": "mcp-metrics-dev"
 		}
 	],
+	"containers": [
+		{
+			"class_name": "ToolsBuilder",
+			"scheduling_policy": "durable_object"
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "TOOLS_BUILDER",
+				"class_name": "ToolsBuilder"
+			}
+		]
+	},
+	"exports": {
+		"ToolsBuilder": {
+			"type": "durable-object",
+			"storage": "sqlite"
+		}
+	},
 	"triggers": {
-		"crons": ["0 0 * * *"]
+		"crons": ["0 0 * * *", "30 0 * * *"]
 	},
 	"dev": {
 		"port": 2529
@@ -102,8 +125,22 @@
 					"dataset": "mcp-metrics-staging"
 				}
 			],
+			"containers": [
+				{
+					"class_name": "ToolsBuilder",
+					"scheduling_policy": "durable_object"
+				}
+			],
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "TOOLS_BUILDER",
+						"class_name": "ToolsBuilder"
+					}
+				]
+			},
 			"triggers": {
-				"crons": ["0 0 * * *"]
+				"crons": ["0 0 * * *", "30 0 * * *"]
 			},
 			"vars": {
 				"CLOUDFLARE_API_BASE": "https://api.staging.cloudflare.com/client/v4",
@@ -153,8 +190,22 @@
 					"dataset": "mcp-metrics-production"
 				}
 			],
+			"containers": [
+				{
+					"class_name": "ToolsBuilder",
+					"scheduling_policy": "durable_object"
+				}
+			],
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "TOOLS_BUILDER",
+						"class_name": "ToolsBuilder"
+					}
+				]
+			},
 			"triggers": {
-				"crons": ["0 0 * * *"]
+				"crons": ["0 0 * * *", "30 0 * * *"]
 			},
 			"vars": {
 				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",

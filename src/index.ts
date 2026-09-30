@@ -12,6 +12,10 @@ import {
 } from './mcp-handler'
 import { processSpec, extractProducts } from './spec-processor'
 import { buildNonCodemodeTools, type OperationInfo } from './openapi'
+import { runMcpToolsBuild } from './tools-builder'
+
+/** Cron that regenerates mcp-tools.json in the ToolsBuilder container; see wrangler.jsonc. */
+const MCP_TOOLS_CRON = '30 0 * * *'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
@@ -20,6 +24,7 @@ const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc
 // resolves the GLOBAL_OUTBOUND worker-loader entrypoint from this entry module,
 // so it must be re-exported here.
 export { GlobalOutbound } from './tools/execute'
+export { ToolsBuilder } from './tools-builder'
 
 // Built once per isolate: constructing the provider validates its whole configuration, which used to
 // run on every request. The module-scope `env` from cloudflare:workers carries the same bindings and
@@ -92,10 +97,12 @@ export default {
   },
 
   async scheduled(
-    _controller: ScheduledController,
+    controller: ScheduledController,
     env: Env,
     _ctx: ExecutionContext
   ): Promise<void> {
+    if (controller.cron === MCP_TOOLS_CRON) return runMcpToolsBuild(env.TOOLS_BUILDER)
+
     console.log('Fetching OpenAPI spec from:', env.OPENAPI_SPEC_URL)
 
     const response = await fetch(env.OPENAPI_SPEC_URL)
