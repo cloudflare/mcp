@@ -1,0 +1,23 @@
+scripts/generator/README.md
+  s_53e8ea64c3704a::t_f6c8481c71c8fd 37
+scripts/generator/mcp.test.ts
+  s_53e8ea64c3704a::t_0b9c2bc3c6853b 86,93-94,105,107
+scripts/generator/mcp.ts
+  s_53e8ea64c3704a::t_68c22a81c80b33 55-57,87-89,275
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a6d950c00ef66bb68f8ecbdfbabce3d292125f97",
+  "prompts": {},
+  "sessions": {
+    "s_53e8ea64c3704a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a0ed77-1dbf-7414-8514-8a44a1fdadd1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
