@@ -34,14 +34,18 @@ function serverOptionsFromUrl(url: string): ServerOptions {
   }
 }
 
-function createAuthenticatedHandler(props: AuthProps) {
+function createAuthenticatedHandler(props: AuthProps, env?: Env, bearer = '') {
   return createMcpHandler(
     ({ requestInfo }) => {
       if (!requestInfo) {
         throw new Error('The Cloudflare MCP server requires an HTTP request')
       }
 
-      return createServer(props, serverOptionsFromUrl(requestInfo.url))
+      return createServer(
+        props,
+        serverOptionsFromUrl(requestInfo.url),
+        env ? { env, bearer } : undefined
+      )
     },
     // This server publishes no change notifications and intentionally keeps no
     // long-lived request state. Reject subscriptions/listen before the SDK opens
@@ -100,7 +104,8 @@ export function handleMcpPreflight(request: Request): Response {
 /** Serve one authenticated MCP exchange with a fresh SDK v2 server instance. */
 export async function handleAuthenticatedMcpRequest(
   request: Request,
-  rawProps: unknown
+  rawProps: unknown,
+  env?: Env
 ): Promise<Response> {
   if (new URL(request.url).pathname !== MCP_ROUTE) {
     return new Response('Not Found', { status: 404 })
@@ -110,13 +115,17 @@ export async function handleAuthenticatedMcpRequest(
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)
-  const handler = createAuthenticatedHandler(props)
+  const handler = createAuthenticatedHandler(
+    props,
+    env,
+    request.headers.get('Authorization')?.replace(/^Bearer\s+/i, '') ?? ''
+  )
   return withCors(await handler.fetch(request), request)
 }
 
 /** ExportedHandler adapter required by workers-oauth-provider 0.8.x. */
 export const oauthMcpHandler = {
-  fetch(request: Request, _env: Env, ctx: ExecutionContext) {
-    return handleAuthenticatedMcpRequest(request, ctx.props)
+  fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    return handleAuthenticatedMcpRequest(request, ctx.props, env)
   }
 }
