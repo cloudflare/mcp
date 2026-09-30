@@ -35,7 +35,11 @@ For endpoints with multiple body formats, `content_type` selects the body schema
 - `x-fern-sdk-group-name` and `x-fern-sdk-method-name` determine names. Command-tree aliases and Forge's name disambiguation are preserved. Named operations without operation IDs are included too; operations without Forge names are not invented here.
 - `x-fern-ignore: true` excludes operations, aliases, parameters and request fields. Referenced ignored fields are also excluded. Ignored/read-only fields are removed from the containing schema's required list.
 - Audience filtering matches the cf CLI: absent/null audiences are included; an explicit `x-fern-audiences` list must include `cf-cli` (or `mcp`). Operations tagged only `sdk` or `terraform` are excluded, as in cf.
-- Hidden products and deprecated methods remain available. Lifecycle status is recorded separately.
+- The tool set matches the cf CLI's generated commands, and tool names are cf command paths joined with `_`:
+  - deprecated methods are dropped
+  - hidden methods are kept (cf registers them without listing them in help), except hidden operations with no 2xx/101 response
+  - a group named like a sibling method is dropped, because the method wins
+  - other lifecycle statuses (e.g. `beta`) are recorded in `status`
 - `x-forge-params` supplies `description`, `required`, `default`, `choices`, `array` and `hidden` overrides. Nested body fields use dotted API paths. `default: null` clears the schema default. CLI presentation/file flags such as `positional` and `fromFile` do not apply.
 - `x-forge-require-confirmation` appears in the description and makes the tool destructive even if its HTTP method is normally read-only. Other writes are conservatively destructive too. Hints are not authorization checks.
 - `x-api-token-group` and `x-cfPermissionsRequired` are copied into `permissions` without interpreting or enforcing them.

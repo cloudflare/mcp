@@ -83,10 +83,11 @@ test('emits one self-contained artifact through the Forge lifecycle', async () =
   }
 })
 
-test('keeps hidden and deprecated methods; honors explicit ignores and cf-cli/MCP audiences', async () => {
+test('matches cf: keeps hidden methods, drops deprecated, ignored and non-cf-cli/MCP audiences', async () => {
   const paths: ForgeOpenApiDocument['paths'] = {}
   for (const [name, flags] of Object.entries({
     hidden: { 'x-forge-hidden': true },
+    hiddenNoSuccess: { 'x-forge-hidden': true, responses: { '4XX': { description: 'Error' } } },
     deprecated: { 'x-fern-availability': 'deprecated' },
     ignored: { 'x-fern-ignore': true },
     sdkOnly: { 'x-fern-audiences': ['sdk'] },
@@ -102,9 +103,8 @@ test('keeps hidden and deprecated methods; honors explicit ignores and cf-cli/MC
   const artifact = await generate(document(paths))
   assert.deepEqual(
     artifact.tools.map((tool: { name: string }) => tool.name),
-    ['widgets_cli', 'widgets_deprecated', 'widgets_hidden', 'widgets_mcp', 'widgets_mcpString']
+    ['widgets_cli', 'widgets_hidden', 'widgets_mcp', 'widgets_mcpString']
   )
-  assert.equal(artifact.tools[1].status, 'deprecated')
 })
 
 test('uses Forge aliases and normalized method names, without inventing names for ungrouped operations', async () => {
@@ -330,4 +330,30 @@ test('preserves cookie parameter routing', async () => {
   assert.deepEqual(tool.request.cookieParams, [
     { name: 'session', key: 'session', style: 'form', explode: true, allowReserved: false }
   ])
+})
+
+test('drops a group named like a sibling method, as the cf CLI does', async () => {
+  const artifact = await generate(
+    document({
+      '/quota': { get: operation({ operationId: 'quota', 'x-fern-sdk-method-name': 'quota' }) },
+      '/quota/v2': {
+        get: operation({
+          operationId: 'quota-v2',
+          'x-fern-sdk-group-name': ['widgets', 'quota'],
+          'x-fern-sdk-method-name': 'get'
+        })
+      },
+      '/other': {
+        get: operation({
+          operationId: 'other',
+          'x-fern-sdk-group-name': ['widgets', 'other'],
+          'x-fern-sdk-method-name': 'get'
+        })
+      }
+    })
+  )
+  assert.deepEqual(
+    artifact.tools.map((tool: { name: string }) => tool.name),
+    ['widgets_other_get', 'widgets_quota']
+  )
 })

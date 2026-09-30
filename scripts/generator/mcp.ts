@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import {
-  collectAllMethodsWithGroup,
   initFromOpenApi,
+  isMethodGroup,
   type ForgeOpenApiDocument,
   type Schema
 } from '@cloudflare/forge'
@@ -81,8 +81,39 @@ function mediaType(content: Record<string, unknown>): string | undefined {
   )
 }
 
+// cf ignores hidden operations that document no success response (cf generate.ts).
+/**
+ * Walk Forge's command tree the way the cf CLI generator does: deprecated
+ * methods are skipped, and a group named like a sibling method is dropped,
+ * because a CLI command cannot be both a leaf and a group.
+ */
+function* commandTree(
+  items: Array<Schema.method | Schema.methodGroup>,
+  group: string[]
+): Generator<Method> {
+  const leaves = new Set(
+    items
+      .filter((item) => !isMethodGroup(item) && item.status !== 'deprecated')
+      .map((item) => item.name)
+  )
+  for (const item of items) {
+    if (!isMethodGroup(item)) {
+      if (item.status !== 'deprecated') yield { group, method: item }
+    } else if (!leaves.has(item.name)) {
+      yield* commandTree(item.methods, [...group, item.name])
+    }
+  }
+}
+
+function hiddenWithoutSuccess(operation: Record<string, unknown>): boolean {
+  if (operation['x-forge-hidden'] !== true) return false
+  return !Object.keys(record(operation.responses)).some(
+    (code) => code === '101' || code === '2XX' || /^2\d{2}$/.test(code)
+  )
+}
+
 function exposed(operation: Record<string, unknown>): boolean {
-  if (operation['x-fern-ignore'] === true) return false
+  if (operation['x-fern-ignore'] === true || hiddenWithoutSuccess(operation)) return false
   const audiences = operation['x-fern-audiences']
   if (audiences === undefined || audiences === null) return true
   // Everything the cf CLI exposes is exposed here too, plus explicit mcp opt-ins.
@@ -271,7 +302,8 @@ function buildTool(
 
 /**
  * Generate `mcp-tools.json` from a bundled Forge API document.
- * Keeps hidden and deprecated methods; excludes x-fern-ignore and operations
+ * Matches the cf CLI's operation set: keeps hidden methods; excludes deprecated
+ * methods, hidden operations without a success response, x-fern-ignore, and operations
  * whose explicit audiences include neither cf-cli nor mcp. No network or SDK generation.
  */
 export async function generateMcpTools(source: ForgeOpenApiDocument) {
@@ -292,11 +324,10 @@ export async function generateMcpTools(source: ForgeOpenApiDocument) {
   const forge = initFromOpenApi(document)
   const methods = new Map<string, Method[]>()
   for (const [command, schema] of forge.commands) {
-    for (const { method, groupPath } of collectAllMethodsWithGroup(schema.methods)) {
-      const entry = { group: [command, ...(groupPath?.split('.') ?? [])], method }
-      const variants = methods.get(method.operationId) ?? []
+    for (const entry of commandTree(schema.methods, [command])) {
+      const variants = methods.get(entry.method.operationId) ?? []
       variants.push(entry)
-      methods.set(method.operationId, variants)
+      methods.set(entry.method.operationId, variants)
     }
   }
   const candidates: Candidate[] = []
@@ -330,6 +361,9 @@ export async function generateMcpTools(source: ForgeOpenApiDocument) {
             ]
           : [])
       for (const { group, method } of entries) {
+        // cf skips deprecated methods; hidden ones stay, as cf registers them too.
+        if ((text(method.status) ?? text(operation['x-fern-availability'])) === 'deprecated')
+          continue
         const tool = buildTool(document, path, verb, pathItem, operation, group, record(method))
         const identity = JSON.stringify([verb, path, group, method.name])
         candidates.push({ tool, identity })

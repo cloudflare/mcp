@@ -151,6 +151,7 @@ The consent page offers read-only and full-access templates built from the produ
 - Each run starts a fresh container with `enableInternet: false` on `standard-1`. It writes the bundle to `/tmp/generate.mjs` with one `exec()`, then streams the buffered Forge document into `node /tmp/generate.mjs` on stdin. `mcp-tools.json` comes back on stdout, and the container is destroyed afterwards. The container has no network, bindings or credentials.
 - The Durable Object finds the newest `openapi@<sha>` release of public `cloudflare/forge`. It validates the artifact's shape with Zod before writing it to `SPEC_BUCKET`, with the Forge release tag in custom metadata.
 - Any failure leaves the previous artifact in place and fails that cron invocation. The spec cron is independent.
+- The tool set and names match the cf CLI's generated commands. Audiences must be absent or include `cf-cli`/`mcp`. Deprecated methods, `x-fern-ignore`, hidden operations without a success response, and groups shadowed by a same-named method are excluded. See `scripts/generator/README.md`.
 - Serving does not read `mcp-tools.json` yet.
 - Forge is a build-time dependency vendored as `vendor/cloudflare-forge-0.1.0.tgz` (TypeScript source, as in `cf`). Generator tests run with `node --test` (`npm run test:generator`), outside the workers pool. The workers pool can't run containers, so `buildMcpTools` takes a `ToolsGenerator` port and its tests use a fake one.
 
