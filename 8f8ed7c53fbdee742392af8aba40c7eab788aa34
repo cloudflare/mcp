@@ -1,0 +1,21 @@
+src/tools/execute.ts
+  s_4f65335ba8955f::t_ea5a35f609e046 206-207
+tests/non-codemode.test.ts
+  s_4f65335ba8955f::t_7a377fe3104563 55-58,124-126,142-147,150-155,254-256,266-273,281-283,312-314,354-357,491-493,496-499,570-575,644-647,720-722,761-766,992-994,1039-1042,1094-1161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8f8ed7c53fbdee742392af8aba40c7eab788aa34",
+  "prompts": {},
+  "sessions": {
+    "s_4f65335ba8955f": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a0428c-86e7-7e26-bc73-8a8b9b5c6d7f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Jordan Coeyman <jcoeyman@cloudflare.com>"
+    }
+  }
+}

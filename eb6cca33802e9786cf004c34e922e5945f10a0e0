@@ -1,0 +1,19 @@
+tests/auth/cimd.test.ts
+  s_dc4fa941113de4::t_4d4b9f212bc31e 1-282
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "eb6cca33802e9786cf004c34e922e5945f10a0e0",
+  "prompts": {},
+  "sessions": {
+    "s_dc4fa941113de4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fce49-e8e4-73f1-8cc9-3c8dbda8bd36",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}

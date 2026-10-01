@@ -1,0 +1,37 @@
+chatgpt-app-submission.json
+  s_4f3d73861137de::t_94ac0ae062bd32 1-116
+src/tools/docs-search.ts
+  s_4f3d73861137de::t_6fd1818c5c0738 92-97,136-138
+src/tools/execute.ts
+  s_0a87e8fcc24611::t_b6113bbd2d6448 247,312-317,340-345
+src/tools/search.ts
+  s_4f3d73861137de::t_9c718d829ffaed 116-118
+tests/helpers/mcp.ts
+  s_4f3d73861137de::t_efb94034ff1b1b 18-23
+tests/non-codemode.test.ts
+  s_4f3d73861137de::t_88b935cf552606 68-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6786a538a7ef5759bdb1ac54f47bfa2cab5e9838",
+  "prompts": {},
+  "sessions": {
+    "s_0a87e8fcc24611": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a038fe-d370-7a9e-b05c-ce3bd6601a10",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jordan Coeyman <jcoeyman@cloudflare.com>"
+    },
+    "s_4f3d73861137de": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019febf7-4b34-7b21-970a-5f277fcc20a8",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Jordan Coeyman <jcoeyman@cloudflare.com>"
+    }
+  }
+}

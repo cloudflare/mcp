@@ -1,0 +1,25 @@
+AGENTS.md
+  s_640385e91ec7fc::t_acb03be02113aa 169
+src/auth/workers-oauth-utils.ts
+  s_640385e91ec7fc::t_2426c9f35174e9 106-119,121-130,132,142,147-150,152-180,435-438,591-592,649-650,779-781,829-832,860-861,873-874,876-880
+tests/auth/approval-dialog.test.ts
+  s_640385e91ec7fc::t_99f063ed2f1c8e 35-36,38-39,41-42,50-51,200-210,212-214,217-226
+tests/auth/oauth-routes.test.ts
+  s_640385e91ec7fc::t_b5c5673e90c63c 256-257,262
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d62eaa26d2c95824c40dd0cf85ce43140b07cada",
+  "prompts": {},
+  "sessions": {
+    "s_640385e91ec7fc": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a0e9ef-9095-770c-83fe-812f3f994eca",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}

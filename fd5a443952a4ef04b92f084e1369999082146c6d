@@ -1,0 +1,21 @@
+package-lock.json
+  s_00f89f7f682bec::t_ff22bbd3ee3524 11,170-172
+package.json
+  s_00f89f7f682bec::t_6ac587ca3548af 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "fd5a443952a4ef04b92f084e1369999082146c6d",
+  "prompts": {},
+  "sessions": {
+    "s_00f89f7f682bec": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "30790c37-106d-43ac-8d7d-355007a8d1bc",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
