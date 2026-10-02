@@ -363,9 +363,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-123'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [{ id: 'my-worker' }] })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: [{ id: 'my-worker' }] }))
 
     try {
       const result = await callTool(server, 'get_accounts_workers_scripts', {
@@ -383,7 +381,7 @@ describe('createServer with codemode=false', () => {
       expect(result.isError).toBeFalsy()
       expect(result.content[0].text).toContain('my-worker')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -444,16 +442,14 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: [] }))
 
     try {
       await callTool(server, 'get_accounts_workers_scripts', { page: '2' })
       const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
       expect(calledUrl).toContain('page=2')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -473,9 +469,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: [] }))
 
     try {
       // Only pass page, not per_page
@@ -484,7 +478,7 @@ describe('createServer with codemode=false', () => {
       expect(calledUrl).toContain('page=3')
       expect(calledUrl).not.toContain('per_page')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -503,9 +497,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: { id: 'new-db' } })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: { id: 'new-db' } }))
 
     try {
       const body = JSON.stringify({ name: 'my-database' })
@@ -516,7 +508,7 @@ describe('createServer with codemode=false', () => {
       expect(calledOpts.body).toBe(body)
       expect(calledOpts.headers['Content-Type']).toBe('application/json')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -538,9 +530,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: {} }))
 
     try {
       const scriptBody = 'export default { async fetch() { return new Response("hi"); } }'
@@ -554,7 +544,7 @@ describe('createServer with codemode=false', () => {
       expect(calledOpts.headers['Content-Type']).toBe('application/javascript')
       expect(calledOpts.body).toBe(scriptBody)
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -573,16 +563,14 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: {} }))
 
     try {
       await callTool(server, 'post_accounts_d1_database', { body: '{"name":"test"}' })
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.headers['Content-Type']).toBe('application/json')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -595,9 +583,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: [] }))
 
     try {
       await callTool(server, 'get_accounts_workers_scripts', {})
@@ -605,7 +591,7 @@ describe('createServer with codemode=false', () => {
       expect(calledOpts.headers['Content-Type']).toBeUndefined()
       expect(calledOpts.body).toBeUndefined()
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -626,9 +612,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: {} }))
 
     try {
       await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
@@ -641,7 +625,7 @@ describe('createServer with codemode=false', () => {
       expect(calledOpts.headers['If-Match']).toBe('"etag-123"')
       expect(calledOpts.headers['Authorization']).toBe('Bearer test-token')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -661,9 +645,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: {} }))
 
     try {
       await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
@@ -672,7 +654,7 @@ describe('createServer with codemode=false', () => {
       const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
       expect(calledOpts.headers['If-Match']).toBeUndefined()
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -685,9 +667,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchText('raw-kv-value-here')
+    vi.stubGlobal('fetch', mockFetchText('raw-kv-value-here'))
 
     try {
       const result = await callTool(
@@ -698,7 +678,7 @@ describe('createServer with codemode=false', () => {
       expect(result.isError).toBeFalsy()
       expect(result.content[0].text).toContain('raw-kv-value-here')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -711,11 +691,9 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson(
-      { success: false, errors: [{ code: 10000, message: 'Auth error' }] },
-      false
+    vi.stubGlobal(
+      'fetch',
+      mockFetchJson({ success: false, errors: [{ code: 10000, message: 'Auth error' }] }, false)
     )
 
     try {
@@ -723,7 +701,7 @@ describe('createServer with codemode=false', () => {
       expect(result.isError).toBe(true)
       expect(result.content[0].text).toContain('Auth error')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -736,16 +714,14 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network failure'))
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('Network failure')))
 
     try {
       const result = await callTool(server, 'get_accounts_workers_scripts', {})
       expect(result.isError).toBe(true)
       expect(result.content[0].text).toContain('Network failure')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -758,9 +734,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: {} }))
 
     try {
       await callTool(server, 'get_accounts_workers_scripts_by_script_name', {
@@ -770,7 +744,7 @@ describe('createServer with codemode=false', () => {
       expect(calledUrl).toContain('my%20worker%2Fv2')
       expect(calledUrl).not.toContain('my worker/v2')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -832,16 +806,14 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(bareUserProps, { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: { id: 'u1', email: 'a@b.com' } })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: { id: 'u1', email: 'a@b.com' } }))
 
     try {
       const result = await callTool(server, 'get_user', {})
       expect(result.isError).toBeFalsy()
       expect(result.content[0].text).toContain('a@b.com')
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 
@@ -862,9 +834,7 @@ describe('createServer with codemode=false', () => {
 
     await seedSpec(specPaths)
     const server = await createServer(bareUserProps, { codemode: false })
-
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    vi.stubGlobal('fetch', mockFetchJson({ success: true, result: {} }))
 
     try {
       const body = JSON.stringify({ content: '1.2.3.4' })
@@ -882,7 +852,7 @@ describe('createServer with codemode=false', () => {
       expect(calledOpts.method).toBe('PATCH')
       expect(calledOpts.body).toBe(body)
     } finally {
-      globalThis.fetch = originalFetch
+      vi.unstubAllGlobals()
     }
   })
 })

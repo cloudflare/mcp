@@ -23,6 +23,7 @@ cloudflare-mcp/
 │   ├── server.ts                  # MCP server setup & tool registration
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
+│   ├── tools-builder.ts           # ToolsBuilder Durable Object: runs the generator container, stores mcp-tools.json
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
 │   ├── auth/
@@ -44,7 +45,8 @@ cloudflare-mcp/
 │   └── e2e/                       # End-to-end tests (real worker via exports.default.fetch)
 │       └── tool-call.test.ts
 ├── scripts/
-│   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
+│   ├── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
+│   └── generator/                 # Forge-based mcp-tools.json generator, bundled for ToolsBuilder (node:test)
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
 │   └── bonk.yml                   # AI code review
@@ -142,6 +144,17 @@ The consent page offers read-only and full-access templates built from the produ
 - The non-Code-Mode artifact contains protocol-ready JSON Schemas plus minimal request-routing metadata. Low-level MCP handlers serve `tools/list` directly and lazily validate/dispatch only the requested `tools/call` operation with Zod; no per-endpoint SDK tools are registered
 - `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
 
+### Forge tool artifact (ToolsBuilder container)
+
+- A second cron (`30 0 * * *`) calls the `ToolsBuilder` Durable Object (`src/tools-builder.ts`). It uses the native `ctx.container` API with the `durable_object` scheduling policy and the Cloudflare-managed `cloudflare/debian-trixie` image (Node.js 24). There is no Dockerfile, no image build, and no `@cloudflare/containers` wrapper.
+- `npm run build:generator` bundles `scripts/generator/cli.ts` with esbuild into `generated/tools-generator.mjs.txt` (gitignored). The Worker imports it as a text module. Wrangler's `build.command` runs it before `dev` and `deploy`, and `test`/`typecheck` run it first.
+- Each run starts a fresh container with `enableInternet: false` on `standard-1`. It writes the bundle to `/tmp/generate.mjs` with one `exec()`, then streams the buffered Forge document into `node /tmp/generate.mjs` on stdin. `mcp-tools.json` comes back on stdout, and the container is destroyed afterwards. The container has no network, bindings or credentials.
+- The Durable Object finds the newest `openapi@<sha>` release of public `cloudflare/forge`. It validates the artifact's shape with Zod before writing it to `SPEC_BUCKET`, with the Forge release tag in custom metadata.
+- Any failure leaves the previous artifact in place and fails that cron invocation. The spec cron is independent.
+- The tool set and names match the cf CLI's generated commands. Audiences must be absent or include `cf-cli`/`mcp`. Deprecated methods, `x-fern-ignore`, hidden operations without a success response, and groups shadowed by a same-named method are excluded. See `scripts/generator/README.md`.
+- Serving does not read `mcp-tools.json` yet.
+- Forge is a build-time dependency vendored as `vendor/cloudflare-forge-0.1.0.tgz` (TypeScript source, as in `cf`). Generator tests run with `node --test` (`npm run test:generator`), outside the workers pool. The workers pool can't run containers, so `buildMcpTools` takes a `ToolsGenerator` port and its tests use a fake one.
+
 ### Response truncation
 
 Responses capped at ~6,000 tokens (~24KB). `src/truncate.ts` shrinks oversized JSON structurally so it stays valid JSON: arrays keep whole items from the start and end with a `--- TRUNCATED --- N more items` element, long strings are clipped, and objects drop their largest values first, naming them in a `--- TRUNCATED ---` entry. Plain text is cut at the cap and followed by a notice with the original size.
@@ -195,7 +208,8 @@ auth-guard `/user`+`/accounts` probes and the GlobalOutbound-forwarded API call.
 Everything else — auth, MCP transport, tool dispatch, Worker Loader — is the real
 code path.
 
-The test stack is **vitest 4 + `@cloudflare/vitest-pool-workers` 0.16** using the
+The test stack is **vitest 4 + `@cloudflare/vitest-pool-workers` 0.22** (its bundled wrangler is overridden to the
+project's, which understands the `durable_object` container policy) using the
 `cloudflareTest()` Vite plugin (required for MSW's `msw/node` to load under
 workerd). Note: storage isolation is per test **file** (not per test), so tests
 sharing real bindings (e.g. `OAUTH_KV`) must clear state in `afterEach`.
