@@ -64,20 +64,90 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(body.result).not.toHaveProperty('serverInfo')
   })
 
-  it('rejects subscriptions instead of opening a long-lived stream', async () => {
+  it.each([
+    ['Code Mode', MCP_URL],
+    ['non-Code-Mode', `${MCP_URL}?codemode=false`]
+  ])('advertises no tool list change notifications in %s', async (_mode, url) => {
     const response = await exports.default.fetch(
-      modernMcpRequest(API_TOKEN, 'subscriptions/listen', {
-        notifications: { toolsListChanged: true }
-      })
+      modernMcpRequest(API_TOKEN, 'server/discover', {}, { url })
     )
-    const body = await parseMcpResult(response)
+    const body = (await parseMcpResult(response)) as {
+      result?: { capabilities?: { tools?: { listChanged?: boolean } } }
+    }
 
     expect(response.status).toBe(200)
-    expect(response.headers.get('content-type')).toContain('application/json')
-    expect(response.headers.get('content-type')).not.toContain('text/event-stream')
-    expect(body).toMatchObject({
-      error: { code: -32603, message: 'Subscription limit reached' }
+    expect(body.result?.capabilities?.tools).toBeDefined()
+    expect(body.result?.capabilities?.tools?.listChanged).not.toBe(true)
+  })
+
+  it('advertises no tool list change notifications to 2025 clients', async () => {
+    const response = await exports.default.fetch(
+      new Request(MCP_URL, {
+        method: 'POST',
+        headers: {
+          Host: MCP_HOST,
+          Authorization: `Bearer ${API_TOKEN}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json, text/event-stream'
+        },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          id: 1,
+          method: 'initialize',
+          params: {
+            protocolVersion: '2025-06-18',
+            capabilities: {},
+            clientInfo: { name: 'cloudflare-mcp-tests', version: '1.0.0' }
+          }
+        })
+      })
+    )
+    const body = (await parseMcpResult(response)) as {
+      result?: { capabilities?: { tools?: { listChanged?: boolean } } }
+    }
+
+    expect(response.status).toBe(200)
+    expect(body.result?.capabilities?.tools).toBeDefined()
+    expect(body.result?.capabilities?.tools?.listChanged).not.toBe(true)
+  })
+
+  it('acknowledges an empty subscription and ends it gracefully', async () => {
+    const response = await exports.default.fetch(
+      modernMcpRequest(
+        API_TOKEN,
+        'subscriptions/listen',
+        { notifications: { toolsListChanged: true } },
+        { id: 7 }
+      )
+    )
+
+    expect(response.status).toBe(200)
+    expect(response.headers.get('content-type')).toContain('text/event-stream')
+
+    // The stream must end on its own; an open stream would hang this read.
+    const frames = (await response.text())
+      .split('\n')
+      .filter((line) => line.startsWith('data:'))
+      .map((line) => JSON.parse(line.slice('data:'.length).trim()))
+
+    expect(frames).toHaveLength(2)
+    expect(frames[0]).toEqual({
+      jsonrpc: '2.0',
+      method: 'notifications/subscriptions/acknowledged',
+      params: {
+        notifications: {},
+        _meta: { 'io.modelcontextprotocol/subscriptionId': 7 }
+      }
     })
+    expect(frames[1]).toMatchObject({
+      jsonrpc: '2.0',
+      id: 7,
+      result: {
+        resultType: 'complete',
+        _meta: { 'io.modelcontextprotocol/subscriptionId': 7 }
+      }
+    })
+    expect(frames[1]).not.toHaveProperty('error')
   })
 
   it('serves modern tools/list with a complete result', async () => {

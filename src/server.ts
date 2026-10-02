@@ -34,6 +34,10 @@ export async function createServer(
   { codemode = true, truncateToolResult = true }: ServerOptions = {}
 ): Promise<McpServer> {
   const server = new McpServer(SERVER_INFO)
+  // The tool set is fixed for the life of each per-request server, so this
+  // server never sends notifications/tools/list_changed. Declare that before
+  // registerTool can default the capability to true.
+  server.server.registerCapabilities({ tools: { listChanged: false } })
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (!codemode) {

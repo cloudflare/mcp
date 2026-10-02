@@ -35,20 +35,16 @@ function serverOptionsFromUrl(url: string): ServerOptions {
 }
 
 function createAuthenticatedHandler(props: AuthProps) {
-  return createMcpHandler(
-    ({ requestInfo }) => {
-      if (!requestInfo) {
-        throw new Error('The Cloudflare MCP server requires an HTTP request')
-      }
+  return createMcpHandler(({ requestInfo }) => {
+    if (!requestInfo) {
+      throw new Error('The Cloudflare MCP server requires an HTTP request')
+    }
 
-      return createServer(props, serverOptionsFromUrl(requestInfo.url))
-    },
-    // This server publishes no change notifications and intentionally keeps no
-    // long-lived request state. Reject subscriptions/listen before the SDK opens
-    // an SSE stream and pins an isolate.
-    { maxSubscriptions: 0 }
-  )
+    return createServer(props, serverOptionsFromUrl(requestInfo.url))
+  })
 }
+
+const SUBSCRIPTIONS_LISTEN = 'subscriptions/listen'
 
 // Handler options are intentionally omitted. The SDK defaults to:
 // - stateless 2025 compatibility, with a fresh server and no protocol session
@@ -111,7 +107,21 @@ export async function handleAuthenticatedMcpRequest(
 
   const props = AuthPropsSchema.parse(rawProps)
   const handler = createAuthenticatedHandler(props)
-  return withCors(await handler.fetch(request), request)
+  const response = await handler.fetch(request)
+
+  // This server publishes no change notifications and keeps no long-lived
+  // request state. The SDK only serves subscriptions/listen after checking that
+  // the Mcp-Method header matches the body. It acknowledges the subscription
+  // with every unsupported notification type left out. Closing this
+  // per-request handler then ends the subscription gracefully, as the spec
+  // describes: it writes a `complete` result and closes the stream, so no
+  // isolate stays pinned. Clients get an empty subscription instead of an
+  // error.
+  if (request.headers.get('Mcp-Method') === SUBSCRIPTIONS_LISTEN) {
+    await handler.close()
+  }
+
+  return withCors(response, request)
 }
 
 /** ExportedHandler adapter required by workers-oauth-provider 0.8.x. */

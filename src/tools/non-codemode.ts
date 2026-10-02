@@ -31,8 +31,6 @@ export async function registerNonCodemodeTools(
   const tools = await getNonCodemodeTools()
   const toolsByName = await getNonCodemodeToolMap()
 
-  server.server.registerCapabilities({ tools: { listChanged: false } })
-
   server.server.setRequestHandler('tools/list', () => ({
     tools: [DOCS_TOOL, ...tools.map((tool) => toWireTool(toolForAccountAccess(tool)))]
   }))
