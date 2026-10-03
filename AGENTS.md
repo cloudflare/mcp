@@ -166,6 +166,7 @@ Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the sh
 - OAuth uses PKCE (RFC 7636) for secure authorization
 - Cookie encryption for OAuth sessions (`MCP_COOKIE_ENCRYPTION_KEY`)
 - The `/mcp` route validates Host and present browser Origin headers against deployment-static allowlists before authentication
+- The consent and error pages send a nonce-based Content-Security-Policy: inline `<script>` and `<style>` need the response's nonce, and inline event handlers, `javascript:` URLs and `style` attributes are blocked. Both pages render through `renderPage()` in `src/auth/workers-oauth-utils.ts`, which generates the nonce, adds it to the page's only `<style>` and `<script>`, and sets the policy, so add inline code there rather than in a page template. The consent page deliberately has no `form-action`: Chrome applies it to the redirects after Continue (to Cloudflare) and Cancel (to the client), the client chooses its redirect origin, and CSP can't name an IPv6 loopback address. The error page has no form and sends `form-action 'none'`
 
 ## Testing
 
