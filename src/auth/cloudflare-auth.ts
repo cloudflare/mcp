@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { USER_AGENT } from '../constants'
 import { OAuthError } from './workers-oauth-utils'
 
 /** The RFC 6749 §5.2 `error` code from a token-endpoint error body, JSON or form-encoded. */
@@ -144,7 +145,8 @@ export async function getAuthToken(params: {
     method: 'POST',
     headers: {
       Authorization: `Basic ${btoa(`${params.client_id}:${params.client_secret}`)}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': USER_AGENT
     },
     body: body.toString()
   })
@@ -177,7 +179,8 @@ export async function refreshAuthToken(params: {
     method: 'POST',
     headers: {
       Authorization: `Basic ${btoa(`${params.client_id}:${params.client_secret}`)}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'User-Agent': USER_AGENT
     },
     body: body.toString()
   })

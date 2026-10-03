@@ -120,10 +120,12 @@ describe('getAuthToken', () => {
   it('exchanges an authorization code and parses the token response', async () => {
     let form: FormData | undefined
     let authHeader: string | null = null
+    let userAgent: string | null = null
     server.use(
       http.post(OAUTH_TOKEN_URL, async ({ request }) => {
         form = await request.formData()
         authHeader = request.headers.get('Authorization')
+        userAgent = request.headers.get('User-Agent')
         return HttpResponse.json(validToken)
       })
     )
@@ -135,6 +137,7 @@ describe('getAuthToken', () => {
     expect(form?.get('code')).toBe('auth-code')
     expect(form?.get('code_verifier')).toBe('verifier')
     expect(authHeader).toBe(`Basic ${btoa('client-id:client-secret')}`)
+    expect(userAgent).toBe('cloudflare-mcp')
   })
 
   it.each([
@@ -204,6 +207,19 @@ describe('getAuthToken', () => {
 })
 
 describe('refreshAuthToken', () => {
+  it('sends the cloudflare-mcp User-Agent', async () => {
+    let userAgent: string | null = null
+    server.use(
+      http.post(OAUTH_TOKEN_URL, ({ request }) => {
+        userAgent = request.headers.get('User-Agent')
+        return HttpResponse.json(validToken)
+      })
+    )
+
+    await expect(refreshAuthToken(refreshParams)).resolves.toEqual(validToken)
+    expect(userAgent).toBe('cloudflare-mcp')
+  })
+
   it('preserves Retry-After from upstream OAuth 429 responses', async () => {
     const error = await expectRefreshOAuthError(
       new Response('rate limited', { status: 429, headers: { 'Retry-After': '42' } })
