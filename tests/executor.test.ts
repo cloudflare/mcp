@@ -123,6 +123,83 @@ describe('execute: REST responses', () => {
     })
     expect(text).toContain('raw-value')
   })
+
+  it.each(['GET', 'POST'])('returns default SQL JSON through %s', async (method) => {
+    const body = {
+      meta: [{ name: 'value', type: 'UInt64' }],
+      data: [{ value: '1' }],
+      rows: 1,
+      statistics: { elapsed: 0.01, rows_read: 1, bytes_read: 8 }
+    }
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(http.all(`${API_BASE}/analytics/sql`, () => HttpResponse.json(body)))
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({
+        method: ${JSON.stringify(method)}, path: "/analytics/sql",
+        ${method === 'POST' ? 'body' : 'query'}: { query: "SELECT 1 AS value" }
+      })`
+    })
+    expect(result.result?.isError).toBeFalsy()
+    expect(JSON.parse(toolText(result))).toEqual({ success: true, status: 200, result: body })
+  })
+
+  it.each([
+    { name: 'array', body: [{ id: 'one' }] },
+    { name: 'null', body: null },
+    { name: 'boolean', body: false },
+    { name: 'number', body: 42 },
+    { name: 'string', body: 'value' },
+    { name: 'empty object', body: {} },
+    { name: 'domain fields', body: { success: 0, status: 'ready', result: [1], errors: [] } }
+  ])('preserves a direct JSON $name as result', async ({ body }) => {
+    const text = await runExecute('/direct-json', JSON.stringify(body), {
+      headers: { 'Content-Type': 'application/json' }
+    })
+    expect(JSON.parse(text)).toEqual({ success: true, status: 200, result: body })
+  })
+
+  it.each(['application/scim+json', 'Application/SCIM+JSON; charset=utf-8'])(
+    'keeps %s results structured',
+    async (contentType) => {
+      const body = { Resources: [{ id: 'g1', displayName: 'Admins' }], totalResults: 1 }
+      const text = await runExecute('/scim/Groups', body, {
+        headers: { 'Content-Type': contentType }
+      })
+      expect(JSON.parse(text)).toEqual({ success: true, status: 200, result: body })
+    }
+  )
+
+  it('preserves all fields of a traditional success envelope', async () => {
+    const body = {
+      ...cfSuccess([{ id: 'one' }]),
+      result_info: { page: 1, total_pages: 2 },
+      extra: { retained: true }
+    }
+    const text = await runExecute('/envelope', body, { status: 201 })
+    expect(JSON.parse(text)).toEqual({ ...body, status: 201 })
+  })
+
+  it('rejects an explicit failure envelope even with HTTP 200', async () => {
+    const text = await runExecute('/envelope', cfError([{ code: 1000, message: 'Denied' }]))
+    expect(text).toContain('Cloudflare API error: 1000: Denied')
+  })
+
+  it.each([
+    { name: 'success envelope', body: cfSuccess([]) },
+    { name: 'direct object', body: { message: 'Denied' } },
+    { name: 'null', body: null }
+  ])('rejects HTTP failures with a $name body', async ({ body }) => {
+    const text = await runExecute('/failure', body, { status: 403 })
+    expect(text).toContain('Cloudflare API error: 403')
+  })
+
+  it('preserves the JSONEachRow workaround as text', async () => {
+    const body = '{"value":"1"}\n'
+    const text = await runExecute('/analytics/sql', body, {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+    })
+    expect(JSON.parse(text)).toEqual({ success: true, status: 200, result: body })
+  })
 })
 
 describe('execute: retries', () => {
