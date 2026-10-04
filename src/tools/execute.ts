@@ -198,10 +198,13 @@ export default class CodeExecutor extends WorkerEntrypoint {
           body: requestBody,
         });
 
-        const responseContentType = response.headers.get("content-type") || "";
+        const responseContentType = (response.headers.get("content-type") || "")
+          .split(';', 1)[0].trim().toLowerCase();
+        const isJson = responseContentType === "application/json"
+          || responseContentType.endsWith("+json");
 
         // Handle non-JSON responses (e.g., KV values)
-        if (!responseContentType.includes("application/json")) {
+        if (!isJson) {
           const text = await response.text();
           if (!response.ok) {
             throw apiError(method, path, response, text.slice(0, 500));
@@ -241,15 +244,19 @@ export default class CodeExecutor extends WorkerEntrypoint {
           };
         }
 
-        // Handle REST API responses
-        if (!data.success) {
-          const errorList = Array.isArray(data.errors) ? data.errors : [];
+        // Some APIs (e.g., SQL and SCIM) return JSON without the REST envelope.
+        const isEnvelope = data !== null && typeof data === "object"
+          && !Array.isArray(data) && typeof data.success === "boolean";
+        if (!response.ok || (isEnvelope && !data.success)) {
+          const errorList = Array.isArray(data?.errors) ? data.errors : [];
           const errors = errorList.map(e => (e.code === undefined ? "" : e.code + ": ") + e.message +
             (e.documentation_url ? " (" + e.documentation_url + ")" : "")).join(", ");
           throw apiError(method, path, response, errors);
         }
 
-        return { ...data, status: response.status };
+        return isEnvelope
+          ? { ...data, status: response.status }
+          : { success: true, status: response.status, result: data };
       }
     };
 
