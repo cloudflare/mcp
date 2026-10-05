@@ -259,9 +259,7 @@ describe('GET /authorize', () => {
     expect(body).not.toContain('data-scope=')
     expect(body).not.toContain('Save as template')
     expect(body).toContain('cf-mcp-consent:user-templates:v1')
-    expect(body).toContain(
-      'You can narrow scopes further on the Cloudflare authorization screen.'
-    )
+    expect(body).toContain('You can narrow scopes further later in the authorization flow.')
 
     const templates = embeddedTemplateScopes(body)
     expect(Object.keys(templates)).toEqual(['read-only', 'full-access'])
@@ -426,6 +424,48 @@ describe('GET /authorize', () => {
     expect(forwardedScopes).toContain('account:read')
     expect(forwardedScopes).toContain('offline_access')
     expect(forwardedScopes).not.toContain('removed-from-catalog.read')
+  })
+
+  it('forwards only the edited base scopes, keeping the Cloudflare URL short', async () => {
+    // Some corporate proxies reject URLs over 16 KB; full access alone puts ~8 KB of scopes in it.
+    const clientId = await registerClient()
+    const authRes = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          code_challenge: DOWNSTREAM_CODE_CHALLENGE,
+          code_challenge_method: 'S256',
+          scope: 'user:read account:read'
+        })
+      )
+    )
+    const html = await authRes.text()
+    expect(html).toContain('<summary>Advanced</summary>')
+    expect(html).toContain('<label for="scopesBox" class="field-label">Edit base scopes</label>')
+
+    const edited = ['zone.write', 'workers-scripts.write', 'ssl-and-certificates.write']
+    const form = new URLSearchParams({ handle: consentHandle(html), decision: 'approve' })
+    for (const scope of edited) form.append('scopes', scope)
+    const response = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/authorize`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Cookie: cookiesFrom(authRes)
+        },
+        body: form.toString(),
+        redirect: 'manual'
+      })
+    )
+
+    expect(response.status).toBe(302)
+    const location = response.headers.get('location')!
+    expect(new URL(location).searchParams.get('scope')!.split(' ').sort()).toEqual(
+      [...edited, 'user:read', 'account:read', 'offline_access'].sort()
+    )
+    expect(location.length).toBeLessThan(1024)
   })
 
   it('sends Cancel back to the MCP client as access_denied, without going to Cloudflare', async () => {

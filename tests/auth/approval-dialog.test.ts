@@ -170,3 +170,29 @@ describe('OAuth approval dialog templates', () => {
     expect(body).toContain('const INITIAL_TEMPLATE = "read-only";')
   })
 })
+
+describe('OAuth approval dialog Advanced section', () => {
+  it('offers an editable list of the base scopes, collapsed by default', async () => {
+    const body = await render({
+      scopeTemplates: SCOPE_TEMPLATES,
+      scopeDefinitions: SCOPE_DEFINITIONS,
+      requiredScopes: REQUIRED_SCOPES,
+      initialScopes: [...SCOPE_TEMPLATES['read-only'].scopes]
+    })
+
+    expect(body).toMatch(/<details class="advanced" id="advancedScopes">\s*<summary>Advanced<\/summary>/)
+    expect(visibleText(body)).toContain('Edit base scopes')
+    expect(body).toContain('<textarea id="scopesBox"')
+    // The page names edited scopes, so it carries the catalog's display names.
+    expect(body).toContain('"zone.write":"Zone Write"')
+  })
+
+  it('keeps catalog names from closing the inline script', async () => {
+    const body = await render({
+      scopeDefinitions: { 'evil.read': { name: '</script><img src=x>', category: 'x' } }
+    })
+
+    expect(body).not.toContain('</script><img')
+    expect(body).toContain('\\u003c/script>\\u003cimg src=x>')
+  })
+})

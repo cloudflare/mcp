@@ -156,6 +156,9 @@ const PAGE_CHROME_CSS = `
       --kumo-warning: light-dark(oklch(73.9% 0.177 58.2), oklch(64.5% 0.168 50));
       --kumo-warning-tint: light-dark(oklch(93.1% 0.107 94.6 / 0.2), oklch(35.3% 0.079 65 / 0.37));
       --kumo-text-warning: light-dark(oklch(59.7% 0.144 57.5), oklch(75% 0.183 55.934));
+      --kumo-info: oklch(68.5% 0.169 237.323);
+      --kumo-info-tint: light-dark(oklch(93.2% 0.032 255.6 / 0.45), oklch(38% 0.145 265.5 / 0.22));
+      --kumo-text-info: light-dark(oklch(42.4% 0.199 265.638), oklch(70.7% 0.165 254.624));
       --kumo-danger: light-dark(oklch(63.7% 0.237 25.331), oklch(57.7% 0.245 27.325));
       --kumo-danger-tint: light-dark(oklch(93.6% 0.032 17.7 / 0.42), oklch(42.9% 0.176 28.7 / 0.17));
       --kumo-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -261,6 +264,102 @@ const PAGE_FOOTER_HTML = `<footer class="footer">
     <a href="https://cloudflare.com/terms">Terms</a> ·
     <a href="https://developers.cloudflare.com">Docs</a>
   </footer>`
+
+/**
+ * The "Advanced" section: the scopes the selected template will request, as editable text. Editing
+ * them replaces the template, so a user can request a short list: some proxies reject the long
+ * upstream authorization URL that full access produces. Scopes outside the catalog block Continue,
+ * because `approveConsent()` only accepts the server's `scopesSupported`.
+ */
+const ADVANCED_SCOPES_HTML = `<details class="advanced" id="advancedScopes">
+      <summary>Advanced</summary>
+      <div class="advanced-body">
+        <label for="scopesBox" class="field-label">Edit base scopes</label>
+        <textarea id="scopesBox" class="field-input" rows="6" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+        <div class="scopes-report" id="scopesReport" aria-live="polite"></div>
+      </div>
+    </details>`
+
+const ADVANCED_SCOPES_CSS = `
+    .advanced { border: 1px solid var(--kumo-hairline); border-radius: 8px; }
+    /* Same type as the template card labels; greyed out until the scopes are edited. */
+    .advanced > summary { padding: 0.625rem 0.75rem; color: var(--kumo-text-subtle); font-weight: 500; cursor: pointer; user-select: none; }
+    .advanced.edited > summary { color: var(--kumo-text-default); }
+    .advanced[open] > summary { border-bottom: 1px solid var(--kumo-hairline); }
+    .advanced-body { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.75rem; }
+    .field-label { color: var(--kumo-text-subtle); font-size: 13px; font-weight: 500; }
+    .advanced.edited .field-label { color: var(--kumo-text-default); }
+    .field-input {
+      width: 100%;
+      padding: 0.5rem 0.625rem;
+      border: 0;
+      border-radius: 8px;
+      background: var(--kumo-base);
+      box-shadow: 0 0 0 1px var(--kumo-line), var(--kumo-shadow-xs);
+      color: var(--kumo-text-subtle);
+      font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      resize: vertical;
+    }
+    .field-input.edited { color: var(--kumo-text-default); }
+    .field-input:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
+    .scopes-report { display: flex; flex-direction: column; gap: 0.375rem; font-size: 12px; }
+    .scopes-report:empty { display: none; }
+    .badge-warning { background: var(--kumo-warning-tint); color: var(--kumo-text-warning); }
+    .badge code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; opacity: 0.75; }
+    .radio-cards.overridden .radio-card { opacity: 0.45; }
+    .radio-cards.overridden .radio-card:hover { opacity: 0.7; }`
+
+/**
+ * Client logic for the Advanced section. Runs inside the page IIFE, so it can see `SCOPE_NAMES`,
+ * `REQUIRED` and `escapeHtml`. A raw string, so the regex is written as the browser sees it.
+ */
+const ADVANCED_SCOPES_SCRIPT = String.raw`
+      const scopesBoxEl = document.getElementById('scopesBox');
+      const scopesReportEl = document.getElementById('scopesReport');
+      const KNOWN = new Set(Object.keys(SCOPE_NAMES));
+      const MAX_BADGES = 24;
+
+      function parseScopes(text) {
+        return Array.from(new Set(text.split(/[\s,]+/).filter(Boolean)));
+      }
+
+      function withoutRequired(scopes) {
+        return scopes.filter(s => !REQUIRED.has(s));
+      }
+
+      function sameScopes(a, b) {
+        const x = new Set(withoutRequired(a));
+        const y = new Set(withoutRequired(b));
+        return x.size === y.size && [...x].every(s => y.has(s));
+      }
+
+      function badge(scope) {
+        if (KNOWN.has(scope)) return '<li class="badge" title="' + escapeHtml(scope) + '">' + escapeHtml(SCOPE_NAMES[scope]) + '</li>';
+        return '<li class="badge badge-warning" title="Not a scope this server supports">' + escapeHtml(scope) + ' <code>unknown</code></li>';
+      }
+
+      // The edited scopes by name (or, for a long list, only the ones we don't know).
+      function renderScopesReport(scopes) {
+        let html = '';
+        if (scopesEdited) {
+          const extra = withoutRequired(scopes);
+          const listed = extra.length <= MAX_BADGES ? extra : extra.filter(s => !KNOWN.has(s));
+          if (listed.length) html += '<ul class="scope-badges">' + listed.map(badge).join('') + '</ul>';
+        }
+        scopesReportEl.innerHTML = html;
+      }
+
+      function fillScopesBox(scopes) {
+        scopesBoxEl.value = withoutRequired(scopes).join('\n');
+      }
+
+      scopesBoxEl.addEventListener('input', () => {
+        // Typing the template's scopes back reselects it.
+        scopesEdited = !sameScopes(parseScopes(scopesBoxEl.value), templateScopes(activeTemplate) || []);
+        updateActiveTemplateUI();
+        recompute();
+      });
+`
 
 /** Template key for the scopes the client asked for when they match no template. */
 const REQUESTED_TEMPLATE = '__requested__'
@@ -408,7 +507,18 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       background: var(--kumo-warning-tint);
       color: var(--kumo-text-warning);
     }
+    /* Kumo Banner variant="default": bg-kumo-info-tint text-kumo-info */
+    .banner-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      background: var(--kumo-info-tint);
+      color: var(--kumo-text-info);
+    }
     .banner-icon { display: flex; flex-shrink: 0; align-items: center; height: 1.375em; fill: var(--kumo-warning); }
+    .banner-info .banner-icon { fill: var(--kumo-info); }
     .banner-icon svg { width: 1em; height: 1em; }
     .banner-text { padding-top: 1px; font-size: 13px; line-height: 1.375; }
 
@@ -473,7 +583,6 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
     .radio-input:checked { background: var(--kumo-contrast); }
     .radio-input:checked::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--kumo-base); }
     .radio-input:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
-    .radio-description { color: var(--kumo-text-subtle); font-size: 13px; line-height: 1.375; }
     .requested-scopes { display: flex; flex-direction: column; gap: 0.5rem; }
     .requested-scopes[hidden] { display: none; }
     .requested-scopes-label { color: var(--kumo-text-subtle); font-size: 13px; }
@@ -489,6 +598,7 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       line-height: 1.333;
     }
     .scope-badges-more { align-self: center; color: var(--kumo-text-subtle); font-size: 12px; }
+${ADVANCED_SCOPES_CSS}
 
     /* Actions */
     .actions {
@@ -558,7 +668,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           <div class="radio-legend" id="templateLegend">Base scopes</div>
           <div class="radio-cards" id="templates"></div>
           ${requestedScopesHtml}
-          <p class="radio-description" id="templateHelp">You can narrow scopes further on the Cloudflare authorization screen.</p>
+          ${ADVANCED_SCOPES_HTML}
+          <div class="banner-info" id="templateHelp">
+            <span class="banner-icon" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z"/></svg></span>
+            <p class="banner-text">You can narrow scopes further later in the authorization flow.</p>
+          </div>
         </div>
 
         <form method="post" action="${new URL(request.url).pathname}" id="authForm">
@@ -588,9 +702,12 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       // The server preselects the matching template, or REQUESTED when the
       // client's scopes match none. Only then is "Requested scopes" offered.
       const INITIAL_TEMPLATE = ${JSON.stringify(initialTemplate)};
+      const SCOPE_NAMES = ${JSON.stringify(Object.fromEntries(Object.entries(scopeDefinitions).map(([k, v]) => [k, v.name]))).replace(/</g, '\\u003c')};
 
       const selected = new Set();
       let activeTemplate = null;
+      // The user edited the Advanced scopes, so they replace the active template.
+      let scopesEdited = false;
 
       const templatesEl = document.getElementById('templates');
       const hiddenScopesEl = document.getElementById('hiddenScopes');
@@ -675,19 +792,32 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
       function applyTemplate(key) {
         const scopes = templateScopes(key);
         if (!scopes) return;
-        selected.clear();
-        for (const s of scopes) selected.add(s);
-        for (const r of REQUIRED) selected.add(r);
         activeTemplate = key;
+        scopesEdited = false;
+        fillScopesBox(scopes);
         updateActiveTemplateUI();
-        renderHiddenInputs();
+        recompute();
       }
 
+      // The active template's scopes, or the edited Advanced scopes in their place.
+      function recompute() {
+        const base = scopesEdited ? parseScopes(scopesBoxEl.value) : templateScopes(activeTemplate) || [];
+        selected.clear();
+        for (const s of base) selected.add(s);
+        for (const r of REQUIRED) selected.add(r);
+        renderHiddenInputs();
+        renderScopesReport(base);
+      }
+${ADVANCED_SCOPES_SCRIPT}
       function updateActiveTemplateUI() {
+        // Edited scopes deselect the template; picking a card again restores it.
         templatesEl.querySelectorAll('.radio-input').forEach(input => {
-          input.checked = input.value === activeTemplate;
+          input.checked = !scopesEdited && input.value === activeTemplate;
         });
-        if (requestedScopesEl) requestedScopesEl.hidden = activeTemplate !== REQUESTED;
+        templatesEl.classList.toggle('overridden', scopesEdited);
+        scopesBoxEl.classList.toggle('edited', scopesEdited);
+        document.getElementById('advancedScopes').classList.toggle('edited', scopesEdited);
+        if (requestedScopesEl) requestedScopesEl.hidden = scopesEdited || activeTemplate !== REQUESTED;
       }
 
       function renderHiddenInputs() {
@@ -699,7 +829,11 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           input.value = s;
           hiddenScopesEl.appendChild(input);
         }
-        continueBtn.disabled = selected.size === 0;
+        // Emptying the box would request only the identity scopes, and the server
+        // would reject a scope outside the catalog.
+        const edited = withoutRequired([...selected]);
+        continueBtn.disabled =
+          selected.size === 0 || (scopesEdited && (edited.length === 0 || edited.some(s => !KNOWN.has(s))));
       }
 
       renderTemplates();
