@@ -265,9 +265,9 @@ describe('GET /authorize', () => {
 
     const templates = embeddedTemplateScopes(body)
     expect(Object.keys(templates)).toEqual(['read-only', 'full-access'])
-    expect(templates['read-only']).toHaveLength(194)
+    expect(templates['read-only']).toHaveLength(199)
     expect(templates['read-only']).toContain('teams-pii.read')
-    expect(templates['full-access']).toHaveLength(384)
+    expect(templates['full-access']).toHaveLength(395)
     expect(templates['full-access']).toContain('logs.write')
     expect(templates['full-access']).toContain('ssl-and-certificates.read')
     expect(templates['read-only']).toContain('realtime.read')
@@ -293,7 +293,7 @@ describe('GET /authorize', () => {
 
     expect(response.status).toBe(200)
     const initial = embeddedInitialScopes(await response.text())
-    expect(initial).toHaveLength(194)
+    expect(initial).toHaveLength(199)
     expect(initial).toContain('dns.read')
   })
 
