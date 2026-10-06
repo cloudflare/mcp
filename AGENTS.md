@@ -111,7 +111,7 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 1. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
 2. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
 
-`get_profile` is a read-only discovery tool in both modes. It accepts only empty input, returns matching JSON text and `structuredContent`, and publishes `outputSchema` plus `_meta["openai/profile"]: true`. Public metadata never varies by credentials. A versioned SHA-256 namespace over the immutable Cloudflare user/account ID gives stable opaque IDs; OAuth and direct user credentials share the user namespace, and account-owned credentials use a disjoint account namespace. Never change this derivation without preserving existing profile IDs. Reuse validated request identity; account lists, display metadata, tokens and grants are not profile keys. Client saved-row lifecycle remains outside this repository; see `docs/connection-diagnostics.md`.
+`get_profile` is a read-only discovery tool, that conforms with the [ChatGPT Plugins standard](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool). It returns JSON, and allows MCP clients to disambiguate which Cloudflare account the MCP client has been granted access to.
 
 ### MCP HTTP serving
 
