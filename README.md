@@ -4,12 +4,12 @@
 
 ## Token Comparison
 
-| Approach                                    | Tools | Token cost                | Context used (200K) |
-| ------------------------------------------- | ----- | ------------------------- | ------------------- |
-| Raw OpenAPI spec in prompt                   | —     | ~2,000,000                | 977%                |
-| Native MCP (full schemas)                    | 2,594 | 1,170,523                 | 585%                |
-| Native MCP (minimal — required params only)  | 2,594 | 244,047                   | 122%                |
-| Code mode (including profile discovery)      | 4     | ~1,100 + profile metadata | ~0.5%               |
+| Approach                                    | Tools | Token cost | Context used (200K) |
+| ------------------------------------------- | ----- | ---------- | ------------------- |
+| Raw OpenAPI spec in prompt                  | —     | ~2,000,000 | 977%                |
+| Native MCP (full schemas)                   | 2,594 | 1,170,523  | 585%                |
+| Native MCP (minimal — required params only) | 2,594 | 244,047    | 122%                |
+| Code mode                                   | 3     | ~1,100     | 0.5%                |
 
 ## Get Started
 
