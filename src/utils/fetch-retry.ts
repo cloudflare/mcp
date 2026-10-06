@@ -11,9 +11,11 @@ export interface RetryOptions {
   maxDelayMs?: number
   jitter?: boolean
   caller?: string
+  /** A pre-redacted diagnostic label for tool API calls; never log the raw resource URL. */
+  logUrl?: string
 }
 
-const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
+const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller' | 'logUrl'>> = {
   maxRetries: 3,
   baseDelayMs: 1000,
   backoffFactor: 2,
@@ -53,16 +55,16 @@ export function serverRetryDelayMs(headers: Headers, now = Date.now()): number |
  */
 export function computeRetryDelay(
   attempt: number,
-  opts: Required<Omit<RetryOptions, 'caller'>>
+  opts: Required<Omit<RetryOptions, 'caller' | 'logUrl'>>
 ): number
 export function computeRetryDelay(
   attempt: number,
-  opts: Required<Omit<RetryOptions, 'caller'>>,
+  opts: Required<Omit<RetryOptions, 'caller' | 'logUrl'>>,
   serverDelayMs: number | undefined
 ): number | undefined
 export function computeRetryDelay(
   attempt: number,
-  opts: Required<Omit<RetryOptions, 'caller'>>,
+  opts: Required<Omit<RetryOptions, 'caller' | 'logUrl'>>,
   serverDelayMs?: number
 ): number | undefined {
   if (serverDelayMs !== undefined) {
@@ -83,7 +85,7 @@ export async function fetchWithRetry(
   options?: RetryOptions
 ): Promise<Response> {
   const opts = { ...DEFAULT_OPTIONS, ...options }
-  const url = typeof input === 'string' ? input : input.url
+  const url = options?.logUrl ?? (typeof input === 'string' ? input : input.url)
   const caller = options?.caller ? ` caller=${options.caller}` : ''
 
   let lastResponse: Response | undefined
@@ -130,7 +132,11 @@ export async function fetchWithRetry(
       if (attempt < opts.maxRetries) {
         const serverDelay = serverRetryDelayMs(response.headers)
         const delay = computeRetryDelay(attempt, opts, serverDelay)
-        const hints = rateLimitHints(response.headers)
+        const hints = options?.logUrl
+          ? serverDelay === undefined
+            ? ''
+            : ` retry-after-seconds=${Math.ceil(serverDelay / 1000)}`
+          : rateLimitHints(response.headers)
         if (delay === undefined) {
           // Retrying before the server said to would only spend the same quota on another 429.
           console.warn(
@@ -152,7 +158,7 @@ export async function fetchWithRetry(
         const delay = computeRetryDelay(attempt, opts)
         console.warn(
           `fetchWithRetry: network error${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-            `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : error}`
+            `retrying in ${Math.round(delay)}ms: ${options?.logUrl ? 'request failed' : error instanceof Error ? error.message : error}`
         )
         await sleep(delay)
       }
@@ -168,7 +174,7 @@ export async function fetchWithRetry(
 
   console.error(
     `fetchWithRetry: failed${caller} url=${url} after ${opts.maxRetries + 1} attempts`,
-    lastError
+    options?.logUrl ? 'network request failed' : lastError
   )
   throw lastError
 }

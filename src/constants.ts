@@ -34,7 +34,7 @@ interface CloudflareResponse<T = unknown> {
   success: boolean;
   status: number;
   result: T;
-  errors: Array<{ code: number; message: string }>;
+  errors: Array<{ code?: number | string; message: string; documentation_url?: string; path?: Array<string | number> }>;
   messages: Array<{ code: number; message: string }>;
   result_info?: {
     page: number;
@@ -42,6 +42,27 @@ interface CloudflareResponse<T = unknown> {
     total_pages: number;
     count: number;
     total_count: number;
+  };
+}
+
+// API failures throw; existing try/catch code continues to work.
+interface CloudflareApiError extends Error {
+  status: number;
+  method: string;
+  path: string; // Catalog template or redacted route, never raw resource identifiers
+  errors: CloudflareResponse["errors"];
+  requestId?: string;
+  retryAfterSeconds?: number;
+  diagnostic: {
+    version: 1;
+    kind: "cloudflare_api_error" | "graphql_error" | "invalid_api_response";
+    upstreamStatus: number;
+    operation: { method: string; pathTemplate: string };
+    errors: CloudflareResponse["errors"];
+    authorization: "unknown";
+    retry: "do_not_retry_automatically" | "wait_before_retry";
+    requestId?: string;
+    retryAfterSeconds?: number;
   };
 }
 

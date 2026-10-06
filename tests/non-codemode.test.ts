@@ -210,21 +210,15 @@ describe('createServer with codemode=false', () => {
   afterEach(() => clearSpec())
 
   function mockFetchJson(data: unknown, ok = true) {
-    return vi.fn().mockResolvedValue({
-      ok,
-      status: ok ? 200 : 400,
-      headers: new Headers({ 'content-type': 'application/json' }),
-      json: async () => data
-    })
+    return vi.fn().mockResolvedValue(new Response(JSON.stringify(data), {
+      status: ok ? 200 : 400, headers: { 'content-type': 'application/json' }
+    }))
   }
 
   function mockFetchText(text: string, ok = true) {
-    return vi.fn().mockResolvedValue({
-      ok,
-      status: ok ? 200 : 500,
-      headers: new Headers({ 'content-type': 'text/plain' }),
-      text: async () => text
-    })
+    return vi.fn().mockResolvedValue(new Response(text, {
+      status: ok ? 200 : 500, headers: { 'content-type': 'text/plain' }
+    }))
   }
 
   it('does not register per-endpoint SDK handlers for a large spec', async () => {
@@ -393,6 +387,21 @@ describe('createServer with codemode=false', () => {
   // they passed even while production rejected the same call with an Input
   // validation error (account_id was a required schema field). Don't re-add
   // handler-level auto-resolve tests here.
+
+  it.each([[401, false], [403, true], [200, false]])('preserves API diagnostics for HTTP %s with success=%s', async (status, success) => {
+    await seedSpec({ '/user': { get: {} } })
+    const server = await createServer(bareUserProps, { codemode: false })
+    const originalFetch = globalThis.fetch
+    const documentation_url = 'https://developers.cloudflare.com/api/resources/user/methods/get/'
+    globalThis.fetch = vi.fn().mockResolvedValue(Response.json({ success, errors: [{ code: 'AUTH', message: 'Forbidden', documentation_url }] }, { status, headers: { 'CF-Ray': 'abc-SJC' } }))
+    try {
+      const result = await callTool(server, 'get_user', {})
+      expect(result.isError).toBe(true)
+      expect(result.structuredContent).toMatchObject({ version: 1, upstreamStatus: status, requestId: 'abc-SJC', authorization: 'unknown',
+        operation: { method: 'GET', pathTemplate: '/user' }, errors: [{ code: 'AUTH', message: 'Forbidden', documentation_url }] })
+      expect(result.content[0].text).toContain(documentation_url)
+    } finally { globalThis.fetch = originalFetch }
+  })
 
   it('returns error for missing required path param', async () => {
     const specPaths = {

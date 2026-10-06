@@ -213,3 +213,13 @@ Read the [Code Mode SDK docs](https://developers.cloudflare.com/agents/api-refer
 - [Code Mode blog post](https://blog.cloudflare.com/code-mode/)
 - [Build your own remote MCP server](https://developers.cloudflare.com/agents/guides/remote-mcp-server/)
 - [Cloudflare's own MCP Servers](https://github.com/cloudflare/mcp-server-cloudflare)
+
+### API failures
+
+`cloudflare.request()` still throws on API failures, so existing `try/catch` code continues to work. Caught errors expose `status`, `method`, `path` (a catalog template or redacted route), `errors`, optional `requestId` and `retryAfterSeconds`, and the versioned `diagnostic`. An unsuccessful HTTP status is a failure even if the JSON body says `success: true`; `success: false` on HTTP 200 also fails. GraphQL complete errors use `kind: "graphql_error"` on HTTP 200; partial responses keep their data and errors.
+
+Uncaught API failures and endpoint-tool failures return `isError: true`, concise text, and the same diagnostic in `structuredContent`. Only HTTPS API-reference links on `developers.cloudflare.com` are preserved as `errors[].documentation_url` and visible documentation links. Status, operation, and retry guidance stay outside the optional error detail. Diagnostics retain at most eight errors, 512 UTF-8 bytes per message, and 8 KiB total. Outbound error-body inspection stops at 32 KiB; larger errors keep status and operation while omitting body details. These safety limits also apply with `truncateToolResult=false`. Successful API results keep their existing formatting.
+
+An HTTP 401 or 403, including Cloudflare code `10000`, does not by itself establish expired credentials or missing OAuth scopes. Check the linked endpoint's accepted permissions, the selected account, and the credential's resource access. Reconnect only when the credential or its granted permissions need changing; correcting an operation or resource does not require another connection. Final rate-limit errors preserve a bounded wait hint; no new automatic mutation replay is added.
+
+The host validates isolate diagnostics with Zod and reapplies redaction. User code can fabricate the same shape, so diagnostics never authorize an HTTP challenge. An optional request-local observer prototype records actual outbound dispatch order and status in a trusted disposable Loader isolate, reached through a reloadable parent service binding. The observer has no user code, token, or outbound access; a nonce makes initialization loss fail closed. It is disabled in normal execution until separately reviewed permission handling enables it. Missing observation history suppresses replay and never replaces a completed API result.

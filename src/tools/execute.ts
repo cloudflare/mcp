@@ -5,6 +5,17 @@ import { CLOUDFLARE_TYPES } from '../constants'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { formatError } from '../utils/errors'
+import { getSpec } from '../isolate-cache'
+import type { ApiRequestObserver } from '../utils/api-request-observer'
+import {
+  CloudflareApiError,
+  cloudflareApiErrorSchema,
+  formatApiError,
+  normalizedApiPath,
+  readApiResponse,
+  sanitizeApiDiagnostic,
+  boundedApiHint
+} from '../utils/cloudflare-api-errors'
 import {
   ACCOUNT_DISCOVERY_DESCRIPTION,
   ACCOUNT_DISCOVERY_GUIDANCE,
@@ -14,11 +25,23 @@ import {
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
 
+const executeResultSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('success'), result: z.unknown() }),
+  z.object({ kind: z.literal('api_failure'), diagnostic: cloudflareApiErrorSchema }),
+  z.object({ kind: z.literal('javascript_failure'), message: z.string().max(2048) })
+])
+
 interface CodeExecutorEntrypoint {
-  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
+  evaluate(): Promise<unknown>
 }
 
-type GlobalOutboundProps = { apiToken: string; fetchWithRetryCaller: string }
+type GlobalOutboundProps = {
+  apiToken: string
+  fetchWithRetryCaller: string
+  pathTemplates: string[]
+  observer?: ApiRequestObserver
+  observerNonce?: string
+}
 
 /**
  * Outbound fetch proxy for the `execute` isolate: restricts dynamically-loaded
@@ -43,9 +66,49 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
-    return fetchWithRetry(authedRequest, undefined, {
-      caller: this.ctx.props.fetchWithRetryCaller
+    const pathTemplate = normalizedApiPath(
+      new URL(request.url).pathname.slice(
+        new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '').length
+      ),
+      this.ctx.props.pathTemplates
+    )
+    const operation = {
+      method: /^[A-Z]{1,16}$/.test(request.method) ? request.method : 'UNKNOWN',
+      pathTemplate
+    }
+    const observer = this.ctx.props.observer
+    const nonce = this.ctx.props.observerNonce
+    const sequence =
+      observer && nonce
+        ? await observer.beginDispatch(nonce, operation.method, pathTemplate)
+        : undefined
+    if (observer && (sequence === null || sequence === undefined))
+      throw new Error('API observer is unavailable')
+    const response = await fetchWithRetry(authedRequest, undefined, {
+      caller: this.ctx.props.fetchWithRetryCaller,
+      logUrl: `${new URL(this.env.CLOUDFLARE_API_BASE).origin}${pathTemplate}`
     })
+    // A lost observation after dispatch cannot undo or replace an API result.
+    // Permission handling must suppress replay if completion history is unavailable.
+    if (observer && nonce && sequence !== undefined && sequence !== null) {
+      await observer.finishDispatch(nonce, sequence, response.status).catch(() => false)
+    }
+    const headers = new Headers(response.headers)
+    // Never accept an upstream-supplied internal diagnostic marker.
+    headers.delete('X-Cloudflare-MCP-API-Error')
+    headers.set('X-Cloudflare-MCP-API-Path', pathTemplate)
+    if (response.ok && !headers.get('content-type')?.includes('application/json')) {
+      return new Response(response.body, { status: response.status, headers })
+    }
+    const parsed = await readApiResponse(response.clone(), operation, this.ctx.props.apiToken, true)
+    if (parsed.kind === 'api_failure') {
+      void response.body?.cancel().catch(() => {})
+      headers.set('X-Cloudflare-MCP-API-Error', '1')
+      headers.set('Content-Type', 'application/json')
+      headers.delete('Content-Length')
+      return new Response(JSON.stringify(parsed.diagnostic), { status: response.status, headers })
+    }
+    return new Response(response.body, { status: response.status, headers })
   }
 }
 
@@ -64,6 +127,9 @@ async function runExecute(
   unresolvedAccountMessage: string
 ): Promise<unknown> {
   const apiBase = env.CLOUDFLARE_API_BASE
+  const pathTemplates = await getSpec()
+    .then((spec) => Object.keys(spec.paths))
+    .catch(() => [])
   const workerId = `cloudflare-api-${crypto.randomUUID()}`
 
   // When no account is resolved (a multi-account user who hasn't chosen one),
@@ -79,7 +145,11 @@ async function runExecute(
   const worker = env.LOADER.get(workerId, () => ({
     compatibilityDate: '2026-01-12',
     globalOutbound: exports.GlobalOutbound({
-      props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call' }
+      props: {
+        apiToken,
+        fetchWithRetryCaller: 'codemode_execute_tool_call',
+        pathTemplates
+      }
     }),
     mainModule: 'worker.js',
     modules: {
@@ -126,17 +196,46 @@ export default class CodeExecutor extends WorkerEntrypoint {
         });
 
         const responseContentType = response.headers.get("content-type") || "";
-
-        // Handle non-JSON responses (e.g., KV values)
+        if (response.headers.get("X-Cloudflare-MCP-API-Error") === "1") {
+          const diagnostic = await response.json();
+          const details = diagnostic.errors.map(e => (e.code === undefined ? "" : e.code + ": ") + e.message).join("; ");
+          const error = new Error((diagnostic.kind === "graphql_error" ? "GraphQL error: " : "Cloudflare API error: ") +
+            diagnostic.operation.method + " " + diagnostic.operation.pathTemplate + " returned HTTP " + diagnostic.upstreamStatus +
+            (details ? " (" + details + ")" : ""));
+          Object.assign(error, diagnostic, { status: diagnostic.upstreamStatus,
+            method: diagnostic.operation.method, path: diagnostic.operation.pathTemplate,
+            diagnostic });
+          throw error;
+        }
+        // Successful non-JSON response formatting remains compatible.
         if (!responseContentType.includes("application/json")) {
-          const text = await response.text();
-          if (!response.ok) {
-            throw new Error("Cloudflare API error: " + response.status + " " + text);
-          }
-          return { success: true, status: response.status, result: text };
+          return { success: true, status: response.status, result: await response.text() };
+        }
+        let data;
+        try { data = await response.json(); }
+        catch {
+          const diagnostic = { version: 1, kind: "invalid_api_response", upstreamStatus: response.status,
+            operation: { method, pathTemplate: response.headers.get("X-Cloudflare-MCP-API-Path") || "/{redacted}" },
+            errors: [], authorization: "unknown", retry: "do_not_retry_automatically" };
+          const error = new Error("Cloudflare API returned malformed JSON");
+          Object.assign(error, diagnostic, { diagnostic, status: response.status, method,
+            path: diagnostic.operation.pathTemplate });
+          throw error;
         }
 
-        const data = await response.json();
+        // A large successful HTTP body bypasses bounded host inspection.
+        // Keep failure status/operation without copying its unbounded errors.
+        if (data.success === false || (path.split('?')[0].replace(/\\/+$/, '') === '/graphql'
+          && Array.isArray(data.errors) && data.errors.length > 0 && data.data == null)) {
+          const diagnostic = { version: 1, kind: data.success === false ? "cloudflare_api_error" : "graphql_error",
+            upstreamStatus: response.status,
+            operation: { method, pathTemplate: response.headers.get("X-Cloudflare-MCP-API-Path") || "/{redacted}" },
+            errors: [], authorization: "unknown", retry: "do_not_retry_automatically" };
+          const error = new Error("Cloudflare API error: HTTP " + response.status);
+          Object.assign(error, diagnostic, { diagnostic, status: response.status, method,
+            path: diagnostic.operation.pathTemplate });
+          throw error;
+        }
 
         // Handle GraphQL responses (different format than REST)
         const cleanPath = path.split('?')[0].replace(/\\/+$/, '');
@@ -146,19 +245,14 @@ export default class CodeExecutor extends WorkerEntrypoint {
           const graphqlErrors = Array.isArray(data.errors) ? data.errors : [];
           const hasData = data.data !== null && data.data !== undefined;
 
-          // Complete failure: no data, only errors
-          if (graphqlErrors.length > 0 && !hasData) {
-            const msgs = graphqlErrors.map(e => e.message).join(", ");
-            throw new Error("GraphQL error: " + msgs);
-          }
-
           // Success or partial success
           return {
             success: graphqlErrors.length === 0,
             status: response.status,
             result: data.data,
             errors: graphqlErrors.map(e => ({
-              code: e.extensions?.code || 0,
+              code: e.extensions?.code ?? 0,
+              path: e.path,
               message: e.message + (e.path ? \` (at \${e.path.join('.')})\` : '')
             })),
             messages: graphqlErrors.length > 0 ? [{
@@ -168,22 +262,22 @@ export default class CodeExecutor extends WorkerEntrypoint {
           };
         }
 
-        // Handle REST API responses
-        if (!data.success) {
-          const errorList = Array.isArray(data.errors) ? data.errors : [];
-          const errors = errorList.map(e => e.code + ": " + e.message).join(", ");
-          throw new Error("Cloudflare API error: " + (errors || response.status));
-        }
-
         return { ...data, status: response.status };
       }
     };
 
     try {
       const result = await (${code})();
-      return { result, err: undefined };
+      return { kind: "success", result };
     } catch (err) {
-      return { result: undefined, err: err.message, stack: err.stack };
+      try {
+        if (err?.diagnostic) return { kind: "api_failure", diagnostic: err.diagnostic };
+        const message = typeof err === "string" ? err : err?.message;
+        return { kind: "javascript_failure", message: typeof message === "string"
+          ? message.slice(0, 2048) : "JavaScript threw a non-Error value" };
+      } catch {
+        return { kind: "javascript_failure", message: "JavaScript threw an unreadable value" };
+      }
     }
   }
 }
@@ -192,13 +286,14 @@ export default class CodeExecutor extends WorkerEntrypoint {
   }))
 
   const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
-  const response = await entrypoint.evaluate()
-
-  if (response.err) {
-    throw new Error(response.err)
-  }
-
-  return response.result
+  const response = executeResultSchema.safeParse(await entrypoint.evaluate())
+  if (!response.success) throw new Error('The code isolate returned an invalid result')
+  if (response.data.kind === 'api_failure')
+    throw new CloudflareApiError(
+      sanitizeApiDiagnostic(response.data.diagnostic, pathTemplates, apiToken)
+    )
+  if (response.data.kind === 'javascript_failure') throw new Error(response.data.message)
+  return response.data.result
 }
 
 /**
@@ -218,6 +313,7 @@ ${CLOUDFLARE_TYPES}
 When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DISCOVERY_DESCRIPTION}
 
 Your code must be an async arrow function that returns the result.
+Cloudflare API failures throw an error with status, method, path (a redacted route or catalog template), errors, requestId, retryAfterSeconds, and diagnostic properties. HTTP failure is independent of the REST success flag. GraphQL partial responses keep their data and errors. Uncaught API errors return bounded structured diagnostics; HTTP 401/403 alone does not prove a missing OAuth scope.
 
 Example: Worker with bindings (requires multipart/form-data):
 async () => {
@@ -281,8 +377,13 @@ export function registerExecuteTool(
         )
         return { content: [{ type: 'text', text: formatResult(result) }] }
       } catch (error) {
-        const failure = formatError(error)
-        const hint = account_id ? unknownAccountHint(props, account_id) : ''
+        const failure =
+          error instanceof CloudflareApiError
+            ? formatApiError(error.diagnostic)
+            : formatError(error)
+        const hint = account_id
+          ? boundedApiHint(unknownAccountHint(props, account_id), apiToken)
+          : ''
         if (hint) failure.content[0].text += `\n\n${hint}`
         return failure
       }

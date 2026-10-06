@@ -130,3 +130,5 @@ export default {
     console.log(`Spec updated successfully (${products.length} products)`)
   }
 }
+
+export { ApiRequestObserverEntrypoint } from './utils/api-request-observer'

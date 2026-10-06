@@ -3,6 +3,7 @@ import { env } from 'cloudflare:workers'
 import type { McpServer, CallToolResult, Tool } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
+import { boundedApiHint, formatApiError, readApiResponse } from '../utils/cloudflare-api-errors'
 import { getNonCodemodeToolMap, getNonCodemodeTools } from '../isolate-cache'
 import {
   NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE,
@@ -108,19 +109,26 @@ async function callNonCodemodeTool(
   const response = await fetchWithRetry(
     url.toString(),
     { method: tool.method.toUpperCase(), headers, body },
-    { caller: 'non_codemode_tool_call' }
+    { caller: 'non_codemode_tool_call', logUrl: `${url.origin}${tool.path}` }
   )
-  const contentType = response.headers.get('content-type') || ''
-  const result = contentType.includes('application/json')
-    ? await response.json()
-    : await response.text()
-
+  const parsed = await readApiResponse(
+    response,
+    {
+      method: tool.method.toUpperCase(),
+      pathTemplate: tool.path
+    },
+    props.accessToken
+  )
   const accountId = params['account_id'] as string | undefined
-  const hint = !response.ok && accountId ? unknownAccountHint(props, accountId) : ''
-  return {
-    content: [{ type: 'text', text: formatResult(result) + (hint ? `\n\n${hint}` : '') }],
-    isError: !response.ok
+  if (parsed.kind === 'api_failure') {
+    const result = formatApiError(parsed.diagnostic)
+    const hint = accountId
+      ? boundedApiHint(unknownAccountHint(props, accountId), props.accessToken)
+      : ''
+    if (hint) result.content[0].text += `\n\n${hint}`
+    return result
   }
+  return { content: [{ type: 'text', text: formatResult(parsed.value) }], isError: false }
 }
 
 function validationError(name: string, error: z.ZodError): CallToolResult {

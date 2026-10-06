@@ -8,7 +8,7 @@ import {
 
 describe('computeRetryDelay', () => {
   // computeRetryDelay takes the resolved options without `caller`.
-  const defaults: Required<Omit<RetryOptions, 'caller'>> = {
+  const defaults: Required<Omit<RetryOptions, 'caller' | 'logUrl'>> = {
     maxRetries: 3,
     baseDelayMs: 1000,
     backoffFactor: 2,
@@ -94,6 +94,20 @@ describe('fetchWithRetry', () => {
   afterEach(() => {
     globalThis.fetch = originalFetch
     vi.restoreAllMocks()
+  })
+
+  it('redacts tool resource URLs, headers and network errors when a safe label is supplied', async () => {
+    const safeUrl = 'https://api.cloudflare.com/accounts/{account_id}/workers/scripts'
+    const fetchMock = vi.fn()
+    globalThis.fetch = fetchMock
+    fetchMock.mockResolvedValueOnce(new Response(null, { status: 429, headers: {
+      'Retry-After': '30', Ratelimit: 'private-header-token'
+    } }))
+    await fetchWithRetry('https://api.cloudflare.com/accounts/private-key?token=secret-token', undefined, { logUrl: safeUrl })
+    expect(JSON.stringify(warnSpy.mock.calls)).not.toMatch(/private-key|secret-token|private-header-token/)
+    fetchMock.mockRejectedValueOnce(new Error('https://api.cloudflare.com/private-key?token=secret-token'))
+    await expect(fetchWithRetry('https://api.cloudflare.com/private-key?token=secret-token', undefined, { maxRetries: 0, logUrl: safeUrl })).rejects.toThrow('private-key')
+    expect(JSON.stringify(errorSpy.mock.calls)).not.toMatch(/private-key|secret-token/)
   })
 
   it('returns immediately on 200', async () => {

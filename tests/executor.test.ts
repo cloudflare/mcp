@@ -1,4 +1,4 @@
-import { env } from 'cloudflare:workers'
+import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
@@ -10,7 +10,7 @@ import {
 } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
-import { callTool, toolText } from './helpers/mcp'
+import { callTool, toolText, modernMcpRequest, parseMcpResult, MCP_URL } from './helpers/mcp'
 import { server } from './setup/msw'
 
 /**
@@ -391,5 +391,143 @@ describe('search: real SPEC_BUCKET', () => {
     // The search isolate cannot make outbound requests.
     expect(toolText(result)).not.toContain('should not reach')
     expect(result.result?.isError).toBe(true)
+  })
+})
+
+const DOC_URL = 'https://developers.cloudflare.com/api/resources/workers/subresources/beta/subresources/workers/methods/list/'
+const DIAGNOSTIC_PATH = `/accounts/${ACCOUNT_ID}/workers/scripts`
+
+describe('execute: bounded API diagnostics through the real Loader', () => {
+  beforeEach(async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    await seedSpec({ '/accounts/{account_id}/workers/scripts': { get: {} } })
+  })
+
+  async function diagnosticCall(body: unknown, init: ResponseInit = {}, code?: string, truncate = true) {
+    server.use(http.get(`${API_BASE}${DIAGNOSTIC_PATH}`, () => typeof body === 'string'
+      ? new HttpResponse(body, init) : HttpResponse.json(body as object, init)))
+    const response = await exports.default.fetch(modernMcpRequest(API_TOKEN, 'tools/call', {
+      name: 'execute', arguments: { code: code ?? `async () => cloudflare.request({ method: "GET", path: "${DIAGNOSTIC_PATH}" })` }
+    }, { url: truncate ? MCP_URL : `${MCP_URL}?truncateToolResult=false` }))
+    expect(response.status).toBe(200)
+    expect(response.headers.has('WWW-Authenticate')).toBe(false)
+    return parseMcpResult(response)
+  }
+
+  it.each([401, 403])('preserves upstream %s and useful error facts without guessed scopes', async (status) => {
+    const result = await diagnosticCall({ success: false, errors: [{ code: 10000, message: 'Forbidden', documentation_url: DOC_URL }] },
+      { status, headers: { 'CF-Ray': 'abc123-SJC', 'WWW-Authenticate': 'Bearer secret' } })
+    expect(result.result?.isError).toBe(true)
+    expect(result.result?.structuredContent).toEqual({ version: 1, kind: 'cloudflare_api_error', upstreamStatus: status,
+      operation: { method: 'GET', pathTemplate: '/accounts/{account_id}/workers/scripts' },
+      errors: [{ code: 10000, message: 'Forbidden', documentation_url: DOC_URL }], requestId: 'abc123-SJC',
+      authorization: 'unknown', retry: 'do_not_retry_automatically' })
+    expect(toolText(result)).toContain(DOC_URL)
+    expect(toolText(result)).toContain(`HTTP ${status}`)
+  })
+
+  it('exposes diagnostic properties to existing try/catch code', async () => {
+    const result = await diagnosticCall({ success: false, errors: [{ code: 'AUTH', message: 'Forbidden', documentation_url: DOC_URL }] }, { status: 403 },
+      `async () => { try { await cloudflare.request({ method: "GET", path: "${DIAGNOSTIC_PATH}" }); } catch (error) {
+        return { status: error.status, method: error.method, path: error.path, errors: error.errors, diagnostic: error.diagnostic };
+      } }`)
+    expect(result.result?.isError).toBeFalsy()
+    const caught = JSON.parse(toolText(result))
+    expect(caught.status).toBe(403)
+    expect(caught.method).toBe('GET')
+    expect(caught.path).toBe('/accounts/{account_id}/workers/scripts')
+    expect(caught.errors).toEqual([{ code: 'AUTH', message: 'Forbidden', documentation_url: DOC_URL }])
+  })
+
+  it.each([[403, true], [200, false]])('rejects HTTP %s with REST success=%s', async (status, success) => {
+    const result = await diagnosticCall({ success, result: { ignored: true } }, { status })
+    expect(result.result?.isError).toBe(true)
+    expect(result.result?.structuredContent?.upstreamStatus).toBe(status)
+  })
+
+  it.each([
+    ['', 'application/json', 'invalid_api_response'],
+    ['{broken', 'application/json', 'invalid_api_response'],
+    ['<html>token-and-authorization-url</html>', 'text/html', 'cloudflare_api_error'],
+    ['secret gateway body', 'text/plain', 'cloudflare_api_error']
+  ])('retains status for unsafe body %# without copying it', async (body, contentType, kind) => {
+    const result = await diagnosticCall(body, { status: 502, headers: { 'Content-Type': contentType } })
+    expect(result.result?.structuredContent).toMatchObject({ upstreamStatus: 502, kind, errors: [] })
+    if (body) expect(JSON.stringify(result)).not.toContain(body)
+  })
+
+  it('redacts echoed credentials and sensitive URLs in diagnostic messages', async () => {
+    const result = await diagnosticCall({ success: false, errors: [{ code: 1, message: `${API_TOKEN} https://example.com/oauth?secret=very-secret Bearer dangerous` }] }, { status: 403 })
+    expect(JSON.stringify(result)).not.toContain(API_TOKEN)
+    expect(JSON.stringify(result)).not.toContain('very-secret')
+    expect(JSON.stringify(result)).not.toContain('dangerous')
+  })
+
+  it.each([true, false])('enforces diagnostic bounds with truncation=%s', async (truncate) => {
+    const result = await diagnosticCall({ success: false, errors: Array.from({ length: 20 }, () => ({ code: 1, message: 'x'.repeat(1000), documentation_url: DOC_URL })) }, { status: 403 }, undefined, truncate)
+    const diagnostic = result.result?.structuredContent
+    expect(new TextEncoder().encode(JSON.stringify(diagnostic)).length).toBeLessThanOrEqual(8192)
+    expect(diagnostic?.operation).toEqual({ method: 'GET', pathTemplate: '/accounts/{account_id}/workers/scripts' })
+    expect(toolText(result)).toContain(DOC_URL)
+  })
+
+  it('retains status and operation for an oversized JSON failure body', async () => {
+    const result = await diagnosticCall({ success: false, errors: [{ message: 'x'.repeat(40000) }] }, { status: 403 })
+    expect(result.result?.structuredContent).toMatchObject({ upstreamStatus: 403, errors: [], operation: { method: 'GET', pathTemplate: '/accounts/{account_id}/workers/scripts' } })
+  })
+
+  it('rejects oversized HTTP 200 failure envelopes while preserving large successes', async () => {
+    const failed = await diagnosticCall({ success: false, errors: [{ message: 'x'.repeat(40000) }] })
+    expect(failed.result?.structuredContent).toMatchObject({ upstreamStatus: 200, errors: [] })
+    const succeeded = await diagnosticCall({ success: true, result: 'x'.repeat(40000) }, {}, undefined, false)
+    expect(succeeded.result?.isError).toBeFalsy()
+    expect(JSON.parse(toolText(succeeded)).result).toHaveLength(40000)
+  })
+
+  it('keeps status when malformed JSON exceeds bounded host inspection', async () => {
+    const result = await diagnosticCall(' '.repeat(40000) + '{broken', { status: 200, headers: { 'Content-Type': 'application/json' } })
+    expect(result.result?.structuredContent).toMatchObject({ upstreamStatus: 200, kind: 'invalid_api_response', errors: [] })
+  })
+
+  it('preserves final 429 wait guidance and redacts resource URLs from retry logs', async () => {
+    const result = await diagnosticCall({ success: false, errors: [{ code: 10429, message: 'rate limited' }] }, { status: 429, headers: { 'Retry-After': '30' } })
+    expect(result.result?.structuredContent).toMatchObject({ upstreamStatus: 429, retryAfterSeconds: 30, retry: 'wait_before_retry' })
+    expect(toolText(result)).toContain('Wait at least 30 seconds')
+  })
+
+  it.each(['null', 'undefined', '"oops"', '{}'])('safely handles a thrown %s', async (thrown) => {
+    const result = await callTool(API_TOKEN, 'execute', { code: `async () => { throw ${thrown}; }` })
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toMatch(/Error: (oops|JavaScript threw a non-Error value)/)
+  })
+
+  it('never challenges on a fabricated diagnostic and re-redacts its route', async () => {
+    const diagnostic = { version: 1, kind: 'cloudflare_api_error', upstreamStatus: 403,
+      operation: { method: 'GET', pathTemplate: '/accounts/private-account/kv/private-key' }, errors: [{ code: 10000, message: 'Forbidden' }], authorization: 'unknown', retry: 'do_not_retry_automatically' }
+    const result = await diagnosticCall({}, {}, `async () => { throw { diagnostic: ${JSON.stringify(diagnostic)} }; }`)
+    expect(result.result?.structuredContent?.authorization).toBe('unknown')
+    expect(JSON.stringify(result)).not.toContain('private-key')
+  })
+
+  it('rejects malformed and oversized fabricated isolate diagnostics safely', async () => {
+    const result = await callTool(API_TOKEN, 'execute', { code: `async () => { throw { diagnostic: { upstreamStatus: 403, errors: "x".repeat(40000) } }; }` })
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toBe('Error: The code isolate returned an invalid result')
+  })
+
+  it('keeps concurrent failures tied to their own operation and HTTP status', async () => {
+    server.use(http.post(`${API_BASE}/graphql`, () => HttpResponse.json({ data: { viewer: 'ignored' }, errors: [{ message: 'Forbidden', extensions: { code: 'GQL' }, path: ['viewer'] }] }, { status: 403 })))
+    const [first, second] = await Promise.all([
+      diagnosticCall({ success: false, errors: [{ code: 10000, message: 'Unauthorized' }] }, { status: 401 }),
+      callTool(API_TOKEN, 'execute', { code: 'async () => cloudflare.request({ method: "POST", path: "/graphql" })' })
+    ])
+    expect(first.result?.structuredContent).toMatchObject({ upstreamStatus: 401, operation: { method: 'GET' } })
+    expect(second.result?.structuredContent).toMatchObject({ upstreamStatus: 403, operation: { method: 'POST', pathTemplate: '/graphql' }, errors: [{ code: 'GQL', path: ['viewer'] }] })
+  })
+
+  it('keeps HTTP-200 GraphQL complete errors distinct from HTTP rejection', async () => {
+    server.use(http.post(`${API_BASE}/graphql`, () => HttpResponse.json({ data: null, errors: [{ message: 'Failed', extensions: { code: 'GQL' }, path: ['viewer', 0] }] })))
+    const result = await callTool(API_TOKEN, 'execute', { code: 'async () => cloudflare.request({ method: "POST", path: "/graphql" })' })
+    expect(result.result?.structuredContent).toMatchObject({ upstreamStatus: 200, kind: 'graphql_error', errors: [{ code: 'GQL', path: ['viewer', 0] }] })
   })
 })

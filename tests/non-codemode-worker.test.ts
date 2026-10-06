@@ -199,3 +199,29 @@ describe('non-codemode: account_id auto-resolution through real MCP validation',
     expect(result.result?.isError).toBe(true)
   })
 })
+
+describe('non-codemode: bounded API diagnostic parity', () => {
+  it.each([[401, false], [403, true], [200, false]])('preserves HTTP %s and REST failure facts', async (status, success) => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const documentation_url = 'https://developers.cloudflare.com/api/resources/workers/methods/list/'
+    server.use(http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () => HttpResponse.json({ success, errors: [{ code: 10000, message: 'Forbidden', documentation_url }] }, { status, headers: { 'CF-Ray': 'abc-SJC', 'WWW-Authenticate': 'Bearer private' } })))
+    const base = mcpToolCallRequest(ACCOUNT_TOKEN, 'get_accounts_workers_scripts', {})
+    const response = await exports.default.fetch(new Request(`${MCP_URL}?codemode=false`, base))
+    expect(response.status).toBe(200)
+    expect(response.headers.has('WWW-Authenticate')).toBe(false)
+    const result = await parseMcpResult(response)
+    expect(result.result?.isError).toBe(true)
+    expect(result.result?.structuredContent).toMatchObject({ upstreamStatus: status, authorization: 'unknown',
+      operation: { method: 'GET', pathTemplate: '/accounts/{account_id}/workers/scripts' },
+      errors: [{ code: 10000, message: 'Forbidden', documentation_url }], requestId: 'abc-SJC' })
+    expect(toolText(result)).toContain(documentation_url)
+  })
+
+  it('keeps malformed JSON status without leaking an arbitrary gateway body', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () => new HttpResponse('{private-token', { status: 502, headers: { 'Content-Type': 'application/json' } })))
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'get_accounts_workers_scripts', {})
+    expect(result.result?.structuredContent).toMatchObject({ upstreamStatus: 502, kind: 'invalid_api_response', errors: [] })
+    expect(JSON.stringify(result)).not.toContain('private-token')
+  })
+})

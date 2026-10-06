@@ -12,6 +12,7 @@ export interface McpToolResult {
     _meta?: Record<string, unknown>
     content?: Array<{ type: string; text: string }>
     isError?: boolean
+    structuredContent?: Record<string, unknown>
     tools?: Array<{
       name: string
       title?: string
