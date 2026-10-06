@@ -25,9 +25,6 @@ cloudflare-mcp/
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
-│   ├── utils/
-│   │   ├── cloudflare-api-errors.ts # Bounded API diagnostics, Zod boundary validation
-│   │   └── api-request-observer.ts # Per-execute trusted dispatch observer service
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Prefix classification & external resolver
@@ -40,9 +37,6 @@ cloudflare-mcp/
 │   │   └── workers-oauth-utils.ts # OAuth provider helpers
 ├── tests/                         # Vitest suite (top-level, mirrors src/)
 │   ├── index.test.ts
-│   ├── utils/
-│   │   ├── cloudflare-api-errors.ts # Bounded API diagnostics, Zod boundary validation
-│   │   └── api-request-observer.ts # Per-execute trusted dispatch observer service
 │   ├── auth/
 │   ├── executor.test.ts
 │   ├── spec-processor.test.ts
@@ -50,7 +44,6 @@ cloudflare-mcp/
 │   └── e2e/                       # End-to-end tests (real worker via exports.default.fetch)
 │       └── tool-call.test.ts
 ├── scripts/
-│   ├── report-operation-scopes.ts # Reproducible candidate scope coverage report
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
@@ -119,15 +112,13 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 - `src/mcp-handler.ts` uses `createMcpHandler(factory)` directly from `@modelcontextprotocol/server`; this repository does not depend on the Agents SDK.
 - Each authenticated request creates an upstream handler whose factory closes over validated `AuthProps`, matching the repository's pre-migration explicit data flow.
-- The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request. OAuth-authenticated 2025 requests use the SDK's stateless JSON transport so trusted permission decisions finish before headers; direct credentials retain the default legacy transport.
+- The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request.
 - No MCP session ID, protocol transport state, replay store, Durable Object, or Node async-context bridge is used. This server publishes no change notifications, so both tool modes advertise `tools.listChanged: false`. For `subscriptions/listen`, the handler lets the SDK send the acknowledgment with an empty honored filter and then closes the per-request handler. That ends the subscription gracefully with a `complete` result rather than an error, and no SSE stream stays open.
 - Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
 
 ### Worker Loader API
 
 Code execution uses Cloudflare's Worker Loader API to dynamically create isolated worker instances. The API token is passed via props (never enters user code isolate). A `globalOutbound` service restricts network access.
-
-API failures are normalized before they cross the user isolate, with bounded provider messages and validated API-reference links. The host validates the discriminated success/API-failure/JavaScript-failure boundary and reapplies route and credential redaction. A diagnostic object from user code is never authorization evidence. An optional exported parent observer service forwards to a fresh trusted Loader isolate per execute call; only its reloadable service capability enters GlobalOutbound props. Its nonce prevents lost initialization from being mistaken for zero dispatches, and bounded snapshots report overflow explicitly. The observer is disabled in normal execution until permission handling enables it; lost completion history must never replace a known API result. No user code or token enters the observer, and no request state is stored in the shared server module.
 
 ### Authentication
 
@@ -147,9 +138,9 @@ The consent page offers read-only and full-access templates built from the produ
 - Fetched from GitHub daily (scheduled handler, cron `0 0 * * *`)
 - All `$ref` references resolved inline before storage
 - Products and minimal operation metadata extracted
-- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, `operation-scopes.json`, and the precomputed `non-codemode-tools.json` artifact
+- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and the precomputed `non-codemode-tools.json` artifact
 - The non-Code-Mode artifact contains protocol-ready JSON Schemas plus minimal request-routing metadata. Low-level MCP handlers serve `tools/list` directly and lazily validate/dispatch only the requested `tools/call` operation with Zod; no per-endpoint SDK tools are registered
-- `src/isolate-cache.ts` caches all four artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
+- `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
 
 ### Response truncation
 
@@ -259,9 +250,3 @@ Update this file when:
 - Modifying build/test tooling
 - Adding new code patterns or conventions
 - Changing contribution workflows
-
-### Operation scope policy
-
-`src/auth/operation-scopes.ts` derives versioned candidates from preserved OpenAPI permission labels and the production OAuth catalog. Unknown alternatives stay unresolved. Reviews are explicit and pinned to original labels plus schema/catalog hashes; the production review registry is currently empty. Artifact data cannot independently enable reviews. `src/auth/scope-context.ts` recognizes the pinned provider's verified subject/client metadata separately from application props; direct credentials remain an unknown scope state. The non-Code-Mode dispatcher can deny a reviewed missing permission before dispatch and the HTTP adapter builds the provider's canonical `insufficient_scope` challenge. Do not activate policies from display-name joins or invent scope hierarchy.
-
-When reviewed Code Mode policies exist, the optional trusted observer performs atomic admission before every GlobalOutbound dispatch, including direct fetch. It lives in a fresh UUID-named Loader isolate per execute call, with nonce-verified initialization and no user code, tokens or outbound access. Its per-invocation module state is intentionally isolated from the shared server worker; do not move this state into a shared module or silently reinitialize it. User source lives in `user.js`, loaded only after trusted native fetch/header/WeakMap methods are captured. Only host-verified uncaught helper denials with no prior/in-flight dispatch may challenge; lost observation and possible partial work must suppress automatic replay.
