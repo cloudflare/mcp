@@ -19,9 +19,11 @@ export type ScopeContext = z.infer<typeof VerifiedContext>
  * External credentials have scope: [] and neither identity. Do not infer this
  * distinction from encrypted props, token prefixes, or request headers.
  */
-export function verifiedScopeContext(auth: unknown): ScopeContext | undefined {
+export function verifiedScopeContext(auth: unknown, audience?: string): ScopeContext | undefined {
   const parsed = VerifiedContext.safeParse(auth)
-  return parsed.success ? parsed.data : undefined
+  return parsed.success && (!audience || parsed.data.audience === audience)
+    ? parsed.data
+    : undefined
 }
 
 type Denial = { handle: string; scopes: string[]; path: string; safe: boolean }
@@ -37,16 +39,33 @@ export class ScopeController {
   #denials = new Map<string, Denial>()
   #terminal?: Denial
 
+  #policies: OperationPolicy[] = []
+  #policySource?: () => Promise<OperationPolicy[]>
+  #loaded?: Promise<OperationPolicy[]>
+
   constructor(
     readonly context: ScopeContext | undefined,
-    readonly policies: OperationPolicy[],
-    readonly apiBase: string
-  ) {}
+    policies: OperationPolicy[] | (() => Promise<OperationPolicy[]>),
+    readonly apiBase: string,
+    readonly challengeFactory?: (scopes: string[]) => Response
+  ) {
+    if (Array.isArray(policies)) this.#policies = policies
+    else this.#policySource = policies
+  }
+
+  async loadPolicies(): Promise<OperationPolicy[]> {
+    if (!this.context) return []
+    if (this.#policySource) {
+      this.#loaded ??= this.#policySource()
+      this.#policies = await this.#loaded
+    }
+    return this.#policies
+  }
 
   beginDispatch(method: string, url: string): DispatchAdmission {
     if (this.#stopped) return { allowed: false, handle: '', scopes: [], safe: false }
     const decision = evaluateOperationScopes(
-      matchOperationPolicy(method, new URL(url), this.apiBase, this.policies),
+      matchOperationPolicy(method, new URL(url), this.apiBase, this.#policies),
       this.context?.scope
     )
     if (decision.kind === 'insufficient') {
@@ -79,13 +98,15 @@ export class ScopeController {
 
   challenge(auth: OAuthResourceAuth | undefined): Response | undefined {
     if (
-      !auth ||
+      (!auth && !this.challengeFactory) ||
       !this.context ||
       !this.#terminal?.safe ||
       this.#started !== 0 ||
       this.#inFlight !== 0
     )
       return undefined
+    if (this.challengeFactory) return this.challengeFactory(this.#terminal.scopes)
+    if (!auth) return undefined
     return insufficientScope(
       auth,
       this.#terminal.scopes,
@@ -99,5 +120,25 @@ export class ScopeController {
     return (
       this.terminalFailure(admission.handle) ?? { handle: '', scopes: [], path: '', safe: false }
     )
+  }
+}
+
+export const OAUTH_TOOL_META = {
+  securitySchemes: [{ type: 'oauth2', scopes: ['user:read', 'account:read'] }]
+}
+
+export function scopeToolFailure(controller: ScopeController | undefined, compatibility: boolean) {
+  const challenge = compatibility
+    ? controller?.challenge(undefined)?.headers.get('WWW-Authenticate')
+    : undefined
+  return {
+    isError: true,
+    content: [
+      {
+        type: 'text' as const,
+        text: 'Additional permission is required before this operation can run'
+      }
+    ],
+    ...(challenge ? { _meta: { 'mcp/www_authenticate': [challenge] } } : {})
   }
 }

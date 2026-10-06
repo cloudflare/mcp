@@ -119,7 +119,7 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 - `src/mcp-handler.ts` uses `createMcpHandler(factory)` directly from `@modelcontextprotocol/server`; this repository does not depend on the Agents SDK.
 - Each authenticated request creates an upstream handler whose factory closes over validated `AuthProps`, matching the repository's pre-migration explicit data flow.
-- The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request.
+- The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request. OAuth-authenticated 2025 requests use the SDK's stateless JSON transport so trusted permission decisions finish before headers; direct credentials retain the default legacy transport.
 - No MCP session ID, protocol transport state, replay store, Durable Object, or Node async-context bridge is used. This server publishes no change notifications, so both tool modes advertise `tools.listChanged: false`. For `subscriptions/listen`, the handler lets the SDK send the acknowledgment with an empty honored filter and then closes the per-request handler. That ends the subscription gracefully with a `complete` result rather than an error, and no SSE stream stays open.
 - Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
 

@@ -97,9 +97,14 @@ export async function getProducts(): Promise<string[]> {
 export async function getOperationPolicies(): Promise<OperationPolicy[]> {
   const now = Date.now()
   if (fresh(operationPoliciesEntry, now)) return operationPoliciesEntry.value
-  const object = await env.SPEC_BUCKET.get('operation-scopes.json')
-  const parsed = object ? PolicyArtifact.safeParse(await object.json()) : undefined
-  const value = parsed?.success ? deployedOperationPolicies(parsed.data) : []
+  let value: OperationPolicy[] = []
+  try {
+    const object = await env.SPEC_BUCKET.get('operation-scopes.json')
+    const parsed = object ? PolicyArtifact.safeParse(await object.json()) : undefined
+    if (parsed?.success) value = deployedOperationPolicies(parsed.data)
+  } catch {
+    // Optional policy metadata must not make an otherwise usable credential fail.
+  }
   operationPoliciesEntry = { value, expiresAt: now + TTL_MS }
   return value
 }

@@ -1,9 +1,12 @@
-import type { OAuthResourceAuth } from '@cloudflare/workers-oauth-provider'
+import { insufficientScope } from '@cloudflare/workers-oauth-provider'
+import type { OAuthResourceAuth, OAuthResourceContext } from '@cloudflare/workers-oauth-provider'
 import { ScopeController, verifiedScopeContext } from './auth/scope-context'
 import { getOperationPolicies } from './isolate-cache'
 import { env } from 'cloudflare:workers'
 import {
   createMcpHandler,
+  isLegacyRequest,
+  WebStandardStreamableHTTPServerTransport,
   hostHeaderValidationResponse,
   localhostAllowedHostnames,
   localhostAllowedOrigins,
@@ -34,7 +37,8 @@ function serverOptionsFromUrl(url: string): ServerOptions {
   const params = new URL(url).searchParams
   return {
     codemode: params.get('codemode') !== 'false',
-    truncateToolResult: params.get('truncateToolResult') !== 'false'
+    truncateToolResult: params.get('truncateToolResult') !== 'false',
+    toolAuthChallenge: params.get('oauthChallenge') === 'tool'
   }
 }
 
@@ -74,6 +78,7 @@ function corsHeaders(request: Request): Headers | undefined {
       requestedHeaders ??
       'Content-Type, Accept, Authorization, MCP-Protocol-Version, Mcp-Method, Mcp-Name',
     'Access-Control-Max-Age': '86400',
+    'Access-Control-Expose-Headers': 'WWW-Authenticate, Retry-After',
     Vary: 'Origin'
   })
   return headers
@@ -112,12 +117,34 @@ export async function handleAuthenticatedMcpRequest(
 
   const props = AuthPropsSchema.parse(rawProps)
   const controller = new ScopeController(
-    verifiedScopeContext(auth),
-    await getOperationPolicies(),
-    env.CLOUDFLARE_API_BASE
+    verifiedScopeContext(auth, env.MCP_RESOURCE),
+    getOperationPolicies,
+    env.CLOUDFLARE_API_BASE,
+    auth
+      ? (scopes) =>
+          insufficientScope(auth, scopes, 'Additional permission is required for this operation')
+      : undefined
   )
   const handler = createAuthenticatedHandler(props, controller)
-  const response = await handler.fetch(request)
+  let response: Response
+  if (request.method === 'POST' && controller.context && (await isLegacyRequest(request))) {
+    // The default legacy path opens SSE before its tool has finished. OAuth
+    // exchanges use a single JSON result so a safe challenge precedes headers.
+    const server = await createServer(props, serverOptionsFromUrl(request.url), controller)
+    const transport = new WebStandardStreamableHTTPServerTransport({
+      sessionIdGenerator: undefined,
+      enableJsonResponse: true
+    })
+    try {
+      await server.connect(transport)
+      response = await transport.handleRequest(request)
+    } finally {
+      await transport.close()
+      await server.close()
+    }
+  } else {
+    response = await handler.fetch(request)
+  }
 
   // This server publishes no change notifications and keeps no long-lived
   // request state. The SDK only serves subscriptions/listen after checking that
@@ -132,21 +159,30 @@ export async function handleAuthenticatedMcpRequest(
   }
 
   const challenge = controller.challenge(auth)
-  if (challenge && response.headers.get('Content-Type')?.includes('application/json')) {
+  if (
+    !serverOptionsFromUrl(request.url).toolAuthChallenge &&
+    challenge &&
+    response.headers.get('Content-Type')?.includes('application/json')
+  ) {
     await response.body?.cancel()
     await handler.close()
     return withCors(challenge, request)
+  }
+  if (challenge && serverOptionsFromUrl(request.url).toolAuthChallenge) {
+    const headers = new Headers(response.headers)
+    headers.set('Cache-Control', 'no-store')
+    response = new Response(response.body, { status: response.status, headers })
   }
   return withCors(response, request)
 }
 
 /** Provider 1.2.1 supplies verified authorization separately from application props. */
 export const oauthMcpHandler = {
-  fetch(request: Request, _env: Env, ctx: ExecutionContext) {
-    return handleAuthenticatedMcpRequest(
-      request,
-      ctx.props,
-      'auth' in ctx ? (ctx.auth as OAuthResourceAuth) : undefined
-    )
+  fetch(
+    request: Request,
+    _env: Env,
+    ctx: ExecutionContext & Partial<Pick<OAuthResourceContext<unknown>, 'auth'>>
+  ) {
+    return handleAuthenticatedMcpRequest(request, ctx.props, ctx.auth)
   }
 }

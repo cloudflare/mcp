@@ -344,7 +344,8 @@ export function registerExecuteTool(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult,
-  _controller?: ScopeController
+  _controller?: ScopeController,
+  _toolAuthChallenge = false
 ): void {
   const apiToken = props.accessToken
 

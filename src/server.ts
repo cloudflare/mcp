@@ -15,6 +15,7 @@ export interface ServerOptions {
    * Register the Code Mode tools (`docs`, `search`, `execute`). When `false`,
    * register one tool per API endpoint instead. Defaults to `true`.
    */
+  readonly toolAuthChallenge?: boolean
   readonly codemode?: boolean
   /**
    * Cap each tool result at ~6,000 tokens. When `false`, results are returned
@@ -32,7 +33,7 @@ export interface ServerOptions {
  */
 export async function createServer(
   props: AuthProps,
-  { codemode = true, truncateToolResult = true }: ServerOptions = {},
+  { codemode = true, truncateToolResult = true, toolAuthChallenge = false }: ServerOptions = {},
   controller?: ScopeController
 ): Promise<McpServer> {
   const server = new McpServer(SERVER_INFO)
@@ -43,7 +44,7 @@ export async function createServer(
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (!codemode) {
-    await registerNonCodemodeTools(server, props, formatResult, controller)
+    await registerNonCodemodeTools(server, props, formatResult, controller, toolAuthChallenge)
     return server
   }
 
@@ -52,7 +53,7 @@ export async function createServer(
   attachMetrics(server, props)
   registerDocsTool(server)
   await registerSearchTool(server, formatResult)
-  registerExecuteTool(server, props, formatResult, controller)
+  registerExecuteTool(server, props, formatResult, controller, toolAuthChallenge)
 
   return server
 }

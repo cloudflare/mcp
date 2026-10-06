@@ -255,7 +255,7 @@ export function evaluateOperationScopes(
           b.filter((scope) => !granted.has(scope)).length ||
         a.filter((scope) => !scope.endsWith('.read')).length -
           b.filter((scope) => !scope.endsWith('.read')).length ||
-        a.join(' ').localeCompare(b.join(' '))
+        (a.join(' ') < b.join(' ') ? -1 : a.join(' ') > b.join(' ') ? 1 : 0)
     )
   return { kind: 'insufficient', scopes: sorted[0], policy }
 }

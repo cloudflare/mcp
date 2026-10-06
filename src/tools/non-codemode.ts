@@ -1,4 +1,4 @@
-import type { ScopeController } from '../auth/scope-context'
+import { OAUTH_TOOL_META, scopeToolFailure, type ScopeController } from '../auth/scope-context'
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { McpServer, CallToolResult, Tool } from '@modelcontextprotocol/server'
@@ -29,7 +29,8 @@ export async function registerNonCodemodeTools(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult,
-  controller?: ScopeController
+  controller?: ScopeController,
+  toolAuthChallenge = false
 ): Promise<void> {
   const tools = await getNonCodemodeTools()
   const toolsByName = await getNonCodemodeToolMap()
@@ -58,7 +59,14 @@ export async function registerNonCodemodeTools(
             .object(zodInputSchemaFromJson(tool.inputSchema))
             .safeParse(request.params.arguments ?? {})
           result = parsed.success
-            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult, controller)
+            ? await callNonCodemodeTool(
+                baseTool,
+                parsed.data,
+                props,
+                formatResult,
+                controller,
+                toolAuthChallenge
+              )
             : validationError(name, parsed.error)
         }
       }
@@ -76,7 +84,8 @@ async function callNonCodemodeTool(
   params: Record<string, unknown>,
   props: AuthProps,
   formatResult: FormatToolResult,
-  controller?: ScopeController
+  controller?: ScopeController,
+  toolAuthChallenge = false
 ): Promise<CallToolResult> {
   let resolvedPath = tool.path
   const pathParams = [...tool.path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1])
@@ -109,8 +118,9 @@ async function callNonCodemodeTool(
     body = params['body'] as string
   }
 
+  await controller?.loadPolicies()
   const denied = controller?.denyEndpoint(tool.method, url.toString())
-  if (denied) return toolError('Additional permission is required before this operation can run')
+  if (denied) return scopeToolFailure(controller, toolAuthChallenge)
 
   const response = await fetchWithRetry(
     url.toString(),
@@ -153,7 +163,7 @@ function toolError(message: string): CallToolResult {
 
 function toWireTool(tool: NonCodemodeTool): Tool {
   const { name, title, description, inputSchema } = tool
-  return { name, title, description, inputSchema }
+  return { name, title, description, inputSchema, _meta: OAUTH_TOOL_META }
 }
 
 const ACCOUNT_ID_PARAM_DESCRIPTION = `Cloudflare account ID. Optional when the session is authorized for exactly one account; otherwise required. ${NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE}`
