@@ -126,7 +126,6 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 Code execution uses Cloudflare's Worker Loader API to dynamically create isolated worker instances. The API token is passed via props (never enters user code isolate). A `globalOutbound` service restricts network access.
 
-API failures are normalized before they cross the user isolate, with bounded provider messages and validated API-reference links. The host validates the discriminated success/API-failure/JavaScript-failure boundary and reapplies route and credential redaction. A diagnostic object from user code is never authorization evidence. An optional exported parent observer service forwards to a fresh trusted Loader isolate per execute call; only its reloadable service capability enters GlobalOutbound props. Its nonce prevents lost initialization from being mistaken for zero dispatches, and bounded snapshots report overflow explicitly. The observer is disabled in normal execution until permission handling enables it; lost completion history must never replace a known API result. No user code or token enters the observer, and no request state is stored in the shared server module.
 
 ### Authentication
 
