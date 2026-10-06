@@ -21,10 +21,14 @@ describe('request-local trusted outbound observer', () => {
       outbound.fetch(`${API_BASE}/accounts/private-account/workers/scripts`)
     ])
     await Promise.all(responses.map((response) => response.body?.cancel()))
-    expect(await observer.snapshot(nonce)).toMatchObject({ overflow: false, dispatches: [
-      { sequence: 0, method: 'GET', pathTemplate: '/user', status: 200 },
-      { sequence: 1, method: 'GET', pathTemplate: '/accounts/{account_id}/workers/scripts', status: 403 }
-    ] })
+    const snapshot = await observer.snapshot(nonce)
+    expect(snapshot?.overflow).toBe(false)
+    expect(snapshot?.dispatches.map(({ sequence }) => sequence)).toEqual([0, 1])
+    // Concurrent service calls can reach the observer in either order.
+    expect(snapshot?.dispatches).toEqual(expect.arrayContaining([
+      { sequence: expect.any(Number), method: 'GET', pathTemplate: '/user', status: 200 },
+      { sequence: expect.any(Number), method: 'GET', pathTemplate: '/accounts/{account_id}/workers/scripts', status: 403 }
+    ]))
     const separate = await createApiRequestObserver()
     expect(await separate.observer.snapshot(separate.nonce)).toMatchObject({ dispatches: [], overflow: false })
     expect(await observer.snapshot(separate.nonce)).toBeNull()
