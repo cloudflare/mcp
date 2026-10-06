@@ -88,11 +88,7 @@ https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
 
 ### Authenticated Profile
 
-`get_profile({})` returns the same bounded profile object as JSON text and `structuredContent`. Its `outputSchema` and `_meta["openai/profile"]: true` let clients discover it in both tool modes, using MCP 2026-07-28 or the stateless 2025 compatibility path. It uses the request's validated identity and does not need API permissions beyond the normal connection bootstrap.
-
-OAuth and direct user credentials for the same Cloudflare user share one opaque profile ID. Account-owned credentials identify an account in a separate namespace. IDs depend only on the immutable Cloudflare identity, so refresh, reconnect, scope changes, email changes and changing authorized account lists preserve them. Email is display metadata for user profiles; account name is display metadata for account profiles. Direct-credential identity caching can delay display changes.
-
-A profile helps clients recognize a connection; it does not own saved rows, their primary selection or chat references. Separately permissioned connections may be intentional.
+`get_profile` is a read-only discovery tool, that conforms with the [ChatGPT Plugins standard](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool). It returns JSON, and allows MCP clients to disambiguate which Cloudflare account the MCP client has been granted access to.
 
 ## The Problem
 
