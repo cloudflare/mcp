@@ -1,4 +1,16 @@
-import type { ScopeController } from '../auth/scope-context'
+import {
+  OAUTH_TOOL_META,
+  ScopeUpgradeError,
+  scopeToolFailure,
+  type ScopeController,
+  type ScopeContext
+} from '../auth/scope-context'
+import {
+  evaluateOperationScopes,
+  matchOperationPolicy,
+  type OperationPolicy
+} from '../auth/operation-scopes'
+import { createApiRequestObserver } from '../utils/api-request-observer'
 import { z } from 'zod'
 import { env, exports, WorkerEntrypoint } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
@@ -26,14 +38,21 @@ import {
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
 
+const helperIdSchema = z.string().uuid()
+
 const executeResultSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('success'), result: z.unknown() }),
+  z.object({
+    kind: z.literal('scope_failure'),
+    handle: z.string().uuid(),
+    helperId: z.string().uuid()
+  }),
   z.object({ kind: z.literal('api_failure'), diagnostic: cloudflareApiErrorSchema }),
   z.object({ kind: z.literal('javascript_failure'), message: z.string().max(2048) })
 ])
 
 interface CodeExecutorEntrypoint {
-  evaluate(): Promise<unknown>
+  evaluate(nonce: string): Promise<unknown>
 }
 
 type GlobalOutboundProps = {
@@ -42,6 +61,8 @@ type GlobalOutboundProps = {
   pathTemplates: string[]
   observer?: ApiRequestObserver
   observerNonce?: string
+  scopeContext?: ScopeContext
+  operationPolicies?: OperationPolicy[]
 }
 
 /**
@@ -55,18 +76,23 @@ type GlobalOutboundProps = {
  */
 export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
   async fetch(request: Request): Promise<Response> {
-    const allowed = new URL(this.env.CLOUDFLARE_API_BASE).hostname
-    const requested = new URL(request.url).hostname
+    const allowed = new URL(this.env.CLOUDFLARE_API_BASE).origin
+    const requested = new URL(request.url).origin
     if (requested !== allowed) {
       return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
     }
     // Inject auth header — token comes from props, never enters user code isolate
+    const suppliedHelperId = helperIdSchema.safeParse(
+      request.headers.get('X-Cloudflare-MCP-Helper-ID')
+    )
+    const helperId = suppliedHelperId.success ? suppliedHelperId.data : undefined
     const authedRequest = new Request(request, {
       headers: new Headers([
         ...request.headers.entries(),
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
+    authedRequest.headers.delete('X-Cloudflare-MCP-Helper-ID')
     const pathTemplate = normalizedApiPath(
       new URL(request.url).pathname.slice(
         new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '').length
@@ -79,24 +105,61 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     }
     const observer = this.ctx.props.observer
     const nonce = this.ctx.props.observerNonce
+    if (
+      this.ctx.props.scopeContext &&
+      this.ctx.props.operationPolicies?.length &&
+      (!observer || !nonce)
+    )
+      throw new Error('API observer is unavailable')
+    const scopeDecision = evaluateOperationScopes(
+      matchOperationPolicy(
+        request.method,
+        new URL(request.url),
+        this.env.CLOUDFLARE_API_BASE,
+        this.ctx.props.operationPolicies ?? []
+      ),
+      this.ctx.props.scopeContext?.scope
+    )
     const sequence =
       observer && nonce
-        ? await observer.beginDispatch(nonce, operation.method, pathTemplate)
+        ? await observer.beginDispatch(
+            nonce,
+            operation.method,
+            pathTemplate,
+            scopeDecision.kind === 'insufficient' ? scopeDecision.scopes : undefined,
+            helperId
+          )
         : undefined
     if (observer && (sequence === null || sequence === undefined))
       throw new Error('API observer is unavailable')
+    if (sequence && typeof sequence === 'object') {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          errors: [{ message: 'Additional permission is required before this operation can run' }]
+        }),
+        {
+          status: 403,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Cloudflare-MCP-Scope-Denial': sequence.handle
+          }
+        }
+      )
+    }
     const response = await fetchWithRetry(authedRequest, undefined, {
       caller: this.ctx.props.fetchWithRetryCaller,
       logUrl: `${new URL(this.env.CLOUDFLARE_API_BASE).origin}${pathTemplate}`
     })
     // A lost observation after dispatch cannot undo or replace an API result.
     // Permission handling must suppress replay if completion history is unavailable.
-    if (observer && nonce && sequence !== undefined && sequence !== null) {
+    if (observer && nonce && typeof sequence === 'number') {
       await observer.finishDispatch(nonce, sequence, response.status).catch(() => false)
     }
     const headers = new Headers(response.headers)
     // Never accept an upstream-supplied internal diagnostic marker.
     headers.delete('X-Cloudflare-MCP-API-Error')
+    headers.delete('X-Cloudflare-MCP-Scope-Denial')
     headers.set('X-Cloudflare-MCP-API-Path', pathTemplate)
     if (response.ok && !headers.get('content-type')?.includes('application/json')) {
       return new Response(response.body, { status: response.status, headers })
@@ -125,20 +188,26 @@ async function runExecute(
   code: string,
   accountId: string | undefined,
   apiToken: string,
-  unresolvedAccountMessage: string
+  unresolvedAccountMessage: string,
+  controller?: ScopeController
 ): Promise<unknown> {
   const apiBase = env.CLOUDFLARE_API_BASE
+  const operationPolicies = ((await controller?.loadPolicies()) ?? []).filter(
+    (policy) => policy.state === 'reviewed'
+  )
+  const observation = operationPolicies.length > 0 ? await createApiRequestObserver() : undefined
   const pathTemplates = await getSpec()
     .then((spec) => Object.keys(spec.paths))
     .catch(() => [])
   const workerId = `cloudflare-api-${crypto.randomUUID()}`
+  const evaluationNonce = crypto.randomUUID()
 
   // When no account is resolved (a multi-account user who hasn't chosen one),
   // don't bind a usable `accountId`. Account-independent calls (GET /accounts,
   // GET /user) never touch it, but any code that reads it fails fast with a
   // clear message instead of silently producing `/accounts//...` (a 404).
   const accountIdPrelude = accountId
-    ? `const accountId = ${JSON.stringify(accountId)};`
+    ? `Object.defineProperty(globalThis, "accountId", { value: ${JSON.stringify(accountId)} });`
     : `Object.defineProperty(globalThis, "accountId", { configurable: true, get() {
         throw new Error(${JSON.stringify(unresolvedAccountMessage)});
       } });`
@@ -149,19 +218,33 @@ async function runExecute(
       props: {
         apiToken,
         fetchWithRetryCaller: 'codemode_execute_tool_call',
-        pathTemplates
+        pathTemplates,
+        operationPolicies,
+        scopeContext: controller?.context,
+        observer: observation?.observer,
+        observerNonce: observation?.nonce
       }
     }),
     mainModule: 'worker.js',
     modules: {
+      'user.js': `export default (${code});`,
       'worker.js': `
 import { WorkerEntrypoint } from "cloudflare:workers";
 
+const trustedFetch = globalThis.fetch.bind(globalThis);
+const trustedHelperId = crypto.randomUUID.bind(crypto);
+const trustedResponseHeaders = Function.prototype.call.bind(Object.getOwnPropertyDescriptor(Response.prototype, "headers").get);
+const trustedHeaderGet = Function.prototype.call.bind(Headers.prototype.get);
+const scopeFailures = new WeakMap();
+const setScopeFailure = scopeFailures.set.bind(scopeFailures);
+const getScopeFailure = scopeFailures.get.bind(scopeFailures);
 const apiBase = ${JSON.stringify(apiBase)};
+const evaluationNonce = ${JSON.stringify(evaluationNonce)};
 ${accountIdPrelude}
 
 export default class CodeExecutor extends WorkerEntrypoint {
-  async evaluate() {
+  async evaluate(nonce) {
+    if (nonce !== evaluationNonce) throw new Error("Trusted executor invocation required");
     const cloudflare = {
       async request(options) {
         const { method, path, query, body, contentType, rawBody } = options;
@@ -175,7 +258,8 @@ export default class CodeExecutor extends WorkerEntrypoint {
           }
         }
 
-        const headers = {};
+        const helperId = trustedHelperId();
+        const headers = { __proto__: null, "X-Cloudflare-MCP-Helper-ID": helperId };
 
         if (contentType) {
           headers["Content-Type"] = contentType;
@@ -190,12 +274,18 @@ export default class CodeExecutor extends WorkerEntrypoint {
           requestBody = JSON.stringify(body);
         }
 
-        const response = await fetch(url.toString(), {
+        const response = await trustedFetch(url.toString(), {
           method,
           headers,
           body: requestBody,
         });
 
+        const handle = trustedHeaderGet(trustedResponseHeaders(response), "X-Cloudflare-MCP-Scope-Denial");
+        if (handle) {
+          const error = new Error("Additional permission is required");
+          setScopeFailure(error, { handle, helperId });
+          throw error;
+        }
         const responseContentType = response.headers.get("content-type") || "";
         if (response.headers.get("X-Cloudflare-MCP-API-Error") === "1") {
           const diagnostic = await response.json();
@@ -268,10 +358,14 @@ export default class CodeExecutor extends WorkerEntrypoint {
     };
 
     try {
-      const result = await (${code})();
+      globalThis.cloudflare = cloudflare;
+      const { default: userCode } = await import("./user.js");
+      const result = await userCode();
       return { kind: "success", result };
     } catch (err) {
       try {
+        const scopeHandle = getScopeFailure(err);
+        if (scopeHandle) return { kind: "scope_failure", handle: scopeHandle.handle, helperId: scopeHandle.helperId };
         if (err?.diagnostic) return { kind: "api_failure", diagnostic: err.diagnostic };
         const message = typeof err === "string" ? err : err?.message;
         return { kind: "javascript_failure", message: typeof message === "string"
@@ -287,8 +381,22 @@ export default class CodeExecutor extends WorkerEntrypoint {
   }))
 
   const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
-  const response = executeResultSchema.safeParse(await entrypoint.evaluate())
+  const response = executeResultSchema.safeParse(await entrypoint.evaluate(evaluationNonce))
   if (!response.success) throw new Error('The code isolate returned an invalid result')
+  if (response.data.kind === 'scope_failure') {
+    const snapshot = observation
+      ? await observation.observer.snapshot(observation.nonce).catch(() => null)
+      : undefined
+    const denial = controller?.observedTerminalFailure(
+      snapshot,
+      response.data.handle,
+      response.data.helperId
+    )
+    if (denial) throw new ScopeUpgradeError(denial)
+    throw new Error(
+      'Permission decision could not be verified; do not replay this program automatically'
+    )
+  }
   if (response.data.kind === 'api_failure')
     throw new CloudflareApiError(
       sanitizeApiDiagnostic(response.data.diagnostic, pathTemplates, apiToken)
@@ -344,8 +452,8 @@ export function registerExecuteTool(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult,
-  _controller?: ScopeController,
-  _toolAuthChallenge = false
+  controller?: ScopeController,
+  toolAuthChallenge = false
 ): void {
   const apiToken = props.accessToken
 
@@ -353,6 +461,7 @@ export function registerExecuteTool(
     'execute',
     {
       title: 'Cloudflare API Code Executor',
+      _meta: OAUTH_TOOL_META,
       description: EXECUTE_TOOL_DESCRIPTION,
       inputSchema: z.object({
         code: z.string().describe('JavaScript async arrow function to execute'),
@@ -376,10 +485,30 @@ export function registerExecuteTool(
           code,
           effectiveAccountId,
           apiToken,
-          missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE)
+          missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE),
+          controller
         )
         return { content: [{ type: 'text', text: formatResult(result) }] }
       } catch (error) {
+        if (error instanceof ScopeUpgradeError) {
+          if (controller?.challenge(undefined))
+            return scopeToolFailure(controller, toolAuthChallenge)
+          return {
+            isError: true,
+            content: [
+              {
+                type: 'text',
+                text: 'A required permission is missing. Earlier API requests may have performed work. Continue with a revised call; do not replay this program automatically.'
+              }
+            ],
+            structuredContent: {
+              kind: 'insufficient_scope',
+              scopes: error.denial.scopes,
+              operation: { method: error.denial.method, pathTemplate: error.denial.pathTemplate },
+              replaySafe: false
+            }
+          }
+        }
         const failure =
           error instanceof CloudflareApiError
             ? formatApiError(error.diagnostic)

@@ -15,8 +15,9 @@ export interface ServerOptions {
    * Register the Code Mode tools (`docs`, `search`, `execute`). When `false`,
    * register one tool per API endpoint instead. Defaults to `true`.
    */
-  readonly toolAuthChallenge?: boolean
   readonly codemode?: boolean
+  /** Return safe OAuth challenges in the supported OpenAI tool-result metadata. */
+  readonly toolAuthChallenge?: boolean
   /**
    * Cap each tool result at ~6,000 tokens. When `false`, results are returned
    * whole. Defaults to `true`.

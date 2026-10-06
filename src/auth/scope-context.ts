@@ -1,3 +1,4 @@
+import type { ApiDispatchSnapshot, ApiScopeDenial } from '../utils/api-request-observer'
 import { z } from 'zod'
 import { insufficientScope, type OAuthResourceAuth } from '@cloudflare/workers-oauth-provider'
 import {
@@ -96,6 +97,25 @@ export class ScopeController {
     return denial
   }
 
+  observedTerminalFailure(
+    snapshot: ApiDispatchSnapshot | null | undefined,
+    handle: string,
+    helperId: string
+  ): ApiScopeDenial | undefined {
+    const denial = snapshot?.denial
+    if (!denial || denial.handle !== handle || denial.helperId !== helperId) return undefined
+    if (
+      snapshot.complete &&
+      !snapshot.overflow &&
+      snapshot.inFlight === 0 &&
+      snapshot.dispatches.length === 0 &&
+      denial.safe
+    ) {
+      this.#terminal = { handle, scopes: denial.scopes, path: denial.pathTemplate, safe: true }
+    }
+    return denial
+  }
+
   challenge(auth: OAuthResourceAuth | undefined): Response | undefined {
     if (
       (!auth && !this.challengeFactory) ||
@@ -140,5 +160,11 @@ export function scopeToolFailure(controller: ScopeController | undefined, compat
       }
     ],
     ...(challenge ? { _meta: { 'mcp/www_authenticate': [challenge] } } : {})
+  }
+}
+
+export class ScopeUpgradeError extends Error {
+  constructor(readonly denial: ApiScopeDenial) {
+    super('Additional permission is required')
   }
 }

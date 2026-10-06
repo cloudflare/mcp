@@ -1,4 +1,5 @@
-import { CimdFetchError, type OAuthHelpers } from '@cloudflare/workers-oauth-provider'
+import { createExecutionContext } from 'cloudflare:test'
+import OAuthProvider, { CimdFetchError, type OAuthHelpers, type OAuthResourceContext } from '@cloudflare/workers-oauth-provider'
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -837,6 +838,32 @@ describe('GET /oauth/callback', () => {
       )
     ).json()) as { scope: string }
     expect(token.scope.split(' ').sort()).toEqual(['account:read', 'offline_access', 'user:read'])
+  })
+
+  it.each(['', 'user:read account:read offline_access access.write'])('preserves an explicit empty granted/refreshed scope in token validation and provider context (initial=%s)', async (initialScope) => {
+    const { clientId, state, sessionCookie, location } = await beginAuthorization({ scopes: 'access.write' })
+    expect(new URL(location).searchParams.get('scope')?.split(' ')).toContain('access.write')
+    useCloudflareAuthSuccess(initialScope)
+    const callback = await exports.default.fetch(new Request(`${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(state)}`, { headers: { Cookie: sessionCookie }, redirect: 'manual' }))
+    const code = new URL(callback.headers.get('location')!).searchParams.get('code')!
+    const exchange = (body: Record<string, string>) => exports.default.fetch(new Request(`${MCP_ORIGIN}/token`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(body).toString() }))
+    const issued = await (await exchange({ grant_type: 'authorization_code', code, client_id: clientId, redirect_uri: REDIRECT_URI, code_verifier: DOWNSTREAM_CODE_VERIFIER, resource: MCP_RESOURCE })).json() as { scope: string; access_token: string; refresh_token: string }
+    expect(issued.scope.split(' ').filter(Boolean).sort()).toEqual(initialScope.split(' ').filter(Boolean).sort())
+    const observer = new OAuthProvider<Env>({
+      apiHandlers: { '/mcp': { fetch(_request: Request, _env: Env, ctx: ExecutionContext & Partial<Pick<OAuthResourceContext<unknown>, 'auth'>>) { return Response.json({ scope: ctx.auth?.scope, userId: ctx.auth?.userId, clientId: ctx.auth?.clientId }) } } },
+      defaultHandler: { fetch: () => new Response(null, { status: 404 }) },
+      authorizeEndpoint: '/authorize', tokenEndpoint: '/token', clientRegistrationEndpoint: '/register',
+      resourceMetadata: { resource: MCP_RESOURCE }
+    })
+    const initialObserved = await observer.fetch(modernMcpRequest(issued.access_token, 'tools/list'), env, createExecutionContext())
+    expect(initialObserved.status).toBe(200)
+    expect((await initialObserved.json() as { scope: string[] }).scope.sort()).toEqual(initialScope.split(' ').filter(Boolean).sort())
+    useCloudflareAuthSuccess('')
+    const refreshed = await (await exchange({ grant_type: 'refresh_token', refresh_token: issued.refresh_token, client_id: clientId, resource: MCP_RESOURCE })).json() as { scope: string; access_token: string }
+    expect(refreshed.scope).toBe('')
+    const observed = await observer.fetch(modernMcpRequest(refreshed.access_token, 'tools/list'), env, createExecutionContext())
+    expect(observed.status).toBe(200)
+    expect(await observed.json()).toEqual({ scope: [], userId: 'user-1', clientId })
   })
 
   it('serves modern MCP without externally resolving the provider-issued token', async () => {

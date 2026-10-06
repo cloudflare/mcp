@@ -6,11 +6,32 @@ export type ApiDispatch = {
   pathTemplate: string
   status?: number
 }
-export type ApiDispatchSnapshot = { dispatches: ApiDispatch[]; overflow: boolean }
+export type ApiScopeDenial = {
+  helperId?: string
+  handle: string
+  method: string
+  pathTemplate: string
+  scopes: string[]
+  safe: boolean
+}
+export type ApiDispatchSnapshot = {
+  dispatches: ApiDispatch[]
+  overflow: boolean
+  denial?: ApiScopeDenial
+  inFlight: number
+  complete: boolean
+}
+export type ApiDispatchAdmission = number | ApiScopeDenial | null
 
 declare class ObserverEntrypoint extends WorkerEntrypoint {
   initialize(nonce: string): Promise<boolean>
-  beginDispatch(nonce: string, method: string, pathTemplate: string): Promise<number | null>
+  beginDispatch(
+    nonce: string,
+    method: string,
+    pathTemplate: string,
+    scopes?: string[],
+    helperId?: string
+  ): Promise<ApiDispatchAdmission>
   finishDispatch(nonce: string, sequence: number, status: number): Promise<boolean>
   snapshot(nonce: string): Promise<ApiDispatchSnapshot | null>
 }
@@ -34,6 +55,10 @@ import { WorkerEntrypoint } from "cloudflare:workers";
 let initializedNonce;
 const dispatches = [];
 let nextSequence = 0;
+let inFlight = 0;
+let stopped = false;
+let denial;
+let complete = true;
 function check(nonce) {
   return initializedNonce && nonce === initializedNonce;
 }
@@ -43,9 +68,16 @@ export default class Observer extends WorkerEntrypoint {
     initializedNonce = nonce;
     return true;
   }
-  beginDispatch(nonce, method, pathTemplate) {
-    if (!check(nonce) || typeof method !== "string" || !/^[A-Z]{1,16}$/.test(method) ||
+  beginDispatch(nonce, method, pathTemplate, scopes, helperId) {
+    if (!check(nonce) || stopped || typeof method !== "string" || !/^[A-Z]{1,16}$/.test(method) ||
       typeof pathTemplate !== "string" || new TextEncoder().encode(pathTemplate).length > 256) return null;
+    if (scopes?.length) {
+      denial = { handle: crypto.randomUUID(), method, pathTemplate, scopes, helperId,
+        safe: nextSequence === 0 && inFlight === 0 };
+      stopped = true;
+      return denial;
+    }
+    inFlight++;
     const sequence = nextSequence++;
     if (dispatches.length < 64) dispatches.push({ sequence, method, pathTemplate });
     return sequence;
@@ -53,12 +85,14 @@ export default class Observer extends WorkerEntrypoint {
   finishDispatch(nonce, sequence, status) {
     if (!check(nonce)) return false;
     const dispatch = dispatches.find(entry => entry.sequence === sequence);
-    if (dispatch) dispatch.status = status;
+    if (!dispatch || dispatch.status !== undefined) { complete = false; return false; }
+    dispatch.status = status;
+    inFlight--;
     return true;
   }
   snapshot(nonce) {
     if (!check(nonce)) return null;
-    return { dispatches, overflow: nextSequence > 64 };
+    return { dispatches, overflow: nextSequence > 64, denial, inFlight, complete };
   }
 }`
     }
@@ -72,8 +106,20 @@ export class ApiRequestObserverEntrypoint extends WorkerEntrypoint<Env, { worker
   async initialize(nonce: string): Promise<boolean> {
     return await observerWorker(this.ctx.props.workerId).initialize(nonce)
   }
-  async beginDispatch(nonce: string, method: string, pathTemplate: string): Promise<number | null> {
-    return await observerWorker(this.ctx.props.workerId).beginDispatch(nonce, method, pathTemplate)
+  async beginDispatch(
+    nonce: string,
+    method: string,
+    pathTemplate: string,
+    scopes?: string[],
+    helperId?: string
+  ): Promise<ApiDispatchAdmission> {
+    return await observerWorker(this.ctx.props.workerId).beginDispatch(
+      nonce,
+      method,
+      pathTemplate,
+      scopes,
+      helperId
+    )
   }
   async finishDispatch(nonce: string, sequence: number, status: number): Promise<boolean> {
     return await observerWorker(this.ctx.props.workerId).finishDispatch(nonce, sequence, status)
