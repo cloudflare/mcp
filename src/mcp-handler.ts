@@ -75,12 +75,16 @@ function corsHeaders(request: Request): Headers | undefined {
   return headers
 }
 
-function withCors(response: Response, request: Request): Response {
+function withMcpResponseHeaders(response: Response, request: Request): Response {
   const cors = corsHeaders(request)
-  if (!cors) return response
-
   const headers = new Headers(response.headers)
-  for (const [name, value] of cors) headers.set(name, value)
+  // Tool results can contain authenticated identity and API data. Protect all
+  // responses without parsing request bodies or trusting routing headers.
+  // Retain the SDK's no-transform protection for SSE streams.
+  headers.set('Cache-Control', 'no-store, no-transform')
+  if (cors) {
+    for (const [name, value] of cors) headers.set(name, value)
+  }
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -121,7 +125,7 @@ export async function handleAuthenticatedMcpRequest(
     await handler.close()
   }
 
-  return withCors(response, request)
+  return withMcpResponseHeaders(response, request)
 }
 
 /** ExportedHandler adapter required by workers-oauth-provider 0.8.x. */

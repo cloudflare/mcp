@@ -88,7 +88,11 @@ https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
 
 ### Authenticated Profile
 
-`get_profile` is a read-only discovery tool, that conforms with the [ChatGPT Plugins standard](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool). It returns JSON, and allows MCP clients to disambiguate which Cloudflare account the MCP client has been granted access to.
+`get_profile` is an authenticated, read-only discovery tool that follows [OpenAI's profile-tool guidance](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool). It takes no arguments and returns the user or account represented by the current request's credentials, with a stable opaque `id` and available display metadata. User-owned credentials identify the Cloudflare user; account-owned credentials identify the Cloudflare account. Both tool modes publish `openai/profile` and OAuth `securitySchemes` in `_meta`, using OpenAI's documented compatibility field supported by the MCP SDK.
+
+Profile results are credential-specific: **do not cache responses** or reuse them for another connection. Call `get_profile` again when resolving the current connection's profile. Authenticated MCP responses include `Cache-Control: no-store, no-transform`. The tool definition contains no caller identity and may still be cached independently of its results. This cache policy is an additional server protection, not a requirement of OpenAI's profile-tool contract.
+
+The profile ID stays the same across token refresh, reconnection, scope upgrades, and display changes. Its derivation is permanent: SHA-256 of the UTF-8 JSON tuple `["cloudflare-profile-v1", "user" | "account", cloudflareSubjectId]`, serialized without spaces and returned as lowercase hexadecimal. It relies on immutable Cloudflare subject IDs that are never reassigned. A recreated user or account with a new subject ID gets a different profile ID, even when its display label matches. Future integration changes must preserve existing IDs; changing the prefix, namespace, serialization, or hash would break connection recognition.
 
 ## The Problem
 

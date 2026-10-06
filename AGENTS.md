@@ -111,7 +111,9 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 1. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
 2. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
 
-`get_profile` is a read-only discovery tool, that conforms with the [ChatGPT Plugins standard](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool). It returns JSON, and allows MCP clients to disambiguate which Cloudflare account the MCP client has been granted access to.
+`get_profile` follows [OpenAI's profile-tool guidance](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool). It accepts no arguments and resolves exactly one user/account identity from validated request credentials. Both modes publish `_meta["openai/profile"]: true` and `_meta.securitySchemes` (the OpenAI compatibility field supported by SDK v2), declaring the existing identity scopes without `offline_access`. Clients must not cache profile results or reuse them across connections; static tool metadata remains independent of the returned identity.
+
+Profile ID derivation is a permanent compatibility contract: SHA-256 of the UTF-8, compact JSON tuple `["cloudflare-profile-v1", "user" | "account", cloudflareSubjectId]`, returned as lowercase hex. Never bump the prefix or change the namespace/encoding/hash for existing profiles. Golden fixtures in `tests/profile-worker.test.ts` pin both namespaces. The contract relies on Cloudflare subject IDs being immutable and never reassigned; recreated subjects with new IDs must remain distinct even when labels match. Future provider identity changes must preserve existing profile IDs.
 
 ### MCP HTTP serving
 
@@ -120,6 +122,7 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request.
 - No MCP session ID, protocol transport state, replay store, Durable Object, or Node async-context bridge is used. This server publishes no change notifications, so both tool modes advertise `tools.listChanged: false`. For `subscriptions/listen`, the handler lets the SDK send the acknowledgment with an empty honored filter and then closes the per-request handler. That ends the subscription gracefully with a `complete` result rather than an error, and no SSE stream stays open.
 - Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
+- Authenticated MCP responses include `Cache-Control: no-store, no-transform`, including JSON/SSE results and errors in both tool modes. This protects credential-specific profile and API data without parsing request bodies to select a cache policy.
 
 ### Worker Loader API
 
