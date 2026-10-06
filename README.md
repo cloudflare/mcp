@@ -92,7 +92,7 @@ https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
 
 OAuth and direct user credentials for the same Cloudflare user share one opaque profile ID. Account-owned credentials identify an account in a separate namespace. IDs depend only on the immutable Cloudflare identity, so refresh, reconnect, scope changes, email changes and changing authorized account lists preserve them. Email is display metadata for user profiles; account name is display metadata for account profiles. Direct-credential identity caching can delay display changes.
 
-A profile helps clients recognize a connection; it does not own saved rows, their primary selection or chat references. Separately permissioned connections may be intentional. See [connection diagnostics and client acceptance](docs/connection-diagnostics.md) before changing matching or cleaning up duplicate labels.
+A profile helps clients recognize a connection; it does not own saved rows, their primary selection or chat references. Separately permissioned connections may be intentional.
 
 ## The Problem
 
