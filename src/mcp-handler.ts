@@ -1,3 +1,7 @@
+import type { OAuthResourceAuth } from '@cloudflare/workers-oauth-provider'
+import { ScopeController, verifiedScopeContext } from './auth/scope-context'
+import { getOperationPolicies } from './isolate-cache'
+import { env } from 'cloudflare:workers'
 import {
   createMcpHandler,
   hostHeaderValidationResponse,
@@ -34,13 +38,13 @@ function serverOptionsFromUrl(url: string): ServerOptions {
   }
 }
 
-function createAuthenticatedHandler(props: AuthProps) {
+function createAuthenticatedHandler(props: AuthProps, controller: ScopeController) {
   return createMcpHandler(({ requestInfo }) => {
     if (!requestInfo) {
       throw new Error('The Cloudflare MCP server requires an HTTP request')
     }
 
-    return createServer(props, serverOptionsFromUrl(requestInfo.url))
+    return createServer(props, serverOptionsFromUrl(requestInfo.url), controller)
   })
 }
 
@@ -96,7 +100,8 @@ export function handleMcpPreflight(request: Request): Response {
 /** Serve one authenticated MCP exchange with a fresh SDK v2 server instance. */
 export async function handleAuthenticatedMcpRequest(
   request: Request,
-  rawProps: unknown
+  rawProps: unknown,
+  auth?: OAuthResourceAuth
 ): Promise<Response> {
   if (new URL(request.url).pathname !== MCP_ROUTE) {
     return new Response('Not Found', { status: 404 })
@@ -106,7 +111,12 @@ export async function handleAuthenticatedMcpRequest(
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)
-  const handler = createAuthenticatedHandler(props)
+  const controller = new ScopeController(
+    verifiedScopeContext(auth),
+    await getOperationPolicies(),
+    env.CLOUDFLARE_API_BASE
+  )
+  const handler = createAuthenticatedHandler(props, controller)
   const response = await handler.fetch(request)
 
   // This server publishes no change notifications and keeps no long-lived
@@ -121,12 +131,22 @@ export async function handleAuthenticatedMcpRequest(
     await handler.close()
   }
 
+  const challenge = controller.challenge(auth)
+  if (challenge && response.headers.get('Content-Type')?.includes('application/json')) {
+    await response.body?.cancel()
+    await handler.close()
+    return withCors(challenge, request)
+  }
   return withCors(response, request)
 }
 
-/** ExportedHandler adapter required by workers-oauth-provider 0.8.x. */
+/** Provider 1.2.1 supplies verified authorization separately from application props. */
 export const oauthMcpHandler = {
   fetch(request: Request, _env: Env, ctx: ExecutionContext) {
-    return handleAuthenticatedMcpRequest(request, ctx.props)
+    return handleAuthenticatedMcpRequest(
+      request,
+      ctx.props,
+      'auth' in ctx ? (ctx.auth as OAuthResourceAuth) : undefined
+    )
   }
 }

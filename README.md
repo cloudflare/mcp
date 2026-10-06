@@ -223,3 +223,13 @@ Uncaught API failures and endpoint-tool failures return `isError: true`, concise
 An HTTP 401 or 403, including Cloudflare code `10000`, does not by itself establish expired credentials or missing OAuth scopes. Check the linked endpoint's accepted permissions, the selected account, and the credential's resource access. Reconnect only when the credential or its granted permissions need changing; correcting an operation or resource does not require another connection. Final rate-limit errors preserve a bounded wait hint; no new automatic mutation replay is added.
 
 The host validates isolate diagnostics with Zod and reapplies redaction. User code can fabricate the same shape, so diagnostics never authorize an HTTP challenge. An optional request-local observer prototype records actual outbound dispatch order and status in a trusted disposable Loader isolate, reached through a reloadable parent service binding. The observer has no user code, token, or outbound access; a nonce makes initialization loss fail closed. It is disabled in normal execution until separately reviewed permission handling enables it. Missing observation history suppresses replay and never replaces a completed API result.
+
+### Operation permission policy
+
+The scheduled refresh and seed script preserve OpenAPI operation IDs and API-token permission labels and write `operation-scopes.json`. The versioned artifact joins exact permission display names to the production OAuth catalog, retaining unknown alternatives. Account/zone label overrides are candidates until their OAuth semantics are reviewed. Missing or old artifacts mean unknown requirements and leave access enforcement to Cloudflare.
+
+No operation policies are enabled for automatic scope challenges yet. Enabling one requires an explicit reviewed rule pinned to its original labels, raw schema hash, catalog hash and authoritative source. The dispatcher uses complete OR-of-AND alternatives; it never unions accepted permissions or assumes write scopes imply read scopes. Direct API credentials have unknown MCP OAuth scopes and do not receive this server's permission-upgrade challenge.
+
+Reproduce policy coverage with `npx tsx scripts/report-operation-scopes.ts /path/to/raw-openapi.json`. The catalog hash covers `JSON.stringify()` of the imported catalog; the schema hash covers the original downloaded bytes. Upstream schema or catalog changes invalidate enabled reviews until reviewed again.
+
+An explicit empty upstream OAuth scope now remains an empty grant. An absent scope retains the existing requested-scope fallback for legacy data; current token schemas require a scope string.

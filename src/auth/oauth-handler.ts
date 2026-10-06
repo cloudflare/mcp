@@ -60,13 +60,13 @@ function authErrorMessage(prefix: string, e: unknown): string {
  * The scopes an MCP token may claim: those requested that Cloudflare actually granted. Cloudflare can
  * grant fewer than requested (the account can't grant one, or the user narrows them on its consent);
  * the MCP token must not claim more than the upstream token can do. Without an upstream `scope`,
- * keep the requested scopes.
+ * keep the requested scopes for legacy responses. An explicit empty grant stays empty.
  */
 export function grantedScopes(
   requested: readonly string[],
   upstreamScope: string | undefined
 ): string[] {
-  if (!upstreamScope) return [...requested]
+  if (upstreamScope === undefined) return [...requested]
   const granted = new Set(upstreamScope.split(/\s+/).filter(Boolean))
   return requested.filter((scope) => granted.has(scope))
 }

@@ -1,3 +1,8 @@
+import {
+  deployedOperationPolicies,
+  PolicyArtifact,
+  type OperationPolicy
+} from './auth/operation-scopes'
 import { env } from 'cloudflare:workers'
 import { buildNonCodemodeTools } from './openapi'
 import type { NonCodemodeTool, OperationInfo } from './openapi'
@@ -18,6 +23,8 @@ const TTL_MS = 60 * 60 * 1000 // 1 hour
 type SpecPaths = Record<string, Record<string, OperationInfo>>
 
 type Entry<T> = { value: T; expiresAt: number }
+
+let operationPoliciesEntry: Entry<OperationPolicy[]> | undefined
 
 let specEntry: Entry<{ text: string; paths: SpecPaths }> | undefined
 let productsEntry: Entry<string[]> | undefined
@@ -86,8 +93,20 @@ export async function getProducts(): Promise<string[]> {
   return value
 }
 
+/** Old or unsupported artifacts carry no known operation requirements. */
+export async function getOperationPolicies(): Promise<OperationPolicy[]> {
+  const now = Date.now()
+  if (fresh(operationPoliciesEntry, now)) return operationPoliciesEntry.value
+  const object = await env.SPEC_BUCKET.get('operation-scopes.json')
+  const parsed = object ? PolicyArtifact.safeParse(await object.json()) : undefined
+  const value = parsed?.success ? deployedOperationPolicies(parsed.data) : []
+  operationPoliciesEntry = { value, expiresAt: now + TTL_MS }
+  return value
+}
+
 /** Drop cached artifacts. For tests that re-seed R2 between cases. */
 export function resetIsolateCache(): void {
+  operationPoliciesEntry = undefined
   specEntry = undefined
   productsEntry = undefined
   nonCodemodeToolsEntry = undefined

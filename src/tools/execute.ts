@@ -1,3 +1,4 @@
+import type { ScopeController } from '../auth/scope-context'
 import { z } from 'zod'
 import { env, exports, WorkerEntrypoint } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
@@ -342,7 +343,8 @@ const ACCOUNT_ID_PARAM_DESCRIPTION =
 export function registerExecuteTool(
   server: McpServer,
   props: AuthProps,
-  formatResult: FormatToolResult
+  formatResult: FormatToolResult,
+  _controller?: ScopeController
 ): void {
   const apiToken = props.accessToken
 

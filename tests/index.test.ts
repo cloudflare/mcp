@@ -56,6 +56,14 @@ describe('scheduled handler', () => {
     expect(specObj).not.toBeNull()
     expect(productsObj).not.toBeNull()
     expect(nonCodemodeToolsObj).not.toBeNull()
+    const policies = await env.SPEC_BUCKET.get('operation-scopes.json')
+    expect(await policies!.json()).toMatchObject({
+      version: 1,
+      resolverVersion: 'exact-label-v1',
+      rawSchemaHash: expect.stringMatching(/^[a-f0-9]{64}$/),
+      catalogHash: expect.stringMatching(/^[a-f0-9]{64}$/),
+      operations: [expect.objectContaining({ state: 'absent' })]
+    })
 
     const spec = (await specObj!.json()) as { paths: Record<string, unknown> }
     expect(spec.paths['/accounts/{account_id}/workers/scripts']).toBeDefined()

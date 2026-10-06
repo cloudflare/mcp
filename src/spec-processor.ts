@@ -1,3 +1,5 @@
+import { PermissionLabels } from './auth/operation-scopes'
+
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const
 
 /**
@@ -47,6 +49,8 @@ export function resolveRefs(
 }
 
 interface OperationObject {
+  operationId?: string
+  'x-api-token-group'?: unknown
   summary?: string
   description?: string
   tags?: string[]
@@ -78,6 +82,8 @@ export function processSpec(spec: Record<string, unknown>): {
           tags.unshift(product)
         }
         paths[path][method] = {
+          operationId: typeof op.operationId === 'string' ? op.operationId : undefined,
+          'x-api-token-group': PermissionLabels.safeParse(op['x-api-token-group']).data,
           summary: op.summary,
           description: op.description,
           tags,

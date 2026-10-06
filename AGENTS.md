@@ -50,6 +50,7 @@ cloudflare-mcp/
 │   └── e2e/                       # End-to-end tests (real worker via exports.default.fetch)
 │       └── tool-call.test.ts
 ├── scripts/
+│   ├── report-operation-scopes.ts # Reproducible candidate scope coverage report
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
@@ -146,9 +147,9 @@ The consent page offers read-only and full-access templates built from the produ
 - Fetched from GitHub daily (scheduled handler, cron `0 0 * * *`)
 - All `$ref` references resolved inline before storage
 - Products and minimal operation metadata extracted
-- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and the precomputed `non-codemode-tools.json` artifact
+- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, `operation-scopes.json`, and the precomputed `non-codemode-tools.json` artifact
 - The non-Code-Mode artifact contains protocol-ready JSON Schemas plus minimal request-routing metadata. Low-level MCP handlers serve `tools/list` directly and lazily validate/dispatch only the requested `tools/call` operation with Zod; no per-endpoint SDK tools are registered
-- `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
+- `src/isolate-cache.ts` caches all four artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
 
 ### Response truncation
 
@@ -258,3 +259,7 @@ Update this file when:
 - Modifying build/test tooling
 - Adding new code patterns or conventions
 - Changing contribution workflows
+
+### Operation scope policy
+
+`src/auth/operation-scopes.ts` derives versioned candidates from preserved OpenAPI permission labels and the production OAuth catalog. Unknown alternatives stay unresolved. Reviews are explicit and pinned to original labels plus schema/catalog hashes; the production review registry is currently empty. Artifact data cannot independently enable reviews. `src/auth/scope-context.ts` recognizes the pinned provider's verified subject/client metadata separately from application props; direct credentials remain an unknown scope state. The non-Code-Mode dispatcher can deny a reviewed missing permission before dispatch and the HTTP adapter builds the provider's canonical `insufficient_scope` challenge. Do not activate policies from display-name joins or invent scope hierarchy.

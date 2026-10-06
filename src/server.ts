@@ -1,3 +1,4 @@
+import type { ScopeController } from './auth/scope-context'
 import { McpServer } from '@modelcontextprotocol/server'
 import { registerDocsTool } from './tools/docs-search'
 import { registerNonCodemodeTools } from './tools/non-codemode'
@@ -31,7 +32,8 @@ export interface ServerOptions {
  */
 export async function createServer(
   props: AuthProps,
-  { codemode = true, truncateToolResult = true }: ServerOptions = {}
+  { codemode = true, truncateToolResult = true }: ServerOptions = {},
+  controller?: ScopeController
 ): Promise<McpServer> {
   const server = new McpServer(SERVER_INFO)
   // The tool set is fixed for the life of each per-request server, so this
@@ -41,7 +43,7 @@ export async function createServer(
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (!codemode) {
-    await registerNonCodemodeTools(server, props, formatResult)
+    await registerNonCodemodeTools(server, props, formatResult, controller)
     return server
   }
 
@@ -50,7 +52,7 @@ export async function createServer(
   attachMetrics(server, props)
   registerDocsTool(server)
   await registerSearchTool(server, formatResult)
-  registerExecuteTool(server, props, formatResult)
+  registerExecuteTool(server, props, formatResult, controller)
 
   return server
 }

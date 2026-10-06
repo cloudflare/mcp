@@ -1,3 +1,4 @@
+import type { ScopeController } from '../auth/scope-context'
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { McpServer, CallToolResult, Tool } from '@modelcontextprotocol/server'
@@ -27,7 +28,8 @@ import type { AuthProps } from '../auth/types'
 export async function registerNonCodemodeTools(
   server: McpServer,
   props: AuthProps,
-  formatResult: FormatToolResult
+  formatResult: FormatToolResult,
+  controller?: ScopeController
 ): Promise<void> {
   const tools = await getNonCodemodeTools()
   const toolsByName = await getNonCodemodeToolMap()
@@ -56,7 +58,7 @@ export async function registerNonCodemodeTools(
             .object(zodInputSchemaFromJson(tool.inputSchema))
             .safeParse(request.params.arguments ?? {})
           result = parsed.success
-            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult)
+            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult, controller)
             : validationError(name, parsed.error)
         }
       }
@@ -73,7 +75,8 @@ async function callNonCodemodeTool(
   tool: NonCodemodeTool,
   params: Record<string, unknown>,
   props: AuthProps,
-  formatResult: FormatToolResult
+  formatResult: FormatToolResult,
+  controller?: ScopeController
 ): Promise<CallToolResult> {
   let resolvedPath = tool.path
   const pathParams = [...tool.path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1])
@@ -106,6 +109,9 @@ async function callNonCodemodeTool(
     body = params['body'] as string
   }
 
+  const denied = controller?.denyEndpoint(tool.method, url.toString())
+  if (denied) return toolError('Additional permission is required before this operation can run')
+
   const response = await fetchWithRetry(
     url.toString(),
     { method: tool.method.toUpperCase(), headers, body },
@@ -119,6 +125,7 @@ async function callNonCodemodeTool(
     },
     props.accessToken
   )
+  controller?.finishDispatch()
   const accountId = params['account_id'] as string | undefined
   if (parsed.kind === 'api_failure') {
     const result = formatApiError(parsed.diagnostic)

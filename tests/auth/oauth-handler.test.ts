@@ -61,6 +61,14 @@ afterEach(async () => {
 })
 
 describe('handleTokenExchangeCallback', () => {
+  it('does not claim requested permissions when refresh returns an explicit empty grant', async () => {
+    server.use(http.post(OAUTH_TOKEN_URL, () => HttpResponse.json({
+      access_token: 'new-access-token', refresh_token: 'new-refresh-token',
+      expires_in: 1234, scope: '', token_type: 'bearer'
+    })))
+    expect((await refreshCallback())?.accessTokenScope).toEqual([])
+  })
+
   it('refreshes upstream tokens and returns updated auth props', async () => {
     let form: FormData | undefined
     server.use(

@@ -4,6 +4,8 @@ import { z } from 'zod'
  * Minimal shape of an OpenAPI operation, as stored in our pre-processed spec.
  */
 export interface OperationInfo {
+  operationId?: string
+  'x-api-token-group'?: string[]
   summary?: string
   description?: string
   tags?: string[]
@@ -27,6 +29,8 @@ export interface OperationInfo {
  */
 export const SPEC_TYPES = `
 interface OperationInfo {
+  operationId?: string;
+  "x-api-token-group"?: string[];
   summary?: string;
   description?: string;
   tags?: string[];

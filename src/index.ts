@@ -12,6 +12,7 @@ import {
 } from './mcp-handler'
 import { processSpec, extractProducts } from './spec-processor'
 import { buildNonCodemodeTools, type OperationInfo } from './openapi'
+import { buildOperationPolicyArtifact, policyCoverage } from './auth/operation-scopes'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
@@ -103,7 +104,8 @@ export default {
       throw new Error(`Failed to fetch OpenAPI spec: ${response.status}`)
     }
 
-    const rawSpec = (await response.json()) as Record<string, unknown>
+    const rawSchema = await response.text()
+    const rawSpec = JSON.parse(rawSchema) as Record<string, unknown>
     console.log('Processing spec, resolving $refs...')
 
     const processed = processSpec(rawSpec)
@@ -113,6 +115,9 @@ export default {
     const productsJson = JSON.stringify(products)
     const paths = (processed as { paths: Record<string, Record<string, OperationInfo>> }).paths
     const nonCodemodeToolsJson = JSON.stringify(buildNonCodemodeTools(paths))
+    const operationPolicies = await buildOperationPolicyArtifact(paths, rawSchema)
+    const operationPoliciesJson = JSON.stringify(operationPolicies)
+    console.log('Operation scope policy coverage:', policyCoverage(operationPolicies.operations))
 
     console.log(`Writing spec to R2 (${(specJson.length / 1024).toFixed(0)} KB)`)
     await Promise.all([
@@ -120,6 +125,9 @@ export default {
         httpMetadata: { contentType: 'application/json' }
       }),
       env.SPEC_BUCKET.put('products.json', productsJson, {
+        httpMetadata: { contentType: 'application/json' }
+      }),
+      env.SPEC_BUCKET.put('operation-scopes.json', operationPoliciesJson, {
         httpMetadata: { contentType: 'application/json' }
       }),
       env.SPEC_BUCKET.put('non-codemode-tools.json', nonCodemodeToolsJson, {
