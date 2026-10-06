@@ -197,7 +197,7 @@ describe.each(LEGACY_DEPLOYMENTS)('grants issued by workers-oauth-provider $vers
     const upstreamRefreshes = useUpstreamRefresh()
 
     // The access token issued before the upgrade is accepted as it is.
-    expect(await listTools(legacy.access_token)).toEqual({ status: 200, tools: ['docs', 'search', 'execute'] })
+    expect(await listTools(legacy.access_token)).toEqual({ status: 200, tools: ['docs', 'search', 'execute', 'get_profile'] })
 
     // The refresh token is too, and the upstream Cloudflare grant rotates with it.
     const refreshed = await refresh(legacy.clientId, legacy.refresh_token)
@@ -205,7 +205,7 @@ describe.each(LEGACY_DEPLOYMENTS)('grants issued by workers-oauth-provider $vers
     const tokens = (await refreshed.json()) as { access_token: string; refresh_token: string; resource: string }
     expect(tokens.resource).toBe(MCP_RESOURCE)
     expect(upstreamRefreshes()).toEqual(['upstream-refresh-1'])
-    expect(await listTools(tokens.access_token)).toEqual({ status: 200, tools: ['docs', 'search', 'execute'] })
+    expect(await listTools(tokens.access_token)).toEqual({ status: 200, tools: ['docs', 'search', 'execute', 'get_profile'] })
 
     // The grant is rewritten in the current format (with KV key metadata) and keeps its resource.
     const [grant] = (await env.OAUTH_KV.list({ prefix: 'grant:' })).keys

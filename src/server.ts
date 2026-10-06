@@ -3,6 +3,7 @@ import { registerDocsTool } from './tools/docs-search'
 import { registerNonCodemodeTools } from './tools/non-codemode'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
+import { registerProfileTool } from './tools/profile'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
 import { stringifyResponse, truncateResponse } from './truncate'
@@ -13,6 +14,7 @@ export interface ServerOptions {
   /**
    * Register the Code Mode tools (`docs`, `search`, `execute`). When `false`,
    * register one tool per API endpoint instead. Defaults to `true`.
+   * Both modes include authenticated `get_profile` discovery.
    */
   readonly codemode?: boolean
   /**
@@ -51,6 +53,7 @@ export async function createServer(
   registerDocsTool(server)
   await registerSearchTool(server, formatResult)
   registerExecuteTool(server, props, formatResult)
+  registerProfileTool(server, props)
 
   return server
 }

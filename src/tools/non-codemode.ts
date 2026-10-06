@@ -12,6 +12,7 @@ import {
 } from '../auth/account-access'
 import { recordToolCall } from '../metrics'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
+import { PROFILE_TOOL, ProfileInputSchema, runProfileTool } from './profile'
 import { zodInputSchemaFromJson, type NonCodemodeTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
 
@@ -32,7 +33,7 @@ export async function registerNonCodemodeTools(
   const toolsByName = await getNonCodemodeToolMap()
 
   server.server.setRequestHandler('tools/list', () => ({
-    tools: [DOCS_TOOL, ...tools.map((tool) => toWireTool(toolForAccountAccess(tool)))]
+    tools: [DOCS_TOOL, PROFILE_TOOL, ...tools.map((tool) => toWireTool(toolForAccountAccess(tool)))]
   }))
 
   server.server.setRequestHandler('tools/call', async (request) => {
@@ -45,6 +46,9 @@ export async function registerNonCodemodeTools(
         result = parsed.success
           ? await runDocsTool(parsed.data.query)
           : validationError(name, parsed.error)
+      } else if (name === PROFILE_TOOL.name) {
+        const parsed = ProfileInputSchema.safeParse(request.params.arguments ?? {})
+        result = parsed.success ? await runProfileTool(props) : validationError(name, parsed.error)
       } else {
         const baseTool = toolsByName.get(name)
         if (!baseTool) {

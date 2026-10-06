@@ -70,13 +70,15 @@ function consentHandle(html: string): string {
   return handle!
 }
 
-async function beginAuthorization(options: { state?: string; scopes?: string } = {}): Promise<{
+async function beginAuthorization(
+  options: { state?: string; scopes?: string; clientId?: string } = {}
+): Promise<{
   clientId: string
   state: string
   sessionCookie: string
   location: string
 }> {
-  const clientId = await registerClient()
+  const clientId = options.clientId ?? (await registerClient())
   const authRes = await exports.default.fetch(
     new Request(
       authorizeUrl({
@@ -94,15 +96,14 @@ async function beginAuthorization(options: { state?: string; scopes?: string } =
   const html = await authRes.text()
   const consentCookie = cookiesFrom(authRes)
   const handle = consentHandle(html)
+  const consent = new URLSearchParams({ handle })
+  for (const scope of (options.scopes ?? 'user:read').split(/\s+/)) consent.append('scopes', scope)
 
   const postRes = await exports.default.fetch(
     new Request(`${MCP_ORIGIN}/authorize`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded', Cookie: consentCookie },
-      body: new URLSearchParams({
-        handle,
-        scopes: options.scopes ?? 'user:read'
-      }).toString(),
+      body: consent.toString(),
       redirect: 'manual'
     })
   )
@@ -877,7 +878,12 @@ describe('GET /oauth/callback', () => {
     expect(probes.userCalls()).toBe(1)
     expect(probes.accountCalls()).toBe(1)
     expect(mcpBody.result?.resultType).toBe('complete')
-    expect(mcpBody.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
+    expect(mcpBody.result?.tools?.map((tool) => tool.name)).toEqual([
+      'docs',
+      'search',
+      'execute',
+      'get_profile'
+    ])
     expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(1)
   })
 
@@ -1023,5 +1029,143 @@ describe('GET /oauth/callback', () => {
     expect(res.status).toBe(400)
     expect(await res.text()).toContain('invalid_request')
     expect(writtenEvents(metricsSpy)).toContain('auth_user')
+  })
+})
+
+/** Grant IDs rotate independently of the stable profile and the client's saved row. */
+describe('profile and grant lifecycle across reconnection', () => {
+  async function authorize(clientId?: string, scopes = 'user:read account:read offline_access') {
+    const transaction = await beginAuthorization({ clientId, scopes })
+    expect(new URL(transaction.location).searchParams.get('scope')?.split(' ')).toEqual(
+      expect.arrayContaining(scopes.split(' '))
+    )
+    useCloudflareAuthSuccess(scopes)
+    const callback = await exports.default.fetch(
+      new Request(
+        `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(transaction.state)}`,
+        { headers: { Cookie: transaction.sessionCookie }, redirect: 'manual' }
+      )
+    )
+    expect(callback.status).toBe(302)
+    return {
+      clientId: transaction.clientId,
+      code: new URL(callback.headers.get('location')!).searchParams.get('code')!
+    }
+  }
+  async function exchange(
+    transaction: { clientId: string; code: string },
+    verifier = DOWNSTREAM_CODE_VERIFIER
+  ) {
+    return exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'authorization_code',
+          code: transaction.code,
+          client_id: transaction.clientId,
+          redirect_uri: REDIRECT_URI,
+          code_verifier: verifier
+        }).toString()
+      })
+    )
+  }
+  async function profile(accessToken: string) {
+    const response = await exports.default.fetch(
+      modernMcpRequest(accessToken, 'tools/call', { name: 'get_profile', arguments: {} })
+    )
+    expect(response.status).toBe(200)
+    const body = await parseMcpResult(response)
+    expect(body.result?.isError).toBe(false)
+    return JSON.parse(body.result!.content![0].text) as { id: string; email?: string }
+  }
+  async function grantNames() {
+    return (await env.OAUTH_KV.list({ prefix: 'grant:' })).keys.map((key) => key.name)
+  }
+
+  it('replaces a same-client grant before exchange, preserves profile after an upgrade and rejects code replay', async () => {
+    const firstAuth = await authorize()
+    const firstResponse = await exchange(firstAuth)
+    expect(firstResponse.status).toBe(200)
+    const first = (await firstResponse.json()) as { access_token: string }
+    const firstProfile = await profile(first.access_token)
+    const oldGrants = await grantNames()
+    expect(oldGrants).toHaveLength(1)
+
+    const upgradedAuth = await authorize(
+      firstAuth.clientId,
+      'user:read account:read offline_access access.write'
+    )
+    const pendingGrants = await grantNames()
+    expect(await env.OAUTH_KV.get(pendingGrants[0], 'json')).toMatchObject({
+      scope: expect.arrayContaining(['access.write'])
+    })
+    expect(pendingGrants).toHaveLength(1)
+    expect(pendingGrants[0]).not.toBe(oldGrants[0])
+    const upgradedResponse = await exchange(upgradedAuth)
+    expect(upgradedResponse.status).toBe(200)
+    const upgraded = (await upgradedResponse.json()) as {
+      access_token: string
+      refresh_token: string
+      scope: string
+    }
+    expect(upgraded.scope.split(' ')).toContain('access.write')
+    expect(await profile(upgraded.access_token)).toEqual(firstProfile)
+
+    const refreshedResponse = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'refresh_token',
+          refresh_token: upgraded.refresh_token,
+          client_id: upgradedAuth.clientId
+        }).toString()
+      })
+    )
+    expect(refreshedResponse.status).toBe(200)
+    const refreshed = (await refreshedResponse.json()) as { access_token: string }
+    expect(await profile(refreshed.access_token)).toEqual(firstProfile)
+
+    // The same validated user from a direct Cloudflare credential has the same profile.
+    expect(await profile('cfut_direct-profile-token')).toEqual(firstProfile)
+
+    // The provider treats a consumed-code replay as compromise and revokes the new grant.
+    // Client callback idempotency must prevent a second exchange, not merely a second row.
+    expect((await exchange(upgradedAuth)).status).toBe(400)
+    expect(await grantNames()).toEqual([])
+  })
+
+  it('retains distinct grants for newly registered clients even when profiles match', async () => {
+    const firstAuth = await authorize()
+    const first = (await (await exchange(firstAuth)).json()) as { access_token: string }
+    const secondAuth = await authorize()
+    const second = (await (await exchange(secondAuth)).json()) as { access_token: string }
+    expect(secondAuth.clientId).not.toBe(firstAuth.clientId)
+    expect(await grantNames()).toHaveLength(2)
+    expect(await profile(second.access_token)).toEqual(await profile(first.access_token))
+  })
+
+  it('exposes the stale-grant risk when a replacement authorization fails token exchange', async () => {
+    const originalAuth = await authorize()
+    const original = (await (await exchange(originalAuth)).json()) as { refresh_token: string }
+    const oldGrants = await grantNames()
+    const replacement = await authorize(originalAuth.clientId)
+    expect(await grantNames()).not.toEqual(oldGrants)
+    expect((await exchange(replacement, 'wrong-verifier')).status).toBe(400)
+    const staleRefresh = await exports.default.fetch(
+      new Request(`${MCP_ORIGIN}/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'refresh_token',
+          refresh_token: original.refresh_token,
+          client_id: originalAuth.clientId
+        }).toString()
+      })
+    )
+    expect(staleRefresh.status).toBe(400)
+    expect(await staleRefresh.json()).toMatchObject({ error: 'invalid_grant' })
+    expect(await grantNames()).toHaveLength(1)
   })
 })

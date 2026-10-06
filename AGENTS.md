@@ -2,7 +2,9 @@
 
 ## Project overview
 
-`cloudflare-mcp` is a token-efficient Model Context Protocol (MCP) server that exposes the entire Cloudflare API (~2,500 endpoints) using Cloudflare's **Code Mode** pattern. Instead of registering thousands of MCP tools, it uses just two tools (`search` and `execute`) that let agents write JavaScript to query the OpenAPI spec and call APIs — fitting all 2,500 endpoints into ~1,000 tokens.
+`cloudflare-mcp` is a token-efficient Model Context Protocol (MCP) server that exposes the entire Cloudflare API (~2,500 endpoints) using Cloudflare's **Code Mode** pattern. Instead of registering thousands of MCP tools, it uses two API tools (`search` and `execute`) that let agents write JavaScript to query the OpenAPI spec and call APIs — fitting all 2,500 endpoints into ~1,000 tokens.
+
+The small public surface also includes documentation search (`docs`) and authenticated profile discovery (`get_profile`).
 
 **Production URL:** `mcp.cloudflare.com`
 
@@ -24,6 +26,7 @@ cloudflare-mcp/
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
+│   ├── tools/profile.ts           # Stable authenticated profile discovery in both tool modes
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
@@ -107,6 +110,8 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 1. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
 2. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
+
+`get_profile` is a read-only discovery tool in both modes. It accepts only empty input, returns matching JSON text and `structuredContent`, and publishes `outputSchema` plus `_meta["openai/profile"]: true`. Public metadata never varies by credentials. A versioned SHA-256 namespace over the immutable Cloudflare user/account ID gives stable opaque IDs; OAuth and direct user credentials share the user namespace, and account-owned credentials use a disjoint account namespace. Never change this derivation without preserving existing profile IDs. Reuse validated request identity; account lists, display metadata, tokens and grants are not profile keys. Client saved-row lifecycle remains outside this repository; see `docs/connection-diagnostics.md`.
 
 ### MCP HTTP serving
 

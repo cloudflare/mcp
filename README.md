@@ -4,12 +4,12 @@
 
 ## Token Comparison
 
-| Approach                                    | Tools | Token cost | Context used (200K) |
-| ------------------------------------------- | ----- | ---------- | ------------------- |
-| Raw OpenAPI spec in prompt                  | —     | ~2,000,000 | 977%                |
-| Native MCP (full schemas)                   | 2,594 | 1,170,523  | 585%                |
-| Native MCP (minimal — required params only) | 2,594 | 244,047    | 122%                |
-| Code mode                                   | 3     | ~1,100     | 0.5%                |
+| Approach                                    | Tools | Token cost                | Context used (200K) |
+| ------------------------------------------- | ----- | ------------------------- | ------------------- |
+| Raw OpenAPI spec in prompt                   | —     | ~2,000,000                | 977%                |
+| Native MCP (full schemas)                    | 2,594 | 1,170,523                 | 585%                |
+| Native MCP (minimal — required params only)  | 2,594 | 244,047                   | 122%                |
+| Code mode (including profile discovery)      | 4     | ~1,100 + profile metadata | ~0.5%               |
 
 ## Get Started
 
@@ -49,7 +49,7 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 
 ### Disable Code Mode
 
-If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` tool remains available in both modes.
+If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` and authenticated `get_profile` tools remain available in both modes.
 
 ```
 https://mcp.cloudflare.com/mcp?codemode=false
@@ -86,6 +86,14 @@ https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
 
 > **Note:** Without the cap, a broad query can return megabytes. Only turn it off when your client bounds what reaches the model.
 
+### Authenticated Profile
+
+`get_profile({})` returns the same bounded profile object as JSON text and `structuredContent`. Its `outputSchema` and `_meta["openai/profile"]: true` let clients discover it in both tool modes, using MCP 2026-07-28 or the stateless 2025 compatibility path. It uses the request's validated identity and does not need API permissions beyond the normal connection bootstrap.
+
+OAuth and direct user credentials for the same Cloudflare user share one opaque profile ID. Account-owned credentials identify an account in a separate namespace. IDs depend only on the immutable Cloudflare identity, so refresh, reconnect, scope changes, email changes and changing authorized account lists preserve them. Email is display metadata for user profiles; account name is display metadata for account profiles. Direct-credential identity caching can delay display changes.
+
+A profile helps clients recognize a connection; it does not own saved rows, their primary selection or chat references. Separately permissioned connections may be intentional. See [connection diagnostics and client acceptance](docs/connection-diagnostics.md) before changing matching or cleaning up duplicate labels.
+
 ## The Problem
 
 The Cloudflare OpenAPI spec is **2 million tokens**. Even with native MCP tools using minimal schemas, it's still **~244k tokens**. Traditional MCP servers that expose every endpoint as a tool leak this entire context to the main agent.
@@ -96,11 +104,12 @@ This server solves the problem by using **code execution** in a [Code Mode](http
 
 Agent writes code to search the spec and execute API calls. It can also search Cloudflare's developer documentation directly.
 
-| Tool      | Description                                                                   |
-| --------- | ----------------------------------------------------------------------------- |
-| `docs`    | Search Cloudflare developer documentation                                     |
-| `search`  | Write JavaScript to query `spec.paths` and find endpoints                     |
-| `execute` | Write JavaScript to call `cloudflare.request()` with the discovered endpoints |
+| Tool          | Description                                                                   |
+| ------------- | ----------------------------------------------------------------------------- |
+| `docs`        | Search Cloudflare developer documentation                                     |
+| `search`      | Write JavaScript to query `spec.paths` and find endpoints                      |
+| `execute`     | Write JavaScript to call `cloudflare.request()` with the discovered endpoints   |
+| `get_profile` | Return the stable identity represented by the authenticated credentials        |
 
 ```
 Agent                         MCP Server
