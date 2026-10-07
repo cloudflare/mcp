@@ -18,6 +18,16 @@ interface OperationObject {
   requestBody?: unknown
   responses?: unknown
   'x-fern-sdk-group-name'?: unknown
+  'x-api-token-group'?: unknown
+}
+
+/** Keep `x-api-token-group` only when it is a list of permission names. */
+function permissionLabels(value: unknown): string[] | undefined {
+  return Array.isArray(value) &&
+    value.length > 0 &&
+    value.every((item) => typeof item === 'string' && item.length > 0)
+    ? value
+    : undefined
 }
 
 export interface SearchSpec {
@@ -86,6 +96,7 @@ export function processSpec(source: Record<string, unknown>): {
       }
       paths[path][method] = {
         summary: op.summary,
+        'x-api-token-group': permissionLabels(op['x-api-token-group']),
         description: op.description,
         tags,
         parameters: resolveRefs(op.parameters, source),

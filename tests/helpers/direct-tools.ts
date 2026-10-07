@@ -13,7 +13,8 @@ export function directTool({
   requiredQuery = [],
   headers = [],
   body,
-  title
+  title,
+  permissions
 }: {
   name: string
   method?: string
@@ -23,6 +24,8 @@ export function directTool({
   headers?: string[]
   body?: string | string[]
   title?: string
+  /** `x-api-token-group`: the API token permissions the endpoint accepts. */
+  permissions?: string[]
 }): McpTool {
   const route = (name: string, key = name, style = 'simple'): ParameterRoute => ({
     name,
@@ -71,7 +74,7 @@ export function directTool({
       required
     },
     annotations: { readOnlyHint, destructiveHint: !readOnlyHint, openWorldHint: true },
-    permissions: {},
+    permissions: permissions ? { 'x-api-token-group': permissions } : {},
     request: {
       method,
       path,

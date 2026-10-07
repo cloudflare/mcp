@@ -77,3 +77,17 @@ test('builds the search spec and products from one pass over the document', () =
 test('handles documents without paths', () => {
   assert.deepEqual(processSpec({}), { spec: { paths: {} }, products: [] })
 })
+
+test('keeps x-api-token-group lists and drops malformed values', () => {
+  const { spec } = processSpec({
+    paths: {
+      '/zones/{zone_id}/dns_records': {
+        get: { summary: 'List', 'x-api-token-group': ['DNS Read', 'DNS Write'] },
+        post: { summary: 'Create', 'x-api-token-group': 'DNS Write' }
+      }
+    }
+  })
+  const item = spec.paths['/zones/{zone_id}/dns_records']! as Record<string, any>
+  assert.deepEqual(item.get['x-api-token-group'], ['DNS Read', 'DNS Write'])
+  assert.equal(item.post['x-api-token-group'], undefined)
+})

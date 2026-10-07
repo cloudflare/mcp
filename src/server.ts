@@ -8,6 +8,7 @@ import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
 import { stringifyResponse, truncateResponse } from './truncate'
 import type { AuthProps } from './auth/types'
+import { DIRECT_CONNECTION, type Connection } from './api-permissions'
 
 /** Per-request options the client picks through the MCP URL query string. */
 export interface ServerOptions {
@@ -29,11 +30,13 @@ export interface ServerOptions {
  *
  * @param props - The validated credentials for the request.
  * @param options - The tool surface and result shaping the client asked for.
+ * @param connection - What the request's token is allowed to do, for explaining refused API calls.
  * @returns A fresh server with the requested tools registered.
  */
 export async function createServer(
   props: AuthProps,
-  { codemode = true, truncateToolResult = true }: ServerOptions = {}
+  { codemode = true, truncateToolResult = true }: ServerOptions = {},
+  connection: Connection = DIRECT_CONNECTION
 ): Promise<McpServer> {
   const server = new McpServer(SERVER_INFO)
   // The tool set is fixed for the life of each per-request server, so this
@@ -43,7 +46,7 @@ export async function createServer(
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (!codemode) {
-    await registerNonCodemodeTools(server, props, formatResult)
+    await registerNonCodemodeTools(server, props, formatResult, connection)
     return server
   }
 
@@ -52,7 +55,7 @@ export async function createServer(
   attachMetrics(server, props)
   registerDocsTool(server)
   await registerSearchTool(server, formatResult)
-  registerExecuteTool(server, props, formatResult)
+  registerExecuteTool(server, props, formatResult, connection)
   registerWhoamiTool(server, props)
 
   return server
