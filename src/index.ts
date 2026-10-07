@@ -1,4 +1,5 @@
 import OAuthProvider from '@cloudflare/workers-oauth-provider'
+import { handleAnsCallback } from './events/callback'
 import { env as workerEnv } from 'cloudflare:workers'
 import { createAuthHandlers, handleTokenExchangeCallback } from './auth/oauth-handler'
 import { ALL_SCOPES, REQUIRED_SCOPES } from './auth/scopes'
@@ -60,6 +61,7 @@ const oauthProvider = new OAuthProvider<Env>({
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
+    if (url.pathname.startsWith('/events/ans/')) return handleAnsCallback(request, env)
     if (url.pathname === OPENAI_APPS_CHALLENGE_PATH) {
       return new Response(OPENAI_APPS_CHALLENGE_TOKEN, {
         headers: { 'Content-Type': 'text/plain; charset=utf-8' }

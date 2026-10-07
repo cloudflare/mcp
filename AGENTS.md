@@ -21,6 +21,7 @@ cloudflare-mcp/
 │   ├── index.ts                   # Worker entry point & OAuth routing
 │   ├── mcp-handler.ts             # Stateless MCP HTTP handler & deployment guards
 │   ├── server.ts                  # MCP server setup & tool registration
+│   ├── events/                    # Stateless MCP Events mapping to ANS policies and Vega automations
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
@@ -117,6 +118,13 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request.
 - No MCP session ID, protocol transport state, replay store, Durable Object, or Node async-context bridge is used. This server publishes no change notifications, so both tool modes advertise `tools.listChanged: false`. For `subscriptions/listen`, the handler lets the SDK send the acknowledgment with an empty honored filter and then closes the per-request handler. That ends the subscription gracefully with a `complete` result rather than an error, and no SSE stream stays open.
 - Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
+
+### MCP Events
+
+- `src/events/methods.ts` registers the event catalogue and subscription methods on the authenticated MCP endpoint.
+- ANS policies/destinations and Vega automations own subscription state. MCP metadata is encrypted in the policy description; the delivery credential is encrypted in the destination's write-only secret. No additional subscription database is used.
+- `src/events/callback.ts` checks ANS ingress authentication, current policy/access and synchronously signs the MCP callback. ANS owns retries.
+- `npm run test:events` runs local workerd coverage with simulated external HTTP endpoints. See `docs/mcp-events.md` for live tests and lifecycle constraints.
 
 ### Worker Loader API
 
