@@ -111,14 +111,17 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(body.result?.capabilities?.tools?.listChanged).not.toBe(true)
   })
 
-  it('acknowledges an empty subscription and ends it gracefully', async () => {
+  // The server declares no list-changed or subscribe capability, so the SDK honours none of
+  // these and ends the stream itself (SDK 2.2+). An open stream would hang the read below.
+  it.each([
+    { toolsListChanged: true },
+    { promptsListChanged: true },
+    { resourcesListChanged: true },
+    { resourceSubscriptions: ['file:///a'] },
+    {}
+  ])('acknowledges an empty subscription for %j and ends it gracefully', async (notifications) => {
     const response = await exports.default.fetch(
-      modernMcpRequest(
-        API_TOKEN,
-        'subscriptions/listen',
-        { notifications: { toolsListChanged: true } },
-        { id: 7 }
-      )
+      modernMcpRequest(API_TOKEN, 'subscriptions/listen', { notifications }, { id: 7 })
     )
 
     expect(response.status).toBe(200)
@@ -156,7 +159,12 @@ describe('MCP 2026-07-28 stateless handler', () => {
 
     expect(response.status).toBe(200)
     expect(body.result?.resultType).toBe('complete')
-    expect(body.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
+    expect(body.result?.tools?.map((tool) => tool.name)).toEqual([
+      'docs',
+      'search',
+      'execute',
+      'whoami'
+    ])
   })
 
   it('serves a modern Code Mode tools/call', async () => {
@@ -271,7 +279,12 @@ describe('MCP 2026-07-28 stateless handler', () => {
 
     expect(codemodeResponse.status).toBe(200)
     expect(endpointResponse.status).toBe(200)
-    expect(codemode.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
+    expect(codemode.result?.tools?.map((tool) => tool.name)).toEqual([
+      'docs',
+      'search',
+      'execute',
+      'whoami'
+    ])
     expect(endpoints.result?.tools?.map((tool) => tool.name)).toEqual([
       'docs',
       'whoami',
@@ -308,7 +321,12 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(response.status).toBe(200)
     expect(response.headers.get('content-type')).toContain('text/event-stream')
     expect(response.headers.get('mcp-session-id')).toBeNull()
-    expect(body.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
+    expect(body.result?.tools?.map((tool) => tool.name)).toEqual([
+      'docs',
+      'search',
+      'execute',
+      'whoami'
+    ])
   })
 
   it.each(['GET', 'DELETE'])('rejects session-only %s requests', async (method) => {
