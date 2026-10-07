@@ -4,6 +4,7 @@ import {
   MCP_TOOLS_KEY,
   PRODUCTS_KEY,
   SPEC_KEY,
+  unpackTools,
   type McpTool,
   type McpToolsArtifact
 } from './mcp-tools'
@@ -23,9 +24,15 @@ const TTL_MS = 60 * 60 * 1000 // 1 hour
 
 type Entry<T> = { value: T; expiresAt: number }
 
-/** `mcp-tools.json` ready to serve: the `tools/list` payload and a name lookup for `tools/call`. */
+/**
+ * `mcp-tools.json` ready to serve: a `tools/list` payload for each protocol
+ * era, built once per isolate, and a name lookup for `tools/call`.
+ */
 export interface DirectTools {
+  /** 2025-era clients: no `outputSchema` (its root must be an object there). */
   list: Tool[]
+  /** 2026-07-28 clients: with each tool's `outputSchema`. */
+  modernList: Tool[]
   byName: Map<string, McpTool>
 }
 
@@ -73,16 +80,22 @@ export async function getDirectTools(): Promise<DirectTools> {
   const now = Date.now()
   if (fresh(toolsEntry, now)) return toolsEntry.value
 
-  const { tools } = (await (await required(MCP_TOOLS_KEY)).json()) as McpToolsArtifact
+  const tools = unpackTools((await (await required(MCP_TOOLS_KEY)).json()) as McpToolsArtifact)
+  const list: Tool[] = tools.map(({ name, title, description, inputSchema, annotations }) => ({
+    name,
+    ...(title ? { title } : {}),
+    description,
+    // Generated JSON Schema; the SDK types it as a JSON value tree.
+    inputSchema: inputSchema as unknown as Tool['inputSchema'],
+    annotations
+  }))
   const value: DirectTools = {
-    list: tools.map(({ name, title, description, inputSchema, annotations }) => ({
-      name,
-      ...(title ? { title } : {}),
-      description,
-      // Generated JSON Schema; the SDK types it as a JSON value tree.
-      inputSchema: inputSchema as unknown as Tool['inputSchema'],
-      annotations
-    })),
+    list,
+    modernList: tools.map(({ outputSchema }, index) =>
+      outputSchema === undefined
+        ? list[index]!
+        : { ...list[index]!, outputSchema: outputSchema as unknown as Tool['outputSchema'] }
+    ),
     byName: new Map(tools.map((tool) => [tool.name, tool]))
   }
   toolsEntry = { value, expiresAt: now + TTL_MS }

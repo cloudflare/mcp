@@ -25,18 +25,26 @@ import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challen
  * looks the tool up by name and turns its arguments into one Cloudflare API
  * request using the tool's precomputed `request` routing. The Cloudflare API
  * validates argument values; this only enforces the schema's required keys.
+ *
+ * MCP 2026-07-28 clients also get each tool's `outputSchema` and, for a
+ * successful JSON response, the whole response (or its `result`, when the
+ * schema describes that) as `structuredContent`. Only the text is truncated:
+ * clients that drive tools from code read `structuredContent`, models read the
+ * text. 2025-era clients get neither, exactly as before.
  */
 export async function registerNonCodemodeTools(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult,
   connection: Connection,
-  scopeChallenge: ScopeChallenge
+  scopeChallenge: ScopeChallenge,
+  era: 'legacy' | 'modern' = 'legacy'
 ): Promise<void> {
   const tools = await getDirectTools()
+  const structured = era === 'modern'
 
   server.server.setRequestHandler('tools/list', () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.list]
+    tools: [DOCS_TOOL, WHOAMI_TOOL, ...(structured ? tools.modernList : tools.list)]
   }))
 
   server.server.setRequestHandler('tools/call', async (request) => {
@@ -62,7 +70,11 @@ export async function registerNonCodemodeTools(
       } else {
         const tool = tools.byName.get(name)
         result = tool
-          ? await callDirectTool(tool, args, props, formatResult, { connection, scopeChallenge })
+          ? await callDirectTool(tool, args, props, formatResult, {
+              connection,
+              scopeChallenge,
+              structured
+            })
           : toolError(`Tool ${name} not found`)
       }
     } catch (error) {
@@ -79,7 +91,11 @@ async function callDirectTool(
   input: Record<string, unknown>,
   props: AuthProps,
   formatResult: FormatToolResult,
-  { connection, scopeChallenge }: { connection: Connection; scopeChallenge: ScopeChallenge }
+  {
+    connection,
+    scopeChallenge,
+    structured
+  }: { connection: Connection; scopeChallenge: ScopeChallenge; structured: boolean }
 ): Promise<CallToolResult> {
   const { request } = tool
   const args = { ...input }
@@ -137,7 +153,17 @@ async function callDirectTool(
     ? await response.json()
     : await response.text()
 
-  if (response.ok) return { content: [{ type: 'text', text: formatResult(result) }] }
+  if (response.ok) {
+    const text: CallToolResult = { content: [{ type: 'text', text: formatResult(result) }] }
+    if (
+      !structured ||
+      tool.outputSchema === undefined ||
+      !contentType.includes('application/json')
+    ) {
+      return text
+    }
+    return { ...text, structuredContent: structuredContentFor(tool, result) }
+  }
 
   // The generated tool already names its endpoint's template and accepted permissions.
   const refusal = explainRefusalFor(
@@ -161,6 +187,25 @@ async function callDirectTool(
   // One refused request changed nothing, so the client can retry the call after stepping up.
   const challenge = refusal?.scope ? scopeChallenge.require(refusal.scope) : undefined
   return challenge ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } } : failure
+}
+
+/**
+ * The data a tool's `outputSchema` describes: the envelope's `result` when the
+ * schema documents that, else the response as returned. A response without an
+ * envelope is passed through whole.
+ */
+function structuredContentFor(tool: McpTool, body: unknown): unknown {
+  if (
+    tool.request.unwrapResult &&
+    body !== null &&
+    typeof body === 'object' &&
+    !Array.isArray(body) &&
+    (body as Record<string, unknown>).success === true &&
+    'result' in body
+  ) {
+    return (body as Record<string, unknown>).result
+  }
+  return body
 }
 
 function scalar(value: unknown): string {

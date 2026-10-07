@@ -54,12 +54,17 @@ function createAuthenticatedHandler(
   connection: Connection,
   scopeChallenge: ScopeChallenge
 ) {
-  return createMcpHandler(({ requestInfo }) => {
+  return createMcpHandler(({ requestInfo, era }) => {
     if (!requestInfo) {
       throw new Error('The Cloudflare MCP server requires an HTTP request')
     }
 
-    return createServer(props, serverOptionsFromUrl(requestInfo.url), connection, scopeChallenge)
+    return createServer(
+      props,
+      { ...serverOptionsFromUrl(requestInfo.url), era },
+      connection,
+      scopeChallenge
+    )
   })
 }
 

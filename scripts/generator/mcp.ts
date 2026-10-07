@@ -15,10 +15,12 @@ import {
 } from './json-schema.ts'
 import {
   ACCOUNT_ID_DESCRIPTION,
+  packTools,
   type McpTool,
   type McpToolsArtifact,
   type ParameterRoute
 } from '../../src/mcp-tools.ts'
+import { outputFor } from './output.ts'
 import { oauthReach } from './oauth.ts'
 import { permissionLabels } from './spec.ts'
 
@@ -258,6 +260,11 @@ function buildTool(
   tool.inputSchema.properties = Object.fromEntries(properties)
   const definitions = compiler.definitions()
   if (Object.keys(definitions).length) tool.inputSchema.$defs = definitions
+  const output = outputFor(document, operation)
+  if (output) {
+    tool.outputSchema = output.schema
+    if (output.unwrapResult) tool.request.unwrapResult = true
+  }
   return tool
 }
 
@@ -399,7 +406,7 @@ export async function generateMcpTools(source: ForgeOpenApiDocument) {
   }
   const tools = disambiguate(candidates).sort((a, b) => a.name.localeCompare(b.name))
   return forge.transform(async (output) => {
-    const artifact: McpToolsArtifact = { version: 1, tools }
+    const artifact: McpToolsArtifact = packTools(tools)
     output.emit('mcp-tools.json', JSON.stringify(artifact))
   })
 }

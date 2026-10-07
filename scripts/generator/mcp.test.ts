@@ -45,7 +45,8 @@ test('emits one self-contained artifact through the Forge lifecycle', async () =
   try {
     await forge.finalize(directory, await generateMcpTools(source))
     const artifact = JSON.parse(await readFile(join(directory, 'mcp-tools.json'), 'utf8'))
-    assert.equal(artifact.version, 1)
+    assert.equal(artifact.version, 2)
+    assert.deepEqual(artifact.outputSchemas, [])
     assert.deepEqual(artifact.tools, [
       {
         name: 'widgets_list',

@@ -41,6 +41,12 @@ export interface McpTool {
   description: string
   inputSchema: McpToolInputSchema
   annotations: McpToolAnnotations
+  /**
+   * Structured output for MCP 2026-07-28 clients: a shape hint every real
+   * response satisfies (see scripts/generator/output.ts). Never sent to older
+   * clients, whose outputSchema must have an object root.
+   */
+  outputSchema?: JsonSchema
   operationId?: string
   status?: string
   permissions: Record<string, unknown>
@@ -52,12 +58,51 @@ export interface McpTool {
     headerParams: ParameterRoute[]
     cookieParams: ParameterRoute[]
     body?: { contentType: string; content: Record<string, { encoding: Record<string, unknown> }> }
+    /** `outputSchema` describes the envelope's `result`; send that as `structuredContent`. */
+    unwrapResult?: boolean
   }
 }
 
+/**
+ * A tool as stored in `mcp-tools.json`: `outputSchema` is an index into the
+ * artifact's `outputSchemas`. Many operations share a response schema, so the
+ * table stores each once and the Worker holds one object for all its users.
+ */
+export type McpToolEntry = Omit<McpTool, 'outputSchema'> & { outputSchema?: number }
+
 export interface McpToolsArtifact {
-  version: 1
-  tools: McpTool[]
+  version: 2
+  tools: McpToolEntry[]
+  /** Distinct output schemas, referenced by index from `tools[].outputSchema`. */
+  outputSchemas: JsonSchema[]
+}
+
+/** Store each distinct output schema once and point tools at it. */
+export function packTools(tools: readonly McpTool[]): McpToolsArtifact {
+  const indexes = new Map<string, number>()
+  const outputSchemas: JsonSchema[] = []
+  const entries = tools.map(({ outputSchema, ...tool }): McpToolEntry => {
+    if (outputSchema === undefined) return tool
+    const key = JSON.stringify(outputSchema)
+    let index = indexes.get(key)
+    if (index === undefined) {
+      index = outputSchemas.push(outputSchema) - 1
+      indexes.set(key, index)
+    }
+    return { ...tool, outputSchema: index }
+  })
+  return { version: 2, tools: entries, outputSchemas }
+}
+
+/** Resolve each tool's output schema index to the shared schema object. */
+export function unpackTools({ tools, outputSchemas }: McpToolsArtifact): McpTool[] {
+  return tools.map(({ outputSchema, ...tool }) => {
+    if (outputSchema === undefined) return tool
+    const schema = outputSchemas[outputSchema]
+    if (schema === undefined)
+      throw new Error(`${tool.name} names missing output schema ${outputSchema}`)
+    return { ...tool, outputSchema: schema }
+  })
 }
 
 /** Points direct-tool callers at the generated account listing tool. */
