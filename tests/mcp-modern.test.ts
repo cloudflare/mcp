@@ -18,6 +18,7 @@ import {
   parseMcpResult
 } from './helpers/mcp'
 import { clearSpec, seedSpec } from './helpers/spec'
+import { directTool } from './helpers/direct-tools'
 import { server } from './setup/msw'
 
 const API_TOKEN = 'modern-mcp-token'
@@ -34,8 +35,12 @@ const SPEC_PATHS = {
   }
 }
 
+const TOOLS = [
+  directTool({ name: 'workers_scripts_list', path: '/accounts/{account_id}/workers/scripts' })
+]
+
 beforeEach(async () => {
-  await seedSpec(SPEC_PATHS)
+  await seedSpec(SPEC_PATHS, ['workers'], TOOLS)
   mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Modern MCP' }] })
 })
 
@@ -201,7 +206,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
         API_TOKEN,
         'tools/call',
         {
-          name: 'get_accounts_workers_scripts',
+          name: 'workers_scripts_list',
           arguments: {}
         },
         { url: `${MCP_URL}?codemode=false` }
@@ -238,7 +243,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
       modernMcpRequest(
         token,
         'tools/call',
-        { name: 'get_accounts_workers_scripts', arguments: {} },
+        { name: 'workers_scripts_list', arguments: {} },
         { id, url: `${MCP_URL}?codemode=false` }
       )
 
@@ -288,7 +293,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(endpoints.result?.tools?.map((tool) => tool.name)).toEqual([
       'docs',
       'whoami',
-      'get_accounts_workers_scripts'
+      'workers_scripts_list'
     ])
     expect(codemodeResponse.headers.get('mcp-session-id')).toBeNull()
     expect(endpointResponse.headers.get('mcp-session-id')).toBeNull()
@@ -399,7 +404,7 @@ describe('tool result truncation', () => {
       )
     )
 
-    const text = await callToolText('get_accounts_workers_scripts', {}, `${MCP_URL}?codemode=false`)
+    const text = await callToolText('workers_scripts_list', {}, `${MCP_URL}?codemode=false`)
     const body = JSON.parse(text)
 
     expect(text.length).toBeLessThanOrEqual(24_000)
@@ -435,7 +440,7 @@ describe('tool result truncation', () => {
     )
 
     const text = await callToolText(
-      'get_accounts_workers_scripts',
+      'workers_scripts_list',
       {},
       `${MCP_URL}?codemode=false&truncateToolResult=false`
     )

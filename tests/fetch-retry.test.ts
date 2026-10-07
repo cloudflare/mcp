@@ -58,8 +58,12 @@ describe('serverRetryDelayMs', () => {
     expect(serverRetryDelayMs(headers({ 'Retry-After': '5' }))).toBe(5000)
     expect(serverRetryDelayMs(headers({ 'Retry-After': '0' }))).toBe(0)
     const now = Date.parse('Wed, 21 Oct 2026 07:28:00 GMT')
-    expect(serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:28:12 GMT' }), now)).toBe(12_000)
-    expect(serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:27:00 GMT' }), now)).toBe(0)
+    expect(
+      serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:28:12 GMT' }), now)
+    ).toBe(12_000)
+    expect(
+      serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:27:00 GMT' }), now)
+    ).toBe(0)
   })
 
   it("falls back to the Cloudflare API's Ratelimit reset for an exhausted limit", () => {
@@ -67,9 +71,13 @@ describe('serverRetryDelayMs', () => {
     // Quota left: no reason to wait for the reset.
     expect(serverRetryDelayMs(headers({ Ratelimit: '"default";r=50;t=30' }))).toBeUndefined()
     // Several limits: wait for every exhausted one.
-    expect(serverRetryDelayMs(headers({ Ratelimit: '"burst";r=0;t=4, "default";r=0;t=120' }))).toBe(120_000)
+    expect(serverRetryDelayMs(headers({ Ratelimit: '"burst";r=0;t=4, "default";r=0;t=120' }))).toBe(
+      120_000
+    )
     // Retry-After wins when both are present.
-    expect(serverRetryDelayMs(headers({ 'Retry-After': '2', Ratelimit: '"default";r=0;t=30' }))).toBe(2000)
+    expect(
+      serverRetryDelayMs(headers({ 'Retry-After': '2', Ratelimit: '"default";r=0;t=30' }))
+    ).toBe(2000)
   })
 
   it('ignores values it cannot read', () => {
@@ -81,24 +89,22 @@ describe('serverRetryDelayMs', () => {
 })
 
 describe('fetchWithRetry', () => {
-  let originalFetch: typeof globalThis.fetch
   let warnSpy: ReturnType<typeof vi.spyOn>
   let errorSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
-    originalFetch = globalThis.fetch
     warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
   })
 
   afterEach(() => {
-    globalThis.fetch = originalFetch
+    vi.unstubAllGlobals()
     vi.restoreAllMocks()
   })
 
   it('returns immediately on 200', async () => {
     const mockResponse = new Response('ok', { status: 200 })
-    globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(mockResponse))
 
     const result = await fetchWithRetry('https://api.example.com/test')
 
@@ -108,7 +114,7 @@ describe('fetchWithRetry', () => {
 
   it('returns immediately on non-429 errors (e.g. 401)', async () => {
     const mockResponse = new Response('unauthorized', { status: 401 })
-    globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(mockResponse))
 
     const result = await fetchWithRetry('https://api.example.com/test')
 
@@ -121,7 +127,7 @@ describe('fetchWithRetry', () => {
       .fn()
       .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const result = await fetchWithRetry('https://api.example.com/accounts', undefined, {
       maxRetries: 1,
@@ -141,7 +147,7 @@ describe('fetchWithRetry', () => {
       .fn()
       .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 3,
@@ -155,7 +161,7 @@ describe('fetchWithRetry', () => {
 
   it('logs an error after exhausting 429 retries', async () => {
     const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const result = await fetchWithRetry('https://api.example.com/accounts', undefined, {
       maxRetries: 0
@@ -169,7 +175,7 @@ describe('fetchWithRetry', () => {
 
   it('returns last 429 response after exhausting retries', async () => {
     const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 2,
@@ -187,7 +193,7 @@ describe('fetchWithRetry', () => {
       .fn()
       .mockRejectedValueOnce(new Error('network failure'))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 3,
@@ -202,7 +208,7 @@ describe('fetchWithRetry', () => {
   it('logs an error after exhausting network retries', async () => {
     const error = new Error('network failure')
     const mock = vi.fn().mockRejectedValue(error)
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     await expect(
       fetchWithRetry('https://api.example.com/accounts', undefined, {
@@ -218,7 +224,7 @@ describe('fetchWithRetry', () => {
 
   it('throws after exhausting retries on network errors', async () => {
     const mock = vi.fn().mockRejectedValue(new Error('network failure'))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     await expect(
       fetchWithRetry('https://api.example.com/test', undefined, {
@@ -234,7 +240,7 @@ describe('fetchWithRetry', () => {
 
   it('passes through request init options and injects User-Agent', async () => {
     const mockResponse = new Response('ok', { status: 200 })
-    globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(mockResponse))
 
     await fetchWithRetry('https://api.example.com/test', {
       method: 'POST',
@@ -255,7 +261,7 @@ describe('fetchWithRetry', () => {
       .fn()
       .mockResolvedValueOnce(new Response('rate limited', { status: 429, headers: headers429 }))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const start = Date.now()
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
@@ -273,10 +279,14 @@ describe('fetchWithRetry', () => {
   it('returns the 429 at once when the server asks to wait beyond maxDelayMs', async () => {
     const mock = vi
       .fn()
-      .mockResolvedValue(new Response('rate limited', { status: 429, headers: { 'Retry-After': '300' } }))
-    globalThis.fetch = mock
+      .mockResolvedValue(
+        new Response('rate limited', { status: 429, headers: { 'Retry-After': '300' } })
+      )
+    vi.stubGlobal('fetch', mock)
 
-    const result = await fetchWithRetry('https://api.example.com/user', undefined, { caller: 'probe' })
+    const result = await fetchWithRetry('https://api.example.com/user', undefined, {
+      caller: 'probe'
+    })
 
     expect(result.status).toBe(429)
     expect(result.headers.get('Retry-After')).toBe('300')
@@ -293,10 +303,12 @@ describe('fetchWithRetry', () => {
         new Response('rate limited', { status: 429, headers: { Ratelimit: '"default";r=0;t=1' } })
       )
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const start = Date.now()
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, { baseDelayMs: 10 })
+    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+      baseDelayMs: 10
+    })
 
     expect(result.status).toBe(200)
     expect(Date.now() - start).toBeGreaterThanOrEqual(900)
@@ -308,8 +320,10 @@ describe('fetchWithRetry', () => {
   it('by default honours a server-given wait of up to 5 seconds', async () => {
     const mock = vi
       .fn()
-      .mockResolvedValue(new Response('rate limited', { status: 429, headers: { 'Retry-After': '6' } }))
-    globalThis.fetch = mock
+      .mockResolvedValue(
+        new Response('rate limited', { status: 429, headers: { 'Retry-After': '6' } })
+      )
+    vi.stubGlobal('fetch', mock)
 
     // 6s is over the 5s default: no wait, the 429 goes straight back with its Retry-After.
     const result = await fetchWithRetry('https://api.example.com/test')
@@ -320,7 +334,7 @@ describe('fetchWithRetry', () => {
 
   it('keeps all three backoff retries when the server gives no wait', async () => {
     const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       baseDelayMs: 1,
@@ -337,7 +351,7 @@ describe('fetchWithRetry', () => {
       .mockRejectedValueOnce(new Error('network failure'))
       .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
       .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 3,
@@ -354,7 +368,7 @@ describe('fetchWithRetry', () => {
       .fn()
       .mockRejectedValueOnce(new Error('network failure'))
       .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const result = await fetchWithRetry('https://api.example.com/test', undefined, {
       maxRetries: 1,
@@ -374,7 +388,7 @@ describe('fetchWithRetry', () => {
         ? new Response('rate limited', { status: 429 })
         : new Response('ok', { status: 200 })
     })
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const request = new Request('https://api.example.com/test', {
       method: 'POST',
@@ -402,7 +416,7 @@ describe('fetchWithRetry', () => {
         bodies.push(await input.text())
         return new Response('ok', { status: 200 })
       })
-    globalThis.fetch = mock
+    vi.stubGlobal('fetch', mock)
 
     const request = new Request('https://api.example.com/test', {
       method: 'POST',

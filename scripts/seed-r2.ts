@@ -1,61 +1,44 @@
 import { execSync } from 'node:child_process'
-import { writeFileSync, mkdtempSync, rmSync } from 'node:fs'
-import { join } from 'node:path'
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { processSpec, extractProducts } from '../src/spec-processor'
-import { buildNonCodemodeTools, type OperationInfo } from '../src/openapi'
+import { join } from 'node:path'
+import type { ForgeOpenApiDocument } from '@cloudflare/forge'
+import { latestForgeSpec } from '../src/forge-source.ts'
+import { buildArtifacts } from './generator/artifacts.ts'
 
-const OPENAPI_SPEC_URL =
-  'https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json'
-
-const env = process.argv[2]
-if (!env || !['staging', 'production'].includes(env)) {
-  console.error('Usage: npx tsx scripts/seed-r2.ts <staging|production>')
+/**
+ * Seed an R2 bucket with the artifacts the daily ToolsBuilder build writes,
+ * generated locally from the newest Forge release. Use it to bootstrap a new
+ * bucket or for local development (`local`, which writes to wrangler's local R2).
+ */
+const target = process.argv[2]
+if (!target || !['local', 'staging', 'production'].includes(target)) {
+  console.error('Usage: npx tsx scripts/seed-r2.ts <local|staging|production>')
   process.exit(1)
 }
 
-console.log(`Fetching OpenAPI spec from ${OPENAPI_SPEC_URL}...`)
-const response = await fetch(OPENAPI_SPEC_URL)
-if (!response.ok) {
-  throw new Error(`Failed to fetch spec: ${response.status}`)
-}
+const response = await latestForgeSpec(fetch)
+const release = response.headers.get('x-forge-release')
+console.log(`Generating from ${release}...`)
+const { files, tools, products } = await buildArtifacts(
+  (await response.json()) as ForgeOpenApiDocument
+)
+console.log(`${tools} tools, ${products} products`)
 
-const rawSpec = (await response.json()) as Record<string, unknown>
-console.log('Processing spec, resolving $refs...')
-
-const processed = processSpec(rawSpec)
-const specJson = JSON.stringify(processed)
-
-const products = extractProducts(rawSpec)
-const productsJson = JSON.stringify(products)
-const paths = (processed as { paths: Record<string, Record<string, OperationInfo>> }).paths
-const nonCodemodeToolsJson = JSON.stringify(buildNonCodemodeTools(paths))
-
-console.log(`Spec: ${(specJson.length / 1024 / 1024).toFixed(1)} MB, ${products.length} products`)
-
-const tmp = mkdtempSync(join(tmpdir(), 'mcp-seed-'))
-const specPath = join(tmp, 'spec.json')
-const productsPath = join(tmp, 'products.json')
-const nonCodemodeToolsPath = join(tmp, 'non-codemode-tools.json')
-
+const bucket = target === 'local' ? 'mcp-spec' : `mcp-spec-${target}`
+const location = target === 'local' ? '--local' : `--env ${target} --remote`
+const directory = mkdtempSync(join(tmpdir(), 'mcp-seed-'))
 try {
-  writeFileSync(specPath, specJson)
-  writeFileSync(productsPath, productsJson)
-  writeFileSync(nonCodemodeToolsPath, nonCodemodeToolsJson)
-
-  for (const [key, path] of [
-    ['spec.json', specPath],
-    ['products.json', productsPath],
-    ['non-codemode-tools.json', nonCodemodeToolsPath]
-  ] as const) {
-    console.log(`Uploading ${key} to R2 (--env ${env})...`)
+  for (const [key, content] of Object.entries(files)) {
+    const file = join(directory, key)
+    writeFileSync(file, content)
+    console.log(`Uploading ${key} (${(content.length / 1024 / 1024).toFixed(1)} MB)...`)
     execSync(
-      `npx wrangler r2 object put mcp-spec-${env}/${key} --file "${path}" --content-type application/json --env ${env} --remote`,
+      `npx wrangler r2 object put ${bucket}/${key} --file "${file}" --content-type application/json ${location}`,
       { stdio: 'inherit' }
     )
   }
-
   console.log('Done!')
 } finally {
-  rmSync(tmp, { recursive: true })
+  rmSync(directory, { recursive: true })
 }

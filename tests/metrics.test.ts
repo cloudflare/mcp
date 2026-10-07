@@ -11,6 +11,7 @@ import {
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
+import { directTool } from './helpers/direct-tools'
 import { MCP_URL, callTool, mcpToolCallRequest, parseMcpResult } from './helpers/mcp'
 import { server } from './setup/msw'
 
@@ -147,10 +148,10 @@ describe('tool_call emission via the real worker', () => {
   })
 
   it('emits a tool_call datapoint from the lazy non-codemode dispatcher', async () => {
-    await seedSpec({ '/accounts': { get: { summary: 'List Accounts' } } })
+    await seedSpec({}, [], [directTool({ name: 'accounts_list', path: '/accounts' })])
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
     const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
-    const base = mcpToolCallRequest(API_TOKEN, 'get_accounts', {})
+    const base = mcpToolCallRequest(API_TOKEN, 'accounts_list', {})
     const request = new Request(`${MCP_URL}?codemode=false`, base)
 
     const result = await parseMcpResult(await exports.default.fetch(request))
@@ -158,7 +159,7 @@ describe('tool_call emission via the real worker', () => {
     expect(result.result?.isError).toBeFalsy()
     const dp = findToolCall(writeSpy)
     expect(dp).toBeTruthy()
-    expect(dp!.blobs?.[3]).toBe('get_accounts')
+    expect(dp!.blobs?.[3]).toBe('accounts_list')
     expect(dp!.doubles?.[0]).toBeUndefined()
   })
 
