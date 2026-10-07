@@ -156,7 +156,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
 
     expect(response.status).toBe(200)
     expect(body.result?.resultType).toBe('complete')
-    expect(body.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
+    expect(body.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
   })
 
   it('serves a modern Code Mode tools/call', async () => {
@@ -271,9 +271,10 @@ describe('MCP 2026-07-28 stateless handler', () => {
 
     expect(codemodeResponse.status).toBe(200)
     expect(endpointResponse.status).toBe(200)
-    expect(codemode.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
+    expect(codemode.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
     expect(endpoints.result?.tools?.map((tool) => tool.name)).toEqual([
       'docs',
+      'whoami',
       'get_accounts_workers_scripts'
     ])
     expect(codemodeResponse.headers.get('mcp-session-id')).toBeNull()
@@ -307,7 +308,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(response.status).toBe(200)
     expect(response.headers.get('content-type')).toContain('text/event-stream')
     expect(response.headers.get('mcp-session-id')).toBeNull()
-    expect(body.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
+    expect(body.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
   })
 
   it.each(['GET', 'DELETE'])('rejects session-only %s requests', async (method) => {

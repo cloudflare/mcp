@@ -159,7 +159,7 @@ describe('Client ID Metadata Documents', () => {
     )
     const mcpBody = await parseMcpResult(mcpResponse)
     expect(mcpResponse.status).toBe(200)
-    expect(mcpBody.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute'])
+    expect(mcpBody.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
 
     expect(metadataFetches).toBeGreaterThan(0)
     expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(0)

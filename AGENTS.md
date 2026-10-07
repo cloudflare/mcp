@@ -108,6 +108,8 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 1. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
 2. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
 
+`docs` (documentation search) and `whoami` are registered in both tool modes. `whoami` (`src/tools/whoami.ts`) returns the credential's identity as `user:<id>` or `account:<id>` and carries `_meta['openai/profile']` so ChatGPT can tell connected accounts apart. That ID format is a permanent contract: clients store it, so never change it. Its definition is static like every other tool's; only `tools/call` reads the credential.
+
 ### MCP HTTP serving
 
 - `src/mcp-handler.ts` uses `createMcpHandler(factory)` directly from `@modelcontextprotocol/server`; this repository does not depend on the Agents SDK.

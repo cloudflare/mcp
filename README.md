@@ -49,7 +49,7 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 
 ### Disable Code Mode
 
-If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` tool remains available in both modes.
+If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` and `whoami` tools remain available in both modes.
 
 ```
 https://mcp.cloudflare.com/mcp?codemode=false
@@ -101,6 +101,7 @@ Agent writes code to search the spec and execute API calls. It can also search C
 | `docs`    | Search Cloudflare developer documentation                                     |
 | `search`  | Write JavaScript to query `spec.paths` and find endpoints                     |
 | `execute` | Write JavaScript to call `cloudflare.request()` with the discovered endpoints |
+| `whoami`  | Return the Cloudflare user or account this connection is authenticated as     |
 
 ```
 Agent                         MCP Server
@@ -111,6 +112,8 @@ Agent                         MCP Server
   ├──execute({code: "..."})──────►│ Execute code against Cloudflare API
   │◄──[API response]──────────────│
 ```
+
+`whoami` takes no arguments and returns `{ id, email }` for a user credential or `{ id, name }` for an account token. The `id` is `user:<user id>` or `account:<account id>`, so it stays the same across token refresh, reconnection and permission changes. Clients can use it to tell connected accounts apart; it is marked as an [OpenAI profile tool](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool).
 
 ## Supported Products
 
