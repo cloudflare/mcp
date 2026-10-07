@@ -7,6 +7,7 @@ import {
   type McpTool,
   type McpToolsArtifact
 } from './mcp-tools'
+import type { OperationInfo } from './openapi'
 
 /**
  * In-isolate cache for the R2 artifacts the daily ToolsBuilder run writes
@@ -28,7 +29,10 @@ export interface DirectTools {
   byName: Map<string, McpTool>
 }
 
+type SpecPaths = Record<string, Record<string, OperationInfo>>
+
 let specEntry: Entry<string> | undefined
+let specPaths: { text: string; paths: SpecPaths } | undefined
 let productsEntry: Entry<string[]> | undefined
 let toolsEntry: Entry<DirectTools> | undefined
 
@@ -50,6 +54,18 @@ export async function getSpec(): Promise<string> {
   const value = await (await required(SPEC_KEY)).text()
   specEntry = { value, expiresAt: now + TTL_MS }
   return value
+}
+
+/**
+ * `spec.json` paths, parsed only when needed (explaining a refused `execute`
+ * request) and reused until the cached text changes.
+ */
+export async function getSpecPaths(): Promise<SpecPaths> {
+  const text = await getSpec()
+  if (specPaths?.text !== text) {
+    specPaths = { text, paths: (JSON.parse(text) as { paths: SpecPaths }).paths }
+  }
+  return specPaths.paths
 }
 
 /** The direct tools, served exactly as generated. */
@@ -87,6 +103,7 @@ export async function getProducts(): Promise<string[]> {
 /** Drop cached artifacts. For tests that re-seed R2 between cases. */
 export function resetIsolateCache(): void {
   specEntry = undefined
+  specPaths = undefined
   productsEntry = undefined
   toolsEntry = undefined
 }

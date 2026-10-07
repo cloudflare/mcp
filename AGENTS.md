@@ -28,6 +28,8 @@ cloudflare-mcp/
 │   ├── isolate-cache.ts           # One-hour in-isolate cache of the R2 artifacts
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
+│   ├── api-permissions.ts         # Connection kinds; explains refused (401/403) API calls
+│   ├── api-refusal-hint.ts        # Looks up a refused execute request's permissions in spec.json
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Prefix classification & external resolver
@@ -156,6 +158,15 @@ Everything the Worker reads about the API comes from one daily build of the newe
 - With `?codemode=false`, low-level MCP handlers serve `mcp-tools.json` as-is: `tools/list` returns each entry's `name`, `title`, `description`, `inputSchema` and `annotations`; `tools/call` looks the entry up by name, checks the schema's required keys, fills `account_id` from the session when it can, and builds one Cloudflare API request from the entry's `request` routes. The API validates argument values. No per-endpoint SDK tools are registered.
 - Forge is a build-time dependency vendored as `vendor/cloudflare-forge-0.1.0.tgz`. Generator tests run with `node --test` (`npm run test:generator`), outside the workers pool. The workers pool can't run containers; `tests/tools-builder.test.ts` covers `BuildEgress`, the Forge download and the scheduled dispatch.
 - `wrangler dev` runs without containers (`dev.enable_containers: false`); use `npm run seed:local` to fill local R2.
+
+### Refused API calls
+
+Cloudflare answers a missing OAuth scope, an endpoint OAuth can't reach (billing, API tokens), and a missing role all with `403` and `10000: Authentication error` or `9109: Unauthorized`. Agents read that as a signed-out connection and ask users to reconnect, which changes nothing. So every 401/403 tool error names the method, path, status and Cloudflare's errors, and adds an explanation from `src/api-permissions.ts`:
+
+- The connection kind comes from the provider's `ctx.auth`. A token the provider issued carries `clientId` and its granted `scope` (`oauth`). A directly resolved credential carries neither (`direct`).
+- The endpoint's accepted permissions come from Forge's `x-api-token-group`, which the build copies into each `spec.json` operation and each `mcp-tools.json` entry (`permissions`). OAuth scopes share those names (`DERIVED_OAUTH_SCOPES`). Any one permission is enough.
+- The explanation says one of four things. The connection lacks every scope the endpoint accepts: grant one. It already holds one: reconnecting won't help. No OAuth scope exists for the endpoint: use an API token. For a direct credential: these are the permissions the token needs.
+- `execute`: `GlobalOutbound` sets the explanation in an `X-Cloudflare-MCP-Refusal-Hint` response header. The sandbox puts it in the error it throws, so it survives code that catches the error. Endpoint tools add it to the tool result, using their own entry's permissions. `execute` matches the refused path against `spec.json`, parsed only for refused requests.
 
 ### Response truncation
 

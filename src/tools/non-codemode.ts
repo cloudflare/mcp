@@ -15,6 +15,7 @@ import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import type { McpTool, ParameterRoute } from '../mcp-tools'
 import type { AuthProps } from '../auth/types'
+import { acceptedPermissions, explainRefusal, type Connection } from '../api-permissions'
 
 /**
  * Serve the generated direct tools (`mcp-tools.json`) with two low-level
@@ -26,7 +27,8 @@ import type { AuthProps } from '../auth/types'
 export async function registerNonCodemodeTools(
   server: McpServer,
   props: AuthProps,
-  formatResult: FormatToolResult
+  formatResult: FormatToolResult,
+  connection: Connection
 ): Promise<void> {
   const tools = await getDirectTools()
 
@@ -57,7 +59,7 @@ export async function registerNonCodemodeTools(
       } else {
         const tool = tools.byName.get(name)
         result = tool
-          ? await callDirectTool(tool, args, props, formatResult)
+          ? await callDirectTool(tool, args, props, formatResult, connection)
           : toolError(`Tool ${name} not found`)
       }
     } catch (error) {
@@ -73,7 +75,8 @@ async function callDirectTool(
   tool: McpTool,
   input: Record<string, unknown>,
   props: AuthProps,
-  formatResult: FormatToolResult
+  formatResult: FormatToolResult,
+  connection: Connection
 ): Promise<CallToolResult> {
   const { request } = tool
   const args = { ...input }
@@ -131,13 +134,25 @@ async function callDirectTool(
     ? await response.json()
     : await response.text()
 
+  if (response.ok) return { content: [{ type: 'text', text: formatResult(result) }] }
+
+  // The generated tool already names the permissions its endpoint accepts.
+  const refusal = explainRefusal(
+    response.status,
+    connection,
+    acceptedPermissions({ 'x-api-token-group': tool.permissions['x-api-token-group'] })
+  )
   const accountId = accountRoute ? args[accountRoute.key] : undefined
-  const hint =
-    !response.ok && typeof accountId === 'string' ? unknownAccountHint(props, accountId) : ''
-  return {
-    content: [{ type: 'text', text: formatResult(result) + (hint ? `\n\n${hint}` : '') }],
-    isError: !response.ok
-  }
+  const notes = [
+    refusal,
+    typeof accountId === 'string' ? unknownAccountHint(props, accountId) : ''
+  ].filter(Boolean)
+  const text = [
+    `Cloudflare API error: ${request.method} ${path} returned HTTP ${response.status}.`,
+    formatResult(result),
+    ...notes
+  ].join('\n\n')
+  return { content: [{ type: 'text', text }], isError: true }
 }
 
 function scalar(value: unknown): string {

@@ -1,3 +1,4 @@
+import type { OAuthResourceContext } from '@cloudflare/workers-oauth-provider'
 import {
   createMcpHandler,
   hostHeaderValidationResponse,
@@ -6,6 +7,7 @@ import {
   originValidationResponse
 } from '@modelcontextprotocol/server'
 import { createServer, type ServerOptions } from './server'
+import { connectionFromAuth, type Connection } from './api-permissions'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
 
 export const MCP_ROUTE = '/mcp'
@@ -34,13 +36,13 @@ function serverOptionsFromUrl(url: string): ServerOptions {
   }
 }
 
-function createAuthenticatedHandler(props: AuthProps) {
+function createAuthenticatedHandler(props: AuthProps, connection: Connection) {
   return createMcpHandler(({ requestInfo }) => {
     if (!requestInfo) {
       throw new Error('The Cloudflare MCP server requires an HTTP request')
     }
 
-    return createServer(props, serverOptionsFromUrl(requestInfo.url))
+    return createServer(props, serverOptionsFromUrl(requestInfo.url), connection)
   })
 }
 
@@ -91,10 +93,17 @@ export function handleMcpPreflight(request: Request): Response {
   return new Response(null, { status: 204, headers: corsHeaders(request) })
 }
 
-/** Serve one authenticated MCP exchange with a fresh SDK v2 server instance. */
+/**
+ * Serve one authenticated MCP exchange with a fresh SDK v2 server instance.
+ *
+ * @param request - The MCP HTTP request.
+ * @param rawProps - `ctx.props` from workers-oauth-provider.
+ * @param auth - `ctx.auth` from workers-oauth-provider: the verified token's scopes.
+ */
 export async function handleAuthenticatedMcpRequest(
   request: Request,
-  rawProps: unknown
+  rawProps: unknown,
+  auth?: unknown
 ): Promise<Response> {
   if (new URL(request.url).pathname !== MCP_ROUTE) {
     return new Response('Not Found', { status: 404 })
@@ -104,15 +113,20 @@ export async function handleAuthenticatedMcpRequest(
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)
-  const handler = createAuthenticatedHandler(props)
+  const handler = createAuthenticatedHandler(props, connectionFromAuth(auth))
   const response = await handler.fetch(request)
 
   return withCors(response, request)
 }
 
-/** ExportedHandler adapter required by workers-oauth-provider 0.8.x. */
+/** workers-oauth-provider API handler: `ctx.props` holds the grant, `ctx.auth` the verified token. */
 export const oauthMcpHandler = {
-  fetch(request: Request, _env: Env, ctx: ExecutionContext) {
-    return handleAuthenticatedMcpRequest(request, ctx.props)
+  // The provider's apiHandlers type predates ctx.auth, so it is optional here.
+  fetch(
+    request: Request,
+    _env: Env,
+    ctx: ExecutionContext & Partial<Pick<OAuthResourceContext<unknown>, 'auth'>>
+  ) {
+    return handleAuthenticatedMcpRequest(request, ctx.props, ctx.auth)
   }
 }
