@@ -1,3 +1,4 @@
+import { permissionName } from './oauth.ts'
 /**
  * Build `spec.json` and `products.json` from a Forge OpenAPI document.
  *
@@ -21,12 +22,15 @@ interface OperationObject {
   'x-api-token-group'?: unknown
 }
 
-/** Keep `x-api-token-group` only when it is a list of permission names. */
-function permissionLabels(value: unknown): string[] | undefined {
+/**
+ * Keep `x-api-token-group` only when it is a list of permission labels, with
+ * Forge's stale labels replaced by the names OAuth scopes use.
+ */
+export function permissionLabels(value: unknown): string[] | undefined {
   return Array.isArray(value) &&
     value.length > 0 &&
     value.every((item) => typeof item === 'string' && item.length > 0)
-    ? value
+    ? value.map(permissionName)
     : undefined
 }
 

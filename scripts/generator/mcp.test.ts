@@ -119,7 +119,7 @@ test('makes account_id optional with one caller-independent description', async 
   assert.deepEqual(zone.inputSchema.required, ['zone_id'])
 })
 
-test('matches cf: keeps hidden methods, drops deprecated, ignored and non-cf-cli/MCP audiences', async () => {
+test('keeps every non-deprecated operation an OAuth connection can call, whatever its audience or visibility', async () => {
   const paths: ForgeOpenApiDocument['paths'] = {}
   for (const [name, flags] of Object.entries({
     hidden: { 'x-forge-hidden': true },
@@ -130,7 +130,10 @@ test('matches cf: keeps hidden methods, drops deprecated, ignored and non-cf-cli
     terraformOnly: { 'x-fern-audiences': 'terraform' },
     cli: { 'x-fern-audiences': ['sdk', 'cf-cli'] },
     mcp: { 'x-fern-audiences': ['sdk', 'mcp'] },
-    mcpString: { 'x-fern-audiences': 'mcp' }
+    mcpString: { 'x-fern-audiences': 'mcp' },
+    specialToken: { security: [{ pages_upload_token: [] }] },
+    noOAuthScope: { 'x-api-token-group': ['Billing Read'] },
+    aliasedScope: { 'x-api-token-group': ['Browser Rendering Read'] }
   })) {
     paths[`/${name}`] = {
       get: operation({ operationId: name, 'x-fern-sdk-method-name': name, ...flags })
@@ -139,8 +142,24 @@ test('matches cf: keeps hidden methods, drops deprecated, ignored and non-cf-cli
   const artifact = await generate(document(paths))
   assert.deepEqual(
     artifact.tools.map((tool: { name: string }) => tool.name),
-    ['widgets_cli', 'widgets_hidden', 'widgets_mcp', 'widgets_mcpString']
+    [
+      'widgets_aliasedScope',
+      'widgets_cli',
+      'widgets_hidden',
+      'widgets_hiddenNoSuccess',
+      'widgets_ignored',
+      'widgets_mcp',
+      'widgets_mcpString',
+      'widgets_sdkOnly',
+      'widgets_terraformOnly'
+    ]
   )
+  // The tool records the permission under the name its OAuth scope uses, so
+  // refusal explanations and scope challenges can find the scope.
+  const aliased = artifact.tools.find(
+    (tool: { name: string }) => tool.name === 'widgets_aliasedScope'
+  )
+  assert.deepEqual(aliased.permissions, { 'x-api-token-group': ['Browser Run Read'] })
 })
 
 test('uses Forge aliases and normalized method names, without inventing names for ungrouped operations', async () => {
@@ -166,7 +185,7 @@ test('uses Forge aliases and normalized method names, without inventing names fo
   )
 })
 
-test('respects ignored aliases without falling back to the operation name', async () => {
+test('an ignored alias does not name a tool; the operation keeps its own Forge name', async () => {
   const { tools } = await generate(
     document({
       '/ignored': {
@@ -182,7 +201,10 @@ test('respects ignored aliases without falling back to the operation name', asyn
       }
     })
   )
-  assert.deepEqual(tools, [])
+  assert.deepEqual(
+    tools.map((tool: { name: string }) => tool.name),
+    ['widgets_list']
+  )
 })
 
 test('keeps named operations without operationIds and supports HEAD and OPTIONS', async () => {
@@ -211,7 +233,7 @@ test('resolves refs, path-level parameters, overrides, headers and typed bodies'
           id: { description: 'Widget identifier' },
           verbose: { required: true, description: 'Include details' }
         },
-        'x-api-token-group': ['Widgets Write'],
+        'x-api-token-group': ['DNS Write'],
         'x-cfPermissionsRequired': { enum: ['widgets:write'] },
         parameters: [
           { name: 'verbose', in: 'query', schema: { type: 'boolean' } },
@@ -270,7 +292,7 @@ test('resolves refs, path-level parameters, overrides, headers and typed bodies'
     description: 'Widget payload'
   })
   assert.deepEqual(tool.permissions, {
-    'x-api-token-group': ['Widgets Write'],
+    'x-api-token-group': ['DNS Write'],
     'x-cfPermissionsRequired': { enum: ['widgets:write'] }
   })
   assert.equal(tool.annotations.destructiveHint, true)
@@ -368,7 +390,7 @@ test('preserves cookie parameter routing', async () => {
   ])
 })
 
-test('drops a group named like a sibling method, as the cf CLI does', async () => {
+test('keeps a group named like a sibling method, which the cf CLI drops, under its Forge name', async () => {
   const artifact = await generate(
     document({
       '/quota': { get: operation({ operationId: 'quota', 'x-fern-sdk-method-name': 'quota' }) },
@@ -390,6 +412,6 @@ test('drops a group named like a sibling method, as the cf CLI does', async () =
   )
   assert.deepEqual(
     artifact.tools.map((tool: { name: string }) => tool.name),
-    ['widgets_other_get', 'widgets_quota']
+    ['widgets_other_get', 'widgets_quota', 'widgets_quota_get']
   )
 })
