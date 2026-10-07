@@ -1,9 +1,9 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
-import type { McpServer, CallToolResult, Tool } from '@modelcontextprotocol/server'
+import type { McpServer, CallToolResult } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
-import { getNonCodemodeToolMap, getNonCodemodeTools } from '../isolate-cache'
+import { getDirectTools } from '../isolate-cache'
 import {
   NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE,
   autoResolvedAccountId,
@@ -13,55 +13,52 @@ import {
 import { recordToolCall } from '../metrics'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
-import { zodInputSchemaFromJson, type NonCodemodeTool } from '../openapi'
+import type { McpTool, ParameterRoute } from '../mcp-tools'
 import type { AuthProps } from '../auth/types'
 
 /**
- * Install lazy non-Code-Mode protocol handlers.
- *
- * Unlike `registerTool`, these handlers do not create ~3,000 closures and Zod
- * schemas per HTTP request. `tools/list` serves the precomputed JSON artifact;
- * `tools/call` validates and dispatches only the requested operation.
- * `formatResult` turns each API response body into the tool's text output.
+ * Serve the generated direct tools (`mcp-tools.json`) with two low-level
+ * handlers. `tools/list` returns the cached catalogue as-is; `tools/call`
+ * looks the tool up by name and turns its arguments into one Cloudflare API
+ * request using the tool's precomputed `request` routing. The Cloudflare API
+ * validates argument values; this only enforces the schema's required keys.
  */
 export async function registerNonCodemodeTools(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult
 ): Promise<void> {
-  const tools = await getNonCodemodeTools()
-  const toolsByName = await getNonCodemodeToolMap()
+  const tools = await getDirectTools()
 
   server.server.setRequestHandler('tools/list', () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.map((tool) => toWireTool(toolForAccountAccess(tool)))]
+    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.list]
   }))
 
   server.server.setRequestHandler('tools/call', async (request) => {
     const name = request.params.name
+    const args = request.params.arguments ?? {}
     let result: CallToolResult
 
     try {
       if (name === DOCS_TOOL.name) {
-        const parsed = z.object({ query: z.string() }).safeParse(request.params.arguments ?? {})
+        const parsed = z.object({ query: z.string() }).safeParse(args)
         result = parsed.success
           ? await runDocsTool(parsed.data.query)
-          : validationError(name, parsed.error)
+          : toolError(
+              `Input validation error: Invalid arguments for tool ${name}: ${parsed.error.message}`
+            )
       } else if (name === WHOAMI_TOOL.name) {
-        const parsed = WhoamiInputSchema.safeParse(request.params.arguments ?? {})
-        result = parsed.success ? runWhoamiTool(props) : validationError(name, parsed.error)
+        const parsed = WhoamiInputSchema.safeParse(args)
+        result = parsed.success
+          ? runWhoamiTool(props)
+          : toolError(
+              `Input validation error: Invalid arguments for tool ${name}: ${parsed.error.message}`
+            )
       } else {
-        const baseTool = toolsByName.get(name)
-        if (!baseTool) {
-          result = toolError(`Tool ${name} not found`)
-        } else {
-          const tool = toolForAccountAccess(baseTool)
-          const parsed = z
-            .object(zodInputSchemaFromJson(tool.inputSchema))
-            .safeParse(request.params.arguments ?? {})
-          result = parsed.success
-            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult)
-            : validationError(name, parsed.error)
-        }
+        const tool = tools.byName.get(name)
+        result = tool
+          ? await callDirectTool(tool, args, props, formatResult)
+          : toolError(`Tool ${name} not found`)
       }
     } catch (error) {
       result = toolError(error instanceof Error ? error.message : String(error))
@@ -72,46 +69,61 @@ export async function registerNonCodemodeTools(
   })
 }
 
-async function callNonCodemodeTool(
-  tool: NonCodemodeTool,
-  params: Record<string, unknown>,
+async function callDirectTool(
+  tool: McpTool,
+  input: Record<string, unknown>,
   props: AuthProps,
   formatResult: FormatToolResult
 ): Promise<CallToolResult> {
-  let resolvedPath = tool.path
-  const pathParams = [...tool.path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1])
-
-  for (const paramName of pathParams) {
-    let value = params[paramName] as string | undefined
-    if (paramName === 'account_id' && !value) value = autoResolvedAccountId(props)
-    if (!value && paramName === 'account_id') {
+  const { request } = tool
+  const args = { ...input }
+  const accountRoute = request.pathParams.find(({ name }) => name === 'account_id')
+  if (accountRoute && args[accountRoute.key] === undefined) {
+    const accountId = autoResolvedAccountId(props)
+    if (!accountId) {
       return toolError(missingAccountMessage(props, NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE))
     }
-    if (!value) return toolError(`missing required path parameter: ${paramName}`)
-    resolvedPath = resolvedPath.replace(`{${paramName}}`, encodeURIComponent(value))
+    args[accountRoute.key] = accountId
   }
 
-  const url = new URL(env.CLOUDFLARE_API_BASE + resolvedPath)
-  for (const paramName of tool.queryParams) {
-    if (params[paramName] !== undefined) {
-      url.searchParams.set(paramName, String(params[paramName]))
-    }
+  const missing = tool.inputSchema.required.filter((key) => args[key] === undefined)
+  if (missing.length) {
+    return toolError(
+      `Input validation error: Invalid arguments for tool ${tool.name}: missing required ${missing.join(', ')}`
+    )
+  }
+
+  let path = request.path
+  for (const route of request.pathParams) {
+    path = path.replaceAll(`{${route.name}}`, encodeURIComponent(scalar(args[route.key])))
+  }
+
+  const url = new URL(env.CLOUDFLARE_API_BASE + path)
+  for (const route of request.queryParams) {
+    appendQuery(url.searchParams, route, args[route.key])
   }
 
   const headers: Record<string, string> = { Authorization: `Bearer ${props.accessToken}` }
-  for (const { name, key } of tool.headerParams) {
-    if (params[key] !== undefined) headers[name] = String(params[key])
+  for (const route of request.headerParams) {
+    if (args[route.key] !== undefined) headers[route.name] = scalar(args[route.key])
   }
+  const cookies = request.cookieParams
+    .filter((route) => args[route.key] !== undefined)
+    .map((route) => `${route.name}=${encodeURIComponent(scalar(args[route.key]))}`)
+  if (cookies.length) headers['Cookie'] = cookies.join('; ')
 
-  let body: string | undefined
-  if (params['body']) {
-    headers['Content-Type'] = (params['content_type'] as string) || 'application/json'
-    body = params['body'] as string
+  let body: BodyInit | undefined
+  if (request.body && args['body'] !== undefined) {
+    const contentType =
+      typeof args['content_type'] === 'string' ? args['content_type'] : request.body.contentType
+    body = encodeBody(args['body'], contentType)
+    // FormData sets its own multipart boundary.
+    if (!(body instanceof FormData)) headers['Content-Type'] = contentType
   }
 
   const response = await fetchWithRetry(
     url.toString(),
-    { method: tool.method.toUpperCase(), headers, body },
+    { method: request.method, headers, body },
     { caller: 'non_codemode_tool_call' }
   )
   const contentType = response.headers.get('content-type') || ''
@@ -119,51 +131,65 @@ async function callNonCodemodeTool(
     ? await response.json()
     : await response.text()
 
-  const accountId = params['account_id'] as string | undefined
-  const hint = !response.ok && accountId ? unknownAccountHint(props, accountId) : ''
+  const accountId = accountRoute ? args[accountRoute.key] : undefined
+  const hint =
+    !response.ok && typeof accountId === 'string' ? unknownAccountHint(props, accountId) : ''
   return {
     content: [{ type: 'text', text: formatResult(result) + (hint ? `\n\n${hint}` : '') }],
     isError: !response.ok
   }
 }
 
-function validationError(name: string, error: z.ZodError): CallToolResult {
-  const accountGuidance = error.issues.some((issue) => issue.path[0] === 'account_id')
-    ? ` ${NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE}`
-    : ''
-  return toolError(
-    `Input validation error: Invalid arguments for tool ${name}: ${error.message}${accountGuidance}`
-  )
+function scalar(value: unknown): string {
+  return typeof value === 'string' ? value : JSON.stringify(value)
+}
+
+/** OpenAPI `form` serialization: exploded arrays repeat the name, others join with commas. */
+function appendQuery(params: URLSearchParams, route: ParameterRoute, value: unknown): void {
+  if (value === undefined || value === null) return
+  if (Array.isArray(value)) {
+    if (route.explode) for (const item of value) params.append(route.name, scalar(item))
+    else params.append(route.name, value.map(scalar).join(','))
+  } else if (typeof value === 'object') {
+    const entries = Object.entries(value as Record<string, unknown>)
+    if (route.explode) for (const [key, item] of entries) params.append(key, scalar(item))
+    else params.append(route.name, entries.flat().map(scalar).join(','))
+  } else {
+    params.append(route.name, String(value))
+  }
+}
+
+function encodeBody(value: unknown, contentType: string): BodyInit {
+  if (contentType.startsWith('multipart/form-data') && isRecord(value)) {
+    const form = new FormData()
+    for (const [key, item] of Object.entries(value)) {
+      for (const part of Array.isArray(item) ? item : [item]) form.append(key, scalar(part))
+    }
+    return form
+  }
+  if (contentType.startsWith('application/x-www-form-urlencoded') && isRecord(value)) {
+    return new URLSearchParams(
+      Object.entries(value).map(([key, item]) => [key, scalar(item)])
+    ).toString()
+  }
+  if (typeof value !== 'string') return JSON.stringify(value)
+  // A JSON body passed as already-serialized text goes through unchanged.
+  return contentType.includes('json') && !isJsonText(value) ? JSON.stringify(value) : value
+}
+
+function isJsonText(value: string): boolean {
+  try {
+    JSON.parse(value)
+    return true
+  } catch {
+    return false
+  }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
 function toolError(message: string): CallToolResult {
   return { content: [{ type: 'text', text: message }], isError: true }
-}
-
-function toWireTool(tool: NonCodemodeTool): Tool {
-  const { name, title, description, inputSchema } = tool
-  return { name, title, description, inputSchema }
-}
-
-const ACCOUNT_ID_PARAM_DESCRIPTION = `Cloudflare account ID. Optional when the session is authorized for exactly one account; otherwise required. ${NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE}`
-
-/**
- * The same `account_id` schema for every session: always present, never
- * required. MCP clients cache tool metadata and may serve one user's tool list
- * to another, so the schema can't depend on the token. The call handler fills
- * in the session's account when it can, and otherwise returns account
- * discovery guidance.
- */
-function toolForAccountAccess(tool: NonCodemodeTool): NonCodemodeTool {
-  if (!tool.inputSchema.properties['account_id']) return tool
-
-  const properties = {
-    ...tool.inputSchema.properties,
-    account_id: { type: 'string' as const, description: ACCOUNT_ID_PARAM_DESCRIPTION }
-  }
-  const required = tool.inputSchema.required?.filter((name) => name !== 'account_id')
-
-  const inputSchema = { ...tool.inputSchema, properties, required }
-  if (required?.length === 0) delete inputSchema.required
-  return { ...tool, inputSchema }
 }

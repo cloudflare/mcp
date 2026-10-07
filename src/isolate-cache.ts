@@ -1,78 +1,76 @@
 import { env } from 'cloudflare:workers'
-import { buildNonCodemodeTools } from './openapi'
-import type { NonCodemodeTool, OperationInfo } from './openapi'
+import type { Tool } from '@modelcontextprotocol/server'
+import {
+  MCP_TOOLS_KEY,
+  PRODUCTS_KEY,
+  SPEC_KEY,
+  type McpTool,
+  type McpToolsArtifact
+} from './mcp-tools'
 
 /**
- * In-isolate cache for the R2 spec artifacts (`spec.json`, `products.json`,
- * `non-codemode-tools.json`).
+ * In-isolate cache for the R2 artifacts the daily ToolsBuilder run writes
+ * (`spec.json`, `products.json`, `mcp-tools.json`).
  *
  * The MCP worker isolate stays warm across requests, so without this every
- * search/execute/non-codemode call re-fetched the spec from R2. The scheduled
- * handler rewrites the artifacts at most daily, so a short TTL keeps a warm
- * isolate from serving a stale spec for long after an update while still
- * absorbing the vast majority of reads.
+ * call re-read R2. The artifacts change at most daily, so a short TTL keeps a
+ * warm isolate from serving stale data for long after an update while still
+ * absorbing nearly all reads.
  */
 
 const TTL_MS = 60 * 60 * 1000 // 1 hour
 
-type SpecPaths = Record<string, Record<string, OperationInfo>>
-
 type Entry<T> = { value: T; expiresAt: number }
 
-let specEntry: Entry<{ text: string; paths: SpecPaths }> | undefined
+/** `mcp-tools.json` ready to serve: the `tools/list` payload and a name lookup for `tools/call`. */
+export interface DirectTools {
+  list: Tool[]
+  byName: Map<string, McpTool>
+}
+
+let specEntry: Entry<string> | undefined
 let productsEntry: Entry<string[]> | undefined
-let nonCodemodeToolsEntry: Entry<NonCodemodeTool[]> | undefined
-let nonCodemodeToolMap: Map<string, NonCodemodeTool> | undefined
-let nonCodemodeToolMapSource: NonCodemodeTool[] | undefined
+let toolsEntry: Entry<DirectTools> | undefined
 
 function fresh<T>(entry: Entry<T> | undefined, now: number): entry is Entry<T> {
   return entry !== undefined && entry.expiresAt > now
 }
 
-/**
- * The raw `spec.json` text (for embedding into the search isolate) and its
- * parsed `paths` (for the non-codemode rollout fallback). Cached together so
- * both shapes come from a single R2 read. Throws if the spec has not been seeded.
- */
-export async function getSpec(): Promise<{ text: string; paths: SpecPaths }> {
+async function required(key: string): Promise<R2ObjectBody> {
+  const object = await env.SPEC_BUCKET.get(key)
+  if (!object) throw new Error(`${key} not found in R2. Run the scheduled ToolsBuilder build.`)
+  return object
+}
+
+/** The raw `spec.json` text, embedded into the search isolate. */
+export async function getSpec(): Promise<string> {
   const now = Date.now()
   if (fresh(specEntry, now)) return specEntry.value
 
-  const obj = await env.SPEC_BUCKET.get('spec.json')
-  if (!obj) throw new Error('spec.json not found in R2. Run the scheduled handler to populate it.')
-  const text = await obj.text()
-  const paths = (JSON.parse(text) as { paths: SpecPaths }).paths
-
-  const value = { text, paths }
+  const value = await (await required(SPEC_KEY)).text()
   specEntry = { value, expiresAt: now + TTL_MS }
   return value
 }
 
-/**
- * Protocol-ready non-Code-Mode tools/list artifact. Falls back to deriving it
- * from spec.json during a rolling deploy before the scheduled task/seed script
- * has written the new object.
- */
-export async function getNonCodemodeTools(): Promise<NonCodemodeTool[]> {
+/** The direct tools, served exactly as generated. */
+export async function getDirectTools(): Promise<DirectTools> {
   const now = Date.now()
-  if (fresh(nonCodemodeToolsEntry, now)) return nonCodemodeToolsEntry.value
+  if (fresh(toolsEntry, now)) return toolsEntry.value
 
-  const obj = await env.SPEC_BUCKET.get('non-codemode-tools.json')
-  const value = obj
-    ? ((await obj.json()) as NonCodemodeTool[])
-    : buildNonCodemodeTools((await getSpec()).paths)
-  nonCodemodeToolsEntry = { value, expiresAt: now + TTL_MS }
+  const { tools } = (await (await required(MCP_TOOLS_KEY)).json()) as McpToolsArtifact
+  const value: DirectTools = {
+    list: tools.map(({ name, title, description, inputSchema, annotations }) => ({
+      name,
+      ...(title ? { title } : {}),
+      description,
+      // Generated JSON Schema; the SDK types it as a JSON value tree.
+      inputSchema: inputSchema as unknown as Tool['inputSchema'],
+      annotations
+    })),
+    byName: new Map(tools.map((tool) => [tool.name, tool]))
+  }
+  toolsEntry = { value, expiresAt: now + TTL_MS }
   return value
-}
-
-/** Name lookup used by lazy non-Code-Mode tools/call dispatch. */
-export async function getNonCodemodeToolMap(): Promise<Map<string, NonCodemodeTool>> {
-  const tools = await getNonCodemodeTools()
-  if (nonCodemodeToolMap && nonCodemodeToolMapSource === tools) return nonCodemodeToolMap
-
-  nonCodemodeToolMap = new Map(tools.map((tool) => [tool.name, tool]))
-  nonCodemodeToolMapSource = tools
-  return nonCodemodeToolMap
 }
 
 /** The product list backing the `search` tool description. Empty if unseeded. */
@@ -80,8 +78,8 @@ export async function getProducts(): Promise<string[]> {
   const now = Date.now()
   if (fresh(productsEntry, now)) return productsEntry.value
 
-  const obj = await env.SPEC_BUCKET.get('products.json')
-  const value: string[] = obj ? await obj.json() : []
+  const object = await env.SPEC_BUCKET.get(PRODUCTS_KEY)
+  const value: string[] = object ? await object.json() : []
   productsEntry = { value, expiresAt: now + TTL_MS }
   return value
 }
@@ -90,7 +88,5 @@ export async function getProducts(): Promise<string[]> {
 export function resetIsolateCache(): void {
   specEntry = undefined
   productsEntry = undefined
-  nonCodemodeToolsEntry = undefined
-  nonCodemodeToolMap = undefined
-  nonCodemodeToolMapSource = undefined
+  toolsEntry = undefined
 }

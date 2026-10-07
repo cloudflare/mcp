@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
+import { directTool } from './helpers/direct-tools'
 import {
   MCP_URL,
   mcpToolCallRequest,
@@ -14,7 +15,7 @@ import {
 import { server } from './setup/msw'
 
 /**
- * Worker-seam tests for non-codemode mode (one MCP tool per OpenAPI endpoint),
+ * Worker-seam tests for non-codemode mode (the generated mcp-tools.json catalogue),
  * driven through the REAL worker at /mcp?codemode=false. Unlike the direct
  * tool.handler() tests, these go through MCP argument validation — which is
  * where the account_id-required regression actually bit.
@@ -26,28 +27,14 @@ import { server } from './setup/msw'
 const ACCOUNT_ID = '00000000000000000000000000000001'
 const ACCOUNT_TOKEN = 'acct-token-noncodemode'
 
-// Minimal spec with one account-scoped GET tool.
-const SPEC_PATHS = {
-  '/accounts/{account_id}/workers/scripts': {
-    get: {
-      summary: 'List Workers',
-      tags: ['Workers'],
-      parameters: [{ name: 'account_id', in: 'path', required: true }],
-      responses: {}
-    }
-  },
-  '/accounts/{account_id}/workers/scripts/{script_name}': {
-    get: {
-      summary: 'Get Worker',
-      tags: ['Workers'],
-      parameters: [
-        { name: 'account_id', in: 'path', required: true },
-        { name: 'script_name', in: 'path', required: true }
-      ],
-      responses: {}
-    }
-  }
-}
+// Two account-scoped GET tools, shaped like generated entries.
+const TOOLS = [
+  directTool({ name: 'workers_scripts_list', path: '/accounts/{account_id}/workers/scripts' }),
+  directTool({
+    name: 'workers_scripts_get',
+    path: '/accounts/{account_id}/workers/scripts/{script_name}'
+  })
+]
 
 /** POST a non-codemode tools/list to the real worker. */
 async function listNonCodemodeTools(token: string) {
@@ -72,7 +59,7 @@ async function callNonCodemodeTool(token: string, name: string, args: Record<str
   return parseMcpResult(await exports.default.fetch(req))
 }
 
-beforeEach(() => seedSpec(SPEC_PATHS))
+beforeEach(() => seedSpec({}, ['workers'], TOOLS))
 
 afterEach(async () => {
   await clearSpec()
@@ -80,31 +67,25 @@ afterEach(async () => {
 })
 
 describe('non-codemode: account_id auto-resolution through real MCP validation', () => {
-  it('serves the precomputed tool list with an optional account_id', async () => {
-    const artifact = JSON.parse(
-      await (await env.SPEC_BUCKET.get('non-codemode-tools.json'))!.text()
-    )
-    artifact[0].description = 'PRECOMPUTED ARTIFACT'
-    await env.SPEC_BUCKET.put('non-codemode-tools.json', JSON.stringify(artifact))
+  it('serves the generated tool list with an optional account_id', async () => {
+    const artifact = JSON.parse(await (await env.SPEC_BUCKET.get('mcp-tools.json'))!.text())
+    artifact.tools[0].description = 'GENERATED ARTIFACT'
+    await env.SPEC_BUCKET.put('mcp-tools.json', JSON.stringify(artifact))
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
 
     const tools = await listNonCodemodeTools(ACCOUNT_TOKEN)
-    const endpoint = tools.find((tool) => tool.name === 'get_accounts_workers_scripts')
+    const endpoint = tools.find((tool) => tool.name === 'workers_scripts_list')
 
-    expect(endpoint?.description).toBe('PRECOMPUTED ARTIFACT')
+    expect(endpoint?.description).toBe('GENERATED ARTIFACT')
     expect(endpoint?.inputSchema.properties).toHaveProperty('account_id')
     expect(endpoint?.inputSchema.required ?? []).not.toContain('account_id')
     expect(tools.map((tool) => tool.name)).toContain('docs')
   })
 
-  it('keeps SDK tools/call validation for precomputed tool schemas', async () => {
+  it('rejects a call missing a required argument', async () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
 
-    const result = await callNonCodemodeTool(
-      ACCOUNT_TOKEN,
-      'get_accounts_workers_scripts_by_script_name',
-      {}
-    )
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'workers_scripts_get', {})
 
     expect(result.result?.isError).toBe(true)
     expect(toolText(result)).toContain('Input validation error')
@@ -123,7 +104,7 @@ describe('non-codemode: account_id auto-resolution through real MCP validation',
       })
     )
 
-    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'get_accounts_workers_scripts', {})
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'workers_scripts_list', {})
 
     expect(result.result?.isError).toBeFalsy()
     expect(toolText(result)).toContain('worker-a')
@@ -139,7 +120,7 @@ describe('non-codemode: account_id auto-resolution through real MCP validation',
       )
     )
 
-    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'get_accounts_workers_scripts', {
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'workers_scripts_list', {
       account_id: 'not-my-account'
     })
 
@@ -157,7 +138,7 @@ describe('non-codemode: account_id auto-resolution through real MCP validation',
       )
     )
 
-    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'get_accounts_workers_scripts', {
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'workers_scripts_list', {
       account_id: ACCOUNT_ID
     })
 
@@ -177,7 +158,7 @@ describe('non-codemode: account_id auto-resolution through real MCP validation',
       })
     )
 
-    await callNonCodemodeTool(ACCOUNT_TOKEN, 'get_accounts_workers_scripts', {})
+    await callNonCodemodeTool(ACCOUNT_TOKEN, 'workers_scripts_list', {})
 
     expect(auth).toBe(`Bearer ${ACCOUNT_TOKEN}`)
     expect(method).toBe('GET')
@@ -194,7 +175,7 @@ describe('non-codemode: account_id auto-resolution through real MCP validation',
       )
     )
 
-    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'get_accounts_workers_scripts', {})
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'workers_scripts_list', {})
 
     expect(result.result?.isError).toBe(true)
   })

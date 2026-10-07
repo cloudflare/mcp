@@ -22,7 +22,10 @@ cloudflare-mcp/
 │   ├── mcp-handler.ts             # Stateless MCP HTTP handler & deployment guards
 │   ├── server.ts                  # MCP server setup & tool registration
 │   ├── executor.ts                # Code executor (Worker Loader API)
-│   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
+│   ├── tools-builder.ts           # ToolsBuilder Durable Object + BuildEgress: the daily build container
+│   ├── forge-source.ts            # Newest Forge OpenAPI release download
+│   ├── mcp-tools.ts               # mcp-tools.json contract and R2 artifact keys
+│   ├── isolate-cache.ts           # One-hour in-isolate cache of the R2 artifacts
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
 │   ├── auth/
@@ -36,15 +39,15 @@ cloudflare-mcp/
 │   │   ├── scopes.ts              # Consent templates and OAuth bootstrap scopes
 │   │   └── workers-oauth-utils.ts # OAuth provider helpers
 ├── tests/                         # Vitest suite (top-level, mirrors src/)
-│   ├── index.test.ts
 │   ├── auth/
 │   ├── executor.test.ts
-│   ├── spec-processor.test.ts
+│   ├── tools-builder.test.ts
 │   ├── truncate.test.ts
 │   └── e2e/                       # End-to-end tests (real worker via exports.default.fetch)
 │       └── tool-call.test.ts
 ├── scripts/
-│   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
+│   ├── seed-r2.ts                 # Generate the artifacts locally and upload them to R2
+│   └── generator/                 # Forge → spec.json, products.json, mcp-tools.json; bundled for ToolsBuilder (node:test)
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
 │   └── bonk.yml                   # AI code review
@@ -76,8 +79,9 @@ Node 22+ required.
 | `npm run test`         | Run vitest test suite                         |
 | `npm run test:watch`   | Run vitest in watch mode                      |
 | `npm run check`        | Run all checks (format, lint, typecheck, test)|
-| `npm run seed:staging` | Seed OpenAPI spec to staging R2               |
-| `npm run seed:prod`    | Seed OpenAPI spec to production R2            |
+| `npm run seed:local`   | Generate artifacts into local R2 (`wrangler dev`) |
+| `npm run seed:staging` | Generate artifacts into staging R2            |
+| `npm run seed:prod`    | Generate artifacts into production R2         |
 
 ## Code standards
 
@@ -135,14 +139,23 @@ Downstream refreshes pass through a best-effort per-grant admission gate. An iso
 
 The consent page offers read-only and full-access templates built from the production catalog returned by `GET /oauth/scopes` in every deployment. It has no per-scope picker. A collapsed "Advanced" section shows the selected template's scopes as editable text, one per line; editing them replaces the template (the cards grey out) so users can request a short list, e.g. when a corporate proxy rejects the long Cloudflare authorization URL that full access produces. Scopes outside the catalog block Continue because the provider only approves `scopesSupported`. Cloudflare's authorization screen can only narrow the requested scopes, so the template or edited list is the most a user can grant there. Templates saved in the browser by the old picker still appear and can be removed, but new ones can't be created. Staging may register additional scopes, but the templates include them only after they reach production. Only the user, account, and offline-access OAuth bootstrap scopes sit outside the API catalog. Terraform registration must land before deploying template additions. The app does not impose a scope-count cap.
 
-### OpenAPI spec processing
+### Spec artifacts (ToolsBuilder container)
 
-- Fetched from GitHub daily (scheduled handler, cron `0 0 * * *`)
-- All `$ref` references resolved inline before storage
-- Products and minimal operation metadata extracted
-- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and the precomputed `non-codemode-tools.json` artifact
-- The non-Code-Mode artifact contains protocol-ready JSON Schemas plus minimal request-routing metadata. Low-level MCP handlers serve `tools/list` directly and lazily validate/dispatch only the requested `tools/call` operation with Zod; no per-endpoint SDK tools are registered
-- `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
+Everything the Worker reads about the API comes from one daily build of the newest public Forge OpenAPI release (`cloudflare/forge`, `openapi@<sha>`). The Worker never derives tools or fetches specs at request time.
+
+- The cron (`0 0 * * *`) calls the `ToolsBuilder` Durable Object (`src/tools-builder.ts`). It uses the native `ctx.container` API with the `durable_object` scheduling policy and the Cloudflare-managed `cloudflare/debian-trixie` image (Node.js 24): no Dockerfile, no image build, no `@cloudflare/containers` wrapper.
+- Each run starts a fresh `standard-1` container with `enableInternet: false` and one `exec()`: `node --input-type=module -` with the bundled generator (`generated/tools-generator.mjs.txt`, built by `npm run build:generator`) on stdin. The container is destroyed afterwards.
+- The container's only way out is `BuildEgress`, a `WorkerEntrypoint` the Durable Object routes two hostnames to with `interceptOutboundHttp`:
+  - `GET http://forge.internal/openapi.forge.json` returns the newest Forge document (`src/forge-source.ts` follows `releases/latest/download`, no GitHub REST API) with the release in `x-forge-release`.
+  - `PUT http://artifacts.internal/<key>` streams one of `spec.json`, `products.json`, `mcp-tools.json` into `SPEC_BUCKET`, with the release in custom metadata. Anything else gets 403.
+- The generator builds all three artifacts before uploading any, so a failed build writes nothing and fails the cron invocation.
+  - `spec.json`: every operation with `$ref`s inlined, for the `search` sandbox.
+  - `products.json`: products by operation count. A product is the first `x-fern-sdk-group-name` entry, the same grouping that names the direct tools.
+  - `mcp-tools.json`: the direct-tool catalogue. The tool set and names match the cf CLI's generated commands (`dns_records_create`); see `scripts/generator/README.md`. `account_id` is optional on every account-scoped tool with one fixed description, because clients cache tool metadata across users.
+- `src/isolate-cache.ts` caches the artifacts for one hour in warm isolates.
+- With `?codemode=false`, low-level MCP handlers serve `mcp-tools.json` as-is: `tools/list` returns each entry's `name`, `title`, `description`, `inputSchema` and `annotations`; `tools/call` looks the entry up by name, checks the schema's required keys, fills `account_id` from the session when it can, and builds one Cloudflare API request from the entry's `request` routes. The API validates argument values. No per-endpoint SDK tools are registered.
+- Forge is a build-time dependency vendored as `vendor/cloudflare-forge-0.1.0.tgz`. Generator tests run with `node --test` (`npm run test:generator`), outside the workers pool. The workers pool can't run containers; `tests/tools-builder.test.ts` covers `BuildEgress`, the Forge download and the scheduled dispatch.
+- `wrangler dev` runs without containers (`dev.enable_containers: false`); use `npm run seed:local` to fill local R2.
 
 ### Response truncation
 
@@ -179,10 +192,10 @@ npm run test:watch    # Watch mode
 ```
 
 **Unit/integration coverage areas:**
-- Scheduled handler (spec fetching & processing)
+- Daily build egress, Forge download and scheduled dispatch
 - Auth token detection and parsing
 - Auth props building and validation
-- Spec processor ($ref resolution, product extraction)
+- Direct-tool serving and request building
 - Response truncation
 - Metrics event mapping & path normalization
 
@@ -197,7 +210,8 @@ auth-guard `/user`+`/accounts` probes and the GlobalOutbound-forwarded API call.
 Everything else — auth, MCP transport, tool dispatch, Worker Loader — is the real
 code path.
 
-The test stack is **vitest 4 + `@cloudflare/vitest-pool-workers` 0.16** using the
+The test stack is **vitest 4 + `@cloudflare/vitest-pool-workers` 0.22** (its bundled wrangler is overridden to the
+project's, which understands the `durable_object` container policy) using the
 `cloudflareTest()` Vite plugin (required for MSW's `msw/node` to load under
 workerd). Note: storage isolation is per test **file** (not per test), so tests
 sharing real bindings (e.g. `OAUTH_KV`) must clear state in `afterEach`.
