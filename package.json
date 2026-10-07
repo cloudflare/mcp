@@ -19,7 +19,7 @@
     "seed:prod": "tsx scripts/seed-r2.ts production"
   },
   "dependencies": {
-    "@cloudflare/workers-oauth-provider": "^1.2.2",
+    "@cloudflare/workers-oauth-provider": "^1.2.3",
     "@modelcontextprotocol/server": "2.3.1",
     "hono": "^4.13.5",
     "zod": "^4.3.5"
