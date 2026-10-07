@@ -15,6 +15,8 @@ import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { zodInputSchemaFromJson, type NonCodemodeTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
+import type { Connection } from '../api-permissions'
+import { explainRefusedRequest } from '../api-refusal-hint'
 
 /**
  * Install lazy non-Code-Mode protocol handlers.
@@ -27,7 +29,8 @@ import type { AuthProps } from '../auth/types'
 export async function registerNonCodemodeTools(
   server: McpServer,
   props: AuthProps,
-  formatResult: FormatToolResult
+  formatResult: FormatToolResult,
+  connection: Connection
 ): Promise<void> {
   const tools = await getNonCodemodeTools()
   const toolsByName = await getNonCodemodeToolMap()
@@ -59,7 +62,7 @@ export async function registerNonCodemodeTools(
             .object(zodInputSchemaFromJson(tool.inputSchema))
             .safeParse(request.params.arguments ?? {})
           result = parsed.success
-            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult)
+            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult, connection)
             : validationError(name, parsed.error)
         }
       }
@@ -76,7 +79,8 @@ async function callNonCodemodeTool(
   tool: NonCodemodeTool,
   params: Record<string, unknown>,
   props: AuthProps,
-  formatResult: FormatToolResult
+  formatResult: FormatToolResult,
+  connection: Connection
 ): Promise<CallToolResult> {
   let resolvedPath = tool.path
   const pathParams = [...tool.path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1])
@@ -119,12 +123,20 @@ async function callNonCodemodeTool(
     ? await response.json()
     : await response.text()
 
+  if (response.ok) return { content: [{ type: 'text', text: formatResult(result) }] }
+
+  const method = tool.method.toUpperCase()
   const accountId = params['account_id'] as string | undefined
-  const hint = !response.ok && accountId ? unknownAccountHint(props, accountId) : ''
-  return {
-    content: [{ type: 'text', text: formatResult(result) + (hint ? `\n\n${hint}` : '') }],
-    isError: !response.ok
-  }
+  const notes = [
+    await explainRefusedRequest(response.status, connection, method, resolvedPath),
+    accountId ? unknownAccountHint(props, accountId) : ''
+  ].filter(Boolean)
+  const text = [
+    `Cloudflare API error: ${method} ${resolvedPath} returned HTTP ${response.status}.`,
+    formatResult(result),
+    ...notes
+  ].join('\n\n')
+  return { content: [{ type: 'text', text }], isError: true }
 }
 
 function validationError(name: string, error: z.ZodError): CallToolResult {

@@ -25,6 +25,8 @@ cloudflare-mcp/
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
+│   ├── api-permissions.ts         # Connection kinds; explains refused (401/403) API calls
+│   ├── api-refusal-hint.ts        # Looks up a refused request's permissions in spec.json
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Prefix classification & external resolver
@@ -143,6 +145,15 @@ The consent page offers read-only and full-access templates built from the produ
 - Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and the precomputed `non-codemode-tools.json` artifact
 - The non-Code-Mode artifact contains protocol-ready JSON Schemas plus minimal request-routing metadata. Low-level MCP handlers serve `tools/list` directly and lazily validate/dispatch only the requested `tools/call` operation with Zod; no per-endpoint SDK tools are registered
 - `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
+
+### Refused API calls
+
+Cloudflare answers a missing OAuth scope, an endpoint OAuth can't reach (billing, API tokens), and a missing role all with `403` and `10000: Authentication error` or `9109: Unauthorized`. Agents read that as a signed-out connection and ask users to reconnect, which changes nothing. So every 401/403 tool error names the method, path, status and Cloudflare's errors, and adds an explanation from `src/api-permissions.ts`:
+
+- The connection kind comes from the provider's `ctx.auth`. A token the provider issued carries `clientId` and its granted `scope` (`oauth`). A directly resolved credential carries neither (`direct`).
+- The endpoint's accepted permissions come from `x-api-token-group` in `spec.json`. OAuth scopes share those names (`DERIVED_OAUTH_SCOPES`). Any one permission is enough.
+- The explanation says one of four things. The connection lacks every scope the endpoint accepts: grant one. It already holds one: reconnecting won't help. No OAuth scope exists for the endpoint: use an API token. For a direct credential: these are the permissions the token needs.
+- `execute`: `GlobalOutbound` sets the explanation in an `X-Cloudflare-MCP-Refusal-Hint` response header. The sandbox puts it in the error it throws, so it survives code that catches the error. Endpoint tools add it to the tool result. `spec.json` is read only for refused requests.
 
 ### Response truncation
 

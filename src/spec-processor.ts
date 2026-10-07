@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const
 
 /**
@@ -53,6 +55,14 @@ interface OperationObject {
   parameters?: unknown
   requestBody?: unknown
   responses?: unknown
+  'x-api-token-group'?: unknown
+}
+
+const PermissionLabels = z.array(z.string()).min(1)
+
+/** Keep `x-api-token-group` only when it is a list of permission names. */
+function permissionLabels(value: unknown): string[] | undefined {
+  return PermissionLabels.safeParse(value).data
 }
 
 /**
@@ -79,6 +89,7 @@ export function processSpec(spec: Record<string, unknown>): {
         }
         paths[path][method] = {
           summary: op.summary,
+          'x-api-token-group': permissionLabels(op['x-api-token-group']),
           description: op.description,
           tags,
           parameters: resolveRefs(op.parameters, spec),

@@ -13,12 +13,18 @@ import {
   unknownAccountHint
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
+import type { Connection } from '../api-permissions'
+import { explainRefusedRequest, REFUSAL_HINT_HEADER } from '../api-refusal-hint'
 
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
 }
 
-type GlobalOutboundProps = { apiToken: string; fetchWithRetryCaller: string }
+type GlobalOutboundProps = {
+  apiToken: string
+  fetchWithRetryCaller: string
+  connection: Connection
+}
 
 /**
  * Outbound fetch proxy for the `execute` isolate: restricts dynamically-loaded
@@ -43,8 +49,26 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
-    return fetchWithRetry(authedRequest, undefined, {
+    const response = await fetchWithRetry(authedRequest, undefined, {
       caller: this.ctx.props.fetchWithRetryCaller
+    })
+
+    // Cloudflare's 401/403 bodies don't say why. Attach an explanation the
+    // sandbox puts in the error it throws, so it survives the code catching it.
+    const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
+    const hint = await explainRefusedRequest(
+      response.status,
+      this.ctx.props.connection,
+      request.method,
+      new URL(request.url).pathname.slice(basePath.length)
+    )
+    if (!hint) return response
+    const headers = new Headers(response.headers)
+    headers.set(REFUSAL_HINT_HEADER, encodeURIComponent(hint))
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers
     })
   }
 }
@@ -61,7 +85,8 @@ async function runExecute(
   code: string,
   accountId: string | undefined,
   apiToken: string,
-  unresolvedAccountMessage: string
+  unresolvedAccountMessage: string,
+  connection: Connection
 ): Promise<unknown> {
   const apiBase = env.CLOUDFLARE_API_BASE
   const workerId = `cloudflare-api-${crypto.randomUUID()}`
@@ -79,7 +104,7 @@ async function runExecute(
   const worker = env.LOADER.get(workerId, () => ({
     compatibilityDate: '2026-01-12',
     globalOutbound: exports.GlobalOutbound({
-      props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call' }
+      props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call', connection }
     }),
     mainModule: 'worker.js',
     modules: {
@@ -88,6 +113,15 @@ import { WorkerEntrypoint } from "cloudflare:workers";
 
 const apiBase = ${JSON.stringify(apiBase)};
 ${accountIdPrelude}
+
+// "Cloudflare API error: GET /zones/x/dns_records returned HTTP 403: 10000: Authentication error",
+// plus the server's explanation of a 401/403.
+function apiError(method, path, response, details) {
+  const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
+  return new Error("Cloudflare API error: " + String(method).toUpperCase() + " " + path.split("?")[0] +
+    " returned HTTP " + response.status + (details ? ": " + details : "") +
+    (hint ? ". " + decodeURIComponent(hint) : ""));
+}
 
 export default class CodeExecutor extends WorkerEntrypoint {
   async evaluate() {
@@ -131,7 +165,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
         if (!responseContentType.includes("application/json")) {
           const text = await response.text();
           if (!response.ok) {
-            throw new Error("Cloudflare API error: " + response.status + " " + text);
+            throw apiError(method, path, response, text.slice(0, 500));
           }
           return { success: true, status: response.status, result: text };
         }
@@ -171,8 +205,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
         // Handle REST API responses
         if (!data.success) {
           const errorList = Array.isArray(data.errors) ? data.errors : [];
-          const errors = errorList.map(e => e.code + ": " + e.message).join(", ");
-          throw new Error("Cloudflare API error: " + (errors || response.status));
+          const errors = errorList.map(e => e.code + ": " + e.message +
+            (e.documentation_url ? " (" + e.documentation_url + ")" : "")).join(", ");
+          throw apiError(method, path, response, errors);
         }
 
         return { ...data, status: response.status };
@@ -218,6 +253,7 @@ ${CLOUDFLARE_TYPES}
 When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DISCOVERY_DESCRIPTION}
 
 Your code must be an async arrow function that returns the result.
+A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help.
 
 Example: Worker with bindings (requires multipart/form-data):
 async () => {
@@ -246,7 +282,8 @@ const ACCOUNT_ID_PARAM_DESCRIPTION =
 export function registerExecuteTool(
   server: McpServer,
   props: AuthProps,
-  formatResult: FormatToolResult
+  formatResult: FormatToolResult,
+  connection: Connection
 ): void {
   const apiToken = props.accessToken
 
@@ -277,7 +314,8 @@ export function registerExecuteTool(
           code,
           effectiveAccountId,
           apiToken,
-          missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE)
+          missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE),
+          connection
         )
         return { content: [{ type: 'text', text: formatResult(result) }] }
       } catch (error) {

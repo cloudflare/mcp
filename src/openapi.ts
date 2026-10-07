@@ -5,6 +5,8 @@ import { z } from 'zod'
  */
 export interface OperationInfo {
   summary?: string
+  /** API token permissions the operation accepts; any one is enough. OAuth scopes share these names. */
+  'x-api-token-group'?: string[]
   description?: string
   tags?: string[]
   parameters?: Array<{
@@ -28,6 +30,7 @@ export interface OperationInfo {
 export const SPEC_TYPES = `
 interface OperationInfo {
   summary?: string;
+  "x-api-token-group"?: string[]; // API token permissions the endpoint accepts (any one); OAuth scopes have the same names
   description?: string;
   tags?: string[];
   parameters?: Array<{ name: string; in: string; required?: boolean; schema?: unknown; description?: string }>;
