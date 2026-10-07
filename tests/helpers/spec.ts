@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers'
 import { resetIsolateCache } from '../../src/isolate-cache'
-import type { McpTool } from '../../src/mcp-tools'
+import { packTools, type McpTool } from '../../src/mcp-tools'
 import type { OperationInfo } from '../../src/openapi'
 import { clearR2 } from './r2'
 
@@ -20,7 +20,7 @@ export async function seedSpec(
 ): Promise<void> {
   await env.SPEC_BUCKET.put('spec.json', JSON.stringify({ paths }))
   await env.SPEC_BUCKET.put('products.json', JSON.stringify(products))
-  await env.SPEC_BUCKET.put('mcp-tools.json', JSON.stringify({ version: 1, tools }))
+  await env.SPEC_BUCKET.put('mcp-tools.json', JSON.stringify(packTools(tools)))
   resetIsolateCache()
 }
 

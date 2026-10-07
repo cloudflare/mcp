@@ -79,11 +79,20 @@ const SINGLE = new Set([
 ])
 
 /**
- * Copy request schemas into a self-contained JSON Schema 2020-12 tool schema.
- * Only reachable references are copied, into local $defs. Reserving a definition
- * before visiting it preserves recursive schemas without expansion or truncation.
+ * Which side of the API a schema describes. Request schemas drop `readOnly`
+ * fields (the server sets them); response schemas drop `writeOnly` fields (the
+ * server never returns them) and keep `readOnly` ones.
  */
-export function schemaCompiler(document: unknown) {
+export type SchemaDirection = 'input' | 'output'
+
+/**
+ * Copy request or response schemas into a self-contained JSON Schema 2020-12
+ * tool schema. Only reachable references are copied, into local $defs.
+ * Reserving a definition before visiting it preserves recursive schemas without
+ * expansion or truncation.
+ */
+export function schemaCompiler(document: unknown, direction: SchemaDirection = 'input') {
+  const hidden = direction === 'input' ? 'readOnly' : 'writeOnly'
   const definitions = new Map<string, JsonSchema>()
   const refs = new Map<string, string>()
   const openapi30 =
@@ -126,7 +135,7 @@ export function schemaCompiler(document: unknown) {
           const resolved = resolve(field, document)
           if (
             resolved['x-fern-ignore'] === true ||
-            resolved.readOnly === true ||
+            resolved[hidden] === true ||
             override.hidden === true
           ) {
             omitted.add(name)

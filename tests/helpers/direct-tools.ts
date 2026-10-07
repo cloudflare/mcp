@@ -14,7 +14,9 @@ export function directTool({
   headers = [],
   body,
   title,
-  permissions
+  permissions,
+  outputSchema,
+  unwrapResult
 }: {
   name: string
   method?: string
@@ -26,6 +28,10 @@ export function directTool({
   title?: string
   /** `x-api-token-group`: the API token permissions the endpoint accepts. */
   permissions?: string[]
+  /** Structured output for 2026-07-28 clients. */
+  outputSchema?: McpTool['outputSchema']
+  /** `outputSchema` describes the envelope's `result`. */
+  unwrapResult?: boolean
 }): McpTool {
   const route = (name: string, key = name, style = 'simple'): ParameterRoute => ({
     name,
@@ -74,6 +80,7 @@ export function directTool({
       required
     },
     annotations: { readOnlyHint, destructiveHint: !readOnlyHint, openWorldHint: true },
+    ...(outputSchema === undefined ? {} : { outputSchema }),
     permissions: permissions ? { 'x-api-token-group': permissions } : {},
     request: {
       method,
@@ -82,6 +89,7 @@ export function directTool({
       queryParams,
       headerParams,
       cookieParams: [],
+      ...(unwrapResult ? { unwrapResult } : {}),
       ...(contentTypes.length
         ? {
             body: {

@@ -24,6 +24,13 @@ export interface ServerOptions {
    * whole. Defaults to `true`.
    */
   readonly truncateToolResult?: boolean
+  /**
+   * The protocol era the SDK serves this request in. Only `modern`
+   * (2026-07-28) clients get direct-tool `outputSchema` and
+   * `structuredContent`; `legacy` clients get exactly the 2025 behaviour.
+   * Defaults to `legacy`.
+   */
+  readonly era?: 'legacy' | 'modern'
 }
 
 /**
@@ -37,7 +44,7 @@ export interface ServerOptions {
  */
 export async function createServer(
   props: AuthProps,
-  { codemode = true, truncateToolResult = true }: ServerOptions = {},
+  { codemode = true, truncateToolResult = true, era = 'legacy' }: ServerOptions = {},
   connection: Connection = DIRECT_CONNECTION,
   scopeChallenge = new ScopeChallenge(undefined)
 ): Promise<McpServer> {
@@ -49,7 +56,7 @@ export async function createServer(
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (!codemode) {
-    await registerNonCodemodeTools(server, props, formatResult, connection, scopeChallenge)
+    await registerNonCodemodeTools(server, props, formatResult, connection, scopeChallenge, era)
     return server
   }
 
