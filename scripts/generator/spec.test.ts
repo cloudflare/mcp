@@ -83,6 +83,7 @@ test('keeps x-api-token-group lists and drops malformed values', () => {
     paths: {
       '/zones/{zone_id}/dns_records': {
         get: { summary: 'List', 'x-api-token-group': ['DNS Read', 'DNS Write'] },
+        put: { summary: 'Replace', 'x-api-token-group': ['Browser Rendering Write'] },
         post: { summary: 'Create', 'x-api-token-group': 'DNS Write' }
       }
     }
@@ -90,4 +91,6 @@ test('keeps x-api-token-group lists and drops malformed values', () => {
   const item = spec.paths['/zones/{zone_id}/dns_records']! as Record<string, any>
   assert.deepEqual(item.get['x-api-token-group'], ['DNS Read', 'DNS Write'])
   assert.equal(item.post['x-api-token-group'], undefined)
+  // Stale Forge labels are written under the names OAuth scopes use.
+  assert.deepEqual(item.put['x-api-token-group'], ['Browser Run Write'])
 })

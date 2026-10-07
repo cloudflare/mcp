@@ -1,0 +1,23 @@
+{
+  "overlay": "1.0.0",
+  "info": {
+    "title": "cloudflare/mcp fixes to the Forge OpenAPI document",
+    "version": "1"
+  },
+  "actions": [
+    {
+      "description": "GET /accounts returns settings.abuse_contact_email as null; organizations-api_Account_settings already marks it nullable.",
+      "target": "$.components.schemas['iam_account_settings'].properties.abuse_contact_email",
+      "update": { "nullable": true }
+    },
+    {
+      "description": "GET /user returns organization IDs shorter than the shared 32-character identifier (e.g. \"0\").",
+      "target": "$.components.schemas['iam_organization'].properties.id",
+      "remove": true
+    },
+    {
+      "target": "$.components.schemas['iam_organization'].properties",
+      "update": { "id": { "description": "Organization identifier.", "type": "string" } }
+    }
+  ]
+}

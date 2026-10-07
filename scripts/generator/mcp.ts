@@ -19,14 +19,13 @@ import {
   type McpToolsArtifact,
   type ParameterRoute
 } from '../../src/mcp-tools.ts'
-
-/** Audiences that opt an operation in; `cf-cli` keeps parity with the cf CLI. */
-const MCP_AUDIENCES = new Set(['cf-cli', 'mcp'])
+import { oauthReach } from './oauth.ts'
+import { permissionLabels } from './spec.ts'
 
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace'] as const
 
 type Method = { group: string[]; method: Schema.method }
-type Candidate = { tool: McpTool; identity: string }
+type Candidate = { tool: McpTool; identity: string; inTree: boolean }
 
 function text(value: unknown): string | undefined {
   return typeof value === 'string' ? value : undefined
@@ -49,7 +48,6 @@ function mediaType(content: Record<string, unknown>): string | undefined {
   )
 }
 
-// cf ignores hidden operations that document no success response (cf generate.ts).
 /**
  * Walk Forge's command tree the way the cf CLI generator does: deprecated
  * methods are skipped, and a group named like a sibling method is dropped,
@@ -71,21 +69,6 @@ function* commandTree(
       yield* commandTree(item.methods, [...group, item.name])
     }
   }
-}
-
-function hiddenWithoutSuccess(operation: Record<string, unknown>): boolean {
-  if (operation['x-forge-hidden'] !== true) return false
-  return !Object.keys(record(operation.responses)).some(
-    (code) => code === '101' || code === '2XX' || /^2\d{2}$/.test(code)
-  )
-}
-
-function exposed(operation: Record<string, unknown>): boolean {
-  if (operation['x-fern-ignore'] === true || hiddenWithoutSuccess(operation)) return false
-  const audiences = operation['x-fern-audiences']
-  if (audiences === undefined || audiences === null) return true
-  // Everything the cf CLI exposes is exposed here too, plus explicit mcp opt-ins.
-  return strings(audiences).some((audience) => MCP_AUDIENCES.has(audience))
 }
 
 function buildTool(
@@ -133,8 +116,10 @@ function buildTool(
   if (operationId) tool.operationId = operationId
   const status = text(method.status) ?? text(operation['x-fern-availability'])
   if (status) tool.status = status
-  for (const extension of ['x-api-token-group', 'x-cfPermissionsRequired']) {
-    if (operation[extension] !== undefined) tool.permissions[extension] = operation[extension]
+  const tokenGroup = permissionLabels(operation['x-api-token-group'])
+  if (tokenGroup) tool.permissions['x-api-token-group'] = tokenGroup
+  if (operation['x-cfPermissionsRequired'] !== undefined) {
+    tool.permissions['x-cfPermissionsRequired'] = operation['x-cfPermissionsRequired']
   }
 
   const parameters = new Map<string, Record<string, unknown>>()
@@ -276,11 +261,76 @@ function buildTool(
   return tool
 }
 
+/** Literal path segments, without parameters. */
+function literals(path: string): string[] {
+  return path.split('/').filter((segment) => segment && !segment.startsWith('{'))
+}
+
+/**
+ * Give every tool a unique name. Forge sometimes names two operations alike,
+ * typically a deprecated path and its replacement. The operation in Forge's
+ * command tree (the cf command) keeps the name; the others gain the path
+ * segments that set them apart, or are named after their own path, then the
+ * HTTP method, and a hash only as a last resort.
+ */
+function disambiguate(candidates: Candidate[]): McpTool[] {
+  const groups = new Map<string, Candidate[]>()
+  for (const candidate of candidates) {
+    groups.set(candidate.tool.name, [...(groups.get(candidate.tool.name) ?? []), candidate])
+  }
+  const taken = new Set<string>()
+  const result: McpTool[] = []
+  const claim = (tool: McpTool, name: string) => {
+    tool.name = name
+    taken.add(name)
+    result.push(tool)
+  }
+  const fits = (name: string) => name.length <= 128 && !taken.has(name) && !groups.has(name)
+  for (const [name, group] of groups) {
+    const ordered = [...group].sort((a, b) => Number(b.inTree) - Number(a.inTree))
+    const [first, ...rest] = ordered
+    if (rest.length === 0 || !first!.inTree || ordered.filter((c) => c.inTree).length > 1) {
+      // No single canonical owner: everyone is disambiguated below.
+      if (rest.length === 0 && name.length <= 128) {
+        claim(first!.tool, name)
+        continue
+      }
+    } else {
+      claim(first!.tool, name)
+      ordered.shift()
+    }
+    for (const candidate of rest.length === 0 || !first!.inTree ? ordered : rest) {
+      const base = literals(first!.tool.request.path)
+      const distinct = literals(candidate.tool.request.path)
+        .filter((segment) => !base.includes(segment))
+        .map((segment) => segment.replace(/[^a-zA-Z0-9]+/g, '_'))
+      const method = name.split('_').pop()!
+      const fromPath = literals(candidate.tool.request.path)
+        .filter((segment) => segment !== 'accounts' && segment !== 'zones')
+        .map((segment) => segment.replace(/[^a-zA-Z0-9]+/g, '_'))
+        .join('_')
+      const options = [
+        distinct.length ? `${name}_${distinct.join('_')}` : '',
+        fromPath ? `${fromPath}_${method}` : '',
+        `${name}_${candidate.tool.request.method.toLowerCase()}`,
+        `${name.slice(0, 115)}_${createHash('sha256').update(candidate.identity).digest('hex').slice(0, 12)}`
+      ]
+      const chosen = options.find((option) => option && fits(option))
+      if (!chosen) throw new Error(`Duplicate MCP tool name: ${name}`)
+      claim(candidate.tool, chosen)
+    }
+  }
+  return result
+}
+
 /**
  * Generate `mcp-tools.json` from a bundled Forge API document.
- * Matches the cf CLI's operation set: keeps hidden methods; excludes deprecated
- * methods, hidden operations without a success response, x-fern-ignore, and operations
- * whose explicit audiences include neither cf-cli nor mcp. No network or SDK generation.
+ * Includes every non-deprecated operation an OAuth connection can call (see
+ * oauth.ts), including hidden, SDK-only and x-fern-ignore ones, so the direct tools
+ * cover what Code Mode can do. Excludes deprecated operations (Code Mode still
+ * reaches them), operations that need another security scheme, and operations
+ * whose permissions have no OAuth scope. Names follow Forge's command tree (cf
+ * command paths) and, outside it, the operation's Forge group and method.
  */
 export async function generateMcpTools(source: ForgeOpenApiDocument) {
   const document = structuredClone(source)
@@ -309,21 +359,21 @@ export async function generateMcpTools(source: ForgeOpenApiDocument) {
   const candidates: Candidate[] = []
   for (const [path, item] of Object.entries(document.paths)) {
     const pathItem = record(item)
-    if (pathItem['x-fern-ignore'] === true) continue
     for (const verb of HTTP_METHODS) {
       const operation = record(pathItem[verb])
-      if (!exposed(operation)) continue
+      if (!Object.keys(operation).length || !oauthReach(record(document), operation).reachable)
+        continue
       const operationId = text(operation.operationId)
       const variants = operationId ? methods.get(operationId) : undefined
       const rawGroup = strings(operation['x-fern-sdk-group-name'])
         .flatMap((part) => part.split('.'))
         .filter(Boolean)
       const rawMethod = text(operation['x-fern-sdk-method-name'])
-      // Forge's command tree requires an operationId, but its published artifact
-      // also names operations without one. Keep these rather than losing coverage.
+      // Forge's command tree leaves out deprecated and ignored operations and
+      // ones without an operationId; name those from their Forge group and method.
       const entries =
         variants ??
-        (!operationId && rawGroup.length && rawMethod
+        (rawGroup.length && rawMethod
           ? [
               {
                 group: rawGroup,
@@ -337,28 +387,17 @@ export async function generateMcpTools(source: ForgeOpenApiDocument) {
             ]
           : [])
       for (const { group, method } of entries) {
-        // cf skips deprecated methods; hidden ones stay, as cf registers them too.
+        // Deprecated operations duplicate their replacements' names and are still
+        // reachable through Code Mode, so the direct tools leave them out.
         if ((text(method.status) ?? text(operation['x-fern-availability'])) === 'deprecated')
           continue
         const tool = buildTool(document, path, verb, pathItem, operation, group, record(method))
         const identity = JSON.stringify([verb, path, group, method.name])
-        candidates.push({ tool, identity })
+        candidates.push({ tool, identity, inTree: variants !== undefined })
       }
     }
   }
-  const counts = new Map<string, number>()
-  for (const { tool } of candidates) counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1)
-  const names = new Set<string>()
-  const tools = candidates
-    .map(({ tool, identity }) => {
-      if (tool.name.length > 128 || (counts.get(tool.name) ?? 0) > 1) {
-        tool.name = `${tool.name.slice(0, 115)}_${createHash('sha256').update(identity).digest('hex').slice(0, 12)}`
-      }
-      if (names.has(tool.name)) throw new Error(`Duplicate MCP tool name: ${tool.name}`)
-      names.add(tool.name)
-      return tool
-    })
-    .sort((a, b) => a.name.localeCompare(b.name))
+  const tools = disambiguate(candidates).sort((a, b) => a.name.localeCompare(b.name))
   return forge.transform(async (output) => {
     const artifact: McpToolsArtifact = { version: 1, tools }
     output.emit('mcp-tools.json', JSON.stringify(artifact))

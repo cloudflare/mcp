@@ -22,7 +22,7 @@ const source: ForgeOpenApiDocument = {
 } as ForgeOpenApiDocument
 
 test('builds every artifact the Worker reads from one Forge document', async () => {
-  const artifacts = await buildArtifacts(source)
+  const artifacts = await buildArtifacts(source, [])
 
   assert.deepEqual(Object.keys(artifacts.files).sort(), [...ARTIFACT_KEYS].sort())
   assert.equal(artifacts.tools, 1)
@@ -36,7 +36,7 @@ test('builds every artifact the Worker reads from one Forge document', async () 
 
 test('refuses to publish an empty catalogue', async () => {
   await assert.rejects(
-    buildArtifacts({ ...source, paths: {} } as ForgeOpenApiDocument),
+    buildArtifacts({ ...source, paths: {} } as ForgeOpenApiDocument, []),
     /Generator emitted no tools/
   )
 })
