@@ -59,10 +59,16 @@ function refuseDnsRecords(): void {
   )
 }
 
+// `scopeChallenge=tool` keeps the tool result when a scope is missing, instead of a 403 challenge.
 async function execute(token: string, code: string): Promise<string> {
   const body = await parseMcpResult(
     await exports.default.fetch(
-      modernMcpRequest(token, 'tools/call', { name: 'execute', arguments: { code } })
+      modernMcpRequest(
+        token,
+        'tools/call',
+        { name: 'execute', arguments: { code } },
+        { url: `${MCP_URL}?scopeChallenge=tool` }
+      )
     )
   )
   return body.result?.content?.[0]?.text ?? ''
@@ -164,7 +170,7 @@ describe('endpoint tools explain a refused request', () => {
           token,
           'tools/call',
           { name: 'get_zones_dns_records', arguments: { zone_id: ZONE_ID } },
-          { url: `${MCP_URL}?codemode=false` }
+          { url: `${MCP_URL}?codemode=false&scopeChallenge=tool` }
         )
       )
     )

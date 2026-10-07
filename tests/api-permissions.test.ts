@@ -4,7 +4,8 @@ import {
   connectionFromAuth,
   DIRECT_CONNECTION,
   explainRefusal,
-  findOperation
+  findOperation,
+  scopeToRequest
 } from '../src/api-permissions'
 import { processSpec } from '../src/spec-processor'
 
@@ -64,16 +65,18 @@ describe('findOperation', () => {
   }
 
   it('matches a concrete path to its template', () => {
-    expect(findOperation(paths, 'GET', '/zones/abc/dns_records')?.summary).toBe('list')
+    expect(findOperation(paths, 'GET', '/zones/abc/dns_records')?.operation.summary).toBe('list')
   })
 
   it('prefers the template with more literal segments', () => {
-    expect(findOperation(paths, 'get', '/zones/abc/rulesets/phases')?.summary).toBe('phases')
-    expect(findOperation(paths, 'get', '/zones/abc/rulesets/r1')?.summary).toBe('by id')
+    expect(findOperation(paths, 'get', '/zones/abc/rulesets/phases')?.operation.summary).toBe(
+      'phases'
+    )
+    expect(findOperation(paths, 'get', '/zones/abc/rulesets/r1')?.operation.summary).toBe('by id')
   })
 
   it('ignores a trailing slash and requires the method', () => {
-    expect(findOperation(paths, 'GET', '/zones/abc/dns_records/')?.summary).toBe('list')
+    expect(findOperation(paths, 'GET', '/zones/abc/dns_records/')?.operation.summary).toBe('list')
     expect(findOperation(paths, 'POST', '/zones/abc/dns_records')).toBeUndefined()
   })
 })
@@ -127,5 +130,56 @@ describe('explainRefusal', () => {
   it('shortens long lists', () => {
     const many = Array.from({ length: 12 }, (_, index) => `Permission ${index}`)
     expect(explainRefusal(403, DIRECT_CONNECTION, many)).toContain('and 4 more')
+  })
+})
+
+describe('scopeToRequest', () => {
+  const lacking = oauth('user:read', 'account:read')
+  const dns = ['DNS Read', 'DNS Write']
+
+  it('asks for the read scope for a read and the write scope for a write', () => {
+    expect(scopeToRequest(403, lacking, 'GET', '/zones/{zone_id}/dns_records', dns)).toBe(
+      'dns.read'
+    )
+    expect(scopeToRequest(403, lacking, 'POST', '/zones/{zone_id}/dns_records', dns)).toBe(
+      'dns.write'
+    )
+  })
+
+  it('picks the account or zone variant of a permission from the path', () => {
+    const access = ['Access: Apps and Policies Read']
+    expect(scopeToRequest(403, lacking, 'GET', '/accounts/{account_id}/access/apps', access)).toBe(
+      'access.read'
+    )
+    expect(scopeToRequest(403, lacking, 'GET', '/zones/{zone_id}/access/apps', access)).toBe(
+      'zone-access.read'
+    )
+    const logs = ['Logs Read']
+    expect(scopeToRequest(403, lacking, 'GET', '/accounts/{account_id}/logs/x', logs)).toBe(
+      'account-logs.read'
+    )
+    expect(scopeToRequest(403, lacking, 'GET', '/zones/{zone_id}/logs/x', logs)).toBe('logs.read')
+  })
+
+  it('picks the alternative whose name matches the path', () => {
+    const scripts = ['Workers Tail Read', 'Workers Scripts Write', 'Workers Scripts Read']
+    expect(
+      scopeToRequest(403, lacking, 'GET', '/accounts/{account_id}/workers/scripts', scripts)
+    ).toBe('workers-scripts.read')
+  })
+
+  it('names no scope when alternatives tie', () => {
+    expect(
+      scopeToRequest(403, lacking, 'GET', '/accounts/{account_id}/thing', ['DNS Read', 'Zone Read'])
+    ).toBeUndefined()
+  })
+
+  it('names no scope when a challenge would not help', () => {
+    const path = '/zones/{zone_id}/dns_records'
+    expect(scopeToRequest(403, oauth('dns.write'), 'GET', path, dns)).toBeUndefined()
+    expect(scopeToRequest(403, DIRECT_CONNECTION, 'GET', path, dns)).toBeUndefined()
+    expect(scopeToRequest(401, lacking, 'GET', path, dns)).toBeUndefined()
+    expect(scopeToRequest(403, lacking, 'GET', path, ['Billing Read'])).toBeUndefined()
+    expect(scopeToRequest(403, lacking, 'GET', path, undefined)).toBeUndefined()
   })
 })

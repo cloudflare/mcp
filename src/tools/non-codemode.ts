@@ -17,6 +17,7 @@ import { zodInputSchemaFromJson, type NonCodemodeTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
 import { explainRefusedRequest } from '../api-refusal-hint'
+import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 
 /**
  * Install lazy non-Code-Mode protocol handlers.
@@ -30,7 +31,8 @@ export async function registerNonCodemodeTools(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult,
-  connection: Connection
+  connection: Connection,
+  scopeChallenge: ScopeChallenge
 ): Promise<void> {
   const tools = await getNonCodemodeTools()
   const toolsByName = await getNonCodemodeToolMap()
@@ -62,7 +64,10 @@ export async function registerNonCodemodeTools(
             .object(zodInputSchemaFromJson(tool.inputSchema))
             .safeParse(request.params.arguments ?? {})
           result = parsed.success
-            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult, connection)
+            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult, {
+                connection,
+                scopeChallenge
+              })
             : validationError(name, parsed.error)
         }
       }
@@ -80,7 +85,7 @@ async function callNonCodemodeTool(
   params: Record<string, unknown>,
   props: AuthProps,
   formatResult: FormatToolResult,
-  connection: Connection
+  { connection, scopeChallenge }: { connection: Connection; scopeChallenge: ScopeChallenge }
 ): Promise<CallToolResult> {
   let resolvedPath = tool.path
   const pathParams = [...tool.path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1])
@@ -127,16 +132,19 @@ async function callNonCodemodeTool(
 
   const method = tool.method.toUpperCase()
   const accountId = params['account_id'] as string | undefined
-  const notes = [
-    await explainRefusedRequest(response.status, connection, method, resolvedPath),
-    accountId ? unknownAccountHint(props, accountId) : ''
-  ].filter(Boolean)
+  const refusal = await explainRefusedRequest(response.status, connection, method, resolvedPath)
+  const notes = [refusal?.hint, accountId ? unknownAccountHint(props, accountId) : ''].filter(
+    Boolean
+  )
   const text = [
     `Cloudflare API error: ${method} ${resolvedPath} returned HTTP ${response.status}.`,
     formatResult(result),
     ...notes
   ].join('\n\n')
-  return { content: [{ type: 'text', text }], isError: true }
+  const failure: CallToolResult = { content: [{ type: 'text', text }], isError: true }
+  // One refused request changed nothing, so the client can retry the call after stepping up.
+  const challenge = refusal?.scope ? scopeChallenge.require(refusal.scope) : undefined
+  return challenge ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } } : failure
 }
 
 function validationError(name: string, error: z.ZodError): CallToolResult {
