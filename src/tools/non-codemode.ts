@@ -15,7 +15,9 @@ import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import type { McpTool, ParameterRoute } from '../mcp-tools'
 import type { AuthProps } from '../auth/types'
-import { acceptedPermissions, explainRefusal, type Connection } from '../api-permissions'
+import type { Connection } from '../api-permissions'
+import { explainRefusalFor } from '../api-refusal-hint'
+import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 
 /**
  * Serve the generated direct tools (`mcp-tools.json`) with two low-level
@@ -28,7 +30,8 @@ export async function registerNonCodemodeTools(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult,
-  connection: Connection
+  connection: Connection,
+  scopeChallenge: ScopeChallenge
 ): Promise<void> {
   const tools = await getDirectTools()
 
@@ -59,7 +62,7 @@ export async function registerNonCodemodeTools(
       } else {
         const tool = tools.byName.get(name)
         result = tool
-          ? await callDirectTool(tool, args, props, formatResult, connection)
+          ? await callDirectTool(tool, args, props, formatResult, { connection, scopeChallenge })
           : toolError(`Tool ${name} not found`)
       }
     } catch (error) {
@@ -76,7 +79,7 @@ async function callDirectTool(
   input: Record<string, unknown>,
   props: AuthProps,
   formatResult: FormatToolResult,
-  connection: Connection
+  { connection, scopeChallenge }: { connection: Connection; scopeChallenge: ScopeChallenge }
 ): Promise<CallToolResult> {
   const { request } = tool
   const args = { ...input }
@@ -136,15 +139,17 @@ async function callDirectTool(
 
   if (response.ok) return { content: [{ type: 'text', text: formatResult(result) }] }
 
-  // The generated tool already names the permissions its endpoint accepts.
-  const refusal = explainRefusal(
+  // The generated tool already names its endpoint's template and accepted permissions.
+  const refusal = explainRefusalFor(
     response.status,
     connection,
-    acceptedPermissions({ 'x-api-token-group': tool.permissions['x-api-token-group'] })
+    request.method,
+    request.path,
+    tool.permissions
   )
   const accountId = accountRoute ? args[accountRoute.key] : undefined
   const notes = [
-    refusal,
+    refusal?.hint,
     typeof accountId === 'string' ? unknownAccountHint(props, accountId) : ''
   ].filter(Boolean)
   const text = [
@@ -152,7 +157,10 @@ async function callDirectTool(
     formatResult(result),
     ...notes
   ].join('\n\n')
-  return { content: [{ type: 'text', text }], isError: true }
+  const failure: CallToolResult = { content: [{ type: 'text', text }], isError: true }
+  // One refused request changed nothing, so the client can retry the call after stepping up.
+  const challenge = refusal?.scope ? scopeChallenge.require(refusal.scope) : undefined
+  return challenge ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } } : failure
 }
 
 function scalar(value: unknown): string {

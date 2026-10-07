@@ -14,11 +14,33 @@ import {
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
-import { explainRefusedRequest, REFUSAL_HINT_HEADER } from '../api-refusal-hint'
+import { isCatalogScope } from '../api-permissions'
+import {
+  explainRefusedRequest,
+  MISSING_SCOPE_HEADER,
+  REFUSAL_HINT_HEADER
+} from '../api-refusal-hint'
+import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 
 interface CodeExecutorEntrypoint {
-  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
+  evaluate(): Promise<unknown>
 }
+
+/** What the sandbox reports back. It is untrusted, so it is parsed. */
+const Evaluation = z.union([
+  z.object({ ok: z.literal(true), result: z.unknown() }),
+  z.object({
+    ok: z.literal(false),
+    message: z.string(),
+    // The OAuth scope GlobalOutbound said the failing request lacked.
+    missingScope: z.string().optional(),
+    // Whether every request the code sent was a read or was refused, so rerunning repeats no change.
+    replaySafe: z.boolean()
+  })
+])
+
+/** The outcome of running the agent's code. */
+type Execution = z.infer<typeof Evaluation>
 
 type GlobalOutboundProps = {
   apiToken: string
@@ -56,15 +78,16 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     // Cloudflare's 401/403 bodies don't say why. Attach an explanation the
     // sandbox puts in the error it throws, so it survives the code catching it.
     const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
-    const hint = await explainRefusedRequest(
+    const refusal = await explainRefusedRequest(
       response.status,
       this.ctx.props.connection,
       request.method,
       new URL(request.url).pathname.slice(basePath.length)
     )
-    if (!hint) return response
+    if (!refusal) return response
     const headers = new Headers(response.headers)
-    headers.set(REFUSAL_HINT_HEADER, encodeURIComponent(hint))
+    headers.set(REFUSAL_HINT_HEADER, encodeURIComponent(refusal.hint))
+    if (refusal.scope) headers.set(MISSING_SCOPE_HEADER, refusal.scope)
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
@@ -87,7 +110,7 @@ async function runExecute(
   apiToken: string,
   unresolvedAccountMessage: string,
   connection: Connection
-): Promise<unknown> {
+): Promise<Execution> {
   const apiBase = env.CLOUDFLARE_API_BASE
   const workerId = `cloudflare-api-${crypto.randomUUID()}`
 
@@ -114,13 +137,29 @@ import { WorkerEntrypoint } from "cloudflare:workers";
 const apiBase = ${JSON.stringify(apiBase)};
 ${accountIdPrelude}
 
+// Every request the code sends, and the status it got. Replaying the code after a
+// step-up is safe only if each one was a read or was refused.
+const sentRequests = [];
+const outboundFetch = globalThis.fetch.bind(globalThis);
+globalThis.fetch = async (input, init) => {
+  const request = new Request(input, init);
+  const sent = { method: request.method.toUpperCase(), status: undefined };
+  sentRequests.push(sent);
+  const response = await outboundFetch(request);
+  sent.status = response.status;
+  return response;
+};
+
 // "Cloudflare API error: GET /zones/x/dns_records returned HTTP 403: 10000: Authentication error",
 // plus the server's explanation of a 401/403.
 function apiError(method, path, response, details) {
   const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
-  return new Error("Cloudflare API error: " + String(method).toUpperCase() + " " + path.split("?")[0] +
+  const error = new Error("Cloudflare API error: " + String(method).toUpperCase() + " " + path.split("?")[0] +
     " returned HTTP " + response.status + (details ? ": " + details : "") +
     (hint ? ". " + decodeURIComponent(hint) : ""));
+  const missingScope = response.headers.get(${JSON.stringify(MISSING_SCOPE_HEADER)});
+  if (missingScope) error.missingScope = missingScope;
+  return error;
 }
 
 export default class CodeExecutor extends WorkerEntrypoint {
@@ -216,9 +255,15 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
     try {
       const result = await (${code})();
-      return { result, err: undefined };
+      return { ok: true, result };
     } catch (err) {
-      return { result: undefined, err: err.message, stack: err.stack };
+      return {
+        ok: false,
+        message: err instanceof Error ? err.message : String(err),
+        missingScope: typeof err?.missingScope === "string" ? err.missingScope : undefined,
+        replaySafe: sentRequests.every(({ method, status }) =>
+          method === "GET" || method === "HEAD" || status === 401 || status === 403)
+      };
     }
   }
 }
@@ -227,13 +272,25 @@ export default class CodeExecutor extends WorkerEntrypoint {
   }))
 
   const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
-  const response = await entrypoint.evaluate()
+  const evaluation = Evaluation.safeParse(await entrypoint.evaluate())
+  if (!evaluation.success) throw new Error('The code sandbox returned an unreadable result')
+  return evaluation.data
+}
 
-  if (response.err) {
-    throw new Error(response.err)
-  }
+const UNSAFE_TO_REPLAY =
+  'Earlier requests in this program may already have changed resources, so it is not offered for an automatic retry. After the scope is granted, run only the steps that did not complete.'
 
-  return response.result
+/**
+ * The scope to step up for when the code failed on a request refused for it.
+ *
+ * The sandbox reports the scope, so it is untrusted: it must be a catalog
+ * scope the connection lacks. Code that lies can only ask for a scope it could
+ * also get challenged for by calling an endpoint that needs it.
+ */
+function challengeableScope(execution: Execution, connection: Connection): string | undefined {
+  if (execution.ok || connection.kind !== 'oauth' || !execution.missingScope) return undefined
+  const scope = execution.missingScope
+  return isCatalogScope(scope) && !connection.scopes.includes(scope) ? scope : undefined
 }
 
 /**
@@ -283,7 +340,8 @@ export function registerExecuteTool(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult,
-  connection: Connection
+  connection: Connection,
+  scopeChallenge: ScopeChallenge
 ): void {
   const apiToken = props.accessToken
 
@@ -310,14 +368,29 @@ export function registerExecuteTool(
         // code that reads `accountId` then fails fast with a clear message.
         const effectiveAccountId = account_id || autoResolvedAccountId(props)
 
-        const result = await runExecute(
+        const execution = await runExecute(
           code,
           effectiveAccountId,
           apiToken,
           missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE),
           connection
         )
-        return { content: [{ type: 'text', text: formatResult(result) }] }
+        if (execution.ok)
+          return { content: [{ type: 'text', text: formatResult(execution.result) }] }
+
+        const failure = formatError(execution.message)
+        const hint = account_id ? unknownAccountHint(props, account_id) : ''
+        if (hint) failure.content[0].text += `\n\n${hint}`
+        const scope = challengeableScope(execution, connection)
+        if (!scope) return failure
+        if (!execution.replaySafe) {
+          failure.content[0].text += `\n\n${UNSAFE_TO_REPLAY}`
+          return failure
+        }
+        const challenge = scopeChallenge.require(scope)
+        return challenge
+          ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } }
+          : failure
       } catch (error) {
         const failure = formatError(error)
         const hint = account_id ? unknownAccountHint(props, account_id) : ''

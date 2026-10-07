@@ -30,6 +30,7 @@ cloudflare-mcp/
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
 │   ├── api-permissions.ts         # Connection kinds; explains refused (401/403) API calls
 │   ├── api-refusal-hint.ts        # Looks up a refused execute request's permissions in spec.json
+│   ├── scope-challenge.ts         # Per-request 403 insufficient_scope step-up challenge
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Prefix classification & external resolver
@@ -167,6 +168,17 @@ Cloudflare answers a missing OAuth scope, an endpoint OAuth can't reach (billing
 - The endpoint's accepted permissions come from Forge's `x-api-token-group`, which the build copies into each `spec.json` operation and each `mcp-tools.json` entry (`permissions`). OAuth scopes share those names (`DERIVED_OAUTH_SCOPES`). Any one permission is enough.
 - The explanation says one of four things. The connection lacks every scope the endpoint accepts: grant one. It already holds one: reconnecting won't help. No OAuth scope exists for the endpoint: use an API token. For a direct credential: these are the permissions the token needs.
 - `execute`: `GlobalOutbound` sets the explanation in an `X-Cloudflare-MCP-Refusal-Hint` response header. The sandbox puts it in the error it throws, so it survives code that catches the error. Endpoint tools add it to the tool result, using their own entry's permissions. `execute` matches the refused path against `spec.json`, parsed only for refused requests.
+
+#### Step-up (`403 insufficient_scope`)
+
+When an OAuth connection lacks every scope a refused endpoint accepts, and `scopeToRequest` can name one, the request is answered with the spec's step-up challenge instead of the tool result. The challenge comes from `insufficientScope()` in workers-oauth-provider and names the baseline (`user:read account:read`) plus that scope. The client re-authorizes and retries the same tool call. Accumulating earlier scopes is the client's job, per the spec.
+
+- The challenge is raised only after Cloudflare refuses, never beforehand from the spec, because the permission-name mapping isn't reliable enough to block calls on.
+- Retrying has to be safe. An endpoint tool makes one request. In `execute`, the refusal must be what made the code fail, and every request the code sent must have been a GET/HEAD or refused (the sandbox wraps `fetch` before the code runs). Otherwise the tool error says why the code wasn't retried.
+- The sandbox reports the scope (`X-Cloudflare-MCP-Missing-Scope` from `GlobalOutbound`), so it is untrusted. The host accepts only catalog scopes the connection lacks. Code that lies can only trigger a challenge it could also get by calling the endpoint.
+- A connection that already holds an accepted scope is never challenged, so a wrong pick can't loop.
+- For OAuth connections, 2025-era POSTs are served as JSON (`enableJsonResponse`) rather than the SDK fallback's SSE, so the status is still open when a tool asks to step up.
+- Tools also put the challenge in the error result's `_meta["mcp/www_authenticate"]`. With `?scopeChallenge=tool` that result is sent as-is, for clients such as ChatGPT that read the challenge there.
 
 ### Response truncation
 
