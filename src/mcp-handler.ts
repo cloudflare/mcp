@@ -44,8 +44,6 @@ function createAuthenticatedHandler(props: AuthProps) {
   })
 }
 
-const SUBSCRIPTIONS_LISTEN = 'subscriptions/listen'
-
 // Handler options are intentionally omitted. The SDK defaults to:
 // - stateless 2025 compatibility, with a fresh server and no protocol session
 // - automatic JSON/SSE response shaping (ordinary requests here remain JSON)
@@ -108,18 +106,6 @@ export async function handleAuthenticatedMcpRequest(
   const props = AuthPropsSchema.parse(rawProps)
   const handler = createAuthenticatedHandler(props)
   const response = await handler.fetch(request)
-
-  // This server publishes no change notifications and keeps no long-lived
-  // request state. The SDK only serves subscriptions/listen after checking that
-  // the Mcp-Method header matches the body. It acknowledges the subscription
-  // with every unsupported notification type left out. Closing this
-  // per-request handler then ends the subscription gracefully, as the spec
-  // describes: it writes a `complete` result and closes the stream, so no
-  // isolate stays pinned. Clients get an empty subscription instead of an
-  // error.
-  if (request.headers.get('Mcp-Method') === SUBSCRIPTIONS_LISTEN) {
-    await handler.close()
-  }
 
   return withCors(response, request)
 }
