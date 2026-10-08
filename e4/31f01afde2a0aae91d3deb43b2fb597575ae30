@@ -1,0 +1,25 @@
+src/constants.ts
+  s_4bd6e82e89aca5::t_fcc6c605177cf8 15-20
+tests/auth/cloudflare-auth.test.ts
+  s_4bd6e82e89aca5::t_b9039859bdd338 140,220
+tests/fetch-retry.test.ts
+  s_4bd6e82e89aca5::t_1c5b5f35c773bc 247
+tests/non-codemode.test.ts
+  s_4bd6e82e89aca5::t_6984a244d98589 381
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e431f01afde2a0aae91d3deb43b2fb597575ae30",
+  "prompts": {},
+  "sessions": {
+    "s_4bd6e82e89aca5": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a11d6c-0db8-72c8-9708-5a73a6b02c2c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
