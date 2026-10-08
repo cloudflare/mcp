@@ -378,7 +378,7 @@ describe('createServer with codemode=false', () => {
       )
       expect(calledOpts.method).toBe('GET')
       expect(calledOpts.headers['Authorization']).toBe('Bearer test-token')
-      expect(calledOpts.headers['User-Agent']).toBe('cloudflare-mcp')
+      expect(calledOpts.headers['User-Agent']).toBe('cloudflare-mcp (+https://github.com/cloudflare/mcp)')
 
       expect(result.isError).toBeFalsy()
       expect(result.content[0].text).toContain('my-worker')

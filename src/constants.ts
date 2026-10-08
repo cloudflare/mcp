@@ -12,8 +12,12 @@ export type ServerInfo = { name: string; version: string }
  */
 export const SERVER_INFO: ServerInfo = { name: 'cloudflare-api', version: '0.1.0' }
 
-/** User-Agent header sent on all outbound requests to Cloudflare APIs. */
-export const USER_AGENT = 'cloudflare-mcp'
+/**
+ * User-Agent sent on every outbound request to Cloudflare: the product name and, in an RFC 9110
+ * comment, where to find whoever runs it. No version: one deployment is live at a time, so the
+ * deploy history already says which commit sent a request.
+ */
+export const USER_AGENT = 'cloudflare-mcp (+https://github.com/cloudflare/mcp)'
 
 /**
  * TypeScript declarations describing the `cloudflare` helper and `accountId`

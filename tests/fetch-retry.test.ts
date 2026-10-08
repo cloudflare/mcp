@@ -244,7 +244,7 @@ describe('fetchWithRetry', () => {
 
     expect(globalThis.fetch).toHaveBeenCalledWith('https://api.example.com/test', {
       method: 'POST',
-      headers: { Authorization: 'Bearer token', 'User-Agent': 'cloudflare-mcp' },
+      headers: { Authorization: 'Bearer token', 'User-Agent': 'cloudflare-mcp (+https://github.com/cloudflare/mcp)' },
       body: '{"key":"value"}'
     })
   })

@@ -137,7 +137,7 @@ describe('getAuthToken', () => {
     expect(form?.get('code')).toBe('auth-code')
     expect(form?.get('code_verifier')).toBe('verifier')
     expect(authHeader).toBe(`Basic ${btoa('client-id:client-secret')}`)
-    expect(userAgent).toBe('cloudflare-mcp')
+    expect(userAgent).toBe('cloudflare-mcp (+https://github.com/cloudflare/mcp)')
   })
 
   it.each([
@@ -217,7 +217,7 @@ describe('refreshAuthToken', () => {
     )
 
     await expect(refreshAuthToken(refreshParams)).resolves.toEqual(validToken)
-    expect(userAgent).toBe('cloudflare-mcp')
+    expect(userAgent).toBe('cloudflare-mcp (+https://github.com/cloudflare/mcp)')
   })
 
   it('preserves Retry-After from upstream OAuth 429 responses', async () => {
