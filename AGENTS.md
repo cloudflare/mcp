@@ -140,9 +140,9 @@ The consent page offers read-only and full-access templates built from the produ
 - Fetched from GitHub daily (scheduled handler, cron `0 0 * * *`)
 - All `$ref` references resolved inline before storage
 - Products and minimal operation metadata extracted
-- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and the precomputed `non-codemode-tools.json` artifact
-- The non-Code-Mode artifact contains protocol-ready JSON Schemas plus minimal request-routing metadata. Low-level MCP handlers serve `tools/list` directly and lazily validate/dispatch only the requested `tools/call` operation with Zod; no per-endpoint SDK tools are registered
-- `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates; non-Code-Mode falls back to deriving its artifact from `spec.json` during rollout
+- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and `mcp-tools.json`, the direct-tool catalogue for `?codemode=false`
+- `mcp-tools.json` holds the final wire JSON Schemas (including the session-independent optional `account_id`) plus minimal request-routing metadata. Each isolate builds the `tools/list` payload from it once and serves it unchanged; `tools/call` lazily validates/dispatches only the requested operation with Zod. No per-endpoint SDK tools are registered
+- `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates. Concurrent requests on a cold isolate share one load, and a failed load is not cached. There is no fallback: a missing `mcp-tools.json` fails the request, so seed R2 (`npm run seed:staging` / `seed:prod`) before deploying a change to its key or shape
 
 ### Response truncation
 

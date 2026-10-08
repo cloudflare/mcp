@@ -44,7 +44,7 @@ async function runScheduled() {
 afterEach(() => clearR2(env.SPEC_BUCKET))
 
 describe('scheduled handler', () => {
-  it('fetches the spec from GitHub, processes it, and writes spec + products to real R2', async () => {
+  it('fetches the spec from GitHub, processes it, and writes spec, products and mcp-tools.json to real R2', async () => {
     server.use(http.get(SPEC_URL, () => HttpResponse.json(RAW_SPEC)))
 
     await runScheduled()
@@ -52,10 +52,10 @@ describe('scheduled handler', () => {
     // Read the real bucket back out.
     const specObj = await env.SPEC_BUCKET.get('spec.json')
     const productsObj = await env.SPEC_BUCKET.get('products.json')
-    const nonCodemodeToolsObj = await env.SPEC_BUCKET.get('non-codemode-tools.json')
+    const mcpToolsObj = await env.SPEC_BUCKET.get('mcp-tools.json')
     expect(specObj).not.toBeNull()
     expect(productsObj).not.toBeNull()
-    expect(nonCodemodeToolsObj).not.toBeNull()
+    expect(mcpToolsObj).not.toBeNull()
 
     const spec = (await specObj!.json()) as { paths: Record<string, unknown> }
     expect(spec.paths['/accounts/{account_id}/workers/scripts']).toBeDefined()
@@ -63,7 +63,7 @@ describe('scheduled handler', () => {
     const products = (await productsObj!.json()) as string[]
     expect(products).toContain('workers')
 
-    const tools = (await nonCodemodeToolsObj!.json()) as Array<{
+    const tools = (await mcpToolsObj!.json()) as Array<{
       name: string
       inputSchema: { properties?: Record<string, unknown>; required?: string[] }
     }>
@@ -71,11 +71,16 @@ describe('scheduled handler', () => {
       expect.objectContaining({
         name: 'get_accounts_workers_scripts',
         inputSchema: expect.objectContaining({
-          properties: expect.objectContaining({ account_id: expect.any(Object) }),
-          required: ['account_id']
+          properties: expect.objectContaining({
+            account_id: expect.objectContaining({
+              description: expect.stringContaining('Optional when the session')
+            })
+          })
         })
       })
     ])
+    // account_id is optional for every session, decided at build time.
+    expect(tools[0].inputSchema.required).toBeUndefined()
   })
 
   it('throws and writes nothing when GitHub returns a non-2xx', async () => {

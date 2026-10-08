@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
 import { resetIsolateCache } from '../../src/isolate-cache'
 import { clearR2 } from './r2'
-import { buildNonCodemodeTools, type OperationInfo } from '../../src/openapi'
+import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from '../../src/openapi'
 
 /**
  * Spec-bucket test fixtures. vitest-pool-workers gives each test FILE a real,
@@ -15,13 +15,13 @@ type SpecPaths = Record<string, Record<string, OperationInfo>>
 export async function seedSpec(paths: SpecPaths, products: string[] = ['workers']): Promise<void> {
   await env.SPEC_BUCKET.put('spec.json', JSON.stringify({ paths }))
   await env.SPEC_BUCKET.put('products.json', JSON.stringify(products))
-  await env.SPEC_BUCKET.put('non-codemode-tools.json', JSON.stringify(buildNonCodemodeTools(paths)))
+  await env.SPEC_BUCKET.put(MCP_TOOLS_KEY, JSON.stringify(buildMcpTools(paths)))
   resetIsolateCache()
 }
 
-/** Remove the precomputed artifact to exercise rolling-deploy fallback. */
-export async function removeNonCodemodeTools(): Promise<void> {
-  await env.SPEC_BUCKET.delete('non-codemode-tools.json')
+/** Remove `mcp-tools.json` to exercise an unseeded bucket. */
+export async function removeMcpTools(): Promise<void> {
+  await env.SPEC_BUCKET.delete(MCP_TOOLS_KEY)
   resetIsolateCache()
 }
 

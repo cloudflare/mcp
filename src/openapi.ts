@@ -1,4 +1,8 @@
 import { z } from 'zod'
+import { NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE } from './auth/account-access'
+
+/** R2 key of the direct-tool catalogue the scheduled handler writes. */
+export const MCP_TOOLS_KEY = 'mcp-tools.json'
 
 /**
  * Minimal shape of an OpenAPI operation, as stored in our pre-processed spec.
@@ -116,10 +120,10 @@ export type JsonObjectSchema = {
 }
 
 /**
- * Self-contained non-Code-Mode artifact entry. The protocol fields feed
- * `tools/list`; routing fields feed the registered `tools/call` handler.
+ * One entry of `mcp-tools.json`. The protocol fields are served to
+ * `tools/list` as-is; routing fields feed the `tools/call` handler.
  */
-export interface NonCodemodeTool {
+export interface McpTool {
   name: string
   title?: string
   description: string
@@ -179,19 +183,18 @@ function listNonCodemodeOperations(
 }
 
 /**
- * Build the JSON-serializable artifact in the scheduled handler. This moves the
- * full spec walk, name de-duplication, descriptions, routing metadata and wire
- * JSON Schema out of the request path.
+ * Build `mcp-tools.json` in the scheduled handler. This moves the full spec
+ * walk, name de-duplication, descriptions, routing metadata and the final wire
+ * JSON Schema (including the session-independent `account_id`) out of the
+ * request path, so the Worker serves `tools/list` exactly as stored.
  */
-export function buildNonCodemodeTools(
-  paths: Record<string, Record<string, OperationInfo>>
-): NonCodemodeTool[] {
+export function buildMcpTools(paths: Record<string, Record<string, OperationInfo>>): McpTool[] {
   return listNonCodemodeOperations(paths).map(
     ({ toolName, description, method, path, operation }) => ({
       name: toolName,
       title: toolNameToTitle(toolName),
       description,
-      inputSchema: buildJsonInputSchema(operation, path),
+      inputSchema: withOptionalAccountId(buildJsonInputSchema(operation, path)),
       method,
       path,
       queryParams: (operation.parameters ?? [])
@@ -205,6 +208,27 @@ export function buildNonCodemodeTools(
         }))
     })
   )
+}
+
+export const ACCOUNT_ID_PARAM_DESCRIPTION = `Cloudflare account ID. Optional when the session is authorized for exactly one account; otherwise required. ${NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE}`
+
+/**
+ * The same `account_id` schema for every session: always present, never
+ * required. MCP clients cache tool metadata and may serve one user's tool list
+ * to another, so the schema can't depend on the token. The call handler fills
+ * in the session's account when it can, and otherwise returns account
+ * discovery guidance.
+ */
+function withOptionalAccountId(inputSchema: JsonObjectSchema): JsonObjectSchema {
+  if (!inputSchema.properties['account_id']) return inputSchema
+
+  const { required: currentRequired, ...rest } = inputSchema
+  const properties = {
+    ...inputSchema.properties,
+    account_id: { type: 'string' as const, description: ACCOUNT_ID_PARAM_DESCRIPTION }
+  }
+  const required = currentRequired?.filter((name) => name !== 'account_id') ?? []
+  return { ...rest, properties, ...(required.length > 0 ? { required } : {}) }
 }
 
 /** Rehydrate the small Zod shape required by the SDK's tools/call validation. */

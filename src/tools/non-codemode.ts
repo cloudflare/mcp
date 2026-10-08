@@ -1,9 +1,9 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
-import type { McpServer, CallToolResult, Tool } from '@modelcontextprotocol/server'
+import type { McpServer, CallToolResult } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
-import { getNonCodemodeToolMap, getNonCodemodeTools } from '../isolate-cache'
+import { getMcpTools } from '../isolate-cache'
 import {
   NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE,
   autoResolvedAccountId,
@@ -13,15 +13,16 @@ import {
 import { recordToolCall } from '../metrics'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
-import { zodInputSchemaFromJson, type NonCodemodeTool } from '../openapi'
+import { zodInputSchemaFromJson, type McpTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
 
 /**
  * Install lazy non-Code-Mode protocol handlers.
  *
  * Unlike `registerTool`, these handlers do not create ~3,000 closures and Zod
- * schemas per HTTP request. `tools/list` serves the precomputed JSON artifact;
- * `tools/call` validates and dispatches only the requested operation.
+ * schemas per HTTP request. `tools/list` serves `mcp-tools.json` exactly as the
+ * scheduled handler generated it (cached per isolate); `tools/call` validates
+ * and dispatches only the requested operation.
  * `formatResult` turns each API response body into the tool's text output.
  */
 export async function registerNonCodemodeTools(
@@ -29,11 +30,10 @@ export async function registerNonCodemodeTools(
   props: AuthProps,
   formatResult: FormatToolResult
 ): Promise<void> {
-  const tools = await getNonCodemodeTools()
-  const toolsByName = await getNonCodemodeToolMap()
+  const tools = await getMcpTools()
 
   server.server.setRequestHandler('tools/list', () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.map((tool) => toWireTool(toolForAccountAccess(tool)))]
+    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.list]
   }))
 
   server.server.setRequestHandler('tools/call', async (request) => {
@@ -50,16 +50,15 @@ export async function registerNonCodemodeTools(
         const parsed = WhoamiInputSchema.safeParse(request.params.arguments ?? {})
         result = parsed.success ? runWhoamiTool(props) : validationError(name, parsed.error)
       } else {
-        const baseTool = toolsByName.get(name)
-        if (!baseTool) {
+        const tool = tools.byName.get(name)
+        if (!tool) {
           result = toolError(`Tool ${name} not found`)
         } else {
-          const tool = toolForAccountAccess(baseTool)
           const parsed = z
             .object(zodInputSchemaFromJson(tool.inputSchema))
             .safeParse(request.params.arguments ?? {})
           result = parsed.success
-            ? await callNonCodemodeTool(baseTool, parsed.data, props, formatResult)
+            ? await callNonCodemodeTool(tool, parsed.data, props, formatResult)
             : validationError(name, parsed.error)
         }
       }
@@ -73,7 +72,7 @@ export async function registerNonCodemodeTools(
 }
 
 async function callNonCodemodeTool(
-  tool: NonCodemodeTool,
+  tool: McpTool,
   params: Record<string, unknown>,
   props: AuthProps,
   formatResult: FormatToolResult
@@ -138,32 +137,4 @@ function validationError(name: string, error: z.ZodError): CallToolResult {
 
 function toolError(message: string): CallToolResult {
   return { content: [{ type: 'text', text: message }], isError: true }
-}
-
-function toWireTool(tool: NonCodemodeTool): Tool {
-  const { name, title, description, inputSchema } = tool
-  return { name, title, description, inputSchema }
-}
-
-const ACCOUNT_ID_PARAM_DESCRIPTION = `Cloudflare account ID. Optional when the session is authorized for exactly one account; otherwise required. ${NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE}`
-
-/**
- * The same `account_id` schema for every session: always present, never
- * required. MCP clients cache tool metadata and may serve one user's tool list
- * to another, so the schema can't depend on the token. The call handler fills
- * in the session's account when it can, and otherwise returns account
- * discovery guidance.
- */
-function toolForAccountAccess(tool: NonCodemodeTool): NonCodemodeTool {
-  if (!tool.inputSchema.properties['account_id']) return tool
-
-  const properties = {
-    ...tool.inputSchema.properties,
-    account_id: { type: 'string' as const, description: ACCOUNT_ID_PARAM_DESCRIPTION }
-  }
-  const required = tool.inputSchema.required?.filter((name) => name !== 'account_id')
-
-  const inputSchema = { ...tool.inputSchema, properties, required }
-  if (required?.length === 0) delete inputSchema.required
-  return { ...tool, inputSchema }
 }

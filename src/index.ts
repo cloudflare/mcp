@@ -11,7 +11,7 @@ import {
   rejectInvalidMcpRequest
 } from './mcp-handler'
 import { processSpec, extractProducts } from './spec-processor'
-import { buildNonCodemodeTools, type OperationInfo } from './openapi'
+import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from './openapi'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
@@ -112,7 +112,7 @@ export default {
     const products = extractProducts(rawSpec)
     const productsJson = JSON.stringify(products)
     const paths = (processed as { paths: Record<string, Record<string, OperationInfo>> }).paths
-    const nonCodemodeToolsJson = JSON.stringify(buildNonCodemodeTools(paths))
+    const mcpToolsJson = JSON.stringify(buildMcpTools(paths))
 
     console.log(`Writing spec to R2 (${(specJson.length / 1024).toFixed(0)} KB)`)
     await Promise.all([
@@ -122,7 +122,7 @@ export default {
       env.SPEC_BUCKET.put('products.json', productsJson, {
         httpMetadata: { contentType: 'application/json' }
       }),
-      env.SPEC_BUCKET.put('non-codemode-tools.json', nonCodemodeToolsJson, {
+      env.SPEC_BUCKET.put(MCP_TOOLS_KEY, mcpToolsJson, {
         httpMetadata: { contentType: 'application/json' }
       })
     ])

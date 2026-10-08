@@ -3,15 +3,16 @@ import { Client } from '@modelcontextprotocol/client'
 import { InMemoryTransport, McpServer } from '@modelcontextprotocol/server'
 import { createServer } from '../src/server'
 import {
+  ACCOUNT_ID_PARAM_DESCRIPTION,
   buildInputSchema,
-  buildNonCodemodeTools,
+  buildMcpTools,
   pathToToolName,
   toolNameToTitle
 } from '../src/openapi'
 import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
 import { DOCS_TOOL, registerDocsTool } from '../src/tools/docs-search'
-import { clearSpec, removeNonCodemodeTools, seedSpec } from './helpers/spec'
+import { clearSpec, removeMcpTools, seedSpec } from './helpers/spec'
 
 // Use minimal retry config so tests don't wait for real backoff delays
 vi.mock('../src/utils/fetch-retry', async (importOriginal) => {
@@ -118,7 +119,7 @@ describe('non-Code-Mode schema generation', () => {
         }
       }
     }
-    const precomputed = buildNonCodemodeTools({ [path]: { patch: operation } })[0]
+    const precomputed = buildMcpTools({ [path]: { patch: operation } })[0]
     const server = new McpServer({ name: 'schema-test', version: '1.0.0' })
     server.registerTool(
       precomputed.name,
@@ -178,13 +179,32 @@ describe('non-Code-Mode schema generation', () => {
   )
 
   it('deduplicates repeated path parameters in protocol-required fields', () => {
-    const [tool] = buildNonCodemodeTools({
-      '/accounts/{account_id}/address_maps/{map_id}/accounts/{account_id}': {
+    const [tool] = buildMcpTools({
+      '/zones/{zone_id}/address_maps/{map_id}/zones/{zone_id}': {
         put: {} as OperationInfo
       }
     })
 
-    expect(tool.inputSchema.required).toEqual(['account_id', 'map_id'])
+    expect(tool.inputSchema.required).toEqual(['zone_id', 'map_id'])
+  })
+
+  it('makes account_id optional with one session-independent description at build time', () => {
+    const [tool, accountOnly] = buildMcpTools({
+      '/accounts/{account_id}/workers/scripts/{script_name}': {
+        get: {
+          parameters: [{ name: 'account_id', in: 'path', required: true, description: 'Spec' }]
+        } as OperationInfo
+      },
+      '/accounts/{account_id}': { get: {} as OperationInfo }
+    })
+
+    expect(Object.keys(tool.inputSchema.properties)).toEqual(['account_id', 'script_name'])
+    expect(tool.inputSchema.properties.account_id).toEqual({
+      type: 'string',
+      description: ACCOUNT_ID_PARAM_DESCRIPTION
+    })
+    expect(tool.inputSchema.required).toEqual(['script_name'])
+    expect(accountOnly.inputSchema).not.toHaveProperty('required')
   })
 })
 
@@ -310,22 +330,12 @@ describe('createServer with codemode=false', () => {
     expect(docsTool.outputSchema).toBeDefined()
   })
 
-  it('falls back to spec.json when the precomputed artifact is absent', async () => {
-    const specPaths = {
-      '/user': {
-        get: { summary: 'Get current user' } as OperationInfo
-      }
-    }
+  it('fails clearly when mcp-tools.json has not been seeded', async () => {
+    await seedSpec({ '/user': { get: { summary: 'Get current user' } as OperationInfo } })
+    await removeMcpTools()
 
-    await seedSpec(specPaths)
-    await removeNonCodemodeTools()
-    const server = await createServer(bareUserProps, { codemode: false })
-
-    const tools = await listTools(server)
-    expect(tools).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ name: 'get_user', description: 'GET /user\n\nGet current user' })
-      ])
+    await expect(createServer(bareUserProps, { codemode: false })).rejects.toThrow(
+      'mcp-tools.json not found in R2'
     )
   })
 

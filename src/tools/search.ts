@@ -19,7 +19,7 @@ interface SearchExecutorEntrypoint {
  * round-trip on every call.
  */
 async function runSearch(code: string): Promise<unknown> {
-  const { text: specJson } = await getSpec()
+  const specJson = await getSpec()
   const workerId = `cloudflare-search-${crypto.randomUUID()}`
 
   const worker = env.LOADER.get(workerId, () => ({
