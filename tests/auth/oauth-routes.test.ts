@@ -259,7 +259,7 @@ describe('GET /authorize', () => {
     expect(body).not.toContain('data-scope=')
     expect(body).not.toContain('Save as template')
     expect(body).toContain('cf-mcp-consent:user-templates:v1')
-    expect(body).toContain('You can narrow scopes further later in the authorization flow.')
+    expect(body).toContain('You can narrow scopes further, later in the authorization flow.')
 
     const templates = embeddedTemplateScopes(body)
     expect(Object.keys(templates)).toEqual(['read-only', 'full-access'])
