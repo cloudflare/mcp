@@ -112,13 +112,25 @@ function scopeLabel(scope: string): string {
   return name ? `\`${scope}\` (${name})` : `\`${scope}\``
 }
 
+/** Whether Cloudflare refused the request. It answers a missing scope with 401 or 403, inconsistently. */
+function isRefusal(status: number): boolean {
+  return status === 401 || status === 403
+}
+
 /**
  * Explain why Cloudflare refused a request with 401 or 403, and what to do.
  *
- * Cloudflare reports a missing OAuth scope, an endpoint OAuth can't reach, and
- * a missing role all as `10000: Authentication error` or `9109: Unauthorized`.
- * That reads like a signed-out connection, so agents ask users to reconnect,
- * which changes nothing. This tells the cases apart.
+ * Cloudflare reports a missing OAuth scope, an endpoint OAuth can't reach, a
+ * missing role and a rejected credential all as `10000: Authentication error`
+ * or `9109: Unauthorized`, with either status (Workers KV and D1 writes get
+ * 401 for a missing scope). That reads like a signed-out connection, so agents
+ * ask users to reconnect, which usually changes nothing.
+ *
+ * So the endpoint's accepted permissions and the connection's scopes decide
+ * the explanation. The status matters only when they can't: when the spec
+ * lists no permissions, and when the connection already holds an accepted
+ * scope (401: Cloudflare rejected the credential itself; 403: something else,
+ * usually the user's role).
  *
  * @param status - The HTTP status Cloudflare returned.
  * @param connection - The credential that made the request.
@@ -130,37 +142,42 @@ export function explainRefusal(
   connection: Connection,
   permissions: readonly string[] | undefined
 ): string | undefined {
-  if (status === 401) {
-    return connection.kind === 'oauth'
-      ? 'Cloudflare did not accept this connection’s credentials. Reconnect to sign in again.'
-      : 'Cloudflare did not accept this credential. Check that the API token is valid and has not expired.'
-  }
-  if (status !== 403) return undefined
+  if (!isRefusal(status)) return undefined
 
   if (!permissions) {
+    if (status === 401) {
+      return connection.kind === 'oauth'
+        ? 'Cloudflare did not accept this connection’s credentials. Reconnect to sign in again.'
+        : 'Cloudflare did not accept this credential. Check that the API token is valid and has not expired.'
+    }
     return 'The API spec lists no permissions for this endpoint. HTTP 403 means the credential was accepted but is not allowed to do this, so reconnecting with the same permissions will not help. Check the endpoint’s documentation.'
   }
-
-  const scopes = [...new Set(permissions.flatMap((name) => SCOPES_BY_PERMISSION.get(name) ?? []))]
 
   if (connection.kind === 'direct') {
     const named = permissions.map((name) => {
       const ids = SCOPES_BY_PERMISSION.get(name)
       return ids ? `${name} (${ids.map((id) => `\`${id}\``).join(' or ')})` : name
     })
-    return `This endpoint needs one of these permissions: ${list(named)}. Add one to the token.`
+    const needs = `This endpoint needs one of these permissions: ${list(named)}. Add one to the token.`
+    return status === 401
+      ? `${needs} If the token already has one, check that it is valid and has not expired.`
+      : needs
   }
 
+  const scopes = [...new Set(permissions.flatMap((name) => SCOPES_BY_PERMISSION.get(name) ?? []))]
   if (scopes.length === 0) {
     return `No OAuth scope covers this endpoint, so OAuth connections cannot use it. Connect with an API token that has one of these permissions instead: ${list(permissions)}.`
   }
 
   const held = scopes.filter((scope) => connection.scopes.includes(scope))
-  if (held.length > 0) {
-    return `This connection already has ${list(held.map(scopeLabel))}, which this endpoint accepts, so reconnecting will not help. Cloudflare refused for another reason: usually the user’s role on the account or zone, or a resource in an account this connection was not granted.`
+  if (held.length === 0) {
+    return `This connection was not granted a scope this endpoint accepts. Reconnect and grant one of: ${list(scopes.map(scopeLabel))}.`
   }
 
-  return `This connection was not granted a scope this endpoint accepts. Reconnect and grant one of: ${list(scopes.map(scopeLabel))}.`
+  const has = `This connection already has ${list(held.map(scopeLabel))}, which this endpoint accepts`
+  return status === 401
+    ? `${has}, so Cloudflare rejected the credential itself. Reconnect to sign in again.`
+    : `${has}, so reconnecting will not help. Cloudflare refused for another reason: usually the user’s role on the account or zone, or a resource in an account this connection was not granted.`
 }
 
 const SAFE_METHODS = new Set(['GET', 'HEAD'])
@@ -198,7 +215,7 @@ export function scopeToRequest(
   path: string,
   permissions: readonly string[] | undefined
 ): string | undefined {
-  if (status !== 403 || connection.kind !== 'oauth' || !permissions) return undefined
+  if (!isRefusal(status) || connection.kind !== 'oauth' || !permissions) return undefined
 
   const [own, other] =
     path.split('/')[1] === 'zones' ? ['zone-', 'account-'] : ['account-', 'zone-']

@@ -97,9 +97,28 @@ describe('explainRefusal', () => {
     )
   })
 
-  it('asks to sign in again only for 401', () => {
-    expect(explainRefusal(401, oauth(), dns)).toContain('Reconnect to sign in again')
-    expect(explainRefusal(401, DIRECT_CONNECTION, dns)).toContain('API token is valid')
+  it('decides a 401 by the scopes, like a 403, when the connection holds none the endpoint accepts', () => {
+    expect(explainRefusal(401, oauth('user:read'), dns)).toContain(
+      'was not granted a scope this endpoint accepts'
+    )
+    expect(
+      scopeToRequest(401, oauth('user:read'), 'GET', '/zones/{zone_id}/dns_records', dns)
+    ).toBe('dns.read')
+  })
+
+  it('uses the status only where the scopes cannot decide', () => {
+    // Holds an accepted scope: 401 is a rejected credential, 403 is something else.
+    expect(explainRefusal(401, oauth('dns.read'), dns)).toContain(
+      'Cloudflare rejected the credential itself. Reconnect to sign in again.'
+    )
+    expect(explainRefusal(403, oauth('dns.read'), dns)).toContain('reconnecting will not help')
+    // No permissions in the spec.
+    expect(explainRefusal(401, oauth(), undefined)).toContain('Reconnect to sign in again')
+    expect(explainRefusal(401, DIRECT_CONNECTION, undefined)).toContain('API token is valid')
+    // A direct token's permissions are unknown, so a 401 lists what it needs too.
+    expect(explainRefusal(401, DIRECT_CONNECTION, dns)).toBe(
+      'This endpoint needs one of these permissions: DNS Read (`dns.read`), DNS Write (`dns.write`). Add one to the token. If the token already has one, check that it is valid and has not expired.'
+    )
   })
 
   it('says nothing for other statuses', () => {
@@ -158,7 +177,7 @@ describe('scopeToRequest', () => {
     const path = '/zones/{zone_id}/dns_records'
     expect(scopeToRequest(403, oauth('dns.write'), 'GET', path, dns)).toBeUndefined()
     expect(scopeToRequest(403, DIRECT_CONNECTION, 'GET', path, dns)).toBeUndefined()
-    expect(scopeToRequest(401, lacking, 'GET', path, dns)).toBeUndefined()
+    expect(scopeToRequest(401, oauth('dns.read'), 'GET', path, dns)).toBeUndefined()
     expect(scopeToRequest(403, lacking, 'GET', path, ['Billing Read'])).toBeUndefined()
     expect(scopeToRequest(403, lacking, 'GET', path, undefined)).toBeUndefined()
   })

@@ -30,12 +30,14 @@ function required<T>(value: T | null | undefined, what: string): T {
  * @param scopes - The scopes to request at consent and have Cloudflare grant.
  * @param account - The account the identity probe returns.
  * @param resource - The RFC 8707 resource the client names at /authorize and /token.
+ * @param redirectUri - The redirect URI the client registers, which can identify it (`src/clients.ts`).
  * @returns A provider-issued MCP access token.
  */
 export async function connectWithOAuth(
   scopes: readonly string[],
   account = { id: 'acc-1', name: 'Account One' },
-  resource = RESOURCE
+  resource = RESOURCE,
+  redirectUri = REDIRECT_URI
 ): Promise<string> {
   const scope = scopes.join(' ')
   server.use(
@@ -60,7 +62,7 @@ export async function connectWithOAuth(
     new Request(`${ORIGIN}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ redirect_uris: [REDIRECT_URI], token_endpoint_auth_method: 'none' })
+      body: JSON.stringify({ redirect_uris: [redirectUri], token_endpoint_auth_method: 'none' })
     })
   )
   const { client_id: clientId } = (await registered.json()) as { client_id: string }
@@ -69,7 +71,7 @@ export async function connectWithOAuth(
   for (const [key, value] of Object.entries({
     response_type: 'code',
     client_id: clientId,
-    redirect_uri: REDIRECT_URI,
+    redirect_uri: redirectUri,
     resource,
     scope,
     code_challenge: CODE_CHALLENGE,
@@ -121,7 +123,7 @@ export async function connectWithOAuth(
         grant_type: 'authorization_code',
         code,
         client_id: clientId,
-        redirect_uri: REDIRECT_URI,
+        redirect_uri: redirectUri,
         code_verifier: CODE_VERIFIER,
         resource
       }).toString()

@@ -88,11 +88,7 @@ https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
 
 ### Missing Permissions
 
-When Cloudflare refuses a call because the OAuth connection lacks a scope, the server answers with `403 insufficient_scope` naming it, as the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) describes. Clients that support step-up then ask you to grant it and retry the call. Clients that read the challenge from the tool result instead, such as ChatGPT, can use `?scopeChallenge=tool`:
-
-```
-https://mcp.cloudflare.com/mcp?scopeChallenge=tool
-```
+When Cloudflare refuses a call because the OAuth connection lacks a scope, the server asks the client to re-authorize with that scope added to the ones it already has. Claude and other clients that follow the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) get a `403 insufficient_scope` challenge. Codex and ChatGPT get it in the tool result, which is where they look for it. Either way, the tool error says which scope is missing.
 
 ## The Problem
 

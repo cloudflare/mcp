@@ -29,6 +29,10 @@ const RESOURCE_METADATA = 'https://mcp.cloudflare.com/.well-known/oauth-protecte
 const BASELINE = ['user:read', 'account:read']
 
 const GET_DNS = `async () => cloudflare.request({ method: "GET", path: "${DNS_PATH}" })`
+const ACCOUNT_ID = 'acc-1'
+const KV_PATH = `/accounts/${ACCOUNT_ID}/storage/kv/namespaces`
+const CREATE_KV = `async () => cloudflare.request({ method: "POST", path: "${KV_PATH}", body: { title: "t" } })`
+const CHATGPT_REDIRECT = 'https://chatgpt.com/connector_platform_oauth_redirect'
 
 beforeEach(async () => {
   await seedSpec(
@@ -47,6 +51,9 @@ beforeEach(async () => {
       },
       '/zones/{zone_id}/settings': {
         get: { summary: 'Zone Settings', 'x-api-token-group': ['Zone Settings Read'] }
+      },
+      '/accounts/{account_id}/storage/kv/namespaces': {
+        post: { summary: 'Create a Namespace', 'x-api-token-group': ['Workers KV Storage Write'] }
       }
     },
     ['dns']
@@ -58,7 +65,13 @@ beforeEach(async () => {
       })
     ),
     http.post(`${API_BASE}${DNS_PATH}`, () => HttpResponse.json(cfSuccess({ id: 'r1' }))),
-    http.get(`${API_BASE}/zones/${ZONE_ID}/settings`, () => HttpResponse.json(cfSuccess([])))
+    http.get(`${API_BASE}/zones/${ZONE_ID}/settings`, () => HttpResponse.json(cfSuccess([]))),
+    // Cloudflare answers some missing OAuth scopes with 401, not 403.
+    http.post(`${API_BASE}${KV_PATH}`, () =>
+      HttpResponse.json(cfError([{ code: 10000, message: 'Authentication error' }]), {
+        status: 401
+      })
+    )
   )
 })
 
@@ -67,11 +80,11 @@ afterEach(async () => {
   await clearSpec()
 })
 
-function expectChallenge(response: Response, scope: string): void {
+function expectChallenge(response: Response, scopes: string | readonly string[]): void {
   expect(response.status).toBe(403)
   const challenge = response.headers.get('WWW-Authenticate') ?? ''
   expect(challenge).toContain('error="insufficient_scope"')
-  expect(challenge).toContain(`scope="${[...BASELINE, scope].join(' ')}"`)
+  expect(challenge).toContain(`scope="${[...BASELINE, ...[scopes].flat()].join(' ')}"`)
   expect(challenge).toContain(`resource_metadata="${RESOURCE_METADATA}"`)
 }
 
@@ -85,6 +98,26 @@ describe('execute', () => {
   it('challenges for the missing scope', async () => {
     const token = await connectWithOAuth(BASELINE)
     expectChallenge(await executeModern(token, GET_DNS), 'dns.read')
+  })
+
+  it('names every scope the connection already holds as well as the missing one', async () => {
+    const token = await connectWithOAuth([...BASELINE, 'zone-settings.read'])
+    expectChallenge(await executeModern(token, GET_DNS), ['zone-settings.read', 'dns.read'])
+  })
+
+  it('treats a 401 as a missing scope when the connection holds none the endpoint accepts', async () => {
+    const token = await connectWithOAuth(BASELINE)
+    expectChallenge(await executeModern(token, CREATE_KV), 'workers-kv-storage.write')
+  })
+
+  it('keeps a 401 as a credential problem when the connection holds an accepted scope', async () => {
+    const token = await connectWithOAuth([...BASELINE, 'workers-kv-storage.write'])
+    const response = await executeModern(token, CREATE_KV)
+
+    expect(response.status).toBe(200)
+    expect((await parseMcpResult(response)).result?.content?.[0]?.text).toContain(
+      'Reconnect to sign in again'
+    )
   })
 
   it('challenges a 2025-era request too', async () => {
@@ -159,6 +192,26 @@ describe('execute', () => {
     const [challenge] = body.result?._meta?.['mcp/www_authenticate'] as string[]
     expect(challenge).toContain('error="insufficient_scope"')
     expect(challenge).toContain('scope="user:read account:read dns.read"')
+  })
+
+  it('puts the challenge in the tool result for a ChatGPT client', async () => {
+    const token = await connectWithOAuth(BASELINE, undefined, undefined, CHATGPT_REDIRECT)
+    const response = await executeModern(token, GET_DNS)
+    const body = await parseMcpResult(response)
+
+    expect(response.status).toBe(200)
+    expect(body.result?.isError).toBe(true)
+    expect(body.result?.content?.[0]?.text).toContain('`dns.read` (DNS Read)')
+    const [challenge] = body.result?._meta?.['mcp/www_authenticate'] as string[]
+    expect(challenge).toContain('scope="user:read account:read dns.read"')
+  })
+
+  it('lets scopeChallenge=http override the client', async () => {
+    const token = await connectWithOAuth(BASELINE, undefined, undefined, CHATGPT_REDIRECT)
+    expectChallenge(
+      await executeModern(token, GET_DNS, `${MCP_URL}?scopeChallenge=http`),
+      'dns.read'
+    )
   })
 
   it('never challenges a direct API token', async () => {

@@ -1,4 +1,8 @@
-import type { OAuthResourceAuth, OAuthResourceContext } from '@cloudflare/workers-oauth-provider'
+import type {
+  OAuthHelpers,
+  OAuthResourceAuth,
+  OAuthResourceContext
+} from '@cloudflare/workers-oauth-provider'
 import {
   createMcpHandler,
   isLegacyRequest,
@@ -12,6 +16,7 @@ import type { McpServer } from '@modelcontextprotocol/server'
 import { createServer, type ServerOptions } from './server'
 import { connectionFromAuth, type Connection } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
+import { identifyClient, type ClientBehavior } from './clients'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
 
 export const MCP_ROUTE = '/mcp'
@@ -40,13 +45,10 @@ function serverOptionsFromUrl(url: string): ServerOptions {
   }
 }
 
-/**
- * Where a step-up challenge goes: the spec's HTTP `403` (default), or the tool
- * result's `_meta["mcp/www_authenticate"]`, which ChatGPT reads, with
- * `/mcp?scopeChallenge=tool`.
- */
-function challengeDeliveryFromUrl(url: string): 'http' | 'tool' {
-  return new URL(url).searchParams.get('scopeChallenge') === 'tool' ? 'tool' : 'http'
+/** `/mcp?scopeChallenge=http|tool` overrides the client's challenge delivery, for testing a client. */
+function challengeDeliveryOverride(url: string): ClientBehavior['scopeChallenge'] | undefined {
+  const value = new URL(url).searchParams.get('scopeChallenge')
+  return value === 'http' || value === 'tool' ? value : undefined
 }
 
 function createAuthenticatedHandler(
@@ -130,17 +132,41 @@ export function handleMcpPreflight(request: Request): Response {
   return new Response(null, { status: 204, headers: corsHeaders(request) })
 }
 
+/** Reads a registered OAuth client's redirect URIs. */
+export type LookupRedirectUris = (clientId: string) => Promise<readonly string[]>
+
+/**
+ * How this request's client takes a step-up challenge: the URL override, else
+ * its behavior in `src/clients.ts`. Called only once a tool has recorded a
+ * challenge, because identifying a registered client costs a KV read.
+ */
+async function challengeDelivery(
+  url: string,
+  clientId: string,
+  lookupRedirectUris: LookupRedirectUris
+): Promise<ClientBehavior['scopeChallenge']> {
+  const override = challengeDeliveryOverride(url)
+  if (override) return override
+  const { behavior } = await identifyClient({
+    clientId,
+    redirectUris: () => lookupRedirectUris(clientId)
+  })
+  return behavior.scopeChallenge
+}
+
 /**
  * Serve one authenticated MCP exchange with a fresh SDK v2 server instance.
  *
  * @param request - The MCP HTTP request.
  * @param rawProps - `ctx.props` from workers-oauth-provider.
  * @param auth - `ctx.auth` from workers-oauth-provider: the verified token's scopes.
+ * @param lookupRedirectUris - Reads a registered client's redirect URIs, to identify it (`src/clients.ts`).
  */
 export async function handleAuthenticatedMcpRequest(
   request: Request,
   rawProps: unknown,
-  auth?: OAuthResourceAuth
+  auth?: OAuthResourceAuth,
+  lookupRedirectUris: LookupRedirectUris = async () => []
 ): Promise<Response> {
   if (new URL(request.url).pathname !== MCP_ROUTE) {
     return new Response('Not Found', { status: 404 })
@@ -152,10 +178,11 @@ export async function handleAuthenticatedMcpRequest(
   const props = AuthPropsSchema.parse(rawProps)
   const connection = connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.
-  const scopeChallenge = new ScopeChallenge(connection.kind === 'oauth' ? auth : undefined)
+  const issued = connection.kind === 'oauth' ? auth : undefined
+  const scopeChallenge = new ScopeChallenge(issued)
 
   const response =
-    connection.kind === 'oauth' && request.method === 'POST' && (await isLegacyRequest(request))
+    issued && request.method === 'POST' && (await isLegacyRequest(request))
       ? await serveLegacyAsJson(
           request,
           await createServer(props, serverOptionsFromUrl(request.url), connection, scopeChallenge)
@@ -165,8 +192,9 @@ export async function handleAuthenticatedMcpRequest(
   const challenge = scopeChallenge.response
   if (
     challenge &&
-    challengeDeliveryFromUrl(request.url) === 'http' &&
-    response.headers.get('Content-Type')?.includes('application/json')
+    issued?.clientId &&
+    response.headers.get('Content-Type')?.includes('application/json') &&
+    (await challengeDelivery(request.url, issued.clientId, lookupRedirectUris)) === 'http'
   ) {
     await response.body?.cancel()
     return withCors(challenge, request)
@@ -179,9 +207,12 @@ export const oauthMcpHandler = {
   // The provider's apiHandlers type predates ctx.auth, so it is optional here.
   fetch(
     request: Request,
-    _env: Env,
+    env: Env & { OAUTH_PROVIDER?: OAuthHelpers },
     ctx: ExecutionContext & Partial<Pick<OAuthResourceContext<unknown>, 'auth'>>
   ) {
-    return handleAuthenticatedMcpRequest(request, ctx.props, ctx.auth)
+    return handleAuthenticatedMcpRequest(request, ctx.props, ctx.auth, async (clientId) => {
+      const client = await env.OAUTH_PROVIDER?.lookupClient(clientId)
+      return client?.redirectUris ?? []
+    })
   }
 }
