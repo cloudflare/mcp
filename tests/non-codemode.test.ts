@@ -76,6 +76,17 @@ describe('precomputed tool contracts', () => {
 })
 
 describe('non-Code-Mode schema generation', () => {
+  it('carries each operation’s accepted permissions into mcp-tools.json', () => {
+    const [listed, created] = buildMcpTools({
+      '/zones/{zone_id}/dns_records': {
+        get: { summary: 'List', 'x-api-token-group': ['DNS Read', 'DNS Write'] },
+        post: { summary: 'Create' }
+      }
+    })
+    expect(listed.permissions).toEqual(['DNS Read', 'DNS Write'])
+    expect(created).not.toHaveProperty('permissions')
+  })
+
   it.each([
     ['get_accounts_workers_scripts', 'Get Accounts Workers Scripts'],
     ['get_zones_dns_records_by_record_id', 'Get Zones Dns Records by Record Id'],
@@ -388,7 +399,9 @@ describe('createServer with codemode=false', () => {
       )
       expect(calledOpts.method).toBe('GET')
       expect(calledOpts.headers['Authorization']).toBe('Bearer test-token')
-      expect(calledOpts.headers['User-Agent']).toBe('cloudflare-mcp (+https://github.com/cloudflare/mcp)')
+      expect(calledOpts.headers['User-Agent']).toBe(
+        'cloudflare-mcp (+https://github.com/cloudflare/mcp)'
+      )
 
       expect(result.isError).toBeFalsy()
       expect(result.content[0].text).toContain('my-worker')
