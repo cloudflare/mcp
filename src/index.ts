@@ -21,6 +21,9 @@ const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc
 // so it must be re-exported here.
 export { GlobalOutbound } from './tools/execute'
 
+// Kept exported so staging's existing ToolsBuilder namespace accepts this Worker.
+export { ToolsBuilder } from './tools-builder'
+
 // Built once per isolate: constructing the provider validates its whole configuration, which used to
 // run on every request. The module-scope `env` from cloudflare:workers carries the same bindings and
 // secrets the request's env does.

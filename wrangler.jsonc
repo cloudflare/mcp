@@ -54,6 +54,14 @@
 			"dataset": "mcp-metrics-dev"
 		}
 	],
+	// Staging already has a ToolsBuilder namespace (Forge, #247), and Cloudflare rejects a
+	// deploy that drops a provisioned class from `exports`. Placeholder until #247 lands.
+	"exports": {
+		"ToolsBuilder": {
+			"type": "durable-object",
+			"storage": "sqlite"
+		}
+	},
 	"triggers": {
 		"crons": ["0 0 * * *"]
 	},
