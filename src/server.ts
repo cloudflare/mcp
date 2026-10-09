@@ -11,6 +11,8 @@ import { stringifyResponse, truncateResponse } from './truncate'
 import type { AuthProps } from './auth/types'
 import { registerEventMethods } from './events/methods'
 import type { EventEnvironment } from './events/state'
+import { DIRECT_CONNECTION, type Connection } from './api-permissions'
+import { ScopeChallenge } from './scope-challenge'
 
 /** Per-request options the client picks through the MCP URL query string. */
 export interface ServerOptions {
@@ -27,17 +29,33 @@ export interface ServerOptions {
   readonly truncateToolResult?: boolean
 }
 
+/** What one authenticated request brings besides its credentials. */
+export interface RequestContext {
+  /** What the request's token is allowed to do, for explaining refused API calls. */
+  readonly connection: Connection
+  /** Where tools record a scope the request needs, for a step-up challenge. */
+  readonly scopeChallenge: ScopeChallenge
+  /** MCP Events, served when the Worker environment is available. */
+  readonly events?: { readonly env: EventEnvironment; readonly bearer: string }
+}
+
+/** A request whose credential can't step up and that serves no events, e.g. in tests. */
+export function directRequestContext(): RequestContext {
+  return { connection: DIRECT_CONNECTION, scopeChallenge: new ScopeChallenge(undefined) }
+}
+
 /**
  * Build the MCP server for one authenticated request.
  *
  * @param props - The validated credentials for the request.
  * @param options - The tool surface and result shaping the client asked for.
+ * @param context - The request's connection, step-up challenge and MCP Events environment.
  * @returns A fresh server with the requested tools and the skills catalog registered.
  */
 export async function createServer(
   props: AuthProps,
   { codemode = true, truncateToolResult = true }: ServerOptions = {},
-  events?: { env: EventEnvironment; bearer: string }
+  { connection, scopeChallenge, events }: RequestContext = directRequestContext()
 ): Promise<McpServer> {
   const server = new McpServer(SERVER_INFO)
   // The tool set is fixed for the life of each per-request server, so this
@@ -50,7 +68,7 @@ export async function createServer(
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (!codemode) {
-    await registerNonCodemodeTools(server, props, formatResult)
+    await registerNonCodemodeTools(server, props, formatResult, connection, scopeChallenge)
     return server
   }
 
@@ -59,7 +77,7 @@ export async function createServer(
   attachMetrics(server, props)
   registerDocsTool(server)
   await registerSearchTool(server, formatResult)
-  registerExecuteTool(server, props, formatResult)
+  registerExecuteTool(server, props, formatResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
 
   return server

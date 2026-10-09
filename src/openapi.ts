@@ -9,6 +9,8 @@ export const MCP_TOOLS_KEY = 'mcp-tools.json'
  */
 export interface OperationInfo {
   summary?: string
+  /** API token permissions the operation accepts; any one is enough. OAuth scopes share these names. */
+  'x-api-token-group'?: string[]
   description?: string
   tags?: string[]
   parameters?: Array<{
@@ -32,6 +34,7 @@ export interface OperationInfo {
 export const SPEC_TYPES = `
 interface OperationInfo {
   summary?: string;
+  "x-api-token-group"?: string[]; // API token permissions the endpoint accepts (any one); OAuth scopes have the same names
   description?: string;
   tags?: string[];
   parameters?: Array<{ name: string; in: string; required?: boolean; schema?: unknown; description?: string }>;
@@ -132,6 +135,8 @@ export interface McpTool {
   path: string
   queryParams: string[]
   headerParams: Array<{ name: string; key: string }>
+  /** `x-api-token-group`: API token permissions the endpoint accepts; any one is enough. */
+  permissions?: string[]
 }
 
 interface NonCodemodeOperation {
@@ -205,7 +210,8 @@ export function buildMcpTools(paths: Record<string, Record<string, OperationInfo
         .map((parameter) => ({
           name: parameter.name,
           key: `header_${parameter.name.toLowerCase().replace(/-/g, '_')}`
-        }))
+        })),
+      ...(operation['x-api-token-group'] ? { permissions: operation['x-api-token-group'] } : {})
     })
   )
 }

@@ -179,6 +179,22 @@ describe('processSpec', () => {
     const result = processSpec({})
     expect(result.paths).toEqual({})
   })
+
+  it('keeps x-api-token-group lists and drops malformed values', () => {
+    const result = processSpec({
+      paths: {
+        '/zones/{zone_id}/dns_records': {
+          get: { summary: 'List', 'x-api-token-group': ['DNS Read', 'DNS Write'] },
+          post: { summary: 'Create', 'x-api-token-group': 'DNS Write' },
+          put: { summary: 'Replace', 'x-api-token-group': ['DNS Write', ''] }
+        }
+      }
+    })
+    const item = result.paths['/zones/{zone_id}/dns_records'] as Record<string, any>
+    expect(item.get['x-api-token-group']).toEqual(['DNS Read', 'DNS Write'])
+    expect(item.post['x-api-token-group']).toBeUndefined()
+    expect(item.put['x-api-token-group']).toBeUndefined()
+  })
 })
 
 describe('extractProducts', () => {
