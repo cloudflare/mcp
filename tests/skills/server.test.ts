@@ -5,6 +5,7 @@ import { clearKv } from '../helpers/kv'
 import { MCP_HOST, MCP_URL, modernMcpRequest, parseMcpResult } from '../helpers/mcp'
 import { clearSpec, seedSpec } from '../helpers/spec'
 import { seedSkills, skillMarkdown } from '../helpers/skills'
+import { SKILL_FILES_PREFIX } from '../../src/skills/types'
 
 /**
  * Drives the real worker through `exports.default.fetch`: auth, the MCP
@@ -17,6 +18,7 @@ const ACCOUNT_ID = '00000000000000000000000000000001'
 
 const WRANGLER_SKILL_MD = skillMarkdown('wrangler', 'Use the Wrangler CLI', '# Wrangler\n')
 const SCRIPT = '#!/bin/sh\necho deploy\n'
+const LOGO = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0xff, 0x00])
 
 interface SkillEntry {
   uri: string
@@ -85,6 +87,7 @@ describe('skills extension with a synced catalog', () => {
       'README.md': 'repo readme',
       'skills/wrangler/SKILL.md': WRANGLER_SKILL_MD,
       'skills/wrangler/scripts/deploy.sh': SCRIPT,
+      'skills/durable-objects/assets/logo.png': LOGO,
       'skills/durable-objects/SKILL.md': skillMarkdown(
         'durable-objects',
         'Build with Durable Objects'
@@ -116,7 +119,10 @@ describe('skills extension with a synced catalog', () => {
       {
         uri: 'skill://durable-objects/SKILL.md',
         frontmatter: { name: 'durable-objects', description: 'Build with Durable Objects' },
-        resources: [expect.objectContaining({ uri: 'skill://durable-objects/SKILL.md' })]
+        resources: [
+          expect.objectContaining({ uri: 'skill://durable-objects/SKILL.md' }),
+          expect.objectContaining({ uri: 'skill://durable-objects/assets/logo.png', size: 6 })
+        ]
       },
       {
         uri: 'skill://wrangler/SKILL.md',
@@ -152,6 +158,26 @@ describe('skills extension with a synced catalog', () => {
     expect(script.result?.contents).toEqual([
       { uri: 'skill://wrangler/scripts/deploy.sh', mimeType: 'text/x-shellscript', text: SCRIPT }
     ])
+  })
+
+  it('serves binary files as base64 blobs', async () => {
+    const body = await modern('resources/read', { uri: 'skill://durable-objects/assets/logo.png' })
+
+    expect(body.result?.contents).toEqual([
+      {
+        uri: 'skill://durable-objects/assets/logo.png',
+        mimeType: 'image/png',
+        blob: btoa(String.fromCharCode(...LOGO))
+      }
+    ])
+  })
+
+  it('answers -32603 when R2 no longer holds a file the cached manifest names', async () => {
+    const { objects } = await env.SPEC_BUCKET.list({ prefix: SKILL_FILES_PREFIX })
+    await env.SPEC_BUCKET.delete(objects.map((object) => object.key))
+
+    const body = await modern('resources/read', { uri: 'skill://wrangler/scripts/deploy.sh' })
+    expect(body.error?.code).toBe(-32603)
   })
 
   it('lists only SKILL.md files in resources/list', async () => {

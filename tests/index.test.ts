@@ -9,7 +9,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { clearR2 } from './helpers/r2'
 import { mockSkillsArchive, skillMarkdown } from './helpers/skills'
 import { SKILLS_ARCHIVE_URL } from '../src/skills/sync'
-import { SkillsBundle } from '../src/skills/types'
+import { SKILLS_MANIFEST_KEY, SkillsManifest } from '../src/skills/types'
 import { server } from './setup/msw'
 import worker from '../src/index'
 
@@ -38,7 +38,7 @@ const RAW_SPEC = {
 }
 
 async function runScheduled() {
-  const controller = createScheduledController({ scheduledTime: Date.now(), cron: '0 0 * * *' })
+  const controller = createScheduledController({ scheduledTime: Date.now(), cron: '0 */6 * * *' })
   const ctx = createExecutionContext()
   await worker.scheduled!(controller, env, ctx)
   await waitOnExecutionContext(ctx)
@@ -95,22 +95,25 @@ describe('scheduled handler', () => {
 
     await expect(runScheduled()).rejects.toThrow('Failed to fetch OpenAPI spec: 404')
 
-    // No spec artifact should have been written to R2.
-    const { objects } = await env.SPEC_BUCKET.list()
-    expect(objects.map((object) => object.key)).toEqual(['skills.json'])
+    // No spec artifact was written; the independent skills sync still ran.
+    for (const key of ['spec.json', 'products.json', 'mcp-tools.json']) {
+      expect(await env.SPEC_BUCKET.get(key)).toBeNull()
+    }
+    expect(await env.SPEC_BUCKET.get(SKILLS_MANIFEST_KEY)).not.toBeNull()
   })
 
-  it('syncs cloudflare/skills into one R2 bundle that records the source commit', async () => {
+  it('syncs cloudflare/skills into R2 and records the source commit', async () => {
     server.use(http.get(SPEC_URL, () => HttpResponse.json(RAW_SPEC)))
 
     await runScheduled()
 
-    const bundle = SkillsBundle.parse(await (await env.SPEC_BUCKET.get('skills.json'))!.json())
-    expect(bundle.source).toEqual({
+    const object = await env.SPEC_BUCKET.get(SKILLS_MANIFEST_KEY)
+    const manifest = SkillsManifest.parse(await object!.json())
+    expect(manifest.source).toEqual({
       repository: 'cloudflare/skills',
       commit: 'a84b615ff9d40e7f99755aea23d65e52d645bd42'
     })
-    expect(bundle.skills.map(({ skill }) => skill.uri)).toEqual(['skill://wrangler/SKILL.md'])
+    expect(manifest.skills.map(({ skill }) => skill.uri)).toEqual(['skill://wrangler/SKILL.md'])
   })
 
   it('still updates the spec when the skills download fails, then reports the failure', async () => {
@@ -122,17 +125,6 @@ describe('scheduled handler', () => {
     await expect(runScheduled()).rejects.toThrow('Failed to fetch skills archive: 502')
 
     expect(await env.SPEC_BUCKET.get('spec.json')).not.toBeNull()
-    expect(await env.SPEC_BUCKET.get('skills.json')).toBeNull()
-  })
-
-  it('keeps the previous skills bundle when the archive has no valid skills', async () => {
-    server.use(http.get(SPEC_URL, () => HttpResponse.json(RAW_SPEC)))
-    await runScheduled()
-    const before = await (await env.SPEC_BUCKET.get('skills.json'))!.text()
-
-    await mockSkillsArchive({ 'README.md': 'no skills here' })
-    await expect(runScheduled()).rejects.toThrow('contained no valid skills')
-
-    expect(await (await env.SPEC_BUCKET.get('skills.json'))!.text()).toBe(before)
+    expect(await env.SPEC_BUCKET.get(SKILLS_MANIFEST_KEY)).toBeNull()
   })
 })

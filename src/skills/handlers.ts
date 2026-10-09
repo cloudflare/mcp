@@ -5,14 +5,24 @@ import {
   ResourceNotFoundError,
   type McpServer
 } from '@modelcontextprotocol/server'
-import { getSkills } from '../isolate-cache'
+import { getSkills, readSkillFile } from '../isolate-cache'
 import { SKILLS_EXTENSION_ID } from './types'
 
 /**
- * Skills change at most once a day (the sync cron) and are the same for every
- * user, so clients may cache listings and reads for an hour and share them.
+ * Skills change at most every six hours (the sync cron) and are the same for
+ * every user, so clients may cache listings and reads for an hour and share them.
  */
 const SKILLS_CACHE = { ttlMs: 60 * 60 * 1000, cacheScope: 'public' } as const
+
+const utf8 = new TextDecoder()
+
+function toBase64(bytes: Uint8Array): string {
+  let binary = ''
+  for (let index = 0; index < bytes.length; index += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000))
+  }
+  return btoa(binary)
+}
 
 const ListSkillsParams = z.looseObject({ cursor: z.string().optional() }).optional()
 const GetSkillParams = z.looseObject({ uri: z.string() })
@@ -75,6 +85,11 @@ export function registerSkills(server: McpServer): void {
     const { uri } = request.params
     const file = (await getSkills()).filesByUri.get(uri)
     if (!file) throw new ResourceNotFoundError(uri, `No resource is served at ${uri}`)
-    return { contents: [file], ...SKILLS_CACHE }
+    const bytes = await readSkillFile(file)
+    const content =
+      file.encoding === 'text'
+        ? { uri, mimeType: file.mimeType, text: utf8.decode(bytes) }
+        : { uri, mimeType: file.mimeType, blob: toBase64(bytes) }
+    return { contents: [content], ...SKILLS_CACHE }
   })
 }

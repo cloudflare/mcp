@@ -4,7 +4,7 @@ import {
   MAX_RESOURCES_PER_SKILL,
   type Skill,
   type SkillFile,
-  type SkillsBundle
+  type SkillsManifest
 } from './types'
 
 /** A file inside one skill directory, with its path relative to the skill root. */
@@ -13,8 +13,15 @@ export interface SkillSourceFile {
   readonly bytes: Uint8Array
 }
 
+/** A built skill: its entry, how to serve each file, and each file's bytes by digest. */
+export interface BuiltSkill {
+  readonly skill: Skill
+  readonly files: SkillFile[]
+  readonly blobs: Map<string, Uint8Array>
+}
+
 export type SkillBuildResult =
-  | { readonly ok: true; readonly skill: Skill; readonly files: SkillFile[] }
+  | ({ readonly ok: true } & BuiltSkill)
   | { readonly ok: false; readonly name: string; readonly reason: string }
 
 const SKILL_NAME = /^[a-z0-9]+(-[a-z0-9]+)*$/
@@ -64,14 +71,6 @@ function decodeUtf8(bytes: Uint8Array): string | undefined {
   } catch {
     return undefined
   }
-}
-
-function toBase64(bytes: Uint8Array): string {
-  let binary = ''
-  for (let index = 0; index < bytes.length; index += 0x8000) {
-    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000))
-  }
-  return btoa(binary)
 }
 
 function mimeTypeFor(path: string, isText: boolean): string {
@@ -152,17 +151,27 @@ export async function buildSkill(
   )
   const resources: Skill['resources'] = []
   const files: SkillFile[] = []
+  const blobs = new Map<string, Uint8Array>()
   for (const file of ordered) {
     const uri = skillFileUri(name, file.path)
-    const text = decodeUtf8(file.bytes)
-    const mimeType = mimeTypeFor(file.path, text !== undefined)
-    resources.push({ uri, digest: await sha256(file.bytes), size: file.bytes.byteLength })
-    files.push(
-      text === undefined ? { uri, mimeType, blob: toBase64(file.bytes) } : { uri, mimeType, text }
-    )
+    const isText = decodeUtf8(file.bytes) !== undefined
+    const digest = await sha256(file.bytes)
+    resources.push({ uri, digest, size: file.bytes.byteLength })
+    files.push({
+      uri,
+      mimeType: mimeTypeFor(file.path, isText),
+      digest,
+      encoding: isText ? 'text' : 'base64'
+    })
+    blobs.set(digest, file.bytes)
   }
 
-  return { ok: true, skill: { uri: skillFileUri(name, 'SKILL.md'), frontmatter, resources }, files }
+  return {
+    ok: true,
+    skill: { uri: skillFileUri(name, 'SKILL.md'), frontmatter, resources },
+    files,
+    blobs
+  }
 }
 
 function isSafeRelativePath(path: string): boolean {
@@ -170,18 +179,23 @@ function isSafeRelativePath(path: string): boolean {
 }
 
 /**
- * Turn the files of a skills repository archive into the R2 bundle.
+ * Turn the files of a skills repository archive into a manifest and the bytes
+ * of every file it names, keyed by digest.
  *
  * Each `skills/<name>/` directory becomes one skill. Directories that break a
  * rule are left out and reported in `skipped`.
  *
  * @param archiveFiles - Archive files, paths relative to the repository root.
  */
-export async function buildSkillsBundle(
+export async function buildSkillsManifest(
   archiveFiles: readonly SkillSourceFile[],
-  source: SkillsBundle['source'],
+  source: SkillsManifest['source'],
   syncedAt: Date
-): Promise<{ bundle: SkillsBundle; skipped: { name: string; reason: string }[] }> {
+): Promise<{
+  manifest: SkillsManifest
+  blobs: Map<string, Uint8Array>
+  skipped: { name: string; reason: string }[]
+}> {
   const byName = new Map<string, SkillSourceFile[]>()
   for (const file of archiveFiles) {
     const match = /^skills\/([^/]+)\/(.+)$/.exec(file.path)
@@ -192,16 +206,22 @@ export async function buildSkillsBundle(
     byName.set(name, files)
   }
 
-  const skills: SkillsBundle['skills'] = []
+  const skills: SkillsManifest['skills'] = []
+  const blobs = new Map<string, Uint8Array>()
   const skipped: { name: string; reason: string }[] = []
   for (const name of [...byName.keys()].sort()) {
     const result = await buildSkill(name, byName.get(name) ?? [])
-    if (result.ok) skills.push({ skill: result.skill, files: result.files })
-    else skipped.push({ name: result.name, reason: result.reason })
+    if (!result.ok) {
+      skipped.push({ name: result.name, reason: result.reason })
+      continue
+    }
+    skills.push({ skill: result.skill, files: result.files })
+    for (const [digest, bytes] of result.blobs) blobs.set(digest, bytes)
   }
 
   return {
-    bundle: { version: 1, source, syncedAt: syncedAt.toISOString(), skills },
+    manifest: { version: 2, source, syncedAt: syncedAt.toISOString(), skills },
+    blobs,
     skipped
   }
 }

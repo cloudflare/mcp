@@ -117,7 +117,7 @@ Agent                         MCP Server
 
 ## Skills
 
-The server also serves the [Cloudflare skills](https://github.com/cloudflare/skills) (Wrangler, Durable Objects, Agents SDK, Workers best practices and more) through the MCP [Skills extension](https://modelcontextprotocol.io/extensions/skills/overview). Clients that support it discover them with `skills/list` and read each file at `skill://<name>/<path>`. The catalog is synced from GitHub daily.
+The server also serves the [Cloudflare skills](https://github.com/cloudflare/skills) (Wrangler, Durable Objects, Agents SDK, Workers best practices and more) through the MCP [Skills extension](https://modelcontextprotocol.io/extensions/skills/overview). Clients that support it discover them with `skills/list` and read each file at `skill://<name>/<path>`. The catalog is synced from GitHub every six hours.
 
 ## Supported Products
 

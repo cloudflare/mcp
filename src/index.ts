@@ -97,8 +97,9 @@ export default {
     env: Env,
     _ctx: ExecutionContext
   ): Promise<void> {
-    // Independent jobs: a failed skills download must not hold back the spec,
-    // or the reverse. Both run to completion before any failure is reported.
+    // Runs every six hours (`0 */6 * * *`). The jobs are independent: a failed
+    // skills download must not hold back the spec, or the reverse. Both run to
+    // completion before any failure is reported.
     const results = await Promise.allSettled([syncSpec(env), syncSkills(env.SPEC_BUCKET)])
     const failures = results.flatMap((result) =>
       result.status === 'rejected' ? [result.reason as unknown] : []

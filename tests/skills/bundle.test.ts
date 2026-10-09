@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildSkill, buildSkillsBundle, parseFrontmatter } from '../../src/skills/bundle'
+import { buildSkill, buildSkillsManifest, parseFrontmatter } from '../../src/skills/bundle'
 import { readTar } from '../../src/skills/tar'
 import { MAX_RESOURCES_PER_SKILL } from '../../src/skills/types'
 import { buildTar, skillMarkdown } from '../helpers/skills'
@@ -95,14 +95,18 @@ describe('buildSkill', () => {
       }
     ])
     expect(result.files).toEqual([
-      { uri: 'skill://wrangler/SKILL.md', mimeType: 'text/markdown', text: skillMd },
-      {
-        uri: 'skill://wrangler/assets/logo.png',
-        mimeType: 'image/png',
-        blob: btoa('\xff\xfe\x00\x01')
-      },
-      { uri: 'skill://wrangler/scripts/run.sh', mimeType: 'text/x-shellscript', text: script }
+      expect.objectContaining({ mimeType: 'text/markdown', encoding: 'text' }),
+      expect.objectContaining({ mimeType: 'image/png', encoding: 'base64' }),
+      expect.objectContaining({ mimeType: 'text/x-shellscript', encoding: 'text' })
     ])
+    // Every file's bytes are keyed by the digest its entry publishes.
+    for (const resource of result.skill.resources) {
+      const blob = result.blobs.get(resource.digest)
+      expect(blob && `sha256:${await sha256Hex(blob)}`).toBe(resource.digest)
+    }
+    expect(result.files.map((file) => file.digest)).toEqual(
+      result.skill.resources.map((resource) => resource.digest)
+    )
   })
 
   it('percent-encodes path segments in file URIs', async () => {
@@ -144,9 +148,9 @@ describe('buildSkill', () => {
   })
 })
 
-describe('buildSkillsBundle', () => {
+describe('buildSkillsManifest', () => {
   it('groups skills/<name>/ directories and reports the ones it skips', async () => {
-    const { bundle, skipped } = await buildSkillsBundle(
+    const { manifest, blobs, skipped } = await buildSkillsManifest(
       [
         { path: 'README.md', bytes: bytes('repo readme') },
         { path: 'skills/wrangler/SKILL.md', bytes: bytes(skillMarkdown('wrangler', 'Wrangler')) },
@@ -158,9 +162,10 @@ describe('buildSkillsBundle', () => {
       new Date('2026-10-08T00:00:00Z')
     )
 
-    expect(bundle.syncedAt).toBe('2026-10-08T00:00:00.000Z')
-    expect(bundle.skills.map(({ skill }) => skill.uri)).toEqual(['skill://wrangler/SKILL.md'])
-    expect(bundle.skills[0]?.skill.resources.map((resource) => resource.uri)).toEqual([
+    expect(manifest.syncedAt).toBe('2026-10-08T00:00:00.000Z')
+    expect(manifest.skills.map(({ skill }) => skill.uri)).toEqual(['skill://wrangler/SKILL.md'])
+    expect(blobs.size).toBe(2)
+    expect(manifest.skills[0]?.skill.resources.map((resource) => resource.uri)).toEqual([
       'skill://wrangler/SKILL.md',
       'skill://wrangler/references/a.md'
     ])

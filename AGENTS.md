@@ -26,10 +26,10 @@ cloudflare-mcp/
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
 │   ├── skills/
-│   │   ├── types.ts               # Skills extension wire + R2 bundle schemas (Zod)
+│   │   ├── types.ts               # Skills extension wire + R2 manifest schemas (Zod)
 │   │   ├── tar.ts                 # Minimal tar reader for the GitHub archive
 │   │   ├── bundle.ts              # Skill validation, frontmatter, digests
-│   │   ├── sync.ts                # Daily cloudflare/skills → R2 sync
+│   │   ├── sync.ts                # Six-hourly incremental cloudflare/skills → R2 sync
 │   │   └── handlers.ts            # skills/list, skills/get, resources/* handlers
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
@@ -143,7 +143,7 @@ The consent page offers read-only and full-access templates built from the produ
 
 ### OpenAPI spec processing
 
-- Fetched from GitHub daily (scheduled handler, cron `0 0 * * *`)
+- Fetched from GitHub every six hours (scheduled handler, cron `0 */6 * * *`), alongside the skills sync; the two jobs run independently under `Promise.allSettled`
 - All `$ref` references resolved inline before storage
 - Products and minimal operation metadata extracted
 - Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and `mcp-tools.json`, the direct-tool catalogue for `?codemode=false`
@@ -154,8 +154,8 @@ The consent page offers read-only and full-access templates built from the produ
 
 The server implements the MCP Skills extension (`io.modelcontextprotocol/skills`, [SEP-2640](https://github.com/modelcontextprotocol/ext-skills/blob/main/specification/stable/skills.mdx)) in both tool modes and serves the skills from [`cloudflare/skills`](https://github.com/cloudflare/skills).
 
-- **Sync:** the daily cron downloads the repository tarball from codeload (one request, not subject to the GitHub API rate limit), reads it with `src/skills/tar.ts`, and turns each `skills/<name>/` directory into one skill. A skill is left out, with a logged reason, if its directory name isn't a valid skill name, it has no `SKILL.md` frontmatter with string `name` and `description`, the `name` doesn't match the directory, or it exceeds the spec's 512-file / 16 MiB limits. Frontmatter is parsed with `yaml` (core schema) and passed through verbatim as JSON.
-- **Storage:** one R2 object, `skills.json`, holds every entry and every file's content, so an update replaces both together and a published digest never describes bytes from a different sync. It records the source commit from the tarball's pax header. A sync that fails or finds no valid skills leaves the previous bundle in place. The spec and skills jobs run independently under `Promise.allSettled`.
+- **Sync:** on the same six-hourly cron as the spec, the scheduled handler downloads the repository tarball from codeload (one request, not subject to the GitHub API rate limit), reads it with `src/skills/tar.ts`, and turns each `skills/<name>/` directory into one skill. A skill is left out, with a logged reason, if its directory name isn't a valid skill name, it has no `SKILL.md` frontmatter with string `name` and `description`, the `name` doesn't match the directory, or it exceeds the spec's 512-file / 16 MiB limits. Frontmatter is parsed with `yaml` (core schema) and passed through verbatim as JSON.
+- **Storage:** files are content-addressed at `skills/files/<sha256 hex>`, and `skills/manifest.json` holds every entry plus each file's MIME type, encoding and digest. A sync writes only bytes R2 doesn't already hold, writes the manifest after them and only when a skill entry changed, then deletes files that neither the new nor the previous manifest names. Keeping the previous manifest's files covers isolates that still cache it, which relies on the one-hour isolate TTL being shorter than the six-hour sync interval. The served bytes for a digest therefore always match it. A failed sync, or one that finds no valid skills, changes nothing. The manifest records the source commit from the tarball's pax header.
 - **Serving:** `skills/list` and `skills/get` return complete manifests (`sha256` digest and size for every file). `resources/read` serves each file at `skill://<name>/<path>`; `resources/list` lists only each skill's `SKILL.md`. Results are the same for every user, so they carry `ttlMs: 1h` and `cacheScope: "public"`. `directoryRead` is not declared because every manifest is complete. Before the first sync the listing is empty, which the spec allows.
 - Unknown skill URIs, unknown files and unissued cursors answer `-32602`.
 
@@ -180,7 +180,7 @@ Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the sh
 - API tokens never enter user code isolates — passed via worker props
 - `globalOutbound` service restricts execute tool to Cloudflare API URLs only
 - Search tool runs with no network access
-- Skill content comes from `cloudflare/skills` only. The tar reader keeps regular files and drops symlinks, links and paths with `.`/`..` segments, and `resources/read` serves only URIs in the synced bundle
+- Skill content comes from `cloudflare/skills` only. The tar reader keeps regular files and drops symlinks, links and paths with `.`/`..` segments, and `resources/read` serves only URIs in the synced manifest
 - OAuth uses PKCE (RFC 7636) for secure authorization
 - Cookie encryption for OAuth sessions (`MCP_COOKIE_ENCRYPTION_KEY`)
 - The `/mcp` route validates Host and present browser Origin headers against deployment-static allowlists before authentication
