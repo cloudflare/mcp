@@ -86,6 +86,14 @@ https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
 
 > **Note:** Without the cap, a broad query can return megabytes. Only turn it off when your client bounds what reaches the model.
 
+### Missing Permissions
+
+When Cloudflare refuses a call because the OAuth connection lacks a scope, the server answers with `403 insufficient_scope` naming it, as the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) describes. Clients that support step-up then ask you to grant it and retry the call. Clients that read the challenge from the tool result instead, such as ChatGPT, can use `?scopeChallenge=tool`:
+
+```
+https://mcp.cloudflare.com/mcp?scopeChallenge=tool
+```
+
 ## The Problem
 
 The Cloudflare OpenAPI spec is **2 million tokens**. Even with native MCP tools using minimal schemas, it's still **~244k tokens**. Traditional MCP servers that expose every endpoint as a tool leak this entire context to the main agent.
