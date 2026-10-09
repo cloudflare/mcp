@@ -5,6 +5,7 @@ import { SPEC_TYPES } from '../openapi'
 import { getProducts, getSpec } from '../isolate-cache'
 import type { FormatToolResult } from '../truncate'
 import { formatError } from '../utils/errors'
+import { OAUTH_TOOL_META } from './security-schemes'
 
 interface SearchExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
@@ -120,7 +121,8 @@ export async function registerSearchTool(
         readOnlyHint: false,
         openWorldHint: false,
         destructiveHint: false
-      }
+      },
+      _meta: OAUTH_TOOL_META
     },
     async ({ code }) => {
       try {

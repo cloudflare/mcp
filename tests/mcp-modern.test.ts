@@ -167,6 +167,17 @@ describe('MCP 2026-07-28 stateless handler', () => {
     ])
   })
 
+  it('declares OAuth security schemes on every Code Mode tool', async () => {
+    const response = await exports.default.fetch(modernMcpRequest(API_TOKEN, 'tools/list'))
+    const body = await parseMcpResult(response)
+    const schemes = Object.fromEntries(
+      (body.result?.tools ?? []).map((tool) => [tool.name, tool._meta?.securitySchemes])
+    )
+    const identity = [{ type: 'oauth2', scopes: ['user:read', 'account:read'] }]
+
+    expect(schemes).toEqual({ docs: identity, search: identity, execute: identity, whoami: identity })
+  })
+
   it('serves a modern Code Mode tools/call', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/tokens/verify`, () =>
