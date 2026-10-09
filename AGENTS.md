@@ -25,6 +25,9 @@ cloudflare-mcp/
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
+│   ├── api-permissions.ts         # Connection kinds; explains refused (401/403) API calls
+│   ├── api-refusal-hint.ts        # Looks up a refused execute request's permissions in mcp-tools.json
+│   ├── scope-challenge.ts         # Per-request 403 insufficient_scope step-up challenge
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Prefix classification & external resolver
@@ -143,6 +146,26 @@ The consent page offers read-only and full-access templates built from the produ
 - Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and `mcp-tools.json`, the direct-tool catalogue for `?codemode=false`
 - `mcp-tools.json` holds the final wire JSON Schemas (including the session-independent optional `account_id`) plus minimal request-routing metadata. Each isolate builds the `tools/list` payload from it once and serves it unchanged; `tools/call` lazily validates/dispatches only the requested operation with Zod. No per-endpoint SDK tools are registered
 - `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates. Concurrent requests on a cold isolate share one load, and a failed load is not cached. There is no fallback: a missing `mcp-tools.json` fails the request, so seed R2 (`npm run seed:staging` / `seed:prod`) before deploying a change to its key or shape
+
+### Refused API calls
+
+Cloudflare answers a missing OAuth scope, an endpoint OAuth can't reach (billing, API tokens), and a missing role all with `403` and `10000: Authentication error` or `9109: Unauthorized`. Agents read that as a signed-out connection and ask users to reconnect, which changes nothing. So every 401/403 tool error names the method, path, status and Cloudflare's errors, and adds an explanation from `src/api-permissions.ts`:
+
+- The connection kind comes from the provider's `ctx.auth`. A token the provider issued carries `clientId` and its granted `scope` (`oauth`). A directly resolved credential carries neither (`direct`).
+- The endpoint's accepted permissions come from the OpenAPI spec's `x-api-token-group`, which the scheduled handler copies into each `spec.json` operation (so `search` shows it) and each `mcp-tools.json` entry (`permissions`). OAuth scopes share those names (`DERIVED_OAUTH_SCOPES`). Any one permission is enough.
+- The explanation says one of four things. The connection lacks every scope the endpoint accepts: grant one. It already holds one: reconnecting won't help. No OAuth scope exists for the endpoint: use an API token. For a direct credential: these are the permissions the token needs.
+- `execute`: `GlobalOutbound` sets the explanation in an `X-Cloudflare-MCP-Refusal-Hint` response header. The sandbox puts it in the error it throws, so it survives code that catches the error. Endpoint tools add it to the tool result, using their own entry's permissions. `execute` matches the refused path against the cached `mcp-tools.json` templates, looked up only for refused requests; parsing the ~25 MB `spec.json` there could exhaust the isolate's memory.
+
+#### Step-up (`403 insufficient_scope`)
+
+When an OAuth connection lacks every scope a refused endpoint accepts, and `scopeToRequest` can name one, the request is answered with the spec's step-up challenge instead of the tool result. The challenge comes from `insufficientScope()` in workers-oauth-provider and names the baseline (`user:read account:read`) plus that scope. The client re-authorizes and retries the same tool call. Accumulating earlier scopes is the client's job, per the spec.
+
+- The challenge is raised only after Cloudflare refuses, never beforehand from the spec, because the permission-name mapping isn't reliable enough to block calls on.
+- Retrying has to be safe. An endpoint tool makes one request. In `execute`, the refusal must be what made the code fail, and every request the code sent must have been a GET/HEAD or refused (the sandbox wraps `fetch` before the code runs). Otherwise the tool error says why the code wasn't retried.
+- The sandbox reports the scope (`X-Cloudflare-MCP-Missing-Scope` from `GlobalOutbound`), so it is untrusted. The host accepts only catalog scopes the connection lacks. Code that lies can only trigger a challenge it could also get by calling the endpoint.
+- A connection that already holds an accepted scope is never challenged, so a wrong pick can't loop.
+- For OAuth connections, 2025-era POSTs are served as JSON (`enableJsonResponse`) rather than the SDK fallback's SSE, so the status is still open when a tool asks to step up.
+- Tools also put the challenge in the error result's `_meta["mcp/www_authenticate"]`. With `?scopeChallenge=tool` that result is sent as-is, for clients such as ChatGPT that read the challenge there.
 
 ### Response truncation
 
