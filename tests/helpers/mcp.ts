@@ -79,7 +79,13 @@ export function modernMcpRequest(
     headers?: Record<string, string>
   } = {}
 ): Request {
-  const name = typeof params.name === 'string' ? params.name : undefined
+  // Mcp-Name mirrors params.name (tools, prompts) or params.uri (resources/read).
+  const name =
+    typeof params.name === 'string'
+      ? params.name
+      : method === 'resources/read' && typeof params.uri === 'string'
+        ? params.uri
+        : undefined
   return new Request(options.url ?? MCP_URL, {
     method: 'POST',
     headers: {

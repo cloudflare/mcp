@@ -115,6 +115,10 @@ Agent                         MCP Server
 
 `whoami` takes no arguments and returns `{ id, email }` for a user credential or `{ id, name }` for an account token. The `id` is `user:<user id>` or `account:<account id>`, so it stays the same across token refresh, reconnection and permission changes. Clients can use it to tell connected accounts apart; it is marked as an [OpenAI profile tool](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool).
 
+## Skills
+
+The server also serves the [Cloudflare skills](https://github.com/cloudflare/skills) (Wrangler, Durable Objects, Agents SDK, Workers best practices and more) through the MCP [Skills extension](https://modelcontextprotocol.io/extensions/skills/overview). Clients that support it discover them with `skills/list` and read each file at `skill://<name>/<path>`. The catalog is synced from GitHub daily.
+
 ## Supported Products
 
 Workers, KV, R2, D1, Pages, DNS, Firewall, Load Balancers, Stream, Images, AI Gateway, Vectorize, Access, Gateway, and more. See the full [Cloudflare API schemas](https://github.com/cloudflare/api-schemas).

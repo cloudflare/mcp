@@ -1,10 +1,11 @@
 import { env } from 'cloudflare:workers'
 import type { Tool } from '@modelcontextprotocol/server'
 import { MCP_TOOLS_KEY, type McpTool } from './openapi'
+import { SKILLS_BUNDLE_KEY, SkillsBundle, type Skill, type SkillFile } from './skills/types'
 
 /**
  * In-isolate cache for the R2 artifacts the scheduled handler writes
- * (`spec.json`, `products.json`, `mcp-tools.json`).
+ * (`spec.json`, `products.json`, `mcp-tools.json`, `skills.json`).
  *
  * The MCP worker isolate stays warm across requests, so without this every
  * call re-read R2. The artifacts change at most daily, so a short TTL keeps a
@@ -112,9 +113,36 @@ export function getProducts(): Promise<string[]> {
   return products.get()
 }
 
+/** The synced skills, indexed for `skills/get` and `resources/read`. */
+export interface SkillsIndex {
+  readonly skills: readonly Skill[]
+  readonly skillsByUri: ReadonlyMap<string, Skill>
+  readonly filesByUri: ReadonlyMap<string, SkillFile>
+}
+
+const skills = cached(async (): Promise<SkillsIndex> => {
+  const object = await env.SPEC_BUCKET.get(SKILLS_BUNDLE_KEY)
+  const entries = object ? SkillsBundle.parse(await object.json()).skills : []
+  return {
+    skills: entries.map((entry) => entry.skill),
+    skillsByUri: new Map(entries.map((entry) => [entry.skill.uri, entry.skill])),
+    filesByUri: new Map(entries.flatMap((entry) => entry.files.map((file) => [file.uri, file])))
+  }
+})
+
+/**
+ * The skills bundle written by the daily sync. Empty until the first sync,
+ * which the Skills extension allows: hosts must not read an empty listing as
+ * proof that a server has no skills.
+ */
+export function getSkills(): Promise<SkillsIndex> {
+  return skills.get()
+}
+
 /** Drop cached artifacts. For tests that re-seed R2 between cases. */
 export function resetIsolateCache(): void {
   spec.reset()
   products.reset()
   mcpTools.reset()
+  skills.reset()
 }

@@ -25,6 +25,12 @@ cloudflare-mcp/
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
+│   ├── skills/
+│   │   ├── types.ts               # Skills extension wire + R2 bundle schemas (Zod)
+│   │   ├── tar.ts                 # Minimal tar reader for the GitHub archive
+│   │   ├── bundle.ts              # Skill validation, frontmatter, digests
+│   │   ├── sync.ts                # Daily cloudflare/skills → R2 sync
+│   │   └── handlers.ts            # skills/list, skills/get, resources/* handlers
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Prefix classification & external resolver
@@ -144,6 +150,15 @@ The consent page offers read-only and full-access templates built from the produ
 - `mcp-tools.json` holds the final wire JSON Schemas (including the session-independent optional `account_id`) plus minimal request-routing metadata. Each isolate builds the `tools/list` payload from it once and serves it unchanged; `tools/call` lazily validates/dispatches only the requested operation with Zod. No per-endpoint SDK tools are registered
 - `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates. Concurrent requests on a cold isolate share one load, and a failed load is not cached. There is no fallback: a missing `mcp-tools.json` fails the request, so seed R2 (`npm run seed:staging` / `seed:prod`) before deploying a change to its key or shape
 
+### Skills over MCP
+
+The server implements the MCP Skills extension (`io.modelcontextprotocol/skills`, [SEP-2640](https://github.com/modelcontextprotocol/ext-skills/blob/main/specification/stable/skills.mdx)) in both tool modes and serves the skills from [`cloudflare/skills`](https://github.com/cloudflare/skills).
+
+- **Sync:** the daily cron downloads the repository tarball from codeload (one request, not subject to the GitHub API rate limit), reads it with `src/skills/tar.ts`, and turns each `skills/<name>/` directory into one skill. A skill is left out, with a logged reason, if its directory name isn't a valid skill name, it has no `SKILL.md` frontmatter with string `name` and `description`, the `name` doesn't match the directory, or it exceeds the spec's 512-file / 16 MiB limits. Frontmatter is parsed with `yaml` (core schema) and passed through verbatim as JSON.
+- **Storage:** one R2 object, `skills.json`, holds every entry and every file's content, so an update replaces both together and a published digest never describes bytes from a different sync. It records the source commit from the tarball's pax header. A sync that fails or finds no valid skills leaves the previous bundle in place. The spec and skills jobs run independently under `Promise.allSettled`.
+- **Serving:** `skills/list` and `skills/get` return complete manifests (`sha256` digest and size for every file). `resources/read` serves each file at `skill://<name>/<path>`; `resources/list` lists only each skill's `SKILL.md`. Results are the same for every user, so they carry `ttlMs: 1h` and `cacheScope: "public"`. `directoryRead` is not declared because every manifest is complete. Before the first sync the listing is empty, which the spec allows.
+- Unknown skill URIs, unknown files and unissued cursors answer `-32602`.
+
 ### Response truncation
 
 Responses capped at ~6,000 tokens (~24KB). `src/truncate.ts` shrinks oversized JSON structurally so it stays valid JSON: arrays keep whole items from the start and end with a `--- TRUNCATED --- N more items` element, long strings are clipped, and objects drop their largest values first, naming them in a `--- TRUNCATED ---` entry. Plain text is cut at the cap and followed by a notice with the original size.
@@ -165,6 +180,7 @@ Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the sh
 - API tokens never enter user code isolates — passed via worker props
 - `globalOutbound` service restricts execute tool to Cloudflare API URLs only
 - Search tool runs with no network access
+- Skill content comes from `cloudflare/skills` only. The tar reader keeps regular files and drops symlinks, links and paths with `.`/`..` segments, and `resources/read` serves only URIs in the synced bundle
 - OAuth uses PKCE (RFC 7636) for secure authorization
 - Cookie encryption for OAuth sessions (`MCP_COOKIE_ENCRYPTION_KEY`)
 - The `/mcp` route validates Host and present browser Origin headers against deployment-static allowlists before authentication
@@ -179,7 +195,8 @@ npm run test:watch    # Watch mode
 ```
 
 **Unit/integration coverage areas:**
-- Scheduled handler (spec fetching & processing)
+- Scheduled handler (spec fetching & processing, skills sync)
+- Skills: tar reading, frontmatter, manifests and digests, and the skills extension end to end
 - Auth token detection and parsing
 - Auth props building and validation
 - Spec processor ($ref resolution, product extraction)

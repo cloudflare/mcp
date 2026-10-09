@@ -4,6 +4,7 @@ import { registerNonCodemodeTools } from './tools/non-codemode'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { registerWhoamiTool } from './tools/whoami'
+import { registerSkills } from './skills/handlers'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
 import { stringifyResponse, truncateResponse } from './truncate'
@@ -29,7 +30,7 @@ export interface ServerOptions {
  *
  * @param props - The validated credentials for the request.
  * @param options - The tool surface and result shaping the client asked for.
- * @returns A fresh server with the requested tools registered.
+ * @returns A fresh server with the requested tools and the skills catalog registered.
  */
 export async function createServer(
   props: AuthProps,
@@ -40,6 +41,8 @@ export async function createServer(
   // server never sends notifications/tools/list_changed. Declare that before
   // registerTool can default the capability to true.
   server.server.registerCapabilities({ tools: { listChanged: false } })
+  // Skills (io.modelcontextprotocol/skills) are served in both tool modes.
+  registerSkills(server)
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (!codemode) {

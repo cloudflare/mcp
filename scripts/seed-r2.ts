@@ -4,6 +4,8 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { processSpec, extractProducts } from '../src/spec-processor'
 import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from '../src/openapi'
+import { fetchSkillsBundle } from '../src/skills/sync'
+import { SKILLS_BUNDLE_KEY } from '../src/skills/types'
 
 const OPENAPI_SPEC_URL =
   'https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json'
@@ -33,20 +35,27 @@ const mcpToolsJson = JSON.stringify(buildMcpTools(paths))
 
 console.log(`Spec: ${(specJson.length / 1024 / 1024).toFixed(1)} MB, ${products.length} products`)
 
+const skillsBundle = await fetchSkillsBundle()
+const skillsJson = JSON.stringify(skillsBundle)
+console.log(`Skills: ${skillsBundle.skills.length} skills from ${skillsBundle.source.repository}`)
+
 const tmp = mkdtempSync(join(tmpdir(), 'mcp-seed-'))
 const specPath = join(tmp, 'spec.json')
 const productsPath = join(tmp, 'products.json')
 const mcpToolsPath = join(tmp, MCP_TOOLS_KEY)
+const skillsPath = join(tmp, SKILLS_BUNDLE_KEY)
 
 try {
   writeFileSync(specPath, specJson)
   writeFileSync(productsPath, productsJson)
   writeFileSync(mcpToolsPath, mcpToolsJson)
+  writeFileSync(skillsPath, skillsJson)
 
   for (const [key, path] of [
     ['spec.json', specPath],
     ['products.json', productsPath],
-    [MCP_TOOLS_KEY, mcpToolsPath]
+    [MCP_TOOLS_KEY, mcpToolsPath],
+    [SKILLS_BUNDLE_KEY, skillsPath]
   ] as const) {
     console.log(`Uploading ${key} to R2 (--env ${env})...`)
     execSync(
