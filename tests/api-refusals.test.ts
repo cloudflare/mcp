@@ -145,6 +145,25 @@ describe('execute explains a refused request', () => {
     expect(text).toContain('needs one of these permissions: DNS Read')
   })
 
+  it('omits a missing error code and does not double the period', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(
+      http.get(`${API_BASE}${DNS_PATH}`, () =>
+        HttpResponse.json(
+          { success: false, errors: [{ message: 'No access to the specified resource.' }] },
+          { status: 403 }
+        )
+      )
+    )
+
+    const text = toolText(await callTool('cfat_refused', 'execute', { code: GET_DNS }))
+
+    expect(text).toContain(
+      `GET ${DNS_PATH} returned HTTP 403: No access to the specified resource. This endpoint needs`
+    )
+    expect(text).not.toContain('undefined')
+  })
+
   it('adds nothing to errors other than 401 and 403', async () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
     server.use(
