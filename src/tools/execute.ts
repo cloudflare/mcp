@@ -155,7 +155,7 @@ globalThis.fetch = async (input, init) => {
 function apiError(method, path, response, details) {
   const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
   const error = new Error("Cloudflare API error: " + String(method).toUpperCase() + " " + path.split("?")[0] +
-    " returned HTTP " + response.status + (details ? ": " + details : "") +
+    " returned HTTP " + response.status + (details ? ": " + details.replace(/[. ]+$/, "") : "") +
     (hint ? ". " + decodeURIComponent(hint) : ""));
   const missingScope = response.headers.get(${JSON.stringify(MISSING_SCOPE_HEADER)});
   if (missingScope) error.missingScope = missingScope;
@@ -244,7 +244,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
         // Handle REST API responses
         if (!data.success) {
           const errorList = Array.isArray(data.errors) ? data.errors : [];
-          const errors = errorList.map(e => e.code + ": " + e.message +
+          const errors = errorList.map(e => (e.code === undefined ? "" : e.code + ": ") + e.message +
             (e.documentation_url ? " (" + e.documentation_url + ")" : "")).join(", ");
           throw apiError(method, path, response, errors);
         }
