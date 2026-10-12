@@ -81,9 +81,7 @@ afterEach(async () => {
 
 describe('non-codemode: account_id auto-resolution through real MCP validation', () => {
   it('serves the precomputed tool list with an optional account_id', async () => {
-    const artifact = JSON.parse(
-      await (await env.SPEC_BUCKET.get('mcp-tools.json'))!.text()
-    )
+    const artifact = JSON.parse(await (await env.SPEC_BUCKET.get('mcp-tools.json'))!.text())
     artifact[0].description = 'PRECOMPUTED ARTIFACT'
     await env.SPEC_BUCKET.put('mcp-tools.json', JSON.stringify(artifact))
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })

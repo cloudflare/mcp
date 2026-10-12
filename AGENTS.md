@@ -42,13 +42,12 @@ cloudflare-mcp/
 │   │   ├── scopes.ts              # Consent templates and OAuth bootstrap scopes
 │   │   └── workers-oauth-utils.ts # OAuth provider helpers
 ├── tests/                         # Vitest suite (top-level, mirrors src/)
-│   ├── index.test.ts
+│   ├── setup/msw.ts               # Global MSW server, the only outbound fetch mock
+│   ├── helpers/                   # KV/R2/spec fixtures, MCP and OAuth helpers
 │   ├── auth/
-│   ├── executor.test.ts
-│   ├── spec-processor.test.ts
-│   ├── truncate.test.ts
-│   └── e2e/                       # End-to-end tests (real worker via exports.default.fetch)
-│       └── tool-call.test.ts
+│   ├── skills/
+│   ├── worker.test.ts             # Real worker end to end via exports.default.fetch
+│   └── *.test.ts
 ├── scripts/
 │   └── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
 ├── .github/workflows/
@@ -77,7 +76,7 @@ Node 22+ required.
 | `npm run types`        | Generate worker type definitions              |
 | `npm run typecheck`    | TypeScript type checking (no emit)            |
 | `npm run lint`         | Lint with oxlint                              |
-| `npm run format`       | Format with oxfmt                             |
+| `npm run format`       | Format src/, tests/, scripts/ with oxfmt      |
 | `npm run format:check` | Check formatting without modifying            |
 | `npm run test`         | Run vitest test suite                         |
 | `npm run test:watch`   | Run vitest in watch mode                      |
@@ -95,7 +94,7 @@ Node 22+ required.
 
 ### Formatting & linting
 
-- **oxfmt** for formatting: single quotes, no semicolons, no trailing commas
+- **oxfmt** for formatting: single quotes, no semicolons, no trailing commas. `format` and `format:check` cover `src/`, `tests/`, `scripts/` and `vitest.config.ts`
 - **oxlint** for linting
 - Run `npm run format` before committing
 
@@ -203,21 +202,29 @@ npm run test:watch    # Watch mode
 - Response truncation
 - Metrics event mapping & path normalization
 
-**End-to-end (`tests/e2e/`):**
-Drives the real worker via `exports.default.fetch()` (from `cloudflare:workers`), the
+**End to end (`tests/worker.test.ts` and the other worker-level files):**
+These drive the real worker via `exports.default.fetch()` (from `cloudflare:workers`), the
 pattern from the [Cloudflare vitest recipes](https://developers.cloudflare.com/workers/testing/vitest-integration/recipes/).
 A full JSON-RPC `tools/call` for `execute` runs real code inside a Worker Loader
-isolate and is forwarded through the real `GlobalOutbound` proxy. The **only** mock
-is outbound `fetch()`, declared with **MSW** (`server.use(http.get(...))`) — see
-`tests/e2e/msw-server.ts` and `tests/e2e/msw-setup.ts`. MSW intercepts both the
+isolate and is forwarded through the real `GlobalOutbound` proxy. MSW intercepts both the
 auth-guard `/user`+`/accounts` probes and the GlobalOutbound-forwarded API call.
-Everything else — auth, MCP transport, tool dispatch, Worker Loader — is the real
-code path.
+Auth, MCP transport, tool dispatch and Worker Loader all run for real.
 
-The test stack is **vitest 4 + `@cloudflare/vitest-plugin` 1.x** using the
-`cloudflareTest()` Vite plugin (required for MSW's `msw/node` to load under
-workerd). Note: storage isolation is per test **file** (not per test), so tests
-sharing real bindings (e.g. `OAUTH_KV`) must clear state in `afterEach`.
+**Mocking outbound fetch:** MSW is the only outbound mock. `tests/setup/msw.ts` is a
+`setupFiles` entry that starts one `msw/node` server for every file with
+`onUnhandledRequest: 'error'` and resets handlers after each test. Import `{ server }`
+from it and register responses with `server.use(http.get(...))`. Assert on the request the
+handler received, and use `HttpResponse.error()` for a network failure. Never assign to or
+spy on `globalThis.fetch`. It is read-only in the test runtime, and replacing it skips the
+real request path.
+
+The test stack is **vitest 4 + `@cloudflare/vitest-plugin` 1.x** (the renamed
+`@cloudflare/vitest-pool-workers`) using the `cloudflareTest()` Vite plugin, which
+MSW's `msw/node` needs to load under workerd. The plugin uses the same Wrangler,
+miniflare and workerd versions as deploys. Storage isolation is per test **file**
+(not per test), so tests sharing real bindings (e.g. `OAUTH_KV`) must clear state in
+`afterEach`. `testTimeout` is 15s because a file's first request to the worker loads
+it into a fresh isolate, which takes 4-5s when every file runs in parallel.
 
 ## Contributing
 

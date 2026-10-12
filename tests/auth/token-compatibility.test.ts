@@ -66,7 +66,12 @@ function production0102(): LegacyDeployment {
     fetch: (request) => provider.fetch(request, env, ctx),
     async authorize(authorizeUrl) {
       const request = await helpers.parseAuthRequest(new Request(authorizeUrl))
-      const grant = { request, userId: 'user-1', metadata: { label: 'user@example.com' }, scope: request.scope }
+      const grant = {
+        request,
+        userId: 'user-1',
+        metadata: { label: 'user@example.com' },
+        scope: request.scope
+      }
       return (await helpers.completeAuthorization({ ...grant, props: CALLBACK_PROPS })).redirectTo
     }
   }
@@ -82,7 +87,12 @@ function staging110(): LegacyDeployment {
     fetch: (request) => provider.fetch(request, env, ctx),
     async authorize(authorizeUrl) {
       const request = await helpers.parseAuthRequest(new Request(authorizeUrl))
-      const grant = { request, userId: 'user-1', metadata: { label: 'user@example.com' }, scope: request.scope }
+      const grant = {
+        request,
+        userId: 'user-1',
+        metadata: { label: 'user@example.com' },
+        scope: request.scope
+      }
       return (await helpers.completeAuthorization({ ...grant, props: CALLBACK_PROPS })).redirectTo
     }
   }
@@ -141,13 +151,13 @@ async function issueWithLegacy(
 
 function refreshRequest(clientId: string, refreshToken: string): Request {
   return new Request(`${MCP_ORIGIN}/token`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken,
-        client_id: clientId
-      }).toString()
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: clientId
+    }).toString()
   })
 }
 
@@ -191,36 +201,49 @@ afterEach(async () => {
   await clearKv(env.OAUTH_KV)
 })
 
-describe.each(LEGACY_DEPLOYMENTS)('grants issued by workers-oauth-provider $version', ({ deploy }) => {
-  it('serve MCP, refresh, and serve the refreshed token after the upgrade', async () => {
-    const legacy = await issueWithLegacy(deploy(), MCP_RESOURCE)
-    const upstreamRefreshes = useUpstreamRefresh()
+describe.each(LEGACY_DEPLOYMENTS)(
+  'grants issued by workers-oauth-provider $version',
+  ({ deploy }) => {
+    it('serve MCP, refresh, and serve the refreshed token after the upgrade', async () => {
+      const legacy = await issueWithLegacy(deploy(), MCP_RESOURCE)
+      const upstreamRefreshes = useUpstreamRefresh()
 
-    // The access token issued before the upgrade is accepted as it is.
-    expect(await listTools(legacy.access_token)).toEqual({ status: 200, tools: ['docs', 'search', 'execute', 'whoami'] })
+      // The access token issued before the upgrade is accepted as it is.
+      expect(await listTools(legacy.access_token)).toEqual({
+        status: 200,
+        tools: ['docs', 'search', 'execute', 'whoami']
+      })
 
-    // The refresh token is too, and the upstream Cloudflare grant rotates with it.
-    const refreshed = await refresh(legacy.clientId, legacy.refresh_token)
-    expect(refreshed.status).toBe(200)
-    const tokens = (await refreshed.json()) as { access_token: string; refresh_token: string; resource: string }
-    expect(tokens.resource).toBe(MCP_RESOURCE)
-    expect(upstreamRefreshes()).toEqual(['upstream-refresh-1'])
-    expect(await listTools(tokens.access_token)).toEqual({ status: 200, tools: ['docs', 'search', 'execute', 'whoami'] })
+      // The refresh token is too, and the upstream Cloudflare grant rotates with it.
+      const refreshed = await refresh(legacy.clientId, legacy.refresh_token)
+      expect(refreshed.status).toBe(200)
+      const tokens = (await refreshed.json()) as {
+        access_token: string
+        refresh_token: string
+        resource: string
+      }
+      expect(tokens.resource).toBe(MCP_RESOURCE)
+      expect(upstreamRefreshes()).toEqual(['upstream-refresh-1'])
+      expect(await listTools(tokens.access_token)).toEqual({
+        status: 200,
+        tools: ['docs', 'search', 'execute', 'whoami']
+      })
 
-    // The grant is rewritten in the current format (with KV key metadata) and keeps its resource.
-    const [grant] = (await env.OAUTH_KV.list({ prefix: 'grant:' })).keys
-    expect(grant.metadata).toMatchObject({ resource: MCP_RESOURCE })
-  })
+      // The grant is rewritten in the current format (with KV key metadata) and keeps its resource.
+      const [grant] = (await env.OAUTH_KV.list({ prefix: 'grant:' })).keys
+      expect(grant.metadata).toMatchObject({ resource: MCP_RESOURCE })
+    })
 
-  it('serve a grant issued without a resource, bound to the sole resource', async () => {
-    const legacy = await issueWithLegacy(deploy(), undefined)
-    useUpstreamRefresh()
-    expect((await listTools(legacy.access_token)).status).toBe(200)
-    const refreshed = await refresh(legacy.clientId, legacy.refresh_token)
-    expect(refreshed.status).toBe(200)
-    await expect(refreshed.json()).resolves.toMatchObject({ resource: MCP_RESOURCE })
-  })
-})
+    it('serve a grant issued without a resource, bound to the sole resource', async () => {
+      const legacy = await issueWithLegacy(deploy(), undefined)
+      useUpstreamRefresh()
+      expect((await listTools(legacy.access_token)).status).toBe(200)
+      const refreshed = await refresh(legacy.clientId, legacy.refresh_token)
+      expect(refreshed.status).toBe(200)
+      await expect(refreshed.json()).resolves.toMatchObject({ resource: MCP_RESOURCE })
+    })
+  }
+)
 
 describe('a grant bound to the bare origin, written before 0.10.1', () => {
   // Releases before 0.10.1 could bind a grant to the origin instead of the MCP endpoint; 0.10.x

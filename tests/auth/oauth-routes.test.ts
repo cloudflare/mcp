@@ -707,7 +707,11 @@ describe('GET /oauth/callback', () => {
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(1)
     return {
       refresh: () =>
-        token({ grant_type: 'refresh_token', refresh_token: tokens.refresh_token, client_id: clientId })
+        token({
+          grant_type: 'refresh_token',
+          refresh_token: tokens.refresh_token,
+          client_id: clientId
+        })
     }
   }
 
@@ -729,9 +733,21 @@ describe('GET /oauth/callback', () => {
 
   it.each([
     // A bug on our side: before, a 400 mapped to invalid_grant and revoked every affected grant.
-    ['our request is rejected (invalid_request)', 400, { error: 'invalid_request' }, 502, 'server_error'],
+    [
+      'our request is rejected (invalid_request)',
+      400,
+      { error: 'invalid_request' },
+      502,
+      'server_error'
+    ],
     // Our own client credentials: before, the MCP client was told invalid_client.
-    ['our client credentials are rejected (invalid_client)', 401, { error: 'invalid_client' }, 502, 'server_error'],
+    [
+      'our client credentials are rejected (invalid_client)',
+      401,
+      { error: 'invalid_client' },
+      502,
+      'server_error'
+    ],
     // An outage: before, a non-retryable 502 server_error.
     ['Cloudflare is down (500)', 500, { error: 'server_error' }, 503, 'temporarily_unavailable']
   ])(
@@ -877,7 +893,12 @@ describe('GET /oauth/callback', () => {
     expect(probes.userCalls()).toBe(1)
     expect(probes.accountCalls()).toBe(1)
     expect(mcpBody.result?.resultType).toBe('complete')
-    expect(mcpBody.result?.tools?.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
+    expect(mcpBody.result?.tools?.map((tool) => tool.name)).toEqual([
+      'docs',
+      'search',
+      'execute',
+      'whoami'
+    ])
     expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(1)
   })
 

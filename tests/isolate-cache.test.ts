@@ -34,7 +34,11 @@ describe('isolate cache', () => {
         name: 'get_user',
         title: 'Get User',
         description: 'GET /user\n\nGet current user',
-        inputSchema: { $schema: 'https://json-schema.org/draft/2020-12/schema', type: 'object', properties: {} }
+        inputSchema: {
+          $schema: 'https://json-schema.org/draft/2020-12/schema',
+          type: 'object',
+          properties: {}
+        }
       }
     ])
   })

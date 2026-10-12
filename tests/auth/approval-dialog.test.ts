@@ -180,7 +180,9 @@ describe('OAuth approval dialog Advanced section', () => {
       initialScopes: [...SCOPE_TEMPLATES['read-only'].scopes]
     })
 
-    expect(body).toMatch(/<details class="advanced" id="advancedScopes">\s*<summary>Advanced<\/summary>/)
+    expect(body).toMatch(
+      /<details class="advanced" id="advancedScopes">\s*<summary>Advanced<\/summary>/
+    )
     expect(visibleText(body)).toContain('Edit base scopes')
     expect(body).toContain('<textarea id="scopesBox"')
     // The page names edited scopes, so it carries the catalog's display names.
