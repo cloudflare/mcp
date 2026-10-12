@@ -1,0 +1,33 @@
+AGENTS.md
+  s_8ec6fc8c448f42::t_ae09abc8d41e49 45-46,48-50,79,97,205-206,209,211-227
+package.json
+  s_8ec6fc8c448f42::t_590fbc1aca9159 13-14
+tests/auth/approval-dialog.test.ts
+  s_8ec6fc8c448f42::t_360a8cb37d4772 183-185
+tests/auth/cimd.test.ts
+  s_8ec6fc8c448f42::t_0d1c9d91d1f5a1 162-167
+tests/auth/oauth-routes.test.ts
+  s_8ec6fc8c448f42::t_e78118925b5504 710-714,736-742,744-750,896-901
+tests/auth/token-compatibility.test.ts
+  s_8ec6fc8c448f42::t_b9b5f4eb000d0e 69-74,90-95,154-160,204-215,217-246
+tests/isolate-cache.test.ts
+  s_8ec6fc8c448f42::t_735fad936adf93 37-41
+tests/non-codemode-worker.test.ts
+  s_8ec6fc8c448f42::t_debe138dc3c29e 84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2d5a2a6263098306ccd80fbb82a77b2ddbf62f02",
+  "prompts": {},
+  "sessions": {
+    "s_8ec6fc8c448f42": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a130df-26fa-722f-9988-7eb962732ba3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
