@@ -9,7 +9,7 @@
 		"global_fetch_strictly_public"
 	],
 	"observability": {
-		"issue_detection": {
+		"issues": {
 			"enabled": true
 		},
 		"logs": {
