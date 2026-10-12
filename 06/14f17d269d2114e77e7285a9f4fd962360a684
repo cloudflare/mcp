@@ -1,0 +1,23 @@
+docs/mcp-events.md
+  s_255070e7a9b49a::t_ac32fe1b634d38 78-80
+src/events/service.ts
+  s_255070e7a9b49a::t_e8c44e030ef95e 3,76-79,83-85
+tests/events-e2e.test.ts
+  s_255070e7a9b49a::t_a410614a5639ca 32,139,291-293
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0614f17d269d2114e77e7285a9f4fd962360a684",
+  "prompts": {},
+  "sessions": {
+    "s_255070e7a9b49a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a11212-80e2-7424-b702-bf91c45a6895",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
