@@ -236,6 +236,21 @@ describe('endpoint tools', () => {
     )
     expectChallenge(response, 'dns.read')
   })
+
+  it('challenge a connection authorized for the /mcp?codemode=false resource', async () => {
+    // workers-oauth-provider maps the query-string resource to /mcp (#266), so the
+    // challenge points at the /mcp metadata the client authorized against.
+    const token = await connectWithOAuth(BASELINE, undefined, `${MCP_URL}?codemode=false`)
+    const response = await exports.default.fetch(
+      modernMcpRequest(
+        token,
+        'tools/call',
+        { name: 'get_zones_dns_records', arguments: { zone_id: ZONE_ID } },
+        { url: `${MCP_URL}?codemode=false` }
+      )
+    )
+    expectChallenge(response, 'dns.read')
+  })
 })
 
 describe('OAuth connections over 2025-era HTTP', () => {
