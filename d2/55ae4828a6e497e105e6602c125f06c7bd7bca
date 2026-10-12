@@ -1,0 +1,37 @@
+AGENTS.md
+  s_255070e7a9b49a::t_565a1aa37d9bdd 131
+docs/mcp-events.md
+  s_9052ae3a3bfc59::t_3502c01d168b8d 27-28,41-55
+src/events/callback.ts
+  s_255070e7a9b49a::t_891d4701eeef89 2,4-10,17,49-52,54,56,59-61
+src/events/service.ts
+  s_255070e7a9b49a::t_a6805678ea57ed 30,32-33,273-277,280,299-312,335-337
+src/events/state.ts
+  s_255070e7a9b49a::t_70cd4cdc06d55f 25-30,34,37,41-112
+tests/events-e2e.test.ts
+  s_9052ae3a3bfc59::t_8fdcdb7bcaaa57 210-212,398-431
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d255ae4828a6e497e105e6602c125f06c7bd7bca",
+  "prompts": {},
+  "sessions": {
+    "s_255070e7a9b49a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a11212-80e2-7424-b702-bf91c45a6895",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    },
+    "s_9052ae3a3bfc59": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a12ffa-4429-7344-8f32-b55fe04f5889",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
