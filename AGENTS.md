@@ -31,6 +31,10 @@ cloudflare-mcp/
 │   │   ├── bundle.ts              # Skill validation, frontmatter, digests
 │   │   ├── sync.ts                # Six-hourly incremental cloudflare/skills → R2 sync
 │   │   └── handlers.ts            # skills/list, skills/get, resources/* handlers
+│   ├── api-permissions.ts         # Connection kinds; explains refused (401/403) API calls
+│   ├── api-refusal-hint.ts        # Looks up a refused execute request's permissions in mcp-tools.json
+│   ├── scope-challenge.ts         # Per-request insufficient_scope step-up challenge
+│   ├── clients.ts                 # Known MCP clients that deviate from the spec, and their behavior
 │   ├── auth/
 │   │   ├── types.ts               # Auth props schemas (Zod discriminated union)
 │   │   ├── api-token-mode.ts      # Prefix classification & external resolver
@@ -158,6 +162,35 @@ The server implements the MCP Skills extension (`io.modelcontextprotocol/skills`
 - **Storage:** files are content-addressed at `skills/files/<sha256 hex>`, and `skills/manifest.json` holds every entry plus each file's MIME type, encoding and digest. A sync writes only bytes R2 doesn't already hold, writes the manifest after them and only when a skill entry changed, then deletes files that neither the new nor the previous manifest names. Keeping the previous manifest's files covers isolates that still cache it, which relies on the one-hour isolate TTL being shorter than the six-hour sync interval. The served bytes for a digest therefore always match it. A failed sync, or one that finds no valid skills, changes nothing. The manifest records the source commit from the tarball's pax header.
 - **Serving:** `skills/list` and `skills/get` return complete manifests (`sha256` digest and size for every file). `resources/read` serves each file at `skill://<name>/<path>`; `resources/list` lists only each skill's `SKILL.md`. Results are the same for every user, so they carry `ttlMs: 1h` and `cacheScope: "public"`. `directoryRead` is not declared because every manifest is complete. Before the first sync the listing is empty, which the spec allows.
 - Unknown skill URIs, unknown files and unissued cursors answer `-32602`.
+
+### Refused API calls
+
+Cloudflare answers a missing OAuth scope, an endpoint OAuth can't reach (billing, API tokens), a missing role and a rejected credential all with `10000: Authentication error` or `9109: Unauthorized`, and with either `401` or `403` (Workers KV and D1 writes get `401` for a missing scope). Agents read that as a signed-out connection and ask users to reconnect, which usually changes nothing. So every 401/403 tool error names the method, path, status and Cloudflare's errors, and adds an explanation from `src/api-permissions.ts`:
+
+- The connection kind comes from the provider's `ctx.auth`. A token the provider issued carries `clientId` and its granted `scope` (`oauth`). A directly resolved credential carries neither (`direct`).
+- The endpoint's accepted permissions come from the OpenAPI spec's `x-api-token-group`, which the scheduled handler copies into each `spec.json` operation (so `search` shows it) and each `mcp-tools.json` entry (`permissions`). OAuth scopes share those names (`DERIVED_OAUTH_SCOPES`). Any one permission is enough.
+- The endpoint's permissions and the connection's scopes decide the explanation, for 401 and 403 alike. The connection lacks every scope the endpoint accepts: grant one. No OAuth scope exists for the endpoint: use an API token. For a direct credential: these are the permissions the token needs. The status matters only where the scopes can't decide: the spec lists no permissions, or the connection already holds an accepted scope (401: Cloudflare rejected the credential, reconnect; 403: usually the user's role, reconnecting won't help).
+- `execute`: `GlobalOutbound` sets the explanation in an `X-Cloudflare-MCP-Refusal-Hint` response header. The sandbox puts it in the error it throws, so it survives code that catches the error. Endpoint tools add it to the tool result, using their own entry's permissions. `execute` matches the refused path against the cached `mcp-tools.json` templates, looked up only for refused requests; parsing the ~25 MB `spec.json` there could exhaust the isolate's memory.
+
+#### Step-up (`insufficient_scope`)
+
+When an OAuth connection lacks every scope a refused endpoint accepts, and `scopeToRequest` can name one, the tool asks the client to re-authorize. The challenge comes from `insufficientScope()` in workers-oauth-provider and names the baseline (`user:read account:read`), every scope the connection already holds, and the missing one. The spec makes accumulating scopes the client's job, but Codex re-authorizes with exactly the challenged scopes, Claude's connector docs ask servers to list everything the user still needs, and a new grant replaces the old one, so naming only the missing scope would drop the rest.
+
+How the challenge reaches the client depends on the client (`src/clients.ts`):
+
+- `http` (the spec, and every client not listed): the `403` with `WWW-Authenticate: Bearer error="insufficient_scope"` replaces the response. Claude and Claude Code step up on it and retry the call; an error tool result never prompts them.
+- `tool` (Codex and ChatGPT): the error tool result is sent with the challenge in `_meta["mcp/www_authenticate"]`. They step up only on this; an HTTP `403` fails their tool call (openai/codex#20518).
+- `?scopeChallenge=http|tool` overrides the client's delivery, for testing a client.
+
+- The challenge is raised only after Cloudflare refuses, never beforehand from the spec, because the permission-name mapping isn't reliable enough to block calls on.
+- Retrying has to be safe. An endpoint tool makes one request. In `execute`, the refusal must be what made the code fail, and every request the code sent must have been a GET/HEAD or refused (the sandbox wraps `fetch` before the code runs). Otherwise the tool error says why the code wasn't retried.
+- The sandbox reports the scope (`X-Cloudflare-MCP-Missing-Scope` from `GlobalOutbound`), so it is untrusted. The host accepts only catalog scopes the connection lacks. Code that lies can only trigger a challenge it could also get by calling the endpoint.
+- A connection that already holds an accepted scope is never challenged, so a wrong pick can't loop.
+- For OAuth connections, 2025-era POSTs are served as JSON (`enableJsonResponse`) rather than the SDK fallback's SSE, so the status is still open when the response becomes the `403`.
+
+### Known MCP clients
+
+`src/clients.ts` lists the clients that need behavior other than the spec's, and how to recognise them: an exact Client ID Metadata Document URL (no I/O), or a registered client's redirect URI host (one KV read, through `OAUTH_PROVIDER.lookupClient`). Add an entry only for a client that deviates, with only the `ClientBehavior` fields that differ; every other client gets `SPEC_BEHAVIOR`. Identify the client lazily, only when the behavior is needed.
 
 ### Response truncation
 
