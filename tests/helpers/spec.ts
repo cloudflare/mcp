@@ -4,7 +4,7 @@ import { clearR2 } from './r2'
 import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from '../../src/openapi'
 
 /**
- * Spec-bucket test fixtures. vitest-pool-workers gives each test FILE a real,
+ * Spec-bucket test fixtures. @cloudflare/vitest-plugin gives each test FILE a real,
  * shared R2 SPEC_BUCKET and the worker keeps an in-isolate spec cache, so tests
  * must seed before and wipe after each case to stay isolated.
  */

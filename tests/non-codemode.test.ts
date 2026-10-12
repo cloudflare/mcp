@@ -1,3 +1,4 @@
+import { http, HttpResponse } from 'msw'
 import { afterEach, describe, it, expect, vi } from 'vitest'
 import { Client } from '@modelcontextprotocol/client'
 import { InMemoryTransport, McpServer } from '@modelcontextprotocol/server'
@@ -13,6 +14,7 @@ import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
 import { DOCS_TOOL, registerDocsTool } from '../src/tools/docs-search'
 import { clearSpec, removeMcpTools, seedSpec } from './helpers/spec'
+import { server as msw } from './setup/msw'
 
 // Use minimal retry config so tests don't wait for real backoff delays
 vi.mock('../src/utils/fetch-retry', async (importOriginal) => {
@@ -229,22 +231,32 @@ describe('createServer with codemode=false', () => {
 
   afterEach(() => clearSpec())
 
-  function mockFetchJson(data: unknown, ok = true) {
-    return vi.fn().mockResolvedValue({
-      ok,
-      status: ok ? 200 : 400,
-      headers: new Headers({ 'content-type': 'application/json' }),
-      json: async () => data
-    })
+  /** One request an endpoint tool sent, as the Cloudflare API received it. */
+  interface SentRequest {
+    url: string
+    method: string
+    headers: Headers
+    body: string | undefined
   }
 
-  function mockFetchText(text: string, ok = true) {
-    return vi.fn().mockResolvedValue({
-      ok,
-      status: ok ? 200 : 500,
-      headers: new Headers({ 'content-type': 'text/plain' }),
-      text: async () => text
-    })
+  /**
+   * Answers every Cloudflare API request with `response` (or a network error)
+   * and returns the requests as they arrived.
+   */
+  function stubCloudflareApi(response: Response | 'network'): SentRequest[] {
+    const sent: SentRequest[] = []
+    msw.use(
+      http.all('https://api.cloudflare.com/client/v4/*', async ({ request }) => {
+        sent.push({
+          url: request.url,
+          method: request.method,
+          headers: request.headers,
+          body: request.body === null ? undefined : await request.text()
+        })
+        return response === 'network' ? HttpResponse.error() : response.clone()
+      })
+    )
+    return sent
   }
 
   it('does not register per-endpoint SDK handlers for a large spec', async () => {
@@ -374,27 +386,26 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-123'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [{ id: 'my-worker' }] })
+    const sent = stubCloudflareApi(
+      HttpResponse.json({ success: true, result: [{ id: 'my-worker' }] })
+    )
 
-    try {
-      const result = await callTool(server, 'get_accounts_workers_scripts', {
-        account_id: 'acct-123'
-      })
+    const result = await callTool(server, 'get_accounts_workers_scripts', {
+      account_id: 'acct-123'
+    })
 
-      const [calledUrl, calledOpts] = (globalThis.fetch as any).mock.calls[0]
-      expect(calledUrl).toBe(
-        'https://api.cloudflare.com/client/v4/accounts/acct-123/workers/scripts'
-      )
-      expect(calledOpts.method).toBe('GET')
-      expect(calledOpts.headers['Authorization']).toBe('Bearer test-token')
-      expect(calledOpts.headers['User-Agent']).toBe('cloudflare-mcp (+https://github.com/cloudflare/mcp)')
+    const [request] = sent
+    expect(request.url).toBe(
+      'https://api.cloudflare.com/client/v4/accounts/acct-123/workers/scripts'
+    )
+    expect(request.method).toBe('GET')
+    expect(request.headers.get('Authorization')).toBe('Bearer test-token')
+    expect(request.headers.get('User-Agent')).toBe(
+      'cloudflare-mcp (+https://github.com/cloudflare/mcp)'
+    )
 
-      expect(result.isError).toBeFalsy()
-      expect(result.content[0].text).toContain('my-worker')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    expect(result.isError).toBeFalsy()
+    expect(result.content[0].text).toContain('my-worker')
   })
 
   // NOTE: account_id auto-resolution is covered end-to-end (through real MCP
@@ -455,16 +466,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: [] }))
 
-    try {
-      await callTool(server, 'get_accounts_workers_scripts', { page: '2' })
-      const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
-      expect(calledUrl).toContain('page=2')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    await callTool(server, 'get_accounts_workers_scripts', { page: '2' })
+    const [request] = sent
+    expect(request.url).toContain('page=2')
   })
 
   it('omits undefined query params from URL', async () => {
@@ -484,18 +490,13 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: [] }))
 
-    try {
-      // Only pass page, not per_page
-      await callTool(server, 'get_accounts_workers_scripts', { page: '3' })
-      const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
-      expect(calledUrl).toContain('page=3')
-      expect(calledUrl).not.toContain('per_page')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    // Only pass page, not per_page
+    await callTool(server, 'get_accounts_workers_scripts', { page: '3' })
+    const [request] = sent
+    expect(request.url).toContain('page=3')
+    expect(request.url).not.toContain('per_page')
   })
 
   it('sends request body for POST tools', async () => {
@@ -514,20 +515,15 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: { id: 'new-db' } })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: { id: 'new-db' } }))
 
-    try {
-      const body = JSON.stringify({ name: 'my-database' })
-      await callTool(server, 'post_accounts_d1_database', { body })
+    const body = JSON.stringify({ name: 'my-database' })
+    await callTool(server, 'post_accounts_d1_database', { body })
 
-      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
-      expect(calledOpts.method).toBe('POST')
-      expect(calledOpts.body).toBe(body)
-      expect(calledOpts.headers['Content-Type']).toBe('application/json')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    const [request] = sent
+    expect(request.method).toBe('POST')
+    expect(request.body).toBe(body)
+    expect(request.headers.get('Content-Type')).toBe('application/json')
   })
 
   it('uses custom content_type when provided', async () => {
@@ -549,23 +545,18 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: {} }))
 
-    try {
-      const scriptBody = 'export default { async fetch() { return new Response("hi"); } }'
-      await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
-        script_name: 'my-worker',
-        body: scriptBody,
-        content_type: 'application/javascript'
-      })
+    const scriptBody = 'export default { async fetch() { return new Response("hi"); } }'
+    await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
+      script_name: 'my-worker',
+      body: scriptBody,
+      content_type: 'application/javascript'
+    })
 
-      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
-      expect(calledOpts.headers['Content-Type']).toBe('application/javascript')
-      expect(calledOpts.body).toBe(scriptBody)
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    const [request] = sent
+    expect(request.headers.get('Content-Type')).toBe('application/javascript')
+    expect(request.body).toBe(scriptBody)
   })
 
   it('defaults to application/json when content_type not provided', async () => {
@@ -584,16 +575,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: {} }))
 
-    try {
-      await callTool(server, 'post_accounts_d1_database', { body: '{"name":"test"}' })
-      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
-      expect(calledOpts.headers['Content-Type']).toBe('application/json')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    await callTool(server, 'post_accounts_d1_database', { body: '{"name":"test"}' })
+    const [request] = sent
+    expect(request.headers.get('Content-Type')).toBe('application/json')
   })
 
   it('does not set Content-Type when no body provided', async () => {
@@ -606,17 +592,12 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: [] })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: [] }))
 
-    try {
-      await callTool(server, 'get_accounts_workers_scripts', {})
-      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
-      expect(calledOpts.headers['Content-Type']).toBeUndefined()
-      expect(calledOpts.body).toBeUndefined()
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    await callTool(server, 'get_accounts_workers_scripts', {})
+    const [request] = sent
+    expect(request.headers.get('Content-Type')).toBeNull()
+    expect(request.body).toBeUndefined()
   })
 
   it('passes header params through to fetch', async () => {
@@ -637,22 +618,17 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: {} }))
 
-    try {
-      await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
-        script_name: 'my-worker',
-        header_if_match: '"etag-123"',
-        body: '{}'
-      })
+    await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
+      script_name: 'my-worker',
+      header_if_match: '"etag-123"',
+      body: '{}'
+    })
 
-      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
-      expect(calledOpts.headers['If-Match']).toBe('"etag-123"')
-      expect(calledOpts.headers['Authorization']).toBe('Bearer test-token')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    const [request] = sent
+    expect(request.headers.get('If-Match')).toBe('"etag-123"')
+    expect(request.headers.get('Authorization')).toBe('Bearer test-token')
   })
 
   it('omits header when header param is not provided', async () => {
@@ -672,18 +648,13 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: {} }))
 
-    try {
-      await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
-        script_name: 'my-worker'
-      })
-      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
-      expect(calledOpts.headers['If-Match']).toBeUndefined()
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    await callTool(server, 'put_accounts_workers_scripts_by_script_name', {
+      script_name: 'my-worker'
+    })
+    const [request] = sent
+    expect(request.headers.get('If-Match')).toBeNull()
   })
 
   it('handles non-JSON response (e.g., KV value)', async () => {
@@ -696,20 +667,14 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchText('raw-kv-value-here')
+    stubCloudflareApi(HttpResponse.text('raw-kv-value-here'))
 
-    try {
-      const result = await callTool(
-        server,
-        'get_accounts_storage_kv_namespaces_values_by_key_name',
-        { namespace_id: 'ns-1', key_name: 'mykey' }
-      )
-      expect(result.isError).toBeFalsy()
-      expect(result.content[0].text).toContain('raw-kv-value-here')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    const result = await callTool(server, 'get_accounts_storage_kv_namespaces_values_by_key_name', {
+      namespace_id: 'ns-1',
+      key_name: 'mykey'
+    })
+    expect(result.isError).toBeFalsy()
+    expect(result.content[0].text).toContain('raw-kv-value-here')
   })
 
   it('sets isError=true for non-ok responses', async () => {
@@ -722,19 +687,16 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson(
-      { success: false, errors: [{ code: 10000, message: 'Auth error' }] },
-      false
+    stubCloudflareApi(
+      HttpResponse.json(
+        { success: false, errors: [{ code: 10000, message: 'Auth error' }] },
+        { status: 400 }
+      )
     )
 
-    try {
-      const result = await callTool(server, 'get_accounts_workers_scripts', {})
-      expect(result.isError).toBe(true)
-      expect(result.content[0].text).toContain('Auth error')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    const result = await callTool(server, 'get_accounts_workers_scripts', {})
+    expect(result.isError).toBe(true)
+    expect(result.content[0].text).toContain('Auth error')
   })
 
   it('handles fetch throwing an error', async () => {
@@ -747,16 +709,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network failure'))
+    stubCloudflareApi('network')
 
-    try {
-      const result = await callTool(server, 'get_accounts_workers_scripts', {})
-      expect(result.isError).toBe(true)
-      expect(result.content[0].text).toContain('Network failure')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    const result = await callTool(server, 'get_accounts_workers_scripts', {})
+    expect(result.isError).toBe(true)
+    expect(result.content[0].text).toContain('Failed to fetch')
   })
 
   it('encodes path parameters in URL', async () => {
@@ -769,19 +726,14 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(acctProps('acct-1'), { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: {} }))
 
-    try {
-      await callTool(server, 'get_accounts_workers_scripts_by_script_name', {
-        script_name: 'my worker/v2'
-      })
-      const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
-      expect(calledUrl).toContain('my%20worker%2Fv2')
-      expect(calledUrl).not.toContain('my worker/v2')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    await callTool(server, 'get_accounts_workers_scripts_by_script_name', {
+      script_name: 'my worker/v2'
+    })
+    const [request] = sent
+    expect(request.url).toContain('my%20worker%2Fv2')
+    expect(request.url).not.toContain('my worker/v2')
   })
 
   it('exposes the same optional account_id param for every session', async () => {
@@ -843,16 +795,11 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(bareUserProps, { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: { id: 'u1', email: 'a@b.com' } })
+    stubCloudflareApi(HttpResponse.json({ success: true, result: { id: 'u1', email: 'a@b.com' } }))
 
-    try {
-      const result = await callTool(server, 'get_user', {})
-      expect(result.isError).toBeFalsy()
-      expect(result.content[0].text).toContain('a@b.com')
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    const result = await callTool(server, 'get_user', {})
+    expect(result.isError).toBeFalsy()
+    expect(result.content[0].text).toContain('a@b.com')
   })
 
   it('passes query params + body together on PATCH', async () => {
@@ -873,27 +820,21 @@ describe('createServer with codemode=false', () => {
     await seedSpec(specPaths)
     const server = await createServer(bareUserProps, { codemode: false })
 
-    const originalFetch = globalThis.fetch
-    globalThis.fetch = mockFetchJson({ success: true, result: {} })
+    const sent = stubCloudflareApi(HttpResponse.json({ success: true, result: {} }))
 
-    try {
-      const body = JSON.stringify({ content: '1.2.3.4' })
-      await callTool(server, 'patch_zones_dns_records_by_record_id', {
-        zone_id: 'z1',
-        record_id: 'r1',
-        comment: 'updated IP',
-        body
-      })
+    const body = JSON.stringify({ content: '1.2.3.4' })
+    await callTool(server, 'patch_zones_dns_records_by_record_id', {
+      zone_id: 'z1',
+      record_id: 'r1',
+      comment: 'updated IP',
+      body
+    })
 
-      const calledUrl = (globalThis.fetch as any).mock.calls[0][0]
-      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
-      expect(calledUrl).toContain('/zones/z1/dns_records/r1')
-      expect(calledUrl).toContain('comment=updated+IP')
-      expect(calledOpts.method).toBe('PATCH')
-      expect(calledOpts.body).toBe(body)
-    } finally {
-      globalThis.fetch = originalFetch
-    }
+    const [request] = sent
+    expect(request.url).toContain('/zones/z1/dns_records/r1')
+    expect(request.url).toContain('comment=updated+IP')
+    expect(request.method).toBe('PATCH')
+    expect(request.body).toBe(body)
   })
 })
 

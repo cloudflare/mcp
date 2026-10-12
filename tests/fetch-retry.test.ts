@@ -1,3 +1,4 @@
+import { http, HttpResponse, type DefaultBodyType, type StrictRequest } from 'msw'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import {
   fetchWithRetry,
@@ -5,6 +6,7 @@ import {
   serverRetryDelayMs,
   type RetryOptions
 } from '../src/utils/fetch-retry'
+import { server } from './setup/msw'
 
 describe('computeRetryDelay', () => {
   // computeRetryDelay takes the resolved options without `caller`.
@@ -58,8 +60,12 @@ describe('serverRetryDelayMs', () => {
     expect(serverRetryDelayMs(headers({ 'Retry-After': '5' }))).toBe(5000)
     expect(serverRetryDelayMs(headers({ 'Retry-After': '0' }))).toBe(0)
     const now = Date.parse('Wed, 21 Oct 2026 07:28:00 GMT')
-    expect(serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:28:12 GMT' }), now)).toBe(12_000)
-    expect(serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:27:00 GMT' }), now)).toBe(0)
+    expect(
+      serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:28:12 GMT' }), now)
+    ).toBe(12_000)
+    expect(
+      serverRetryDelayMs(headers({ 'Retry-After': 'Wed, 21 Oct 2026 07:27:00 GMT' }), now)
+    ).toBe(0)
   })
 
   it("falls back to the Cloudflare API's Ratelimit reset for an exhausted limit", () => {
@@ -67,9 +73,13 @@ describe('serverRetryDelayMs', () => {
     // Quota left: no reason to wait for the reset.
     expect(serverRetryDelayMs(headers({ Ratelimit: '"default";r=50;t=30' }))).toBeUndefined()
     // Several limits: wait for every exhausted one.
-    expect(serverRetryDelayMs(headers({ Ratelimit: '"burst";r=0;t=4, "default";r=0;t=120' }))).toBe(120_000)
+    expect(serverRetryDelayMs(headers({ Ratelimit: '"burst";r=0;t=4, "default";r=0;t=120' }))).toBe(
+      120_000
+    )
     // Retry-After wins when both are present.
-    expect(serverRetryDelayMs(headers({ 'Retry-After': '2', Ratelimit: '"default";r=0;t=30' }))).toBe(2000)
+    expect(
+      serverRetryDelayMs(headers({ 'Retry-After': '2', Ratelimit: '"default";r=0;t=30' }))
+    ).toBe(2000)
   })
 
   it('ignores values it cannot read', () => {
@@ -80,48 +90,71 @@ describe('serverRetryDelayMs', () => {
   })
 })
 
+/** A response MSW returns for one attempt, or `'network'` for a failed fetch. */
+type Attempt =
+  | number
+  | Response
+  | 'network'
+  | ((request: StrictRequest<DefaultBodyType>) => Promise<Response | 'network'>)
+
+/**
+ * Serves `attempts` in order for every method on `url`, repeating the last one
+ * once they run out, and returns the number of requests seen so far.
+ */
+function respondInSequence(url: string, ...attempts: Attempt[]): { calls: () => number } {
+  let calls = 0
+  server.use(
+    http.all(url, async ({ request }) => {
+      const attempt = attempts[Math.min(calls, attempts.length - 1)]
+      calls++
+      const result =
+        typeof attempt === 'function'
+          ? await attempt(request)
+          : typeof attempt === 'number'
+            ? new Response(attempt === 429 ? 'rate limited' : 'body', { status: attempt })
+            : attempt
+      // Clone so a repeated last attempt doesn't hand out an already-read body.
+      return result === 'network' ? HttpResponse.error() : result.clone()
+    })
+  )
+  return { calls: () => calls }
+}
+
+const TEST_URL = 'https://api.example.com/test'
+
 describe('fetchWithRetry', () => {
-  let originalFetch: typeof globalThis.fetch
   let warnSpy: ReturnType<typeof vi.spyOn>
   let errorSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
-    originalFetch = globalThis.fetch
     warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
   })
 
   afterEach(() => {
-    globalThis.fetch = originalFetch
     vi.restoreAllMocks()
   })
 
   it('returns immediately on 200', async () => {
-    const mockResponse = new Response('ok', { status: 200 })
-    globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
+    const api = respondInSequence(TEST_URL, 200)
 
-    const result = await fetchWithRetry('https://api.example.com/test')
+    const result = await fetchWithRetry(TEST_URL)
 
     expect(result.status).toBe(200)
-    expect(globalThis.fetch).toHaveBeenCalledTimes(1)
+    expect(api.calls()).toBe(1)
   })
 
   it('returns immediately on non-429 errors (e.g. 401)', async () => {
-    const mockResponse = new Response('unauthorized', { status: 401 })
-    globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
+    const api = respondInSequence(TEST_URL, 401)
 
-    const result = await fetchWithRetry('https://api.example.com/test')
+    const result = await fetchWithRetry(TEST_URL)
 
     expect(result.status).toBe(401)
-    expect(globalThis.fetch).toHaveBeenCalledTimes(1)
+    expect(api.calls()).toBe(1)
   })
 
   it('logs caller and url when retrying 429s', async () => {
-    const mock = vi
-      .fn()
-      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
-      .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    respondInSequence('https://api.example.com/accounts', 429, 200)
 
     const result = await fetchWithRetry('https://api.example.com/accounts', undefined, {
       maxRetries: 1,
@@ -137,25 +170,20 @@ describe('fetchWithRetry', () => {
   })
 
   it('retries on 429 and succeeds', async () => {
-    const mock = vi
-      .fn()
-      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
-      .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    const api = respondInSequence(TEST_URL, 429, 200)
 
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+    const result = await fetchWithRetry(TEST_URL, undefined, {
       maxRetries: 3,
       baseDelayMs: 10, // fast for tests
       jitter: false
     })
 
     expect(result.status).toBe(200)
-    expect(mock).toHaveBeenCalledTimes(2)
+    expect(api.calls()).toBe(2)
   })
 
   it('logs an error after exhausting 429 retries', async () => {
-    const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
-    globalThis.fetch = mock
+    respondInSequence('https://api.example.com/accounts', 429)
 
     const result = await fetchWithRetry('https://api.example.com/accounts', undefined, {
       maxRetries: 0
@@ -168,10 +196,9 @@ describe('fetchWithRetry', () => {
   })
 
   it('returns last 429 response after exhausting retries', async () => {
-    const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
-    globalThis.fetch = mock
+    const api = respondInSequence(TEST_URL, 429)
 
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+    const result = await fetchWithRetry(TEST_URL, undefined, {
       maxRetries: 2,
       baseDelayMs: 10,
       jitter: false
@@ -179,86 +206,88 @@ describe('fetchWithRetry', () => {
 
     expect(result.status).toBe(429)
     // 1 initial + 2 retries = 3 total
-    expect(mock).toHaveBeenCalledTimes(3)
+    expect(api.calls()).toBe(3)
   })
 
   it('retries on network errors and succeeds', async () => {
-    const mock = vi
-      .fn()
-      .mockRejectedValueOnce(new Error('network failure'))
-      .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    const api = respondInSequence(TEST_URL, 'network', 200)
 
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+    const result = await fetchWithRetry(TEST_URL, undefined, {
       maxRetries: 3,
       baseDelayMs: 10,
       jitter: false
     })
 
     expect(result.status).toBe(200)
-    expect(mock).toHaveBeenCalledTimes(2)
+    expect(api.calls()).toBe(2)
   })
 
   it('logs an error after exhausting network retries', async () => {
-    const error = new Error('network failure')
-    const mock = vi.fn().mockRejectedValue(error)
-    globalThis.fetch = mock
+    respondInSequence('https://api.example.com/accounts', 'network')
 
-    await expect(
-      fetchWithRetry('https://api.example.com/accounts', undefined, {
-        maxRetries: 0
-      })
-    ).rejects.toThrow('network failure')
+    const failure = await fetchWithRetry('https://api.example.com/accounts', undefined, {
+      maxRetries: 0
+    }).catch((error: unknown) => error)
 
+    expect(failure).toBeInstanceOf(TypeError)
     expect(errorSpy).toHaveBeenCalledWith(
       'fetchWithRetry: failed url=https://api.example.com/accounts after 1 attempts',
-      error
+      failure
     )
   })
 
   it('throws after exhausting retries on network errors', async () => {
-    const mock = vi.fn().mockRejectedValue(new Error('network failure'))
-    globalThis.fetch = mock
+    const api = respondInSequence(TEST_URL, 'network')
 
     await expect(
-      fetchWithRetry('https://api.example.com/test', undefined, {
+      fetchWithRetry(TEST_URL, undefined, {
         maxRetries: 1,
         baseDelayMs: 10,
         jitter: false
       })
-    ).rejects.toThrow('network failure')
+    ).rejects.toThrow(TypeError)
 
     // 1 initial + 1 retry = 2 total
-    expect(mock).toHaveBeenCalledTimes(2)
+    expect(api.calls()).toBe(2)
   })
 
   it('passes through request init options and injects User-Agent', async () => {
-    const mockResponse = new Response('ok', { status: 200 })
-    globalThis.fetch = vi.fn().mockResolvedValue(mockResponse)
+    let received:
+      | { method: string; authorization: string | null; userAgent: string | null; body: string }
+      | undefined
+    respondInSequence(TEST_URL, async (request) => {
+      received = {
+        method: request.method,
+        authorization: request.headers.get('Authorization'),
+        userAgent: request.headers.get('User-Agent'),
+        body: await request.text()
+      }
+      return new Response('ok', { status: 200 })
+    })
 
-    await fetchWithRetry('https://api.example.com/test', {
+    await fetchWithRetry(TEST_URL, {
       method: 'POST',
       headers: { Authorization: 'Bearer token' },
       body: '{"key":"value"}'
     })
 
-    expect(globalThis.fetch).toHaveBeenCalledWith('https://api.example.com/test', {
+    expect(received).toEqual({
       method: 'POST',
-      headers: { Authorization: 'Bearer token', 'User-Agent': 'cloudflare-mcp (+https://github.com/cloudflare/mcp)' },
+      authorization: 'Bearer token',
+      userAgent: 'cloudflare-mcp (+https://github.com/cloudflare/mcp)',
       body: '{"key":"value"}'
     })
   })
 
   it('respects Retry-After header from 429 response', async () => {
-    const headers429 = new Headers({ 'Retry-After': '1' })
-    const mock = vi
-      .fn()
-      .mockResolvedValueOnce(new Response('rate limited', { status: 429, headers: headers429 }))
-      .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    respondInSequence(
+      TEST_URL,
+      new Response('rate limited', { status: 429, headers: { 'Retry-After': '1' } }),
+      200
+    )
 
     const start = Date.now()
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+    const result = await fetchWithRetry(TEST_URL, undefined, {
       maxRetries: 3,
       baseDelayMs: 10, // would be 10ms without Retry-After
       jitter: false
@@ -271,32 +300,32 @@ describe('fetchWithRetry', () => {
   })
 
   it('returns the 429 at once when the server asks to wait beyond maxDelayMs', async () => {
-    const mock = vi
-      .fn()
-      .mockResolvedValue(new Response('rate limited', { status: 429, headers: { 'Retry-After': '300' } }))
-    globalThis.fetch = mock
+    const api = respondInSequence(
+      'https://api.example.com/user',
+      new Response('rate limited', { status: 429, headers: { 'Retry-After': '300' } })
+    )
 
-    const result = await fetchWithRetry('https://api.example.com/user', undefined, { caller: 'probe' })
+    const result = await fetchWithRetry('https://api.example.com/user', undefined, {
+      caller: 'probe'
+    })
 
     expect(result.status).toBe(429)
     expect(result.headers.get('Retry-After')).toBe('300')
-    expect(mock).toHaveBeenCalledTimes(1)
+    expect(api.calls()).toBe(1)
     expect(warnSpy).toHaveBeenCalledWith(
       'fetchWithRetry: 429 caller=probe url=https://api.example.com/user on attempt 1/4, not retrying: the server asks for 300s retry-after=300'
     )
   })
 
   it('waits for the Ratelimit reset when there is no Retry-After', async () => {
-    const mock = vi
-      .fn()
-      .mockResolvedValueOnce(
-        new Response('rate limited', { status: 429, headers: { Ratelimit: '"default";r=0;t=1' } })
-      )
-      .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    respondInSequence(
+      TEST_URL,
+      new Response('rate limited', { status: 429, headers: { Ratelimit: '"default";r=0;t=1' } }),
+      200
+    )
 
     const start = Date.now()
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, { baseDelayMs: 10 })
+    const result = await fetchWithRetry(TEST_URL, undefined, { baseDelayMs: 10 })
 
     expect(result.status).toBe(200)
     expect(Date.now() - start).toBeGreaterThanOrEqual(900)
@@ -306,77 +335,66 @@ describe('fetchWithRetry', () => {
   })
 
   it('by default honours a server-given wait of up to 5 seconds', async () => {
-    const mock = vi
-      .fn()
-      .mockResolvedValue(new Response('rate limited', { status: 429, headers: { 'Retry-After': '6' } }))
-    globalThis.fetch = mock
+    const api = respondInSequence(
+      TEST_URL,
+      new Response('rate limited', { status: 429, headers: { 'Retry-After': '6' } })
+    )
 
     // 6s is over the 5s default: no wait, the 429 goes straight back with its Retry-After.
-    const result = await fetchWithRetry('https://api.example.com/test')
+    const result = await fetchWithRetry(TEST_URL)
 
     expect(result.status).toBe(429)
-    expect(mock).toHaveBeenCalledTimes(1)
+    expect(api.calls()).toBe(1)
   })
 
   it('keeps all three backoff retries when the server gives no wait', async () => {
-    const mock = vi.fn().mockResolvedValue(new Response('rate limited', { status: 429 }))
-    globalThis.fetch = mock
+    const api = respondInSequence(TEST_URL, 429)
 
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+    const result = await fetchWithRetry(TEST_URL, undefined, {
       baseDelayMs: 1,
       jitter: false
     })
 
     expect(result.status).toBe(429)
-    expect(mock).toHaveBeenCalledTimes(4)
+    expect(api.calls()).toBe(4)
   })
 
   it('handles mixed network errors and 429s', async () => {
-    const mock = vi
-      .fn()
-      .mockRejectedValueOnce(new Error('network failure'))
-      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
-      .mockResolvedValueOnce(new Response('ok', { status: 200 }))
-    globalThis.fetch = mock
+    const api = respondInSequence(TEST_URL, 'network', 429, 200)
 
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+    const result = await fetchWithRetry(TEST_URL, undefined, {
       maxRetries: 3,
       baseDelayMs: 10,
       jitter: false
     })
 
     expect(result.status).toBe(200)
-    expect(mock).toHaveBeenCalledTimes(3)
+    expect(api.calls()).toBe(3)
   })
 
   it('returns 429 if last response was 429 even after network errors', async () => {
-    const mock = vi
-      .fn()
-      .mockRejectedValueOnce(new Error('network failure'))
-      .mockResolvedValueOnce(new Response('rate limited', { status: 429 }))
-    globalThis.fetch = mock
+    const api = respondInSequence(TEST_URL, 'network', 429)
 
-    const result = await fetchWithRetry('https://api.example.com/test', undefined, {
+    const result = await fetchWithRetry(TEST_URL, undefined, {
       maxRetries: 1,
       baseDelayMs: 10,
       jitter: false
     })
 
     expect(result.status).toBe(429)
-    expect(mock).toHaveBeenCalledTimes(2)
+    expect(api.calls()).toBe(2)
   })
 
   it('retries a Request with a body after a 429 without consuming it', async () => {
     const bodies: string[] = []
-    const mock = vi.fn().mockImplementation(async (input: Request) => {
-      bodies.push(await input.text())
+    respondInSequence(TEST_URL, async (request) => {
+      bodies.push(await request.text())
       return bodies.length === 1
         ? new Response('rate limited', { status: 429 })
         : new Response('ok', { status: 200 })
     })
-    globalThis.fetch = mock
 
-    const request = new Request('https://api.example.com/test', {
+    const request = new Request(TEST_URL, {
       method: 'POST',
       body: '{"key":"value"}'
     })
@@ -392,19 +410,19 @@ describe('fetchWithRetry', () => {
 
   it('retries a Request with a body after a network error', async () => {
     const bodies: string[] = []
-    const mock = vi
-      .fn()
-      .mockImplementationOnce(async (input: Request) => {
-        await input.text()
-        throw new Error('network failure')
-      })
-      .mockImplementation(async (input: Request) => {
-        bodies.push(await input.text())
+    respondInSequence(
+      TEST_URL,
+      async (request) => {
+        await request.text()
+        return 'network'
+      },
+      async (request) => {
+        bodies.push(await request.text())
         return new Response('ok', { status: 200 })
-      })
-    globalThis.fetch = mock
+      }
+    )
 
-    const request = new Request('https://api.example.com/test', {
+    const request = new Request(TEST_URL, {
       method: 'POST',
       body: '{"key":"value"}'
     })

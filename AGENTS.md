@@ -187,7 +187,7 @@ Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the sh
 
 ## Testing
 
-Tests live in the top-level `tests/` directory (mirroring `src/`) and use **vitest** with `@cloudflare/vitest-pool-workers`.
+Tests live in the top-level `tests/` directory (mirroring `src/`) and use **vitest** with `@cloudflare/vitest-plugin`.
 
 ```bash
 npm run test          # Single run
@@ -214,7 +214,7 @@ auth-guard `/user`+`/accounts` probes and the GlobalOutbound-forwarded API call.
 Everything else — auth, MCP transport, tool dispatch, Worker Loader — is the real
 code path.
 
-The test stack is **vitest 4 + `@cloudflare/vitest-pool-workers` 0.16** using the
+The test stack is **vitest 4 + `@cloudflare/vitest-plugin` 1.x** using the
 `cloudflareTest()` Vite plugin (required for MSW's `msw/node` to load under
 workerd). Note: storage isolation is per test **file** (not per test), so tests
 sharing real bindings (e.g. `OAUTH_KV`) must clear state in `afterEach`.

@@ -8,7 +8,7 @@ import { server } from './setup/msw'
 
 /**
  * Worker-seam tests: drive the real worker entrypoint (`src/index.ts`) end to
- * end through the vitest-pool-workers runtime. A JSON-RPC `tools/call` for the
+ * end through the @cloudflare/vitest-plugin runtime. A JSON-RPC `tools/call` for the
  * `execute` tool runs actual code inside a Worker Loader isolate, whose
  * `cloudflare.request()` is forwarded by the real `GlobalOutbound` binding.
  *

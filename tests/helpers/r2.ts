@@ -1,5 +1,5 @@
 /**
- * Storage isolation in vitest-pool-workers is per test FILE, not per test, so
+ * Storage isolation in @cloudflare/vitest-plugin is per test FILE, not per test, so
  * a real R2 bucket binding persists across tests within a file. Call this in
  * `afterEach` to wipe a bucket and restore per-test isolation.
  */

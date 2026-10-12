@@ -338,7 +338,7 @@ describe('identity probe errors', () => {
   })
 
   it('maps a network failure to server_error', async () => {
-    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new TypeError('network failed'))
+    server.use(http.all(`${API_BASE}/*`, () => HttpResponse.error()))
 
     await expectOAuthError(
       resolveCloudflareCredential('legacy-token', 'unknown'),

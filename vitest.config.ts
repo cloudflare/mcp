@@ -1,4 +1,4 @@
-import { cloudflareTest } from '@cloudflare/vitest-pool-workers'
+import { cloudflareTest } from '@cloudflare/vitest-plugin'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -19,6 +19,10 @@ export default defineConfig({
   ],
   test: {
     globals: true,
+    // The first request to the worker in each test file loads the whole worker
+    // into a fresh isolate: about 1s alone, but 4-5s when every file runs in
+    // parallel, which is too close to Vitest's 5s default.
+    testTimeout: 15_000,
     include: ['tests/**/*.test.ts'],
     setupFiles: ['./tests/setup/msw.ts']
   }
