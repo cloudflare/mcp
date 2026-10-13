@@ -13,6 +13,7 @@ import {
 import { recordToolCall } from '../metrics'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
+import { D1_READ_QUERY_TOOL, D1ReadQueryInputSchema, runD1ReadQuery } from './d1-read-query'
 import { zodInputSchemaFromJson, type McpTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
 
@@ -33,7 +34,7 @@ export async function registerNonCodemodeTools(
   const tools = await getMcpTools()
 
   server.server.setRequestHandler('tools/list', () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.list]
+    tools: [DOCS_TOOL, WHOAMI_TOOL, D1_READ_QUERY_TOOL, ...tools.list]
   }))
 
   server.server.setRequestHandler('tools/call', async (request) => {
@@ -49,6 +50,11 @@ export async function registerNonCodemodeTools(
       } else if (name === WHOAMI_TOOL.name) {
         const parsed = WhoamiInputSchema.safeParse(request.params.arguments ?? {})
         result = parsed.success ? runWhoamiTool(props) : validationError(name, parsed.error)
+      } else if (name === D1_READ_QUERY_TOOL.name) {
+        const parsed = D1ReadQueryInputSchema.safeParse(request.params.arguments ?? {})
+        result = parsed.success
+          ? await runD1ReadQuery(parsed.data, props, formatResult)
+          : validationError(name, parsed.error)
       } else {
         const tool = tools.byName.get(name)
         if (!tool) {

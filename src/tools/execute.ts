@@ -13,6 +13,7 @@ import {
   unknownAccountHint
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
+import { routeD1ReadQuery } from './d1-read-route'
 
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
@@ -36,10 +37,15 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     if (requested !== allowed) {
       return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
     }
+    // The read-only D1 endpoint is this server's, not the API's: refuse SQL
+    // that could write, and send the rest to the real query endpoint.
+    const routed = await routeD1ReadQuery(request, this.env.CLOUDFLARE_API_BASE)
+    if (routed instanceof Response) return routed
+    const upstream = routed ?? request
     // Inject auth header — token comes from props, never enters user code isolate
-    const authedRequest = new Request(request, {
+    const authedRequest = new Request(upstream, {
       headers: new Headers([
-        ...request.headers.entries(),
+        ...upstream.headers.entries(),
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
@@ -218,6 +224,8 @@ ${CLOUDFLARE_TYPES}
 When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DISCOVERY_DESCRIPTION}
 
 Your code must be an async arrow function that returns the result.
+
+To only read a D1 database, POST { sql, params } to /accounts/{account_id}/d1/database/{database_id}/read_query instead of .../query: this server refuses SQL that could write before it reaches D1.
 
 Example: Worker with bindings (requires multipart/form-data):
 async () => {
