@@ -1,0 +1,29 @@
+AGENTS.md
+  s_255070e7a9b49a::t_cc679881abfe0e 131
+docs/mcp-events.md
+  s_255070e7a9b49a::t_a129a7ee00f25a 28-29
+node_modules
+  s_255070e7a9b49a::t_885032fc2b63d3 1
+src/events/service.ts
+  s_255070e7a9b49a::t_60d313d3691c70 105,246-247,326
+src/events/state.ts
+  s_255070e7a9b49a::t_78b423e697874f 3,42,45-47,145,147
+tests/events-e2e.test.ts
+  s_255070e7a9b49a::t_9caabbdd4d1af0 7,493
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "1f47daf51fcb7f4f90c65c1a83c1893db408bf0b",
+  "prompts": {},
+  "sessions": {
+    "s_255070e7a9b49a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a11212-80e2-7424-b702-bf91c45a6895",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
