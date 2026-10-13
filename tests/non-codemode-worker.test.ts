@@ -197,3 +197,73 @@ describe('non-codemode: account_id auto-resolution through real MCP validation',
     expect(result.result?.isError).toBe(true)
   })
 })
+
+describe('non-codemode: d1_read_query', () => {
+  const DATABASE_ID = 'd1d1d1d1-0000-0000-0000-000000000001'
+  const QUERY_URL = `${API_BASE}/accounts/${ACCOUNT_ID}/d1/database/${DATABASE_ID}/query`
+
+  it('is listed with read-only annotations next to the generated endpoint tools', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+
+    const tools = (await listNonCodemodeTools(ACCOUNT_TOKEN)) as Array<{
+      name: string
+      annotations?: Record<string, unknown>
+      inputSchema: { required?: string[] }
+    }>
+    const tool = tools.find((candidate) => candidate.name === 'd1_read_query')
+
+    expect(tool?.annotations).toMatchObject({ readOnlyHint: true, destructiveHint: false })
+    expect(tool?.inputSchema.required).toEqual(['database_id', 'sql'])
+  })
+
+  it('sends read-only SQL and its params to the D1 query endpoint', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    let body: unknown
+    let auth: string | null = null
+    server.use(
+      http.post(QUERY_URL, async ({ request }) => {
+        body = await request.json()
+        auth = request.headers.get('Authorization')
+        return HttpResponse.json(cfSuccess([{ results: [{ id: 7 }], success: true }]))
+      })
+    )
+
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'd1_read_query', {
+      database_id: DATABASE_ID,
+      sql: 'SELECT id FROM users WHERE email = ?',
+      params: ['a@example.com']
+    })
+
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toContain('"id": 7')
+    expect(body).toEqual({ sql: 'SELECT id FROM users WHERE email = ?', params: ['a@example.com'] })
+    expect(auth).toBe(`Bearer ${ACCOUNT_TOKEN}`)
+  })
+
+  it('refuses SQL that writes without calling the Cloudflare API', async () => {
+    // No handler for the query endpoint: MSW fails the test on any request to it.
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'd1_read_query', {
+      database_id: DATABASE_ID,
+      sql: 'SELECT 1; DELETE FROM users'
+    })
+
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain('Statement 2: DELETE statement is not read-only')
+    expect(toolText(result)).toContain('post_accounts_d1_database_query')
+  })
+
+  it('rejects unknown arguments through its strict input schema', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+
+    const result = await callNonCodemodeTool(ACCOUNT_TOKEN, 'd1_read_query', {
+      database_id: DATABASE_ID,
+      sql: 'SELECT 1',
+      body: '{"sql":"DELETE FROM users"}'
+    })
+
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain('Input validation error')
+  })
+})

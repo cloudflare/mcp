@@ -114,7 +114,9 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 1. **`search` tool** — Agents write JavaScript to query the pre-resolved OpenAPI spec (all `$ref`s inlined). Runs in an isolated worker with no network access.
 2. **`execute` tool** — Agents write JavaScript using `cloudflare.request()` to call discovered endpoints. Runs in an isolated worker with outbound restricted to Cloudflare API URLs only.
 
-`docs` (documentation search) and `whoami` are registered in both tool modes. `whoami` (`src/tools/whoami.ts`) returns the credential's identity as `user:<id>` or `account:<id>` and carries `_meta['openai/profile']` so ChatGPT can tell connected accounts apart. That ID format is a permanent contract: clients store it, so never change it. Its definition is static like every other tool's; only `tools/call` reads the credential.
+`docs` (documentation search) and `whoami` are registered in both tool modes.
+
+With `?codemode=false`, `d1_read_query` (`src/tools/d1-read-query.ts`) is listed next to the generated endpoint tools with `readOnlyHint: true`. `src/tools/d1-sql.ts` tokenizes the SQL with SQLite's own rules for comments, strings and quoted identifiers, and accepts it only when every statement is `SELECT`, `VALUES`, `WITH … SELECT`, `EXPLAIN` of one of those, or an allowlisted reporting `PRAGMA`. In SQLite the statement head decides this, because subqueries and CTE bodies can only be `SELECT`s. Refused SQL never reaches the API. The generated `post_accounts_d1_database_query` tool still runs any SQL. Don't swap the tokenizer for `sql-parser-cst`: it is GPL-2.0-or-later. `whoami` (`src/tools/whoami.ts`) returns the credential's identity as `user:<id>` or `account:<id>` and carries `_meta['openai/profile']` so ChatGPT can tell connected accounts apart. That ID format is a permanent contract: clients store it, so never change it. Its definition is static like every other tool's; only `tools/call` reads the credential.
 
 ### MCP HTTP serving
 
