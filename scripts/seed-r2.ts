@@ -3,6 +3,7 @@ import { writeFileSync, mkdtempSync, mkdirSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { processSpec, extractProducts } from '../src/spec-processor'
+import { withD1ReadQueryOperation } from '../src/tools/d1-read-route'
 import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from '../src/openapi'
 import { fetchSkills } from '../src/skills/sync'
 import { SKILLS_MANIFEST_KEY, skillFileKey } from '../src/skills/types'
@@ -26,7 +27,8 @@ const rawSpec = (await response.json()) as Record<string, unknown>
 console.log('Processing spec, resolving $refs...')
 
 const processed = processSpec(rawSpec)
-const specJson = JSON.stringify(processed)
+// Code Mode's read-only D1 endpoint is searchable but has no endpoint tool.
+const specJson = JSON.stringify({ paths: withD1ReadQueryOperation(processed.paths) })
 
 const products = extractProducts(rawSpec)
 const productsJson = JSON.stringify(products)

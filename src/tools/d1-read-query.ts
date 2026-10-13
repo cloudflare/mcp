@@ -11,7 +11,7 @@ import {
 } from '../auth/account-access'
 import { ACCOUNT_ID_PARAM_DESCRIPTION } from '../openapi'
 import type { AuthProps } from '../auth/types'
-import { classifyD1Sql } from './d1-sql'
+import { READ_ONLY_SQL_SUMMARY, classifyD1Sql } from './d1-sql'
 
 const NAME = 'd1_read_query'
 const TITLE = 'Read-Only D1 Query'
@@ -21,8 +21,7 @@ const WRITE_TOOL_NAME = 'post_accounts_d1_database_query'
 
 const DESCRIPTION =
   'Run read-only SQL against a D1 database (POST /accounts/{account_id}/d1/database/{database_id}/query). ' +
-  'Every statement must be SELECT, VALUES, WITH … SELECT, EXPLAIN [QUERY PLAN] of one of those, or a ' +
-  'schema-reading PRAGMA such as table_list or table_info; anything else is refused before it reaches D1. ' +
+  `Every statement must be ${READ_ONLY_SQL_SUMMARY}; anything else is refused before it reaches D1. ` +
   `Separate several statements with semicolons. Use ${WRITE_TOOL_NAME} to change data or schema.`
 
 export const D1ReadQueryInputSchema = z.strictObject({
@@ -55,7 +54,9 @@ export const D1_READ_QUERY_TOOL: Tool = {
 
 /**
  * Run `d1_read_query`: refuse SQL that could write, then send the rest to D1's
- * query endpoint.
+ * query endpoint. The endpoint accepts a token with only D1 Read, so
+ * Cloudflare's permissions don't separate reads from writes on it; this check
+ * is what makes the tool read-only.
  *
  * @param input - The validated tool arguments.
  * @param props - The request's validated credential.

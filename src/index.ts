@@ -12,6 +12,7 @@ import {
   rejectInvalidMcpRequest
 } from './mcp-handler'
 import { processSpec, extractProducts } from './spec-processor'
+import { withD1ReadQueryOperation } from './tools/d1-read-route'
 import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from './openapi'
 import { syncSkills } from './skills/sync'
 
@@ -124,7 +125,8 @@ async function syncSpec(env: Env): Promise<void> {
   console.log('Processing spec, resolving $refs...')
 
   const processed = processSpec(rawSpec)
-  const specJson = JSON.stringify(processed)
+  // Code Mode's read-only D1 endpoint is searchable but has no endpoint tool.
+  const specJson = JSON.stringify({ paths: withD1ReadQueryOperation(processed.paths) })
 
   const products = extractProducts(rawSpec)
   const productsJson = JSON.stringify(products)

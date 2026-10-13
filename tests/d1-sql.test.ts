@@ -54,3 +54,22 @@ describe('classifyD1Sql', () => {
     expect(verdict.readOnly === false && verdict.reason).toContain(reason)
   })
 })
+
+describe('classifyD1Sql PRAGMAs', () => {
+  it.each(['integrity_check', 'case_sensitive_like', 'defer_foreign_keys', 'compile_options'])(
+    'rejects PRAGMA %s, which D1 does not list as reporting',
+    (name) => {
+      expect(classifyD1Sql(`PRAGMA ${name}`).readOnly).toBe(false)
+    }
+  )
+
+  it.each([
+    'table_xinfo(t)',
+    'index_xinfo(i)',
+    'quick_check',
+    'foreign_key_check',
+    'foreign_key_list(t)'
+  ])('accepts PRAGMA %s', (pragma) => {
+    expect(classifyD1Sql(`PRAGMA ${pragma}`)).toEqual({ readOnly: true })
+  })
+})

@@ -21,29 +21,27 @@ type Token =
   | { kind: 'other' }
 
 /**
- * PRAGMAs that only report. Each reads the schema or checks integrity and
- * changes nothing, with or without its argument. The PRAGMAs that set a value
- * also accept `PRAGMA name(value)`, so they are left out rather than told
- * apart by syntax.
+ * The PRAGMAs D1 supports that only report: they read the schema or check
+ * integrity, with or without an argument. D1's other PRAGMAs are toggles that
+ * also accept `PRAGMA name(value)`, or `optimize`, which runs ANALYZE, so they
+ * are left out rather than told apart by syntax.
+ *
+ * @see https://developers.cloudflare.com/d1/sql-api/sql-statements/#compatible-pragma-statements
  */
 const READ_ONLY_PRAGMAS = new Set([
-  'COLLATION_LIST',
-  'COMPILE_OPTIONS',
-  'DATABASE_LIST',
   'FOREIGN_KEY_CHECK',
   'FOREIGN_KEY_LIST',
-  'FUNCTION_LIST',
   'INDEX_INFO',
   'INDEX_LIST',
   'INDEX_XINFO',
-  'INTEGRITY_CHECK',
-  'MODULE_LIST',
-  'PRAGMA_LIST',
   'QUICK_CHECK',
   'TABLE_INFO',
   'TABLE_LIST',
   'TABLE_XINFO'
 ])
+
+/** What the check accepts, for tool and endpoint descriptions. */
+export const READ_ONLY_SQL_SUMMARY = `SELECT, VALUES, WITH … SELECT, EXPLAIN [QUERY PLAN] of one of those, or a PRAGMA that only reports (${[...READ_ONLY_PRAGMAS].map((pragma) => pragma.toLowerCase()).join(', ')})`
 
 /** Keywords that can start the main statement after a WITH clause. */
 const WITH_MAIN_KEYWORDS = new Set(['SELECT', 'VALUES', 'INSERT', 'UPDATE', 'DELETE', 'REPLACE'])

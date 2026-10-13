@@ -51,7 +51,9 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 
 If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` and `whoami` tools remain available in both modes.
 
-This mode also adds `d1_read_query`, which runs SQL against a D1 database only when every statement is a read: `SELECT`, `VALUES`, `WITH … SELECT`, `EXPLAIN` of one of those, or a schema-reading `PRAGMA` such as `table_info`. Anything else is refused before it reaches D1. It is annotated `readOnlyHint: true`, so a client can approve it without asking. `post_accounts_d1_database_query` still runs any SQL.
+This mode also adds `d1_read_query`, which runs SQL against a D1 database only when every statement is a read: `SELECT`, `VALUES`, `WITH … SELECT`, `EXPLAIN` of one of those, or one of the reporting PRAGMAs D1 supports, such as `table_info`. Anything else is refused before it reaches D1. It is annotated `readOnlyHint: true`, so a client can approve it without asking. `post_accounts_d1_database_query` still runs any SQL.
+
+In code mode the same check guards `POST /accounts/{account_id}/d1/database/{database_id}/read_query`, an endpoint this server adds next to `.../query`. `search` finds it and `execute` calls it like any other path. A client can't approve it separately, because `execute` is one tool and can still call `.../query`.
 
 ```
 https://mcp.cloudflare.com/mcp?codemode=false
