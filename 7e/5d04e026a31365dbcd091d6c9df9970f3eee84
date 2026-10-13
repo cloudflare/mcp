@@ -1,0 +1,33 @@
+AGENTS.md
+  s_255070e7a9b49a::t_c8c8a5cb63a8b1 130-131
+docs/mcp-events.md
+  s_255070e7a9b49a::t_e0f2353849a2ed 31-32,46-47,50-59,65,76-77
+src/events/ans-bridge.ts
+  s_255070e7a9b49a::t_a02cd32fc25da6 201,215,465-468
+src/events/callback.ts
+  s_255070e7a9b49a::t_5f7b848c55d020 2,14,28-33,52,64-78
+src/events/service.ts
+  s_255070e7a9b49a::t_6676e547238294 23,223-232,282-290
+src/events/state.ts
+  s_255070e7a9b49a::t_f0b4b9a61dd35f 26-33,39-43
+tests/ans-bridge.test.ts
+  s_255070e7a9b49a::t_2eac16cab39231 27,358-362,365,368
+tests/events-e2e.test.ts
+  s_255070e7a9b49a::t_d4fc702f66119e 7,316-317,320-328,331-333,335-338,481-482,484-485,490,493-495,556-557,579,583
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "7e5d04e026a31365dbcd091d6c9df9970f3eee84",
+  "prompts": {},
+  "sessions": {
+    "s_255070e7a9b49a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a11212-80e2-7424-b702-bf91c45a6895",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Matt Carey <mcarey@cloudflare.com>"
+    }
+  }
+}
