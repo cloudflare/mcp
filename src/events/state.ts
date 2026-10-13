@@ -26,7 +26,7 @@ export async function hashSecret(secret: string): Promise<string> {
 /**
  * Policy state written before the signing secret was hashed. Read only, to migrate.
  *
- * TODO(2026-10-16): remove once subscriptions made before #282 have expired or been refreshed (they last at most an hour).
+ * TODO(2026-10-16): remove once subscriptions made before #283 have expired or been refreshed (they last at most an hour).
  */
 const LegacyPolicyState = z.object({
   version: z.literal(1),
@@ -62,7 +62,7 @@ export type PolicyState = z.infer<typeof CurrentPolicyState>
  * the raw signing secret. The upgraded state is written back on the next
  * subscribe or refresh.
  *
- * TODO(2026-10-16): remove once subscriptions made before #282 have expired or been refreshed (they last at most an hour). Then parse `CurrentPolicyState` directly.
+ * TODO(2026-10-16): remove once subscriptions made before #283 have expired or been refreshed (they last at most an hour). Then parse `CurrentPolicyState` directly.
  */
 export async function parsePolicyState(value: unknown): Promise<PolicyState> {
   const legacy = LegacyPolicyState.safeParse(value)
@@ -148,7 +148,7 @@ const RECORD_PREFIX = 'mcp-events:subscription:'
 /**
  * Earlier versions kept an encrypted ticket here; removed on refresh.
  *
- * TODO(2026-10-16): remove once subscriptions made before #282 have expired or been refreshed (they last at most an hour).
+ * TODO(2026-10-16): remove once subscriptions made before #283 have expired or been refreshed (they last at most an hour).
  */
 const LEGACY_TICKET_PREFIX = 'mcp-events:ticket:'
 /** KV's minimum TTL; also covers clock skew between refresh and expiry. */

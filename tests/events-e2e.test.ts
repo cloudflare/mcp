@@ -521,7 +521,7 @@ describe('MCP Events through the real Worker', () => {
     expect(String([...records(WEBHOOKS).values()][0].secret)).not.toContain(signingSecret)
   })
 
-  // TODO(2026-10-16): remove once subscriptions made before #282 have expired or been refreshed (they last at most an hour).
+  // TODO(2026-10-16): remove once subscriptions made before #283 have expired or been refreshed (they last at most an hour).
   it('upgrades a subscription made by the previous version on refresh', async () => {
     const subscribed = await rpc('events/subscribe', params)
     const id = subscribed.result!.id!

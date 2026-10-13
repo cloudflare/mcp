@@ -241,7 +241,7 @@ export class EventService {
       }
       const url = new URL(`/events/ans/${id}`, this.env.MCP_RESOURCE).href
       CallbackUrl.parse(url)
-      // TODO(2026-10-16): drop the "destination from an older version" case once subscriptions made before #282 have expired or been refreshed (they last at most an hour).
+      // TODO(2026-10-16): drop the "destination from an older version" case once subscriptions made before #283 have expired or been refreshed (they last at most an hour).
       // The signing secret lives only in the ANS destination's secret, sealed
       // with the callback URL. ANS ignores updates to a destination's secret,
       // so a new signing secret (or a destination from an older version, or a
