@@ -23,14 +23,17 @@ import {
   type CallbackFailureReason
 } from './ans-bridge'
 import {
-  PolicyState,
   credentialInfo,
   decryptState,
-  deleteDeliveryTicket,
+  deleteSubscriptionRecord,
   encryptState,
-  ingressSecret,
-  writeDeliveryTicket,
-  type EventEnvironment
+  hashSecret,
+  parsePolicyState,
+  readSubscriptionRecord,
+  sealDeliverySecret,
+  writeSubscriptionRecord,
+  type EventEnvironment,
+  type PolicyState
 } from './state'
 
 export const ManagedPolicy = z.object({
@@ -99,7 +102,7 @@ export async function readPolicyState(
   policy: ManagedPolicy,
   id: string
 ): Promise<PolicyState> {
-  const state = PolicyState.parse(await decryptState(env, `policy:${id}`, policy.description))
+  const state = await parsePolicyState(await decryptState(env, `policy:${id}`, policy.description))
   if (
     state.id !== id ||
     policy.name !== managedName(id) ||
@@ -205,20 +208,20 @@ export class EventService {
         credential.expiresAt - 60_000
       )
       if (expiresAt <= now) throw new Error('Refresh authentication before subscribing')
+      const signingSecretHash = await hashSecret(params.delivery.secret)
+      const { secret: signingSecret, ...delivery } = params.delivery
       const state: PolicyState = {
-        version: 1,
+        version: 2,
         id,
         principal: this.principal,
-        params,
+        params: { name: params.name, arguments: params.arguments, delivery },
+        signingSecretHash,
         webhookId: previous?.webhookId ?? '',
         expiresAt,
         verifiedUntil: previous?.verifiedUntil ?? 0
       }
-      if (
-        !previous ||
-        previous.params.delivery.secret !== params.delivery.secret ||
-        state.verifiedUntil <= now
-      ) {
+      const secretChanged = previous?.signingSecretHash !== signingSecretHash
+      if (secretChanged || state.verifiedUntil <= now) {
         const verification = await verifyCallback(
           {
             id,
@@ -226,7 +229,7 @@ export class EventService {
             policyId: '',
             alertType: params.name.slice('cloudflare.alert.'.length),
             callbackUrl: params.delivery.url,
-            signingSecret: params.delivery.secret,
+            signingSecret,
             ingressSecret: '',
             expiresAt
           },
@@ -236,23 +239,34 @@ export class EventService {
         if (verification._tag === 'failed') throw new CallbackError(verification.reason)
         state.verifiedUntil = now + 5 * 60_000
       }
-      if (previous && previous.params.delivery.secret !== params.delivery.secret) {
-        state.previousSigningSecret = previous.params.delivery.secret
-        state.previousSecretExpiresAt = now + 5 * 60_000
-      } else if (previous?.previousSigningSecret) {
-        state.previousSigningSecret = previous.previousSigningSecret
-        state.previousSecretExpiresAt = previous.previousSecretExpiresAt
-      }
       const url = new URL(`/events/ans/${id}`, this.env.MCP_RESOURCE).href
       CallbackUrl.parse(url)
-      // ANS keeps a destination's secret from creation and ignores updates, so
-      // the secret is a fixed per-subscription ingress credential. Everything
-      // that changes on refresh lives in the KV delivery ticket below. ANS
-      // probes the destination on creation; with no ticket yet, the callback
-      // acknowledges the probe without forwarding it.
-      state.webhookId =
-        (await api.find(WEBHOOKS, name)) ??
-        (await api.create(WEBHOOKS, { name, url, secret: await ingressSecret(this.env, id) }))
+      // TODO(2026-10-16): drop the "destination from an older version" case once subscriptions made before #282 have expired or been refreshed (they last at most an hour).
+      // The signing secret lives only in the ANS destination's secret, sealed
+      // with the callback URL. ANS ignores updates to a destination's secret,
+      // so a new signing secret (or a destination from an older version, or a
+      // half-finished subscribe) gets a new destination; the old ones are
+      // deleted once the policy points at the new one. ANS probes a new
+      // destination on creation; the callback acknowledges the probe because
+      // the KV record does not match it yet.
+      const record = await readSubscriptionRecord(this.env, id)
+      const destinations = await api.findAll(WEBHOOKS, name)
+      const reusable =
+        !secretChanged &&
+        record?.signingSecretHash === signingSecretHash &&
+        record.webhookId === state.webhookId &&
+        destinations.includes(state.webhookId)
+      if (!reusable) {
+        state.webhookId = await api.create(WEBHOOKS, {
+          name,
+          url,
+          secret: await sealDeliverySecret(this.env, {
+            id,
+            callbackUrl: params.delivery.url,
+            signingSecret
+          })
+        })
+      }
       const policyBody = {
         name,
         enabled: false,
@@ -271,23 +285,16 @@ export class EventService {
       const automationId =
         (await api.find(AUTOMATIONS, name, AUTOMATIONS_LISTING)) ??
         (await api.create(AUTOMATIONS, automationBody, 'automation'))
-      // Write the ticket before enabling delivery, so the first alert finds it.
-      // Refreshes rewrite it with the caller's current bearer and expiry.
-      await writeDeliveryTicket(
+      // Write the record before enabling delivery, so the first alert finds it.
+      await writeSubscriptionRecord(
         this.env,
         {
           id,
           accountId: params.arguments.account_id,
           policyId: resolvedPolicyId,
           alertType: params.name.slice('cloudflare.alert.'.length),
-          callbackUrl: params.delivery.url,
-          signingSecret: params.delivery.secret,
-          ...(state.previousSigningSecret
-            ? {
-                previousSigningSecret: state.previousSigningSecret,
-                previousSecretExpiresAt: state.previousSecretExpiresAt
-              }
-            : {}),
+          webhookId: state.webhookId,
+          signingSecretHash,
           expiresAt
         },
         now
@@ -300,6 +307,8 @@ export class EventService {
         ...automationBody,
         enabled: true
       })
+      for (const stale of destinations.filter((destination) => destination !== state.webhookId))
+        await api.remove(`${WEBHOOKS}/${encodeURIComponent(stale)}`)
       return {
         id,
         refreshBefore: new Date(expiresAt).toISOString(),
@@ -316,7 +325,7 @@ export class EventService {
     return serialized(id, async () => {
       // Stop forwarding first, so delivery ends even if ANS cleanup fails. The
       // ID is derived from this principal, so it can only name its own ticket.
-      await deleteDeliveryTicket(this.env, id)
+      await deleteSubscriptionRecord(this.env, id)
       const api = this.api(params.arguments.account_id)
       const name = managedName(id)
       const policyId = await api.find(POLICIES, name)
@@ -335,8 +344,8 @@ export class EventService {
       const automationId = await api.find(AUTOMATIONS, name, AUTOMATIONS_LISTING)
       if (automationId) await api.remove(`${AUTOMATIONS}/${encodeURIComponent(automationId)}`)
       if (policyId) await api.remove(`${POLICIES}/${encodeURIComponent(policyId)}`)
-      const webhookId = await api.find(WEBHOOKS, name)
-      if (webhookId) await api.remove(`${WEBHOOKS}/${encodeURIComponent(webhookId)}`)
+      for (const webhookId of await api.findAll(WEBHOOKS, name))
+        await api.remove(`${WEBHOOKS}/${encodeURIComponent(webhookId)}`)
       return {}
     })
   }

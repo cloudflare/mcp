@@ -81,6 +81,21 @@ export class EventApi {
     throw new EventApiError(503)
   }
 
+  /**
+   * Find every resource with this exact name. Used for destinations, which can
+   * briefly share a name while a signing secret rotates.
+   */
+  async findAll(path: string, name: string): Promise<string[]> {
+    const ids: string[] = []
+    for (let page = 1; page <= 100; page++) {
+      const envelope = await this.request(`${path}?page=${page}&per_page=100`)
+      const resources = z.array(Resource).parse(envelope.result)
+      ids.push(...resources.filter((resource) => resource.name === name).map(({ id }) => id))
+      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) return ids
+    }
+    throw new EventApiError(503)
+  }
+
   async create(path: string, body: unknown, collection?: string): Promise<string> {
     const result = await this.result(path, 'POST', body)
     return Resource.parse(

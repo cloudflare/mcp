@@ -1,6 +1,6 @@
 import { getOAuthApi } from '@cloudflare/workers-oauth-provider'
 import { z } from 'zod'
-import { SubscribeParams } from './ans-bridge'
+import { SubscribeParams, UnsubscribeParams } from './ans-bridge'
 
 export interface EventEnvironment {
   OAUTH_KV: KVNamespace
@@ -9,112 +9,189 @@ export interface EventEnvironment {
   MCP_RESOURCE: string
 }
 
-export const PolicyState = z.object({
-  version: z.literal(1),
-  id: z.string().regex(/^sub_[a-f0-9]{64}$/),
-  principal: z.string(),
-  params: SubscribeParams,
-  webhookId: z.string().min(1),
-  expiresAt: z.number(),
-  verifiedUntil: z.number(),
-  previousSigningSecret: z.string().optional(),
-  previousSecretExpiresAt: z.number().optional()
-})
-export type PolicyState = z.infer<typeof PolicyState>
+const SubscriptionIdSchema = z.string().regex(/^sub_[a-f0-9]{64}$/)
+
+/** SHA-256 of a signing secret, hex. Lets us compare secrets without keeping them. */
+const SecretHash = z.string().regex(/^[a-f0-9]{64}$/)
 
 /**
- * What a callback needs to forward one subscription's alerts: where to send
- * them, how to sign them, and until when. It holds no user credential. Like
- * workers-oauth-provider, the server never keeps a token it can use without
- * the client presenting it; access is re-checked on each subscribe/refresh.
- *
- * Kept in KV, not in the ANS destination secret: ANS keeps a destination's
- * secret from creation and ignores updates, while the expiry and signing key
- * change on refresh.
+ * Hash a webhook signing secret so it can be compared on refresh without being
+ * stored.
  */
-export const DeliveryTicket = z.object({
-  id: z.string().regex(/^sub_[a-f0-9]{64}$/),
+export async function hashSecret(secret: string): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(secret))
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('')
+}
+
+/**
+ * Policy state written before the signing secret was hashed. Read only, to migrate.
+ *
+ * TODO(2026-10-16): remove once subscriptions made before #282 have expired or been refreshed (they last at most an hour).
+ */
+const LegacyPolicyState = z.object({
+  version: z.literal(1),
+  id: SubscriptionIdSchema,
+  principal: z.string(),
+  params: SubscribeParams,
+  webhookId: z.string(),
+  expiresAt: z.number(),
+  verifiedUntil: z.number()
+})
+
+/**
+ * Subscription metadata kept, encrypted, in the ANS policy description. It
+ * identifies the owner and the subscription key, and holds only a hash of the
+ * signing secret.
+ */
+const CurrentPolicyState = z.object({
+  version: z.literal(2),
+  id: SubscriptionIdSchema,
+  principal: z.string(),
+  params: UnsubscribeParams,
+  signingSecretHash: SecretHash,
+  webhookId: z.string(),
+  expiresAt: z.number(),
+  verifiedUntil: z.number()
+})
+
+/** Parsed policy state, with older versions upgraded in memory. */
+export type PolicyState = z.infer<typeof CurrentPolicyState>
+
+/**
+ * Parse policy state from its decrypted JSON, upgrading the version that held
+ * the raw signing secret. The upgraded state is written back on the next
+ * subscribe or refresh.
+ *
+ * TODO(2026-10-16): remove once subscriptions made before #282 have expired or been refreshed (they last at most an hour). Then parse `CurrentPolicyState` directly.
+ */
+export async function parsePolicyState(value: unknown): Promise<PolicyState> {
+  const legacy = LegacyPolicyState.safeParse(value)
+  if (!legacy.success) return CurrentPolicyState.parse(value)
+  const { secret, ...delivery } = legacy.data.params.delivery
+  return {
+    version: 2,
+    id: legacy.data.id,
+    principal: legacy.data.principal,
+    params: {
+      name: legacy.data.params.name,
+      arguments: legacy.data.params.arguments,
+      delivery
+    },
+    signingSecretHash: await hashSecret(secret),
+    webhookId: legacy.data.webhookId,
+    expiresAt: legacy.data.expiresAt,
+    verifiedUntil: legacy.data.verifiedUntil
+  }
+}
+
+/**
+ * What the callback needs to forward alerts and cannot keep itself: where to
+ * send them and the client's signing secret.
+ *
+ * It is sealed into the ANS destination's secret, never stored by this
+ * server. ANS holds it (write-only through its API) and sends it back in
+ * `cf-webhook-auth` with every alert, like workers-oauth-provider gets its
+ * decryption key back from the client's token. Recovering a signing secret
+ * needs both our encryption key and ANS's store.
+ */
+const DeliverySeal = z.object({
+  id: SubscriptionIdSchema,
+  callbackUrl: z.string().url(),
+  signingSecret: z.string().startsWith('whsec_')
+})
+export type DeliverySeal = z.infer<typeof DeliverySeal>
+
+/** Seal delivery details as the secret of a new ANS destination. */
+export async function sealDeliverySecret(
+  env: EventEnvironment,
+  seal: DeliverySeal
+): Promise<string> {
+  return encryptState(env, `delivery-seal:${seal.id}`, seal)
+}
+
+/**
+ * Open the secret ANS presented for a subscription. Opening it is the ingress
+ * check: AES-GCM authenticates it, and it is bound to this subscription.
+ *
+ * @returns The delivery details, or `null` if the secret is not ours.
+ */
+export async function openDeliverySecret(
+  env: EventEnvironment,
+  id: string,
+  secret: string
+): Promise<DeliverySeal | null> {
+  try {
+    const seal = DeliverySeal.parse(await decryptState(env, `delivery-seal:${id}`, secret))
+    return seal.id === id ? seal : null
+  } catch {
+    return null
+  }
+}
+
+/**
+ * A live subscription's routing and expiry, in OAUTH_KV. It holds no secret
+ * and no credential. Its absence stops delivery: it expires with the
+ * subscription and unsubscribe deletes it first.
+ */
+const SubscriptionRecord = z.object({
+  id: SubscriptionIdSchema,
   accountId: z.string().regex(/^[a-f0-9]{32}$/),
   policyId: z.string().min(1),
   alertType: z.string().min(1),
-  callbackUrl: z.string().url(),
-  signingSecret: z.string().startsWith('whsec_'),
-  previousSigningSecret: z.string().startsWith('whsec_').optional(),
-  previousSecretExpiresAt: z.number().optional(),
+  webhookId: z.string().min(1),
+  signingSecretHash: SecretHash,
   expiresAt: z.number()
 })
-export type DeliveryTicket = z.infer<typeof DeliveryTicket>
+export type SubscriptionRecord = z.infer<typeof SubscriptionRecord>
 
-const TICKET_PREFIX = 'mcp-events:ticket:'
+const RECORD_PREFIX = 'mcp-events:subscription:'
+/**
+ * Earlier versions kept an encrypted ticket here; removed on refresh.
+ *
+ * TODO(2026-10-16): remove once subscriptions made before #282 have expired or been refreshed (they last at most an hour).
+ */
+const LEGACY_TICKET_PREFIX = 'mcp-events:ticket:'
 /** KV's minimum TTL; also covers clock skew between refresh and expiry. */
-const TICKET_GRACE_SECONDS = 60
+const RECORD_GRACE_SECONDS = 60
 
 /**
- * Store a subscription's delivery ticket, encrypted, until it expires.
+ * Store a subscription's record until it expires, replacing any previous one.
  *
- * @param env - Bindings holding OAUTH_KV and the encryption key.
- * @param ticket - The ticket to store; replaces any previous one.
  * @param now - Current time in Unix milliseconds.
  */
-export async function writeDeliveryTicket(
+export async function writeSubscriptionRecord(
   env: EventEnvironment,
-  ticket: DeliveryTicket,
+  record: SubscriptionRecord,
   now: number
 ): Promise<void> {
-  const ttl = Math.ceil((ticket.expiresAt - now) / 1000) + TICKET_GRACE_SECONDS
-  await env.OAUTH_KV.put(
-    `${TICKET_PREFIX}${ticket.id}`,
-    await encryptState(env, `delivery:${ticket.id}`, ticket),
-    { expirationTtl: Math.max(ttl, TICKET_GRACE_SECONDS) }
-  )
+  const ttl = Math.ceil((record.expiresAt - now) / 1000) + RECORD_GRACE_SECONDS
+  await env.OAUTH_KV.put(`${RECORD_PREFIX}${record.id}`, JSON.stringify(record), {
+    expirationTtl: Math.max(ttl, RECORD_GRACE_SECONDS)
+  })
+  await env.OAUTH_KV.delete(`${LEGACY_TICKET_PREFIX}${record.id}`)
 }
 
 /**
- * Read a subscription's delivery ticket.
+ * Read a subscription's record.
  *
- * @returns The ticket, or `null` when none is stored (never created, expired
- * or unsubscribed).
+ * @returns The record, or `null` when there is none (never created, expired,
+ * unsubscribed) or it does not parse.
  */
-export async function readDeliveryTicket(
+export async function readSubscriptionRecord(
   env: EventEnvironment,
   id: string
-): Promise<DeliveryTicket | null> {
-  const stored = await env.OAUTH_KV.get(`${TICKET_PREFIX}${id}`)
-  if (stored === null) return null
-  const ticket = DeliveryTicket.parse(await decryptState(env, `delivery:${id}`, stored))
-  if (ticket.id !== id) throw new Error('Delivery ticket identity mismatch')
-  return ticket
+): Promise<SubscriptionRecord | null> {
+  const stored = await env.OAUTH_KV.get(`${RECORD_PREFIX}${id}`, 'json')
+  const record = SubscriptionRecord.safeParse(stored)
+  return record.success && record.data.id === id ? record.data : null
 }
 
-/** Delete a subscription's delivery ticket so its callbacks stop forwarding. */
-export async function deleteDeliveryTicket(env: EventEnvironment, id: string): Promise<void> {
-  await env.OAUTH_KV.delete(`${TICKET_PREFIX}${id}`)
-}
-
-/**
- * The secret ANS sends in `cf-webhook-auth` for one subscription's destination.
- *
- * It never changes for a subscription, so it survives ANS ignoring secret
- * updates. It only proves the caller is ANS for this subscription; the
- * credential to act on lives in the delivery ticket.
- */
-export async function ingressSecret(env: EventEnvironment, id: string): Promise<string> {
-  const key = await crypto.subtle.importKey(
-    'raw',
-    await crypto.subtle.digest(
-      'SHA-256',
-      new TextEncoder().encode(`mcp-events:ingress:v1:${env.MCP_COOKIE_ENCRYPTION_KEY}`)
-    ),
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['sign']
-  )
-  const mac = await crypto.subtle.sign(
-    'HMAC',
-    key,
-    new TextEncoder().encode(`${env.MCP_RESOURCE}:${id}`)
-  )
-  return `mcp-events-ingress-v1:${btoa(String.fromCharCode(...new Uint8Array(mac)))}`
+/** Delete a subscription's record (and any legacy ticket) so delivery stops. */
+export async function deleteSubscriptionRecord(env: EventEnvironment, id: string): Promise<void> {
+  await Promise.all([
+    env.OAUTH_KV.delete(`${RECORD_PREFIX}${id}`),
+    env.OAUTH_KV.delete(`${LEGACY_TICKET_PREFIX}${id}`)
+  ])
 }
 
 function oauth(env: EventEnvironment) {

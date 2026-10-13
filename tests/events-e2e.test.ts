@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AUTOMATIONS, POLICIES, WEBHOOKS } from '../src/events/api'
 import { USER_AGENT } from '../src/constants'
-import { readDeliveryTicket } from '../src/events/state'
+import { decryptState, encryptState } from '../src/events/state'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { modernMcpRequest } from './helpers/mcp'
@@ -82,6 +82,28 @@ async function checkSignature(request: { headers: Headers }, body: string) {
     if (signatures.includes(`v1,${btoa(String.fromCharCode(...new Uint8Array(signature)))}`)) return
   }
   throw new Error('Receiver rejected webhook signature')
+}
+
+/**
+ * Everything this server stores about subscriptions, decrypted wherever it can
+ * decrypt it: KV values and the policy descriptions it writes into ANS. The
+ * destination secret is excluded: ANS holds it and we cannot read it back.
+ */
+async function storedByServer(): Promise<string> {
+  const { keys } = await env.OAUTH_KV.list({ prefix: 'mcp-events:' })
+  const kv = await Promise.all(keys.map(({ name }) => env.OAUTH_KV.get(name)))
+  const policies = await Promise.all(
+    [...records(POLICIES).values()].map(async (policy) =>
+      JSON.stringify(
+        await decryptState(
+          env,
+          `policy:${String(policy.name).slice('MCP Events '.length)}`,
+          String(policy.description)
+        )
+      )
+    )
+  )
+  return JSON.stringify([kv, policies])
 }
 
 function ansRequest(destination = [...records(WEBHOOKS).values()][0], overrides = {}) {
@@ -318,11 +340,10 @@ describe('MCP Events through the real Worker', () => {
     expect((await exports.default.fetch(ansRequest())).status).toBe(204)
     expect(deliveries).toHaveLength(1)
 
-    // The delivery ticket holds neither the MCP token nor the upstream token.
-    const ticket = await readDeliveryTicket(env, subscribed.result!.id!)
-    expect(ticket).not.toBeNull()
-    expect(JSON.stringify(ticket)).not.toContain(issued.access_token)
-    expect(JSON.stringify(ticket)).not.toContain(token)
+    // Neither the MCP token nor the upstream Cloudflare token is stored.
+    const stored = await storedByServer()
+    expect(stored).not.toContain(issued.access_token)
+    expect(stored).not.toContain(token)
 
     // Revoking the grant blocks the next refresh; with no stored credential,
     // delivery continues only until the granted expiry.
@@ -394,9 +415,37 @@ describe('MCP Events through the real Worker', () => {
       ).result?.id
     ).toBe(first.result?.id)
     expect(verificationCount).toBe(2)
+    // A new destination holds the new secret; the old one is gone, and the
+    // policy points at the new one.
     expect([...resources.values()].every((collection) => collection.size === 1)).toBe(true)
+    const [destination] = [...records(WEBHOOKS).values()]
+    expect([...records(POLICIES).values()][0].mechanisms).toEqual({
+      webhooks: [{ id: destination.id }]
+    })
     expect((await exports.default.fetch(ansRequest())).status).toBe(204)
-    expect(deliveries[0].headers.get('webhook-signature')?.split(' ')).toHaveLength(2)
+    expect(deliveries).toHaveLength(1)
+  })
+
+  it('ignores a replaced destination that ANS still calls', async () => {
+    await rpc('events/subscribe', params)
+    const old = { ...[...records(WEBHOOKS).values()][0] }
+    const replacement = `whsec_${btoa('b'.repeat(32))}`
+    validKeys = [replacement]
+    await rpc('events/subscribe', {
+      ...params,
+      delivery: { ...params.delivery, secret: replacement }
+    })
+    expect((await exports.default.fetch(ansRequest(old))).status).toBe(204)
+    expect(deliveries).toHaveLength(0)
+  })
+
+  it('reuses the destination when a refresh keeps the same signing secret', async () => {
+    await rpc('events/subscribe', params)
+    const [before] = [...records(WEBHOOKS).values()]
+    bootstrapCount = 0
+    await rpc('events/subscribe', params)
+    expect([...records(WEBHOOKS).values()].map(({ id }) => id)).toEqual([before.id])
+    expect(bootstrapCount).toBe(0)
   })
 
   it('returns transient failures to ANS and preserves event identity on redelivery', async () => {
@@ -457,15 +506,50 @@ describe('MCP Events through the real Worker', () => {
     expect(deliveries).toHaveLength(0)
   })
 
-  it('keeps the delivery ticket encrypted in KV and out of ANS', async () => {
+  it('stores no token or signing secret; only ANS holds the sealed secret', async () => {
     await rpc('events/subscribe', params)
-    const { keys } = await env.OAUTH_KV.list({ prefix: 'mcp-events:ticket:' })
-    expect(keys).toHaveLength(1)
-    const stored = await env.OAUTH_KV.get(keys[0].name)
+    const stored = await storedByServer()
+    expect(stored).toContain('signingSecretHash')
+    expect(stored).not.toContain(signingSecret)
+    expect(stored).not.toContain(signingSecret.slice('whsec_'.length))
     expect(stored).not.toContain(token)
+    const { keys } = await env.OAUTH_KV.list({ prefix: 'mcp-events:' })
+    expect(keys.map(({ name }) => name)).toEqual([
+      expect.stringMatching(/^mcp-events:subscription:sub_/)
+    ])
+    // The signing secret travels only inside the ANS destination secret.
+    expect(String([...records(WEBHOOKS).values()][0].secret)).not.toContain(signingSecret)
+  })
+
+  // TODO(2026-10-16): remove once subscriptions made before #282 have expired or been refreshed (they last at most an hour).
+  it('upgrades a subscription made by the previous version on refresh', async () => {
+    const subscribed = await rpc('events/subscribe', params)
+    const id = subscribed.result!.id!
+    // Rewrite it the way the previous version stored it: raw secret in the
+    // policy state, an ingress-HMAC destination and a KV ticket.
+    const policy = [...records(POLICIES).values()][0]
     const destination = [...records(WEBHOOKS).values()][0]
-    expect(String(destination.secret)).toMatch(/^mcp-events-ingress-v1:/)
-    expect(JSON.stringify([...resources.values()].map((r) => [...r.values()]))).not.toContain(token)
+    destination.secret = 'mcp-events-ingress-v1:legacy'
+    policy.description = await encryptState(env, `policy:${id}`, {
+      version: 1,
+      id,
+      principal: `account:${accountId}`,
+      params,
+      webhookId: destination.id,
+      expiresAt: Date.now() + 60_000,
+      verifiedUntil: 0
+    })
+    await env.OAUTH_KV.delete(`mcp-events:subscription:${id}`)
+    await env.OAUTH_KV.put(`mcp-events:ticket:${id}`, 'legacy-ticket')
+    expect((await exports.default.fetch(ansRequest(destination))).status).toBe(401)
+
+    expect((await rpc('events/subscribe', params)).error).toBeUndefined()
+    expect([...records(WEBHOOKS).values()]).toHaveLength(1)
+    expect([...records(WEBHOOKS).values()][0].id).not.toBe(destination.id)
+    expect(await env.OAUTH_KV.get(`mcp-events:ticket:${id}`)).toBeNull()
+    expect(await storedByServer()).not.toContain(signingSecret)
+    expect((await exports.default.fetch(ansRequest())).status).toBe(204)
+    expect(deliveries).toHaveLength(1)
   })
 
   it('drops a delivery the receiver rejects with 410 but keeps the subscription', async () => {
