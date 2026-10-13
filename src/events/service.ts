@@ -102,7 +102,7 @@ export async function readPolicyState(
   policy: ManagedPolicy,
   id: string
 ): Promise<PolicyState> {
-  const state = await parsePolicyState(await decryptState(env, `policy:${id}`, policy.description))
+  const state = parsePolicyState(await decryptState(env, `policy:${id}`, policy.description))
   if (
     state.id !== id ||
     policy.name !== managedName(id) ||
@@ -241,11 +241,10 @@ export class EventService {
       }
       const url = new URL(`/events/ans/${id}`, this.env.MCP_RESOURCE).href
       CallbackUrl.parse(url)
-      // TODO(2026-10-16): drop the "destination from an older version" case once subscriptions made before #283 have expired or been refreshed (they last at most an hour).
       // The signing secret lives only in the ANS destination's secret, sealed
       // with the callback URL. ANS ignores updates to a destination's secret,
-      // so a new signing secret (or a destination from an older version, or a
-      // half-finished subscribe) gets a new destination; the old ones are
+      // so a new signing secret (or a half-finished subscribe) gets a new
+      // destination; the old ones are
       // deleted once the policy points at the new one. ANS probes a new
       // destination on creation; the callback acknowledges the probe because
       // the KV record does not match it yet.
@@ -324,7 +323,7 @@ export class EventService {
     const id = await subscriptionId(`${this.env.MCP_RESOURCE}:${this.principal}`, params)
     return serialized(id, async () => {
       // Stop forwarding first, so delivery ends even if ANS cleanup fails. The
-      // ID is derived from this principal, so it can only name its own ticket.
+      // ID is derived from this principal, so it can only name its own record.
       await deleteSubscriptionRecord(this.env, id)
       const api = this.api(params.arguments.account_id)
       const name = managedName(id)

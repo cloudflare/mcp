@@ -25,7 +25,8 @@ derived from the server, principal, event, arguments and callback URL. Refresh r
 them. Unsubscribe disables the policy first, then removes the automation, policy
 and destination. Retry a failed subscribe to resume partial provisioning, or
 unsubscribe to remove it. No Durable Object, queue or new binding is used; the only
-state outside ANS is a short-lived delivery ticket in the existing `OAUTH_KV`.
+state outside ANS is a short-lived subscription record (no secrets) in the existing
+`OAUTH_KV`.
 
 ANS's generic webhook format differs from MCP Events, so its destination targets
 `/events/ans/{subscriptionId}` on this server. This route checks ANS's ingress

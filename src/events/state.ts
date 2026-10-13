@@ -1,6 +1,6 @@
 import { getOAuthApi } from '@cloudflare/workers-oauth-provider'
 import { z } from 'zod'
-import { SubscribeParams, UnsubscribeParams } from './ans-bridge'
+import { UnsubscribeParams } from './ans-bridge'
 
 export interface EventEnvironment {
   OAUTH_KV: KVNamespace
@@ -24,21 +24,6 @@ export async function hashSecret(secret: string): Promise<string> {
 }
 
 /**
- * Policy state written before the signing secret was hashed. Read only, to migrate.
- *
- * TODO(2026-10-16): remove once subscriptions made before #283 have expired or been refreshed (they last at most an hour).
- */
-const LegacyPolicyState = z.object({
-  version: z.literal(1),
-  id: SubscriptionIdSchema,
-  principal: z.string(),
-  params: SubscribeParams,
-  webhookId: z.string(),
-  expiresAt: z.number(),
-  verifiedUntil: z.number()
-})
-
-/**
  * Subscription metadata kept, encrypted, in the ANS policy description. It
  * identifies the owner and the subscription key, and holds only a hash of the
  * signing secret.
@@ -54,34 +39,12 @@ const CurrentPolicyState = z.object({
   verifiedUntil: z.number()
 })
 
-/** Parsed policy state, with older versions upgraded in memory. */
+/** Subscription metadata from the ANS policy description. */
 export type PolicyState = z.infer<typeof CurrentPolicyState>
 
-/**
- * Parse policy state from its decrypted JSON, upgrading the version that held
- * the raw signing secret. The upgraded state is written back on the next
- * subscribe or refresh.
- *
- * TODO(2026-10-16): remove once subscriptions made before #283 have expired or been refreshed (they last at most an hour). Then parse `CurrentPolicyState` directly.
- */
-export async function parsePolicyState(value: unknown): Promise<PolicyState> {
-  const legacy = LegacyPolicyState.safeParse(value)
-  if (!legacy.success) return CurrentPolicyState.parse(value)
-  const { secret, ...delivery } = legacy.data.params.delivery
-  return {
-    version: 2,
-    id: legacy.data.id,
-    principal: legacy.data.principal,
-    params: {
-      name: legacy.data.params.name,
-      arguments: legacy.data.params.arguments,
-      delivery
-    },
-    signingSecretHash: await hashSecret(secret),
-    webhookId: legacy.data.webhookId,
-    expiresAt: legacy.data.expiresAt,
-    verifiedUntil: legacy.data.verifiedUntil
-  }
+/** Parse policy state from its decrypted JSON. */
+export function parsePolicyState(value: unknown): PolicyState {
+  return CurrentPolicyState.parse(value)
 }
 
 /**
@@ -145,12 +108,6 @@ const SubscriptionRecord = z.object({
 export type SubscriptionRecord = z.infer<typeof SubscriptionRecord>
 
 const RECORD_PREFIX = 'mcp-events:subscription:'
-/**
- * Earlier versions kept an encrypted ticket here; removed on refresh.
- *
- * TODO(2026-10-16): remove once subscriptions made before #283 have expired or been refreshed (they last at most an hour).
- */
-const LEGACY_TICKET_PREFIX = 'mcp-events:ticket:'
 /** KV's minimum TTL; also covers clock skew between refresh and expiry. */
 const RECORD_GRACE_SECONDS = 60
 
@@ -168,7 +125,6 @@ export async function writeSubscriptionRecord(
   await env.OAUTH_KV.put(`${RECORD_PREFIX}${record.id}`, JSON.stringify(record), {
     expirationTtl: Math.max(ttl, RECORD_GRACE_SECONDS)
   })
-  await env.OAUTH_KV.delete(`${LEGACY_TICKET_PREFIX}${record.id}`)
 }
 
 /**
@@ -186,12 +142,9 @@ export async function readSubscriptionRecord(
   return record.success && record.data.id === id ? record.data : null
 }
 
-/** Delete a subscription's record (and any legacy ticket) so delivery stops. */
+/** Delete a subscription's record so delivery stops. */
 export async function deleteSubscriptionRecord(env: EventEnvironment, id: string): Promise<void> {
-  await Promise.all([
-    env.OAUTH_KV.delete(`${RECORD_PREFIX}${id}`),
-    env.OAUTH_KV.delete(`${LEGACY_TICKET_PREFIX}${id}`)
-  ])
+  await env.OAUTH_KV.delete(`${RECORD_PREFIX}${id}`)
 }
 
 function oauth(env: EventEnvironment) {

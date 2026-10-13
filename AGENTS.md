@@ -128,7 +128,7 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 - `src/events/methods.ts` registers the event catalogue and subscription methods on the authenticated MCP endpoint.
 - ANS policies/destinations and Vega automations own subscription state. No token or signing secret is stored: the client's `whsec_` secret and callback URL are sealed into the ANS destination secret (ANS presents it on every call), `OAUTH_KV` `mcp-events:subscription:<id>` holds plain routing/expiry and a hash of the signing secret, and the policy description holds encrypted metadata with that hash. A new signing secret gets a new destination. Access is checked on subscribe/refresh, not per delivery. Keep KV to hashes, never raw tokens or secrets.
-- `src/events/callback.ts` checks the ANS ingress HMAC, reads the delivery ticket and synchronously signs the MCP callback, with no Cloudflare API call. ANS owns retries.
+- `src/events/callback.ts` opens the sealed destination secret ANS presents, checks the KV subscription record and synchronously signs the MCP callback, with no Cloudflare API call. ANS owns retries.
 - `npm run test:events` runs local workerd coverage with simulated external HTTP endpoints. See `docs/mcp-events.md` for live tests and lifecycle constraints.
 
 ### Worker Loader API
