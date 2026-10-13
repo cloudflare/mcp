@@ -15,6 +15,10 @@
 
 MCP URL: `https://mcp.cloudflare.com/mcp`
 
+### Connection Guides
+
+- [Claude Code](docs/connection-guides/claude-code.md)
+
 ### Option 1: OAuth (Recommended)
 
 Just connect to the MCP server URL - you'll be redirected to Cloudflare to authorize and select permissions.
