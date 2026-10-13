@@ -1,8 +1,6 @@
-import { EventApi, EventApiError, POLICIES, AUTOMATIONS } from './api'
 import { constantTimeEqual, forwardAnsWebhook } from './ans-bridge'
-import { ManagedPolicy, asSubscription, publicWebhookFetch, readPolicyState } from './service'
+import { publicWebhookFetch } from './service'
 import {
-  deliveryAccessToken,
   ingressSecret,
   readDeliveryTicket,
   type DeliveryTicket,
@@ -13,14 +11,7 @@ import {
  * Why a callback from ANS was acknowledged, dropped or bounced. Logged once
  * per callback with safe fields only, so silent 204s can be told apart.
  */
-type CallbackOutcome =
-  | 'no_ticket'
-  | 'ticket_expired'
-  | 'credential_unavailable'
-  | 'access_denied'
-  | 'account_mismatch'
-  | 'forwarded'
-  | 'upstream_error'
+type CallbackOutcome = 'no_ticket' | 'ticket_expired' | 'unreadable_ticket' | 'forwarded'
 
 function logOutcome(
   subscription: string,
@@ -34,8 +25,12 @@ function logOutcome(
 }
 
 /**
- * Receive an ANS webhook for one subscription, re-check access and forward it
- * to the subscriber as a signed MCP event.
+ * Receive an ANS webhook for one subscription and forward it to the subscriber
+ * as a signed MCP event.
+ *
+ * Delivery uses no user credential and makes no Cloudflare API call: the KV
+ * ticket says where to send and how to sign, and access was checked when the
+ * subscription was last created or refreshed.
  */
 export async function handleAnsCallback(
   request: Request,
@@ -54,6 +49,7 @@ export async function handleAnsCallback(
     ticket = await readDeliveryTicket(env, id)
   } catch {
     // Unreadable (e.g. the encryption key rotated): fail closed, don't retry.
+    logOutcome(id, 'unreadable_ticket', 401)
     return new Response(null, { status: 401 })
   }
   // No ticket: ANS's creation probe, or the subscription expired or ended.
@@ -65,51 +61,19 @@ export async function handleAnsCallback(
     logOutcome(id, 'ticket_expired', 204, { expiredAt: new Date(ticket.expiresAt).toISOString() })
     return new Response(null, { status: 204 })
   }
-  try {
-    const accessToken = await deliveryAccessToken(env, ticket)
-    if (!accessToken) {
-      logOutcome(id, 'credential_unavailable', 204, { providerIssued: ticket.providerIssued })
-      return new Response(null, { status: 204 })
-    }
-    const api = new EventApi(env.CLOUDFLARE_API_BASE, accessToken, ticket.accountId, deadline)
-    const [policyData] = await Promise.all([
-      api.result(`${POLICIES}/${encodeURIComponent(ticket.policyId)}`),
-      api.result(AUTOMATIONS)
-    ])
-    const policy = ManagedPolicy.parse(policyData)
-    const state = await readPolicyState(env, policy, id)
-    if (state.params.arguments.account_id !== ticket.accountId) {
-      logOutcome(id, 'account_mismatch', 403)
-      return new Response(null, { status: 403 })
-    }
-    const subscription = asSubscription(state, policy, secret)
-    const response = await forwardAnsWebhook(request, id, {
-      loadSubscription: async () => subscription,
-      hasAccess: async () => true,
-      eventIdentity: async (_subscription, payload) => payload.alert_correlation_id ?? '',
-      now: Date.now,
-      webhookFetch: (input, init) => publicWebhookFetch(input, { ...init, signal: deadline }),
-      deactivateSubscription: async () => {
-        const { id: _policyId, ...body } = policy
-        await api.result(`${POLICIES}/${encodeURIComponent(policy.id)}`, 'PUT', {
-          ...body,
-          enabled: false
-        })
-      }
-    })
-    logOutcome(id, 'forwarded', response.status, {
-      active: subscription.active,
-      expiresAt: new Date(subscription.expiresAt).toISOString()
-    })
-    return response
-  } catch (error) {
-    if (error instanceof EventApiError && [401, 403, 404].includes(error.status)) {
-      logOutcome(id, 'access_denied', 204, { upstreamStatus: error.status })
-      return new Response(null, { status: 204 })
-    }
-    logOutcome(id, 'upstream_error', 503, {
-      error: error instanceof Error ? error.name : 'unknown'
-    })
-    return new Response(null, { status: 503 })
-  }
+  const { previousSigningSecret, previousSecretExpiresAt, ...current } = ticket
+  const response = await forwardAnsWebhook(request, id, {
+    loadSubscription: async () => ({
+      ...current,
+      ingressSecret: secret,
+      ...(previousSigningSecret ? { previousSigningSecret, previousSecretExpiresAt } : {})
+    }),
+    eventIdentity: async (_subscription, payload) => payload.alert_correlation_id ?? '',
+    now: Date.now,
+    webhookFetch: (input, init) => publicWebhookFetch(input, { ...init, signal: deadline })
+  })
+  logOutcome(id, 'forwarded', response.status, {
+    expiresAt: new Date(ticket.expiresAt).toISOString()
+  })
+  return response
 }

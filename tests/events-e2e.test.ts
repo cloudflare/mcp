@@ -4,6 +4,7 @@ import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AUTOMATIONS, POLICIES, WEBHOOKS } from '../src/events/api'
 import { USER_AGENT } from '../src/constants'
+import { readDeliveryTicket } from '../src/events/state'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { modernMcpRequest } from './helpers/mcp'
@@ -312,13 +313,29 @@ describe('MCP Events through the real Worker', () => {
     )
     expect(exchange.status).toBe(200)
     const issued = (await exchange.json()) as { access_token: string }
-    expect((await rpc('events/subscribe', params, issued.access_token)).error).toBeUndefined()
+    const subscribed = await rpc('events/subscribe', params, issued.access_token)
+    expect(subscribed.error).toBeUndefined()
     expect((await exports.default.fetch(ansRequest())).status).toBe(204)
     expect(deliveries).toHaveLength(1)
+
+    // The delivery ticket holds neither the MCP token nor the upstream token.
+    const ticket = await readDeliveryTicket(env, subscribed.result!.id!)
+    expect(ticket).not.toBeNull()
+    expect(JSON.stringify(ticket)).not.toContain(issued.access_token)
+    expect(JSON.stringify(ticket)).not.toContain(token)
+
+    // Revoking the grant blocks the next refresh; with no stored credential,
+    // delivery continues only until the granted expiry.
     const summary = await helpers.unwrapToken(issued.access_token)
     await helpers.revokeGrant(summary!.grantId, summary!.userId)
+    expect(
+      (await rpc('events/subscribe', params, issued.access_token).catch(() => null))?.result
+    ).toBeUndefined()
     expect((await exports.default.fetch(ansRequest())).status).toBe(204)
-    expect(deliveries).toHaveLength(1)
+    expect(deliveries).toHaveLength(2)
+    vi.spyOn(Date, 'now').mockReturnValue(Date.parse(subscribed.result!.refreshBefore!) + 1)
+    expect((await exports.default.fetch(ansRequest())).status).toBe(204)
+    expect(deliveries).toHaveLength(2)
   })
   it('advertises a catalogue of event types without creating resources', async () => {
     const capabilities = (await rpc('server/discover')).result?.capabilities
@@ -461,26 +478,21 @@ describe('MCP Events through the real Worker', () => {
     expect(deliveries).toHaveLength(2)
   })
 
-  it('honors live permission revocation and leaves transient API failures to ANS', async () => {
-    await rpc('events/subscribe', params)
-    policyReadStatus = 503
-    expect((await exports.default.fetch(ansRequest())).status).toBe(503)
+  it('re-checks access on refresh and stops delivering at expiry once it fails', async () => {
+    const subscribed = await rpc('events/subscribe', params)
     policyReadStatus = 403
+    expect((await rpc('events/subscribe', params)).error?.code).toBe(-32012)
+    vi.spyOn(Date, 'now').mockReturnValue(Date.parse(subscribed.result!.refreshBefore!) + 1)
     expect((await exports.default.fetch(ansRequest())).status).toBe(204)
     expect(deliveries).toHaveLength(0)
   })
 
-  it('leaves rate-limited delivery authorization checks to ANS without local retries', async () => {
+  it('forwards an alert without calling the Cloudflare API', async () => {
     await rpc('events/subscribe', params)
     requests.length = 0
-    policyReadStatus = 429
-    expect((await exports.default.fetch(ansRequest())).status).toBe(503)
-    expect(
-      requests.filter(
-        (request) => request.method === 'GET' && request.path.startsWith(POLICIES + '/')
-      )
-    ).toHaveLength(1)
-    expect(deliveries).toHaveLength(0)
+    expect((await exports.default.fetch(ansRequest())).status).toBe(204)
+    expect(requests).toHaveLength(0)
+    expect(deliveries).toHaveLength(1)
   })
 
   it('rejects another account and forged ingress credentials', async () => {
@@ -541,7 +553,8 @@ describe('MCP Events through the real Worker', () => {
     }>
     for (const schema of [event.inputSchema, event.payloadSchema]) {
       expect(schema.type).toBe('object')
-      for (const key of ['$schema', 'oneOf', 'anyOf', 'allOf', 'not']) expect(schema).not.toHaveProperty(key)
+      for (const key of ['$schema', 'oneOf', 'anyOf', 'allOf', 'not'])
+        expect(schema).not.toHaveProperty(key)
     }
   })
 
@@ -563,23 +576,11 @@ describe('MCP Events through the real Worker', () => {
     expect([...resources.values()].every((collection) => collection.size === 0)).toBe(true)
   })
 
-  it('honors policy edits made through the existing API', async () => {
-    await rpc('events/subscribe', params)
-    const policy = [...records(POLICIES).values()][0]
-    policy.enabled = false
-    expect((await exports.default.fetch(ansRequest())).status).toBe(204)
-    policy.enabled = true
-    policy.mechanisms = { webhooks: [] }
-    expect((await exports.default.fetch(ansRequest())).status).toBe(204)
-    expect(deliveries).toHaveLength(0)
-  })
-
-  it('fails closed when stored policy metadata is changed', async () => {
+  it('refuses to refresh when stored policy metadata is changed', async () => {
     await rpc('events/subscribe', params)
     const policy = [...records(POLICIES).values()][0]
     policy.description = 'changed'
-    expect((await exports.default.fetch(ansRequest())).status).toBe(503)
-    expect(deliveries).toHaveLength(0)
+    expect((await rpc('events/subscribe', params)).error).toBeDefined()
   })
 
   it('never follows a callback redirect', async () => {

@@ -18,15 +18,13 @@ const accountId = 'a'.repeat(32)
 const secret = `whsec_${btoa('a'.repeat(32))}`
 const subscription: Subscription = {
   id: 'sub_test',
-  principal: 'user:123',
   accountId,
   policyId: 'policy-1',
   alertType: 'workers_observability_real_time_issue',
   callbackUrl: 'https://receiver.example/callback',
   signingSecret: secret,
   ingressSecret: 'ans-only-secret',
-  expiresAt: 200_000,
-  active: true
+  expiresAt: 200_000
 }
 const params = {
   name: 'cloudflare.alert.workers_observability_real_time_issue',
@@ -57,8 +55,6 @@ function request(value: unknown = alert, token = subscription.ingressSecret) {
 function dependencies(status = 204): BridgeDependencies {
   return {
     loadSubscription: vi.fn(async () => ({ ...subscription })),
-    hasAccess: vi.fn(async () => true),
-    deactivateSubscription: vi.fn(async () => {}),
     eventIdentity: vi.fn(async (_subscription, payload) => payload.alert_correlation_id ?? ''),
     webhookFetch: vi.fn(async () => new Response(null, { status })) as unknown as typeof fetch,
     now: () => 100_000
@@ -359,27 +355,17 @@ describe('ANS synchronous delivery bridge', () => {
     expect(deps.webhookFetch).not.toHaveBeenCalled()
   })
 
-  it('does not send expired or inactive subscriptions', async () => {
-    for (const record of [
-      { ...subscription, active: false },
-      { ...subscription, expiresAt: 99_000 }
-    ]) {
-      const deps = dependencies()
-      deps.loadSubscription = vi.fn(async () => record)
-      expect((await forwardAnsWebhook(request(), subscription.id, deps)).status).toBe(204)
-      expect(deps.webhookFetch).not.toHaveBeenCalled()
-    }
+  it('does not send expired subscriptions', async () => {
+    const deps = dependencies()
+    deps.loadSubscription = vi.fn(async () => ({ ...subscription, expiresAt: 99_000 }))
+    expect((await forwardAnsWebhook(request(), subscription.id, deps)).status).toBe(204)
+    expect(deps.webhookFetch).not.toHaveBeenCalled()
   })
 
-  it('deactivates subscriptions on revoked access, but not on a callback 410', async () => {
-    const revoked = dependencies()
-    revoked.hasAccess = vi.fn(async () => false)
-    expect((await forwardAnsWebhook(request(), subscription.id, revoked)).status).toBe(204)
-    expect(revoked.webhookFetch).not.toHaveBeenCalled()
-    expect(revoked.deactivateSubscription).toHaveBeenCalledWith(subscription.id)
+  it('drops a delivery the receiver answers with 410, without retrying', async () => {
     const gone = dependencies(410)
     expect((await forwardAnsWebhook(request(), subscription.id, gone)).status).toBe(204)
-    expect(gone.deactivateSubscription).not.toHaveBeenCalled()
+    expect(gone.webhookFetch).toHaveBeenCalledOnce()
   })
 
   it('returns a retryable status for network failures', async () => {
@@ -395,17 +381,6 @@ describe('ANS synchronous delivery bridge', () => {
     const deps = dependencies(503)
     expect((await forwardAnsWebhook(request(), subscription.id, deps)).status).toBe(503)
     expect(deps.webhookFetch).toHaveBeenCalledOnce()
-    expect(deps.deactivateSubscription).not.toHaveBeenCalled()
-  })
-
-  it('leaves transient access-check failures to ANS without deactivating', async () => {
-    const deps = dependencies()
-    deps.hasAccess = vi.fn(async () => {
-      throw new Error('Service unavailable')
-    })
-    expect((await forwardAnsWebhook(request(), subscription.id, deps)).status).toBe(503)
-    expect(deps.webhookFetch).not.toHaveBeenCalled()
-    expect(deps.deactivateSubscription).not.toHaveBeenCalled()
   })
 
   it('bounds inbound and outgoing event bodies', async () => {

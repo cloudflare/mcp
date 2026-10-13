@@ -28,8 +28,8 @@ unsubscribe to remove it. No Durable Object, queue or new binding is used; the o
 state outside ANS is a short-lived delivery ticket in the existing `OAUTH_KV`.
 
 ANS's generic webhook format differs from MCP Events, so its destination targets
-`/events/ans/{subscriptionId}` on this server. This route checks the current policy
-and permissions, translates the notification, signs it and awaits acceptance:
+`/events/ans/{subscriptionId}` on this server. This route checks ANS's ingress
+credential, translates the notification, signs it and awaits acceptance:
 
 ```text
 Vega → ANS policy/destination → MCP callback adapter → subscriber
@@ -43,21 +43,26 @@ URL, signing keys, destination ID and expiry.
 ANS keeps a destination's secret from creation and ignores later updates, so the
 secret is a fixed per-subscription ingress credential,
 `HMAC(key, MCP_RESOURCE + subscription ID)`. It only proves the caller is ANS for
-that subscription. Everything that changes on refresh (policy ID, the subscriber's
-current bearer, expiry) is a delivery ticket in `OAUTH_KV` under
+that subscription. What the callback needs to forward (callback URL, signing keys,
+policy ID, expiry) is a delivery ticket in `OAUTH_KV` under
 `mcp-events:ticket:<subscription ID>`, rewritten on every subscribe and refresh and
 expiring with the subscription. The callback checks `cf-webhook-auth` against the
-HMAC, reads the ticket, and acknowledges without forwarding when there is none
-(ANS's creation probe, expiry or unsubscribe). Unsubscribe deletes the ticket
-first, so forwarding stops even if ANS cleanup fails.
+HMAC, reads the ticket, signs and forwards. It acknowledges without forwarding when
+there is no ticket (ANS's creation probe, expiry or unsubscribe). Unsubscribe
+deletes the ticket first, so forwarding stops even if ANS cleanup fails.
+
+No user credential is stored. Like `workers-oauth-provider`, which keeps only token
+hashes and props it can decrypt only when the client presents its token, the server
+never holds a token it could use on its own. Delivery makes no Cloudflare API call.
+Access is checked on subscribe and on every refresh, with the caller's live
+credentials; a subscriber who loses access stops receiving events when the
+subscription expires (at most an hour), or at once on unsubscribe.
 
 Credentials are never placed in URLs or returned to MCP clients. The policy state
 and the ticket use AES-GCM with a purpose-specific key derived from
 `MCP_COOKIE_ENCRYPTION_KEY`, bound to `MCP_RESOURCE` and the subscription.
 
-No refresh token is retained. Provider-issued MCP tokens are revalidated through the
-existing OAuth provider. Direct Cloudflare tokens are rechecked by reading the
-policy and issue automations. Rotating the encryption key or changing the public
+Rotating the encryption key or changing the public
 resource URL requires recreating subscriptions. Do not manually edit managed
 resource names or policy descriptions.
 
@@ -68,8 +73,8 @@ before `refreshBefore`. Key rotation dual-signs for five minutes; callback verif
 is cached in the policy for five minutes for the same owner, URL and key.
 
 Expiry stops delivery without a scheduler. Idle expired resources remain in ANS
-until refresh or unsubscribe. If permissions are revoked, the policy is disabled and
-an account administrator may need to remove the managed resources. `terminated` and
+until refresh or unsubscribe. If permissions are revoked, refresh fails and delivery
+stops at expiry; an account administrator may need to remove the managed resources. `terminated` and
 `gap` control envelopes are not sent (ChatGPT does not support them).
 
 ANS creation does not expose atomic create-if-absent. Sequential retries reuse

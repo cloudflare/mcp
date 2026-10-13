@@ -20,8 +20,7 @@ import {
   subscriptionExpiration,
   subscriptionId,
   verifyCallback,
-  type CallbackFailureReason,
-  type Subscription
+  type CallbackFailureReason
 } from './ans-bridge'
 import {
   PolicyState,
@@ -93,28 +92,6 @@ export const publicWebhookFetch: typeof fetch = async (input, init) => {
   const headers = new Headers(init?.headers)
   headers.set('User-Agent', USER_AGENT)
   return fetch(url, { ...init, headers, redirect: 'manual' })
-}
-
-export function asSubscription(
-  state: PolicyState,
-  policy: ManagedPolicy,
-  ingressSecret: string
-): Subscription {
-  return {
-    id: state.id,
-    principal: state.principal,
-    accountId: state.params.arguments.account_id,
-    policyId: policy.id,
-    alertType: policy.alert_type,
-    callbackUrl: state.params.delivery.url,
-    signingSecret: state.params.delivery.secret,
-    ingressSecret,
-    expiresAt: state.expiresAt,
-    active:
-      policy.enabled && policy.mechanisms.webhooks.some((entry) => entry.id === state.webhookId),
-    previousSigningSecret: state.previousSigningSecret,
-    previousSecretExpiresAt: state.previousSecretExpiresAt
-  }
 }
 
 export async function readPolicyState(
@@ -243,18 +220,16 @@ export class EventService {
         state.verifiedUntil <= now
       ) {
         const verification = await verifyCallback(
-          asSubscription(
-            state,
-            {
-              id: '',
-              name,
-              description: '',
-              enabled: false,
-              alert_type: params.name.slice('cloudflare.alert.'.length),
-              mechanisms: { webhooks: [] }
-            },
-            ''
-          ),
+          {
+            id,
+            accountId: params.arguments.account_id,
+            policyId: '',
+            alertType: params.name.slice('cloudflare.alert.'.length),
+            callbackUrl: params.delivery.url,
+            signingSecret: params.delivery.secret,
+            ingressSecret: '',
+            expiresAt
+          },
           publicWebhookFetch,
           now
         )
@@ -304,8 +279,15 @@ export class EventService {
           id,
           accountId: params.arguments.account_id,
           policyId: resolvedPolicyId,
-          bearer: this.bearer,
-          providerIssued: credential.providerIssued,
+          alertType: params.name.slice('cloudflare.alert.'.length),
+          callbackUrl: params.delivery.url,
+          signingSecret: params.delivery.secret,
+          ...(state.previousSigningSecret
+            ? {
+                previousSigningSecret: state.previousSigningSecret,
+                previousSecretExpiresAt: state.previousSecretExpiresAt
+              }
+            : {}),
           expiresAt
         },
         now

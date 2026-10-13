@@ -23,17 +23,24 @@ export const PolicyState = z.object({
 export type PolicyState = z.infer<typeof PolicyState>
 
 /**
- * The credential and routing a callback needs to forward one subscription's
- * alerts. Kept in KV, not in the ANS destination secret: ANS keeps a
- * destination's secret from creation and ignores updates, while the bearer and
- * expiry change on every refresh.
+ * What a callback needs to forward one subscription's alerts: where to send
+ * them, how to sign them, and until when. It holds no user credential. Like
+ * workers-oauth-provider, the server never keeps a token it can use without
+ * the client presenting it; access is re-checked on each subscribe/refresh.
+ *
+ * Kept in KV, not in the ANS destination secret: ANS keeps a destination's
+ * secret from creation and ignores updates, while the expiry and signing key
+ * change on refresh.
  */
 export const DeliveryTicket = z.object({
   id: z.string().regex(/^sub_[a-f0-9]{64}$/),
   accountId: z.string().regex(/^[a-f0-9]{32}$/),
   policyId: z.string().min(1),
-  bearer: z.string().min(1),
-  providerIssued: z.boolean(),
+  alertType: z.string().min(1),
+  callbackUrl: z.string().url(),
+  signingSecret: z.string().startsWith('whsec_'),
+  previousSigningSecret: z.string().startsWith('whsec_').optional(),
+  previousSecretExpiresAt: z.number().optional(),
   expiresAt: z.number()
 })
 export type DeliveryTicket = z.infer<typeof DeliveryTicket>
@@ -127,16 +134,6 @@ function oauth(env: EventEnvironment) {
 export async function credentialInfo(env: EventEnvironment, bearer: string) {
   const token = await oauth(env).unwrapToken(bearer)
   return { providerIssued: token !== null, expiresAt: token ? token.expiresAt * 1000 : Infinity }
-}
-
-export async function deliveryAccessToken(
-  env: EventEnvironment,
-  ticket: DeliveryTicket
-): Promise<string | null> {
-  if (!ticket.providerIssued) return ticket.bearer
-  const token = await oauth(env).unwrapToken(ticket.bearer)
-  if (!token || token.expiresAt * 1000 <= Date.now()) return null
-  return z.object({ accessToken: z.string().min(1) }).parse(token.grant.props).accessToken
 }
 
 async function key(env: EventEnvironment) {

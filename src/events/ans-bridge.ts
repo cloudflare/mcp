@@ -198,9 +198,9 @@ export function alertEventDefinitions(catalog: unknown) {
     }))
 }
 
+/** Everything needed to accept one ANS callback and forward it as an MCP event. */
 export interface Subscription {
   id: string
-  principal: string
   accountId: string
   policyId: string
   alertType: string
@@ -210,13 +210,11 @@ export interface Subscription {
   previousSecretExpiresAt?: number
   ingressSecret: string
   expiresAt: number
-  active: boolean
 }
 
+/** What `forwardAnsWebhook` needs from its caller. */
 export interface BridgeDependencies {
   loadSubscription(id: string): Promise<Subscription | null>
-  hasAccess(subscription: Subscription): Promise<boolean>
-  deactivateSubscription(id: string): Promise<void>
   eventIdentity(subscription: Subscription, alert: NotificationPayload): Promise<string>
   webhookFetch: typeof fetch
   now(): number
@@ -464,16 +462,11 @@ export async function forwardAnsWebhook(
     return new Response(null, { status: 401 })
   }
   const now = dependencies.now()
-  if (!subscription.active || subscription.expiresAt <= now) {
+  // Access is checked on subscribe and every refresh, with the caller's live
+  // credentials. No credential is stored for delivery, so a subscription whose
+  // owner lost access lapses at expiry instead.
+  if (subscription.expiresAt <= now) {
     return new Response(null, { status: 204 })
-  }
-  try {
-    if (!(await dependencies.hasAccess(subscription))) {
-      await dependencies.deactivateSubscription(id)
-      return new Response(null, { status: 204 })
-    }
-  } catch {
-    return new Response(null, { status: 503 })
   }
   const reader = request.body?.getReader()
   if (!reader) return new Response(null, { status: 400 })
