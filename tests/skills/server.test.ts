@@ -180,10 +180,14 @@ describe('skills extension with a synced catalog', () => {
     expect(body.error?.code).toBe(-32603)
   })
 
-  it('lists only SKILL.md files in resources/list', async () => {
+  it('lists the attention panel and only SKILL.md files in resources/list', async () => {
     const body = await modern('resources/list')
 
     expect(body.result?.resources).toEqual([
+      expect.objectContaining({
+        uri: 'ui://cloudflare/attention-panel.html',
+        mimeType: 'text/html;profile=mcp-app'
+      }),
       {
         uri: 'skill://durable-objects/SKILL.md',
         name: 'durable-objects',

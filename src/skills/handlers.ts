@@ -7,6 +7,11 @@ import {
 } from '@modelcontextprotocol/server'
 import { getSkills, readSkillFile } from '../isolate-cache'
 import { SKILLS_EXTENSION_ID } from './types'
+import {
+  ATTENTION_RESOURCE,
+  ATTENTION_RESOURCE_URI,
+  readAttentionResource
+} from '../apps/attention/tool'
 
 /**
  * Skills change at most every six hours (the sync cron) and are the same for
@@ -36,6 +41,9 @@ const GetSkillParams = z.looseObject({ uri: z.string() })
  * - `resources/read` serves each file at `skill://<name>/<path>`.
  * - `resources/list` lists each skill's `SKILL.md` only. The full file list is
  *   in the skill entry.
+ * - The same two handlers also serve the attention panel at
+ *   `ui://cloudflare/attention-panel.html`, since a server has one handler per
+ *   method.
  *
  * The capability is declared without `directoryRead`: every entry carries a
  * complete manifest, which the spec lets hosts answer directory questions from.
@@ -66,12 +74,15 @@ export function registerSkills(server: McpServer): void {
   server.server.setRequestHandler('resources/list', async () => {
     const { skills } = await getSkills()
     return {
-      resources: skills.map((skill) => ({
-        uri: skill.uri,
-        name: skill.frontmatter.name,
-        description: skill.frontmatter.description,
-        mimeType: 'text/markdown'
-      })),
+      resources: [
+        ATTENTION_RESOURCE,
+        ...skills.map((skill) => ({
+          uri: skill.uri,
+          name: skill.frontmatter.name,
+          description: skill.frontmatter.description,
+          mimeType: 'text/markdown'
+        }))
+      ],
       ...SKILLS_CACHE
     }
   })
@@ -83,6 +94,7 @@ export function registerSkills(server: McpServer): void {
 
   server.server.setRequestHandler('resources/read', async (request) => {
     const { uri } = request.params
+    if (uri === ATTENTION_RESOURCE_URI) return { ...readAttentionResource(), ...SKILLS_CACHE }
     const file = (await getSkills()).filesByUri.get(uri)
     if (!file) throw new ResourceNotFoundError(uri, `No resource is served at ${uri}`)
     const bytes = await readSkillFile(file)
