@@ -13,7 +13,7 @@ import {
 import { recordToolCall } from '../metrics'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
-import { zodInputSchemaFromJson, type McpTool } from '../openapi'
+import { isR2Path, zodInputSchemaFromJson, type McpTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
 
 /**
@@ -100,6 +100,13 @@ async function callNonCodemodeTool(
   const headers: Record<string, string> = { Authorization: `Bearer ${props.accessToken}` }
   for (const { name, key } of tool.headerParams) {
     if (params[key] !== undefined) headers[name] = String(params[key])
+  }
+  if (
+    isR2Path(tool.path) &&
+    params['jurisdiction'] !== undefined &&
+    !headers['cf-r2-jurisdiction']
+  ) {
+    headers['cf-r2-jurisdiction'] = String(params['jurisdiction'])
   }
 
   let body: string | undefined

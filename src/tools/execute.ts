@@ -37,11 +37,10 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
       return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
     }
     // Inject auth header — token comes from props, never enters user code isolate
+    const authedHeaders = new Headers(request.headers)
+    authedHeaders.set('Authorization', `Bearer ${this.ctx.props.apiToken}`)
     const authedRequest = new Request(request, {
-      headers: new Headers([
-        ...request.headers.entries(),
-        ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
-      ])
+      headers: authedHeaders
     })
     return fetchWithRetry(authedRequest, undefined, {
       caller: this.ctx.props.fetchWithRetryCaller
@@ -93,7 +92,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
   async evaluate() {
     const cloudflare = {
       async request(options) {
-        const { method, path, query, body, contentType, rawBody } = options;
+        const { method, path, query, body, contentType, rawBody, headers: customHeaders, jurisdiction } = options;
 
         const url = new URL(apiBase + path);
         if (query) {
@@ -110,6 +109,18 @@ export default class CodeExecutor extends WorkerEntrypoint {
           headers["Content-Type"] = contentType;
         } else if (body && !rawBody) {
           headers["Content-Type"] = "application/json";
+        }
+
+        if (customHeaders) {
+          for (const [key, value] of Object.entries(customHeaders)) {
+            if (value !== undefined && key.toLowerCase() !== "authorization") {
+              headers[key] = String(value);
+            }
+          }
+        }
+
+        if (jurisdiction) {
+          headers["cf-r2-jurisdiction"] = String(jurisdiction);
         }
 
         let requestBody;

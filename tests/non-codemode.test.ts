@@ -208,6 +208,65 @@ describe('non-Code-Mode schema generation', () => {
     expect(tool.inputSchema.required).toEqual(['script_name'])
     expect(accountOnly.inputSchema).not.toHaveProperty('required')
   })
+
+  it('adds jurisdiction parameter to R2 operations when not in spec', () => {
+    const [tool] = buildMcpTools({
+      '/accounts/{account_id}/r2/buckets': {
+        get: { summary: 'List R2 Buckets' } as OperationInfo
+      }
+    })
+
+    expect(tool.inputSchema.properties.jurisdiction).toBeDefined()
+    expect(tool.inputSchema.properties.jurisdiction.type).toBe('string')
+    expect(tool.headerParams).toEqual([
+      {
+        name: 'cf-r2-jurisdiction',
+        key: 'jurisdiction'
+      }
+    ])
+  })
+
+  it('normalizes cf-r2-jurisdiction to jurisdiction without duplicate schema properties', () => {
+    const [tool] = buildMcpTools({
+      '/accounts/{account_id}/r2/buckets': {
+        get: {
+          summary: 'List R2 Buckets',
+          parameters: [
+            {
+              name: 'cf-r2-jurisdiction',
+              in: 'header',
+              description: 'The jurisdiction of the bucket.'
+            }
+          ]
+        } as OperationInfo
+      }
+    })
+
+    // Must normalize to jurisdiction, not header_cf_r2_jurisdiction
+    expect(tool.inputSchema.properties.jurisdiction).toBeDefined()
+    expect(tool.inputSchema.properties.header_cf_r2_jurisdiction).toBeUndefined()
+    expect(tool.headerParams).toEqual([
+      {
+        name: 'cf-r2-jurisdiction',
+        key: 'jurisdiction'
+      }
+    ])
+
+    const zodSchema = buildInputSchema(
+      {
+        parameters: [
+          {
+            name: 'cf-r2-jurisdiction',
+            in: 'header',
+            description: 'The jurisdiction of the bucket.'
+          }
+        ]
+      } as OperationInfo,
+      '/accounts/{account_id}/r2/buckets'
+    )
+    expect(zodSchema.jurisdiction).toBeDefined()
+    expect(zodSchema.header_cf_r2_jurisdiction).toBeUndefined()
+  })
 })
 
 describe('createServer with codemode=false', () => {
@@ -655,6 +714,65 @@ describe('createServer with codemode=false', () => {
     })
     const [request] = sent
     expect(request.headers.get('If-Match')).toBeNull()
+  })
+
+  it('forwards jurisdiction parameter as cf-r2-jurisdiction header in non-codemode calls', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/r2/buckets': {
+        get: {
+          summary: 'List R2 Buckets',
+          parameters: [{ name: 'account_id', in: 'path', required: true }]
+        } as OperationInfo
+      }
+    }
+
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: [{ name: 'my-eu-bucket' }] })
+
+    try {
+      await callTool(server, 'get_accounts_r2_buckets', {
+        jurisdiction: 'eu'
+      })
+
+      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
+      expect(calledOpts.headers['cf-r2-jurisdiction']).toBe('eu')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('forwards jurisdiction parameter when cf-r2-jurisdiction is declared in spec parameters', async () => {
+    const specPaths = {
+      '/accounts/{account_id}/r2/buckets': {
+        get: {
+          summary: 'List R2 Buckets',
+          parameters: [
+            { name: 'account_id', in: 'path', required: true },
+            { name: 'cf-r2-jurisdiction', in: 'header', required: false, description: 'Jurisdiction' }
+          ]
+        } as OperationInfo
+      }
+    }
+
+    await seedSpec(specPaths)
+    const server = await createServer(acctProps('acct-1'), { codemode: false })
+
+    const originalFetch = globalThis.fetch
+    globalThis.fetch = mockFetchJson({ success: true, result: [{ name: 'my-eu-bucket' }] })
+
+    try {
+      await callTool(server, 'get_accounts_r2_buckets', {
+        jurisdiction: 'eu'
+      })
+
+      const calledOpts = (globalThis.fetch as any).mock.calls[0][1]
+      expect(calledOpts.headers['cf-r2-jurisdiction']).toBe('eu')
+    } finally {
+      globalThis.fetch = originalFetch
+    }
   })
 
   it('handles non-JSON response (e.g., KV value)', async () => {
