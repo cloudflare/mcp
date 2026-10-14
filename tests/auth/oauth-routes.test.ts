@@ -253,6 +253,15 @@ describe('GET /authorize', () => {
     // Consent form with CSRF protection and a session-binding cookie.
     expect(body).toContain('<form')
     expect(res.headers.get('Set-Cookie')).toBeTruthy()
+    // Only this response's nonced script runs. No form-action, which Chrome would apply to the
+    // redirects after Continue (to Cloudflare) and Cancel (to the client).
+    const policy = res.headers.get('Content-Security-Policy')
+    const nonce = policy?.match(/script-src 'nonce-([^']+)'/)?.[1]
+    expect(nonce).toBeTruthy()
+    expect(body).toContain(`<script nonce="${nonce}">`)
+    expect(policy).not.toContain('form-action')
+    expect(policy).toContain("frame-ancestors 'none'")
+    expect(res.headers.get('X-Frame-Options')).toBe('DENY')
     // Cloudflare's authorization screen picks individual scopes. This page offers
     // the built-in templates, plus any saved in the browser by the old picker, and
     // says where to narrow them. New templates can no longer be saved.
