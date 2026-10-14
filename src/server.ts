@@ -4,6 +4,7 @@ import { registerNonCodemodeTools } from './tools/non-codemode'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { registerWhoamiTool } from './tools/whoami'
+import { registerAttentionTool } from './apps/attention/tool'
 import { registerSkills } from './skills/handlers'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
@@ -61,6 +62,7 @@ export async function createServer(
   await registerSearchTool(server, formatResult)
   registerExecuteTool(server, props, formatResult)
   registerWhoamiTool(server, props)
+  registerAttentionTool(server, props)
 
   return server
 }
