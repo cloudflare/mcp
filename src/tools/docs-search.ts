@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { McpServer, Tool } from '@modelcontextprotocol/server'
 import { formatError } from '../utils/errors'
+import { OAUTH_TOOL_META } from './security-schemes'
 
 const AiSearchResponseSchema = z.object({
   object: z.string(),
@@ -94,7 +95,8 @@ export const DOCS_TOOL: Tool = {
     readOnlyHint: false,
     openWorldHint: false,
     destructiveHint: false
-  }
+  },
+  _meta: OAUTH_TOOL_META
 }
 
 export async function runDocsTool(query: string) {
@@ -136,7 +138,8 @@ export function registerDocsTool(server: McpServer) {
         readOnlyHint: false,
         openWorldHint: false,
         destructiveHint: false
-      }
+      },
+      _meta: OAUTH_TOOL_META
     },
     ({ query }) => runDocsTool(query)
   )

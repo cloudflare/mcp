@@ -13,6 +13,7 @@ import {
   unknownAccountHint
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
+import { OAUTH_TOOL_META } from './security-schemes'
 
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
@@ -264,7 +265,8 @@ export function registerExecuteTool(
         readOnlyHint: false,
         openWorldHint: true,
         destructiveHint: true
-      }
+      },
+      _meta: OAUTH_TOOL_META
     },
     async ({ code, account_id }) => {
       try {
