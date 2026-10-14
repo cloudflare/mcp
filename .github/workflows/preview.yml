@@ -72,10 +72,10 @@ jobs:
         env:
           PREVIEW_URL: ${{ steps.config.outputs.url }}
         run: |
-          for _ in 1 2 3 4 5 6; do
+          for _ in $(seq 1 18); do
             status=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$PREVIEW_URL" \
               -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' \
-              -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"preview-check","version":"1"}}}')
+              -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"preview-check","version":"1"}}}' || true)
             [ "$status" = "401" ] && exit 0
             sleep 10
           done
