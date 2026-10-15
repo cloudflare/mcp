@@ -1,0 +1,17 @@
+# Cloudflare MCP Server
+
+> A token-efficient MCP server exposing the entire Cloudflare API (~2,500 endpoints) through Code Mode, where agents write code to search the API spec and execute calls.
+
+Connect via the MCP URL https://mcp.cloudflare.com/mcp using OAuth or a Cloudflare API token. Code Mode keeps context cost around 1k tokens; it can be disabled with ?codemode=false, and result truncation with ?truncateToolResult=false. Tools include whoami, search, and execute, plus Cloudflare skills served via the MCP Skills extension.
+
+## Docs
+
+- [Cloudflare MCP Server](https://raw.githubusercontent.com/cloudflare/mcp/main/README.md): Token-efficient MCP server for the Cloudflare API, with OAuth or API token setup and Code Mode.
+- [Get Started](https://github.com/cloudflare/mcp/blob/main/README.md#get-started): Connecting via OAuth or API token, adding to an agent, and disabling Code Mode with a query parameter.
+- [The Problem](https://github.com/cloudflare/mcp/blob/main/README.md#the-problem): Why the 2 million token OpenAPI spec is handled with server-side code execution instead of exposing tools.
+- [Tools](https://github.com/cloudflare/mcp/blob/main/README.md#tools): Code Mode tools for searching the spec and docs, plus the whoami tool for identifying credentials.
+- [Skills](https://github.com/cloudflare/mcp/blob/main/README.md#skills): Serving Cloudflare skills like Wrangler and Agents SDK via the MCP Skills extension, synced from GitHub.
+- [Supported Products](https://github.com/cloudflare/mcp/blob/main/README.md#supported-products): List of supported Cloudflare products including Workers, KV, R2, D1, Pages, DNS, and more.
+- [Usage](https://github.com/cloudflare/mcp/blob/main/README.md#usage): Example agent prompts for Cloudflare tasks and how GraphQL Analytics endpoints are handled automatically.
+- [Build a Code Mode MCP Server](https://github.com/cloudflare/mcp/blob/main/README.md#build-a-code-mode-mcp-server): Running generated code in isolated Workers via the Dynamic Worker Loader API, with links to Code Mode resources.
+- [MCP Events for real-time issues](https://raw.githubusercontent.com/cloudflare/mcp/main/docs/mcp-events.md): Supported MCP Events endpoints, the Workers observability issue event, and how subscriptions map to ANS resources.
