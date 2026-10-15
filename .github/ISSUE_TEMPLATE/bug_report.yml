@@ -18,6 +18,7 @@ body:
         - Cursor
         - Windsurf
         - VS Code (Copilot)
+        - Autohand Code CLI
         - Other (please specify below)
     validations:
       required: true

@@ -47,6 +47,36 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 | MCP URL      | `https://mcp.cloudflare.com/mcp`                                            |
 | Bearer Token | Your [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens) |
 
+### Autohand Code
+
+Install [Autohand Code CLI](https://autohand.ai/code/cli/) and register this server using [`mcp-remote`](https://github.com/geelen/mcp-remote), which handles OAuth for the stdio connection:
+
+```sh
+npm install -g autohand-cli
+autohand mcp add cloudflare npx -y mcp-remote https://mcp.cloudflare.com/mcp
+```
+
+Start `autohand` and complete the Cloudflare authorization flow in your browser. Use `/mcp` to check the connection and `/mcp list` to view the available tools. The configuration is saved in `~/.autohand/config.json` by default; the OAuth bridge manages credentials separately.
+
+Autohand uses `mcp.servers` rather than the `mcpServers` object shown above. To configure it manually, merge this server entry into your existing `mcp.servers` array:
+
+```json
+{
+  "mcp": {
+    "servers": [
+      {
+        "name": "cloudflare",
+        "transport": "stdio",
+        "command": "npx",
+        "args": ["-y", "mcp-remote", "https://mcp.cloudflare.com/mcp"]
+      }
+    ]
+  }
+}
+```
+
+See [Autohand's MCP documentation](https://github.com/autohandai/code-cli/blob/main/docs/mcp.md) for configuration details and [Cloudflare Skills](https://github.com/cloudflare/skills#autohand-code) for installing local skills.
+
 ### Disable Code Mode
 
 If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` and `whoami` tools remain available in both modes.
