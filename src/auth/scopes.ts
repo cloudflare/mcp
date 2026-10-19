@@ -33,8 +33,11 @@ export const REQUIRED_SCOPES = [
 /** The built-in permission presets. */
 export type TemplateName = 'minimal' | 'read-only' | 'full-access'
 
-/** Default template; read-only is safest. */
-export const DEFAULT_TEMPLATE: TemplateName = 'read-only'
+/**
+ * Default template: the least access. Clients that support step-up ask for
+ * each further scope the first time a tool needs it.
+ */
+export const DEFAULT_TEMPLATE: TemplateName = 'minimal'
 
 function isReadOnlyScope(scope: string): boolean {
   const action = scope.split(/[:.]/).at(-1)
