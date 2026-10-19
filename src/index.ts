@@ -53,7 +53,7 @@ const oauthProvider = new OAuthProvider<Env>({
   },
   // The scopes any access needs: published as the resource's scopes_supported and named in the
   // 401, so clients request them (offline_access is dropped: it isn't a resource requirement).
-  // The consent page adds the rest, read-only by default.
+  // The consent page adds the rest; Minimal, the default, adds nothing until step-up asks.
   requiredScopes: [...REQUIRED_SCOPES],
   accessTokenTTL: 3600,
   refreshTokenTTL: 2592000 // 30 days

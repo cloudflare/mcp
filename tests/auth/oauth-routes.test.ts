@@ -284,7 +284,7 @@ describe('GET /authorize', () => {
     expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
   })
 
-  it('treats a request for only the required scopes as no preference: the read-only default', async () => {
+  it('treats a request for only the required scopes as no preference: the Minimal default', async () => {
     // What an MCP client sends after reading the 401's scope="user:read account:read".
     const clientId = await registerClient()
     const response = await exports.default.fetch(
@@ -300,11 +300,13 @@ describe('GET /authorize', () => {
 
     expect(response.status).toBe(200)
     const body = await response.text()
-    const initial = embeddedInitialScopes(body)
-    expect(initial).toHaveLength(194)
-    expect(initial).toContain('dns.read')
-    // Minimal is offered, never chosen for the user.
-    expect(body).toContain('const INITIAL_TEMPLATE = "read-only";')
+    // Minimal is the default; step-up asks for the rest when a tool needs it.
+    expect([...embeddedInitialScopes(body)].sort()).toEqual([
+      'account:read',
+      'offline_access',
+      'user:read'
+    ])
+    expect(body).toContain('const INITIAL_TEMPLATE = "minimal";')
   })
 
   it('preserves valid requested scopes and preselects them with required scopes', async () => {
