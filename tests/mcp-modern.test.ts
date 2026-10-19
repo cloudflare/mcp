@@ -288,6 +288,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
     expect(endpoints.result?.tools?.map((tool) => tool.name)).toEqual([
       'docs',
       'whoami',
+      'd1_read_query',
       'get_accounts_workers_scripts'
     ])
     expect(codemodeResponse.headers.get('mcp-session-id')).toBeNull()

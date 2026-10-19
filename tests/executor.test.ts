@@ -393,3 +393,59 @@ describe('search: real SPEC_BUCKET', () => {
     expect(result.result?.isError).toBe(true)
   })
 })
+
+describe('execute: read-only D1 endpoint', () => {
+  const DATABASE_ID = 'd1d1d1d1-0000-0000-0000-000000000001'
+  const READ_PATH = `/accounts/${ACCOUNT_ID}/d1/database/${DATABASE_ID}/read_query`
+  const QUERY_URL = `${API_BASE}/accounts/${ACCOUNT_ID}/d1/database/${DATABASE_ID}/query`
+
+  beforeEach(() => mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] }))
+
+  function post(body: unknown, method = 'POST'): Promise<string> {
+    return callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: ${JSON.stringify(method)}, path: ${JSON.stringify(READ_PATH)}, body: ${JSON.stringify(body)} })`
+    }).then(toolText)
+  }
+
+  it('sends read-only SQL unchanged to the real query endpoint with the token', async () => {
+    let received: unknown
+    let auth: string | null = null
+    server.use(
+      http.post(QUERY_URL, async ({ request }) => {
+        received = await request.json()
+        auth = request.headers.get('Authorization')
+        return HttpResponse.json(cfSuccess([{ results: [{ n: 1 }], success: true }]))
+      })
+    )
+
+    const text = await post({ sql: 'SELECT ? AS n', params: ['1'] })
+
+    expect(text).toContain('"n": 1')
+    expect(received).toEqual({ sql: 'SELECT ? AS n', params: ['1'] })
+    expect(auth).toBe(`Bearer ${API_TOKEN}`)
+  })
+
+  it('checks every query in a batch', async () => {
+    // No handler for the query endpoint: MSW fails the test on any request to it.
+    const text = await post({ batch: [{ sql: 'SELECT 1' }, { sql: 'DROP TABLE users' }] })
+
+    expect(text).toContain('Refused: batch[1]: DROP statement is not read-only')
+    expect(text).toContain('/query for other SQL')
+  })
+
+  it.each([
+    [{ sql: 'SELECT 1; DELETE FROM users' }, 'Statement 2: DELETE'],
+    [{ sql: 'SELECT 1', batch: [{ sql: 'DELETE FROM users' }] }, 'with no other keys'],
+    [{ sql: 'PRAGMA foreign_keys = OFF' }, 'Only these read-only PRAGMAs']
+  ])('refuses %j before it reaches D1', async (body, reason) => {
+    expect(await post(body)).toContain(reason)
+  })
+
+  it('refuses methods other than POST', async () => {
+    const text = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: ${JSON.stringify(READ_PATH)} })`
+    }).then(toolText)
+
+    expect(text).toContain('GET is not supported')
+  })
+})

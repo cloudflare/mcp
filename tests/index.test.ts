@@ -90,6 +90,30 @@ describe('scheduled handler', () => {
     expect(tools[0].inputSchema.required).toBeUndefined()
   })
 
+  it("adds Code Mode's read-only D1 endpoint to spec.json but not to mcp-tools.json", async () => {
+    const query = '/accounts/{account_id}/d1/database/{database_id}/query'
+    const readQuery = '/accounts/{account_id}/d1/database/{database_id}/read_query'
+    server.use(
+      http.get(SPEC_URL, () =>
+        HttpResponse.json({
+          ...RAW_SPEC,
+          paths: { [query]: { post: { summary: 'Query D1 Database', tags: ['D1'] } } }
+        })
+      )
+    )
+
+    await runScheduled()
+
+    const spec = (await (await env.SPEC_BUCKET.get('spec.json'))!.json()) as {
+      paths: Record<string, unknown>
+    }
+    const tools = (await (await env.SPEC_BUCKET.get('mcp-tools.json'))!.json()) as Array<{
+      path: string
+    }>
+    expect(Object.keys(spec.paths)).toEqual([query, readQuery])
+    expect(tools.map((tool) => tool.path)).toEqual([query])
+  })
+
   it('throws and writes no spec artifacts when GitHub returns a non-2xx', async () => {
     server.use(http.get(SPEC_URL, () => new HttpResponse('Not Found', { status: 404 })))
 
