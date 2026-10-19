@@ -116,6 +116,12 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 `docs` (documentation search) and `whoami` are registered in both tool modes. `whoami` (`src/tools/whoami.ts`) returns the credential's identity as `user:<id>` or `account:<id>` and carries `_meta['openai/profile']` so ChatGPT can tell connected accounts apart. That ID format is a permanent contract: clients store it, so never change it. Its definition is static like every other tool's; only `tools/call` reads the credential.
 
+### Attention panel (MCP App)
+
+- `src/apps/attention/` serves `show_attention` in both tool modes and the `ui://cloudflare/attention-panel.html` resource through the same `resources/list` and `resources/read` handlers as skills.
+- `sources.ts` reads three feeds with the caller's token. A 401/403 names the missing permission, a 5xx is retried, and either way the feed is reported in `unavailable` instead of as empty. An `account_id` the session cannot reach is rejected before any feed call, and only `https://dash.cloudflare.com` links reach the panel.
+- The panel is React on `@openai/apps-sdk-ui` in `ui/`, typechecked by `tsconfig.attention-ui.json`. `npm run build:attention-panel` bundles it into one HTML file and regenerates `panel-html.ts`; commit the regenerated file with any UI change.
+
 ### MCP HTTP serving
 
 - `src/mcp-handler.ts` uses `createMcpHandler(factory)` directly from `@modelcontextprotocol/server`; this repository does not depend on the Agents SDK.

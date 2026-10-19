@@ -14,5 +14,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "tests/**/*", "worker-configuration.d.ts"]
+  "include": ["src/**/*", "tests/**/*", "worker-configuration.d.ts"],
+  "exclude": ["src/apps/attention/ui/**/*"]
 }

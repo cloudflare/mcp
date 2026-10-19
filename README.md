@@ -96,12 +96,13 @@ This server solves the problem by using **code execution** in a [Code Mode](http
 
 Agent writes code to search the spec and execute API calls. It can also search Cloudflare's developer documentation directly.
 
-| Tool      | Description                                                                   |
-| --------- | ----------------------------------------------------------------------------- |
-| `docs`    | Search Cloudflare developer documentation                                     |
-| `search`  | Write JavaScript to query `spec.paths` and find endpoints                     |
-| `execute` | Write JavaScript to call `cloudflare.request()` with the discovered endpoints |
-| `whoami`  | Return the Cloudflare user or account this connection is authenticated as     |
+| Tool             | Description                                                                   |
+| ---------------- | ----------------------------------------------------------------------------- |
+| `docs`           | Search Cloudflare developer documentation                                     |
+| `search`         | Write JavaScript to query `spec.paths` and find endpoints                     |
+| `execute`        | Write JavaScript to call `cloudflare.request()` with the discovered endpoints |
+| `whoami`         | Return the Cloudflare user or account this connection is authenticated as     |
+| `show_attention` | Show what in an account needs action now, as an interactive panel             |
 
 ```
 Agent                         MCP Server
@@ -114,6 +115,8 @@ Agent                         MCP Server
 ```
 
 `whoami` takes no arguments and returns `{ id, email }` for a user credential or `{ id, name }` for an account token. The `id` is `user:<user id>` or `account:<account id>`, so it stays the same across token refresh, reconnection and permission changes. Clients can use it to tell connected accounts apart; it is marked as an [OpenAI profile tool](https://developers.openai.com/plugins/build/auth#implement-and-declare-your-profile-tool).
+
+`show_attention` lists what needs action in an account: notifications that fired in the last 7 days, open Security Center insights and active Workers Observability issues. It reads them with the connection's own credential, so it needs Notifications Read, Account Security Center Insights Read and Workers Observability Read. A feed the credential cannot read is reported by name instead of shown as empty. Clients that support [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview) render it as a panel (`ui://cloudflare/attention-panel.html`) with a **Look into this** button per item, and hosts that support the `openai/ui` global entrypoint, such as Codex desktop, also list it in the sidebar. Other clients get the same report as text.
 
 ## Skills
 
