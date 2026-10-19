@@ -10,7 +10,7 @@ interface __BaseEnv_Env {
 	CLOUDFLARE_API_BASE: "https://api.staging.cloudflare.com/client/v4" | "https://api.cloudflare.com/client/v4";
 	CLOUDFLARE_OAUTH_DOMAIN: "https://dash.staging.cloudflare.com" | "https://dash.cloudflare.com";
 	MCP_RESOURCE: "https://staging.mcp.cloudflare.com/mcp" | "https://mcp.cloudflare.com/mcp" | "http://localhost:2529/mcp";
-	OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
+	OPENAPI_SPEC_URL: "https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json";
 	MCP_COOKIE_ENCRYPTION_KEY: string;
 	CLOUDFLARE_CLIENT_ID: string;
 	CLOUDFLARE_CLIENT_SECRET: string;
@@ -29,7 +29,7 @@ declare namespace Cloudflare {
 		CLOUDFLARE_API_BASE: "https://api.staging.cloudflare.com/client/v4";
 		CLOUDFLARE_OAUTH_DOMAIN: "https://dash.staging.cloudflare.com";
 		MCP_RESOURCE: "https://staging.mcp.cloudflare.com/mcp";
-		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
+		OPENAPI_SPEC_URL: "https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json";
 		MCP_COOKIE_ENCRYPTION_KEY: string;
 		CLOUDFLARE_CLIENT_ID: string;
 		CLOUDFLARE_CLIENT_SECRET: string;
@@ -44,7 +44,7 @@ declare namespace Cloudflare {
 		CLOUDFLARE_API_BASE: "https://api.cloudflare.com/client/v4";
 		CLOUDFLARE_OAUTH_DOMAIN: "https://dash.cloudflare.com";
 		MCP_RESOURCE: "https://mcp.cloudflare.com/mcp";
-		OPENAPI_SPEC_URL: "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json";
+		OPENAPI_SPEC_URL: "https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json";
 		MCP_COOKIE_ENCRYPTION_KEY: string;
 		CLOUDFLARE_CLIENT_ID: string;
 		CLOUDFLARE_CLIENT_SECRET: string;

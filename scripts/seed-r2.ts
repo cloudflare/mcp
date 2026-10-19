@@ -8,7 +8,7 @@ import { fetchSkills } from '../src/skills/sync'
 import { SKILLS_MANIFEST_KEY, skillFileKey } from '../src/skills/types'
 
 const OPENAPI_SPEC_URL =
-  'https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json'
+  'https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json'
 
 const env = process.argv[2]
 if (!env || !['staging', 'production'].includes(env)) {

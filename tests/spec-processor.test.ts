@@ -217,3 +217,67 @@ describe('extractProducts', () => {
     expect(extractProducts({})).toEqual([])
   })
 })
+
+describe('Forge account-or-zone paths', () => {
+  const merged = {
+    paths: {
+      '/{account_or_zone}/{account_or_zone_id}/access/apps/{app_id}': {
+        get: {
+          summary: 'Get an Access application',
+          parameters: [
+            { name: 'account_or_zone', in: 'path', required: true, schema: { type: 'string' } },
+            { $ref: '#/components/parameters/account_or_zone_id' },
+            { name: 'app_id', in: 'path', required: true, schema: { type: 'string' } }
+          ]
+        }
+      }
+    },
+    components: {
+      parameters: {
+        account_or_zone_id: {
+          name: 'account_or_zone_id',
+          in: 'path',
+          required: true,
+          schema: { type: 'string', description: 'Identifier.' }
+        }
+      }
+    }
+  }
+
+  it('splits a merged path into its account and zone paths', () => {
+    const { paths } = processSpec(merged)
+
+    expect(Object.keys(paths)).toEqual([
+      '/accounts/{account_id}/access/apps/{app_id}',
+      '/zones/{zone_id}/access/apps/{app_id}'
+    ])
+    const names = (path: string) =>
+      (paths[path].get as { parameters: Array<{ name: string }> }).parameters.map((p) => p.name)
+    expect(names('/accounts/{account_id}/access/apps/{app_id}')).toEqual(['account_id', 'app_id'])
+    expect(names('/zones/{zone_id}/access/apps/{app_id}')).toEqual(['zone_id', 'app_id'])
+    expect(paths['/zones/{zone_id}/access/apps/{app_id}'].get).toMatchObject({
+      summary: 'Get an Access application',
+      tags: ['access']
+    })
+  })
+
+  it('keeps a concrete path the spec also lists on its own', () => {
+    const spec = structuredClone(merged) as typeof merged & {
+      paths: Record<string, Record<string, { summary: string }>>
+    }
+    spec.paths['/zones/{zone_id}/access/apps/{app_id}'] = { get: { summary: 'Zone-only entry' } }
+
+    const { paths } = processSpec(spec)
+
+    expect(paths['/zones/{zone_id}/access/apps/{app_id}'].get).toMatchObject({
+      summary: 'Zone-only entry'
+    })
+    expect(paths['/accounts/{account_id}/access/apps/{app_id}'].get).toMatchObject({
+      summary: 'Get an Access application'
+    })
+  })
+
+  it('counts products for both split paths', () => {
+    expect(extractProducts(merged)).toEqual(['access'])
+  })
+})
