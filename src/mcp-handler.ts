@@ -34,14 +34,17 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
 ]
 
 /**
- * Read the server options from the MCP URL query string. Each option stays on
- * unless the client passes exactly `false`, e.g. `/mcp?codemode=false`.
+ * Read the server options from the MCP URL query string. `codemode` and
+ * `truncateToolResult` stay on unless the client passes exactly `false`, e.g.
+ * `/mcp?codemode=false`; `forge` is off unless it is exactly `true`.
  */
 function serverOptionsFromUrl(url: string): ServerOptions {
   const params = new URL(url).searchParams
   return {
     codemode: params.get('codemode') !== 'false',
-    truncateToolResult: params.get('truncateToolResult') !== 'false'
+    truncateToolResult: params.get('truncateToolResult') !== 'false',
+    // Off unless the client passes exactly `true`, e.g. `/mcp?forge=true`.
+    forge: params.get('forge') === 'true'
   }
 }
 
