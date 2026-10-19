@@ -181,7 +181,7 @@ describe('execute: REST responses', () => {
 
   it('rejects an explicit failure envelope even with HTTP 200', async () => {
     const text = await runExecute('/envelope', cfError([{ code: 1000, message: 'Denied' }]))
-    expect(text).toContain('Cloudflare API error: 1000: Denied')
+    expect(text).toContain('Cloudflare API error: GET /envelope returned HTTP 200: 1000: Denied')
   })
 
   it.each([
@@ -190,7 +190,7 @@ describe('execute: REST responses', () => {
     { name: 'null', body: null }
   ])('rejects HTTP failures with a $name body', async ({ body }) => {
     const text = await runExecute('/failure', body, { status: 403 })
-    expect(text).toContain('Cloudflare API error: 403')
+    expect(text).toContain('Cloudflare API error: GET /failure returned HTTP 403')
   })
 
   it('preserves the JSONEachRow workaround as text', async () => {
