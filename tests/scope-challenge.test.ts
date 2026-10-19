@@ -264,4 +264,25 @@ describe('OAuth connections over 2025-era HTTP', () => {
       'execute'
     )
   })
+
+  it('still serve MCP Events', async () => {
+    // The JSON path builds its own server, so it must get the same request context.
+    const token = await connectWithOAuth(BASELINE)
+    const response = await exports.default.fetch(
+      new Request(MCP_URL, {
+        method: 'POST',
+        headers: {
+          Host: 'mcp.cloudflare.com',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json, text/event-stream'
+        },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'events/list' })
+      })
+    )
+    const body = (await parseMcpResult(response)) as { error?: { code: number } }
+
+    expect(response.headers.get('Content-Type')).toContain('application/json')
+    expect(body.error?.code).not.toBe(-32601)
+  })
 })
