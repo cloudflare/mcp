@@ -60,10 +60,11 @@ which also covers ANS's probe of a new destination. Because the previous secret 
 not kept, deliveries are signed with the current secret only (no dual-signing).
 
 No user credential is stored and delivery makes no Cloudflare API call. Access is
-checked on subscribe and on every refresh, with the caller's live credentials. A
-subscriber who loses access stops receiving events when the subscription expires
-(at most an hour). Unsubscribe deletes the KV record only once Cloudflare accepts
-the disabled policy, so it needs the same permissions as subscribe.
+checked on subscribe and on every refresh, with the caller's live credentials.
+Subscribe writes the KV record, and unsubscribe deletes it, only once Cloudflare
+accepts their change to the policy, so a credential that can read the policy but
+not manage it can neither extend nor end delivery. A subscriber who loses access
+stops receiving events when the subscription expires (at most an hour).
 
 Credentials are never placed in URLs or returned to MCP clients. Sealed values use
 a purpose-specific key derived from `MCP_COOKIE_ENCRYPTION_KEY`, bound to

@@ -284,7 +284,14 @@ export class EventService {
       const automationId =
         (await api.find(AUTOMATIONS, name, AUTOMATIONS_LISTING)) ??
         (await api.create(AUTOMATIONS, automationBody, 'automation'))
-      // Write the record before enabling delivery, so the first alert finds it.
+      await api.result(`${POLICIES}/${encodeURIComponent(resolvedPolicyId)}`, 'PUT', {
+        ...policyBody,
+        enabled: true
+      })
+      // Write the record only once Cloudflare accepts the policy change. A
+      // refresh that reuses every resource changes nothing in Cloudflare before
+      // this, so a caller that may only read could otherwise extend delivery.
+      // Write it before enabling the automation, so the first alert finds it.
       await writeSubscriptionRecord(
         this.env,
         {
@@ -298,10 +305,6 @@ export class EventService {
         },
         now
       )
-      await api.result(`${POLICIES}/${encodeURIComponent(resolvedPolicyId)}`, 'PUT', {
-        ...policyBody,
-        enabled: true
-      })
       await api.result(`${AUTOMATIONS}/${encodeURIComponent(automationId)}`, 'PUT', {
         ...automationBody,
         enabled: true

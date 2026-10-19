@@ -558,6 +558,17 @@ describe('MCP Events through the real Worker', () => {
     expect(deliveries).toHaveLength(0)
   })
 
+  it('does not extend delivery when a refresh may read the policy but not change it', async () => {
+    const subscribed = await rpc('events/subscribe', params)
+    refuse = `PUT ${POLICIES}`
+    expect((await rpc('events/subscribe', { ...params, ttlMs: 60 * 60_000 })).error?.code).toBe(
+      -32012
+    )
+    vi.spyOn(Date, 'now').mockReturnValue(Date.parse(subscribed.result!.refreshBefore!) + 1)
+    expect((await exports.default.fetch(ansRequest())).status).toBe(204)
+    expect(deliveries).toHaveLength(0)
+  })
+
   it('forwards an alert without calling the Cloudflare API', async () => {
     await rpc('events/subscribe', params)
     requests.length = 0

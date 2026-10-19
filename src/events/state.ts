@@ -94,7 +94,8 @@ export async function openDeliverySecret(
 /**
  * A live subscription's routing and expiry, in OAUTH_KV. It holds no secret
  * and no credential. Its absence stops delivery: it expires with the
- * subscription and unsubscribe deletes it first.
+ * subscription, and unsubscribe deletes it. Subscribe and unsubscribe change
+ * it only after Cloudflare accepts their change to the policy.
  */
 const SubscriptionRecord = z.object({
   id: SubscriptionIdSchema,
