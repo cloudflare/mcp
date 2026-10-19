@@ -1,4 +1,4 @@
-import { constantTimeEqual, forwardAnsWebhook } from './ans-bridge'
+import { forwardAnsWebhook } from './ans-bridge'
 import { publicWebhookFetch } from './service'
 import {
   hashSecret,
