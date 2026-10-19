@@ -173,6 +173,10 @@ const EventPayloadSchemas: Readonly<Record<string, z.ZodType<NotificationPayload
   workers_observability_real_time_issue: IssueNotificationPayload
 }
 
+export function payloadSchemaFor(alertType: string): z.ZodType<NotificationPayload> {
+  return EventPayloadSchemas[alertType] ?? AlertPayload
+}
+
 /**
  * JSON Schema for an event descriptor, in the subset ChatGPT accepts for tool
  * parameters: a plain object schema with no `$schema` and no top-level
@@ -194,7 +198,7 @@ export function alertEventDefinitions(catalog: unknown) {
       description: `${alert.display_name}: ${alert.description}`,
       delivery: ['webhook'],
       inputSchema: descriptorSchema(AlertArguments),
-      payloadSchema: descriptorSchema(EventPayloadSchemas[alert.type])
+      payloadSchema: descriptorSchema(payloadSchemaFor(alert.type))
     }))
 }
 
@@ -495,7 +499,7 @@ export async function forwardAnsWebhook(
   } catch {
     return new Response(null, { status: 400 })
   }
-  const parsed = (EventPayloadSchemas[subscription.alertType] ?? AlertPayload).safeParse(raw)
+  const parsed = payloadSchemaFor(subscription.alertType).safeParse(raw)
   if (!parsed.success) {
     // Shape and failing paths only: alert values can hold customer data.
     console.log(
