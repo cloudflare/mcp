@@ -30,8 +30,8 @@ export const REQUIRED_SCOPES = [
   'account:read'
 ] as const satisfies readonly ScopeName[]
 
-/** The two built-in permission presets. */
-export type TemplateName = 'read-only' | 'full-access'
+/** The built-in permission presets. */
+export type TemplateName = 'minimal' | 'read-only' | 'full-access'
 
 /** Default template; read-only is safest. */
 export const DEFAULT_TEMPLATE: TemplateName = 'read-only'
@@ -64,6 +64,12 @@ const readOnlyScopes = Array.from(
   new Set<ScopeName>([...REQUIRED_SCOPES, ...scopeNames.filter(isReadOnlyScope)])
 )
 export const SCOPE_TEMPLATES: Record<TemplateName, ScopeTemplate> = {
+  // Identity and accounts only. A client that supports step-up asks for more when a
+  // refused call needs it (insufficient_scope), so users can start from almost nothing.
+  minimal: {
+    name: 'Minimal',
+    scopes: REQUIRED_SCOPES
+  },
   'read-only': {
     name: 'Read only',
     scopes: readOnlyScopes

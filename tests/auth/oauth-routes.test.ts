@@ -260,9 +260,16 @@ describe('GET /authorize', () => {
     expect(body).not.toContain('Save as template')
     expect(body).toContain('cf-mcp-consent:user-templates:v1')
     expect(body).toContain('You can narrow scopes further, later in the authorization flow.')
+    expect(body).toContain('With Minimal, your client asks for more access when a tool needs it.')
 
     const templates = embeddedTemplateScopes(body)
-    expect(Object.keys(templates)).toEqual(['read-only', 'full-access'])
+    expect(Object.keys(templates)).toEqual(['minimal', 'read-only', 'full-access'])
+    // Minimal is identity and accounts only; step-up adds the rest when a tool needs it.
+    expect([...templates['minimal']].sort()).toEqual([
+      'account:read',
+      'offline_access',
+      'user:read'
+    ])
     expect(templates['read-only']).toHaveLength(194)
     expect(templates['read-only']).toContain('teams-pii.read')
     expect(templates['full-access']).toHaveLength(384)
@@ -290,9 +297,12 @@ describe('GET /authorize', () => {
     )
 
     expect(response.status).toBe(200)
-    const initial = embeddedInitialScopes(await response.text())
+    const body = await response.text()
+    const initial = embeddedInitialScopes(body)
     expect(initial).toHaveLength(194)
     expect(initial).toContain('dns.read')
+    // Minimal is offered, never chosen for the user.
+    expect(body).toContain('const INITIAL_TEMPLATE = "read-only";')
   })
 
   it('preserves valid requested scopes and preselects them with required scopes', async () => {
