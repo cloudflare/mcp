@@ -260,7 +260,9 @@ describe('GET /authorize', () => {
     expect(body).not.toContain('Save as template')
     expect(body).toContain('cf-mcp-consent:user-templates:v1')
     expect(body).toContain('You can narrow scopes further, later in the authorization flow.')
-    expect(body).toContain('With Minimal, your client asks for more access when a tool needs it.')
+    expect(body).toContain(
+      'Clients that support stepup auth can request more scopes when calling tools.'
+    )
 
     const templates = embeddedTemplateScopes(body)
     expect(Object.keys(templates)).toEqual(['minimal', 'read-only', 'full-access'])
