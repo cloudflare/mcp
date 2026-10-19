@@ -123,6 +123,65 @@ describe('execute: REST responses', () => {
     })
     expect(text).toContain('raw-value')
   })
+
+  it('forwards custom headers passed in options.headers', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/r2/buckets`
+    let receivedHeader: string | null = null
+    server.use(
+      http.get(`${API_BASE}${path}`, ({ request }) => {
+        receivedHeader = request.headers.get('cf-r2-jurisdiction')
+        return HttpResponse.json(cfSuccess([{ name: 'eu-bucket' }]))
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "${path}", headers: { "cf-r2-jurisdiction": "eu" } })`
+    })
+
+    expect(result.result?.isError).toBeFalsy()
+    expect(receivedHeader).toBe('eu')
+    expect(toolText(result)).toContain('eu-bucket')
+  })
+
+  it('sets cf-r2-jurisdiction header when options.jurisdiction is provided', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/r2/buckets`
+    let receivedHeader: string | null = null
+    server.use(
+      http.get(`${API_BASE}${path}`, ({ request }) => {
+        receivedHeader = request.headers.get('cf-r2-jurisdiction')
+        return HttpResponse.json(cfSuccess([{ name: 'eu-bucket' }]))
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "${path}", jurisdiction: "eu" })`
+    })
+
+    expect(result.result?.isError).toBeFalsy()
+    expect(receivedHeader).toBe('eu')
+    expect(toolText(result)).toContain('eu-bucket')
+  })
+
+  it('preserves the authentic Authorization token and ignores custom Authorization header', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/r2/buckets`
+    let receivedAuth: string | null = null
+    server.use(
+      http.get(`${API_BASE}${path}`, ({ request }) => {
+        receivedAuth = request.headers.get('Authorization')
+        return HttpResponse.json(cfSuccess([{ name: 'eu-bucket' }]))
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "${path}", headers: { "Authorization": "Bearer evil-token" } })`
+    })
+
+    expect(result.result?.isError).toBeFalsy()
+    expect(receivedAuth).toBe(`Bearer ${API_TOKEN}`)
+  })
 })
 
 describe('execute: retries', () => {

@@ -29,6 +29,8 @@ interface CloudflareRequestOptions {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   path: string;
   query?: Record<string, string | number | boolean | undefined>;
+  headers?: Record<string, string>; // Custom request headers (e.g. { "cf-r2-jurisdiction": "eu" })
+  jurisdiction?: string; // Optional R2 jurisdiction (e.g. "eu" or "fedramp")
   body?: unknown;
   contentType?: string;  // Custom Content-Type header (defaults to application/json if body is present)
   rawBody?: boolean;     // If true, sends body as-is without JSON.stringify

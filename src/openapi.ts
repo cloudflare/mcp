@@ -183,6 +183,13 @@ function listNonCodemodeOperations(
 }
 
 /**
+ * Check if a path corresponds to an R2 storage operation.
+ */
+export function isR2Path(path: string): boolean {
+  return /\/r2(?:\/|$)/.test(path)
+}
+
+/**
  * Build `mcp-tools.json` in the scheduled handler. This moves the full spec
  * walk, name de-duplication, descriptions, routing metadata and the final wire
  * JSON Schema (including the session-independent `account_id`) out of the
@@ -190,23 +197,38 @@ function listNonCodemodeOperations(
  */
 export function buildMcpTools(paths: Record<string, Record<string, OperationInfo>>): McpTool[] {
   return listNonCodemodeOperations(paths).map(
-    ({ toolName, description, method, path, operation }) => ({
-      name: toolName,
-      title: toolNameToTitle(toolName),
-      description,
-      inputSchema: withOptionalAccountId(buildJsonInputSchema(operation, path)),
-      method,
-      path,
-      queryParams: (operation.parameters ?? [])
-        .filter((parameter) => parameter.in === 'query')
-        .map((parameter) => parameter.name),
-      headerParams: (operation.parameters ?? [])
+    ({ toolName, description, method, path, operation }) => {
+      const isR2 = isR2Path(path)
+      const headerParams = (operation.parameters ?? [])
         .filter((parameter) => parameter.in === 'header')
         .map((parameter) => ({
           name: parameter.name,
-          key: `header_${parameter.name.toLowerCase().replace(/-/g, '_')}`
+          key:
+            isR2 && parameter.name.toLowerCase() === 'cf-r2-jurisdiction'
+              ? 'jurisdiction'
+              : `header_${parameter.name.toLowerCase().replace(/-/g, '_')}`
         }))
-    })
+
+      if (isR2 && !headerParams.some((p) => p.name.toLowerCase() === 'cf-r2-jurisdiction')) {
+        headerParams.push({
+          name: 'cf-r2-jurisdiction',
+          key: 'jurisdiction'
+        })
+      }
+
+      return {
+        name: toolName,
+        title: toolNameToTitle(toolName),
+        description,
+        inputSchema: withOptionalAccountId(buildJsonInputSchema(operation, path)),
+        method,
+        path,
+        queryParams: (operation.parameters ?? [])
+          .filter((parameter) => parameter.in === 'query')
+          .map((parameter) => parameter.name),
+        headerParams
+      }
+    }
   )
 }
 
@@ -268,12 +290,25 @@ function buildJsonInputSchema(operation: OperationInfo, path: string): JsonObjec
     }
 
     if (parameter.in === 'header') {
-      const key = `header_${parameter.name.toLowerCase().replace(/-/g, '_')}`
+      const isJurisdiction = isR2Path(path) && parameter.name.toLowerCase() === 'cf-r2-jurisdiction'
+      const key = isJurisdiction
+        ? 'jurisdiction'
+        : `header_${parameter.name.toLowerCase().replace(/-/g, '_')}`
       properties[key] = {
         type: 'string',
-        description: `Header: ${parameter.name}${parameter.description ? ` — ${parameter.description}` : ''}`
+        description: isJurisdiction
+          ? 'Optional R2 jurisdiction (e.g. "eu" or "fedramp") to access jurisdiction-specific buckets.'
+          : `Header: ${parameter.name}${parameter.description ? ` — ${parameter.description}` : ''}`
       }
       if (parameter.required) required.add(key)
+    }
+  }
+
+  if (isR2Path(path) && !properties['jurisdiction']) {
+    properties['jurisdiction'] = {
+      type: 'string',
+      description:
+        'Optional R2 jurisdiction (e.g. "eu" or "fedramp") to access jurisdiction-specific buckets.'
     }
   }
 
@@ -332,23 +367,20 @@ export function buildInputSchema(
     }
   }
 
-  // Add header parameters (e.g., If-Match for ETags)
+  // Add header parameters (e.g., If-Match for ETags, cf-r2-jurisdiction for R2)
   if (operation.parameters) {
     for (const param of operation.parameters) {
       if (param.in === 'header') {
-        const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
+        const isJurisdiction = isR2Path(path) && param.name.toLowerCase() === 'cf-r2-jurisdiction'
+        const headerKey = isJurisdiction
+          ? 'jurisdiction'
+          : `header_${param.name.toLowerCase().replace(/-/g, '_')}`
+        const desc = isJurisdiction
+          ? 'Optional R2 jurisdiction (e.g. "eu" or "fedramp") to access jurisdiction-specific buckets.'
+          : `Header: ${param.name}${param.description ? ` — ${param.description}` : ''}`
         const field = param.required
-          ? z
-              .string()
-              .describe(
-                `Header: ${param.name}${param.description ? ` — ${param.description}` : ''}`
-              )
-          : z
-              .string()
-              .optional()
-              .describe(
-                `Header: ${param.name}${param.description ? ` — ${param.description}` : ''}`
-              )
+          ? z.string().describe(desc)
+          : z.string().optional().describe(desc)
         schema[headerKey] = field
       }
     }
@@ -369,6 +401,16 @@ export function buildInputSchema(
         .optional()
         .describe(`Content-Type header. Supported: ${contentTypes.join(', ')}`)
     }
+  }
+
+  // Add jurisdiction param if R2 path
+  if (isR2Path(path) && !schema['jurisdiction']) {
+    schema['jurisdiction'] = z
+      .string()
+      .optional()
+      .describe(
+        'Optional R2 jurisdiction (e.g. "eu" or "fedramp") to access jurisdiction-specific buckets.'
+      )
   }
 
   return schema
