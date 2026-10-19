@@ -41,6 +41,7 @@ const deliveries: Array<{ body: string; headers: Headers }> = []
 let callbackStatus = 204
 let rejectVerification = false
 let failNext = ''
+let refuse = ''
 let policyReadStatus = 200
 let verificationCount = 0
 let bootstrapCount = 0
@@ -157,6 +158,7 @@ beforeEach(async () => {
   callbackStatus = 204
   rejectVerification = false
   failNext = ''
+  refuse = ''
   policyReadStatus = 200
   verificationCount = 0
   bootstrapCount = 0
@@ -214,6 +216,8 @@ beforeEach(async () => {
         failNext = ''
         return HttpResponse.json({ success: false, errors: [] }, { status: 503 })
       }
+      if (refuse === `${request.method} ${collection}`)
+        return HttpResponse.json({ success: false, errors: [] }, { status: 403 })
       if (
         resourceId &&
         collection === POLICIES &&
@@ -499,11 +503,25 @@ describe('MCP Events through the real Worker', () => {
   it('stops forwarding on unsubscribe even when ANS cleanup fails', async () => {
     await rpc('events/subscribe', params)
     const destination = [...records(WEBHOOKS).values()][0]
-    failNext = `GET ${POLICIES}`
+    failNext = `DELETE ${AUTOMATIONS}`
     const { secret: _secret, ...delivery } = params.delivery
     expect((await rpc('events/unsubscribe', { ...params, delivery })).error).toBeDefined()
+    expect([...records(POLICIES).values()][0].enabled).toBe(false)
     expect((await exports.default.fetch(ansRequest(destination))).status).toBe(204)
     expect(deliveries).toHaveLength(0)
+  })
+
+  it('keeps delivering when Cloudflare refuses the unsubscribe', async () => {
+    await rpc('events/subscribe', params)
+    const { secret: _secret, ...delivery } = params.delivery
+    // A token that cannot read the policy, then one that can read but not change it.
+    for (const request of [`GET ${POLICIES}`, `PUT ${POLICIES}`]) {
+      refuse = request
+      expect((await rpc('events/unsubscribe', { ...params, delivery })).error?.code).toBe(-32012)
+    }
+    expect([...records(POLICIES).values()][0].enabled).toBe(true)
+    expect((await exports.default.fetch(ansRequest())).status).toBe(204)
+    expect(deliveries).toHaveLength(1)
   })
 
   it('stores no token or signing secret; only ANS holds the sealed secret', async () => {

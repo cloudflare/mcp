@@ -22,9 +22,9 @@ User-account discovery is paginated with `nextCursor`.
 
 The MCP Worker is stateless. Resources have a deterministic `MCP Events sub_…` name
 derived from the server, principal, event, arguments and callback URL. Refresh reuses
-them. Unsubscribe disables the policy first, then removes the automation, policy
-and destination. Retry a failed subscribe to resume partial provisioning, or
-unsubscribe to remove it. No Durable Object, queue or new binding is used; the only
+them. Unsubscribe disables the policy first, then deletes the subscription record
+and removes the automation, policy and destination. Retry a failed subscribe to
+resume partial provisioning, or unsubscribe to remove it. No Durable Object, queue or new binding is used; the only
 state outside ANS is a short-lived subscription record (no secrets) in the existing
 `OAUTH_KV`.
 
@@ -62,7 +62,8 @@ not kept, deliveries are signed with the current secret only (no dual-signing).
 No user credential is stored and delivery makes no Cloudflare API call. Access is
 checked on subscribe and on every refresh, with the caller's live credentials. A
 subscriber who loses access stops receiving events when the subscription expires
-(at most an hour), or at once on unsubscribe, which deletes the KV record first.
+(at most an hour). Unsubscribe deletes the KV record only once Cloudflare accepts
+the disabled policy, so it needs the same permissions as subscribe.
 
 Credentials are never placed in URLs or returned to MCP clients. Sealed values use
 a purpose-specific key derived from `MCP_COOKIE_ENCRYPTION_KEY`, bound to
