@@ -272,9 +272,9 @@ describe('GET /authorize', () => {
       'offline_access',
       'user:read'
     ])
-    expect(templates['read-only']).toHaveLength(194)
+    expect(templates['read-only']).toHaveLength(199)
     expect(templates['read-only']).toContain('teams-pii.read')
-    expect(templates['full-access']).toHaveLength(384)
+    expect(templates['full-access']).toHaveLength(395)
     expect(templates['full-access']).toContain('logs.write')
     expect(templates['full-access']).toContain('ssl-and-certificates.read')
     expect(templates['read-only']).toContain('realtime.read')
