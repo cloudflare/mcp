@@ -169,9 +169,11 @@ function words(text: string): Set<string> {
  * zone variant matching the path when one permission name is both
  * (`access.read` and `zone-access.read`, `account-logs.read` and `logs.read`).
  *
- * `path` must be the request path. Forge serves an endpoint that exists for
- * both under one template, `/{account_or_zone}/{account_or_zone_id}/...`, so
- * only the request says which it is.
+ * `path` is the request path, which always starts with `/accounts` or `/zones`.
+ * Forge merges endpoints that exist for both into one
+ * `/{account_or_zone}/{account_or_zone_id}/...` template. `src/spec-processor.ts`
+ * and `src/forge-tools/plan.ts` split those back, but reading the request keeps
+ * this correct without relying on them.
  */
 function acceptedScopes(path: string, permissions: readonly string[]): string[] {
   const [own, other] =
