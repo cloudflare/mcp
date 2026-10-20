@@ -5,7 +5,8 @@ import {
   DIRECT_CONNECTION,
   explainRefusal,
   findOperation,
-  scopeToRequest
+  scopeToRequest,
+  unheldScope
 } from '../src/api-permissions'
 
 const oauth = (...scopes: string[]) => ({ kind: 'oauth' as const, scopes })
@@ -180,5 +181,26 @@ describe('scopeToRequest', () => {
     expect(scopeToRequest(401, oauth('dns.read'), 'GET', path, dns)).toBeUndefined()
     expect(scopeToRequest(403, lacking, 'GET', path, ['Billing Read'])).toBeUndefined()
     expect(scopeToRequest(403, lacking, 'GET', path, undefined)).toBeUndefined()
+  })
+})
+
+describe('unheldScope', () => {
+  const dns = ['DNS Read', 'DNS Write']
+  const path = '/zones/{zone_id}/dns_records'
+
+  it('names a scope whatever the endpoint answered', () => {
+    expect(unheldScope(oauth('user:read'), 'GET', path, dns)).toBe('dns.read')
+  })
+
+  it('names none when the connection already holds one the endpoint accepts', () => {
+    expect(unheldScope(oauth('dns.read'), 'GET', path, dns)).toBeUndefined()
+  })
+
+  it('names none for a credential whose permissions are unknown', () => {
+    expect(unheldScope(DIRECT_CONNECTION, 'GET', path, dns)).toBeUndefined()
+  })
+
+  it('names none when the spec lists no permissions', () => {
+    expect(unheldScope(oauth('user:read'), 'GET', path, undefined)).toBeUndefined()
   })
 })

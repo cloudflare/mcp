@@ -3,6 +3,7 @@ import {
   explainRefusal,
   findOperation,
   scopeToRequest,
+  unheldScope,
   type Connection
 } from './api-permissions'
 import { getMcpTools, type McpTools } from './isolate-cache'
@@ -15,6 +16,18 @@ export const REFUSAL_HINT_HEADER = 'X-Cloudflare-MCP-Refusal-Hint'
 
 /** Header `GlobalOutbound` sets on a refused response naming the OAuth scope to challenge for. */
 export const MISSING_SCOPE_HEADER = 'X-Cloudflare-MCP-Missing-Scope'
+
+/**
+ * Header `GlobalOutbound` sets on a *successful* response whose endpoint accepts
+ * no scope this connection holds, naming the scope to ask for.
+ *
+ * Cloudflare filters list endpoints by the credential's permissions rather than
+ * refusing them, so a connection without `zone.read` gets `200` and an empty
+ * `result` from `GET /zones`. Nothing is refused, so no challenge is raised and
+ * the agent reports that the account has no zones. The sandbox turns this header
+ * into a message on an empty list; see `src/tools/execute.ts`.
+ */
+export const UNHELD_SCOPE_HEADER = 'X-Cloudflare-MCP-Unheld-Scope'
 
 /** What a refused Cloudflare API request tells the agent and the client. */
 export interface Refusal {
@@ -92,4 +105,35 @@ export async function explainRefusedRequest(
   const paths = await getPermissionPaths().catch(() => undefined)
   const match = paths ? findOperation(paths, method, path) : undefined
   return explainRefusalFor(status, connection, method, match?.template ?? path, match?.operation)
+}
+
+const READ_METHODS = new Set(['GET', 'HEAD'])
+
+/**
+ * The OAuth scope a successful read was missing, for a connection that holds
+ * none the endpoint accepts.
+ *
+ * Only reads, and only OAuth connections: a direct credential's permissions
+ * aren't known here, and a write Cloudflare accepted was not filtered. The
+ * catalog is read only once those hold, so unaffected requests don't pay for it.
+ *
+ * @param status - The HTTP status Cloudflare returned.
+ * @param connection - The credential that made the request.
+ * @param method - The request method.
+ * @param path - The request path below the API base.
+ * @returns The scope to ask for, or `undefined` when the result can be trusted.
+ */
+export async function unheldScopeForRequest(
+  status: number,
+  connection: Connection,
+  method: string,
+  path: string
+): Promise<string | undefined> {
+  if (connection.kind !== 'oauth') return undefined
+  if (status < 200 || status >= 300) return undefined
+  if (!READ_METHODS.has(method.toUpperCase())) return undefined
+  const paths = await getPermissionPaths().catch(() => undefined)
+  const match = paths ? findOperation(paths, method, path) : undefined
+  if (!match) return undefined
+  return unheldScope(connection, method, match.template, acceptedPermissions(match.operation))
 }

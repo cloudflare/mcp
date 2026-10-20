@@ -192,8 +192,8 @@ function words(text: string): Set<string> {
 }
 
 /**
- * The one OAuth scope to challenge for after Cloudflare refused a request that
- * an OAuth connection lacked every accepted scope for.
+ * The one OAuth scope to ask for when an OAuth connection holds none of the
+ * scopes an endpoint accepts, whatever the endpoint answered.
  *
  * Any scope the endpoint accepts satisfies it, so the choice only decides what
  * the user is asked to grant: read scopes for GET/HEAD and write scopes
@@ -201,21 +201,19 @@ function words(text: string): Set<string> {
  * whose name shares the most words with the path. A tie names no scope; the
  * refusal explanation lists the options instead.
  *
- * @param status - The HTTP status Cloudflare returned.
  * @param connection - The credential that made the request.
  * @param method - The request method.
  * @param path - The request path or template below the API base.
  * @param permissions - What the endpoint accepts, from {@link acceptedPermissions}.
- * @returns The scope to request, or `undefined` when a challenge wouldn't help.
+ * @returns The scope to ask for, or `undefined` when naming one wouldn't help.
  */
-export function scopeToRequest(
-  status: number,
+export function unheldScope(
   connection: Connection,
   method: string,
   path: string,
   permissions: readonly string[] | undefined
 ): string | undefined {
-  if (!isRefusal(status) || connection.kind !== 'oauth' || !permissions) return undefined
+  if (connection.kind !== 'oauth' || !permissions) return undefined
 
   const [own, other] =
     path.split('/')[1] === 'zones' ? ['zone-', 'account-'] : ['account-', 'zone-']
@@ -240,4 +238,25 @@ export function scopeToRequest(
     .map((scope) => ({ scope, overlap: [...words(scope)].filter((w) => pathWords.has(w)).length }))
     .sort((a, b) => b.overlap - a.overlap)
   return ranked[0].overlap > ranked[1].overlap ? ranked[0].scope : undefined
+}
+
+/**
+ * The one OAuth scope to challenge for after Cloudflare refused a request that
+ * an OAuth connection lacked every accepted scope for.
+ *
+ * @param status - The HTTP status Cloudflare returned.
+ * @param connection - The credential that made the request.
+ * @param method - The request method.
+ * @param path - The request path or template below the API base.
+ * @param permissions - What the endpoint accepts, from {@link acceptedPermissions}.
+ * @returns The scope to request, or `undefined` when a challenge wouldn't help.
+ */
+export function scopeToRequest(
+  status: number,
+  connection: Connection,
+  method: string,
+  path: string,
+  permissions: readonly string[] | undefined
+): string | undefined {
+  return isRefusal(status) ? unheldScope(connection, method, path, permissions) : undefined
 }

@@ -1,7 +1,7 @@
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { API_BASE, cfError, mockIdentityProbe } from './helpers/cloudflare-api'
+import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_URL, callTool, modernMcpRequest, parseMcpResult, toolText } from './helpers/mcp'
 import { connectWithOAuth } from './helpers/oauth'
@@ -202,5 +202,47 @@ describe('endpoint tools explain a refused request', () => {
     expect(text).toContain(`Cloudflare API error: GET ${DNS_PATH} returned HTTP 403.`)
     expect(text).toContain('Authentication error')
     expect(text).toContain('`dns.read` (DNS Read)')
+  })
+})
+
+/**
+ * Cloudflare filters list endpoints by the credential's permissions rather than
+ * refusing them, so a read the connection holds no accepted scope for comes back
+ * `200` with nothing in it. Nothing is refused, so no challenge is raised and the
+ * agent reports an empty account.
+ */
+describe('execute flags a list filtered down to nothing', () => {
+  function listDnsRecords(result: unknown[]): void {
+    server.use(http.get(`${API_BASE}${DNS_PATH}`, () => HttpResponse.json(cfSuccess(result))))
+  }
+
+  it('names the scope to grant when the connection holds none the endpoint accepts', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    listDnsRecords([])
+
+    const text = await execute(token, GET_DNS)
+
+    expect(text).toContain('This list is empty')
+    expect(text).toContain('Cloudflare filters results by permission')
+    expect(text).toContain('dns.read')
+  })
+
+  it('says nothing when the connection holds a scope the endpoint accepts', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read', 'dns.read'])
+    listDnsRecords([])
+
+    const text = await execute(token, GET_DNS)
+
+    expect(text).not.toContain('This list is empty')
+  })
+
+  it('says nothing when the list has results', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    listDnsRecords([{ id: 'record' }])
+
+    const text = await execute(token, GET_DNS)
+
+    expect(text).not.toContain('This list is empty')
+    expect(text).toContain('record')
   })
 })

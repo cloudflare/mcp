@@ -18,7 +18,9 @@ import { isCatalogScope } from '../api-permissions'
 import {
   explainRefusedRequest,
   MISSING_SCOPE_HEADER,
-  REFUSAL_HINT_HEADER
+  REFUSAL_HINT_HEADER,
+  UNHELD_SCOPE_HEADER,
+  unheldScopeForRequest
 } from '../api-refusal-hint'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 
@@ -78,16 +80,31 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     // Cloudflare's 401/403 bodies don't say why. Attach an explanation the
     // sandbox puts in the error it throws, so it survives the code catching it.
     const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
+    const path = new URL(request.url).pathname.slice(basePath.length)
     const refusal = await explainRefusedRequest(
       response.status,
       this.ctx.props.connection,
       request.method,
-      new URL(request.url).pathname.slice(basePath.length)
+      path
     )
-    if (!refusal) return response
+    // A read Cloudflare answered can still be filtered down to nothing by the
+    // credential's permissions. Name the scope so an empty list doesn't read
+    // as an empty account.
+    const unheld = refusal
+      ? undefined
+      : await unheldScopeForRequest(
+          response.status,
+          this.ctx.props.connection,
+          request.method,
+          path
+        )
+    if (!refusal && !unheld) return response
     const headers = new Headers(response.headers)
-    headers.set(REFUSAL_HINT_HEADER, encodeURIComponent(refusal.hint))
-    if (refusal.scope) headers.set(MISSING_SCOPE_HEADER, refusal.scope)
+    if (refusal) {
+      headers.set(REFUSAL_HINT_HEADER, encodeURIComponent(refusal.hint))
+      if (refusal.scope) headers.set(MISSING_SCOPE_HEADER, refusal.scope)
+    }
+    if (unheld) headers.set(UNHELD_SCOPE_HEADER, unheld)
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
@@ -254,9 +271,24 @@ export default class CodeExecutor extends WorkerEntrypoint {
           throw apiError(method, path, response, errors);
         }
 
-        return isEnvelope
+        const payload = isEnvelope
           ? { ...data, status: response.status }
           : { success: true, status: response.status, result: data };
+
+        // An empty list can mean the connection holds none of the permissions the
+        // endpoint accepts: Cloudflare filters the rows instead of refusing. Say so,
+        // or the agent reports an empty account.
+        const unheldScope = response.headers.get(${JSON.stringify(UNHELD_SCOPE_HEADER)});
+        if (unheldScope && Array.isArray(payload.result) && payload.result.length === 0) {
+          payload.messages = [...(Array.isArray(payload.messages) ? payload.messages : []), {
+            code: 0,
+            message: "This list is empty, but this connection was not granted a permission this endpoint accepts, " +
+              "and Cloudflare filters results by permission. Reconnect and grant " + unheldScope +
+              " to see whether there are results.",
+          }];
+        }
+
+        return payload;
       }
     };
 
