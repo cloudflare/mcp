@@ -14,7 +14,9 @@ import {
  *   on the session; the server fills it in when the session has one account.
  * - Forge merges methods that exist under both accounts and zones into
  *   `/{account_or_zone}/{account_or_zone_id}/…`. `account_or_zone` gets its
- *   two values, and `account_or_zone_id` is optional like `account_id`.
+ *   two values, and `account_or_zone_id` is optional like `account_id`. The
+ *   document doesn't describe them yet (cloudflare/forge#59); once it does,
+ *   the generator can carry them and this can go.
  *
  * The tool's request code is kept, so calls build the same requests.
  */

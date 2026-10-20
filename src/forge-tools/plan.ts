@@ -90,7 +90,11 @@ function accountIdOf(args: Args): string | undefined {
   return typeof id === 'string' ? id : undefined
 }
 
-/** The endpoint's path template, with a merged account-or-zone path made concrete. */
+/**
+ * The endpoint's path template, with a merged account-or-zone path made
+ * concrete, since scope lookups tell account requests from zone ones by the
+ * first segment (cloudflare/forge#59).
+ */
 function template(tool: Tool, args: Args): string {
   if (!tool.path.startsWith(ACCOUNT_OR_ZONE_PREFIX)) return tool.path
   const scope = args.account_or_zone === 'zones' ? '/zones/{zone_id}' : '/accounts/{account_id}'
