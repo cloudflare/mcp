@@ -1,8 +1,9 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
-import type { McpServer, CallToolResult, Tool as McpTool } from '@modelcontextprotocol/server'
+import type { McpServer, CallToolResult } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
+import { getForgeToolList } from '../isolate-cache'
 import {
   autoResolvedAccountId,
   missingAccountMessage,
@@ -41,10 +42,9 @@ export function registerForgeTools(
   connection: Connection,
   scopeChallenge: ScopeChallenge
 ): void {
-  server.server.setRequestHandler('tools/list', async () => {
-    const generated = (await forgeTools().list()) as McpTool[]
-    return { tools: [DOCS_TOOL, WHOAMI_TOOL, ...generated] }
-  })
+  server.server.setRequestHandler('tools/list', async () => ({
+    tools: [DOCS_TOOL, WHOAMI_TOOL, ...(await getForgeToolList())]
+  }))
 
   server.server.setRequestHandler('tools/call', async (request) => {
     const name = request.params.name

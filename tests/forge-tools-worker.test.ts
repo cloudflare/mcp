@@ -69,6 +69,13 @@ describe('generated direct tools (?forge=true)', () => {
     }
   })
 
+  it('gets the tool list from the service as one JSON string', async () => {
+    const json = await env.FORGE_TOOLS.listJson()
+
+    expect(typeof json).toBe('string')
+    expect(JSON.parse(json)).toEqual(await env.FORGE_TOOLS.list())
+  })
+
   it("fills in the session's account and sends the token", async () => {
     let called: URL | undefined
     let auth: string | null = null

@@ -23,10 +23,23 @@ import { planCall, type CallPlan, type PlanOptions } from './plan'
 /** The generated tools with the Cloudflare policy, built once per isolate. */
 const tools = generatedTools.map(cloudflareTool)
 
+let listing: string | undefined
+
 export default class ForgeTools extends WorkerEntrypoint {
   /**
-   * The generated tools, as `tools/list` sends them. Typed as plain objects:
-   * the SDK's `Tool` type is too deep for the RPC stub types.
+   * The generated tools as `tools/list` sends them, as one JSON string built
+   * once per isolate. A string crosses RPC as bytes; ~3,000 nested objects
+   * cost the caller hundreds of milliseconds of CPU to decode.
+   */
+  listJson(): string {
+    listing ??= JSON.stringify(listTools(tools))
+    return listing
+  }
+
+  /**
+   * The same tools as objects. Main Workers deployed before `listJson` call
+   * this; remove it once none are left. Typed as plain objects: the SDK's
+   * `Tool` type is too deep for the RPC stub types.
    */
   list(): Record<string, unknown>[] {
     return listTools(tools) as unknown as Record<string, unknown>[]
