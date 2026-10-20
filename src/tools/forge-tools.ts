@@ -109,10 +109,7 @@ async function callForgeTool(
     },
     { caller: 'forge_tool_call' }
   )
-  const contentType = response.headers.get('content-type') || ''
-  const result = contentType.includes('application/json')
-    ? await response.json()
-    : await response.text()
+  const result = isJson(response) ? await response.json() : await response.text()
 
   if (response.ok) return { content: [{ type: 'text', text: formatResult(result) }] }
 
@@ -133,6 +130,12 @@ async function callForgeTool(
   // One refused request changed nothing, so the client can retry the call after stepping up.
   const challenge = refusal?.scope ? scopeChallenge.require(refusal.scope) : undefined
   return challenge ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } } : failure
+}
+
+/** Whether `response` is JSON, including `+json` types such as `application/scim+json`. */
+function isJson(response: Response): boolean {
+  const type = (response.headers.get('content-type') ?? '').split(';', 1)[0]!.trim().toLowerCase()
+  return type === 'application/json' || type.endsWith('+json')
 }
 
 function toolError(message: string): CallToolResult {

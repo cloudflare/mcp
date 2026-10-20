@@ -145,6 +145,21 @@ describe('generated direct tools (?forge=true)', () => {
     expect(text).toContain("account_id not-mine is not this token's account.")
   })
 
+  it('parses +json responses', async () => {
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, () =>
+        HttpResponse.text(JSON.stringify({ Resources: [{ id: 'u1' }] }), {
+          headers: { 'Content-Type': 'application/scim+json; charset=utf-8' }
+        })
+      )
+    )
+
+    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', {})
+
+    expect(result.result?.isError).toBeFalsy()
+    expect(JSON.parse(toolText(result))).toEqual({ Resources: [{ id: 'u1' }] })
+  })
+
   it('reports an unknown tool', async () => {
     const result = await callForgeTool(ACCOUNT_TOKEN, 'nope', {})
 
