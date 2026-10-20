@@ -74,41 +74,51 @@ function explain(
   permissions: readonly string[] | undefined,
   path = DNS_PATH
 ): string {
-  return explainRefusal(status, authorize(connection, 'GET', path, permissions))
+  return explainRefusal(status, authorize(connection, { method: 'GET', path: path }, permissions))
 }
 
 describe('authorize', () => {
   it('grants a connection that holds a scope the endpoint accepts', () => {
-    expect(authorize(oauth('dns.write'), 'GET', DNS_PATH, DNS)).toEqual({
+    expect(authorize(oauth('dns.write'), { method: 'GET', path: DNS_PATH }, DNS)).toEqual({
       kind: 'granted',
       held: ['dns.write']
     })
   })
 
   it('names the read scope for a read and the write scope for a write', () => {
-    expect(authorize(BASELINE, 'GET', DNS_PATH, DNS)).toEqual({
+    expect(authorize(BASELINE, { method: 'GET', path: DNS_PATH }, DNS)).toEqual({
       kind: 'missing',
       options: ['dns.read', 'dns.write'],
       scope: 'dns.read'
     })
-    expect(authorize(BASELINE, 'POST', DNS_PATH, DNS)).toMatchObject({ scope: 'dns.write' })
+    expect(authorize(BASELINE, { method: 'POST', path: DNS_PATH }, DNS)).toMatchObject({
+      scope: 'dns.write'
+    })
   })
 
   it('picks the account or zone variant of a permission from the path', () => {
     const access = ['Access: Apps and Policies Read']
-    expect(authorize(BASELINE, 'GET', '/accounts/{account_id}/access/apps', access)).toMatchObject({
+    expect(
+      authorize(BASELINE, { method: 'GET', path: '/accounts/{account_id}/access/apps' }, access)
+    ).toMatchObject({
       options: ['access.read'],
       scope: 'access.read'
     })
-    expect(authorize(BASELINE, 'GET', '/zones/{zone_id}/access/apps', access)).toMatchObject({
+    expect(
+      authorize(BASELINE, { method: 'GET', path: '/zones/{zone_id}/access/apps' }, access)
+    ).toMatchObject({
       options: ['zone-access.read'],
       scope: 'zone-access.read'
     })
     const logs = ['Logs Read']
-    expect(authorize(BASELINE, 'GET', '/accounts/{account_id}/logs/x', logs)).toMatchObject({
+    expect(
+      authorize(BASELINE, { method: 'GET', path: '/accounts/{account_id}/logs/x' }, logs)
+    ).toMatchObject({
       scope: 'account-logs.read'
     })
-    expect(authorize(BASELINE, 'GET', '/zones/{zone_id}/logs/x', logs)).toMatchObject({
+    expect(
+      authorize(BASELINE, { method: 'GET', path: '/zones/{zone_id}/logs/x' }, logs)
+    ).toMatchObject({
       scope: 'logs.read'
     })
   })
@@ -116,45 +126,81 @@ describe('authorize', () => {
   it('does not count the other variant as held', () => {
     const access = ['Access: Apps and Policies Read']
     expect(
-      authorize(oauth('zone-access.read'), 'GET', '/accounts/{account_id}/access/apps', access)
+      authorize(
+        oauth('zone-access.read'),
+        { method: 'GET', path: '/accounts/{account_id}/access/apps' },
+        access
+      )
     ).toMatchObject({ kind: 'missing', scope: 'access.read' })
+  })
+
+  it('takes the variant from the request path when forge merges account and zone templates', () => {
+    const access = ['Access: Apps and Policies Read']
+    const template = '/{account_or_zone}/{account_or_zone_id}/access/apps'
+    const zone = { method: 'GET', path: '/zones/z1/access/apps', template }
+    const account = { method: 'GET', path: '/accounts/a1/access/apps', template }
+
+    expect(authorize(oauth('zone-access.read'), zone, access)).toEqual({
+      kind: 'granted',
+      held: ['zone-access.read']
+    })
+    expect(authorize(BASELINE, zone, access)).toMatchObject({ scope: 'zone-access.read' })
+    expect(authorize(oauth('zone-access.read'), account, access)).toMatchObject({
+      kind: 'missing',
+      scope: 'access.read'
+    })
   })
 
   it('picks the alternative whose name matches the path', () => {
     const scripts = ['Workers Tail Read', 'Workers Scripts Write', 'Workers Scripts Read']
     expect(
-      authorize(BASELINE, 'GET', '/accounts/{account_id}/workers/scripts', scripts)
+      authorize(
+        BASELINE,
+        { method: 'GET', path: '/accounts/{account_id}/workers/scripts' },
+        scripts
+      )
     ).toMatchObject({ scope: 'workers-scripts.read' })
   })
 
   it('lists every option but names none when alternatives tie', () => {
     expect(
-      authorize(BASELINE, 'GET', '/accounts/{account_id}/thing', ['DNS Read', 'Zone Read'])
+      authorize(BASELINE, { method: 'GET', path: '/accounts/{account_id}/thing' }, [
+        'DNS Read',
+        'Zone Read'
+      ])
     ).toEqual({ kind: 'missing', options: ['dns.read', 'zone.read'], scope: undefined })
   })
 
   it('matches spec permission names that drifted from the catalog', () => {
-    expect(authorize(BASELINE, 'GET', '/zones', ['Zone Zone Read'])).toMatchObject({
+    expect(
+      authorize(BASELINE, { method: 'GET', path: '/zones' }, ['Zone Zone Read'])
+    ).toMatchObject({
       kind: 'missing',
       scope: 'zone.read'
     })
     expect(
-      authorize(BASELINE, 'GET', '/accounts/{account_id}/browser-rendering/x', [
+      authorize(BASELINE, { method: 'GET', path: '/accounts/{account_id}/browser-rendering/x' }, [
         'Browser Rendering Read'
       ])
     ).toMatchObject({ kind: 'missing', scope: 'browser-rendering.read' })
   })
 
+  it('matches the dashboard-style names POST /zones lists', () => {
+    expect(
+      authorize(BASELINE, { method: 'POST', path: '/zones' }, ['Zone Zone Edit', 'Zone DNS Edit'])
+    ).toMatchObject({ kind: 'missing', options: ['dns.write', 'zone.write'] })
+  })
+
   it('cannot decide for a direct credential, an unlisted endpoint, or one OAuth cannot reach', () => {
-    expect(authorize(DIRECT_CONNECTION, 'GET', DNS_PATH, DNS)).toEqual({
+    expect(authorize(DIRECT_CONNECTION, { method: 'GET', path: DNS_PATH }, DNS)).toEqual({
       kind: 'direct',
       permissions: DNS
     })
-    expect(authorize(BASELINE, 'GET', DNS_PATH, undefined)).toEqual({
+    expect(authorize(BASELINE, { method: 'GET', path: DNS_PATH }, undefined)).toEqual({
       kind: 'unlisted',
       connection: 'oauth'
     })
-    expect(authorize(BASELINE, 'GET', DNS_PATH, ['Billing Read'])).toEqual({
+    expect(authorize(BASELINE, { method: 'GET', path: DNS_PATH }, ['Billing Read'])).toEqual({
       kind: 'unreachable',
       permissions: ['Billing Read']
     })
@@ -225,7 +271,7 @@ describe('emptyListProvesNothing', () => {
   const doubts = (connection: Connection, permissions: string[] | undefined, method = 'GET') =>
     emptyListProvesNothing(
       method,
-      authorize(connection, method, DNS_PATH, permissions),
+      authorize(connection, { method, path: DNS_PATH }, permissions),
       permissions
     )
 

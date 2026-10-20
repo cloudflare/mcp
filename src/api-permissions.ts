@@ -69,12 +69,15 @@ const SCOPES_BY_PERMISSION: ReadonlyMap<string, readonly string[]> = (() => {
 })()
 
 /**
- * Spec permission names that drifted from the catalog's. `GET /zones` lists
- * `Zone Zone Read`, and Browser Rendering was renamed Browser Run, so neither
- * would otherwise match the scope that covers it.
+ * Spec permission names that drifted from the catalog's. `/zones` uses the
+ * dashboard's "Zone > Zone > Read" style (`Zone Zone Read`, and `Zone Zone
+ * Edit` and `Zone DNS Edit` for the Write permissions), and Browser Rendering
+ * was renamed Browser Run, so none would otherwise match the scope that covers it.
  */
 const PERMISSION_ALIASES: ReadonlyMap<string, string> = new Map([
   ['Zone Zone Read', 'Zone Read'],
+  ['Zone Zone Edit', 'Zone Write'],
+  ['Zone DNS Edit', 'DNS Write'],
   ['Browser Rendering Read', 'Browser Run Read'],
   ['Browser Rendering Write', 'Browser Run Write']
 ])
@@ -162,9 +165,13 @@ function words(text: string): Set<string> {
 }
 
 /**
- * The scopes that satisfy `permissions` on `path`: the account or zone variant
- * matching the path when one permission name is both (`access.read` and
- * `zone-access.read`, `account-logs.read` and `logs.read`).
+ * The scopes that satisfy `permissions` for a request to `path`: the account or
+ * zone variant matching the path when one permission name is both
+ * (`access.read` and `zone-access.read`, `account-logs.read` and `logs.read`).
+ *
+ * `path` must be the request path. Forge serves an endpoint that exists for
+ * both under one template, `/{account_or_zone}/{account_or_zone_id}/...`, so
+ * only the request says which it is.
  */
 function acceptedScopes(path: string, permissions: readonly string[]): string[] {
   const [own, other] =
@@ -202,19 +209,33 @@ function scopeToAskFor(
   return ranked[0].overlap > ranked[1].overlap ? ranked[0].scope : undefined
 }
 
+/** A request to a Cloudflare API endpoint. */
+export interface EndpointRequest {
+  /** The request method. */
+  readonly method: string
+  /** The request path below the API base, such as `/zones/abc/access/apps`. */
+  readonly path: string
+  /**
+   * The endpoint's path template, such as `/{account_or_zone}/{account_or_zone_id}/access/apps`.
+   * Defaults to `path` when the endpoint isn't known.
+   */
+  readonly template?: string
+}
+
 /**
  * Decide whether a connection may use an endpoint.
  *
+ * The request path picks the account or zone variant of a scope; the template
+ * picks between alternatives by name, without IDs or resource names in the way.
+ *
  * @param connection - The credential that made the request.
- * @param method - The request method.
- * @param path - The endpoint's path template, or the request path, below the API base.
+ * @param request - The method, request path and endpoint template.
  * @param permissions - What the endpoint accepts, from {@link acceptedPermissions}.
  * @returns The decision.
  */
 export function authorize(
   connection: Connection,
-  method: string,
-  path: string,
+  { method, path, template = path }: EndpointRequest,
   permissions: readonly string[] | undefined
 ): Authorization {
   if (!permissions) return { kind: 'unlisted', connection: connection.kind }
@@ -223,7 +244,7 @@ export function authorize(
   if (options.length === 0) return { kind: 'unreachable', permissions }
   const held = options.filter((scope) => connection.scopes.includes(scope))
   if (held.length > 0) return { kind: 'granted', held }
-  return { kind: 'missing', options, scope: scopeToAskFor(method, path, options) }
+  return { kind: 'missing', options, scope: scopeToAskFor(method, template, options) }
 }
 
 /** Whether Cloudflare refused the request. It answers a missing scope with 401 or 403, inconsistently. */
