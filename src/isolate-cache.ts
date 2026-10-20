@@ -11,7 +11,8 @@ import {
 
 /**
  * In-isolate cache for the R2 artifacts the scheduled handler writes
- * (`spec.json`, `products.json`, `mcp-tools.json`, the skills manifest and files).
+ * (`spec.json`, `products.json`, `mcp-tools.json`, the skills manifest and files),
+ * and for the forge tools service's tool list.
  *
  * The MCP worker isolate stays warm across requests, so without this every
  * call re-read R2. The artifacts change at most every six hours, so a short TTL keeps a
@@ -109,6 +110,20 @@ export function getMcpTools(): Promise<McpTools> {
   return mcpTools.get()
 }
 
+const forgeToolList = cached(
+  async (): Promise<Tool[]> => JSON.parse(await env.FORGE_TOOLS.listJson()) as Tool[]
+)
+
+/**
+ * The generated tools (`?forge=true`) as `tools/list` sends them, from the
+ * forge tools service. The service sends one JSON string, which is parsed here
+ * once per isolate: decoding ~3,000 nested objects over RPC costs every
+ * `tools/list` hundreds of milliseconds of CPU.
+ */
+export function getForgeToolList(): Promise<Tool[]> {
+  return forgeToolList.get()
+}
+
 const products = cached(async (): Promise<string[]> => {
   const object = await env.SPEC_BUCKET.get('products.json')
   return object ? object.json() : []
@@ -184,6 +199,7 @@ export function resetIsolateCache(): void {
   spec.reset()
   products.reset()
   mcpTools.reset()
+  forgeToolList.reset()
   skills.reset()
   skillFileBytes = new Map()
   skillFileCacheSize = 0
