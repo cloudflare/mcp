@@ -7,7 +7,7 @@ import {
   resolveCloudflareCredential
 } from '../../src/auth/cloudflare-identity'
 import { OAuthError } from '../../src/auth/workers-oauth-utils'
-import { API_BASE, cfAccountsSuccess, cfSuccess } from '../helpers/cloudflare-api'
+import { API_BASE, cfAccountsSuccess, cfError, cfSuccess } from '../helpers/cloudflare-api'
 import { server } from '../setup/msw'
 
 const USER = { id: 'user-1', email: 'user@example.com' }
@@ -267,7 +267,58 @@ describe('getCloudflareOAuthUser', () => {
   })
 })
 
+// Bodies captured from api.cloudflare.com: an expired or unknown token, and a
+// valid token without the permission an endpoint needs. Both are 403 with 9109.
+const invalidToken = () =>
+  HttpResponse.json(cfError([{ code: 9109, message: 'Invalid access token' }]), { status: 403 })
+const missingPermission = () =>
+  HttpResponse.json(
+    cfError([{ code: 9109, message: 'Unauthorized to access requested resource' }]),
+    { status: 403 }
+  )
+
 describe('identity probe errors', () => {
+  it.each([
+    ['user', 'cfut_expired'],
+    ['unknown', 'legacy-expired']
+  ] as const)(
+    'maps a rejected %s credential to invalid_token 401, not insufficient_scope',
+    async (owner, token) => {
+      mockProbes({ user: invalidToken, accounts: invalidToken })
+
+      await expectOAuthError(resolveCloudflareCredential(token, owner), 'invalid_token', 401)
+    }
+  )
+
+  it('maps a rejected account credential to invalid_token 401', async () => {
+    mockProbes({ accounts: invalidToken })
+
+    await expectOAuthError(
+      resolveCloudflareCredential('cfat_expired', 'account'),
+      'invalid_token',
+      401
+    )
+  })
+
+  it('maps a rejected upstream OAuth grant to invalid_token 401', async () => {
+    mockProbes({ user: invalidToken, accounts: invalidToken })
+
+    await expectOAuthError(getCloudflareOAuthUser('oauth-token'), 'invalid_token', 401)
+  })
+
+  it('keeps insufficient_scope for a valid token without user access', async () => {
+    mockProbes({
+      user: missingPermission,
+      accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+    })
+
+    await expectOAuthError(
+      resolveCloudflareCredential('cfut_token', 'user'),
+      'insufficient_scope',
+      403
+    )
+  })
+
   it.each([
     [401, 401, 'invalid_token', 401],
     [429, 429, 'temporarily_unavailable', 429],
