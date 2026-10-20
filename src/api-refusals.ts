@@ -176,7 +176,11 @@ export async function reviewResponse(
   // Without the catalog a refusal is still explained, from the status alone.
   if (!match && !refused) return response
   const permissions = acceptedPermissions(match?.operation)
-  const authorization = authorize(connection, method, match?.template ?? path, permissions)
+  const authorization = authorize(
+    connection,
+    { method, path, template: match?.template },
+    permissions
+  )
 
   if (refused) {
     const refusal = refusalFor(response.status, undefined, method, authorization, permissions)

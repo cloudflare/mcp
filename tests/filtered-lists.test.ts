@@ -42,6 +42,13 @@ beforeEach(async () => {
           parameters: [{ name: 'zone_id', in: 'path', required: true }]
         }
       },
+      // Forge serves an endpoint that exists for accounts and zones under one template.
+      '/{account_or_zone}/{account_or_zone_id}/access/apps': {
+        get: {
+          summary: 'List Access applications',
+          'x-api-token-group': ['Access: Apps and Policies Read', 'Access: Apps and Policies Write']
+        }
+      },
       '/accounts/{account_id}/members': {
         get: {
           summary: 'List Members',
@@ -288,5 +295,29 @@ describe('forge tools', () => {
     expect(status).toBe(200)
     expect(result?.isError).toBeFalsy()
     expect(text).toContain('db-1')
+  })
+})
+
+describe('forge account-or-zone templates', () => {
+  const zoneApps = `/zones/${ZONE_ID}/access/apps`
+  const accountApps = `/accounts/${ACCOUNT_ID}/access/apps`
+
+  it('trust a zone list the connection holds the zone scope for', async () => {
+    const token = await connectWithOAuth([...BASELINE, 'zone-access.read'])
+    answer(zoneApps, cfSuccess([]))
+
+    const { status, result } = await resultOf(await execute(token, get(zoneApps)))
+
+    expect(status).toBe(200)
+    expect(result?.isError).toBeFalsy()
+  })
+
+  it('challenge for the zone scope on a zone path and the account scope on an account path', async () => {
+    const token = await connectWithOAuth(BASELINE)
+    answer(zoneApps, cfSuccess([]))
+    answer(accountApps, cfSuccess([]))
+
+    expectChallenge(await execute(token, get(zoneApps)), 'zone-access.read')
+    expectChallenge(await execute(token, get(accountApps)), 'access.read')
   })
 })

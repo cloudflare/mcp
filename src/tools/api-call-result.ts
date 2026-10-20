@@ -8,7 +8,7 @@ import type { FormatToolResult } from '../truncate'
 export interface ApiCall {
   /** The request method, upper case. */
   readonly method: string
-  /** The request path below the API base, for the error message. */
+  /** The request path below the API base. It picks a scope's account or zone variant. */
   readonly path: string
   /** The endpoint's path template, such as `/zones/{zone_id}/dns_records`. */
   readonly template: string
@@ -43,7 +43,7 @@ export function apiCallResult(
     formatResult
   }: { connection: Connection; scopeChallenge: ScopeChallenge; formatResult: FormatToolResult }
 ): CallToolResult {
-  const authorization = authorize(connection, call.method, call.template, call.permissions)
+  const authorization = authorize(connection, call, call.permissions)
   const refusal = refusalFor(call.status, call.body, call.method, authorization, call.permissions)
   const ok = call.status >= 200 && call.status < 300
   if (ok && !refusal) return { content: [{ type: 'text', text: formatResult(call.body) }] }
