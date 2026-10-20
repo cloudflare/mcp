@@ -96,7 +96,7 @@ https://mcp.cloudflare.com/mcp?forge=true
 
 ### Missing Permissions
 
-When Cloudflare refuses a call because the OAuth connection lacks a scope, the server asks the client to re-authorize with that scope added to the ones it already has. Claude and other clients that follow the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) get a `403 insufficient_scope` challenge. Codex and ChatGPT get it in the tool result, which is where they look for it. Either way, the tool error says which scope is missing.
+When Cloudflare refuses a call because the OAuth connection lacks a scope, the server asks the client to re-authorize with that scope added to the ones it already has. Claude and other clients that follow the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) get a `403 insufficient_scope` challenge. Codex and ChatGPT get it in the tool result, which is where they look for it. Either way, the tool error says which scope is missing. Some endpoints, such as `GET /zones`, don't refuse: they answer with an empty list when the scope is missing. An empty list from a read the connection holds no accepted scope for is refused the same way, so it isn't mistaken for an empty account.
 
 ## The Problem
 

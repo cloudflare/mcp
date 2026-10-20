@@ -15,11 +15,7 @@ import {
 import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
 import { isCatalogScope } from '../api-permissions'
-import {
-  explainRefusedRequest,
-  MISSING_SCOPE_HEADER,
-  REFUSAL_HINT_HEADER
-} from '../api-refusal-hint'
+import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 
 interface CodeExecutorEntrypoint {
@@ -75,24 +71,16 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
       caller: this.ctx.props.fetchWithRetryCaller
     })
 
-    // Cloudflare's 401/403 bodies don't say why. Attach an explanation the
+    // Cloudflare's 401/403 bodies don't say why, and some lists come back empty
+    // instead of refused. Report both as refusals with an explanation the
     // sandbox puts in the error it throws, so it survives the code catching it.
     const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
-    const refusal = await explainRefusedRequest(
-      response.status,
+    return reviewResponse(
+      response,
       this.ctx.props.connection,
       request.method,
       new URL(request.url).pathname.slice(basePath.length)
     )
-    if (!refusal) return response
-    const headers = new Headers(response.headers)
-    headers.set(REFUSAL_HINT_HEADER, encodeURIComponent(refusal.hint))
-    if (refusal.scope) headers.set(MISSING_SCOPE_HEADER, refusal.scope)
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers
-    })
   }
 }
 

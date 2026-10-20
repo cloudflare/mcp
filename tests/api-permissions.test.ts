@@ -2,10 +2,12 @@ import { describe, expect, it } from 'vitest'
 import {
   acceptedPermissions,
   connectionFromAuth,
+  authorize,
   DIRECT_CONNECTION,
+  emptyListProvesNothing,
   explainRefusal,
   findOperation,
-  scopeToRequest
+  type Connection
 } from '../src/api-permissions'
 
 const oauth = (...scopes: string[]) => ({ kind: 'oauth' as const, scopes })
@@ -61,124 +63,193 @@ describe('findOperation', () => {
   })
 })
 
-describe('explainRefusal', () => {
-  const dns = ['DNS Read', 'DNS Write']
+const DNS = ['DNS Read', 'DNS Write']
+const DNS_PATH = '/zones/{zone_id}/dns_records'
+const BASELINE = oauth('user:read', 'account:read')
 
+/** Explain a refusal of `GET /zones/{zone_id}/dns_records` or another endpoint. */
+function explain(
+  status: 401 | 403,
+  connection: Connection,
+  permissions: readonly string[] | undefined,
+  path = DNS_PATH
+): string {
+  return explainRefusal(status, authorize(connection, 'GET', path, permissions))
+}
+
+describe('authorize', () => {
+  it('grants a connection that holds a scope the endpoint accepts', () => {
+    expect(authorize(oauth('dns.write'), 'GET', DNS_PATH, DNS)).toEqual({
+      kind: 'granted',
+      held: ['dns.write']
+    })
+  })
+
+  it('names the read scope for a read and the write scope for a write', () => {
+    expect(authorize(BASELINE, 'GET', DNS_PATH, DNS)).toEqual({
+      kind: 'missing',
+      options: ['dns.read', 'dns.write'],
+      scope: 'dns.read'
+    })
+    expect(authorize(BASELINE, 'POST', DNS_PATH, DNS)).toMatchObject({ scope: 'dns.write' })
+  })
+
+  it('picks the account or zone variant of a permission from the path', () => {
+    const access = ['Access: Apps and Policies Read']
+    expect(authorize(BASELINE, 'GET', '/accounts/{account_id}/access/apps', access)).toMatchObject({
+      options: ['access.read'],
+      scope: 'access.read'
+    })
+    expect(authorize(BASELINE, 'GET', '/zones/{zone_id}/access/apps', access)).toMatchObject({
+      options: ['zone-access.read'],
+      scope: 'zone-access.read'
+    })
+    const logs = ['Logs Read']
+    expect(authorize(BASELINE, 'GET', '/accounts/{account_id}/logs/x', logs)).toMatchObject({
+      scope: 'account-logs.read'
+    })
+    expect(authorize(BASELINE, 'GET', '/zones/{zone_id}/logs/x', logs)).toMatchObject({
+      scope: 'logs.read'
+    })
+  })
+
+  it('does not count the other variant as held', () => {
+    const access = ['Access: Apps and Policies Read']
+    expect(
+      authorize(oauth('zone-access.read'), 'GET', '/accounts/{account_id}/access/apps', access)
+    ).toMatchObject({ kind: 'missing', scope: 'access.read' })
+  })
+
+  it('picks the alternative whose name matches the path', () => {
+    const scripts = ['Workers Tail Read', 'Workers Scripts Write', 'Workers Scripts Read']
+    expect(
+      authorize(BASELINE, 'GET', '/accounts/{account_id}/workers/scripts', scripts)
+    ).toMatchObject({ scope: 'workers-scripts.read' })
+  })
+
+  it('lists every option but names none when alternatives tie', () => {
+    expect(
+      authorize(BASELINE, 'GET', '/accounts/{account_id}/thing', ['DNS Read', 'Zone Read'])
+    ).toEqual({ kind: 'missing', options: ['dns.read', 'zone.read'], scope: undefined })
+  })
+
+  it('matches spec permission names that drifted from the catalog', () => {
+    expect(authorize(BASELINE, 'GET', '/zones', ['Zone Zone Read'])).toMatchObject({
+      kind: 'missing',
+      scope: 'zone.read'
+    })
+    expect(
+      authorize(BASELINE, 'GET', '/accounts/{account_id}/browser-rendering/x', [
+        'Browser Rendering Read'
+      ])
+    ).toMatchObject({ kind: 'missing', scope: 'browser-rendering.read' })
+  })
+
+  it('cannot decide for a direct credential, an unlisted endpoint, or one OAuth cannot reach', () => {
+    expect(authorize(DIRECT_CONNECTION, 'GET', DNS_PATH, DNS)).toEqual({
+      kind: 'direct',
+      permissions: DNS
+    })
+    expect(authorize(BASELINE, 'GET', DNS_PATH, undefined)).toEqual({
+      kind: 'unlisted',
+      connection: 'oauth'
+    })
+    expect(authorize(BASELINE, 'GET', DNS_PATH, ['Billing Read'])).toEqual({
+      kind: 'unreachable',
+      permissions: ['Billing Read']
+    })
+  })
+})
+
+describe('explainRefusal', () => {
   it('says which scope to grant when the connection has none the endpoint accepts', () => {
-    const text = explainRefusal(403, oauth('user:read', 'account:read'), dns)
+    const text = explain(403, BASELINE, DNS)
     expect(text).toContain('was not granted a scope this endpoint accepts')
     expect(text).toContain('`dns.read` (DNS Read)')
     expect(text).toContain('`dns.write` (DNS Write)')
   })
 
   it('says reconnecting will not help when the connection already has an accepted scope', () => {
-    const text = explainRefusal(403, oauth('dns.read'), dns)
+    const text = explain(403, oauth('dns.read'), DNS)
     expect(text).toContain('already has `dns.read` (DNS Read)')
     expect(text).toContain('reconnecting will not help')
     expect(text).not.toContain('dns.write')
   })
 
   it('points OAuth connections to an API token when no OAuth scope covers the endpoint', () => {
-    const text = explainRefusal(403, oauth('user:read'), ['Billing Read', 'Billing Write'])
+    const text = explain(403, oauth('user:read'), ['Billing Read', 'Billing Write'])
     expect(text).toContain('No OAuth scope covers this endpoint')
     expect(text).toContain('Billing Read, Billing Write')
   })
 
   it('lists the permissions, with their OAuth scope IDs, for a direct credential', () => {
-    const text = explainRefusal(403, DIRECT_CONNECTION, ['DNS Read', 'Billing Read'])
-    expect(text).toBe(
+    expect(explain(403, DIRECT_CONNECTION, ['DNS Read', 'Billing Read'])).toBe(
       'This endpoint needs one of these permissions: DNS Read (`dns.read`), Billing Read. Add one to the token.'
     )
   })
 
   it('says a 403 is not a sign-in problem when the spec lists no permissions', () => {
-    expect(explainRefusal(403, oauth('dns.read'), undefined)).toContain(
+    expect(explain(403, oauth('dns.read'), undefined)).toContain(
       'reconnecting with the same permissions will not help'
     )
   })
 
   it('decides a 401 by the scopes, like a 403, when the connection holds none the endpoint accepts', () => {
-    expect(explainRefusal(401, oauth('user:read'), dns)).toContain(
+    expect(explain(401, oauth('user:read'), DNS)).toContain(
       'was not granted a scope this endpoint accepts'
     )
-    expect(
-      scopeToRequest(401, oauth('user:read'), 'GET', '/zones/{zone_id}/dns_records', dns)
-    ).toBe('dns.read')
   })
 
   it('uses the status only where the scopes cannot decide', () => {
     // Holds an accepted scope: 401 is a rejected credential, 403 is something else.
-    expect(explainRefusal(401, oauth('dns.read'), dns)).toContain(
+    expect(explain(401, oauth('dns.read'), DNS)).toContain(
       'Cloudflare rejected the credential itself. Reconnect to sign in again.'
     )
-    expect(explainRefusal(403, oauth('dns.read'), dns)).toContain('reconnecting will not help')
+    expect(explain(403, oauth('dns.read'), DNS)).toContain('reconnecting will not help')
     // No permissions in the spec.
-    expect(explainRefusal(401, oauth(), undefined)).toContain('Reconnect to sign in again')
-    expect(explainRefusal(401, DIRECT_CONNECTION, undefined)).toContain('API token is valid')
+    expect(explain(401, oauth(), undefined)).toContain('Reconnect to sign in again')
+    expect(explain(401, DIRECT_CONNECTION, undefined)).toContain('API token is valid')
     // A direct token's permissions are unknown, so a 401 lists what it needs too.
-    expect(explainRefusal(401, DIRECT_CONNECTION, dns)).toBe(
+    expect(explain(401, DIRECT_CONNECTION, DNS)).toBe(
       'This endpoint needs one of these permissions: DNS Read (`dns.read`), DNS Write (`dns.write`). Add one to the token. If the token already has one, check that it is valid and has not expired.'
     )
   })
 
-  it('says nothing for other statuses', () => {
-    expect(explainRefusal(404, oauth(), dns)).toBeUndefined()
-    expect(explainRefusal(500, DIRECT_CONNECTION, dns)).toBeUndefined()
-  })
-
   it('shortens long lists', () => {
     const many = Array.from({ length: 12 }, (_, index) => `Permission ${index}`)
-    expect(explainRefusal(403, DIRECT_CONNECTION, many)).toContain('and 4 more')
+    expect(explain(403, DIRECT_CONNECTION, many)).toContain('and 4 more')
   })
 })
 
-describe('scopeToRequest', () => {
-  const lacking = oauth('user:read', 'account:read')
-  const dns = ['DNS Read', 'DNS Write']
+describe('emptyListProvesNothing', () => {
+  const doubts = (connection: Connection, permissions: string[] | undefined, method = 'GET') =>
+    emptyListProvesNothing(
+      method,
+      authorize(connection, method, DNS_PATH, permissions),
+      permissions
+    )
 
-  it('asks for the read scope for a read and the write scope for a write', () => {
-    expect(scopeToRequest(403, lacking, 'GET', '/zones/{zone_id}/dns_records', dns)).toBe(
-      'dns.read'
-    )
-    expect(scopeToRequest(403, lacking, 'POST', '/zones/{zone_id}/dns_records', dns)).toBe(
-      'dns.write'
-    )
+  it('doubts a read the connection holds no accepted scope for', () => {
+    expect(doubts(BASELINE, DNS)).toBe(true)
   })
 
-  it('picks the account or zone variant of a permission from the path', () => {
-    const access = ['Access: Apps and Policies Read']
-    expect(scopeToRequest(403, lacking, 'GET', '/accounts/{account_id}/access/apps', access)).toBe(
-      'access.read'
-    )
-    expect(scopeToRequest(403, lacking, 'GET', '/zones/{zone_id}/access/apps', access)).toBe(
-      'zone-access.read'
-    )
-    const logs = ['Logs Read']
-    expect(scopeToRequest(403, lacking, 'GET', '/accounts/{account_id}/logs/x', logs)).toBe(
-      'account-logs.read'
-    )
-    expect(scopeToRequest(403, lacking, 'GET', '/zones/{zone_id}/logs/x', logs)).toBe('logs.read')
+  it('trusts the list when the connection holds an accepted scope', () => {
+    expect(doubts(oauth('dns.read'), DNS)).toBe(false)
   })
 
-  it('picks the alternative whose name matches the path', () => {
-    const scripts = ['Workers Tail Read', 'Workers Scripts Write', 'Workers Scripts Read']
+  it('trusts writes, direct credentials, and endpoints the decision cannot cover', () => {
+    expect(doubts(BASELINE, DNS, 'POST')).toBe(false)
+    expect(doubts(DIRECT_CONNECTION, DNS)).toBe(false)
+    expect(doubts(BASELINE, undefined)).toBe(false)
+    expect(doubts(BASELINE, ['Billing Read'])).toBe(false)
+  })
+
+  it('trusts endpoints the baseline scopes may grant', () => {
+    // Measured: /accounts/{account_id}/members, /memberships and /user answer the baseline scopes.
     expect(
-      scopeToRequest(403, lacking, 'GET', '/accounts/{account_id}/workers/scripts', scripts)
-    ).toBe('workers-scripts.read')
-  })
-
-  it('names no scope when alternatives tie', () => {
-    expect(
-      scopeToRequest(403, lacking, 'GET', '/accounts/{account_id}/thing', ['DNS Read', 'Zone Read'])
-    ).toBeUndefined()
-  })
-
-  it('names no scope when a challenge would not help', () => {
-    const path = '/zones/{zone_id}/dns_records'
-    expect(scopeToRequest(403, oauth('dns.write'), 'GET', path, dns)).toBeUndefined()
-    expect(scopeToRequest(403, DIRECT_CONNECTION, 'GET', path, dns)).toBeUndefined()
-    expect(scopeToRequest(401, oauth('dns.read'), 'GET', path, dns)).toBeUndefined()
-    expect(scopeToRequest(403, lacking, 'GET', path, ['Billing Read'])).toBeUndefined()
-    expect(scopeToRequest(403, lacking, 'GET', path, undefined)).toBeUndefined()
+      doubts(BASELINE, ['SCIM Provisioning', 'Account Settings Write', 'Account Settings Read'])
+    ).toBe(false)
+    expect(doubts(BASELINE, ['Memberships Write', 'Memberships Read'])).toBe(false)
+    expect(doubts(BASELINE, ['User Details Write', 'User Details Read'])).toBe(false)
   })
 })

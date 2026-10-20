@@ -13,9 +13,9 @@ import { recordToolCall } from '../metrics'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import type { AuthProps } from '../auth/types'
-import type { Connection } from '../api-permissions'
-import { explainRefusalFor } from '../api-refusal-hint'
-import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { acceptedPermissions, type Connection } from '../api-permissions'
+import { apiCallResult } from './api-call-result'
+import type { ScopeChallenge } from '../scope-challenge'
 import type { CallPlan } from '../forge-tools/plan'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
 
@@ -111,25 +111,18 @@ async function callForgeTool(
   )
   const result = isJson(response) ? await response.json() : await response.text()
 
-  if (response.ok) return { content: [{ type: 'text', text: formatResult(result) }] }
-
-  const refusal = explainRefusalFor(response.status, connection, plan.method, plan.template, {
-    [PERMISSIONS_EXTENSION]: plan.permissions
-  })
-  const notes = [
-    refusal?.hint,
-    plan.accountId ? unknownAccountHint(props, plan.accountId) : ''
-  ].filter(Boolean)
-  const path = new URL(plan.url).pathname.slice(new URL(env.CLOUDFLARE_API_BASE).pathname.length)
-  const text = [
-    `Cloudflare API error: ${plan.method} ${path} returned HTTP ${response.status}.`,
-    formatResult(result),
-    ...notes
-  ].join('\n\n')
-  const failure: CallToolResult = { content: [{ type: 'text', text }], isError: true }
-  // One refused request changed nothing, so the client can retry the call after stepping up.
-  const challenge = refusal?.scope ? scopeChallenge.require(refusal.scope) : undefined
-  return challenge ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } } : failure
+  return apiCallResult(
+    {
+      method: plan.method,
+      path: new URL(plan.url).pathname.slice(new URL(env.CLOUDFLARE_API_BASE).pathname.length),
+      template: plan.template,
+      permissions: acceptedPermissions({ [PERMISSIONS_EXTENSION]: plan.permissions }),
+      status: response.status,
+      body: result
+    },
+    plan.accountId ? [unknownAccountHint(props, plan.accountId)] : [],
+    { connection, scopeChallenge, formatResult }
+  )
 }
 
 /** Whether `response` is JSON, including `+json` types such as `application/scim+json`. */

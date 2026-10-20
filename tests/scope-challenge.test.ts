@@ -65,7 +65,9 @@ beforeEach(async () => {
       })
     ),
     http.post(`${API_BASE}${DNS_PATH}`, () => HttpResponse.json(cfSuccess({ id: 'r1' }))),
-    http.get(`${API_BASE}/zones/${ZONE_ID}/settings`, () => HttpResponse.json(cfSuccess([]))),
+    http.get(`${API_BASE}/zones/${ZONE_ID}/settings`, () =>
+      HttpResponse.json(cfSuccess([{ id: 'ssl', value: 'full' }]))
+    ),
     // Cloudflare answers some missing OAuth scopes with 401, not 403.
     http.post(`${API_BASE}${KV_PATH}`, () =>
       HttpResponse.json(cfError([{ code: 10000, message: 'Authentication error' }]), {
