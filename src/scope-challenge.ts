@@ -1,8 +1,5 @@
 import { insufficientScope, type OAuthResourceAuth } from '@cloudflare/workers-oauth-provider'
-import { REQUIRED_SCOPES } from './auth/scopes'
-
-/** Scopes every connection needs. A challenge names them too; `offline_access` isn't a resource scope. */
-const BASELINE_SCOPES = REQUIRED_SCOPES.filter((scope) => scope !== 'offline_access')
+import { IDENTITY_SCOPES } from './auth/scopes'
 
 /** The `_meta` key clients with `scopeChallenge: 'tool'` read a challenge from (see `src/clients.ts`). */
 export const WWW_AUTHENTICATE_META_KEY = 'mcp/www_authenticate'
@@ -45,7 +42,7 @@ export class ScopeChallenge {
     const held = this.#auth.scope.filter((granted) => granted !== 'offline_access')
     const response = insufficientScope(
       this.#auth,
-      [...BASELINE_SCOPES, ...held, scope],
+      [...IDENTITY_SCOPES, ...held, scope],
       `This operation needs the ${scope} scope`
     )
     this.#response ??= response

@@ -21,6 +21,7 @@ import {
   REFUSAL_HINT_HEADER
 } from '../api-refusal-hint'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { OAUTH_TOOL_META } from './security-schemes'
 
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<unknown>
@@ -366,7 +367,8 @@ export function registerExecuteTool(
         readOnlyHint: false,
         openWorldHint: true,
         destructiveHint: true
-      }
+      },
+      _meta: OAUTH_TOOL_META
     },
     async ({ code, account_id }) => {
       try {

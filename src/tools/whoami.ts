@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import type { CallToolResult, McpServer, Tool } from '@modelcontextprotocol/server'
 import type { AuthProps } from '../auth/types'
+import { OAUTH_TOOL_META } from './security-schemes'
 
 const TITLE = 'Current Cloudflare Identity'
 
@@ -44,7 +45,7 @@ const ANNOTATIONS = {
  */
 const META = {
   'openai/profile': true,
-  securitySchemes: [{ type: 'oauth2', scopes: ['user:read', 'account:read'] }]
+  ...OAUTH_TOOL_META
 }
 
 /**
