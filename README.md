@@ -125,7 +125,7 @@ The server also serves the [Cloudflare skills](https://github.com/cloudflare/ski
 
 ## Supported Products
 
-Workers, KV, R2, D1, Pages, DNS, Firewall, Load Balancers, Stream, Images, AI Gateway, Vectorize, Access, Gateway, and more. See the full [Cloudflare API schemas](https://github.com/cloudflare/api-schemas).
+Workers, KV, R2, D1, Pages, DNS, Firewall, Load Balancers, Stream, Images, AI Gateway, Vectorize, Access, Gateway, and more. The server reads the OpenAPI document from the latest [Forge](https://github.com/cloudflare/forge) release (`openapi.forge.json`).
 
 ## Usage
 

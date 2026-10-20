@@ -15,6 +15,45 @@ export function extractProduct(path: string): string | undefined {
   return undefined
 }
 
+/**
+ * Forge merges operations that exist under both `/accounts/{account_id}` and
+ * `/zones/{zone_id}` into one `/{account_or_zone}/{account_or_zone_id}` path,
+ * whose `account_or_zone` is a bare string: the document doesn't say it must be
+ * `accounts` or `zones`. Each merged path is split back into its account and
+ * zone routes, so Code Mode sees paths it can call as written and scope lookups
+ * can tell account requests from zone ones. Drop this once the document
+ * describes the parameter (cloudflare/forge#59).
+ */
+const ACCOUNT_OR_ZONE_PREFIX = '/{account_or_zone}/{account_or_zone_id}'
+
+const SCOPES = [
+  { segment: 'accounts', idParam: 'account_id' },
+  { segment: 'zones', idParam: 'zone_id' }
+] as const
+
+type Scope = (typeof SCOPES)[number]
+
+/** The concrete paths a spec path stands for, with the scope it was split into. */
+function concretePaths(path: string): Array<{ path: string; scope?: Scope }> {
+  if (!path.startsWith(ACCOUNT_OR_ZONE_PREFIX)) return [{ path }]
+  const rest = path.slice(ACCOUNT_OR_ZONE_PREFIX.length)
+  return SCOPES.map((scope) => ({ path: `/${scope.segment}/{${scope.idParam}}${rest}`, scope }))
+}
+
+/** Rewrite a split operation's resolved parameters for its scope. */
+function scopeParameters(parameters: unknown, scope: Scope | undefined): unknown {
+  if (!scope || !Array.isArray(parameters)) return parameters
+  return parameters.flatMap((parameter: unknown) => {
+    const { name, in: location } = (parameter ?? {}) as { name?: unknown; in?: unknown }
+    if (location !== 'path') return [parameter]
+    if (name === 'account_or_zone') return []
+    if (name === 'account_or_zone_id') {
+      return [{ ...(parameter as Record<string, unknown>), name: scope.idParam }]
+    }
+    return [parameter]
+  })
+}
+
 export function resolveRefs(
   obj: unknown,
   spec: Record<string, unknown>,
@@ -75,26 +114,31 @@ export function processSpec(spec: Record<string, unknown>): {
   const rawPaths = (spec.paths || {}) as Record<string, Record<string, OperationObject>>
   const paths: Record<string, Record<string, unknown>> = {}
 
-  for (const [path, pathItem] of Object.entries(rawPaths)) {
+  for (const [rawPath, pathItem] of Object.entries(rawPaths)) {
     if (!pathItem) continue
-    paths[path] = {}
 
-    for (const method of HTTP_METHODS) {
-      const op = pathItem[method]
-      if (op) {
-        const product = extractProduct(path)
-        const tags = op.tags ? [...op.tags] : []
-        if (product && !tags.some((t) => t.toLowerCase() === product.toLowerCase())) {
-          tags.unshift(product)
-        }
-        paths[path][method] = {
-          summary: op.summary,
-          'x-api-token-group': permissionLabels(op['x-api-token-group']),
-          description: op.description,
-          tags,
-          parameters: resolveRefs(op.parameters, spec),
-          requestBody: resolveRefs(op.requestBody, spec),
-          responses: resolveRefs(op.responses, spec)
+    for (const { path, scope } of concretePaths(rawPath)) {
+      // A concrete path the spec also lists on its own keeps that entry.
+      if (scope && rawPaths[path]) continue
+      paths[path] = {}
+
+      for (const method of HTTP_METHODS) {
+        const op = pathItem[method]
+        if (op) {
+          const product = extractProduct(path)
+          const tags = op.tags ? [...op.tags] : []
+          if (product && !tags.some((t) => t.toLowerCase() === product.toLowerCase())) {
+            tags.unshift(product)
+          }
+          paths[path][method] = {
+            summary: op.summary,
+            'x-api-token-group': permissionLabels(op['x-api-token-group']),
+            description: op.description,
+            tags,
+            parameters: scopeParameters(resolveRefs(op.parameters, spec), scope),
+            requestBody: resolveRefs(op.requestBody, spec),
+            responses: resolveRefs(op.responses, spec)
+          }
         }
       }
     }
@@ -111,7 +155,10 @@ export function extractProducts(spec: Record<string, unknown>): string[] {
   if (!rawPaths) return []
 
   const products = new Map<string, number>()
-  for (const path of Object.keys(rawPaths).sort()) {
+  const concrete = new Set(
+    Object.keys(rawPaths).flatMap((path) => concretePaths(path).map((item) => item.path))
+  )
+  for (const path of [...concrete].sort()) {
     const product = extractProduct(path)
     if (product) {
       products.set(product, (products.get(product) || 0) + 1)

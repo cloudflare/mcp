@@ -154,7 +154,8 @@ The consent page offers minimal, read-only and full-access templates. Minimal is
 
 ### OpenAPI spec processing
 
-- Fetched from GitHub every six hours (scheduled handler, cron `0 */6 * * *`), alongside the skills sync; the two jobs run independently under `Promise.allSettled`
+- Fetched every six hours (scheduled handler, cron `0 */6 * * *`) from the latest `cloudflare/forge` `openapi@<sha>` release (`openapi.forge.json`), alongside the skills sync; the two jobs run independently under `Promise.allSettled`
+- Forge merges operations that exist under both accounts and zones into `/{account_or_zone}/{account_or_zone_id}/…`; `processSpec` splits each back into its `/accounts/{account_id}/…` and `/zones/{zone_id}/…` paths, because the document doesn't say `account_or_zone` must be `accounts` or `zones`. `cf` fills it from `--zone` instead; cloudflare/forge#59 tracks describing it in the document so consumers stop hard-coding it
 - All `$ref` references resolved inline before storage
 - Products and minimal operation metadata extracted
 - Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and `mcp-tools.json`, the direct-tool catalogue for `?codemode=false`
