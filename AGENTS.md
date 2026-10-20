@@ -83,7 +83,7 @@ Node 22+ required.
 | ---------------------- | --------------------------------------------- |
 | `npm run dev`          | Start local dev server (wrangler dev)         |
 | `npm run deploy`       | Deploy to staging                             |
-| `npm run deploy:prod`  | Deploy to production                          |
+| `npm run deploy:prod`  | Deploy to production by hand (merging to `main` already deploys) |
 | `npm run deploy:forge-tools` / `deploy:forge-tools:prod` | Deploy the forge tools service to staging / production |
 | `npm run generate:tools` | Regenerate `src/generated/forge-mcp` (needs `FORGE_BINARY`) |
 | `npm run types`        | Generate worker type definitions              |
@@ -158,7 +158,7 @@ Validated direct-credential identity is cached by token hash in `OAUTH_KV`; prov
 
 Downstream refreshes pass through a best-effort per-grant admission gate. An isolate-local block deterministically rejects same-isolate competitors; an owner-verified KV claim reduces cross-isolate races. A successful callback retains a short 10-second tombstone so the concurrent request burst receives structured `429 temporarily_unavailable` responses instead of independently rotating downstream refresh tokens, while preserving most of Cloudflare OAuth's 90-second upstream retry grace for provider persistence failures. Callback errors release admission. KV is eventually consistent, so this is load shedding and race reduction rather than a linearizable mutex.
 
-The consent page offers minimal, read-only and full-access templates. Minimal is only the required identity, account and offline-access scopes: clients that step up on `insufficient_scope` then ask for each further scope when a refused call needs it (see Step-up). Minimal is the default, including when a client requests only the required scopes; a request for more preselects those scopes instead. Read-only and full access are built from the production catalog returned by `GET /oauth/scopes` in every deployment. The page has no per-scope picker. A collapsed "Advanced" section shows the selected template's scopes as editable text, one per line; editing them replaces the template (the cards grey out) so users can request a short list, e.g. when a corporate proxy rejects the long Cloudflare authorization URL that full access produces. Scopes outside the catalog block Continue because the provider only approves `scopesSupported`. Cloudflare's authorization screen can only narrow the requested scopes, so the template or edited list is the most a user can grant there. Templates saved in the browser by the old picker still appear and can be removed, but new ones can't be created. Staging may register additional scopes, but the templates include them only after they reach production. Only the user, account, and offline-access OAuth bootstrap scopes sit outside the API catalog. Terraform registration must land before deploying template additions. The app does not impose a scope-count cap.
+The consent page offers minimal, read-only and full-access templates. Minimal is only the required identity, account and offline-access scopes: clients that step up on `insufficient_scope` then ask for each further scope when a refused call needs it (see Step-up). Minimal is the default, including when a client requests only the required scopes; a request for more preselects those scopes instead. Read-only and full access are built from the production catalog returned by `GET /oauth/scopes` in every deployment. The page has no per-scope picker. A collapsed "Advanced" section shows the selected template's scopes as editable text, one per line; editing them replaces the template (the cards grey out) so users can request a short list, e.g. when a corporate proxy rejects the long Cloudflare authorization URL that full access produces. Scopes outside the catalog block Continue because the provider only approves `scopesSupported`. Cloudflare's authorization screen can only narrow the requested scopes, so the template or edited list is the most a user can grant there. Templates saved in the browser by the old picker still appear and can be removed, but new ones can't be created. Staging may register additional scopes, but the templates include them only after they reach production. Only the user, account, and offline-access OAuth bootstrap scopes sit outside the API catalog. Terraform registration must land before deploying template additions, and removals go the other way round. Merging to `main` deploys, so follow the [scope runbook](https://wiki.cfdata.org/spaces/EW/pages/1489255719) for the order. The app does not impose a scope-count cap.
 
 ### OpenAPI spec processing
 
@@ -311,6 +311,8 @@ CI runs on every PR:
 5. `npm run test` — Vitest test suite
 
 All checks must pass before merge.
+
+Merging to `main` deploys, so a merged PR goes live straight away. Land what it depends on first. A new OAuth scope must be registered in Terraform and applied an hour before (see the [scope runbook](https://wiki.cfdata.org/spaces/EW/pages/1489255719)). A change to an R2 artifact's key or shape needs `npm run seed:prod` before the merge.
 
 ### Bonk (AI code review)
 
