@@ -301,6 +301,25 @@ describe('external token resource responses', () => {
     })
   })
 
+  it('answers an expired or unknown Cloudflare token with 401 invalid_token', async () => {
+    const invalidToken = () =>
+      HttpResponse.json(cfError([{ code: 9109, message: 'Invalid access token' }]), {
+        status: 403
+      })
+    mockIdentity({ user: invalidToken, accounts: invalidToken })
+
+    const response = await exports.default.fetch(
+      modernMcpRequest('cfoat_expired-provider-token', 'server/discover')
+    )
+
+    expect(response.status).toBe(401)
+    expect(response.headers.get('www-authenticate')).toContain('error="invalid_token"')
+    await expect(response.json()).resolves.toEqual({
+      error: 'invalid_token',
+      error_description: 'Access token is invalid or expired'
+    })
+  })
+
   it('lets the provider construct an insufficient-scope challenge', async () => {
     mockIdentity({
       user: () => HttpResponse.json(cfError([], null), { status: 403 }),
