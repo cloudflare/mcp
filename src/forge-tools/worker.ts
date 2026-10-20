@@ -36,15 +36,6 @@ export default class ForgeTools extends WorkerEntrypoint {
     return listing
   }
 
-  /**
-   * The same tools as objects. Main Workers deployed before `listJson` call
-   * this; remove it once none are left. Typed as plain objects: the SDK's
-   * `Tool` type is too deep for the RPC stub types.
-   */
-  list(): Record<string, unknown>[] {
-    return listTools(tools) as unknown as Record<string, unknown>[]
-  }
-
   /** The request calling the tool `name` with `args` makes, or why it can't be made. */
   plan(name: string, args: Args, options: PlanOptions): Promise<CallPlan> {
     const tool = toolsByName(tools).get(name)

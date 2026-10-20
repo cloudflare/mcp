@@ -73,7 +73,9 @@ describe('generated direct tools (?forge=true)', () => {
     const json = await env.FORGE_TOOLS.listJson()
 
     expect(typeof json).toBe('string')
-    expect(JSON.parse(json)).toEqual(await env.FORGE_TOOLS.list())
+    expect(JSON.parse(json).map((tool: { name: string }) => tool.name)).toEqual(
+      generatedTools.map((tool) => tool.name)
+    )
   })
 
   it("fills in the session's account and sends the token", async () => {
