@@ -9,8 +9,9 @@
     "deploy:prod": "wrangler deploy --env production",
     "types": "wrangler types --env-file .env_example",
     "typecheck": "tsc --noEmit",
-    "lint": "oxlint src/",
+    "lint": "oxlint src/ --ignore-pattern 'src/generated/**'",
     "format": "oxfmt --write src/ tests/ scripts/ vitest.config.ts",
+    "generate:tools": "tsx scripts/generate-tools.ts",
     "format:check": "oxfmt --check src/ tests/ scripts/ vitest.config.ts",
     "test": "vitest run",
     "test:events": "vitest run tests/events-e2e.test.ts tests/ans-bridge.test.ts",
@@ -18,11 +19,9 @@
     "test:watch": "vitest",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "seed:staging": "tsx scripts/seed-r2.ts staging",
-    "seed:prod": "tsx scripts/seed-r2.ts production",
-    "generate:tools": "tsx scripts/generate-tools.ts"
+    "seed:prod": "tsx scripts/seed-r2.ts production"
   },
   "dependencies": {
-    "@cloudflare/forge-mcp": "file:vendor/cloudflare-forge-mcp-0.1.0.tgz",
     "@cloudflare/workers-oauth-provider": "^1.2.3",
     "@modelcontextprotocol/server": "2.3.1",
     "hono": "^4.13.7",
@@ -30,8 +29,6 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@bytecodealliance/jco": "1.37.0",
-    "@cloudflare/forge": "https://pkg.pr.new/cloudflare/forge/@cloudflare/forge@ca70d7f5",
     "@cloudflare/vitest-plugin": "^1.4.0",
     "@modelcontextprotocol/client": "2.3.1",
     "@types/node": "^25.0.6",

@@ -1,8 +1,6 @@
 import { env } from 'cloudflare:workers'
 import type { Tool } from '@modelcontextprotocol/server'
-import { catalogueTools, isCatalogue, type CatalogueTools } from '@cloudflare/forge-mcp'
 import { MCP_TOOLS_KEY, type McpTool } from './openapi'
-import { FORGE_TOOLS_KEY } from './forge-tools/policy'
 import {
   SKILLS_MANIFEST_KEY,
   SkillsManifest,
@@ -111,19 +109,6 @@ export function getMcpTools(): Promise<McpTools> {
   return mcpTools.get()
 }
 
-const forgeTools = cached(async (): Promise<CatalogueTools> => {
-  const catalogue: unknown = await (await required(FORGE_TOOLS_KEY)).json()
-  if (!isCatalogue(catalogue)) {
-    throw new Error(`${FORGE_TOOLS_KEY} is not a catalogue this Worker can serve`)
-  }
-  return catalogueTools(catalogue)
-})
-
-/** The forge-mcp direct tools (`?forge=true`): the `tools/list` payload and name lookup. */
-export function getForgeTools(): Promise<CatalogueTools> {
-  return forgeTools.get()
-}
-
 const products = cached(async (): Promise<string[]> => {
   const object = await env.SPEC_BUCKET.get('products.json')
   return object ? object.json() : []
@@ -196,7 +181,6 @@ export async function readSkillFile(file: SkillFile): Promise<Uint8Array> {
 
 /** Drop cached artifacts. For tests that re-seed R2 between cases. */
 export function resetIsolateCache(): void {
-  forgeTools.reset()
   spec.reset()
   products.reset()
   mcpTools.reset()

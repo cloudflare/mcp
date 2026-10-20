@@ -1,10 +1,9 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
-import type { McpServer, CallToolResult } from '@modelcontextprotocol/server'
-import { buildRequest, InvalidArguments, type CatalogueTool } from '@cloudflare/forge-mcp'
+import type { McpServer, CallToolResult, Tool as McpTool } from '@modelcontextprotocol/server'
+import type { Args, Tool } from '../generated/forge-mcp'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
-import { getForgeTools } from '../isolate-cache'
 import {
   autoResolvedAccountId,
   missingAccountMessage,
@@ -17,19 +16,52 @@ import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
 import { explainRefusalFor } from '../api-refusal-hint'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { cloudflareTool, permissionsOf } from '../forge-tools/cloudflare'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
 
 const ACCOUNT_OR_ZONE_PREFIX = '/{account_or_zone}/{account_or_zone_id}'
 
+/** The generated tools with the Cloudflare policy applied, and what calls them. */
+interface ForgeTools {
+  /** `docs`, `whoami`, then every generated tool, as `tools/list` sends them. */
+  readonly list: readonly McpTool[]
+  readonly byName: ReadonlyMap<string, Tool>
+  readonly buildRequest: (tool: Tool, args: Args, baseUrl: string) => Request
+  readonly isInvalidArguments: (error: unknown) => boolean
+}
+
+let loading: Promise<ForgeTools> | undefined
+
 /**
- * Serve the forge-mcp catalogue (`?forge=true`): the direct tools the
- * Cloudflare forge plugin generated from `openapi.forge.json`, alongside
- * `docs` and `whoami`.
+ * Loads the generated server (`src/generated/forge-mcp`) the first time an
+ * isolate serves `?forge=true`, and keeps it. It is imported lazily so that
+ * isolates serving Code Mode never evaluate its ~3,000 tools.
+ */
+export function loadForgeTools(): Promise<ForgeTools> {
+  loading ??= import('../generated/forge-mcp').then((generated) => {
+    const tools = generated.tools.map(cloudflareTool)
+    return {
+      list: [DOCS_TOOL, WHOAMI_TOOL, ...generated.listTools(tools)],
+      byName: generated.toolsByName(tools),
+      buildRequest: generated.buildRequest,
+      isInvalidArguments: (error) => error instanceof generated.InvalidArguments
+    }
+  })
+  loading.catch(() => {
+    loading = undefined
+  })
+  return loading
+}
+
+/**
+ * Serve the direct tools forge generates from `openapi.forge.json`
+ * (`?forge=true`), alongside `docs` and `whoami`.
  *
- * `tools/list` returns the cached catalogue as generated. `tools/call` fills in
- * the session's account, builds the request with forge-mcp, and sends it with
- * the session's token. A refused call is explained, and asks for a step-up when
- * a missing OAuth scope would let it through, as the other direct tools do.
+ * `tools/list` returns the generated tools, built once per isolate.
+ * `tools/call` fills in the session's account, builds the request with the
+ * tool's generated code, and sends it with the session's token. A refused call
+ * is explained, and asks for a step-up when a missing OAuth scope would let it
+ * through, as the other direct tools do.
  */
 export async function registerForgeTools(
   server: McpServer,
@@ -38,11 +70,10 @@ export async function registerForgeTools(
   connection: Connection,
   scopeChallenge: ScopeChallenge
 ): Promise<void> {
-  const tools = await getForgeTools()
+  const tools = await loadForgeTools()
 
-  server.server.setRequestHandler('tools/list', () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.list]
-  }))
+  // The SDK types the list as mutable; it only serializes it.
+  server.server.setRequestHandler('tools/list', () => ({ tools: tools.list as McpTool[] }))
 
   server.server.setRequestHandler('tools/call', async (request) => {
     const name = request.params.name
@@ -63,7 +94,10 @@ export async function registerForgeTools(
       } else {
         const tool = tools.byName.get(name)
         result = tool
-          ? await callForgeTool(tool, args, props, formatResult, { connection, scopeChallenge })
+          ? await callForgeTool(tools, tool, args, props, formatResult, {
+              connection,
+              scopeChallenge
+            })
           : toolError(`Tool ${name} not found`)
       }
     } catch (error) {
@@ -76,8 +110,9 @@ export async function registerForgeTools(
 }
 
 async function callForgeTool(
-  tool: CatalogueTool,
-  given: Record<string, unknown>,
+  tools: ForgeTools,
+  tool: Tool,
+  given: Args,
   props: AuthProps,
   formatResult: FormatToolResult,
   { connection, scopeChallenge }: { connection: Connection; scopeChallenge: ScopeChallenge }
@@ -87,17 +122,14 @@ async function callForgeTool(
 
   let request: Request
   try {
-    request = buildRequest(tool, args, env.CLOUDFLARE_API_BASE)
+    request = tools.buildRequest(tool, args, env.CLOUDFLARE_API_BASE)
   } catch (error) {
-    if (error instanceof InvalidArguments) return toolError(error.message)
+    if (tools.isInvalidArguments(error)) return toolError((error as Error).message)
     throw error
   }
   const headers = Object.fromEntries(request.headers)
   headers['authorization'] = `Bearer ${props.accessToken}`
-  const body =
-    tool.request.body && args[tool.request.body.key] !== undefined
-      ? await request.text()
-      : undefined
+  const body = request.body ? await request.text() : undefined
 
   const response = await fetchWithRetry(
     request.url,
@@ -113,7 +145,7 @@ async function callForgeTool(
 
   const method = request.method
   const refusal = explainRefusalFor(response.status, connection, method, template(tool, args), {
-    'x-api-token-group': tool.extensions?.[PERMISSIONS_EXTENSION]
+    [PERMISSIONS_EXTENSION]: permissionsOf(tool)
   })
   const accountId = accountIdOf(args)
   const notes = [refusal?.hint, accountId ? unknownAccountHint(props, accountId) : ''].filter(
@@ -135,15 +167,10 @@ async function callForgeTool(
  * The arguments with the session's account filled in where the tool takes an
  * account and the caller left it out, or a message saying which account to pick.
  */
-function withSessionAccount(
-  tool: CatalogueTool,
-  args: Record<string, unknown>,
-  props: AuthProps
-): Record<string, unknown> | string {
-  const pathKeys = new Set(tool.request.params.filter((p) => p.in === 'path').map((p) => p.key))
-  const key = pathKeys.has('account_id')
+function withSessionAccount(tool: Tool, args: Args, props: AuthProps): Args | string {
+  const key = tool.path.includes('{account_id}')
     ? 'account_id'
-    : pathKeys.has('account_or_zone_id') && args.account_or_zone === 'accounts'
+    : tool.path.startsWith(ACCOUNT_OR_ZONE_PREFIX) && args.account_or_zone === 'accounts'
       ? 'account_or_zone_id'
       : undefined
   if (!key || args[key] !== undefined) return args
@@ -154,17 +181,16 @@ function withSessionAccount(
     : missingAccountMessage(props, FORGE_ACCOUNT_DISCOVERY_GUIDANCE)
 }
 
-function accountIdOf(args: Record<string, unknown>): string | undefined {
+function accountIdOf(args: Args): string | undefined {
   const id = args.account_or_zone === 'accounts' ? args.account_or_zone_id : args.account_id
   return typeof id === 'string' ? id : undefined
 }
 
 /** The endpoint's path template, with a merged account-or-zone path made concrete. */
-function template(tool: CatalogueTool, args: Record<string, unknown>): string {
-  const path = tool.request.path
-  if (!path.startsWith(ACCOUNT_OR_ZONE_PREFIX)) return path
+function template(tool: Tool, args: Args): string {
+  if (!tool.path.startsWith(ACCOUNT_OR_ZONE_PREFIX)) return tool.path
   const scope = args.account_or_zone === 'zones' ? '/zones/{zone_id}' : '/accounts/{account_id}'
-  return scope + path.slice(ACCOUNT_OR_ZONE_PREFIX.length)
+  return scope + tool.path.slice(ACCOUNT_OR_ZONE_PREFIX.length)
 }
 
 function toolError(message: string): CallToolResult {

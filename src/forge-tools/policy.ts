@@ -1,11 +1,4 @@
-/**
- * What the Cloudflare forge-mcp plugin and the Worker that serves its catalogue
- * agree on. No imports: the plugin is bundled into a QuickJS component, and the
- * Worker imports this too.
- */
-
-/** R2 key of the catalogue the Cloudflare plugin generates. */
-export const FORGE_TOOLS_KEY = 'forge-mcp-tools.json'
+/** The Cloudflare policy for the tools forge generates (`src/generated/forge-mcp`). */
 
 /** The generated tool that lists the caller's accounts. */
 export const ACCOUNTS_TOOL = 'accounts_list'

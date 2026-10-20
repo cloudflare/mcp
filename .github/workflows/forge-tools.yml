@@ -1,0 +1,109 @@
+name: Forge tools
+
+# Every six hours, regenerates src/generated/forge-mcp, the direct tools served
+# at /mcp?forge=true, from the latest openapi.forge.json Forge release with the
+# forge commit that forge.json names. When the generated code changes, it opens
+# or updates one pull request; merging it deploys through Workers Builds.
+#
+# Pull requests opened with GITHUB_TOKEN don't start other workflows, so this
+# job runs the type check and tests itself before opening one.
+
+on:
+  schedule:
+    - cron: '30 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: forge-tools
+  cancel-in-progress: false
+
+env:
+  BRANCH: bot/forge-tools
+  TITLE: 'chore(forge): regenerate the forge MCP tools'
+
+jobs:
+  generate:
+    name: Generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Read forge.json
+        id: forge
+        run: |
+          echo "repository=$(jq -r .repository forge.json)" >> "$GITHUB_OUTPUT"
+          echo "ref=$(jq -r .ref forge.json)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v6
+        with:
+          repository: ${{ steps.forge.outputs.repository }}
+          ref: ${{ steps.forge.outputs.ref }}
+          path: .forge
+
+      - uses: actions/cache@v5
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            .forge/target
+          key: forge-${{ runner.os }}-${{ steps.forge.outputs.ref }}
+
+      # rustup reads .forge/rust-toolchain.toml and installs that toolchain.
+      - name: Build forge
+        working-directory: .forge
+        run: cargo build --release --bin forge
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate
+        env:
+          FORGE_BINARY: .forge/target/release/forge
+        run: npm run generate:tools -- --summary "$RUNNER_TEMP/summary.md"
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain -- src/generated/forge-mcp)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Type check
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run typecheck
+
+      - name: Test
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run test
+
+      - name: Open or update the pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORGE_REF: ${{ steps.forge.outputs.ref }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B "$BRANCH"
+          git add src/generated/forge-mcp
+          git commit -q -m "$TITLE"
+          git push -q --force origin "$BRANCH"
+          {
+            echo "Regenerated from the latest \`openapi.forge.json\` with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?forge=true\`."
+            echo
+            cat "$RUNNER_TEMP/summary.md"
+          } > "$RUNNER_TEMP/body.md"
+          if [ "$(gh pr view "$BRANCH" --json state --jq .state 2>/dev/null)" = OPEN ]; then
+            gh pr edit "$BRANCH" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file "$RUNNER_TEMP/body.md"
+          fi
