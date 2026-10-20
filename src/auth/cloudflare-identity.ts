@@ -67,39 +67,73 @@ function retryAfterHeaders(...responses: Response[]): Record<string, string> {
   return { 'Retry-After': waitMs === undefined ? '30' : String(Math.ceil(waitMs / 1000)) }
 }
 
-function throwIdentityProbeError(...responses: [Response, ...Response[]]): never {
+/**
+ * Cloudflare refuses an unrecognized, expired or revoked credential with 403 and
+ * `9109: Invalid access token`: the same status and code it uses when a valid
+ * token lacks a permission (`9109: Unauthorized to access requested resource`).
+ * Only the message tells them apart.
+ */
+const INVALID_CREDENTIAL_MESSAGE = /^invalid access token$/i
+
+const CloudflareErrorsSchema = z.object({
+  errors: z.array(z.object({ message: z.string() })).optional()
+})
+
+/** Whether Cloudflare refused the credential itself, rather than a permission it lacks. */
+async function rejectsCredential(response: Response): Promise<boolean> {
+  if (response.status !== 401 && response.status !== 403) return false
+  try {
+    const parsed = CloudflareErrorsSchema.safeParse(await response.clone().json())
+    return (
+      parsed.success &&
+      (parsed.data.errors ?? []).some((error) =>
+        INVALID_CREDENTIAL_MESSAGE.test(error.message.trim())
+      )
+    )
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Classify failed identity probes by priority. The MCP authorization spec
+ * requires 401 for invalid or expired tokens and reserves 403 with
+ * `insufficient_scope` for a valid token that lacks scope.
+ */
+async function identityProbeError(...responses: [Response, ...Response[]]): Promise<OAuthError> {
   const statuses = responses.map((response) => response.status)
 
   if (statuses.some((status) => status >= 500)) {
-    throw new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
+    return new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
   }
   if (statuses.includes(429)) {
-    throw new OAuthError(
+    return new OAuthError(
       'temporarily_unavailable',
       'Rate limited, try again later',
       429,
       retryAfterHeaders(...responses)
     )
   }
-  if (statuses.includes(401)) {
-    throw new OAuthError('invalid_token', 'Access token is invalid or expired', 401)
+  const rejected = await Promise.all(responses.map(rejectsCredential))
+  if (statuses.includes(401) || rejected.includes(true)) {
+    return new OAuthError('invalid_token', 'Access token is invalid or expired', 401)
   }
   if (statuses.includes(403)) {
-    throw new OAuthError(
+    return new OAuthError(
       'insufficient_scope',
       'Token lacks required user:read or account:read scope',
       403
     )
   }
   if (statuses.includes(400)) {
-    throw new OAuthError(
+    return new OAuthError(
       'invalid_token',
       'Access token appears malformed; reauthenticate and try again',
       401
     )
   }
 
-  throw new OAuthError('invalid_token', 'Access token is invalid or expired', statuses[0])
+  return new OAuthError('invalid_token', 'Access token is invalid or expired', statuses[0])
 }
 
 async function fetchProbe(url: string, accessToken: string, caller: string): Promise<Response> {
@@ -199,7 +233,7 @@ async function resolveAccountCredential(
   // One minimum-size page is enough to prove whether an account-owned token
   // resolves to exactly one account without fetching the larger user page.
   const accountsResponse = await fetchAccounts(accessToken, caller, ACCOUNT_TOKEN_PROBE_PAGE_SIZE)
-  if (!accountsResponse.ok) throwIdentityProbeError(accountsResponse)
+  if (!accountsResponse.ok) throw await identityProbeError(accountsResponse)
   return accountIdentity(await parseAccounts(accountsResponse))
 }
 
@@ -213,7 +247,7 @@ async function resolveUserCredential(
   ])
   const failures = [userResponse, accountsResponse].filter((response) => !response.ok)
   if (failures.length > 0) {
-    throwIdentityProbeError(failures[0], ...failures.slice(1))
+    throw await identityProbeError(failures[0], ...failures.slice(1))
   }
 
   const [user, accounts] = await Promise.all([
@@ -235,8 +269,8 @@ async function resolveLegacyCredential(
     fetchAccounts(accessToken, caller)
   ])
   if (!accountsResponse.ok) {
-    if (!userResponse.ok) throwIdentityProbeError(userResponse, accountsResponse)
-    throwIdentityProbeError(accountsResponse)
+    if (!userResponse.ok) throw await identityProbeError(userResponse, accountsResponse)
+    throw await identityProbeError(accountsResponse)
   }
 
   const [user, accounts] = await Promise.all([
@@ -246,7 +280,7 @@ async function resolveLegacyCredential(
   if (user) return userIdentity(user, accounts)
 
   // A transient /user failure cannot prove account ownership.
-  if (!userResponse.ok && userResponse.status >= 429) throwIdentityProbeError(userResponse)
+  if (!userResponse.ok && userResponse.status >= 429) throw await identityProbeError(userResponse)
   return accountIdentity(accounts)
 }
 
@@ -272,7 +306,7 @@ export async function getCloudflareOAuthUser(accessToken: string): Promise<Cloud
     fetchAccounts(accessToken, OAUTH_IDENTITY_CALLER)
   ])
   if (!userResponse.ok && !accountsResponse.ok) {
-    throwIdentityProbeError(userResponse, accountsResponse)
+    throw await identityProbeError(userResponse, accountsResponse)
   }
 
   const [user, accounts] = await Promise.all([
