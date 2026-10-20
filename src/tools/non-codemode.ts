@@ -15,9 +15,9 @@ import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { zodInputSchemaFromJson, type McpTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
-import type { Connection } from '../api-permissions'
-import { explainRefusalFor } from '../api-refusal-hint'
-import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { acceptedPermissions, type Connection } from '../api-permissions'
+import { apiCallResult } from './api-call-result'
+import type { ScopeChallenge } from '../scope-challenge'
 
 /**
  * Install lazy non-Code-Mode protocol handlers.
@@ -127,26 +127,20 @@ async function callNonCodemodeTool(
     ? await response.json()
     : await response.text()
 
-  if (response.ok) return { content: [{ type: 'text', text: formatResult(result) }] }
-
-  const method = tool.method.toUpperCase()
   // The generated tool already names its endpoint's template and accepted permissions.
-  const refusal = explainRefusalFor(response.status, connection, method, tool.path, {
-    'x-api-token-group': tool.permissions
-  })
   const accountId = params['account_id'] as string | undefined
-  const notes = [refusal?.hint, accountId ? unknownAccountHint(props, accountId) : ''].filter(
-    Boolean
+  return apiCallResult(
+    {
+      method: tool.method.toUpperCase(),
+      path: resolvedPath,
+      template: tool.path,
+      permissions: acceptedPermissions({ 'x-api-token-group': tool.permissions }),
+      status: response.status,
+      body: result
+    },
+    accountId ? [unknownAccountHint(props, accountId)] : [],
+    { connection, scopeChallenge, formatResult }
   )
-  const text = [
-    `Cloudflare API error: ${method} ${resolvedPath} returned HTTP ${response.status}.`,
-    formatResult(result),
-    ...notes
-  ].join('\n\n')
-  const failure: CallToolResult = { content: [{ type: 'text', text }], isError: true }
-  // One refused request changed nothing, so the client can retry the call after stepping up.
-  const challenge = refusal?.scope ? scopeChallenge.require(refusal.scope) : undefined
-  return challenge ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } } : failure
 }
 
 function validationError(name: string, error: z.ZodError): CallToolResult {
