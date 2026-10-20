@@ -48,6 +48,16 @@ type GlobalOutboundProps = {
   connection: Connection
 }
 
+function sanitizeApiErrorText(text: string): string {
+  return text
+    .replace(
+      /\b(authorization|api[_ -]?(?:key|token)|access[_ -]?token|refresh[_ -]?token|client[_ -]?secret|password|secret|token|credential|jwt|private[_ -]?key|signature)(\s*[:=]\s*)(?:(?:Bearer|Basic)\s+\S+|"[^"]*"|'[^']*'|[^\s,;]+)/gi,
+      '$1$2[REDACTED]'
+    )
+    .replace(/\b(Bearer|Basic)\s+\S+/gi, '$1 [REDACTED]')
+    .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, '[REDACTED_EMAIL]')
+}
+
 /**
  * Outbound fetch proxy for the `execute` isolate: restricts dynamically-loaded
  * worker code to the configured Cloudflare API base URL and injects the API
@@ -136,6 +146,7 @@ import { WorkerEntrypoint } from "cloudflare:workers";
 
 const apiBase = ${JSON.stringify(apiBase)};
 ${accountIdPrelude}
+${sanitizeApiErrorText.toString()}
 
 // Every request the code sends, and the status it got. Replaying the code after a
 // step-up is safe only if each one was a read or was refused.
@@ -154,12 +165,43 @@ globalThis.fetch = async (input, init) => {
 // plus the server's explanation of a 401/403.
 function apiError(method, path, response, details) {
   const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
-  const error = new Error("Cloudflare API error: " + String(method).toUpperCase() + " " + path.split("?")[0] +
-    " returned HTTP " + response.status + (details ? ": " + details.replace(/[. ]+$/, "") : "") +
-    (hint ? ". " + decodeURIComponent(hint) : ""));
+  const rayId = response.headers.get("cf-ray");
+  const safePath = sanitizeApiErrorText(path.split("?")[0]);
+  const safeDetails = typeof details === "string" ? sanitizeApiErrorText(details) : "";
+  const error = new Error("Cloudflare API error: " + String(method).toUpperCase() + " " + safePath +
+    " returned HTTP " + response.status + (safeDetails ? ": " + safeDetails.replace(/[. ]+$/, "") : "") +
+    (hint ? ". " + decodeURIComponent(hint) : "") +
+    (rayId ? "\\nCloudflare Ray ID: " + rayId : ""));
   const missingScope = response.headers.get(${JSON.stringify(MISSING_SCOPE_HEADER)});
   if (missingScope) error.missingScope = missingScope;
   return error;
+}
+
+function formatApiErrors(errors, messages) {
+  const summaryMessages = Array.isArray(messages)
+    ? messages
+        .map(entry => entry && typeof entry.message === "string" ? entry.message.trim() : "")
+        .filter(Boolean)
+    : [];
+  const fallbackMessage = summaryMessages.join(", ") || "Cloudflare returned an error without a message";
+  const formatted = Array.isArray(errors)
+    ? errors.map(entry => {
+        if (!entry || typeof entry !== "object") return "";
+        const code = typeof entry.code === "number" || typeof entry.code === "string"
+          ? String(entry.code)
+          : "";
+        const message = typeof entry.message === "string" ? entry.message.trim() : "";
+        const documentationUrl = typeof entry.documentation_url === "string"
+          ? entry.documentation_url.trim()
+          : "";
+        if (!code && !message && !documentationUrl) return "";
+        return (code ? code + ": " : "") + (message || fallbackMessage) +
+          (documentationUrl ? " (" + documentationUrl + ")" : "");
+      }).filter(Boolean)
+    : [];
+  if (formatted.length > 0) return formatted.join(", ");
+  if (summaryMessages.length > 0) return summaryMessages.join(", ");
+  return Array.isArray(errors) && errors.length > 0 ? fallbackMessage : "";
 }
 
 export default class CodeExecutor extends WorkerEntrypoint {
@@ -248,9 +290,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
         const isEnvelope = data !== null && typeof data === "object"
           && !Array.isArray(data) && typeof data.success === "boolean";
         if (!response.ok || (isEnvelope && !data.success)) {
-          const errorList = Array.isArray(data?.errors) ? data.errors : [];
-          const errors = errorList.map(e => (e.code === undefined ? "" : e.code + ": ") + e.message +
-            (e.documentation_url ? " (" + e.documentation_url + ")" : "")).join(", ");
+          const errors = formatApiErrors(data?.errors, data?.messages);
           throw apiError(method, path, response, errors);
         }
 
