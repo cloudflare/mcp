@@ -75,7 +75,7 @@ export async function createServer(
   const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
 
   if (forge) {
-    await registerForgeTools(server, props, formatResult, connection, scopeChallenge)
+    registerForgeTools(server, props, formatResult, connection, scopeChallenge)
     return server
   }
 

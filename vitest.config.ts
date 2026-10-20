@@ -1,5 +1,15 @@
+import { execFileSync } from 'node:child_process'
 import { cloudflareTest } from '@cloudflare/vitest-plugin'
 import { defineConfig } from 'vitest/config'
+
+// The forge tools service (wrangler.forge-tools.jsonc) runs next to the main
+// Worker as an auxiliary Worker, which has to be JavaScript, so build it first.
+const FORGE_TOOLS_OUT = '.wrangler/forge-tools-test'
+execFileSync(
+  './node_modules/.bin/wrangler',
+  ['deploy', '-c', 'wrangler.forge-tools.jsonc', '--dry-run', '--outdir', FORGE_TOOLS_OUT],
+  { stdio: 'ignore' }
+)
 
 export default defineConfig({
   plugins: [
@@ -13,7 +23,15 @@ export default defineConfig({
           CLOUDFLARE_CLIENT_ID: 'test-client-id',
           CLOUDFLARE_CLIENT_SECRET: 'test-client-secret',
           MCP_RESOURCE: 'https://mcp.cloudflare.com/mcp'
-        }
+        },
+        workers: [
+          {
+            name: 'cloudflare-api-mcp-forge-tools-dev',
+            modules: true,
+            scriptPath: `${FORGE_TOOLS_OUT}/worker.js`,
+            compatibilityDate: '2026-06-17'
+          }
+        ]
       }
     })
   ],
