@@ -27,7 +27,7 @@ export type CallPlan =
       readonly url: string
       readonly headers: Readonly<Record<string, string>>
       readonly body?: string
-      /** The path template, with a merged account-or-zone path made concrete, for scope lookups. */
+      /** The tool's path template, such as `/accounts/{account_id}/d1/database`. */
       readonly template: string
       /** The API token permissions the method accepts. */
       readonly permissions?: readonly string[]
@@ -70,7 +70,7 @@ export async function planCall(
     url: request.url,
     headers: Object.fromEntries(request.headers),
     ...(body !== undefined && { body }),
-    template: template(tool, args),
+    template: tool.path,
     ...(permissions && { permissions }),
     ...(accountId && { accountId })
   }
@@ -88,15 +88,4 @@ function accountKey(tool: Tool, args: Args): string | undefined {
 function accountIdOf(args: Args): string | undefined {
   const id = args.account_or_zone === 'accounts' ? args.account_or_zone_id : args.account_id
   return typeof id === 'string' ? id : undefined
-}
-
-/**
- * The endpoint's path template, with a merged account-or-zone path made
- * concrete, since scope lookups tell account requests from zone ones by the
- * first segment (cloudflare/forge#59).
- */
-function template(tool: Tool, args: Args): string {
-  if (!tool.path.startsWith(ACCOUNT_OR_ZONE_PREFIX)) return tool.path
-  const scope = args.account_or_zone === 'zones' ? '/zones/{zone_id}' : '/accounts/{account_id}'
-  return scope + tool.path.slice(ACCOUNT_OR_ZONE_PREFIX.length)
 }

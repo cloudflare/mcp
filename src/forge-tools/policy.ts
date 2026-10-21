@@ -1,7 +1,7 @@
 /** The Cloudflare policy for the tools forge generates (`src/generated/forge-mcp`). */
 
 /** The generated tool that lists the caller's accounts. */
-export const ACCOUNTS_TOOL = 'accounts_list'
+const ACCOUNTS_TOOL = 'accounts_list'
 
 /** Points callers at the generated account listing tool. */
 export const FORGE_ACCOUNT_DISCOVERY_GUIDANCE = `Call the ${ACCOUNTS_TOOL} tool to discover available accounts.`
