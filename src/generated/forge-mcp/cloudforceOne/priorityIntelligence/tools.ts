@@ -531,6 +531,14 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null,
+        "403": null,
+        "429": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/priority-intelligence`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -571,6 +579,12 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "404": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/priority-intelligence/${pathParam(args, "priority_id")}`,
     }),
@@ -610,6 +624,12 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "404": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/priority-intelligence/${pathParam(args, "priority_id")}`,
@@ -653,6 +673,12 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/priority-intelligence`,
@@ -1220,6 +1246,16 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null,
+        "403": null,
+        "404": null,
+        "409": null,
+        "429": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/priority-intelligence/${pathParam(args, "priority_id")}`,

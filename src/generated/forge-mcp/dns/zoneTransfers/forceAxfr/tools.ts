@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  secondary_dns_api_response_common_failure_output,
+  secondary_dns_messages_output,
+} from "../outputs.js";
+import {
+  secondary_dns_force_response_output,
+  secondary_dns_force_result_output,
+} from "./outputs.js";
 
 /**
  * The tools of `dns.zone_transfers.force_axfr`.
@@ -43,6 +51,29 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secondary-dns_force_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_force_response"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_force_response": secondary_dns_force_response_output,
+        "secondary-dns_force_result": secondary_dns_force_result_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/secondary_dns/force_axfr`,

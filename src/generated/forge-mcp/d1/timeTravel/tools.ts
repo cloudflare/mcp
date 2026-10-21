@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  d1_api_response_common_failure_output,
+  d1_messages_output,
+} from "../outputs.js";
+import {
+  d1_time_travel_bookmark_output,
+  d1_time_travel_restore_response_output,
+} from "./outputs.js";
+import {
   d1_time_travel_bookmark,
   d1_time_travel_timestamp,
 } from "./schemas.js";
@@ -55,6 +63,26 @@ export const tools: readonly Tool[] = [
       ],
       "x-forge-epilogue": "This command acts on remote D1 Databases."
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "bookmark": {
+              "$ref": "#/$defs/d1_time-travel-bookmark"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_messages": d1_messages_output,
+        "d1_time-travel-bookmark": d1_time_travel_bookmark_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}/time_travel/bookmark`,
       query: [
@@ -106,6 +134,22 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/d1/database/{database_id}/time_travel/restore",
     extensions: {
       "x-forge-epilogue": "This command acts on remote D1 Databases."
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/d1_time-travel-restore-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_messages": d1_messages_output,
+        "d1_time-travel-bookmark": d1_time_travel_bookmark_output,
+        "d1_time-travel-restore-response": d1_time_travel_restore_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}/time_travel/restore`,

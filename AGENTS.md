@@ -25,6 +25,8 @@ cloudflare-mcp/
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec fetching & $ref resolution
 │   ├── truncate.ts                # Response truncation (~6K token limit)
+│   ├── response-schema-check.ts   # Validates a body against generated response schemas; value-free violations
+│   ├── response-validation.ts     # checkResponse(): sampling, trimming, waitUntil, mismatch events
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
 │   ├── skills/
 │   │   ├── types.ts               # Skills extension wire + R2 manifest schemas (Zod)
@@ -57,7 +59,9 @@ cloudflare-mcp/
 │   └── *.test.ts
 ├── scripts/
 │   ├── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
-│   └── generate-tools.ts          # Regenerate src/generated/forge-mcp with forge
+│   ├── generate-tools.ts          # Regenerate src/generated/forge-mcp with forge
+│   ├── schema-mismatch-report.ts  # Response schema mismatches by product, for teams
+│   └── bench-response-validation.ts # Cost of response schema checks on the generated schemas
 ├── forge.json                     # The forge commit that generates src/generated/forge-mcp
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
@@ -96,6 +100,7 @@ Node 22+ required.
 | `npm run check`        | Run all checks (format, lint, typecheck, test)|
 | `npm run seed:staging` | Seed OpenAPI spec to staging R2               |
 | `npm run seed:prod`    | Seed OpenAPI spec to production R2            |
+| `npm run report:schema-mismatches` | Response schema mismatch report (see below) |
 
 ## Code standards
 
@@ -175,9 +180,9 @@ The consent page offers minimal, read-only and full-access templates. Minimal is
 `?codemode=false` asks for direct tools; `?experimentalForge=true` changes how they are built: from code forge generates instead of `mcp-tools.json`. The flag is opt-in while the forge tools soak, and is meant to become how `?codemode=false` works. Code Mode ignores it, since it already reads the Forge spec. The earlier `?forge=true` preview param is gone; it now serves Code Mode.
 
 
-- `src/generated/forge-mcp/` is TypeScript that `forge openapi.forge.json --target mcp` writes, committed and never edited by hand. Each group's `tools.ts` has its tools: schema, hints, the method's extensions, and a `request(args)` function that builds the API request. `schemas.ts` files hold the shared model schemas, `index.ts` exports every tool, `README.md` lists the methods without a tool and why, and `_/` is forge's runtime for serving them on an `McpServer`. oxfmt and oxlint skip it
+- `src/generated/forge-mcp/` is TypeScript that `forge openapi.forge.json --target mcp` writes, committed and never edited by hand. Each group's `tools.ts` has its tools: schema, hints, the method's extensions, and a `request(args)` function that builds the API request. Each tool also has `responses`: the JSON Schema of every response body the method declares, by status, from the shared `outputs.ts` models; `tools/list` never sends them (see Response schema checks). `schemas.ts` files hold the shared argument models, `source.json` the `openapi.forge.json` release they came from (written by `generate-tools.ts`), `index.ts` exports every tool, `README.md` lists the methods without a tool and why, and `_/` is forge's runtime for serving them on an `McpServer`. oxfmt and oxlint skip it
 - The MCP target lives on the long-lived `forge-mcp` branch of `cloudflare/forge`, kept rebased on its main; `forge.json` pins the commit. `FORGE_BINARY=… npm run generate:tools` regenerates locally. `.github/workflows/forge-tools.yml` builds that forge, regenerates from the latest `openapi.forge.json` every six hours, runs the type check and tests, and opens or updates the `bot/forge-tools` pull request when the code changes. The pull request is opened with `GITHUB_TOKEN`, so CI doesn't run on it; the workflow's own type check and tests are the check. Merging it deploys both Workers through Workers Builds. To change the generator, bump `forge.json`'s `ref`
-- The generated tools run in their own Worker, the **forge tools service** (`src/forge-tools/worker.ts`, `wrangler.forge-tools.jsonc`, `cloudflare-api-mcp-forge-tools[-staging|-dev]`), which the main Worker reaches through its `FORGE_TOOLS` service binding. Code Mode isolates never compile the ~10 MB of generated code: workerd compiles every module a Worker uploads at startup, so in the main Worker a lazy import still cost ~27 ms per isolate, and a separate uploaded module didn't help. The service holds no credentials, makes no requests, and has no route. Its RPC methods are `listJson()`, the tools as `tools/list` sends them as one JSON string, which the main Worker parses once per isolate (`getForgeToolList()` in `src/isolate-cache.ts`; decoding ~3,000 nested objects over RPC cost ~200–300 ms of CPU per `tools/list`), and `plan(name, args, { baseUrl, sessionAccountId })`, the request a call makes (`src/forge-tools/plan.ts`).
+- The generated tools run in their own Worker, the **forge tools service** (`src/forge-tools/worker.ts`, `wrangler.forge-tools.jsonc`, `cloudflare-api-mcp-forge-tools[-staging|-dev]`), which the main Worker reaches through its `FORGE_TOOLS` service binding. Code Mode isolates never compile the ~10 MB of generated code: workerd compiles every module a Worker uploads at startup, so in the main Worker a lazy import still cost ~27 ms per isolate, and a separate uploaded module didn't help. The service holds no credentials, makes no requests, and has no route. Its RPC methods are `listJson()`, the tools as `tools/list` sends them as one JSON string, which the main Worker parses once per isolate (`getForgeToolList()` in `src/isolate-cache.ts`; decoding ~3,000 nested objects over RPC cost ~200–300 ms of CPU per `tools/list`), `plan(name, args, { baseUrl, sessionAccountId })`, the request a call makes (`src/forge-tools/plan.ts`), and `checkResponse(...)`, which checks a trimmed response against the generated response schemas.
 - `src/forge-tools/cloudflare.ts` applies the Cloudflare policy once per service isolate: `account_id` is optional with one description, and so is a merged tool's `account_or_zone_id` (the document gives `account_or_zone` its values). Permissions come from each tool's `x-api-token-group` extension, which clients never see
 - `src/tools/forge-tools.ts`, in the main Worker, serves `?codemode=false&experimentalForge=true`: `docs` and `whoami` itself, and the generated tools from the service. It sends each planned request with the session's token, which never leaves the main Worker, and explains refused calls and steps up OAuth scopes like the other direct tools
 - Workers Builds deploys the service and the main Worker on every push to `main`. Ship a new RPC method in the service before the main Worker calls it, and in a new environment deploy the service first (`npm run deploy:forge-tools` / `deploy:forge-tools:prod`), since the main Worker binds to it. `npm run dev` runs both, and `npm run types` reads both configs to type the binding. Vitest builds the service with `wrangler deploy --dry-run` and runs it as an auxiliary Worker, so tests call it over the real binding
@@ -237,11 +242,23 @@ Responses capped at ~6,000 tokens (~24KB). `src/truncate.ts` shrinks oversized J
 
 The cap is on by default in Code Mode and off for the direct tools (`?codemode=false`, with or without `experimentalForge`): `createServer` defaults `truncateToolResult` to `codemode`. Clients without code mode of their own use our Code Mode, where results go straight to the model. Clients with their own code mode use the direct tools and parse each result in their own code, so a capped result would lose data. An explicit `?truncateToolResult=` overrides either default; truncation is then on unless the value is exactly `false`. Code Mode clients that bound results themselves, for example by writing them to a file, pass `?truncateToolResult=false`.
 
+### Response schema checks
+
+The direct tools (`?codemode=false`, with or without `experimentalForge`) check every JSON response, success or error, against the response schemas forge generates and record each mismatch, so product teams can fix their schemas before tools advertise an `outputSchema` (#320). Code Mode is not checked.
+
+- **Schemas:** forge's MCP target generates each tool's `responses` from forge's model of the spec, not the raw OpenAPI: read-only fields are kept, descriptions dropped, and `nullable` is a union with `null`. They ship with the generated tools in the forge tools service, so nothing is fetched or parsed to check a response. The main Worker never loads them.
+- **Flow** (`src/response-validation.ts`): `checkResponse()` samples (`RESPONSE_VALIDATION_SAMPLE_RATE`, 0-1, unset means 1), skips bodies over 1M characters, and in `waitUntil` trims every array to its first 25 items and calls the service's `checkResponse` RPC. The service finds the generated tool by `METHOD template`: a forge tool's own template, or for an endpoint tool the account or zone route a merged `/{account_or_zone}/…` tool splits into. Everything is caught, so nothing can change or fail a tool result.
+- **Validation** (`src/response-schema-check.ts`, in the service): `@cfworker/json-schema` 2020-12, against the status's schema, then its class (`4XX`), then `default`; validators are compiled per tool and cached per isolate. A short-circuit pass finds the first violation; invalid bodies are validated again to count them. A check costs at most ~10 ms. `npx tsx scripts/bench-response-validation.ts [tool ...]` measures it.
+- **No customer data:** events and logs hold keywords, schema locations and instance paths only. Array indices and keys the schema doesn't declare become `*`; the validator's messages are never recorded.
+- **Recording:** one `response_schema_mismatch` Analytics Engine event per mismatching response (layout below), naming the generated tool and the spec release (`source.json`), and one `console.warn` line with up to five violations.
+- **Report:** `CLOUDFLARE_ACCOUNT_ID=… CLOUDFLARE_API_TOKEN=… npm run report:schema-mismatches -- [--env production] [--days 7] [--product dns_records]` groups mismatches by product → operation → violation, each row linked to its spec release. The token needs Account Analytics Read; `--format sql` prints the query and `--from-json` renders a result run elsewhere.
+
 ### Usage metrics (Analytics Engine)
 
 Tool usage is tracked via the `MCP_METRICS` Analytics Engine binding into the shared `mcp-metrics-{dev,staging,production}` dataset — the same dataset used by the per-product Cloudflare MCP servers (`cloudflare/mcp-server-cloudflare`), so this server shows up alongside them under server name `cloudflare-api`.
 
 - `src/metrics.ts` mirrors the upstream `@repo/mcp-observability` schema. The blob/double layout is **positional and must not change**: `index1` = event type, `blob1`/`blob2` = server name/version (reserved), `blob3` = userId, `blob4` = toolName/errorMessage, `double1` = errorCode.
+- `response_schema_mismatch` (see Response schema checks) keeps those positions (`blob3` userId, `blob4` toolName, `double1` = 0) and adds: `blob5` method, `blob6` path template, `blob7` product, `blob8` the generated tool whose schema was used, `blob9` response key (`200`/`4XX`/`default`), `blob10` first violation's keyword, `blob11` its schema location (`#/components/schemas/<name>/…` or `#/responses/<key>/schema/…`), `blob12` its instance path (`/result/*/id`), `blob13` the spec release the generated schemas came from (`openapi@<sha>`), `double2` HTTP status, `double3` violation count, `double4` sample interval (1 / `RESPONSE_VALIDATION_SAMPLE_RATE`), `double5` 1 if `double3` is exact, 0 if a lower bound.
 - `attachMetrics()` in `src/server.ts` wraps Code-Mode `registerTool` calls; the lazy non-Code-Mode dispatcher records the same `tool_call` events directly. `auth_user` events are emitted from the OAuth handler.
 - **No `session_start`**: MCP `2026-07-28` has no protocol sessions or `initialize` handshake. The 2025 compatibility path also creates a fresh server for each request and retains no initialization state. Client identity remains visible at the HTTP layer through `User-Agent` (including zone HTTP analytics).
 - The tracker is tolerant of a missing binding (no-op in tests/local dev) and swallows write errors so metrics can never break a tool call.
@@ -273,6 +290,7 @@ npm run test:watch    # Watch mode
 - Auth props building and validation
 - Spec processor ($ref resolution, product extraction)
 - Response truncation
+- Response schema checks and mismatch events (`tests/response-*.test.ts`)
 - Metrics event mapping & path normalization
 
 **End to end (`tests/worker.test.ts` and the other worker-level files):**

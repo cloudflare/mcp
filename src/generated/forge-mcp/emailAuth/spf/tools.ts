@@ -2,7 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  email_auth_api_response_common_failure_output,
+  email_auth_messages_output,
+} from "../outputs.js";
 import { email_auth_identifier } from "../schemas.js";
+import {
+  email_auth_InspectError_output,
+  email_auth_SpfComponent_output,
+  email_auth_SpfResult_output,
+  email_auth_SpfTree_output,
+} from "./outputs.js";
 
 /**
  * The tools of `email_auth.spf`.
@@ -41,6 +51,24 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/zones/{zone_id}/email/auth/spf/inspect",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-auth_SpfTree"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-auth_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-auth_InspectError": email_auth_InspectError_output,
+        "email-auth_SpfComponent": email_auth_SpfComponent_output,
+        "email-auth_SpfResult": email_auth_SpfResult_output,
+        "email-auth_SpfTree": email_auth_SpfTree_output,
+        "email-auth_api-response-common-failure": email_auth_api_response_common_failure_output,
+        "email-auth_messages": email_auth_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/auth/spf/inspect`,
       query: [

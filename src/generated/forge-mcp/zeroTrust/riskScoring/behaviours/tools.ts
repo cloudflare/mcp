@@ -2,7 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../outputs.js";
+import { dlp_RiskLevel_output } from "../outputs.js";
 import { dlp_RiskLevel } from "../schemas.js";
+import {
+  dlp_Behavior_output,
+  dlp_Behaviors_output,
+  dlp_UpdateBehavior_output,
+  dlp_UpdateBehaviors_output,
+} from "./outputs.js";
 import { dlp_UpdateBehavior, dlp_UpdateBehaviors } from "./schemas.js";
 
 /**
@@ -38,6 +49,23 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_Behaviors"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Behavior": dlp_Behavior_output,
+        "dlp_Behaviors": dlp_Behaviors_output,
+        "dlp_RiskLevel": dlp_RiskLevel_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zt_risk_scoring/behaviors`,
@@ -82,6 +110,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_UpdateBehaviors"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_RiskLevel": dlp_RiskLevel_output,
+        "dlp_UpdateBehavior": dlp_UpdateBehavior_output,
+        "dlp_UpdateBehaviors": dlp_UpdateBehaviors_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zt_risk_scoring/behaviors`,

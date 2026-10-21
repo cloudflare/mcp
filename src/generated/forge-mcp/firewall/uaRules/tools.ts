@@ -3,6 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  firewall_api_response_common_failure_output,
+  firewall_messages_output,
+  firewall_result_info_output,
+} from "../../outputs.js";
+import {
   firewall_asn_configuration,
   firewall_cidr_configuration,
   firewall_configuration,
@@ -87,6 +92,30 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_messages": firewall_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/ua_rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -133,6 +162,30 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_messages": firewall_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/ua_rules/${pathParam(args, "ua_rule_id")}`,
     }),
@@ -178,6 +231,30 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_messages": firewall_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/ua_rules/${pathParam(args, "ua_rule_id")}`,
@@ -244,6 +321,42 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "result_info": {
+              "$ref": "#/$defs/firewall_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_result_info": firewall_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/ua_rules`,
@@ -332,6 +445,30 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_messages": firewall_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/ua_rules/${pathParam(args, "ua_rule_id")}`,

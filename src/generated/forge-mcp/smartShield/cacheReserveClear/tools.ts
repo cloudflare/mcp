@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  smartshield_api_response_common_failure_output,
+  smartshield_messages_output,
+} from "../outputs.js";
+import {
+  smartshield_cache_reserve_clear_end_ts_output,
+  smartshield_cache_reserve_clear_output,
+  smartshield_cache_reserve_clear_start_ts_output,
+  smartshield_cache_reserve_clear_state_output,
+} from "./outputs.js";
 
 /**
  * The tools of `smart_shield.cache_reserve_clear`.
@@ -53,6 +63,46 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/smartshield_cache_reserve_clear"
+            },
+            {
+              "properties": {
+                "end_ts": {
+                  "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
+                },
+                "start_ts": {
+                  "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
+                },
+                "state": {
+                  "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
+                }
+              },
+              "required": [
+                "start_ts",
+                "state"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
+        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
+        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
+        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
+        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
+        "smartshield_messages": smartshield_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/smart_shield/cache_reserve_clear`,
@@ -106,6 +156,46 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/smartshield_cache_reserve_clear"
+            },
+            {
+              "properties": {
+                "end_ts": {
+                  "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
+                },
+                "start_ts": {
+                  "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
+                },
+                "state": {
+                  "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
+                }
+              },
+              "required": [
+                "start_ts",
+                "state"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
+        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
+        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
+        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
+        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
+        "smartshield_messages": smartshield_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/smart_shield/cache_reserve_clear`,

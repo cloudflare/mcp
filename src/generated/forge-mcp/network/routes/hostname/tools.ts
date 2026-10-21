@@ -3,10 +3,28 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  tunnel_api_response_common_failure_output,
+  tunnel_created_at_output,
+  tunnel_deleted_at_output,
+  tunnel_messages_output,
+  tunnel_result_info_output,
+  tunnel_tunnel_type_output,
+} from "../../../outputs.js";
+import {
   tunnel_existed_at,
   tunnel_page_number,
   tunnel_per_page,
 } from "../../../schemas.js";
+import {
+  tunnel_hostname_comment_output,
+  tunnel_hostname_output,
+  tunnel_hostname_route_id_output,
+  tunnel_hostname_route_output,
+  tunnel_hostname_route_response_collection_output,
+  tunnel_hostname_route_response_single_output,
+  tunnel_tunnel_id_3_output,
+  tunnel_tunnel_name_2_output,
+} from "./outputs.js";
 import {
   tunnel_hostname,
   tunnel_hostname_comment,
@@ -73,6 +91,37 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_hostname_route"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_hostname_route_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/routes/hostname`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -113,6 +162,37 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Networks Write",
         "Cloudflare Tunnel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_hostname_route"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_hostname_route_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/routes/hostname/${pathParam(args, "hostname_route_id")}`,
@@ -177,6 +257,37 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_hostname_route"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_hostname_route_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/routes/hostname/${pathParam(args, "hostname_route_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -219,6 +330,37 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write",
         "Cloudflare Tunnel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_hostname_route"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_hostname_route_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/routes/hostname/${pathParam(args, "hostname_route_id")}`,
@@ -299,6 +441,52 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write",
         "Cloudflare Tunnel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/tunnel_hostname_route"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/tunnel_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_hostname_route_response_collection"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_hostname_route_response_collection": tunnel_hostname_route_response_collection_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/routes/hostname`,

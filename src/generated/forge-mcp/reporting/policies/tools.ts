@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  reports_Error_output,
+  reports_PolicyErrorResponse_output,
+} from "../outputs.js";
+import {
+  reports_PoliciesListResponse_resultItem_output,
+  reports_PolicySingleResponse_result_output,
+} from "./outputs.js";
 
 /**
  * The tools of `reporting.policies`.
@@ -43,6 +51,21 @@ export const tools: readonly Tool[] = [
         "#reports:read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/reports_PolicySingleResponse_result"
+        },
+        "404": {
+          "$ref": "#/$defs/reports_PolicyErrorResponse"
+        }
+      },
+      $defs: {
+        "reports_Error": reports_Error_output,
+        "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
+        "reports_PolicySingleResponse_result": reports_PolicySingleResponse_result_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/reporting/policies/${pathParam(args, "policy_id")}`,
     }),
@@ -76,6 +99,42 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "#reports:read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/reports_PoliciesListResponse_resultItem"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/reports_PolicyErrorResponse"
+        }
+      },
+      $defs: {
+        "reports_Error": reports_Error_output,
+        "reports_PoliciesListResponse_resultItem": reports_PoliciesListResponse_resultItem_output,
+        "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/reporting/policies`,

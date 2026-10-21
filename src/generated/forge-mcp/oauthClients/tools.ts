@@ -3,6 +3,21 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  iam_api_response_common_failure_output,
+  iam_common_components_schemas_identifier_output,
+  iam_messages_2_output,
+  iam_result_info_output,
+} from "../outputs.js";
+import {
+  iam_oauth_client_grant_types_output,
+  iam_oauth_client_identifier_output,
+  iam_oauth_client_output,
+  iam_oauth_client_response_types_output,
+  iam_oauth_client_token_endpoint_auth_method_output,
+  iam_oauth_client_uri_verification_output,
+  iam_oauth_client_with_secret_output,
+} from "./outputs.js";
+import {
   iam_oauth_client_create_request,
   iam_oauth_client_grant_types,
   iam_oauth_client_response_types,
@@ -70,6 +85,26 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_oauth_client_with_secret"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
+        "iam_oauth_client_with_secret": iam_oauth_client_with_secret_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/oauth_clients`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -126,6 +161,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/oauth_clients/${pathParam(args, "oauth_client_id")}`,
     }),
@@ -180,6 +245,36 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/oauth_clients/${pathParam(args, "oauth_client_id")}/rotate_secret`,
@@ -236,6 +331,26 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_oauth_client"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_oauth_client": iam_oauth_client_output,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/oauth_clients/${pathParam(args, "oauth_client_id")}`,
     }),
@@ -285,6 +400,41 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_oauth_client"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_oauth_client": iam_oauth_client_output,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
+        "iam_result_info": iam_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/oauth_clients`,
@@ -340,6 +490,25 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "client_secret": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/oauth_clients/${pathParam(args, "oauth_client_id")}/rotate_secret`,
@@ -405,6 +574,26 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_oauth_client"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_oauth_client": iam_oauth_client_output,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/oauth_clients/${pathParam(args, "oauth_client_id")}`,

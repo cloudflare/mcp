@@ -2,6 +2,26 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_messages_output,
+  digital_experience_monitoring_uuid_output,
+} from "../../outputs.js";
+import {
+  digital_experience_monitoring_aggregate_stat_output,
+  digital_experience_monitoring_aggregate_time_period_output,
+  digital_experience_monitoring_aggregate_time_slot_output,
+  digital_experience_monitoring_tests_response_output,
+  digital_experience_monitoring_tests_response_overviewMetrics_output,
+  digital_experience_monitoring_tests_response_testsItem_httpResultsByColoItem_output,
+  digital_experience_monitoring_tests_response_testsItem_httpResults_output,
+  digital_experience_monitoring_tests_response_testsItem_output,
+  digital_experience_monitoring_tests_response_testsItem_target_policiesItem_output,
+  digital_experience_monitoring_tests_response_testsItem_tracerouteResultsByColoItem_output,
+  digital_experience_monitoring_tests_response_testsItem_tracerouteResults_output,
+  digital_experience_monitoring_timing_aggregates_output,
+  digital_experience_monitoring_timing_aggregates_overTime_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.overview.tests`.
@@ -76,6 +96,34 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_tests_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_aggregate_stat": digital_experience_monitoring_aggregate_stat_output,
+        "digital-experience-monitoring_aggregate_time_period": digital_experience_monitoring_aggregate_time_period_output,
+        "digital-experience-monitoring_aggregate_time_slot": digital_experience_monitoring_aggregate_time_slot_output,
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_tests_response": digital_experience_monitoring_tests_response_output,
+        "digital-experience-monitoring_tests_response_overviewMetrics": digital_experience_monitoring_tests_response_overviewMetrics_output,
+        "digital-experience-monitoring_tests_response_testsItem": digital_experience_monitoring_tests_response_testsItem_output,
+        "digital-experience-monitoring_tests_response_testsItem_httpResults": digital_experience_monitoring_tests_response_testsItem_httpResults_output,
+        "digital-experience-monitoring_tests_response_testsItem_httpResultsByColoItem": digital_experience_monitoring_tests_response_testsItem_httpResultsByColoItem_output,
+        "digital-experience-monitoring_tests_response_testsItem_target_policiesItem": digital_experience_monitoring_tests_response_testsItem_target_policiesItem_output,
+        "digital-experience-monitoring_tests_response_testsItem_tracerouteResults": digital_experience_monitoring_tests_response_testsItem_tracerouteResults_output,
+        "digital-experience-monitoring_tests_response_testsItem_tracerouteResultsByColoItem": digital_experience_monitoring_tests_response_testsItem_tracerouteResultsByColoItem_output,
+        "digital-experience-monitoring_timing_aggregates": digital_experience_monitoring_timing_aggregates_output,
+        "digital-experience-monitoring_timing_aggregates_overTime": digital_experience_monitoring_timing_aggregates_overTime_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/tests/overview`,

@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  dls_bad_response_output,
+  dls_coded_message_output,
+  dls_none_output,
+} from "../../outputs.js";
+import {
+  dls_PrefixBindingPaginatedListResponse_result_info_output,
+  dls_PrefixBinding_output,
+  dls_good_response_output,
+} from "./outputs.js";
+import {
   dls_CreatePrefixBindingInput,
   dls_UpdatePrefixBindingInput,
 } from "./schemas.js";
@@ -43,6 +53,34 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/dls_PrefixBinding"
+        },
+        "400": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/dls_bad_response"
+        }
+      },
+      $defs: {
+        "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_bad_response": dls_bad_response_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_none": dls_none_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dls/regional_services/prefix_bindings`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -78,6 +116,31 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dls_good_response"
+        },
+        "401": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/dls_bad_response"
+        }
+      },
+      $defs: {
+        "dls_bad_response": dls_bad_response_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
+        "dls_none": dls_none_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dls/regional_services/prefix_bindings/${pathParam(args, "binding_id")}`,
     }),
@@ -119,6 +182,34 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dls_PrefixBinding"
+        },
+        "400": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/dls_bad_response"
+        }
+      },
+      $defs: {
+        "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_bad_response": dls_bad_response_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_none": dls_none_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dls/regional_services/prefix_bindings/${pathParam(args, "binding_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -154,6 +245,31 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dls_PrefixBinding"
+        },
+        "401": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/dls_bad_response"
+        }
+      },
+      $defs: {
+        "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_bad_response": dls_bad_response_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_none": dls_none_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dls/regional_services/prefix_bindings/${pathParam(args, "binding_id")}`,
     }),
@@ -191,6 +307,46 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dls_PrefixBinding"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/dls_PrefixBindingPaginatedListResponse_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/dls_bad_response"
+        }
+      },
+      $defs: {
+        "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_PrefixBindingPaginatedListResponse_result_info": dls_PrefixBindingPaginatedListResponse_result_info_output,
+        "dls_bad_response": dls_bad_response_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_none": dls_none_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dls/regional_services/prefix_bindings`,
       query: [

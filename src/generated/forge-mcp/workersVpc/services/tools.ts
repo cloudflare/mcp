@@ -3,6 +3,25 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  infra_api_response_common_failure_output,
+  infra_messages_output,
+} from "../../outputs.js";
+import {
+  infra_ApiTlsSettings_output,
+  infra_ConnectivityServiceArray_output,
+  infra_DualStackHost_output,
+  infra_HostnameHost_output,
+  infra_HttpServiceConfig_output,
+  infra_IPv4Host_output,
+  infra_IPv6Host_output,
+  infra_Network_output,
+  infra_ResolverNetwork_output,
+  infra_ServiceConfig_output,
+  infra_ServiceHost_output,
+  infra_ServiceType_output,
+  infra_TcpServiceConfig_output,
+} from "./outputs.js";
+import {
   infra_ApiTlsSettings,
   infra_DualStackHost,
   infra_HostnameHost,
@@ -64,6 +83,32 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/connectivity/directory/services",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/infra_ServiceConfig"
+        },
+        "4XX": {
+          "$ref": "#/$defs/infra_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
+        "infra_DualStackHost": infra_DualStackHost_output,
+        "infra_HostnameHost": infra_HostnameHost_output,
+        "infra_HttpServiceConfig": infra_HttpServiceConfig_output,
+        "infra_IPv4Host": infra_IPv4Host_output,
+        "infra_IPv6Host": infra_IPv6Host_output,
+        "infra_Network": infra_Network_output,
+        "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceConfig": infra_ServiceConfig_output,
+        "infra_ServiceHost": infra_ServiceHost_output,
+        "infra_ServiceType": infra_ServiceType_output,
+        "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_messages": infra_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/connectivity/directory/services`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -98,6 +143,18 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/connectivity/directory/services/{service_id}",
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "$ref": "#/$defs/infra_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_messages": infra_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/connectivity/directory/services/${pathParam(args, "service_id")}`,
     }),
@@ -131,6 +188,32 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/connectivity/directory/services/{service_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/infra_ServiceConfig"
+        },
+        "4XX": {
+          "$ref": "#/$defs/infra_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
+        "infra_DualStackHost": infra_DualStackHost_output,
+        "infra_HostnameHost": infra_HostnameHost_output,
+        "infra_HttpServiceConfig": infra_HttpServiceConfig_output,
+        "infra_IPv4Host": infra_IPv4Host_output,
+        "infra_IPv6Host": infra_IPv6Host_output,
+        "infra_Network": infra_Network_output,
+        "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceConfig": infra_ServiceConfig_output,
+        "infra_ServiceHost": infra_ServiceHost_output,
+        "infra_ServiceType": infra_ServiceType_output,
+        "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_messages": infra_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/connectivity/directory/services/${pathParam(args, "service_id")}`,
     }),
@@ -183,6 +266,61 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/connectivity/directory/services",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_ConnectivityServiceArray"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/infra_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
+        "infra_ConnectivityServiceArray": infra_ConnectivityServiceArray_output,
+        "infra_DualStackHost": infra_DualStackHost_output,
+        "infra_HostnameHost": infra_HostnameHost_output,
+        "infra_HttpServiceConfig": infra_HttpServiceConfig_output,
+        "infra_IPv4Host": infra_IPv4Host_output,
+        "infra_IPv6Host": infra_IPv6Host_output,
+        "infra_Network": infra_Network_output,
+        "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceConfig": infra_ServiceConfig_output,
+        "infra_ServiceHost": infra_ServiceHost_output,
+        "infra_ServiceType": infra_ServiceType_output,
+        "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_messages": infra_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/connectivity/directory/services`,
       query: [
@@ -239,6 +377,32 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/connectivity/directory/services/{service_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/infra_ServiceConfig"
+        },
+        "4XX": {
+          "$ref": "#/$defs/infra_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
+        "infra_DualStackHost": infra_DualStackHost_output,
+        "infra_HostnameHost": infra_HostnameHost_output,
+        "infra_HttpServiceConfig": infra_HttpServiceConfig_output,
+        "infra_IPv4Host": infra_IPv4Host_output,
+        "infra_IPv6Host": infra_IPv6Host_output,
+        "infra_Network": infra_Network_output,
+        "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceConfig": infra_ServiceConfig_output,
+        "infra_ServiceHost": infra_ServiceHost_output,
+        "infra_ServiceType": infra_ServiceType_output,
+        "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_messages": infra_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/connectivity/directory/services/${pathParam(args, "service_id")}`,
       body: { value: args["body"], mediaType: "application/json" },

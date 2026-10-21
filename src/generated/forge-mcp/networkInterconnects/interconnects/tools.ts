@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { nsc_FacilityInfo_output } from "../outputs.js";
+import {
+  nsc_ApiBandwidth_output,
+  nsc_CloudflareSite_output,
+  nsc_DefaultNameResponse_output,
+  nsc_InterconnectList_output,
+  nsc_Interconnect_GcpPartner_Body_output,
+  nsc_Interconnect_Physical_Body_output,
+  nsc_Interconnect_output,
+  nsc_StatusInfo_output,
+} from "./outputs.js";
 import {
   nsc_ApiBandwidth,
   nsc_InterconnectCreate,
@@ -54,6 +65,23 @@ export const tools: readonly Tool[] = [
         "Magic Transit Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_Interconnect"
+        },
+        "400": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_ApiBandwidth": nsc_ApiBandwidth_output,
+        "nsc_CloudflareSite": nsc_CloudflareSite_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_Interconnect": nsc_Interconnect_output,
+        "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body_output,
+        "nsc_Interconnect_Physical_Body": nsc_Interconnect_Physical_Body_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/interconnects`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -94,6 +122,14 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null,
+        "404": null,
+        "500": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/interconnects/${pathParam(args, "icon")}`,
@@ -136,6 +172,24 @@ export const tools: readonly Tool[] = [
         "Magic Transit Read",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_Interconnect"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_ApiBandwidth": nsc_ApiBandwidth_output,
+        "nsc_CloudflareSite": nsc_CloudflareSite_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_Interconnect": nsc_Interconnect_output,
+        "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body_output,
+        "nsc_Interconnect_Physical_Body": nsc_Interconnect_Physical_Body_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/interconnects/${pathParam(args, "icon")}`,
@@ -216,6 +270,24 @@ export const tools: readonly Tool[] = [
         "Magic Transit Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_InterconnectList"
+        },
+        "400": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_ApiBandwidth": nsc_ApiBandwidth_output,
+        "nsc_CloudflareSite": nsc_CloudflareSite_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_Interconnect": nsc_Interconnect_output,
+        "nsc_InterconnectList": nsc_InterconnectList_output,
+        "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body_output,
+        "nsc_Interconnect_Physical_Body": nsc_Interconnect_Physical_Body_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/interconnects`,
       query: [
@@ -275,6 +347,14 @@ export const tools: readonly Tool[] = [
         "Magic Transit Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null,
+        "404": null,
+        "500": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/interconnects/${pathParam(args, "icon")}/loa`,
       query: [
@@ -320,6 +400,19 @@ export const tools: readonly Tool[] = [
         "Magic Transit Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_DefaultNameResponse"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_DefaultNameResponse": nsc_DefaultNameResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/interconnects/${pathParam(args, "icon")}/loa/default`,
     }),
@@ -361,6 +454,19 @@ export const tools: readonly Tool[] = [
         "Magic Transit Read",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_StatusInfo"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_StatusInfo": nsc_StatusInfo_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/interconnects/${pathParam(args, "icon")}/status`,

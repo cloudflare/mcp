@@ -3,6 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../../outputs.js";
+import { tls_certificates_and_hostnames_hostnames_2_output } from "./outputs.js";
+import {
   tls_certificates_and_hostnames_hostname_association,
   tls_certificates_and_hostnames_hostnames_2,
 } from "./schemas.js";
@@ -51,6 +56,26 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "hostnames": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames-2"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_hostnames-2": tls_certificates_and_hostnames_hostnames_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/certificate_authorities/hostname_associations`,
@@ -102,6 +127,26 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "hostnames": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames-2"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_hostnames-2": tls_certificates_and_hostnames_hostnames_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/certificate_authorities/hostname_associations`,

@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  cloudforce_one_whois_api_response_common_failure_output,
+  cloudforce_one_whois_domain_name_output,
+  cloudforce_one_whois_messages_output,
+  cloudforce_one_whois_schemas_messages_output,
+  cloudforce_one_whois_schemas_single_response_output,
+  cloudforce_one_whois_whois_output,
+} from "./outputs.js";
 
 /**
  * The tools of `intel.whois`.
@@ -40,6 +48,31 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one-whois_whois"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cloudforce-one-whois_schemas-single_response"
+            },
+            {
+              "$ref": "#/$defs/cloudforce-one-whois_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "cloudforce-one-whois_api-response-common-failure": cloudforce_one_whois_api_response_common_failure_output,
+        "cloudforce-one-whois_domain_name": cloudforce_one_whois_domain_name_output,
+        "cloudforce-one-whois_messages": cloudforce_one_whois_messages_output,
+        "cloudforce-one-whois_schemas-messages": cloudforce_one_whois_schemas_messages_output,
+        "cloudforce-one-whois_schemas-single_response": cloudforce_one_whois_schemas_single_response_output,
+        "cloudforce-one-whois_whois": cloudforce_one_whois_whois_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/whois`,

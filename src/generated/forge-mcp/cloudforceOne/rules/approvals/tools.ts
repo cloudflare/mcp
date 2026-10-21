@@ -2,6 +2,27 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  cloudforce_one_ApprovalProposedChanges_output,
+  cloudforce_one_ErrorResponse_output,
+  cloudforce_one_PendingRuleChange_output,
+  cloudforce_one_ResubmitApprovalResponse_output,
+  cloudforce_one_RuleMetaEntry_output,
+  cloudforce_one_RuleMetaEntry_value_output,
+  cloudforce_one_RulePreview_output,
+  cloudforce_one_SuccessResponse_output,
+} from "../outputs.js";
+import {
+  cloudforce_one_CompilerWarning_footersItem_output,
+  cloudforce_one_CompilerWarning_labelsItem_output,
+  cloudforce_one_CompilerWarning_labelsItem_span_output,
+  cloudforce_one_CompilerWarning_output,
+  cloudforce_one_RuleApprovalDetailResponse_approval_current_rule_output,
+  cloudforce_one_RuleApprovalDetailResponse_approval_output,
+  cloudforce_one_RuleApprovalDetailResponse_output,
+  cloudforce_one_RuleApprovalsListResponse_approvalsItem_output,
+  cloudforce_one_RuleApprovalsListResponse_output,
+} from "./outputs.js";
 import { cloudforce_one_ResubmitApprovalRequest } from "./schemas.js";
 
 /**
@@ -38,6 +59,26 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/cloudforce-one/rules/approvals/{id}/cancel",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_SuccessResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_SuccessResponse": cloudforce_one_SuccessResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/approvals/${pathParam(args, "id")}/cancel`,
     }),
@@ -72,6 +113,37 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules/approvals/{id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_RuleApprovalDetailResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ApprovalProposedChanges": cloudforce_one_ApprovalProposedChanges_output,
+        "cloudforce-one_CompilerWarning": cloudforce_one_CompilerWarning_output,
+        "cloudforce-one_CompilerWarning_footersItem": cloudforce_one_CompilerWarning_footersItem_output,
+        "cloudforce-one_CompilerWarning_labelsItem": cloudforce_one_CompilerWarning_labelsItem_output,
+        "cloudforce-one_CompilerWarning_labelsItem_span": cloudforce_one_CompilerWarning_labelsItem_span_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleApprovalDetailResponse": cloudforce_one_RuleApprovalDetailResponse_output,
+        "cloudforce-one_RuleApprovalDetailResponse_approval": cloudforce_one_RuleApprovalDetailResponse_approval_output,
+        "cloudforce-one_RuleApprovalDetailResponse_approval_current_rule": cloudforce_one_RuleApprovalDetailResponse_approval_current_rule_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/approvals/${pathParam(args, "id")}`,
     }),
@@ -178,6 +250,25 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules/approvals",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_RuleApprovalsListResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ApprovalProposedChanges": cloudforce_one_ApprovalProposedChanges_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_RuleApprovalsListResponse": cloudforce_one_RuleApprovalsListResponse_output,
+        "cloudforce-one_RuleApprovalsListResponse_approvalsItem": cloudforce_one_RuleApprovalsListResponse_approvalsItem_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/approvals`,
       query: [
@@ -227,6 +318,29 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/cloudforce-one/rules/approvals/{id}/resubmit",
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/cloudforce-one_ResubmitApprovalResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_ResubmitApprovalResponse": cloudforce_one_ResubmitApprovalResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/approvals/${pathParam(args, "id")}/resubmit`,
       body: { value: args["body"], mediaType: "application/json" },

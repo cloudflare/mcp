@@ -3,10 +3,23 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_messages_output,
+  api_shield_timestamp_2_output,
+  api_shield_timestamp_output,
+} from "../../../outputs.js";
+import {
   api_shield_identifier,
   api_shield_identifier_2,
 } from "../../../schemas.js";
+import {
+  api_shield_label_description_output,
+  api_shield_label_metadata_output,
+  api_shield_label_name_output,
+} from "../../outputs.js";
 import { api_shield_label_name } from "../../schemas.js";
+import { api_shield_label_mapped_resources_output } from "../outputs.js";
+import { api_shield_full_managed_label_output } from "./outputs.js";
 
 /**
  * The tools of `web_assets.labels.managed`.
@@ -58,6 +71,27 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/api-shield_full_managed_label"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_full_managed_label": api_shield_full_managed_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_mapped_resources": api_shield_label_mapped_resources_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/labels/managed/${pathParam(args, "name")}`,

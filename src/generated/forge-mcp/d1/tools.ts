@@ -3,6 +3,27 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  d1_api_response_common_failure_output,
+  d1_created_at_output,
+  d1_database_details_response_output,
+  d1_database_identifier_output,
+  d1_database_name_output,
+  d1_database_response_output,
+  d1_database_version_output,
+  d1_file_size_output,
+  d1_jurisdiction_nullable_output,
+  d1_messages_output,
+  d1_query_meta_output,
+  d1_query_meta_timings_output,
+  d1_query_result_response_output,
+  d1_raw_result_response_output,
+  d1_raw_result_response_results_output,
+  d1_read_replication_details_for_response_output,
+  d1_served_by_colo_output,
+  d1_served_by_region_output,
+  d1_table_count_output,
+} from "./outputs.js";
+import {
   d1_batch_query,
   d1_database_name,
   d1_database_update_partial_request_body,
@@ -81,6 +102,29 @@ export const tools: readonly Tool[] = [
       ],
       "x-forge-epilogue": "This command acts on remote D1 Databases."
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/d1_database-details-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -121,6 +165,20 @@ export const tools: readonly Tool[] = [
         "D1 Write"
       ],
       "x-forge-epilogue": "This command acts on remote D1 Databases."
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "null"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_messages": d1_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}`,
@@ -168,6 +226,29 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "D1 Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/d1_database-details-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}`,
@@ -228,6 +309,29 @@ export const tools: readonly Tool[] = [
       ],
       "x-forge-epilogue": "This command acts on remote D1 Databases."
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/d1_database-details-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}`,
       query: [
@@ -280,6 +384,54 @@ export const tools: readonly Tool[] = [
         "D1 Write"
       ],
       "x-forge-epilogue": "This command acts on remote D1 Databases."
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/d1_database-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_created-at": d1_created_at_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-response": d1_database_response_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database`,
@@ -337,6 +489,39 @@ export const tools: readonly Tool[] = [
       ],
       "x-forge-epilogue": "This command acts on remote D1 Databases."
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/d1_query-result-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_messages": d1_messages_output,
+        "d1_query-meta": d1_query_meta_output,
+        "d1_query-meta_timings": d1_query_meta_timings_output,
+        "d1_query-result-response": d1_query_result_response_output,
+        "d1_served-by-colo": d1_served_by_colo_output,
+        "d1_served-by-region": d1_served_by_region_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}/query`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -389,6 +574,40 @@ export const tools: readonly Tool[] = [
       ],
       "x-forge-epilogue": "This command acts on remote D1 Databases."
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/d1_raw-result-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_messages": d1_messages_output,
+        "d1_query-meta": d1_query_meta_output,
+        "d1_query-meta_timings": d1_query_meta_timings_output,
+        "d1_raw-result-response": d1_raw_result_response_output,
+        "d1_raw-result-response_results": d1_raw_result_response_results_output,
+        "d1_served-by-colo": d1_served_by_colo_output,
+        "d1_served-by-region": d1_served_by_region_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}/raw`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -439,6 +658,29 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-forge-epilogue": "This command acts on remote D1 Databases."
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/d1_database-details-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}/undelete`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -487,6 +729,29 @@ export const tools: readonly Tool[] = [
         "D1 Write"
       ],
       "x-forge-epilogue": "This command acts on remote D1 Databases."
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/d1_database-details-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/d1_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "d1_api-response-common-failure": d1_api_response_common_failure_output,
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/d1/database/${pathParam(args, "database_id")}`,

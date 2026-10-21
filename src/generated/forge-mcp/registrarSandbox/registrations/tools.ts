@@ -3,6 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  registrar_api_sandbox_api_response_common_failure_output,
+  registrar_api_sandbox_messages_output,
+} from "../outputs.js";
+import {
+  registrar_api_sandbox_cursor_result_info_output,
+  registrar_api_sandbox_domain_check_result_output,
+  registrar_api_sandbox_domain_name_output,
+  registrar_api_sandbox_domain_search_result_output,
+  registrar_api_sandbox_pricing_registration_output,
+  registrar_api_sandbox_registration_output,
+  registrar_api_sandbox_workflow_error_output,
+  registrar_api_sandbox_workflow_links_output,
+  registrar_api_sandbox_workflow_status_output,
+} from "./outputs.js";
+import {
   registrar_api_sandbox_domain_check_request,
   registrar_api_sandbox_domain_name,
   registrar_api_sandbox_registration_contact,
@@ -57,6 +72,33 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "domains": {
+              "items": {
+                "$ref": "#/$defs/registrar-api-sandbox_domain_check_result"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "domains"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_domain_check_result": registrar_api_sandbox_domain_check_result_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+        "registrar-api-sandbox_pricing_registration": registrar_api_sandbox_pricing_registration_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/domain-check`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -103,6 +145,26 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/registrar-sandbox/registrations",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/registrar-api-sandbox_workflow_status"
+        },
+        "202": {
+          "$ref": "#/$defs/registrar-api-sandbox_workflow_status"
+        },
+        "4XX": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+        "registrar-api-sandbox_workflow_error": registrar_api_sandbox_workflow_error_output,
+        "registrar-api-sandbox_workflow_links": registrar_api_sandbox_workflow_links_output,
+        "registrar-api-sandbox_workflow_status": registrar_api_sandbox_workflow_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/registrations`,
       headers: [
@@ -141,6 +203,22 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/registrar-sandbox/registrations/{domain_name}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/registrar-api-sandbox_registration"
+        },
+        "4XX": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_domain_name": registrar_api_sandbox_domain_name_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+        "registrar-api-sandbox_registration": registrar_api_sandbox_registration_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/registrations/${pathParam(args, "domain_name")}`,
     }),
@@ -175,6 +253,23 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/registrar-sandbox/registrations/{domain_name}/registration-status",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/registrar-api-sandbox_workflow_status"
+        },
+        "4XX": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+        "registrar-api-sandbox_workflow_error": registrar_api_sandbox_workflow_error_output,
+        "registrar-api-sandbox_workflow_links": registrar_api_sandbox_workflow_links_output,
+        "registrar-api-sandbox_workflow_status": registrar_api_sandbox_workflow_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/registrations/${pathParam(args, "domain_name")}/registration-status`,
     }),
@@ -209,6 +304,23 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/registrar-sandbox/registrations/{domain_name}/update-status",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/registrar-api-sandbox_workflow_status"
+        },
+        "4XX": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+        "registrar-api-sandbox_workflow_error": registrar_api_sandbox_workflow_error_output,
+        "registrar-api-sandbox_workflow_links": registrar_api_sandbox_workflow_links_output,
+        "registrar-api-sandbox_workflow_status": registrar_api_sandbox_workflow_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/registrations/${pathParam(args, "domain_name")}/update-status`,
     }),
@@ -266,6 +378,37 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/registrar-sandbox/registrations",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/registrar-api-sandbox_registration"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/registrar-api-sandbox_cursor_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_cursor_result_info": registrar_api_sandbox_cursor_result_info_output,
+        "registrar-api-sandbox_domain_name": registrar_api_sandbox_domain_name_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+        "registrar-api-sandbox_registration": registrar_api_sandbox_registration_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/registrations`,
       query: [
@@ -319,6 +462,33 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/registrar-sandbox/domain-search",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "domains": {
+              "items": {
+                "$ref": "#/$defs/registrar-api-sandbox_domain_search_result"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "domains"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_domain_search_result": registrar_api_sandbox_domain_search_result_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+        "registrar-api-sandbox_pricing_registration": registrar_api_sandbox_pricing_registration_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/domain-search`,
       query: [
@@ -372,6 +542,26 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/registrar-sandbox/registrations/{domain_name}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/registrar-api-sandbox_workflow_status"
+        },
+        "202": {
+          "$ref": "#/$defs/registrar-api-sandbox_workflow_status"
+        },
+        "4XX": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+        "registrar-api-sandbox_workflow_error": registrar_api_sandbox_workflow_error_output,
+        "registrar-api-sandbox_workflow_links": registrar_api_sandbox_workflow_links_output,
+        "registrar-api-sandbox_workflow_status": registrar_api_sandbox_workflow_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/registrations/${pathParam(args, "domain_name")}`,
       headers: [

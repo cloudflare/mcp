@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { reports_Error_output } from "../outputs.js";
+import {
+  reports_AccountIndustryErrorResponse_output,
+  reports_AccountIndustryPatchResponse_industry_output,
+  reports_AccountIndustryPatchResponse_output,
+  reports_AccountIndustrySingleResponse_industry_output,
+  reports_AccountIndustrySingleResponse_output,
+} from "./outputs.js";
 import {
   reports_PatchAccountIndustryBody,
   reports_PatchAccountIndustryBody_industry,
@@ -40,6 +48,17 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "#reports:read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/reports_AccountIndustrySingleResponse"
+        }
+      },
+      $defs: {
+        "reports_AccountIndustrySingleResponse": reports_AccountIndustrySingleResponse_output,
+        "reports_AccountIndustrySingleResponse_industry": reports_AccountIndustrySingleResponse_industry_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/reporting/industry`,
@@ -81,6 +100,28 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "#reports:edit"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/reports_AccountIndustryPatchResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/reports_AccountIndustryErrorResponse"
+        },
+        "423": {
+          "$ref": "#/$defs/reports_AccountIndustryErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/reports_AccountIndustryErrorResponse"
+        }
+      },
+      $defs: {
+        "reports_AccountIndustryErrorResponse": reports_AccountIndustryErrorResponse_output,
+        "reports_AccountIndustryPatchResponse": reports_AccountIndustryPatchResponse_output,
+        "reports_AccountIndustryPatchResponse_industry": reports_AccountIndustryPatchResponse_industry_output,
+        "reports_Error": reports_Error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/reporting/industry`,

@@ -59,6 +59,145 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "durableObjectId": {
+              "type": "string"
+            },
+            "indicatorType": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "durableObjectId",
+            "indicatorType",
+            "message"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "content": {
+              "properties": {
+                "application/json": {
+                  "properties": {
+                    "schema": {
+                      "properties": {
+                        "errors": {
+                          "items": {
+                            "properties": {
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "message"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "result": {
+                          "type": "object"
+                        },
+                        "success": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "errors",
+                        "result",
+                        "success"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "schema"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "application/json"
+              ],
+              "type": "object"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "content",
+            "description"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "content": {
+              "properties": {
+                "application/json": {
+                  "properties": {
+                    "schema": {
+                      "properties": {
+                        "errors": {
+                          "items": {
+                            "properties": {
+                              "message": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "message"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "result": {
+                          "type": "object"
+                        },
+                        "success": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "errors",
+                        "result",
+                        "success"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "schema"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "application/json"
+              ],
+              "type": "object"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "content",
+            "description"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/${pathParam(args, "dataset_id")}/indicatorTypes/create`,
       body: { value: args["body"], mediaType: "application/json" },

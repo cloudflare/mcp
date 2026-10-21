@@ -3,6 +3,50 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  builds_ApiError_output,
+  builds_BuildOutcome_output,
+  builds_BuildResponse_deploy_hook_output,
+  builds_BuildResponse_output,
+  builds_BuildResponse_pull_request_output,
+  builds_BuildResponse_trigger_output,
+  builds_BuildStatus_output,
+  builds_BuildTriggerMetadataResponse_output,
+  builds_BuildTriggerSource_output,
+  builds_EnvironmentVariablesResponse_output,
+  builds_ErrorResponse_output,
+  builds_PaginationInfo_output,
+  builds_SCMProviderType_output,
+  builds_UpsertRepoConnectionResponse_output,
+  builds_WorkerBuildSettings_output,
+  builds_branch_excludes_output,
+  builds_branch_includes_output,
+  builds_branch_output,
+  builds_build_caching_enabled_output,
+  builds_build_command_output,
+  builds_build_token_name_output,
+  builds_build_token_uuid_output,
+  builds_build_uuid_output,
+  builds_commit_hash_output,
+  builds_created_on_output,
+  builds_deleted_on_output,
+  builds_deploy_command_output,
+  builds_deploy_hook_name_output,
+  builds_external_script_id_output,
+  builds_is_secret_output,
+  builds_modified_on_output,
+  builds_path_excludes_output,
+  builds_path_includes_output,
+  builds_provider_account_id_output,
+  builds_provider_account_name_output,
+  builds_repo_connection_uuid_output,
+  builds_repo_id_output,
+  builds_repo_name_output,
+  builds_root_directory_output,
+  builds_stopped_on_output,
+  builds_trigger_name_output,
+  builds_trigger_uuid_output,
+} from "../../../outputs.js";
+import {
   builds_BuildSeedRepoInput,
   builds_BuildSeedRepoInputFile,
   builds_CreateBuildRequest,
@@ -20,6 +64,12 @@ import {
   builds_path_includes,
   builds_root_directory,
 } from "../../../schemas.js";
+import {
+  builds_PreviewResponse_output,
+  builds_PreviewSummary_output,
+  builds_preview_auto_build_output,
+  builds_preview_auto_delete_output,
+} from "./outputs.js";
 import {
   builds_UpdatePreviewRequest,
   builds_preview_auto_build,
@@ -82,6 +132,62 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers CI Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_BuildResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_BuildOutcome": builds_BuildOutcome_output,
+        "builds_BuildResponse": builds_BuildResponse_output,
+        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
+        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
+        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
+        "builds_BuildStatus": builds_BuildStatus_output,
+        "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
+        "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_branch_excludes": builds_branch_excludes_output,
+        "builds_branch_includes": builds_branch_includes_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_build_uuid": builds_build_uuid_output,
+        "builds_commit_hash": builds_commit_hash_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deleted_on": builds_deleted_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
+        "builds_root_directory": builds_root_directory_output,
+        "builds_stopped_on": builds_stopped_on_output,
+        "builds_trigger_name": builds_trigger_name_output,
+        "builds_trigger_uuid": builds_trigger_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_tag")}/previews/${pathParam(args, "preview_id")}/builds`,
@@ -148,6 +254,45 @@ export const tools: readonly Tool[] = [
         "Workers CI Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_PreviewResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PreviewResponse": builds_PreviewResponse_output,
+        "builds_WorkerBuildSettings": builds_WorkerBuildSettings_output,
+        "builds_branch": builds_branch_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_is_secret": builds_is_secret_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_preview_auto_build": builds_preview_auto_build_output,
+        "builds_preview_auto_delete": builds_preview_auto_delete_output,
+        "builds_root_directory": builds_root_directory_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_tag")}/previews/${pathParam(args, "preview_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -197,6 +342,39 @@ export const tools: readonly Tool[] = [
         "Workers CI Write",
         "Workers CI Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_PreviewResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PreviewResponse": builds_PreviewResponse_output,
+        "builds_WorkerBuildSettings": builds_WorkerBuildSettings_output,
+        "builds_branch": builds_branch_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_is_secret": builds_is_secret_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_preview_auto_build": builds_preview_auto_build_output,
+        "builds_preview_auto_delete": builds_preview_auto_delete_output,
+        "builds_root_directory": builds_root_directory_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_tag")}/previews/${pathParam(args, "preview_id")}`,
@@ -251,6 +429,40 @@ export const tools: readonly Tool[] = [
         "Workers CI Write",
         "Workers CI Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_PreviewSummary"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/builds_PaginationInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_PreviewSummary": builds_PreviewSummary_output,
+        "builds_branch": builds_branch_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_preview_auto_build": builds_preview_auto_build_output,
+        "builds_preview_auto_delete": builds_preview_auto_delete_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_tag")}/previews`,
@@ -314,6 +526,74 @@ export const tools: readonly Tool[] = [
         "Workers CI Write",
         "Workers CI Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_BuildResponse"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/builds_PaginationInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_BuildOutcome": builds_BuildOutcome_output,
+        "builds_BuildResponse": builds_BuildResponse_output,
+        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
+        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
+        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
+        "builds_BuildStatus": builds_BuildStatus_output,
+        "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
+        "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_branch_excludes": builds_branch_excludes_output,
+        "builds_branch_includes": builds_branch_includes_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_build_uuid": builds_build_uuid_output,
+        "builds_commit_hash": builds_commit_hash_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deleted_on": builds_deleted_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
+        "builds_root_directory": builds_root_directory_output,
+        "builds_stopped_on": builds_stopped_on_output,
+        "builds_trigger_name": builds_trigger_name_output,
+        "builds_trigger_uuid": builds_trigger_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_tag")}/previews/${pathParam(args, "preview_id")}/builds`,

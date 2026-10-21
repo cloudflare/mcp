@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import { waf_product_api_bundle_messages_output } from "../outputs.js";
+import {
+  waf_product_api_bundle_api_response_common_failure_2_output,
+  waf_product_api_bundle_status_2_output,
+} from "./outputs.js";
 
 /**
  * The tools of `content_scan`.
@@ -39,6 +44,21 @@ export const tools: readonly Tool[] = [
         "Account WAF Write",
         "Account WAF Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_status-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/content-upload-scan/settings`,
@@ -92,6 +112,21 @@ export const tools: readonly Tool[] = [
         "Zone WAF Write",
         "Account WAF Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_status-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/content-upload-scan/settings`,

@@ -3,6 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  cc_AccountID_output,
+  cc_Messages_output,
+  cc_V4BaseErrorResponse_output,
+} from "../../outputs.js";
+import { cc_ContainersAccountRegistryToken_output } from "./outputs.js";
+import {
   cc_ImageRegistryCredentialsConfiguration,
   cc_ImageRegistryPermissions,
 } from "./schemas.js";
@@ -49,6 +55,34 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/containers/registries/{domain}/credentials",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/cc_ContainersAccountRegistryToken"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_AccountID": cc_AccountID_output,
+        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/registries/${pathParam(args, "domain")}/credentials`,
       body: { value: args["body"], mediaType: "application/json" },

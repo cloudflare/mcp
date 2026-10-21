@@ -3,6 +3,21 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  secondary_dns_api_response_common_failure_output,
+  secondary_dns_id_response_3_output,
+  secondary_dns_id_response_3_result_output,
+  secondary_dns_identifier_3_output,
+  secondary_dns_messages_output,
+} from "../outputs.js";
+import {
+  secondary_dns_acl_output,
+  secondary_dns_ip_range_output,
+  secondary_dns_name_4_output,
+  secondary_dns_response_collection_3_output,
+  secondary_dns_response_collection_3_result_info_output,
+  secondary_dns_single_response_3_output,
+} from "./outputs.js";
+import {
   secondary_dns_acl,
   secondary_dns_ip_range,
   secondary_dns_name_4,
@@ -69,6 +84,32 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secondary-dns_acl"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_single_response-3"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_acl": secondary_dns_acl_output,
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip_range": secondary_dns_ip_range_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_name-4": secondary_dns_name_4_output,
+        "secondary-dns_single_response-3": secondary_dns_single_response_3_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/secondary_dns/acls`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -112,6 +153,35 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/secondary-dns_identifier-3"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_id_response-3"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_id_response-3": secondary_dns_id_response_3_output,
+        "secondary-dns_id_response-3_result": secondary_dns_id_response_3_result_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/secondary_dns/acls/${pathParam(args, "acl_id")}`,
@@ -157,6 +227,32 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secondary-dns_acl"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_single_response-3"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_acl": secondary_dns_acl_output,
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip_range": secondary_dns_ip_range_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_name-4": secondary_dns_name_4_output,
+        "secondary-dns_single_response-3": secondary_dns_single_response_3_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/secondary_dns/acls/${pathParam(args, "acl_id")}`,
     }),
@@ -196,6 +292,64 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/secondary-dns_acl"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_response_collection-3"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_acl": secondary_dns_acl_output,
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip_range": secondary_dns_ip_range_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_name-4": secondary_dns_name_4_output,
+        "secondary-dns_response_collection-3": secondary_dns_response_collection_3_output,
+        "secondary-dns_response_collection-3_result_info": secondary_dns_response_collection_3_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/secondary_dns/acls`,
@@ -248,6 +402,32 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secondary-dns_acl"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_single_response-3"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_acl": secondary_dns_acl_output,
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip_range": secondary_dns_ip_range_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_name-4": secondary_dns_name_4_output,
+        "secondary-dns_single_response-3": secondary_dns_single_response_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/secondary_dns/acls/${pathParam(args, "acl_id")}`,

@@ -2,6 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  r2_data_catalog_api_response_common_failure_errorsItem_output,
+  r2_data_catalog_api_response_common_failure_output,
+  r2_data_catalog_maintenance_run_operation_output,
+  r2_data_catalog_maintenance_run_record_output,
+  r2_data_catalog_maintenance_runs_response_output,
+} from "../../../../outputs.js";
 
 /**
  * The tools of `basin_catalog.namespaces.tables.maintenance_runs`.
@@ -51,6 +58,32 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/basin-catalog/{bucket_name}/namespaces/{namespace}/tables/{table_name}/maintenance-runs",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2-data-catalog_maintenance-runs-response"
+        },
+        "400": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "401": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "403": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
+        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_maintenance-run-operation": r2_data_catalog_maintenance_run_operation_output,
+        "r2-data-catalog_maintenance-run-record": r2_data_catalog_maintenance_run_record_output,
+        "r2-data-catalog_maintenance-runs-response": r2_data_catalog_maintenance_runs_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/namespaces/${pathParam(args, "namespace")}/tables/${pathParam(args, "table_name")}/maintenance-runs`,
       query: [

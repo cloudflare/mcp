@@ -57,6 +57,13 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "404": null,
+        "422": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/quota`,
     }),

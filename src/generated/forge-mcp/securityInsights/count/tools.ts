@@ -3,6 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  security_center_api_response_common_failure_output,
+  security_center_messages_output,
+} from "../../outputs.js";
+import {
   security_center_dismissed,
   security_center_issueClass,
   security_center_issueClasses,
@@ -103,6 +107,42 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/class",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/security-center/insights/class`,
       query: [
@@ -162,6 +202,28 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/partner-count",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/security-center/insights/partner-count`,
       query: [
@@ -252,6 +314,42 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/severity",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/security-center/insights/severity`,
       query: [
@@ -353,6 +451,42 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/type",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/security-center/insights/type`,
       query: [

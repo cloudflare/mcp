@@ -3,10 +3,33 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  iam_access_output,
+  iam_api_response_common_failure_output,
+  iam_common_components_schemas_identifier_output,
+  iam_messages_2_output,
+  iam_permission_group_meta_output,
+  iam_permission_group_output,
+  iam_permission_groups_output,
+  iam_policy_identifier_output,
+  iam_resource_group_meta_output,
+  iam_resource_group_output,
+  iam_resource_groups_output,
+  iam_result_info_output,
+  iam_scope_key_output,
+  iam_scope_object_key_output,
+  iam_scope_object_output,
+  iam_scope_output,
+} from "../../outputs.js";
+import {
   iam_access,
   iam_common_components_schemas_identifier,
 } from "../../schemas.js";
 import { iam_resource_group_identifier } from "../schemas.js";
+import {
+  iam_user_group_identifier_output,
+  iam_user_group_output,
+  iam_user_groups_output,
+} from "./outputs.js";
 import {
   iam_create_user_group_body,
   iam_permission_group_identifier,
@@ -82,6 +105,35 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_user_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_user_group": iam_user_group_output,
+        "iam_user_group_identifier": iam_user_group_identifier_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -139,6 +191,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups/${pathParam(args, "user_group_id")}`,
     }),
@@ -195,6 +277,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_user_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_user_group": iam_user_group_output,
+        "iam_user_group_identifier": iam_user_group_identifier_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups/${pathParam(args, "user_group_id")}`,
@@ -283,6 +394,48 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/iam_user_groups"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_user_group": iam_user_group_output,
+        "iam_user_group_identifier": iam_user_group_identifier_output,
+        "iam_user_groups": iam_user_groups_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups`,
       query: [
@@ -360,6 +513,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_user_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_user_group": iam_user_group_output,
+        "iam_user_group_identifier": iam_user_group_identifier_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups/${pathParam(args, "user_group_id")}`,

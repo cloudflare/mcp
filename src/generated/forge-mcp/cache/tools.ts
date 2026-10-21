@@ -3,6 +3,13 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  cache_purge_api_response_common_failure_output,
+  cache_purge_api_response_single_id_output,
+  cache_purge_api_response_single_id_result_output,
+  cache_purge_identifier_output,
+  cache_purge_messages_output,
+} from "./outputs.js";
+import {
   cache_purge_Everything,
   cache_purge_FlexPurgeByHostnames,
   cache_purge_FlexPurgeByPrefixes,
@@ -73,6 +80,30 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/zones/{zone_id}/invalidate_cache",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-purge_api-response-single-id"
+            },
+            {
+              "$ref": "#/$defs/cache-purge_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
+        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
+        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_identifier": cache_purge_identifier_output,
+        "cache-purge_messages": cache_purge_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/invalidate_cache`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -144,6 +175,30 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zone Versioning Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-purge_api-response-single-id"
+            },
+            {
+              "$ref": "#/$defs/cache-purge_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
+        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
+        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_identifier": cache_purge_identifier_output,
+        "cache-purge_messages": cache_purge_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/environments/${pathParam(args, "environment_id")}/invalidate_cache`,
@@ -221,6 +276,30 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-purge_api-response-single-id"
+            },
+            {
+              "$ref": "#/$defs/cache-purge_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
+        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
+        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_identifier": cache_purge_identifier_output,
+        "cache-purge_messages": cache_purge_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/purge_cache`,
@@ -303,6 +382,30 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-purge_api-response-single-id"
+            },
+            {
+              "$ref": "#/$defs/cache-purge_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
+        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
+        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_identifier": cache_purge_identifier_output,
+        "cache-purge_messages": cache_purge_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/environments/${pathParam(args, "environment_id")}/purge_cache`,

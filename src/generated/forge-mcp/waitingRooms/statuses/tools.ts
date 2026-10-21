@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  waitingroom_api_response_common_failure_output,
+  waitingroom_messages_output,
+} from "../outputs.js";
+import {
+  waitingroom_estimated_queued_users_output,
+  waitingroom_estimated_total_active_users_output,
+  waitingroom_max_estimated_time_minutes_output,
+  waitingroom_status_event_id_output,
+  waitingroom_status_output,
+  waitingroom_status_response_output,
+  waitingroom_status_response_result_output,
+} from "./outputs.js";
 
 /**
  * The tools of `waiting_rooms.statuses`.
@@ -47,6 +60,51 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "estimated_queued_users": {
+              "$ref": "#/$defs/waitingroom_estimated_queued_users"
+            },
+            "estimated_total_active_users": {
+              "$ref": "#/$defs/waitingroom_estimated_total_active_users"
+            },
+            "event_id": {
+              "$ref": "#/$defs/waitingroom_status_event_id"
+            },
+            "max_estimated_time_minutes": {
+              "$ref": "#/$defs/waitingroom_max_estimated_time_minutes"
+            },
+            "status": {
+              "$ref": "#/$defs/waitingroom_status"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waitingroom_status_response"
+            },
+            {
+              "$ref": "#/$defs/waitingroom_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_estimated_queued_users": waitingroom_estimated_queued_users_output,
+        "waitingroom_estimated_total_active_users": waitingroom_estimated_total_active_users_output,
+        "waitingroom_max_estimated_time_minutes": waitingroom_max_estimated_time_minutes_output,
+        "waitingroom_messages": waitingroom_messages_output,
+        "waitingroom_status": waitingroom_status_output,
+        "waitingroom_status_event_id": waitingroom_status_event_id_output,
+        "waitingroom_status_response": waitingroom_status_response_output,
+        "waitingroom_status_response_result": waitingroom_status_response_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/waiting_rooms/${pathParam(args, "waiting_room_id")}/status`,

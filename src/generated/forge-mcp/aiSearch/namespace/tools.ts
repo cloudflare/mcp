@@ -173,6 +173,242 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "created_at": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "description": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "public_endpoint_id": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "public_endpoint_params": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "authorized_hosts": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "chat_completions_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "custom_domains": {
+                      "oneOf": [
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "default_domain_enabled": {
+                      "type": "boolean"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "instances_allowed": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 10,
+                      "type": "array"
+                    },
+                    "mcp": {
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "rate_limit": {
+                      "properties": {
+                        "period_ms": {
+                          "type": "integer"
+                        },
+                        "requests": {
+                          "type": "integer"
+                        },
+                        "technique": {
+                          "enum": [
+                            "fixed",
+                            "sliding"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "search_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "created_at",
+            "name"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "409": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -229,6 +465,112 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "409": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces/${pathParam(args, "namespace")}`,
     }),
@@ -283,6 +625,176 @@ export const tools: readonly Tool[] = [
           "description": "Namespace to retrieve."
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "description": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "public_endpoint_id": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "public_endpoint_params": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "authorized_hosts": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "chat_completions_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "custom_domains": {
+                      "oneOf": [
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "default_domain_enabled": {
+                      "type": "boolean"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "instances_allowed": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 10,
+                      "type": "array"
+                    },
+                    "mcp": {
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "rate_limit": {
+                      "properties": {
+                        "period_ms": {
+                          "type": "integer"
+                        },
+                        "requests": {
+                          "type": "integer"
+                        },
+                        "technique": {
+                          "enum": [
+                            "fixed",
+                            "sliding"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "search_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "created_at",
+            "name"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces/${pathParam(args, "namespace")}`,
@@ -343,6 +855,217 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "created_at": {
+                    "oneOf": [
+                      {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "description": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "public_endpoint_id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "public_endpoint_params": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "authorized_hosts": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "chat_completions_endpoint": {
+                            "properties": {
+                              "disabled": {
+                                "type": "boolean"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "custom_domains": {
+                            "oneOf": [
+                              {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "maxItems": 1,
+                                "type": "array"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "default_domain_enabled": {
+                            "type": "boolean"
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "instances_allowed": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 10,
+                            "type": "array"
+                          },
+                          "mcp": {
+                            "properties": {
+                              "description": {
+                                "type": "string"
+                              },
+                              "disabled": {
+                                "type": "boolean"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "rate_limit": {
+                            "properties": {
+                              "period_ms": {
+                                "type": "integer"
+                              },
+                              "requests": {
+                                "type": "integer"
+                              },
+                              "technique": {
+                                "enum": [
+                                  "fixed",
+                                  "sliding"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "search_endpoint": {
+                            "properties": {
+                              "disabled": {
+                                "type": "boolean"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "created_at",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces`,
@@ -522,6 +1245,242 @@ export const tools: readonly Tool[] = [
           "description": "Namespace to update."
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "description": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "public_endpoint_id": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "public_endpoint_params": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "authorized_hosts": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "chat_completions_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "custom_domains": {
+                      "oneOf": [
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "default_domain_enabled": {
+                      "type": "boolean"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "instances_allowed": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 10,
+                      "type": "array"
+                    },
+                    "mcp": {
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "rate_limit": {
+                      "properties": {
+                        "period_ms": {
+                          "type": "integer"
+                        },
+                        "requests": {
+                          "type": "integer"
+                        },
+                        "technique": {
+                          "enum": [
+                            "fixed",
+                            "sliding"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "search_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "created_at",
+            "name"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "409": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces/${pathParam(args, "namespace")}`,

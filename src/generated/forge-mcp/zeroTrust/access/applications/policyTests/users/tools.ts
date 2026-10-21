@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+  access_uuid_output,
+} from "../../../../outputs.js";
+import {
+  access_email_2_output,
+  access_name_10_output,
+} from "../../../outputs.js";
+import {
+  access_policy_users_output,
+  access_user_result_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.applications.policy_tests.users`.
@@ -60,6 +73,39 @@ export const tools: readonly Tool[] = [
         "Access: Policy Test Write",
         "Access: Policy Test Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_policy_users"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_email-2": access_email_2_output,
+        "access_messages": access_messages_output,
+        "access_name-10": access_name_10_output,
+        "access_policy_users": access_policy_users_output,
+        "access_user_result": access_user_result_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/policy-tests/${pathParam(args, "policy_test_id")}/users`,

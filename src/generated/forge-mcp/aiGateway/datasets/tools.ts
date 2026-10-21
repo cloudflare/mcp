@@ -129,6 +129,137 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "filters": {
+              "items": {
+                "properties": {
+                  "key": {
+                    "enum": [
+                      "created_at",
+                      "request_content_type",
+                      "response_content_type",
+                      "success",
+                      "cached",
+                      "provider",
+                      "model",
+                      "cost",
+                      "tokens",
+                      "tokens_in",
+                      "tokens_out",
+                      "duration",
+                      "feedback"
+                    ],
+                    "type": "string"
+                  },
+                  "operator": {
+                    "enum": [
+                      "eq",
+                      "contains",
+                      "lt",
+                      "gt"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "key",
+                  "operator",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "created_at",
+            "enable",
+            "filters",
+            "gateway_id",
+            "id",
+            "modified_at",
+            "name"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/datasets`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -188,6 +319,130 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "filters": {
+              "items": {
+                "properties": {
+                  "key": {
+                    "enum": [
+                      "created_at",
+                      "request_content_type",
+                      "response_content_type",
+                      "success",
+                      "cached",
+                      "provider",
+                      "model",
+                      "cost",
+                      "tokens",
+                      "tokens_in",
+                      "tokens_out",
+                      "duration",
+                      "feedback"
+                    ],
+                    "type": "string"
+                  },
+                  "operator": {
+                    "enum": [
+                      "eq",
+                      "contains",
+                      "lt",
+                      "gt"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "key",
+                  "operator",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "created_at",
+            "enable",
+            "filters",
+            "gateway_id",
+            "id",
+            "modified_at",
+            "name"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/datasets/${pathParam(args, "id")}`,
     }),
@@ -246,6 +501,130 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "filters": {
+              "items": {
+                "properties": {
+                  "key": {
+                    "enum": [
+                      "created_at",
+                      "request_content_type",
+                      "response_content_type",
+                      "success",
+                      "cached",
+                      "provider",
+                      "model",
+                      "cost",
+                      "tokens",
+                      "tokens_in",
+                      "tokens_out",
+                      "duration",
+                      "feedback"
+                    ],
+                    "type": "string"
+                  },
+                  "operator": {
+                    "enum": [
+                      "eq",
+                      "contains",
+                      "lt",
+                      "gt"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "key",
+                  "operator",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "created_at",
+            "enable",
+            "filters",
+            "gateway_id",
+            "id",
+            "modified_at",
+            "name"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/datasets/${pathParam(args, "id")}`,
@@ -319,6 +698,144 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "created_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "enable": {
+                    "type": "boolean"
+                  },
+                  "filters": {
+                    "items": {
+                      "properties": {
+                        "key": {
+                          "enum": [
+                            "created_at",
+                            "request_content_type",
+                            "response_content_type",
+                            "success",
+                            "cached",
+                            "provider",
+                            "model",
+                            "cost",
+                            "tokens",
+                            "tokens_in",
+                            "tokens_out",
+                            "duration",
+                            "feedback"
+                          ],
+                          "type": "string"
+                        },
+                        "operator": {
+                          "enum": [
+                            "eq",
+                            "contains",
+                            "lt",
+                            "gt"
+                          ],
+                          "type": "string"
+                        },
+                        "value": {
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "operator",
+                        "value"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "gateway_id": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "modified_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "created_at",
+                  "enable",
+                  "filters",
+                  "gateway_id",
+                  "id",
+                  "modified_at",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/datasets`,
@@ -456,6 +973,167 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "filters": {
+              "items": {
+                "properties": {
+                  "key": {
+                    "enum": [
+                      "created_at",
+                      "request_content_type",
+                      "response_content_type",
+                      "success",
+                      "cached",
+                      "provider",
+                      "model",
+                      "cost",
+                      "tokens",
+                      "tokens_in",
+                      "tokens_out",
+                      "duration",
+                      "feedback"
+                    ],
+                    "type": "string"
+                  },
+                  "operator": {
+                    "enum": [
+                      "eq",
+                      "contains",
+                      "lt",
+                      "gt"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "key",
+                  "operator",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "created_at",
+            "enable",
+            "filters",
+            "gateway_id",
+            "id",
+            "modified_at",
+            "name"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/datasets/${pathParam(args, "id")}`,

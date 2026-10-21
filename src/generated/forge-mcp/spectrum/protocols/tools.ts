@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  spectrum_config_api_response_common_failure_output,
+  spectrum_config_messages_output,
+} from "../outputs.js";
+import { spectrum_config_app_protocol_output } from "./outputs.js";
 
 /**
  * The tools of `spectrum.protocols`.
@@ -37,6 +42,52 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write",
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/spectrum-config_app_protocol"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/spectrum-config_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "spectrum-config_api-response-common-failure": spectrum_config_api_response_common_failure_output,
+        "spectrum-config_app_protocol": spectrum_config_app_protocol_output,
+        "spectrum-config_messages": spectrum_config_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/spectrum/protocols`,

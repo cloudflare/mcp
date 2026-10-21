@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+} from "../../outputs.js";
+import {
+  zero_trust_gateway_account_log_options_output,
+  zero_trust_gateway_gateway_account_logging_settings_output,
+  zero_trust_gateway_gateway_account_logging_settings_response_output,
+  zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type_output,
+} from "./outputs.js";
+import {
   zero_trust_gateway_account_log_options,
   zero_trust_gateway_gateway_account_logging_settings,
   zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type,
@@ -37,6 +47,31 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/logging",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings-response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings_output,
+        "zero-trust-gateway_gateway-account-logging-settings-response": zero_trust_gateway_gateway_account_logging_settings_response_output,
+        "zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type": zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/logging`,
     }),
@@ -75,6 +110,31 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/gateway/logging",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings-response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings_output,
+        "zero-trust-gateway_gateway-account-logging-settings-response": zero_trust_gateway_gateway_account_logging_settings_response_output,
+        "zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type": zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/logging`,
       body: { value: args["body"], mediaType: "application/json" },

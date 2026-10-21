@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  cloudforce_one_events_HydratedEntity_output,
+  cloudforce_one_events_RelationshipEdge_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `cloudforce_one.events.tags.relationships`.
@@ -82,6 +86,43 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/tags/${pathParam(args, "tag_uuid")}/relationships`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -132,6 +173,48 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/tags/${pathParam(args, "tag_uuid")}/relationships/${pathParam(args, "rel_uuid")}`,
@@ -262,6 +345,86 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "counts": {
+              "type": "object"
+            },
+            "cursor": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "entities": {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-events_HydratedEntity"
+              },
+              "type": "array"
+            },
+            "failedShardCount": {
+              "type": "number"
+            },
+            "hasMore": {
+              "type": "boolean"
+            },
+            "hydrationErrors": {
+              "type": "object"
+            },
+            "partialResults": {
+              "type": "boolean"
+            },
+            "relationships": {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-events_RelationshipEdge"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+      $defs: {
+        "cloudforce-one-events_HydratedEntity": cloudforce_one_events_HydratedEntity_output,
+        "cloudforce-one-events_RelationshipEdge": cloudforce_one_events_RelationshipEdge_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/tags/${pathParam(args, "tag_uuid")}/relationships`,
       query: [
@@ -349,6 +512,73 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/tags/${pathParam(args, "tag_uuid")}/relationships/${pathParam(args, "rel_uuid")}`,

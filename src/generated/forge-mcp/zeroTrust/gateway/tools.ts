@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+} from "../outputs.js";
+import {
+  zero_trust_gateway_cf_account_id_output,
+  zero_trust_gateway_gateway_account_output,
+  zero_trust_gateway_gateway_account_result_output,
+  zero_trust_gateway_gateway_tag_output,
+  zero_trust_gateway_provider_name_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.gateway`.
@@ -37,6 +48,43 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "gateway_tag": {
+              "$ref": "#/$defs/zero-trust-gateway_gateway_tag"
+            },
+            "id": {
+              "$ref": "#/$defs/zero-trust-gateway_cf_account_id"
+            },
+            "provider_name": {
+              "$ref": "#/$defs/zero-trust-gateway_provider_name"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway_account"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_cf_account_id": zero_trust_gateway_cf_account_id_output,
+        "zero-trust-gateway_gateway_account": zero_trust_gateway_gateway_account_output,
+        "zero-trust-gateway_gateway_account_result": zero_trust_gateway_gateway_account_result_output,
+        "zero-trust-gateway_gateway_tag": zero_trust_gateway_gateway_tag_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_provider_name": zero_trust_gateway_provider_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway`,
     }),
@@ -71,6 +119,43 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "gateway_tag": {
+              "$ref": "#/$defs/zero-trust-gateway_gateway_tag"
+            },
+            "id": {
+              "$ref": "#/$defs/zero-trust-gateway_cf_account_id"
+            },
+            "provider_name": {
+              "$ref": "#/$defs/zero-trust-gateway_provider_name"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway_account"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_cf_account_id": zero_trust_gateway_cf_account_id_output,
+        "zero-trust-gateway_gateway_account": zero_trust_gateway_gateway_account_output,
+        "zero-trust-gateway_gateway_account_result": zero_trust_gateway_gateway_account_result_output,
+        "zero-trust-gateway_gateway_tag": zero_trust_gateway_gateway_tag_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_provider_name": zero_trust_gateway_provider_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway`,

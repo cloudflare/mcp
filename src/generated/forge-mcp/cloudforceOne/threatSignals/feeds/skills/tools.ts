@@ -43,6 +43,92 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "feed_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "skills": {
+              "items": {
+                "properties": {
+                  "config": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "is_active": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "output_schema": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "enum": [
+                      "default",
+                      "custom"
+                    ],
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "config",
+                  "created_at",
+                  "id",
+                  "is_active",
+                  "name",
+                  "output_schema",
+                  "prompt",
+                  "source",
+                  "type",
+                  "updated_at"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "feed_id",
+            "skills"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/feeds/${pathParam(args, "feed_id")}/skills`,
     }),
@@ -98,6 +184,42 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "feed_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "skills": {
+              "items": {
+                "properties": {
+                  "position": {
+                    "type": "integer"
+                  },
+                  "skill_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "position",
+                  "skill_id"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "feed_id",
+            "skills"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/feeds/${pathParam(args, "feed_id")}/skills`,

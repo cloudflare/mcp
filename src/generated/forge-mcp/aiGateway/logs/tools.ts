@@ -158,6 +158,51 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/logs`,
       query: [
@@ -223,6 +268,161 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "cached": {
+              "type": "boolean"
+            },
+            "cost": {
+              "type": "number"
+            },
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "custom_cost": {
+              "type": "boolean"
+            },
+            "duration": {
+              "type": "integer"
+            },
+            "id": {
+              "type": "string"
+            },
+            "metadata": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "model_type": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string"
+            },
+            "request_content_type": {
+              "type": "string"
+            },
+            "request_head": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "request_head_complete": {
+              "type": "boolean"
+            },
+            "request_size": {
+              "type": "integer"
+            },
+            "request_type": {
+              "type": "string"
+            },
+            "response_content_type": {
+              "type": "string"
+            },
+            "response_head": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "response_head_complete": {
+              "type": "boolean"
+            },
+            "response_size": {
+              "type": "integer"
+            },
+            "status_code": {
+              "type": "integer"
+            },
+            "step": {
+              "type": "integer"
+            },
+            "success": {
+              "type": "boolean"
+            },
+            "tokens_in": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tokens_out": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "cached",
+            "created_at",
+            "duration",
+            "id",
+            "model",
+            "path",
+            "provider",
+            "success",
+            "tokens_in",
+            "tokens_out"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/logs/${pathParam(args, "id")}`,
     }),
@@ -282,6 +482,43 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/logs/${pathParam(args, "id")}/request`,
     }),
@@ -340,6 +577,43 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/logs/${pathParam(args, "id")}/response`,
@@ -578,6 +852,187 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "cached": {
+                    "type": "boolean"
+                  },
+                  "cost": {
+                    "type": "number"
+                  },
+                  "created_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "custom_cost": {
+                    "type": "boolean"
+                  },
+                  "duration": {
+                    "type": "integer"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "type": "string"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "model_type": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "provider": {
+                    "type": "string"
+                  },
+                  "request_content_type": {
+                    "type": "string"
+                  },
+                  "request_type": {
+                    "type": "string"
+                  },
+                  "response_content_type": {
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "type": "integer"
+                  },
+                  "step": {
+                    "type": "integer"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "tokens_in": {
+                    "oneOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "tokens_out": {
+                    "oneOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "cached",
+                  "created_at",
+                  "duration",
+                  "id",
+                  "model",
+                  "path",
+                  "provider",
+                  "success",
+                  "tokens_in",
+                  "tokens_out"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "max_cost": {
+                  "type": "number"
+                },
+                "max_duration": {
+                  "type": "number"
+                },
+                "max_tokens_in": {
+                  "type": "number"
+                },
+                "max_tokens_out": {
+                  "type": "number"
+                },
+                "max_total_tokens": {
+                  "type": "number"
+                },
+                "min_cost": {
+                  "type": "number"
+                },
+                "min_duration": {
+                  "type": "number"
+                },
+                "min_tokens_in": {
+                  "type": "number"
+                },
+                "min_tokens_out": {
+                  "type": "number"
+                },
+                "min_total_tokens": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/logs`,
       query: [
@@ -713,6 +1168,43 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/logs/${pathParam(args, "id")}`,

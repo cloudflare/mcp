@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_messages_output,
+} from "../../../../outputs.js";
 
 /**
  * The tools of `workers.legacy.scripts.content`.
@@ -52,6 +56,18 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/content/v2`,

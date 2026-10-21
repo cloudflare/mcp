@@ -47,6 +47,51 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "err_message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "ingest_seconds": {
+                  "type": "integer"
+                },
+                "livestream_id": {
+                  "type": "string"
+                },
+                "started_time": {
+                  "type": "string"
+                },
+                "stopped_time": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                },
+                "viewer_seconds": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/livestreams/sessions/${pathParam(args, "livestream_session_id")}`,
     }),
@@ -90,6 +135,106 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "livestream": {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "disabled": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "ingest_server": {
+                      "type": "string"
+                    },
+                    "meeting_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "playback_url": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "LIVE",
+                        "IDLE",
+                        "ERRORED",
+                        "INVOKED"
+                      ],
+                      "type": "string"
+                    },
+                    "stream_key": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "session": {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "err_message": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "ingest_seconds": {
+                      "type": "string"
+                    },
+                    "invoked_time": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "livestream_id": {
+                      "type": "string"
+                    },
+                    "started_time": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "stopped_time": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "viewer_seconds": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/livestreams/${pathParam(args, "livestream_id")}/active-livestream-session`,

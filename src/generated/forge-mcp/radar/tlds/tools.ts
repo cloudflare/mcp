@@ -52,6 +52,48 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "tld": {
+              "properties": {
+                "manager": {
+                  "type": "string"
+                },
+                "tld": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "manager",
+                "tld",
+                "type"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "tld"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/tlds/${pathParam(args, "tld")}`,
       query: [
@@ -124,6 +166,70 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "tlds": {
+              "items": {
+                "properties": {
+                  "manager": {
+                    "type": "string"
+                  },
+                  "tld": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "manager",
+                  "tld",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "tlds"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/tlds`,

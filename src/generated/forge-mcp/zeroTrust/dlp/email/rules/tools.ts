@@ -3,6 +3,19 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../../outputs.js";
+import {
+  dlp_EmailRuleAction_output,
+  dlp_EmailRuleArray_output,
+  dlp_EmailRuleCondition_output,
+  dlp_EmailRuleOperator_output,
+  dlp_EmailRuleSelector_output,
+  dlp_EmailRuleValue_output,
+  dlp_EmailRule_output,
+} from "./outputs.js";
+import {
   dlp_CreateEmailRule,
   dlp_EmailRuleAction,
   dlp_EmailRuleCondition,
@@ -53,6 +66,26 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_EmailRule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/email/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -100,6 +133,26 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_EmailRule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/email/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -138,6 +191,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_EmailRule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/email/rules/${pathParam(args, "rule_id")}`,
@@ -178,6 +251,26 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_EmailRule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/email/rules/${pathParam(args, "rule_id")}`,
     }),
@@ -211,6 +304,38 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_EmailRuleArray"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleArray": dlp_EmailRuleArray_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/email/rules`,
@@ -262,6 +387,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_EmailRule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/email/rules/${pathParam(args, "rule_id")}`,

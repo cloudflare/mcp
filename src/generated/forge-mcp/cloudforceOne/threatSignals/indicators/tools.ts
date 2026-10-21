@@ -70,6 +70,135 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "indicators": {
+              "items": {
+                "properties": {
+                  "article_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "article_title": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "dataset_id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "feed_display_name": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "feed_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "article_id",
+                  "article_title",
+                  "dataset_id",
+                  "feed_display_name",
+                  "feed_id",
+                  "id",
+                  "type",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "pagination": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "total_count_is_exact": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "has_more",
+                "page",
+                "per_page",
+                "total_count",
+                "total_count_is_exact"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "indicators",
+            "pagination"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/indicators`,
       query: [

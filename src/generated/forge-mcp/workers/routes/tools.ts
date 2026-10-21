@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_identifier_output,
+  workers_messages_output,
+} from "../../outputs.js";
+import { workers_route_output } from "../outputs.js";
 import { workers_route } from "../schemas.js";
 
 /**
@@ -48,6 +54,22 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_route"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_route": workers_route_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/workers/routes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -90,6 +112,26 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/workers_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/workers/routes/${pathParam(args, "route_id")}`,
@@ -134,6 +176,22 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_route"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_route": workers_route_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/workers/routes/${pathParam(args, "route_id")}`,
     }),
@@ -171,6 +229,36 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_route"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_route": workers_route_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/workers/routes`,
@@ -220,6 +308,22 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_route"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_route": workers_route_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/workers/routes/${pathParam(args, "route_id")}`,

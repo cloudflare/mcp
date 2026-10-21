@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  addressing_api_response_common_failure_output,
+  addressing_messages_output,
+  addressing_service_identifier_output,
+  addressing_service_name_output,
+} from "../outputs.js";
 
 /**
  * The tools of `addressing.services`.
@@ -37,6 +43,44 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: Write",
         "IP Prefixes: Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "$ref": "#/$defs/addressing_service_identifier"
+                  },
+                  "name": {
+                    "$ref": "#/$defs/addressing_service_name"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/addressing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_service_identifier": addressing_service_identifier_output,
+        "addressing_service_name": addressing_service_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/services`,

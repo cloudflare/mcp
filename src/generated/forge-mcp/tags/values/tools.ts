@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  resource_tagging_api_response_common_failure_output,
+  resource_tagging_cursor_result_info_output,
+  resource_tagging_messages_output,
+} from "../outputs.js";
 import { resource_tagging_resource_type } from "../schemas.js";
 
 /**
@@ -56,6 +61,38 @@ export const tools: readonly Tool[] = [
         "pro": false
       },
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/resource-tagging_cursor_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/resource-tagging_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/resource-tagging_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "resource-tagging_api-response-common-failure": resource_tagging_api_response_common_failure_output,
+        "resource-tagging_cursor_result_info": resource_tagging_cursor_result_info_output,
+        "resource-tagging_messages": resource_tagging_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/tags/values/${pathParam(args, "tag_key")}`,

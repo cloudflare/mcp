@@ -52,6 +52,145 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "geolocation": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "geoId": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "string"
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "longitude": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "parent": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "geoId": {
+                      "type": "string"
+                    },
+                    "latitude": {
+                      "type": "string"
+                    },
+                    "locale": {
+                      "type": "string"
+                    },
+                    "longitude": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "parent": {
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "geoId": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "string"
+                        },
+                        "locale": {
+                          "type": "string"
+                        },
+                        "longitude": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "enum": [
+                            "CONTINENT",
+                            "COUNTRY",
+                            "ADM1"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "geoId",
+                        "latitude",
+                        "longitude",
+                        "name",
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "type": {
+                      "enum": [
+                        "CONTINENT",
+                        "COUNTRY",
+                        "ADM1"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "geoId",
+                    "latitude",
+                    "longitude",
+                    "name",
+                    "parent",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": {
+                  "enum": [
+                    "CONTINENT",
+                    "COUNTRY",
+                    "ADM1"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "geoId",
+                "latitude",
+                "longitude",
+                "name",
+                "parent",
+                "type"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "geolocation"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/geolocations/${pathParam(args, "geo_id")}`,
       query: [
@@ -113,6 +252,167 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "geolocations": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "geoId": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "string"
+                  },
+                  "locale": {
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "parent": {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "geoId": {
+                        "type": "string"
+                      },
+                      "latitude": {
+                        "type": "string"
+                      },
+                      "locale": {
+                        "type": "string"
+                      },
+                      "longitude": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "parent": {
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "geoId": {
+                            "type": "string"
+                          },
+                          "latitude": {
+                            "type": "string"
+                          },
+                          "locale": {
+                            "type": "string"
+                          },
+                          "longitude": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "CONTINENT",
+                              "COUNTRY",
+                              "ADM1"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "geoId",
+                          "latitude",
+                          "longitude",
+                          "name",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      "type": {
+                        "enum": [
+                          "CONTINENT",
+                          "COUNTRY",
+                          "ADM1"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "geoId",
+                      "latitude",
+                      "longitude",
+                      "name",
+                      "parent",
+                      "type"
+                    ],
+                    "type": "object"
+                  },
+                  "type": {
+                    "enum": [
+                      "CONTINENT",
+                      "COUNTRY",
+                      "ADM1"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "geoId",
+                  "latitude",
+                  "longitude",
+                  "name",
+                  "parent",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "geolocations"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/geolocations`,

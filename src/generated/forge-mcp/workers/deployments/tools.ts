@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  workers_api_response_common_failure_output,
+  workers_api_response_common_output,
+  workers_messages_output,
+} from "../../outputs.js";
+import {
+  workers_deployment_annotations_output,
+  workers_deployment_output,
+  workers_deployment_versionsItem_output,
+} from "./outputs.js";
+import {
   workers_deployment,
   workers_deployment_annotations,
   workers_deployment_versionsItem,
@@ -64,6 +74,23 @@ export const tools: readonly Tool[] = [
         "Individual Workers Editor"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_deployment"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_deployment": workers_deployment_output,
+        "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+        "workers_messages": workers_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/deployments`,
       query: [
@@ -114,6 +141,21 @@ export const tools: readonly Tool[] = [
         "Individual Workers Admin",
         "Individual Workers Editor"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/deployments/${pathParam(args, "deployment_id")}`,
@@ -168,6 +210,23 @@ export const tools: readonly Tool[] = [
         "Individual Workers Content Read-Only",
         "Individual Workers Metadata Read-Only"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_deployment"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_deployment": workers_deployment_output,
+        "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/deployments/${pathParam(args, "deployment_id")}`,
@@ -237,6 +296,34 @@ export const tools: readonly Tool[] = [
         "Individual Workers Content Read-Only",
         "Individual Workers Metadata Read-Only"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deployments": {
+              "items": {
+                "$ref": "#/$defs/workers_deployment"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "deployments"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_deployment": workers_deployment_output,
+        "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/deployments`,

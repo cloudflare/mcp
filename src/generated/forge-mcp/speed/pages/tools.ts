@@ -3,10 +3,27 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  observatory_api_response_common_failure_output,
+  observatory_device_type_output,
+  observatory_labeled_region_output,
+  observatory_lighthouse_error_code_output,
+  observatory_lighthouse_report_error_output,
+  observatory_lighthouse_report_output,
+  observatory_lighthouse_state_output,
+  observatory_messages_output,
+  observatory_page_test_output,
+  observatory_region_output,
+  observatory_schedule_frequency_output,
+  observatory_timestamp_output,
+  observatory_url_output,
+  observatory_uuid_output,
+} from "../outputs.js";
+import {
   observatory_device_type,
   observatory_region,
   observatory_timestamp,
 } from "../schemas.js";
+import { observatory_trend_output } from "./outputs.js";
 
 /**
  * The tools of `speed.pages`.
@@ -48,6 +65,63 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "region": {
+                    "$ref": "#/$defs/observatory_labeled_region"
+                  },
+                  "scheduleFrequency": {
+                    "$ref": "#/$defs/observatory_schedule_frequency"
+                  },
+                  "tests": {
+                    "items": {
+                      "$ref": "#/$defs/observatory_page_test"
+                    },
+                    "type": "array"
+                  },
+                  "url": {
+                    "$ref": "#/$defs/observatory_url"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/observatory_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
+        "observatory_device_type": observatory_device_type_output,
+        "observatory_labeled_region": observatory_labeled_region_output,
+        "observatory_lighthouse_error_code": observatory_lighthouse_error_code_output,
+        "observatory_lighthouse_report": observatory_lighthouse_report_output,
+        "observatory_lighthouse_report_error": observatory_lighthouse_report_error_output,
+        "observatory_lighthouse_state": observatory_lighthouse_state_output,
+        "observatory_messages": observatory_messages_output,
+        "observatory_page_test": observatory_page_test_output,
+        "observatory_region": observatory_region_output,
+        "observatory_schedule_frequency": observatory_schedule_frequency_output,
+        "observatory_timestamp": observatory_timestamp_output,
+        "observatory_url": observatory_url_output,
+        "observatory_uuid": observatory_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/speed_api/pages`,
@@ -126,6 +200,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/observatory_trend"
+        },
+        "4XX": {
+          "$ref": "#/$defs/observatory_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
+        "observatory_messages": observatory_messages_output,
+        "observatory_trend": observatory_trend_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/speed_api/pages/${pathParam(args, "url")}/trend`,

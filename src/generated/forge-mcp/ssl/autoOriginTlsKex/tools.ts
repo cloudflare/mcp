@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { cache_messages_output } from "../outputs.js";
+import {
+  cache_auto_origin_tls_kex_failure_response_output,
+  cache_auto_origin_tls_kex_result_output,
+  cache_auto_origin_tls_kex_value_output,
+} from "./outputs.js";
 import {
   cache_auto_origin_tls_kex_patch,
   cache_auto_origin_tls_kex_value,
@@ -51,6 +57,22 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache_auto_origin_tls_kex_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache_auto_origin_tls_kex_failure_response"
+        }
+      },
+      $defs: {
+        "cache_auto_origin_tls_kex_failure_response": cache_auto_origin_tls_kex_failure_response_output,
+        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
+        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
+        "cache_messages": cache_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/auto_origin_tls_kex`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -87,6 +109,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache_auto_origin_tls_kex_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache_auto_origin_tls_kex_failure_response"
+        }
+      },
+      $defs: {
+        "cache_auto_origin_tls_kex_failure_response": cache_auto_origin_tls_kex_failure_response_output,
+        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
+        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
+        "cache_messages": cache_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/auto_origin_tls_kex`,

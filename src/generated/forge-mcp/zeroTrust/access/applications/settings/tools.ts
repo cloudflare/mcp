@@ -2,7 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../../outputs.js";
+import {
+  access_allow_iframe_output,
+  access_skip_interstitial_output,
+} from "../outputs.js";
 import { access_allow_iframe, access_skip_interstitial } from "../schemas.js";
+import { access_app_settings_response_output } from "./outputs.js";
 import { access_app_settings_request } from "./schemas.js";
 
 /**
@@ -60,6 +69,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Apps and Policies Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/access_app_settings_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_allow_iframe": access_allow_iframe_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_settings_response": access_app_settings_response_output,
+        "access_messages": access_messages_output,
+        "access_skip_interstitial": access_skip_interstitial_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/apps/${pathParam(args, "app_id")}/settings`,

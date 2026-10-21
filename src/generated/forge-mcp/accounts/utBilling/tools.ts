@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  speed_api_response_common_failure_output,
+  speed_messages_output,
+} from "../../outputs.js";
+import {
+  speed_ut_billing_response_output,
+  speed_ut_billing_value_output,
+} from "./outputs.js";
 import { speed_ut_billing_value } from "./schemas.js";
 
 /**
@@ -64,6 +72,22 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/speed_ut_billing_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/speed_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_messages": speed_messages_output,
+        "speed_ut_billing_response": speed_ut_billing_response_output,
+        "speed_ut_billing_value": speed_ut_billing_value_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/settings/ut-billing`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -109,6 +133,22 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/speed_ut_billing_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/speed_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_messages": speed_messages_output,
+        "speed_ut_billing_response": speed_ut_billing_response_output,
+        "speed_ut_billing_value": speed_ut_billing_value_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/settings/ut-billing`,

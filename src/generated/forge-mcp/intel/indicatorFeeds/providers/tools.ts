@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  custom_indicator_feeds_api_response_common_failure_output,
+  custom_indicator_feeds_messages_2_output,
+  custom_indicator_feeds_messages_output,
+} from "../outputs.js";
+import {
+  custom_indicator_feeds_create_provider_response_output,
+  custom_indicator_feeds_create_provider_result_output,
+} from "./outputs.js";
 import { custom_indicator_feeds_create_provider_request } from "./schemas.js";
 
 /**
@@ -40,6 +49,30 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id_path}/intel/indicator-feeds/permissions/createProvider",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-indicator-feeds_create_provider_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/custom-indicator-feeds_create_provider_response"
+            },
+            {
+              "$ref": "#/$defs/custom-indicator-feeds_api_response_common_failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
+        "custom-indicator-feeds_create_provider_response": custom_indicator_feeds_create_provider_response_output,
+        "custom-indicator-feeds_create_provider_result": custom_indicator_feeds_create_provider_result_output,
+        "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id_path")}/intel/indicator-feeds/permissions/createProvider`,
       body: { value: args["body"], mediaType: "application/json" },

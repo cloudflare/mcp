@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import { email_sending_subdomain_reputation_complaints_output } from "./outputs.js";
 
 /**
  * The tools of `email_sending.subdomains.reputation`.
@@ -64,6 +65,20 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_sending_subdomain_reputation_complaints"
+        },
+        "400": null,
+        "404": null,
+        "422": null,
+        "502": null
+      },
+      $defs: {
+        "email_sending_subdomain_reputation_complaints": email_sending_subdomain_reputation_complaints_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/sending/subdomains/${pathParam(args, "subdomain_id")}/reputation/complaints`,

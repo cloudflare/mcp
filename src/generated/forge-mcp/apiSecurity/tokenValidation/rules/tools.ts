@@ -3,12 +3,38 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
+  api_shield_host_output,
+  api_shield_messages_output,
+  api_shield_timestamp_2_output,
+  api_shield_timestamp_output,
+  api_shield_uuid_2_output,
+  api_shield_uuid_output,
+} from "../../../outputs.js";
+import {
   api_shield_host,
   api_shield_identifier,
   api_shield_identifier_2,
   api_shield_uuid,
   api_shield_uuid_2,
 } from "../../../schemas.js";
+import {
+  api_shield_api_response_collection_output,
+  api_shield_api_response_collection_result_info_output,
+} from "../../outputs.js";
+import {
+  api_shield_Rule_output,
+  api_shield_action_output,
+  api_shield_api_response_single_obj_output,
+  api_shield_description_2_output,
+  api_shield_enabled_output,
+  api_shield_expression_output,
+  api_shield_selector_exclude_output,
+  api_shield_selector_include_output,
+  api_shield_selector_output,
+  api_shield_title_2_output,
+} from "./outputs.js";
 import {
   api_shield_action,
   api_shield_after,
@@ -82,6 +108,54 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/api-shield_Rule"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_Rule": api_shield_Rule_output,
+        "api-shield_action": api_shield_action_output,
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_description-2": api_shield_description_2_output,
+        "api-shield_enabled": api_shield_enabled_output,
+        "api-shield_expression": api_shield_expression_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_selector": api_shield_selector_output,
+        "api-shield_selector-exclude": api_shield_selector_exclude_output,
+        "api-shield_selector-include": api_shield_selector_include_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_title-2": api_shield_title_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/rules/bulk`,
@@ -162,6 +236,54 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/api-shield_Rule"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_Rule": api_shield_Rule_output,
+        "api-shield_action": api_shield_action_output,
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_description-2": api_shield_description_2_output,
+        "api-shield_enabled": api_shield_enabled_output,
+        "api-shield_expression": api_shield_expression_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_selector": api_shield_selector_output,
+        "api-shield_selector-exclude": api_shield_selector_exclude_output,
+        "api-shield_selector-include": api_shield_selector_include_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_title-2": api_shield_title_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/rules/bulk`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -217,6 +339,50 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_Rule"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_Rule": api_shield_Rule_output,
+        "api-shield_action": api_shield_action_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_description-2": api_shield_description_2_output,
+        "api-shield_enabled": api_shield_enabled_output,
+        "api-shield_expression": api_shield_expression_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_selector": api_shield_selector_output,
+        "api-shield_selector-exclude": api_shield_selector_exclude_output,
+        "api-shield_selector-include": api_shield_selector_include_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_title-2": api_shield_title_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -262,6 +428,21 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/api-shield_api-response-single-obj"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api-response-single-obj": api_shield_api_response_single_obj_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/rules/${pathParam(args, "rule_id")}`,
@@ -326,6 +507,50 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_Rule"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_Rule": api_shield_Rule_output,
+        "api-shield_action": api_shield_action_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_description-2": api_shield_description_2_output,
+        "api-shield_enabled": api_shield_enabled_output,
+        "api-shield_expression": api_shield_expression_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_selector": api_shield_selector_output,
+        "api-shield_selector-exclude": api_shield_selector_exclude_output,
+        "api-shield_selector-include": api_shield_selector_include_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_title-2": api_shield_title_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/rules/${pathParam(args, "rule_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -373,6 +598,50 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_Rule"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_Rule": api_shield_Rule_output,
+        "api-shield_action": api_shield_action_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_description-2": api_shield_description_2_output,
+        "api-shield_enabled": api_shield_enabled_output,
+        "api-shield_expression": api_shield_expression_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_selector": api_shield_selector_output,
+        "api-shield_selector-exclude": api_shield_selector_exclude_output,
+        "api-shield_selector-include": api_shield_selector_include_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_title-2": api_shield_title_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/rules/${pathParam(args, "rule_id")}`,
@@ -459,6 +728,54 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/api-shield_Rule"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_Rule": api_shield_Rule_output,
+        "api-shield_action": api_shield_action_output,
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_description-2": api_shield_description_2_output,
+        "api-shield_enabled": api_shield_enabled_output,
+        "api-shield_expression": api_shield_expression_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_selector": api_shield_selector_output,
+        "api-shield_selector-exclude": api_shield_selector_exclude_output,
+        "api-shield_selector-include": api_shield_selector_include_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_title-2": api_shield_title_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/rules`,

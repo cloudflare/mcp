@@ -2,7 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_messages_output,
+  workers_usage_model_output,
+} from "../../../../outputs.js";
 import { workers_usage_model } from "../../../../schemas.js";
+import { workers_user_limits_output } from "./outputs.js";
 import { workers_user_limits } from "./schemas.js";
 
 /**
@@ -56,6 +62,30 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "usage_model": {
+              "$ref": "#/$defs/workers_usage_model"
+            },
+            "user_limits": {
+              "$ref": "#/$defs/workers_user_limits"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_usage_model": workers_usage_model_output,
+        "workers_user_limits": workers_user_limits_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/usage-model`,
@@ -121,6 +151,30 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "usage_model": {
+              "$ref": "#/$defs/workers_usage_model"
+            },
+            "user_limits": {
+              "$ref": "#/$defs/workers_user_limits"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_usage_model": workers_usage_model_output,
+        "workers_user_limits": workers_user_limits_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/usage-model`,

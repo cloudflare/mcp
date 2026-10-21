@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  organizations_api_Profile_output,
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../../outputs.js";
 import { organizations_api_Profile } from "../../schemas.js";
 
 /**
@@ -37,6 +42,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Account Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_Profile"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/profile`,
@@ -78,6 +98,18 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Account Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/profile`,

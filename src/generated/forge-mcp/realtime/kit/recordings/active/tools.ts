@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_GenericSuccessResponse_output,
+} from "../../outputs.js";
+import { realtimekit_Recording_output } from "../outputs.js";
 
 /**
  * The tools of `realtime.kit.recordings.active`.
@@ -47,6 +53,37 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "$ref": "#/$defs/realtimekit_Recording"
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "404": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/recordings/active-recording/${pathParam(args, "meeting_id")}`,

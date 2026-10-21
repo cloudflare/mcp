@@ -2,6 +2,24 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_expires_on_2_output,
+  tls_certificates_and_hostnames_issuer_output,
+  tls_certificates_and_hostnames_messages_output,
+  tls_certificates_and_hostnames_signature_output,
+  tls_certificates_and_hostnames_uploaded_on_output,
+} from "../../outputs.js";
+import {
+  tls_certificates_and_hostnames_certificate_3_output,
+  tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+  tls_certificates_and_hostnames_custom_trust_store_output,
+  tls_certificates_and_hostnames_custom_trust_store_response_collection_output,
+  tls_certificates_and_hostnames_custom_trust_store_response_collection_result_info_output,
+  tls_certificates_and_hostnames_custom_trust_store_response_single_output,
+  tls_certificates_and_hostnames_status_7_output,
+  tls_certificates_and_hostnames_updated_at_2_output,
+} from "./outputs.js";
 import { tls_certificates_and_hostnames_certificate_3 } from "./schemas.js";
 
 /**
@@ -74,6 +92,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_single"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
+        "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
+        "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_single": tls_certificates_and_hostnames_custom_trust_store_response_single_output,
+        "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
+        "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
+        "tls-certificates-and-hostnames_status-7": tls_certificates_and_hostnames_status_7_output,
+        "tls-certificates-and-hostnames_updated_at-2": tls_certificates_and_hostnames_updated_at_2_output,
+        "tls-certificates-and-hostnames_uploaded_on": tls_certificates_and_hostnames_uploaded_on_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/acm/custom_trust_store`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -134,6 +183,33 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_identifier"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/acm/custom_trust_store/${pathParam(args, "custom_origin_trust_store_id")}`,
     }),
@@ -189,6 +265,37 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_single"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
+        "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
+        "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_single": tls_certificates_and_hostnames_custom_trust_store_response_single_output,
+        "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
+        "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
+        "tls-certificates-and-hostnames_status-7": tls_certificates_and_hostnames_status_7_output,
+        "tls-certificates-and-hostnames_updated_at-2": tls_certificates_and_hostnames_updated_at_2_output,
+        "tls-certificates-and-hostnames_uploaded_on": tls_certificates_and_hostnames_uploaded_on_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/acm/custom_trust_store/${pathParam(args, "custom_origin_trust_store_id")}`,
@@ -258,6 +365,69 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_collection"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
+        "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
+        "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_collection": tls_certificates_and_hostnames_custom_trust_store_response_collection_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_collection_result_info": tls_certificates_and_hostnames_custom_trust_store_response_collection_result_info_output,
+        "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
+        "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
+        "tls-certificates-and-hostnames_status-7": tls_certificates_and_hostnames_status_7_output,
+        "tls-certificates-and-hostnames_updated_at-2": tls_certificates_and_hostnames_updated_at_2_output,
+        "tls-certificates-and-hostnames_uploaded_on": tls_certificates_and_hostnames_uploaded_on_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/acm/custom_trust_store`,

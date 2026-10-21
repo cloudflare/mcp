@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../outputs.js";
+import {
+  tls_certificates_and_hostnames_ct_alerting_emails_output,
+  tls_certificates_and_hostnames_ct_alerting_enabled_output,
+  tls_certificates_and_hostnames_ct_alerting_subscription_output,
+  tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output,
+} from "./outputs.js";
+import {
   tls_certificates_and_hostnames_ct_alerting_emails,
   tls_certificates_and_hostnames_ct_alerting_enabled,
   tls_certificates_and_hostnames_ct_alerting_subscription_update,
@@ -48,6 +58,31 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription_response_single"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails_output,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled_output,
+        "tls-certificates-and-hostnames_ct_alerting_subscription": tls_certificates_and_hostnames_ct_alerting_subscription_output,
+        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ct/alerting`,
@@ -97,6 +132,31 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription_response_single"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails_output,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled_output,
+        "tls-certificates-and-hostnames_ct_alerting_subscription": tls_certificates_and_hostnames_ct_alerting_subscription_output,
+        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ct/alerting`,

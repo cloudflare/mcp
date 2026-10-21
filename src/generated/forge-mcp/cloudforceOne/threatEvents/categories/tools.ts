@@ -68,6 +68,74 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "killChain": {
+              "type": "number"
+            },
+            "mitreAttack": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "mitreCapec": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "name": {
+              "type": "string"
+            },
+            "shortname": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "killChain",
+            "name",
+            "uuid"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/categories/create`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -108,6 +176,51 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "uuid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "uuid"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/event-categories/by-id/${pathParam(args, "category_id")}`,
@@ -175,6 +288,74 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "killChain": {
+              "type": "number"
+            },
+            "mitreAttack": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "mitreCapec": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "name": {
+              "type": "string"
+            },
+            "shortname": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "killChain",
+            "name",
+            "uuid"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/event-categories/by-id/${pathParam(args, "category_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -217,6 +398,74 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "killChain": {
+              "type": "number"
+            },
+            "mitreAttack": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "mitreCapec": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "name": {
+              "type": "string"
+            },
+            "shortname": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "killChain",
+            "name",
+            "uuid"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/event-categories/by-id/${pathParam(args, "category_id")}`,
     }),
@@ -258,6 +507,77 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "items": {
+            "properties": {
+              "killChain": {
+                "type": "number"
+              },
+              "mitreAttack": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "mitreCapec": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              },
+              "shortname": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "killChain",
+              "name",
+              "uuid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/categories`,

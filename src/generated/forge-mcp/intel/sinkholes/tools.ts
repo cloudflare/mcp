@@ -3,6 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  intel_sinkholes_api_response_common_failure_output,
+  intel_sinkholes_messages_output,
+  intel_sinkholes_sinkhole_item_output,
+} from "./outputs.js";
+import {
   intel_sinkholes_identifier,
   intel_sinkholes_sinkhole_create_params,
 } from "./schemas.js";
@@ -49,6 +54,21 @@ export const tools: readonly Tool[] = [
         "Intel Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/intel-sinkholes_sinkhole_item"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_sinkhole_item": intel_sinkholes_sinkhole_item_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/sinkholes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -91,6 +111,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Intel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "409": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/sinkholes/${pathParam(args, "sinkhole_id")}`,
@@ -135,6 +172,21 @@ export const tools: readonly Tool[] = [
         "Intel Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/intel-sinkholes_sinkhole_item"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_sinkhole_item": intel_sinkholes_sinkhole_item_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/sinkholes/${pathParam(args, "sinkhole_id")}`,
     }),
@@ -172,6 +224,35 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/intel-sinkholes_sinkhole_item"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_sinkhole_item": intel_sinkholes_sinkhole_item_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/sinkholes`,
@@ -219,6 +300,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Intel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/sinkholes/${pathParam(args, "sinkhole_id")}`,

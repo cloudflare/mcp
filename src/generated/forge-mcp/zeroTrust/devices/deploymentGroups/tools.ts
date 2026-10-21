@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  teams_devices_pagination_info_output,
+  teams_devices_v4_error_response_output,
+  teams_devices_v4_response_message_output,
+} from "../outputs.js";
+import {
+  teams_devices_deployment_group_created_at_output,
+  teams_devices_deployment_group_id_output,
+  teams_devices_deployment_group_name_output,
+  teams_devices_deployment_group_output,
+  teams_devices_deployment_group_policy_ids_output,
+  teams_devices_deployment_group_updated_at_output,
+  teams_devices_version_config_output,
+} from "./outputs.js";
+import {
   teams_devices_deployment_group_create_request,
   teams_devices_deployment_group_name,
   teams_devices_deployment_group_update_request,
@@ -49,6 +63,27 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-auditable": true
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_deployment_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_deployment_group": teams_devices_deployment_group_output,
+        "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
+        "teams-devices_deployment_group_id": teams_devices_deployment_group_id_output,
+        "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
+        "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
+        "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+        "teams-devices_version_config": teams_devices_version_config_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/deployment-groups`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -85,6 +120,25 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-auditable": true
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/deployment-groups/${pathParam(args, "group_id")}`,
     }),
@@ -117,6 +171,27 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/deployment-groups/{group_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_deployment_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_deployment_group": teams_devices_deployment_group_output,
+        "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
+        "teams-devices_deployment_group_id": teams_devices_deployment_group_id_output,
+        "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
+        "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
+        "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+        "teams-devices_version_config": teams_devices_version_config_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/deployment-groups/${pathParam(args, "group_id")}`,
     }),
@@ -155,6 +230,42 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/deployment-groups",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_deployment_group"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/teams-devices_pagination_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_deployment_group": teams_devices_deployment_group_output,
+        "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
+        "teams-devices_deployment_group_id": teams_devices_deployment_group_id_output,
+        "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
+        "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
+        "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_pagination_info": teams_devices_pagination_info_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+        "teams-devices_version_config": teams_devices_version_config_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/deployment-groups`,
       query: [
@@ -202,6 +313,27 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/devices/deployment-groups/{group_id}",
     extensions: {
       "x-auditable": true
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_deployment_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_deployment_group": teams_devices_deployment_group_output,
+        "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
+        "teams-devices_deployment_group_id": teams_devices_deployment_group_id_output,
+        "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
+        "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
+        "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+        "teams-devices_version_config": teams_devices_version_config_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/deployment-groups/${pathParam(args, "group_id")}`,

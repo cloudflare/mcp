@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  cws_DeletedResult_output,
+  cws_ErrorResponse_output,
+  cws_MessageSource_output,
+  cws_ResponseMessage_output,
+  cws_ResultInfo_output,
+} from "../outputs.js";
+import { cws_DomainACLEntry_output, cws_DomainACL_output } from "./outputs.js";
+import {
   cws_CreateDomainACLInputBody,
   cws_DomainACLEntry,
   cws_UpdateDomainACLInputBody,
@@ -48,6 +56,26 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/cws_DomainACL"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_DomainACL": cws_DomainACL_output,
+        "cws_DomainACLEntry": cws_DomainACLEntry_output,
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/domain-acls`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -87,6 +115,25 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cws_DeletedResult"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/domain-acls/${pathParam(args, "domain_acl_id")}`,
     }),
@@ -124,6 +171,26 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/cws/domain-acls/{domain_acl_id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cws_DomainACL"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_DomainACL": cws_DomainACL_output,
+        "cws_DomainACLEntry": cws_DomainACLEntry_output,
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/domain-acls/${pathParam(args, "domain_acl_id")}`,
@@ -194,6 +261,48 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/cws_DomainACL"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "result_info": {
+              "$ref": "#/$defs/cws_ResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_DomainACL": cws_DomainACL_output,
+        "cws_DomainACLEntry": cws_DomainACLEntry_output,
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResultInfo": cws_ResultInfo_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/domain-acls`,
       query: [
@@ -247,6 +356,26 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/cws/domain-acls/{domain_acl_id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cws_DomainACL"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_DomainACL": cws_DomainACL_output,
+        "cws_DomainACLEntry": cws_DomainACLEntry_output,
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/domain-acls/${pathParam(args, "domain_acl_id")}`,

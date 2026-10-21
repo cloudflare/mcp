@@ -3,6 +3,27 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  images_api_response_common_failure_output,
+  images_deleted_response_output,
+  images_messages_output,
+} from "../outputs.js";
+import {
+  images_sourcingkit_acceptable_content_type_output,
+  images_sourcingkit_conflict_behaviour_output,
+  images_sourcingkit_migration_create_response_output,
+  images_sourcingkit_migration_list_response_output,
+  images_sourcingkit_migration_list_response_result_output,
+  images_sourcingkit_migration_log_list_response_output,
+  images_sourcingkit_migration_log_list_response_result_output,
+  images_sourcingkit_migration_log_output,
+  images_sourcingkit_migration_log_type_output,
+  images_sourcingkit_migration_output,
+  images_sourcingkit_migration_progress_response_output,
+  images_sourcingkit_migration_progress_response_result_output,
+  images_sourcingkit_migration_single_response_output,
+  images_sourcingkit_migration_status_output,
+} from "./outputs.js";
+import {
   images_sourcingkit_acceptable_content_type,
   images_sourcingkit_conflict_behaviour,
   images_sourcingkit_migration_create_request,
@@ -47,6 +68,24 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_sourcingkit_migration"
+        },
+        "4XX": {
+          "$ref": "#/$defs/images_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/migrations/${pathParam(args, "migration_id")}/lifecycle/abort`,
     }),
@@ -90,6 +129,32 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_sourcingkit_migration"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_migration_create_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_create_response": images_sourcingkit_migration_create_response_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/migrations`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -130,6 +195,28 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_deleted_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_deleted_response": images_deleted_response_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/migrations/${pathParam(args, "migration_id")}`,
     }),
@@ -169,6 +256,32 @@ export const tools: readonly Tool[] = [
         "Images Read",
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_sourcingkit_migration"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_migration_single_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/migrations/${pathParam(args, "migration_id")}`,
@@ -214,6 +327,41 @@ export const tools: readonly Tool[] = [
         "Images Read",
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "migrations": {
+              "items": {
+                "$ref": "#/$defs/images_sourcingkit_migration"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_migration_list_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_list_response": images_sourcingkit_migration_list_response_output,
+        "images_sourcingkit_migration_list_response_result": images_sourcingkit_migration_list_response_result_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/migrations`,
@@ -269,6 +417,39 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "logs": {
+              "items": {
+                "$ref": "#/$defs/images_sourcingkit_migration_log"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_migration_log_list_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_migration_log": images_sourcingkit_migration_log_output,
+        "images_sourcingkit_migration_log_list_response": images_sourcingkit_migration_log_list_response_output,
+        "images_sourcingkit_migration_log_list_response_result": images_sourcingkit_migration_log_list_response_result_output,
+        "images_sourcingkit_migration_log_type": images_sourcingkit_migration_log_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/migrations/${pathParam(args, "migration_id")}/logs`,
       query: [
@@ -313,6 +494,90 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "endedAt": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "importErrorsCount": {
+              "type": "integer"
+            },
+            "importSuccessCount": {
+              "type": "integer"
+            },
+            "isAccurate": {
+              "type": "boolean"
+            },
+            "scannedCount": {
+              "type": "integer"
+            },
+            "skippedConflictCount": {
+              "type": "integer"
+            },
+            "skippedExcludedContentTypeCount": {
+              "type": "integer"
+            },
+            "skippedInvalidMediaCount": {
+              "type": "integer"
+            },
+            "skippedInvalidNameCount": {
+              "type": "integer"
+            },
+            "skippedOversizeCount": {
+              "type": "integer"
+            },
+            "skippedStorageClassCount": {
+              "type": "integer"
+            },
+            "skippedUnsupportedContentTypeCount": {
+              "type": "integer"
+            },
+            "startedAt": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "$ref": "#/$defs/images_sourcingkit_migration_status"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_migration_progress_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_migration_progress_response": images_sourcingkit_migration_progress_response_output,
+        "images_sourcingkit_migration_progress_response_result": images_sourcingkit_migration_progress_response_result_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/migrations/${pathParam(args, "migration_id")}/lifecycle`,
     }),
@@ -351,6 +616,24 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_sourcingkit_migration"
+        },
+        "4XX": {
+          "$ref": "#/$defs/images_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/migrations/${pathParam(args, "migration_id")}/lifecycle/start`,

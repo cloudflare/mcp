@@ -61,6 +61,13 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null,
+        "404": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/priority-intelligence/${pathParam(args, "priority_id")}/matches`,
       query: [
@@ -146,6 +153,13 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null,
+        "404": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/priority-intelligence/${pathParam(args, "priority_id")}/matches`,

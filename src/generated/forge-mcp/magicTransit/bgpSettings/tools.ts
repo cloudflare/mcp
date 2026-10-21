@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_api_response_common_failure_output,
+  magic_messages_output,
+} from "../outputs.js";
+import {
+  magic_bgp_redistribute_sources_output,
+  magic_bgp_settings_output,
+} from "./outputs.js";
+import {
   magic_update_bgp_settings_redistribute_sources,
   magic_update_bgp_settings_request,
 } from "./schemas.js";
@@ -44,6 +52,22 @@ export const tools: readonly Tool[] = [
         "pro": false
       },
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_bgp_settings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
+        "magic_bgp_settings": magic_bgp_settings_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/bgp/settings`,
@@ -90,6 +114,22 @@ export const tools: readonly Tool[] = [
         "pro": false
       },
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_bgp_settings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
+        "magic_bgp_settings": magic_bgp_settings_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/bgp/settings`,

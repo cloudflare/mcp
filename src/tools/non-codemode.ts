@@ -11,6 +11,7 @@ import {
   unknownAccountHint
 } from '../auth/account-access'
 import { recordToolCall } from '../metrics'
+import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { zodInputSchemaFromJson, type McpTool } from '../openapi'
@@ -123,9 +124,22 @@ async function callNonCodemodeTool(
     { caller: 'non_codemode_tool_call' }
   )
   const contentType = response.headers.get('content-type') || ''
-  const result = contentType.includes('application/json')
-    ? await response.json()
-    : await response.text()
+  const bodyText = await response.text()
+  const isJson = contentType.includes('application/json')
+  const result: unknown = isJson ? JSON.parse(bodyText) : bodyText
+
+  // Background check against the spec's response schema; never affects the result.
+  if (isJson) {
+    checkResponse({
+      toolName: tool.name,
+      method: tool.method,
+      pathTemplate: tool.path,
+      status: response.status,
+      body: result,
+      bodyChars: bodyText.length,
+      props
+    })
+  }
 
   // The generated tool already names its endpoint's template and accepted permissions.
   const accountId = params['account_id'] as string | undefined

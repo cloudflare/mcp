@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../../outputs.js";
+import {
+  tls_certificates_and_hostnames_enabled_2_output,
+  tls_certificates_and_hostnames_ssl_universal_settings_response_output,
+  tls_certificates_and_hostnames_universal_output,
+} from "./outputs.js";
+import {
   tls_certificates_and_hostnames_enabled_2,
   tls_certificates_and_hostnames_universal,
 } from "./schemas.js";
@@ -69,6 +78,30 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_universal"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_universal_settings_response"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
+        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ssl/universal/settings`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -120,6 +153,30 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_universal"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_universal_settings_response"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
+        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ssl/universal/settings`,

@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  tunnel_api_response_common_failure_output,
+  tunnel_messages_output,
+} from "../../outputs.js";
+import {
+  tunnel_icmp_proxy_enabled_output,
+  tunnel_offramp_warp_enabled_output,
+} from "./outputs.js";
+import {
   tunnel_icmp_proxy_enabled,
   tunnel_offramp_warp_enabled,
 } from "./schemas.js";
@@ -59,6 +67,30 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "icmp_proxy_enabled": {
+              "$ref": "#/$defs/tunnel_icmp_proxy_enabled"
+            },
+            "offramp_warp_enabled": {
+              "$ref": "#/$defs/tunnel_offramp_warp_enabled"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tunnel_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/connectivity_settings`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -95,6 +127,30 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "icmp_proxy_enabled": {
+              "$ref": "#/$defs/tunnel_icmp_proxy_enabled"
+            },
+            "offramp_warp_enabled": {
+              "$ref": "#/$defs/tunnel_offramp_warp_enabled"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tunnel_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/connectivity_settings`,

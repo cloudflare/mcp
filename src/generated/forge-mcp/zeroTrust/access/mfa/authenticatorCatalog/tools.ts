@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../../outputs.js";
+import {
+  access_aaguid_output,
+  access_authenticator_device_aaguid_output,
+  access_name_14_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.mfa.authenticator_catalog`.
@@ -32,6 +41,54 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/authenticator_device_aaguids",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_authenticator_device_aaguid"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_aaguid": access_aaguid_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_authenticator_device_aaguid": access_authenticator_device_aaguid_output,
+        "access_messages": access_messages_output,
+        "access_name-14": access_name_14_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/authenticator_device_aaguids`,
     }),

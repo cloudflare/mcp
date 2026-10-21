@@ -3,9 +3,32 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_messages_output,
+} from "../../outputs.js";
+import {
   digital_experience_monitoring_colo,
   digital_experience_monitoring_timestamp,
 } from "../../schemas.js";
+import {
+  digital_experience_monitoring_cpu_pct_by_app_output,
+  digital_experience_monitoring_directional_stat_output,
+  digital_experience_monitoring_ram_used_pct_by_app_output,
+  digital_experience_monitoring_rtt_stats_output,
+  digital_experience_monitoring_tunnel_stats_output,
+} from "../outputs.js";
+import {
+  digital_experience_monitoring_device_state_over_time_output,
+  digital_experience_monitoring_device_state_top_networks_summary_output,
+  digital_experience_monitoring_device_status_over_time_result_output,
+  digital_experience_monitoring_timeslot_cpu_apps_output,
+  digital_experience_monitoring_timeslot_float_output,
+  digital_experience_monitoring_timeslot_int_output,
+  digital_experience_monitoring_timeslot_ram_apps_output,
+  digital_experience_monitoring_timeslot_rtt_stats_output,
+  digital_experience_monitoring_timeslot_string_output,
+  digital_experience_monitoring_timeslot_tunnel_stats_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.devices.over_time`.
@@ -75,6 +98,35 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_device_status_over_time_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
+        "digital-experience-monitoring_device_state_over_time": digital_experience_monitoring_device_state_over_time_output,
+        "digital-experience-monitoring_device_state_top_networks_summary": digital_experience_monitoring_device_state_top_networks_summary_output,
+        "digital-experience-monitoring_device_status_over_time_result": digital_experience_monitoring_device_status_over_time_result_output,
+        "digital-experience-monitoring_directional_stat": digital_experience_monitoring_directional_stat_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
+        "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
+        "digital-experience-monitoring_timeslot_cpu_apps": digital_experience_monitoring_timeslot_cpu_apps_output,
+        "digital-experience-monitoring_timeslot_float": digital_experience_monitoring_timeslot_float_output,
+        "digital-experience-monitoring_timeslot_int": digital_experience_monitoring_timeslot_int_output,
+        "digital-experience-monitoring_timeslot_ram_apps": digital_experience_monitoring_timeslot_ram_apps_output,
+        "digital-experience-monitoring_timeslot_rtt_stats": digital_experience_monitoring_timeslot_rtt_stats_output,
+        "digital-experience-monitoring_timeslot_string": digital_experience_monitoring_timeslot_string_output,
+        "digital-experience-monitoring_timeslot_tunnel_stats": digital_experience_monitoring_timeslot_tunnel_stats_output,
+        "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/devices/${pathParam(args, "device_id")}/fleet-status/over-time`,

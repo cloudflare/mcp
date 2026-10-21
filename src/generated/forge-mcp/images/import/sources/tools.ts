@@ -3,6 +3,22 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  images_api_response_common_failure_output,
+  images_deleted_response_output,
+  images_messages_output,
+} from "../../outputs.js";
+import {
+  images_sourcingkit_connectivity_check_response_output,
+  images_sourcingkit_connectivity_check_response_result_output,
+  images_sourcingkit_source_create_response_output,
+  images_sourcingkit_source_list_response_output,
+  images_sourcingkit_source_list_response_result_output,
+  images_sourcingkit_source_output,
+  images_sourcingkit_source_single_response_output,
+  images_sourcingkit_source_update_response_output,
+  images_sourcingkit_vendor_output,
+} from "./outputs.js";
+import {
   images_sourcingkit_connectivity_precheck_request,
   images_sourcingkit_source_create_request,
   images_sourcingkit_source_update_request,
@@ -49,6 +65,58 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "code": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "connectivityStatus": {
+              "enum": [
+                "ok",
+                "error"
+              ],
+              "type": "string"
+            },
+            "reason": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_connectivity_check_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_connectivity_check_response": images_sourcingkit_connectivity_check_response_output,
+        "images_sourcingkit_connectivity_check_response_result": images_sourcingkit_connectivity_check_response_result_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/sources/${pathParam(args, "source_id")}/connectivity`,
     }),
@@ -91,6 +159,30 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_sourcingkit_source"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_source_create_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_source": images_sourcingkit_source_output,
+        "images_sourcingkit_source_create_response": images_sourcingkit_source_create_response_output,
+        "images_sourcingkit_vendor": images_sourcingkit_vendor_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/sources`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -131,6 +223,28 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_deleted_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_deleted_response": images_deleted_response_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/sources/${pathParam(args, "source_id")}`,
     }),
@@ -170,6 +284,30 @@ export const tools: readonly Tool[] = [
         "Images Read",
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_sourcingkit_source"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_source_single_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_source": images_sourcingkit_source_output,
+        "images_sourcingkit_source_single_response": images_sourcingkit_source_single_response_output,
+        "images_sourcingkit_vendor": images_sourcingkit_vendor_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/sources/${pathParam(args, "source_id")}`,
@@ -220,6 +358,39 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "sources": {
+              "items": {
+                "$ref": "#/$defs/images_sourcingkit_source"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_source_list_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_source": images_sourcingkit_source_output,
+        "images_sourcingkit_source_list_response": images_sourcingkit_source_list_response_output,
+        "images_sourcingkit_source_list_response_result": images_sourcingkit_source_list_response_result_output,
+        "images_sourcingkit_vendor": images_sourcingkit_vendor_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/sources`,
       query: [
@@ -267,6 +438,58 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "code": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "connectivityStatus": {
+              "enum": [
+                "ok",
+                "error"
+              ],
+              "type": "string"
+            },
+            "reason": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_connectivity_check_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_connectivity_check_response": images_sourcingkit_connectivity_check_response_output,
+        "images_sourcingkit_connectivity_check_response_result": images_sourcingkit_connectivity_check_response_result_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/sources/connectivity-precheck`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -313,6 +536,30 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_sourcingkit_source"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_sourcingkit_source_update_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_source": images_sourcingkit_source_output,
+        "images_sourcingkit_source_update_response": images_sourcingkit_source_update_response_output,
+        "images_sourcingkit_vendor": images_sourcingkit_vendor_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2/sourcingkit/sources/${pathParam(args, "source_id")}`,

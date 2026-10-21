@@ -2,6 +2,35 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../../outputs.js";
+import {
+  dlp_CustomEntry_output,
+  dlp_CustomPromptTopicEntry_output,
+  dlp_DocumentFingerprintEntry_output,
+  dlp_EntryConfidence_output,
+  dlp_Entry_output,
+  dlp_ExactDataEntry_output,
+  dlp_IntegrationEntry_output,
+  dlp_Pattern_output,
+  dlp_PredefinedEntryVariant_output,
+  dlp_PredefinedEntry_output,
+  dlp_PromptTopicType_output,
+  dlp_SensitivityLevelRef_output,
+  dlp_Validation_output,
+  dlp_WordListEntry_output,
+} from "../../outputs.js";
+import {
+  dlp_Confidence_output,
+  dlp_ContextAwareness_output,
+  dlp_CustomProfile_output,
+  dlp_IntegrationProfile_output,
+  dlp_PredefinedProfile_output,
+  dlp_Profile_output,
+  dlp_SkipConfig_output,
+} from "../outputs.js";
 import { dlp_ContextAwareness, dlp_SkipConfig } from "../schemas.js";
 import {
   dlp_PredefinedProfileEntryUpdate,
@@ -56,6 +85,41 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_Profile"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Confidence": dlp_Confidence_output,
+        "dlp_ContextAwareness": dlp_ContextAwareness_output,
+        "dlp_CustomEntry": dlp_CustomEntry_output,
+        "dlp_CustomProfile": dlp_CustomProfile_output,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_Entry": dlp_Entry_output,
+        "dlp_EntryConfidence": dlp_EntryConfidence_output,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
+        "dlp_IntegrationProfile": dlp_IntegrationProfile_output,
+        "dlp_Pattern": dlp_Pattern_output,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
+        "dlp_PredefinedProfile": dlp_PredefinedProfile_output,
+        "dlp_Profile": dlp_Profile_output,
+        "dlp_PromptTopicType": dlp_PromptTopicType_output,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+        "dlp_SkipConfig": dlp_SkipConfig_output,
+        "dlp_Validation": dlp_Validation_output,
+        "dlp_WordListEntry": dlp_WordListEntry_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/profiles/predefined/${pathParam(args, "profile_id")}`,

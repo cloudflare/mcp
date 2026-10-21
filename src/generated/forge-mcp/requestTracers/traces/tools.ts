@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  request_tracer_api_response_common_failure_output,
+  request_tracer_messages_output,
+  request_tracer_trace_output,
+} from "./outputs.js";
 
 /**
  * The tools of `request_tracers.traces`.
@@ -153,6 +158,29 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "status_code": {
+              "type": "integer"
+            },
+            "trace": {
+              "$ref": "#/$defs/request-tracer_trace"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/request-tracer_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "request-tracer_api-response-common-failure": request_tracer_api_response_common_failure_output,
+        "request-tracer_messages": request_tracer_messages_output,
+        "request-tracer_trace": request_tracer_trace_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/request-tracer/trace`,

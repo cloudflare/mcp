@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import {
+  zone_activation_api_response_common_failure_output,
+  zone_activation_identifier_output,
+  zone_activation_messages_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zone`.
@@ -36,6 +41,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zone Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/zone-activation_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zone-activation_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zone-activation_api-response-common-failure": zone_activation_api_response_common_failure_output,
+        "zone-activation_identifier": zone_activation_identifier_output,
+        "zone-activation_messages": zone_activation_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/activation_check`,

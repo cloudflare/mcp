@@ -2,8 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+} from "../../outputs.js";
 import { email_security_identifier } from "../../schemas.js";
+import { email_security_DomainStatus_output } from "../outputs.js";
 import { email_security_DomainId } from "../schemas.js";
+import { email_security_DomainVerificationInfo_output } from "./outputs.js";
 
 /**
  * The tools of `email_security.domains.verification`.
@@ -49,6 +55,22 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_DomainVerificationInfo"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_DomainVerificationInfo": email_security_DomainVerificationInfo_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/domains/${pathParam(args, "domain_id")}/verification`,

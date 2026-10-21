@@ -3,6 +3,19 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  workers_api_response_common_failure_output,
+  workers_messages_output,
+} from "../../outputs.js";
+import {
+  workers_api_response_collection_output,
+  workers_api_response_collection_result_info_output,
+  workers_namespace_output,
+  workers_query_result_output,
+  workers_query_result_resultsItem_meta_output,
+  workers_query_result_resultsItem_output,
+  workers_query_value_output,
+} from "./outputs.js";
+import {
   workers_query,
   workers_query_by_id,
   workers_query_by_name,
@@ -61,6 +74,72 @@ export const tools: readonly Tool[] = [
         "Individual Workers Content Read-Only",
         "Individual Workers Metadata Read-Only"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_namespace"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_namespace"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-collection_result_info": workers_api_response_collection_result_info_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_namespace": workers_namespace_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/durable_objects/namespaces`,
@@ -124,6 +203,24 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_query-result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_query-result": workers_query_result_output,
+        "workers_query-result_resultsItem": workers_query_result_resultsItem_output,
+        "workers_query-result_resultsItem_meta": workers_query_result_resultsItem_meta_output,
+        "workers_query-value": workers_query_value_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/durable_objects/namespaces/${pathParam(args, "id")}/query/v2`,

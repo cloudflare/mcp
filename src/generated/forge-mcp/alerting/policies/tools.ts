@@ -2,7 +2,33 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  aaa_api_response_common_2_output,
+  aaa_api_response_common_failure_3_output,
+  aaa_id_response_output,
+  aaa_id_response_result_output,
+  aaa_messages_3_output,
+  aaa_policy_id_output,
+  aaa_schemas_name_output,
+  aaa_uuid_output,
+} from "../outputs.js";
 import { aaa_schemas_name, aaa_uuid } from "../schemas.js";
+import {
+  aaa_alert_interval_output,
+  aaa_alert_type_output,
+  aaa_api_response_collection_output,
+  aaa_enabled_output,
+  aaa_filters_output,
+  aaa_mechanisms_emailItem_output,
+  aaa_mechanisms_output,
+  aaa_mechanisms_pagerdutyItem_output,
+  aaa_mechanisms_webhooksItem_output,
+  aaa_policies_output,
+  aaa_result_info_2_output,
+  aaa_schemas_description_output,
+  aaa_single_response_output,
+  aaa_timestamp_output,
+} from "./outputs.js";
 import {
   aaa_alert_interval,
   aaa_alert_type,
@@ -104,6 +130,35 @@ export const tools: readonly Tool[] = [
         "Account Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/aaa_uuid"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_id_response"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_id_response": aaa_id_response_output,
+        "aaa_id_response_result": aaa_id_response_result_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/policies`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -144,6 +199,29 @@ export const tools: readonly Tool[] = [
         "Notifications Write",
         "Account Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/aaa_api-response-collection"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_api-response-collection"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_api-response-collection": aaa_api_response_collection_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_result_info-2": aaa_result_info_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/policies/${pathParam(args, "policy_id")}`,
@@ -188,6 +266,42 @@ export const tools: readonly Tool[] = [
         "Account Settings Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/aaa_policies"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_single_response"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_alert_interval": aaa_alert_interval_output,
+        "aaa_alert_type": aaa_alert_type_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_enabled": aaa_enabled_output,
+        "aaa_filters": aaa_filters_output,
+        "aaa_mechanisms": aaa_mechanisms_output,
+        "aaa_mechanisms_emailItem": aaa_mechanisms_emailItem_output,
+        "aaa_mechanisms_pagerdutyItem": aaa_mechanisms_pagerdutyItem_output,
+        "aaa_mechanisms_webhooksItem": aaa_mechanisms_webhooksItem_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_policies": aaa_policies_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_schemas-description": aaa_schemas_description_output,
+        "aaa_schemas-name": aaa_schemas_name_output,
+        "aaa_single_response": aaa_single_response_output,
+        "aaa_timestamp": aaa_timestamp_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/policies/${pathParam(args, "policy_id")}`,
     }),
@@ -225,6 +339,48 @@ export const tools: readonly Tool[] = [
         "Account Settings Write",
         "Account Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/aaa_policies"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-3"
+        }
+      },
+      $defs: {
+        "aaa_alert_interval": aaa_alert_interval_output,
+        "aaa_alert_type": aaa_alert_type_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_enabled": aaa_enabled_output,
+        "aaa_filters": aaa_filters_output,
+        "aaa_mechanisms": aaa_mechanisms_output,
+        "aaa_mechanisms_emailItem": aaa_mechanisms_emailItem_output,
+        "aaa_mechanisms_pagerdutyItem": aaa_mechanisms_pagerdutyItem_output,
+        "aaa_mechanisms_webhooksItem": aaa_mechanisms_webhooksItem_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_policies": aaa_policies_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_schemas-description": aaa_schemas_description_output,
+        "aaa_schemas-name": aaa_schemas_name_output,
+        "aaa_timestamp": aaa_timestamp_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/policies`,
@@ -299,6 +455,21 @@ export const tools: readonly Tool[] = [
         "Notifications Write",
         "Account Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/aaa_api-response-common-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-3"
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_messages-3": aaa_messages_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/policies/${pathParam(args, "policy_id")}/test`,
@@ -388,6 +559,35 @@ export const tools: readonly Tool[] = [
         "Notifications Write",
         "Account Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/aaa_uuid"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_id_response"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_id_response": aaa_id_response_output,
+        "aaa_id_response_result": aaa_id_response_result_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/policies/${pathParam(args, "policy_id")}`,

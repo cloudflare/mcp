@@ -2,6 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  observatory_api_response_common_failure_output,
+  observatory_labeled_region_output,
+  observatory_messages_output,
+  observatory_region_output,
+} from "../outputs.js";
+import {
+  observatory_availabilities_output,
+  observatory_availabilities_quota_output,
+  observatory_availabilities_quota_quotasPerPlan_output,
+  observatory_availabilities_quota_scheduleQuotasPerPlan_output,
+  observatory_availabilities_regionsPerPlan_output,
+  observatory_plan_properties_info_output,
+} from "./outputs.js";
 
 /**
  * The tools of `speed.availabilities`.
@@ -43,6 +57,28 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/observatory_availabilities"
+        },
+        "4XX": {
+          "$ref": "#/$defs/observatory_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
+        "observatory_availabilities": observatory_availabilities_output,
+        "observatory_availabilities_quota": observatory_availabilities_quota_output,
+        "observatory_availabilities_quota_quotasPerPlan": observatory_availabilities_quota_quotasPerPlan_output,
+        "observatory_availabilities_quota_scheduleQuotasPerPlan": observatory_availabilities_quota_scheduleQuotasPerPlan_output,
+        "observatory_availabilities_regionsPerPlan": observatory_availabilities_regionsPerPlan_output,
+        "observatory_labeled_region": observatory_labeled_region_output,
+        "observatory_messages": observatory_messages_output,
+        "observatory_plan-properties-info": observatory_plan_properties_info_output,
+        "observatory_region": observatory_region_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/speed_api/availabilities`,

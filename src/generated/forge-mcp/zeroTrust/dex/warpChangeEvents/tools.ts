@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_messages_output,
+  digital_experience_monitoring_uuid_output,
+} from "../outputs.js";
+import {
+  digital_experience_monitoring_timestamp_datetime_output,
+  digital_experience_monitoring_warp_config_change_event_output,
+  digital_experience_monitoring_warp_config_details_output,
+  digital_experience_monitoring_warp_events_response_output,
+  digital_experience_monitoring_warp_toggle_change_event_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.warp_change_events`.
@@ -93,6 +105,54 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_warp_events_response"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_timestamp_datetime": digital_experience_monitoring_timestamp_datetime_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+        "digital-experience-monitoring_warp_config_change_event": digital_experience_monitoring_warp_config_change_event_output,
+        "digital-experience-monitoring_warp_config_details": digital_experience_monitoring_warp_config_details_output,
+        "digital-experience-monitoring_warp_events_response": digital_experience_monitoring_warp_events_response_output,
+        "digital-experience-monitoring_warp_toggle_change_event": digital_experience_monitoring_warp_toggle_change_event_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/warp-change-events`,

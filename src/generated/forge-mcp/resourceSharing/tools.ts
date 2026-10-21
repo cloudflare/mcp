@@ -3,6 +3,30 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  resource_sharing_account_id_output,
+  resource_sharing_account_name_output,
+  resource_sharing_api_response_common_failure_output,
+  resource_sharing_created_output,
+  resource_sharing_modified_output,
+  resource_sharing_organization_id_output,
+  resource_sharing_resource_id_output,
+  resource_sharing_resource_meta_output,
+  resource_sharing_resource_resource_id_output,
+  resource_sharing_resource_status_output,
+  resource_sharing_resource_type_output,
+  resource_sharing_resource_version_output,
+  resource_sharing_result_info_output,
+  resource_sharing_share_id_output,
+  resource_sharing_share_kind_output,
+  resource_sharing_share_name_output,
+  resource_sharing_share_object_output,
+  resource_sharing_share_resource_object_output,
+  resource_sharing_share_status_output,
+  resource_sharing_share_target_type_output,
+  resource_sharing_v4error_output,
+  resource_sharing_v4errors_output,
+} from "../outputs.js";
+import {
   resource_sharing_account_id,
   resource_sharing_organization_id,
   resource_sharing_resource_meta,
@@ -73,6 +97,42 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/resource-sharing_share_object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_account_name": resource_sharing_account_name_output,
+        "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_organization_id": resource_sharing_organization_id_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_id": resource_sharing_share_id_output,
+        "resource-sharing_share_kind": resource_sharing_share_kind_output,
+        "resource-sharing_share_name": resource_sharing_share_name_output,
+        "resource-sharing_share_object": resource_sharing_share_object_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
+        "resource-sharing_share_status": resource_sharing_share_status_output,
+        "resource-sharing_share_target_type": resource_sharing_share_target_type_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/shares`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -116,6 +176,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/resource-sharing_share_object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_account_name": resource_sharing_account_name_output,
+        "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_organization_id": resource_sharing_organization_id_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_id": resource_sharing_share_id_output,
+        "resource-sharing_share_kind": resource_sharing_share_kind_output,
+        "resource-sharing_share_name": resource_sharing_share_name_output,
+        "resource-sharing_share_object": resource_sharing_share_object_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
+        "resource-sharing_share_status": resource_sharing_share_status_output,
+        "resource-sharing_share_target_type": resource_sharing_share_target_type_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/shares/${pathParam(args, "share_id")}`,
@@ -179,6 +275,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/resource-sharing_share_object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_account_name": resource_sharing_account_name_output,
+        "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_organization_id": resource_sharing_organization_id_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_id": resource_sharing_share_id_output,
+        "resource-sharing_share_kind": resource_sharing_share_kind_output,
+        "resource-sharing_share_name": resource_sharing_share_name_output,
+        "resource-sharing_share_object": resource_sharing_share_object_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
+        "resource-sharing_share_status": resource_sharing_share_status_output,
+        "resource-sharing_share_target_type": resource_sharing_share_target_type_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/shares/${pathParam(args, "share_id")}`,
@@ -307,6 +439,57 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/resource-sharing_share_object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/resource-sharing_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_account_name": resource_sharing_account_name_output,
+        "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_organization_id": resource_sharing_organization_id_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_result_info": resource_sharing_result_info_output,
+        "resource-sharing_share_id": resource_sharing_share_id_output,
+        "resource-sharing_share_kind": resource_sharing_share_kind_output,
+        "resource-sharing_share_name": resource_sharing_share_name_output,
+        "resource-sharing_share_object": resource_sharing_share_object_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
+        "resource-sharing_share_status": resource_sharing_share_status_output,
+        "resource-sharing_share_target_type": resource_sharing_share_target_type_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/shares`,
       query: [
@@ -369,6 +552,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/resource-sharing_share_object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_account_name": resource_sharing_account_name_output,
+        "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_organization_id": resource_sharing_organization_id_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_id": resource_sharing_share_id_output,
+        "resource-sharing_share_kind": resource_sharing_share_kind_output,
+        "resource-sharing_share_name": resource_sharing_share_name_output,
+        "resource-sharing_share_object": resource_sharing_share_object_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
+        "resource-sharing_share_status": resource_sharing_share_status_output,
+        "resource-sharing_share_target_type": resource_sharing_share_target_type_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/shares/${pathParam(args, "share_id")}`,

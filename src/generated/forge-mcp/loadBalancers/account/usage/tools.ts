@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  load_balancing_api_response_common_failure_output,
+  load_balancing_messages_output,
+} from "../../../outputs.js";
 
 /**
  * The tools of `load_balancers.account.usage`.
@@ -37,6 +41,48 @@ export const tools: readonly Tool[] = [
         "Load Balancing: Monitors and Pools Write",
         "Load Balancing: Monitors and Pools Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "load_balancers": {
+              "type": "integer"
+            },
+            "max_origins_per_pool": {
+              "type": "integer"
+            },
+            "minimum_monitor_interval": {
+              "type": "integer"
+            },
+            "monitors": {
+              "type": "integer"
+            },
+            "origins": {
+              "type": "integer"
+            },
+            "pools": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "load_balancers",
+            "max_origins_per_pool",
+            "minimum_monitor_interval",
+            "monitors",
+            "origins",
+            "pools"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/usage`,

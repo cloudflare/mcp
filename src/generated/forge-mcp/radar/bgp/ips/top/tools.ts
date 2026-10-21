@@ -67,6 +67,90 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "anchorTs": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "asns": {
+              "items": {
+                "properties": {
+                  "asn": {
+                    "type": "integer"
+                  },
+                  "v4_24s": {
+                    "type": "integer"
+                  },
+                  "v6_48s": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "asn",
+                  "v4_24s",
+                  "v6_48s"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "country": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "metric": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "anchorTs",
+            "asns",
+            "country",
+            "metric"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/bgp/ips/top/ases`,
       query: [

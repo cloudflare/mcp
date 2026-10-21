@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  email_dns_record_output,
+  email_dns_record_ttl_output,
+} from "../../../outputs.js";
+import { email_sending_subdomain_config_error_output } from "../outputs.js";
 
 /**
  * The tools of `email_sending.subdomains.dns`.
@@ -55,6 +60,45 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/email_sending_subdomain_config_error"
+              },
+              "type": "array"
+            },
+            "records": {
+              "items": {
+                "$ref": "#/$defs/email_dns_record"
+              },
+              "type": "array"
+            },
+            "status": {
+              "enum": [
+                "ready",
+                "unconfigured",
+                "unlocked",
+                "misconfigured"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "400": null,
+        "403": null,
+        "404": null,
+        "409": null
+      },
+      $defs: {
+        "email_dns_record": email_dns_record_output,
+        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/sending/subdomains/${pathParam(args, "subdomain_id")}/dns`,
     }),
@@ -107,6 +151,49 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email_dns_record"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "404": null
+      },
+      $defs: {
+        "email_dns_record": email_dns_record_output,
+        "email_dns_record_ttl": email_dns_record_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/sending/subdomains/${pathParam(args, "subdomain_id")}/dns`,
     }),
@@ -158,6 +245,43 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/email_sending_subdomain_config_error"
+              },
+              "type": "array"
+            },
+            "records": {
+              "items": {
+                "$ref": "#/$defs/email_dns_record"
+              },
+              "type": "array"
+            },
+            "status": {
+              "enum": [
+                "ready",
+                "unconfigured",
+                "unlocked",
+                "misconfigured"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "400": null,
+        "404": null
+      },
+      $defs: {
+        "email_dns_record": email_dns_record_output,
+        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/sending/subdomains/${pathParam(args, "subdomain_id")}/dns/status`,

@@ -2,7 +2,27 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  tls_certificates_and_hostnames_api_response_collection_output,
+  tls_certificates_and_hostnames_api_response_collection_result_info_output,
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../../../outputs.js";
+import {
+  tls_certificates_and_hostnames_created_at_4_output,
+  tls_certificates_and_hostnames_hostname_3_output,
+  tls_certificates_and_hostnames_per_hostname_settings_response_output,
+  tls_certificates_and_hostnames_settingObject_output,
+  tls_certificates_and_hostnames_status_12_output,
+  tls_certificates_and_hostnames_updated_at_5_output,
+  tls_certificates_and_hostnames_value_output,
+} from "../outputs.js";
 import { tls_certificates_and_hostnames_value } from "../schemas.js";
+import {
+  tls_certificates_and_hostnames_per_hostname_settings_response_collection_output,
+  tls_certificates_and_hostnames_per_hostname_settings_response_delete_output,
+  tls_certificates_and_hostnames_settingObjectDelete_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zones.hostnames.settings.tls`.
@@ -64,6 +84,34 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_settingObjectDelete"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_per_hostname_settings_response_delete"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_created_at-4": tls_certificates_and_hostnames_created_at_4_output,
+        "tls-certificates-and-hostnames_hostname-3": tls_certificates_and_hostnames_hostname_3_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_per_hostname_settings_response_delete": tls_certificates_and_hostnames_per_hostname_settings_response_delete_output,
+        "tls-certificates-and-hostnames_settingObjectDelete": tls_certificates_and_hostnames_settingObjectDelete_output,
+        "tls-certificates-and-hostnames_status-12": tls_certificates_and_hostnames_status_12_output,
+        "tls-certificates-and-hostnames_updated_at-5": tls_certificates_and_hostnames_updated_at_5_output,
+        "tls-certificates-and-hostnames_value": tls_certificates_and_hostnames_value_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/hostnames/settings/${pathParam(args, "setting_id")}/${pathParam(args, "hostname")}`,
     }),
@@ -119,6 +167,83 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "created_at": {
+                    "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-4"
+                  },
+                  "hostname": {
+                    "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-3"
+                  },
+                  "status": {
+                    "$ref": "#/$defs/tls-certificates-and-hostnames_status-12"
+                  },
+                  "updated_at": {
+                    "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-5"
+                  },
+                  "value": {
+                    "$ref": "#/$defs/tls-certificates-and-hostnames_value"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_per_hostname_settings_response_collection"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
+        "tls-certificates-and-hostnames_api-response-collection_result_info": tls_certificates_and_hostnames_api_response_collection_result_info_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_created_at-4": tls_certificates_and_hostnames_created_at_4_output,
+        "tls-certificates-and-hostnames_hostname-3": tls_certificates_and_hostnames_hostname_3_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_per_hostname_settings_response_collection": tls_certificates_and_hostnames_per_hostname_settings_response_collection_output,
+        "tls-certificates-and-hostnames_status-12": tls_certificates_and_hostnames_status_12_output,
+        "tls-certificates-and-hostnames_updated_at-5": tls_certificates_and_hostnames_updated_at_5_output,
+        "tls-certificates-and-hostnames_value": tls_certificates_and_hostnames_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/hostnames/settings/${pathParam(args, "setting_id")}`,
@@ -195,6 +320,34 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_settingObject"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_per_hostname_settings_response"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_created_at-4": tls_certificates_and_hostnames_created_at_4_output,
+        "tls-certificates-and-hostnames_hostname-3": tls_certificates_and_hostnames_hostname_3_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_per_hostname_settings_response": tls_certificates_and_hostnames_per_hostname_settings_response_output,
+        "tls-certificates-and-hostnames_settingObject": tls_certificates_and_hostnames_settingObject_output,
+        "tls-certificates-and-hostnames_status-12": tls_certificates_and_hostnames_status_12_output,
+        "tls-certificates-and-hostnames_updated_at-5": tls_certificates_and_hostnames_updated_at_5_output,
+        "tls-certificates-and-hostnames_value": tls_certificates_and_hostnames_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/hostnames/settings/${pathParam(args, "setting_id")}/${pathParam(args, "hostname")}`,

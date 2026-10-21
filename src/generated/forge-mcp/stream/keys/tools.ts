@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  stream_api_response_common_failure_output,
+  stream_messages_output,
+} from "../outputs.js";
+import {
+  stream_identifier_2_output,
+  stream_jwk_output,
+  stream_keys_output,
+  stream_pem_output,
+  stream_signing_key_created_output,
+} from "./outputs.js";
 
 /**
  * The tools of `stream.keys`.
@@ -36,6 +47,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Stream Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_keys"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_identifier-2": stream_identifier_2_output,
+        "stream_jwk": stream_jwk_output,
+        "stream_keys": stream_keys_output,
+        "stream_messages": stream_messages_output,
+        "stream_pem": stream_pem_output,
+        "stream_signing_key_created": stream_signing_key_created_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/keys`,
@@ -76,6 +106,20 @@ export const tools: readonly Tool[] = [
         "Stream Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/keys/${pathParam(args, "identifier")}`,
     }),
@@ -110,6 +154,47 @@ export const tools: readonly Tool[] = [
         "Stream Write",
         "Stream Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "created": {
+                    "$ref": "#/$defs/stream_signing_key_created"
+                  },
+                  "id": {
+                    "$ref": "#/$defs/stream_identifier-2"
+                  },
+                  "key_id": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_identifier-2": stream_identifier_2_output,
+        "stream_messages": stream_messages_output,
+        "stream_signing_key_created": stream_signing_key_created_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/keys`,

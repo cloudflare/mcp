@@ -49,6 +49,49 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "detail",
+                  "status",
+                  "title"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "message": {
+              "type": "string"
+            },
+            "status": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "errors",
+            "message",
+            "status"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/urlscanner/v2/responses/${pathParam(args, "response_id")}`,
     }),

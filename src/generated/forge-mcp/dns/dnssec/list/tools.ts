@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  dnssec_api_response_common_failure_output,
+  dnssec_messages_output,
+} from "../outputs.js";
+import {
+  dnssec_dnskey_record_header_output,
+  dnssec_dnskey_record_output,
+  dnssec_dnskey_signing_key_output,
+  dnssec_dnssec_key_state_output,
+  dnssec_dnssec_zsk_output,
+  dnssec_key_storage_location_output,
+} from "./outputs.js";
 
 /**
  * The tools of `dns.dnssec.list`.
@@ -43,6 +55,40 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dnssec_dnssec_zsk"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dnssec_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dnssec_api-response-common-failure": dnssec_api_response_common_failure_output,
+        "dnssec_dnskey_record": dnssec_dnskey_record_output,
+        "dnssec_dnskey_record_header": dnssec_dnskey_record_header_output,
+        "dnssec_dnskey_signing_key": dnssec_dnskey_signing_key_output,
+        "dnssec_dnssec_key_state": dnssec_dnssec_key_state_output,
+        "dnssec_dnssec_zsk": dnssec_dnssec_zsk_output,
+        "dnssec_key_storage_location": dnssec_key_storage_location_output,
+        "dnssec_messages": dnssec_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dnssec/zsk`,

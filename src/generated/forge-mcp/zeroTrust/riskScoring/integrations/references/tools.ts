@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../../outputs.js";
+import {
+  dlp_RiskScoreIntegrationType_output,
+  dlp_RiskScoreIntegration_output,
+} from "../outputs.js";
 
 /**
  * The tools of `zero_trust.risk_scoring.integrations.references`.
@@ -40,6 +48,22 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_RiskScoreIntegration"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration_output,
+        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zt_risk_scoring/integrations/reference_id/${pathParam(args, "reference_id")}`,

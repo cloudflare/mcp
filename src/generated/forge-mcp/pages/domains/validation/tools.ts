@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  pages_api_response_common_failure_output,
+  pages_messages_output,
+} from "../../outputs.js";
+import {
+  pages_domain_name_output,
+  pages_domain_output,
+  pages_domain_validation_data_output,
+  pages_domain_verification_data_output,
+} from "../outputs.js";
 
 /**
  * The tools of `pages.domains.validation`.
@@ -46,6 +56,24 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Pages Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pages_domain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_domain": pages_domain_output,
+        "pages_domain_name": pages_domain_name_output,
+        "pages_domain_validation_data": pages_domain_validation_data_output,
+        "pages_domain_verification_data": pages_domain_verification_data_output,
+        "pages_messages": pages_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/domains/${pathParam(args, "domain_name")}`,

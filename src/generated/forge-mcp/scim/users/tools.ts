@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { iam_scim_error_response_output } from "../outputs.js";
+import {
+  iam_scim_user_email_object_output,
+  iam_scim_user_list_response_output,
+  iam_scim_user_meta_output,
+  iam_scim_user_name_object_output,
+  iam_scim_user_output,
+} from "./outputs.js";
 import {
   iam_scim_patch_op_request,
   iam_scim_patch_operation,
@@ -71,6 +79,23 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/iam_scim_user"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users`,
       body: { value: args["body"], mediaType: "application/scim+json" },
@@ -127,6 +152,17 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users/${pathParam(args, "user_id")}`,
@@ -192,6 +228,23 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_user"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users/${pathParam(args, "user_id")}`,
       body: { value: args["body"], mediaType: "application/scim+json" },
@@ -249,6 +302,23 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_user"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users/${pathParam(args, "user_id")}`,
@@ -314,6 +384,24 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_user_list_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_list_response": iam_scim_user_list_response_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users`,
@@ -384,6 +472,23 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_user"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users/${pathParam(args, "user_id")}`,

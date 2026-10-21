@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  stream_api_response_common_failure_output,
+  stream_messages_output,
+} from "../../../outputs.js";
+import {
+  stream_caption_status_output,
+  stream_captions_output,
+  stream_generated_caption_output,
+  stream_label_output,
+  stream_language_output,
+} from "../outputs.js";
 
 /**
  * The tools of `stream.videos.captions.language`.
@@ -47,6 +58,20 @@ export const tools: readonly Tool[] = [
         "Stream Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/captions/${pathParam(args, "language")}`,
     }),
@@ -86,6 +111,25 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/stream/{identifier}/captions/{language}/generate",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_captions"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_caption_status": stream_caption_status_output,
+        "stream_captions": stream_captions_output,
+        "stream_generated_caption": stream_generated_caption_output,
+        "stream_label": stream_label_output,
+        "stream_language": stream_language_output,
+        "stream_messages": stream_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/captions/${pathParam(args, "language")}/generate`,
     }),
@@ -130,6 +174,25 @@ export const tools: readonly Tool[] = [
         "Stream Write",
         "Stream Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_captions"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_caption_status": stream_caption_status_output,
+        "stream_captions": stream_captions_output,
+        "stream_generated_caption": stream_generated_caption_output,
+        "stream_label": stream_label_output,
+        "stream_language": stream_language_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/captions/${pathParam(args, "language")}`,

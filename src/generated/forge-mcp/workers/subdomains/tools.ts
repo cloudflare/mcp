@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_messages_output,
+} from "../../outputs.js";
+import { workers_subdomain_2_output } from "./outputs.js";
 import { workers_subdomain_2 } from "./schemas.js";
 
 /**
@@ -41,6 +46,18 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/subdomain`,
     }),
@@ -78,6 +95,21 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_subdomain-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_subdomain-2": workers_subdomain_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/subdomain`,
@@ -122,6 +154,21 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_subdomain-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_subdomain-2": workers_subdomain_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/subdomain`,

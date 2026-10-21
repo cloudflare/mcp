@@ -2,6 +2,21 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+  zero_trust_gateway_read_only_timestamp_output,
+} from "../../../outputs.js";
+import {
+  zero_trust_gateway_api_response_collection_output,
+  zero_trust_gateway_result_info_output,
+} from "../../outputs.js";
+import {
+  zero_trust_gateway_description_item_output,
+  zero_trust_gateway_items_output,
+  zero_trust_gateway_value_output,
+} from "../outputs.js";
+import { zero_trust_gateway_list_item_response_collection_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.gateway.lists.items`.
@@ -47,6 +62,62 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/lists/{list_id}/items",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/zero-trust-gateway_items"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_list_item_response_collection"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_list_item_response_collection": zero_trust_gateway_list_item_response_collection_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/lists/${pathParam(args, "list_id")}/items`,
       query: [

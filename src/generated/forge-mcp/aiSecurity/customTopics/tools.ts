@@ -2,6 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { waf_product_api_bundle_messages_output } from "../../outputs.js";
+import { waf_product_api_bundle_api_response_common_failure_3_output } from "../outputs.js";
+import {
+  waf_product_api_bundle_custom_topic_output,
+  waf_product_api_bundle_custom_topics_output,
+  waf_product_api_bundle_response_custom_topics_output,
+} from "./outputs.js";
 import {
   waf_product_api_bundle_custom_topic,
   waf_product_api_bundle_custom_topics,
@@ -36,6 +43,30 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/zones/{zone_id}/ai-security/custom-topics",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
+        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
+        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-topics": waf_product_api_bundle_response_custom_topics_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ai-security/custom-topics`,
     }),
@@ -73,6 +104,30 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/zones/{zone_id}/ai-security/custom-topics",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
+        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
+        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-topics": waf_product_api_bundle_response_custom_topics_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ai-security/custom-topics`,
       body: { value: args["body"], mediaType: "application/json" },

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  hyperdrive_api_response_common_failure_output,
+  hyperdrive_messages_output,
+} from "../../outputs.js";
+import { hyperdrive_hyperdrive_database_signature_response_output } from "./outputs.js";
 
 /**
  * The tools of `hyperdrive.integration.planetscale`.
@@ -32,6 +37,21 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/hyperdrive/integrationsOperations/planetScale/createDatabaseSignature",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-database-signature-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive_database_signature_response_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/hyperdrive/integrationsOperations/planetScale/createDatabaseSignature`,
     }),

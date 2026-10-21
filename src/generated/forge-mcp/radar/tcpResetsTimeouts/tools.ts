@@ -96,6 +96,235 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "confidenceInfo": {
+                  "properties": {
+                    "annotations": {
+                      "items": {
+                        "properties": {
+                          "dataSource": {
+                            "enum": [
+                              "ALL",
+                              "AI_BOTS",
+                              "AI_GATEWAY",
+                              "BGP",
+                              "BOTS",
+                              "CONNECTION_ANOMALY",
+                              "CT",
+                              "DNS",
+                              "DNS_MAGNITUDE",
+                              "DNS_AS112",
+                              "DOS",
+                              "EMAIL_ROUTING",
+                              "EMAIL_SECURITY",
+                              "FW",
+                              "FW_PG",
+                              "HTTP",
+                              "HTTP_CONTROL",
+                              "HTTP_CRAWLER_REFERER",
+                              "HTTP_ORIGINS",
+                              "IQI",
+                              "LEAKED_CREDENTIALS",
+                              "NET",
+                              "ROBOTS_TXT",
+                              "SPEED",
+                              "WORKERS_AI"
+                            ],
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "endDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "enum": [
+                              "GENERAL",
+                              "OUTAGE",
+                              "PARTIAL_PROJECTION",
+                              "PIPELINE",
+                              "TRAFFIC_ANOMALY"
+                            ],
+                            "type": "string"
+                          },
+                          "isInstantaneous": {
+                            "type": "boolean"
+                          },
+                          "linkedUrl": {
+                            "type": "string"
+                          },
+                          "startDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "tags": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "dataSource",
+                          "description",
+                          "endDate",
+                          "eventType",
+                          "isInstantaneous",
+                          "linkedUrl",
+                          "startDate"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "level": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "annotations",
+                    "level"
+                  ],
+                  "type": "object"
+                },
+                "dateRange": {
+                  "items": {
+                    "properties": {
+                      "endTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "startTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "endTime",
+                      "startTime"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "lastUpdated": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "normalization": {
+                  "enum": [
+                    "PERCENTAGE",
+                    "MIN0_MAX",
+                    "MIN_MAX",
+                    "RAW_VALUES",
+                    "PERCENTAGE_CHANGE",
+                    "ROLLING_AVERAGE",
+                    "OVERLAPPED_PERCENTAGE",
+                    "RATIO"
+                  ],
+                  "type": "string"
+                },
+                "units": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "confidenceInfo",
+                "dateRange",
+                "lastUpdated",
+                "normalization",
+                "units"
+              ],
+              "type": "object"
+            },
+            "summary_0": {
+              "properties": {
+                "later_in_flow": {
+                  "type": "string"
+                },
+                "no_match": {
+                  "type": "string"
+                },
+                "post_ack": {
+                  "type": "string"
+                },
+                "post_psh": {
+                  "type": "string"
+                },
+                "post_syn": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "later_in_flow",
+                "no_match",
+                "post_ack",
+                "post_psh",
+                "post_syn"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "meta",
+            "summary_0"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/tcp_resets_timeouts/summary`,
       query: [
@@ -208,6 +437,269 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "aggInterval": {
+                  "enum": [
+                    "FIFTEEN_MINUTES",
+                    "ONE_HOUR",
+                    "ONE_DAY",
+                    "ONE_WEEK",
+                    "ONE_MONTH"
+                  ],
+                  "type": "string"
+                },
+                "confidenceInfo": {
+                  "properties": {
+                    "annotations": {
+                      "items": {
+                        "properties": {
+                          "dataSource": {
+                            "enum": [
+                              "ALL",
+                              "AI_BOTS",
+                              "AI_GATEWAY",
+                              "BGP",
+                              "BOTS",
+                              "CONNECTION_ANOMALY",
+                              "CT",
+                              "DNS",
+                              "DNS_MAGNITUDE",
+                              "DNS_AS112",
+                              "DOS",
+                              "EMAIL_ROUTING",
+                              "EMAIL_SECURITY",
+                              "FW",
+                              "FW_PG",
+                              "HTTP",
+                              "HTTP_CONTROL",
+                              "HTTP_CRAWLER_REFERER",
+                              "HTTP_ORIGINS",
+                              "IQI",
+                              "LEAKED_CREDENTIALS",
+                              "NET",
+                              "ROBOTS_TXT",
+                              "SPEED",
+                              "WORKERS_AI"
+                            ],
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "endDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "enum": [
+                              "GENERAL",
+                              "OUTAGE",
+                              "PARTIAL_PROJECTION",
+                              "PIPELINE",
+                              "TRAFFIC_ANOMALY"
+                            ],
+                            "type": "string"
+                          },
+                          "isInstantaneous": {
+                            "type": "boolean"
+                          },
+                          "linkedUrl": {
+                            "type": "string"
+                          },
+                          "startDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "tags": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "dataSource",
+                          "description",
+                          "endDate",
+                          "eventType",
+                          "isInstantaneous",
+                          "linkedUrl",
+                          "startDate"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "level": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "annotations",
+                    "level"
+                  ],
+                  "type": "object"
+                },
+                "dateRange": {
+                  "items": {
+                    "properties": {
+                      "endTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "startTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "endTime",
+                      "startTime"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "lastUpdated": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "normalization": {
+                  "enum": [
+                    "PERCENTAGE",
+                    "MIN0_MAX",
+                    "MIN_MAX",
+                    "RAW_VALUES",
+                    "PERCENTAGE_CHANGE",
+                    "ROLLING_AVERAGE",
+                    "OVERLAPPED_PERCENTAGE",
+                    "RATIO"
+                  ],
+                  "type": "string"
+                },
+                "units": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "aggInterval",
+                "confidenceInfo",
+                "dateRange",
+                "lastUpdated",
+                "normalization",
+                "units"
+              ],
+              "type": "object"
+            },
+            "serie_0": {
+              "properties": {
+                "later_in_flow": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "no_match": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "post_ack": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "post_psh": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "post_syn": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "timestamps": {
+                  "items": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "later_in_flow",
+                "no_match",
+                "post_ack",
+                "post_psh",
+                "post_syn",
+                "timestamps"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "meta",
+            "serie_0"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/tcp_resets_timeouts/timeseries_groups`,

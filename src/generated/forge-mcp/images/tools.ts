@@ -3,6 +3,29 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  images_api_response_common_failure_output,
+  images_deleted_response_output,
+  images_image_creator_output,
+  images_image_filename_output,
+  images_image_hero_url_output,
+  images_image_identifier_output,
+  images_image_metadata_output,
+  images_image_original_url_output,
+  images_image_output,
+  images_image_requireSignedURLs_output,
+  images_image_response_blob_output,
+  images_image_response_single_output,
+  images_image_thumbnail_url_output,
+  images_image_uploaded_output,
+  images_image_variants_output,
+  images_images_stats_allowed_output,
+  images_images_stats_count_output,
+  images_images_stats_current_output,
+  images_images_stats_output,
+  images_images_stats_response_output,
+  images_messages_output,
+} from "./outputs.js";
+import {
   images_image_patch_request,
   images_images_list_continuation_token,
 } from "./schemas.js";
@@ -45,6 +68,28 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_deleted_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_deleted_response": images_deleted_response_output,
+        "images_messages": images_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/${pathParam(args, "image_id")}`,
@@ -92,6 +137,39 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_response_single"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image": images_image_output,
+        "images_image_creator": images_image_creator_output,
+        "images_image_filename": images_image_filename_output,
+        "images_image_hero_url": images_image_hero_url_output,
+        "images_image_identifier": images_image_identifier_output,
+        "images_image_metadata": images_image_metadata_output,
+        "images_image_original_url": images_image_original_url_output,
+        "images_image_requireSignedURLs": images_image_requireSignedURLs_output,
+        "images_image_response_single": images_image_response_single_output,
+        "images_image_thumbnail_url": images_image_thumbnail_url_output,
+        "images_image_uploaded": images_image_uploaded_output,
+        "images_image_variants": images_image_variants_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/${pathParam(args, "image_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -133,6 +211,39 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_response_single"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image": images_image_output,
+        "images_image_creator": images_image_creator_output,
+        "images_image_filename": images_image_filename_output,
+        "images_image_hero_url": images_image_hero_url_output,
+        "images_image_identifier": images_image_identifier_output,
+        "images_image_metadata": images_image_metadata_output,
+        "images_image_original_url": images_image_original_url_output,
+        "images_image_requireSignedURLs": images_image_requireSignedURLs_output,
+        "images_image_response_single": images_image_response_single_output,
+        "images_image_thumbnail_url": images_image_thumbnail_url_output,
+        "images_image_uploaded": images_image_uploaded_output,
+        "images_image_variants": images_image_variants_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/${pathParam(args, "image_id")}`,
     }),
@@ -172,6 +283,26 @@ export const tools: readonly Tool[] = [
         "Images Read",
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_response_blob"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image_response_blob": images_image_response_blob_output,
+        "images_messages": images_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/${pathParam(args, "image_id")}/blob`,
@@ -244,6 +375,42 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "images": {
+              "items": {
+                "$ref": "#/$defs/images_image"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/images_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/images_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image": images_image_output,
+        "images_image_creator": images_image_creator_output,
+        "images_image_filename": images_image_filename_output,
+        "images_image_hero_url": images_image_hero_url_output,
+        "images_image_identifier": images_image_identifier_output,
+        "images_image_metadata": images_image_metadata_output,
+        "images_image_original_url": images_image_original_url_output,
+        "images_image_requireSignedURLs": images_image_requireSignedURLs_output,
+        "images_image_thumbnail_url": images_image_thumbnail_url_output,
+        "images_image_uploaded": images_image_uploaded_output,
+        "images_image_variants": images_image_variants_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v2`,
       query: [
@@ -285,6 +452,32 @@ export const tools: readonly Tool[] = [
         "Images Read",
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_images_stats"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_images_stats_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_images_stats": images_images_stats_output,
+        "images_images_stats_allowed": images_images_stats_allowed_output,
+        "images_images_stats_count": images_images_stats_count_output,
+        "images_images_stats_current": images_images_stats_current_output,
+        "images_images_stats_response": images_images_stats_response_output,
+        "images_messages": images_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/stats`,

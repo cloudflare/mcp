@@ -3,11 +3,25 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  organizations_api_OrganizationFlags_output,
+  organizations_api_OrganizationID_output,
+  organizations_api_Organization_meta_output,
+  organizations_api_Organization_output,
+  organizations_api_Organization_parent_output,
+  organizations_api_Profile_output,
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../outputs.js";
+import {
   organizations_api_Organization,
   organizations_api_OrganizationID,
   organizations_api_Organization_parent,
   organizations_api_Profile,
 } from "../schemas.js";
+import {
+  organizations_api_DeleteOrganizationResult_output,
+  organizations_api_PageTokenResultInfo_output,
+} from "./outputs.js";
 
 /**
  * The tools of `organization`.
@@ -48,6 +62,26 @@ export const tools: readonly Tool[] = [
         "User Details Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_Organization"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -78,6 +112,21 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/organizations/{organization_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_DeleteOrganizationResult"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_DeleteOrganizationResult": organizations_api_DeleteOrganizationResult_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}`,
     }),
@@ -107,6 +156,26 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/organizations/{organization_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_Organization"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}`,
     }),
@@ -195,6 +264,41 @@ export const tools: readonly Tool[] = [
         "User Details Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_Organization"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations`,
       query: [
@@ -248,6 +352,26 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/organizations/{organization_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_Organization"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}`,
       body: { value: args["body"], mediaType: "application/json" },

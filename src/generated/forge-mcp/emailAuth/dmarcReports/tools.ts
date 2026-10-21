@@ -2,7 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  email_auth_api_response_common_failure_output,
+  email_auth_messages_output,
+} from "../outputs.js";
 import { email_auth_identifier } from "../schemas.js";
+import {
+  email_auth_ApprovedSourceResponse_output,
+  email_auth_DmarcReportResponse_output,
+  email_auth_DmarcStatus_output,
+  email_auth_DnsRecordInfo_output,
+  email_auth_ResolvedDmarcRecord_output,
+  email_auth_ZoneDnsRecords_output,
+} from "./outputs.js";
 import { email_auth_ConfigureDmarcReportsRequest } from "./schemas.js";
 
 /**
@@ -42,6 +54,26 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/zones/{zone_id}/email/auth/dmarc-reports",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-auth_DmarcReportResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-auth_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
+        "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
+        "email-auth_DmarcStatus": email_auth_DmarcStatus_output,
+        "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
+        "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
+        "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
+        "email-auth_api-response-common-failure": email_auth_api_response_common_failure_output,
+        "email-auth_messages": email_auth_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/auth/dmarc-reports`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -75,6 +107,26 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/zones/{zone_id}/email/auth/dmarc-reports",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-auth_DmarcReportResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-auth_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
+        "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
+        "email-auth_DmarcStatus": email_auth_DmarcStatus_output,
+        "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
+        "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
+        "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
+        "email-auth_api-response-common-failure": email_auth_api_response_common_failure_output,
+        "email-auth_messages": email_auth_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/auth/dmarc-reports`,
     }),

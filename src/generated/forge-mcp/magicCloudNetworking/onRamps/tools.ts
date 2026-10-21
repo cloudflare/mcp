@@ -2,7 +2,49 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  mcn_account_id_output,
+  mcn_bad_response_output,
+  mcn_cloud_platform_client_output,
+  mcn_cloud_type_output,
+  mcn_cost_output,
+  mcn_error_meta_output,
+  mcn_error_output,
+  mcn_error_source_output,
+  mcn_good_response_output,
+  mcn_list_item_output,
+  mcn_observation_output,
+  mcn_platform_client_id_output,
+  mcn_provider_id_output,
+  mcn_resource_details_output,
+  mcn_resource_details_section_item_output,
+  mcn_resource_details_section_output,
+  mcn_resource_id_output,
+  mcn_resource_preview_item_output,
+  mcn_resource_preview_output,
+  mcn_resource_type_output,
+  mcn_string_item_output,
+  mcn_yaml_diff_item_output,
+  mcn_yaml_diff_output,
+  mcn_yaml_item_output,
+} from "../outputs.js";
 import { mcn_provider_id, mcn_resource_id } from "../schemas.js";
+import {
+  mcn_apply_progress_output,
+  mcn_conduit_route_id_output,
+  mcn_conduit_tunnel_id_output,
+  mcn_cost_diff_output,
+  mcn_deleted_onramp_output,
+  mcn_onramp_cloud_type_output,
+  mcn_onramp_id_output,
+  mcn_onramp_lifecycle_state_output,
+  mcn_onramp_output,
+  mcn_onramp_status_output,
+  mcn_onramp_type_output,
+  mcn_plan_progress_output,
+  mcn_planned_action_output,
+  mcn_resource_diff_output,
+} from "./outputs.js";
 import {
   mcn_create_onramp_request,
   mcn_onramp_cloud_type,
@@ -46,6 +88,38 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/mcn_good_response"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_good_response": mcn_good_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/${pathParam(args, "onramp_id")}/apply`,
@@ -94,6 +168,69 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/mcn_onramp"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_apply_progress": mcn_apply_progress_output,
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_conduit_route_id": mcn_conduit_route_id_output,
+        "mcn_conduit_tunnel_id": mcn_conduit_tunnel_id_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_cost_diff": mcn_cost_diff_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_onramp": mcn_onramp_output,
+        "mcn_onramp_cloud_type": mcn_onramp_cloud_type_output,
+        "mcn_onramp_id": mcn_onramp_id_output,
+        "mcn_onramp_lifecycle_state": mcn_onramp_lifecycle_state_output,
+        "mcn_onramp_status": mcn_onramp_status_output,
+        "mcn_onramp_type": mcn_onramp_type_output,
+        "mcn_plan_progress": mcn_plan_progress_output,
+        "mcn_planned_action": mcn_planned_action_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_diff": mcn_resource_diff_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps`,
       headers: [
@@ -140,6 +277,39 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_deleted_onramp"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_deleted_onramp": mcn_deleted_onramp_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_onramp_id": mcn_onramp_id_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/${pathParam(args, "onramp_id")}`,
@@ -190,6 +360,72 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_onramp"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_apply_progress": mcn_apply_progress_output,
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_conduit_route_id": mcn_conduit_route_id_output,
+        "mcn_conduit_tunnel_id": mcn_conduit_tunnel_id_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_cost_diff": mcn_cost_diff_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_onramp": mcn_onramp_output,
+        "mcn_onramp_cloud_type": mcn_onramp_cloud_type_output,
+        "mcn_onramp_id": mcn_onramp_id_output,
+        "mcn_onramp_lifecycle_state": mcn_onramp_lifecycle_state_output,
+        "mcn_onramp_status": mcn_onramp_status_output,
+        "mcn_onramp_type": mcn_onramp_type_output,
+        "mcn_plan_progress": mcn_plan_progress_output,
+        "mcn_planned_action": mcn_planned_action_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_diff": mcn_resource_diff_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/${pathParam(args, "onramp_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -227,6 +463,35 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "201": null,
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/${pathParam(args, "onramp_id")}/export`,
@@ -277,6 +542,66 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic WAN Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_onramp"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_apply_progress": mcn_apply_progress_output,
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_conduit_route_id": mcn_conduit_route_id_output,
+        "mcn_conduit_tunnel_id": mcn_conduit_tunnel_id_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_cost_diff": mcn_cost_diff_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_onramp": mcn_onramp_output,
+        "mcn_onramp_cloud_type": mcn_onramp_cloud_type_output,
+        "mcn_onramp_id": mcn_onramp_id_output,
+        "mcn_onramp_lifecycle_state": mcn_onramp_lifecycle_state_output,
+        "mcn_onramp_status": mcn_onramp_status_output,
+        "mcn_onramp_type": mcn_onramp_type_output,
+        "mcn_plan_progress": mcn_plan_progress_output,
+        "mcn_planned_action": mcn_planned_action_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_diff": mcn_resource_diff_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/${pathParam(args, "onramp_id")}`,
@@ -331,6 +656,77 @@ export const tools: readonly Tool[] = [
         "Magic WAN Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mcn_onramp"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_apply_progress": mcn_apply_progress_output,
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_conduit_route_id": mcn_conduit_route_id_output,
+        "mcn_conduit_tunnel_id": mcn_conduit_tunnel_id_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_cost_diff": mcn_cost_diff_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_onramp": mcn_onramp_output,
+        "mcn_onramp_cloud_type": mcn_onramp_cloud_type_output,
+        "mcn_onramp_id": mcn_onramp_id_output,
+        "mcn_onramp_lifecycle_state": mcn_onramp_lifecycle_state_output,
+        "mcn_onramp_status": mcn_onramp_status_output,
+        "mcn_onramp_type": mcn_onramp_type_output,
+        "mcn_plan_progress": mcn_plan_progress_output,
+        "mcn_planned_action": mcn_planned_action_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_diff": mcn_resource_diff_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps`,
       query: [
@@ -373,6 +769,38 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/mcn_good_response"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_good_response": mcn_good_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/${pathParam(args, "onramp_id")}/plan`,
@@ -418,6 +846,72 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_onramp"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_apply_progress": mcn_apply_progress_output,
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_conduit_route_id": mcn_conduit_route_id_output,
+        "mcn_conduit_tunnel_id": mcn_conduit_tunnel_id_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_cost_diff": mcn_cost_diff_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_onramp": mcn_onramp_output,
+        "mcn_onramp_cloud_type": mcn_onramp_cloud_type_output,
+        "mcn_onramp_id": mcn_onramp_id_output,
+        "mcn_onramp_lifecycle_state": mcn_onramp_lifecycle_state_output,
+        "mcn_onramp_status": mcn_onramp_status_output,
+        "mcn_onramp_type": mcn_onramp_type_output,
+        "mcn_plan_progress": mcn_plan_progress_output,
+        "mcn_planned_action": mcn_planned_action_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_diff": mcn_resource_diff_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/${pathParam(args, "onramp_id")}`,

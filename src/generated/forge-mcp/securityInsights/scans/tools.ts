@@ -3,9 +3,19 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  security_center_api_response_common_failure_output,
+  security_center_messages_output,
+} from "../../outputs.js";
+import {
   security_center_issueClass,
   security_center_issueType,
 } from "../../schemas.js";
+import {
+  security_center_newScanResponse_output,
+  security_center_scanQuota_output,
+  security_center_scanStatusResponse_output,
+  security_center_scansListResponse_output,
+} from "./outputs.js";
 import { security_center_newScanRequest } from "./schemas.js";
 
 /**
@@ -46,6 +56,23 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/scans",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/security-center_scansListResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_scanQuota": security_center_scanQuota_output,
+        "security-center_scanStatusResponse": security_center_scanStatusResponse_output,
+        "security-center_scansListResponse": security_center_scansListResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/security-center/insights/scans`,
     }),
@@ -93,6 +120,21 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/scans",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/security-center_newScanResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_newScanResponse": security_center_newScanResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/security-center/insights/scans`,
       body: { value: args["body"], mediaType: "application/json" },

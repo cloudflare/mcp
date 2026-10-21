@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import {
+  rulesets_Errors_output,
+  rulesets_Message_output,
+  rulesets_Message_source_output,
+  rulesets_Messages_output,
+  rulesets_Response_output,
+  rulesets_Response_result_output,
+} from "../outputs.js";
+import { rulesets_UrlNormalization_output } from "./outputs.js";
 import { rulesets_UrlNormalization } from "./schemas.js";
 
 /**
@@ -63,6 +72,40 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "rulesets_Errors": rulesets_Errors_output,
+        "rulesets_Message": rulesets_Message_output,
+        "rulesets_Message_source": rulesets_Message_source_output,
+        "rulesets_Messages": rulesets_Messages_output,
+        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Response_result": rulesets_Response_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/url_normalization`,
@@ -145,6 +188,62 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "errors": {},
+                "result": {
+                  "$ref": "#/$defs/rulesets_UrlNormalization"
+                },
+                "success": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "rulesets_Errors": rulesets_Errors_output,
+        "rulesets_Message": rulesets_Message_output,
+        "rulesets_Message_source": rulesets_Message_source_output,
+        "rulesets_Messages": rulesets_Messages_output,
+        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Response_result": rulesets_Response_result_output,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/url_normalization`,
     }),
@@ -211,6 +310,62 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "errors": {},
+                "result": {
+                  "$ref": "#/$defs/rulesets_UrlNormalization"
+                },
+                "success": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "rulesets_Errors": rulesets_Errors_output,
+        "rulesets_Message": rulesets_Message_output,
+        "rulesets_Message_source": rulesets_Message_source_output,
+        "rulesets_Messages": rulesets_Messages_output,
+        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Response_result": rulesets_Response_result_output,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/url_normalization`,

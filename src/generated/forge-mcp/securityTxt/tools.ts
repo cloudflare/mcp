@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import {
+  security_center_api_response_common_failure_output,
+  security_center_api_response_common_output,
+  security_center_messages_output,
+} from "../outputs.js";
+import { security_center_securityTxt_output } from "./outputs.js";
 import { security_center_securityTxt } from "./schemas.js";
 
 /**
@@ -38,6 +44,21 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/security-center_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/security-center/securitytxt`,
     }),
@@ -72,6 +93,21 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write",
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/security-center_securityTxt"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_securityTxt": security_center_securityTxt_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/security-center/securitytxt`,
@@ -113,6 +149,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zone Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/security-center_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/security-center/securitytxt`,

@@ -3,6 +3,26 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_account_rule_output,
+  email_account_rule_zone_output,
+  email_account_rules_plan_change_output,
+  email_account_rules_plan_output,
+  email_account_rules_plan_remote_rule_output,
+  email_account_rules_plan_zone_output,
+  email_identifier_output,
+  email_rule_action_output,
+  email_rule_actions_output,
+  email_rule_enabled_output,
+  email_rule_identifier_output,
+  email_rule_matcher_output,
+  email_rule_matchers_output,
+  email_rule_name_output,
+  email_rule_priority_output,
+  email_rule_properties_output,
+  email_rule_source_output,
+  email_rule_tag_output,
+} from "./outputs.js";
+import {
   email_account_rules_plan_catch_all_entry,
   email_account_rules_plan_catch_all_rule,
   email_account_rules_plan_request,
@@ -90,6 +110,28 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_rule_properties"
+        },
+        "400": null,
+        "422": null
+      },
+      $defs: {
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -146,6 +188,27 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_rule_properties"
+        },
+        "404": null
+      },
+      $defs: {
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/rules/${pathParam(args, "rule_identifier")}`,
     }),
@@ -201,6 +264,27 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_rule_properties"
+        },
+        "404": null
+      },
+      $defs: {
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/rules/${pathParam(args, "rule_identifier")}`,
@@ -267,6 +351,56 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email_account_rule"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "403": null
+      },
+      $defs: {
+        "email_account_rule": email_account_rule_output,
+        "email_account_rule_zone": email_account_rule_zone_output,
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/email/routing/rules`,
       query: [
@@ -329,6 +463,30 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_account_rules_plan"
+        },
+        "400": null,
+        "403": null,
+        "422": null
+      },
+      $defs: {
+        "email_account_rules_plan": email_account_rules_plan_output,
+        "email_account_rules_plan_change": email_account_rules_plan_change_output,
+        "email_account_rules_plan_remote_rule": email_account_rules_plan_remote_rule_output,
+        "email_account_rules_plan_zone": email_account_rules_plan_zone_output,
+        "email_identifier": email_identifier_output,
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_source": email_rule_source_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/routing/rules/plan`,
@@ -401,6 +559,28 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_rule_properties"
+        },
+        "400": null,
+        "422": null
+      },
+      $defs: {
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/rules/${pathParam(args, "rule_identifier")}`,

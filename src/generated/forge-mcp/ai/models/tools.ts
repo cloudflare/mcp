@@ -97,6 +97,78 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "anyOf": [
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "messages": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "result": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "success": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "errors",
+                "messages",
+                "result",
+                "success"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "data": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/models/search`,
       query: [

@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  custom_pages_api_response_common_failure_output,
+  custom_pages_messages_output,
+  custom_pages_timestamp_output,
+} from "../outputs.js";
+import {
+  custom_pages_custom_page_output,
+  custom_pages_state_output,
+  custom_pages_url_output,
+} from "./outputs.js";
 import { custom_pages_state, custom_pages_url } from "./schemas.js";
 
 /**
@@ -61,6 +71,24 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-pages_custom_page"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_messages": custom_pages_messages_output,
+        "custom-pages_state": custom_pages_state_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+        "custom-pages_url": custom_pages_url_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages/${pathParam(args, "identifier")}`,
@@ -124,6 +152,55 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/custom-pages_custom_page"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_messages": custom_pages_messages_output,
+        "custom-pages_state": custom_pages_state_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+        "custom-pages_url": custom_pages_url_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages`,
@@ -202,6 +279,24 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-pages_custom_page"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_messages": custom_pages_messages_output,
+        "custom-pages_state": custom_pages_state_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+        "custom-pages_url": custom_pages_url_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages/${pathParam(args, "identifier")}`,

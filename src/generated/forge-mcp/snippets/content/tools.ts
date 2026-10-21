@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  snippets_Errors_output,
+  snippets_Message_output,
+  snippets_Messages_output,
+  snippets_Response_output,
+} from "../outputs.js";
 
 /**
  * The tools of `snippets.content`.
@@ -48,6 +54,59 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "5XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "snippets_Errors": snippets_Errors_output,
+        "snippets_Message": snippets_Message_output,
+        "snippets_Messages": snippets_Messages_output,
+        "snippets_Response": snippets_Response_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/snippets/${pathParam(args, "snippet_name")}/content`,

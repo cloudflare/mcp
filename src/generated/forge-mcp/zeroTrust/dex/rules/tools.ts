@@ -3,6 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_device_dex_test_schemas_data_output,
+  digital_experience_monitoring_messages_output,
+  digital_experience_monitoring_uuid_output,
+} from "../outputs.js";
+import {
+  digital_experience_monitoring_dex_rule_output,
+  digital_experience_monitoring_dex_targeted_test_output,
+  digital_experience_monitoring_list_rules_response_output,
+} from "./outputs.js";
+import {
   digital_experience_monitoring_create_rule_body,
   digital_experience_monitoring_patch_rule_body,
 } from "./schemas.js";
@@ -48,6 +59,24 @@ export const tools: readonly Tool[] = [
         "Cloudflare DEX Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
+        "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -87,6 +116,27 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudflare DEX Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/rules/${pathParam(args, "rule_id")}`,
@@ -129,6 +179,24 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
+        "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/rules/${pathParam(args, "rule_id")}`,
@@ -201,6 +269,25 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_list_rules_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
+        "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_list_rules_response": digital_experience_monitoring_list_rules_response_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/rules`,
       query: [
@@ -253,6 +340,24 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudflare DEX Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
+        "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/rules/${pathParam(args, "rule_id")}`,

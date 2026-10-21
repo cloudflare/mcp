@@ -3,6 +3,17 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../../outputs.js";
+import { access_id_output, access_meta_output } from "../outputs.js";
+import {
+  access_externalId_output,
+  access_group_details_membersItem_output,
+  access_group_details_output,
+  access_groups_output,
+} from "./outputs.js";
+import {
   access_cf_resource_id,
   access_idp_resource_id,
   access_name_4,
@@ -52,6 +63,18 @@ export const tools: readonly Tool[] = [
         "Access: Organizations, Identity Providers, and Groups Write"
       ]
     },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/identity_providers/${pathParam(args, "identity_provider_id")}/scim/groups/${pathParam(args, "group_id")}`,
     }),
@@ -96,6 +119,25 @@ export const tools: readonly Tool[] = [
         "Access: Organizations, Identity Providers, and Groups Write",
         "Access: Organizations, Identity Providers, and Groups Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_group_details"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_externalId": access_externalId_output,
+        "access_group_details": access_group_details_output,
+        "access_group_details_membersItem": access_group_details_membersItem_output,
+        "access_id": access_id_output,
+        "access_messages": access_messages_output,
+        "access_meta": access_meta_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/identity_providers/${pathParam(args, "identity_provider_id")}/scim/groups/${pathParam(args, "group_id")}`,
@@ -163,6 +205,55 @@ export const tools: readonly Tool[] = [
         "Access: Organizations, Identity Providers, and Groups Write",
         "Access: Organizations, Identity Providers, and Groups Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_groups"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_externalId": access_externalId_output,
+        "access_groups": access_groups_output,
+        "access_id": access_id_output,
+        "access_messages": access_messages_output,
+        "access_meta": access_meta_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/identity_providers/${pathParam(args, "identity_provider_id")}/scim/groups`,

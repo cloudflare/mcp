@@ -2,7 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_storage_class_output,
+  r2_v4_response_failure_output,
+} from "../outputs.js";
 import { r2_storage_class } from "../schemas.js";
+import {
+  r2_bucket_location_output,
+  r2_bucket_name_output,
+  r2_bucket_output,
+  r2_jurisdiction_output,
+} from "./outputs.js";
 import { r2_bucket_location, r2_bucket_name } from "./schemas.js";
 
 /**
@@ -77,6 +89,26 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_bucket"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_errors": r2_errors_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_messages": r2_messages_output,
+        "r2_storage_class": r2_storage_class_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets`,
       headers: [
@@ -137,6 +169,26 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_bucket"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_errors": r2_errors_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_messages": r2_messages_output,
+        "r2_storage_class": r2_storage_class_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}`,
       headers: [
@@ -190,6 +242,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers R2 Storage Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}`,
@@ -258,6 +325,26 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_bucket"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_errors": r2_errors_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_messages": r2_messages_output,
+        "r2_storage_class": r2_storage_class_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}`,
       headers: [
@@ -318,6 +405,26 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_bucket"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_errors": r2_errors_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_messages": r2_messages_output,
+        "r2_storage_class": r2_storage_class_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}`,
@@ -399,6 +506,37 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Write",
         "Workers R2 Storage Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "buckets": {
+              "items": {
+                "$ref": "#/$defs/r2_bucket"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "buckets"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_errors": r2_errors_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_messages": r2_messages_output,
+        "r2_storage_class": r2_storage_class_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets`,

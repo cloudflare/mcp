@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../outputs.js";
+import {
+  dlp_DataTagCategoryTemplateArray_output,
+  dlp_DataTagCategoryTemplate_output,
+  dlp_DataTagTemplate_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dlp.data_tag_category_templates`.
@@ -45,6 +54,22 @@ export const tools: readonly Tool[] = [
         "terraform"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_DataTagCategoryTemplate"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate_output,
+        "dlp_DataTagTemplate": dlp_DataTagTemplate_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/data_tag_category_templates/${pathParam(args, "template_id")}`,
     }),
@@ -81,6 +106,34 @@ export const tools: readonly Tool[] = [
       "x-stainless-skip": [
         "terraform"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataTagCategoryTemplateArray"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate_output,
+        "dlp_DataTagCategoryTemplateArray": dlp_DataTagCategoryTemplateArray_output,
+        "dlp_DataTagTemplate": dlp_DataTagTemplate_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/data_tag_category_templates`,

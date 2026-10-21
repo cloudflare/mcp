@@ -3,6 +3,12 @@
 
 import { type Tool, pathParam } from "../../../../../../_/tool.js";
 import {
+  dos_api_response_common_failure_output,
+  dos_messages_output,
+} from "../../../../../../outputs.js";
+import { dos_api_response_common_output } from "../../../../../outputs.js";
+import { dos_DnsProtectionRule_output } from "./outputs.js";
+import {
   dos_DnsProtectionRuleUpdate,
   dos_NewDnsProtectionRule,
 } from "./schemas.js";
@@ -41,6 +47,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "DDoS Protection Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dos_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_api-response-common": dos_api_response_common_output,
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/advanced_dns_protection/configs/dns_protection/rules`,
@@ -89,6 +110,21 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dos_DnsProtectionRule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_DnsProtectionRule": dos_DnsProtectionRule_output,
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/advanced_dns_protection/configs/dns_protection/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -129,6 +165,21 @@ export const tools: readonly Tool[] = [
         "DDoS Protection Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dos_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_api-response-common": dos_api_response_common_output,
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/advanced_dns_protection/configs/dns_protection/rules/${pathParam(args, "rule_id")}`,
     }),
@@ -168,6 +219,21 @@ export const tools: readonly Tool[] = [
         "DDoS Protection Write",
         "DDoS Protection Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dos_DnsProtectionRule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_DnsProtectionRule": dos_DnsProtectionRule_output,
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/advanced_dns_protection/configs/dns_protection/rules/${pathParam(args, "rule_id")}`,
@@ -219,6 +285,52 @@ export const tools: readonly Tool[] = [
         "DDoS Protection Write",
         "DDoS Protection Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dos_DnsProtectionRule"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_DnsProtectionRule": dos_DnsProtectionRule_output,
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/advanced_dns_protection/configs/dns_protection/rules`,
@@ -277,6 +389,21 @@ export const tools: readonly Tool[] = [
           "flagName": "protection-mode"
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dos_DnsProtectionRule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_DnsProtectionRule": dos_DnsProtectionRule_output,
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/advanced_dns_protection/configs/dns_protection/rules/${pathParam(args, "rule_id")}`,

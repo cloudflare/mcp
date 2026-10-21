@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  dns_firewall_api_response_common_failure_output,
+  dns_firewall_messages_output,
+} from "../outputs.js";
+import {
+  dns_firewall_dns_firewall_reverse_dns_response_alt_output,
+  dns_firewall_dns_firewall_reverse_dns_response_output,
+} from "./outputs.js";
 import { dns_firewall_dns_firewall_reverse_dns } from "./schemas.js";
 
 /**
@@ -66,6 +74,29 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response_alt"
+            },
+            {
+              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_dns-firewall-reverse-dns-response": dns_firewall_dns_firewall_reverse_dns_response_output,
+        "dns-firewall_dns_firewall_reverse_dns_response_alt": dns_firewall_dns_firewall_reverse_dns_response_alt_output,
+        "dns-firewall_messages": dns_firewall_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_firewall/${pathParam(args, "dns_firewall_id")}/reverse_dns`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -122,6 +153,29 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response_alt"
+            },
+            {
+              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_dns-firewall-reverse-dns-response": dns_firewall_dns_firewall_reverse_dns_response_output,
+        "dns-firewall_dns_firewall_reverse_dns_response_alt": dns_firewall_dns_firewall_reverse_dns_response_alt_output,
+        "dns-firewall_messages": dns_firewall_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_firewall/${pathParam(args, "dns_firewall_id")}/reverse_dns`,

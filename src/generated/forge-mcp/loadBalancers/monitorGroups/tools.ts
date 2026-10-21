@@ -2,7 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  load_balancing_api_response_common_failure_output,
+  load_balancing_messages_output,
+  load_balancing_monitor_group_id_output,
+  load_balancing_monitor_id_output,
+  load_balancing_result_info_output,
+} from "../../outputs.js";
 import { load_balancing_monitor_id } from "../../schemas.js";
+import {
+  load_balancing_monitor_group_member_output,
+  load_balancing_monitor_group_output,
+} from "./outputs.js";
 import {
   load_balancing_monitor_group,
   load_balancing_monitor_group_member,
@@ -46,6 +57,27 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/load_balancers/monitor_groups",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor-group"
+        },
+        "412": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/monitor_groups`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -80,6 +112,27 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor-group"
+        },
+        "412": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/monitor_groups/${pathParam(args, "monitor_group_id")}`,
     }),
@@ -122,6 +175,27 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor-group"
+        },
+        "412": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/monitor_groups/${pathParam(args, "monitor_group_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -156,6 +230,24 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor-group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/monitor_groups/${pathParam(args, "monitor_group_id")}`,
     }),
@@ -185,6 +277,39 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/load_balancers/monitor_groups",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/load-balancing_monitor-group"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/load-balancing_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_result_info": load_balancing_result_info_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/monitor_groups`,
     }),
@@ -227,6 +352,27 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor-group"
+        },
+        "412": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/monitor_groups/${pathParam(args, "monitor_group_id")}`,
       body: { value: args["body"], mediaType: "application/json" },

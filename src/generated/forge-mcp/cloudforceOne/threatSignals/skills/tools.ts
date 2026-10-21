@@ -67,6 +67,76 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "config": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "output_schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "prompt": {
+              "type": "string"
+            },
+            "source": {
+              "enum": [
+                "default",
+                "custom"
+              ],
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "config",
+            "created_at",
+            "id",
+            "is_active",
+            "name",
+            "output_schema",
+            "prompt",
+            "source",
+            "type",
+            "updated_at"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/skills`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -106,6 +176,76 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "config": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "output_schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "prompt": {
+              "type": "string"
+            },
+            "source": {
+              "enum": [
+                "default",
+                "custom"
+              ],
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "config",
+            "created_at",
+            "id",
+            "is_active",
+            "name",
+            "output_schema",
+            "prompt",
+            "source",
+            "type",
+            "updated_at"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/skills/${pathParam(args, "skill_id")}`,
     }),
@@ -144,6 +284,76 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "config": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "output_schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "prompt": {
+              "type": "string"
+            },
+            "source": {
+              "enum": [
+                "default",
+                "custom"
+              ],
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "config",
+            "created_at",
+            "id",
+            "is_active",
+            "name",
+            "output_schema",
+            "prompt",
+            "source",
+            "type",
+            "updated_at"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/skills/${pathParam(args, "skill_id")}`,
@@ -188,6 +398,107 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "custom_skills_available": {
+              "type": "boolean"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "skills": {
+              "items": {
+                "properties": {
+                  "config": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "is_active": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "output_schema": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "enum": [
+                      "default",
+                      "custom"
+                    ],
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "config",
+                  "created_at",
+                  "id",
+                  "is_active",
+                  "name",
+                  "output_schema",
+                  "prompt",
+                  "source",
+                  "type",
+                  "updated_at"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "custom_skills_available",
+            "page",
+            "per_page",
+            "skills",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/skills`,
@@ -255,6 +566,76 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "config": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "output_schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "prompt": {
+              "type": "string"
+            },
+            "source": {
+              "enum": [
+                "default",
+                "custom"
+              ],
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "config",
+            "created_at",
+            "id",
+            "is_active",
+            "name",
+            "output_schema",
+            "prompt",
+            "source",
+            "type",
+            "updated_at"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/skills/${pathParam(args, "skill_id")}`,

@@ -2,7 +2,61 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  cc_AccountID_output,
+  cc_ISO8601Timestamp_output,
+  cc_Image_output,
+  cc_Messages_output,
+  cc_V4BaseErrorResponse_output,
+} from "../outputs.js";
 import { cc_Image } from "../schemas.js";
+import {
+  cc_ApplicationConstraints_output,
+  cc_ApplicationDurableObjectsConfiguration_output,
+  cc_ApplicationHealthError_output,
+  cc_ApplicationHealthErrors_output,
+  cc_ApplicationHealthInstances_output,
+  cc_ApplicationHealth_output,
+  cc_ApplicationID_output,
+  cc_ApplicationJurisdiction_output,
+  cc_ApplicationName_output,
+  cc_ApplicationObservability_output,
+  cc_ApplicationRolloutActiveGracePeriod_output,
+  cc_Command_output,
+  cc_ContainersApplicationResponse_output,
+  cc_ContainersDeleteApplicationResponseBody_output,
+  cc_ContainersListApplications_output,
+  cc_DeploymentObservability_output,
+  cc_DurableObjectApplicationConfiguration_output,
+  cc_DurableObjectApplicationConstraints_output,
+  cc_DurableObjectApplicationHealth_instances_output,
+  cc_DurableObjectApplicationHealth_output,
+  cc_DurableObjectApplicationObservability_logs_output,
+  cc_DurableObjectApplicationObservability_output,
+  cc_DurableObjectApplicationSchedulingPolicy_output,
+  cc_DurableObjectApplication_output,
+  cc_DurableObjectsConfigurationNamespaceId_output,
+  cc_Entrypoint_output,
+  cc_EnvironmentVariableName_output,
+  cc_EnvironmentVariableValue_output,
+  cc_EnvironmentVariable_output,
+  cc_EventName_output,
+  cc_EventType_output,
+  cc_ExecFormParam_output,
+  cc_InstanceID_output,
+  cc_InstanceType_output,
+  cc_ObservabilityLogs_output,
+  cc_PlacementEvent_output,
+  cc_Region_output,
+  cc_RolloutID_output,
+  cc_SSHPublicKey_output,
+  cc_ScheduledApplicationSchedulingPolicy_output,
+  cc_ScheduledApplication_output,
+  cc_UserDeploymentConfiguration_output,
+  cc_UserSSHPublicKey_output,
+  cc_V4PaginatedResultInfo_output,
+  cc_WranglerSSHConfig_output,
+} from "./outputs.js";
 import {
   cc_ApplicationConstraints,
   cc_ApplicationJurisdiction,
@@ -105,6 +159,74 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/containers/applications",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/cc_ContainersApplicationResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_AccountID": cc_AccountID_output,
+        "cc_ApplicationConstraints": cc_ApplicationConstraints_output,
+        "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration_output,
+        "cc_ApplicationHealth": cc_ApplicationHealth_output,
+        "cc_ApplicationHealthError": cc_ApplicationHealthError_output,
+        "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors_output,
+        "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances_output,
+        "cc_ApplicationID": cc_ApplicationID_output,
+        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction_output,
+        "cc_ApplicationName": cc_ApplicationName_output,
+        "cc_ApplicationObservability": cc_ApplicationObservability_output,
+        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod_output,
+        "cc_Command": cc_Command_output,
+        "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse_output,
+        "cc_DeploymentObservability": cc_DeploymentObservability_output,
+        "cc_DurableObjectApplication": cc_DurableObjectApplication_output,
+        "cc_DurableObjectApplicationConfiguration": cc_DurableObjectApplicationConfiguration_output,
+        "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints_output,
+        "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth_output,
+        "cc_DurableObjectApplicationHealth_instances": cc_DurableObjectApplicationHealth_instances_output,
+        "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability_output,
+        "cc_DurableObjectApplicationObservability_logs": cc_DurableObjectApplicationObservability_logs_output,
+        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy_output,
+        "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId_output,
+        "cc_Entrypoint": cc_Entrypoint_output,
+        "cc_EnvironmentVariable": cc_EnvironmentVariable_output,
+        "cc_EnvironmentVariableName": cc_EnvironmentVariableName_output,
+        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue_output,
+        "cc_EventName": cc_EventName_output,
+        "cc_EventType": cc_EventType_output,
+        "cc_ExecFormParam": cc_ExecFormParam_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_InstanceID": cc_InstanceID_output,
+        "cc_InstanceType": cc_InstanceType_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_ObservabilityLogs": cc_ObservabilityLogs_output,
+        "cc_PlacementEvent": cc_PlacementEvent_output,
+        "cc_Region": cc_Region_output,
+        "cc_RolloutID": cc_RolloutID_output,
+        "cc_SSHPublicKey": cc_SSHPublicKey_output,
+        "cc_ScheduledApplication": cc_ScheduledApplication_output,
+        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy_output,
+        "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration_output,
+        "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_WranglerSSHConfig": cc_WranglerSSHConfig_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/applications`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -144,6 +266,27 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers Containers Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cc_ContainersDeleteApplicationResponseBody"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_ContainersDeleteApplicationResponseBody": cc_ContainersDeleteApplicationResponseBody_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/applications/${pathParam(args, "application_id")}`,
@@ -201,6 +344,77 @@ export const tools: readonly Tool[] = [
         "Workers Containers Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cc_ContainersApplicationResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_AccountID": cc_AccountID_output,
+        "cc_ApplicationConstraints": cc_ApplicationConstraints_output,
+        "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration_output,
+        "cc_ApplicationHealth": cc_ApplicationHealth_output,
+        "cc_ApplicationHealthError": cc_ApplicationHealthError_output,
+        "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors_output,
+        "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances_output,
+        "cc_ApplicationID": cc_ApplicationID_output,
+        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction_output,
+        "cc_ApplicationName": cc_ApplicationName_output,
+        "cc_ApplicationObservability": cc_ApplicationObservability_output,
+        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod_output,
+        "cc_Command": cc_Command_output,
+        "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse_output,
+        "cc_DeploymentObservability": cc_DeploymentObservability_output,
+        "cc_DurableObjectApplication": cc_DurableObjectApplication_output,
+        "cc_DurableObjectApplicationConfiguration": cc_DurableObjectApplicationConfiguration_output,
+        "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints_output,
+        "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth_output,
+        "cc_DurableObjectApplicationHealth_instances": cc_DurableObjectApplicationHealth_instances_output,
+        "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability_output,
+        "cc_DurableObjectApplicationObservability_logs": cc_DurableObjectApplicationObservability_logs_output,
+        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy_output,
+        "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId_output,
+        "cc_Entrypoint": cc_Entrypoint_output,
+        "cc_EnvironmentVariable": cc_EnvironmentVariable_output,
+        "cc_EnvironmentVariableName": cc_EnvironmentVariableName_output,
+        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue_output,
+        "cc_EventName": cc_EventName_output,
+        "cc_EventType": cc_EventType_output,
+        "cc_ExecFormParam": cc_ExecFormParam_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_InstanceID": cc_InstanceID_output,
+        "cc_InstanceType": cc_InstanceType_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_ObservabilityLogs": cc_ObservabilityLogs_output,
+        "cc_PlacementEvent": cc_PlacementEvent_output,
+        "cc_Region": cc_Region_output,
+        "cc_RolloutID": cc_RolloutID_output,
+        "cc_SSHPublicKey": cc_SSHPublicKey_output,
+        "cc_ScheduledApplication": cc_ScheduledApplication_output,
+        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy_output,
+        "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration_output,
+        "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_WranglerSSHConfig": cc_WranglerSSHConfig_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/applications/${pathParam(args, "application_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -241,6 +455,71 @@ export const tools: readonly Tool[] = [
         "Workers Containers Write",
         "Workers Containers Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cc_ContainersApplicationResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_AccountID": cc_AccountID_output,
+        "cc_ApplicationConstraints": cc_ApplicationConstraints_output,
+        "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration_output,
+        "cc_ApplicationHealth": cc_ApplicationHealth_output,
+        "cc_ApplicationHealthError": cc_ApplicationHealthError_output,
+        "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors_output,
+        "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances_output,
+        "cc_ApplicationID": cc_ApplicationID_output,
+        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction_output,
+        "cc_ApplicationName": cc_ApplicationName_output,
+        "cc_ApplicationObservability": cc_ApplicationObservability_output,
+        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod_output,
+        "cc_Command": cc_Command_output,
+        "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse_output,
+        "cc_DeploymentObservability": cc_DeploymentObservability_output,
+        "cc_DurableObjectApplication": cc_DurableObjectApplication_output,
+        "cc_DurableObjectApplicationConfiguration": cc_DurableObjectApplicationConfiguration_output,
+        "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints_output,
+        "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth_output,
+        "cc_DurableObjectApplicationHealth_instances": cc_DurableObjectApplicationHealth_instances_output,
+        "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability_output,
+        "cc_DurableObjectApplicationObservability_logs": cc_DurableObjectApplicationObservability_logs_output,
+        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy_output,
+        "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId_output,
+        "cc_Entrypoint": cc_Entrypoint_output,
+        "cc_EnvironmentVariable": cc_EnvironmentVariable_output,
+        "cc_EnvironmentVariableName": cc_EnvironmentVariableName_output,
+        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue_output,
+        "cc_EventName": cc_EventName_output,
+        "cc_EventType": cc_EventType_output,
+        "cc_ExecFormParam": cc_ExecFormParam_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_InstanceID": cc_InstanceID_output,
+        "cc_InstanceType": cc_InstanceType_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_ObservabilityLogs": cc_ObservabilityLogs_output,
+        "cc_PlacementEvent": cc_PlacementEvent_output,
+        "cc_Region": cc_Region_output,
+        "cc_RolloutID": cc_RolloutID_output,
+        "cc_SSHPublicKey": cc_SSHPublicKey_output,
+        "cc_ScheduledApplication": cc_ScheduledApplication_output,
+        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy_output,
+        "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration_output,
+        "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_WranglerSSHConfig": cc_WranglerSSHConfig_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/applications/${pathParam(args, "application_id")}`,
@@ -297,6 +576,84 @@ export const tools: readonly Tool[] = [
         "next_cursor": "$response.result_info.next_page_token",
         "results": "$response.result"
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_ContainersListApplications"
+            },
+            "result_info": {
+              "$ref": "#/$defs/cc_V4PaginatedResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_AccountID": cc_AccountID_output,
+        "cc_ApplicationConstraints": cc_ApplicationConstraints_output,
+        "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration_output,
+        "cc_ApplicationHealth": cc_ApplicationHealth_output,
+        "cc_ApplicationHealthError": cc_ApplicationHealthError_output,
+        "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors_output,
+        "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances_output,
+        "cc_ApplicationID": cc_ApplicationID_output,
+        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction_output,
+        "cc_ApplicationName": cc_ApplicationName_output,
+        "cc_ApplicationObservability": cc_ApplicationObservability_output,
+        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod_output,
+        "cc_Command": cc_Command_output,
+        "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse_output,
+        "cc_ContainersListApplications": cc_ContainersListApplications_output,
+        "cc_DeploymentObservability": cc_DeploymentObservability_output,
+        "cc_DurableObjectApplication": cc_DurableObjectApplication_output,
+        "cc_DurableObjectApplicationConfiguration": cc_DurableObjectApplicationConfiguration_output,
+        "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints_output,
+        "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth_output,
+        "cc_DurableObjectApplicationHealth_instances": cc_DurableObjectApplicationHealth_instances_output,
+        "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability_output,
+        "cc_DurableObjectApplicationObservability_logs": cc_DurableObjectApplicationObservability_logs_output,
+        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy_output,
+        "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId_output,
+        "cc_Entrypoint": cc_Entrypoint_output,
+        "cc_EnvironmentVariable": cc_EnvironmentVariable_output,
+        "cc_EnvironmentVariableName": cc_EnvironmentVariableName_output,
+        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue_output,
+        "cc_EventName": cc_EventName_output,
+        "cc_EventType": cc_EventType_output,
+        "cc_ExecFormParam": cc_ExecFormParam_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_InstanceID": cc_InstanceID_output,
+        "cc_InstanceType": cc_InstanceType_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_ObservabilityLogs": cc_ObservabilityLogs_output,
+        "cc_PlacementEvent": cc_PlacementEvent_output,
+        "cc_Region": cc_Region_output,
+        "cc_RolloutID": cc_RolloutID_output,
+        "cc_SSHPublicKey": cc_SSHPublicKey_output,
+        "cc_ScheduledApplication": cc_ScheduledApplication_output,
+        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy_output,
+        "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration_output,
+        "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4PaginatedResultInfo": cc_V4PaginatedResultInfo_output,
+        "cc_WranglerSSHConfig": cc_WranglerSSHConfig_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/applications`,

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  cloudforce_one_port_scan_api_api_response_common_failure_output,
+  cloudforce_one_port_scan_api_messages_output,
+} from "../outputs.js";
+import { cloudforce_one_port_scan_api_port_output } from "./outputs.js";
 
 /**
  * The tools of `cloudforce_one.scans.results`.
@@ -43,6 +48,32 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "1.1.1.1": {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-port-scan-api_port"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "1.1.1.1"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce_one_port_scan_api_api_response_common_failure_output,
+        "cloudforce-one-port-scan-api_messages": cloudforce_one_port_scan_api_messages_output,
+        "cloudforce-one-port-scan-api_port": cloudforce_one_port_scan_api_port_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/scans/results/${pathParam(args, "config_id")}`,
     }),
@@ -77,6 +108,32 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/banner/{config_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "1.1.1.1": {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-port-scan-api_port"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "1.1.1.1"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce_one_port_scan_api_api_response_common_failure_output,
+        "cloudforce-one-port-scan-api_messages": cloudforce_one_port_scan_api_messages_output,
+        "cloudforce-one-port-scan-api_port": cloudforce_one_port_scan_api_port_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/banner/${pathParam(args, "config_id")}`,
     }),

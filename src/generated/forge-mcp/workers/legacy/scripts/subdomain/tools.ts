@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_messages_output,
+} from "../../../../outputs.js";
+import { workers_subdomain_output } from "./outputs.js";
 
 /**
  * The tools of `workers.legacy.scripts.subdomain`.
@@ -66,6 +71,21 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_subdomain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_subdomain": workers_subdomain_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/subdomain`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -112,6 +132,21 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_subdomain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_subdomain": workers_subdomain_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/subdomain`,
@@ -164,6 +199,21 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_subdomain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_subdomain": workers_subdomain_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/subdomain`,

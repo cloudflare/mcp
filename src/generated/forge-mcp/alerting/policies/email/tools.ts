@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  aaa_api_response_common_failure_3_output,
+  aaa_messages_3_output,
+  aaa_policy_id_output,
+  aaa_schemas_name_output,
+} from "../../outputs.js";
+import {
+  aaa_account_id_output,
+  aaa_unsubscribe_email_output,
+  aaa_unsubscribe_email_post_output,
+} from "./outputs.js";
 
 /**
  * The tools of `alerting.policies.email`.
@@ -54,6 +65,24 @@ export const tools: readonly Tool[] = [
         "Account Settings Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/aaa_unsubscribe_email"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-3"
+        }
+      },
+      $defs: {
+        "aaa_account-id": aaa_account_id_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_schemas-name": aaa_schemas_name_output,
+        "aaa_unsubscribe_email": aaa_unsubscribe_email_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/policies/${pathParam(args, "policy_id")}/email/unsubscribe`,
       query: [
@@ -100,6 +129,23 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/alerting/v3/policies/{policy_id}/email/unsubscribe",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/aaa_unsubscribe_email_post"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-3"
+        }
+      },
+      $defs: {
+        "aaa_account-id": aaa_account_id_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_unsubscribe_email_post": aaa_unsubscribe_email_post_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/policies/${pathParam(args, "policy_id")}/email/unsubscribe`,
       query: [

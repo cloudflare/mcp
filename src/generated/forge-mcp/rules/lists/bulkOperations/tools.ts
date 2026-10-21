@@ -2,6 +2,21 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  lists_api_response_common_failure_output,
+  lists_api_response_common_output,
+  lists_api_response_common_result_output,
+  lists_messages_output,
+  lists_operation_id_output,
+} from "../outputs.js";
+import {
+  lists_bulk_operation_completed_output,
+  lists_bulk_operation_failed_output,
+  lists_bulk_operation_pending_or_running_output,
+  lists_bulk_operation_response_single_output,
+  lists_completed_output,
+  lists_operation_output,
+} from "./outputs.js";
 
 /**
  * The tools of `rules.lists.bulk_operations`.
@@ -48,6 +63,47 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/lists_api-response-common_result"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/lists_bulk-operation-response-single"
+            },
+            {
+              "$ref": "#/$defs/lists_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "lists_api-response-common": lists_api_response_common_output,
+        "lists_api-response-common-failure": lists_api_response_common_failure_output,
+        "lists_api-response-common_result": lists_api_response_common_result_output,
+        "lists_bulk-operation-response-single": lists_bulk_operation_response_single_output,
+        "lists_bulk_operation_completed": lists_bulk_operation_completed_output,
+        "lists_bulk_operation_failed": lists_bulk_operation_failed_output,
+        "lists_bulk_operation_pending_or_running": lists_bulk_operation_pending_or_running_output,
+        "lists_completed": lists_completed_output,
+        "lists_messages": lists_messages_output,
+        "lists_operation": lists_operation_output,
+        "lists_operation_id": lists_operation_id_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rules/lists/bulk_operations/${pathParam(args, "operation_id")}`,

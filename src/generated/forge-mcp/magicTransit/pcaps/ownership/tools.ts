@@ -2,7 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  magic_visibility_pcaps_api_response_common_failure_output,
+  magic_visibility_pcaps_messages_output,
+  magic_visibility_pcaps_pcaps_destination_conf_output,
+  magic_visibility_pcaps_result_info_output,
+} from "../outputs.js";
 import { magic_visibility_pcaps_pcaps_destination_conf } from "../schemas.js";
+import {
+  magic_visibility_pcaps_pcaps_ownership_challenge_output,
+  magic_visibility_pcaps_pcaps_ownership_response_output,
+} from "./outputs.js";
 import {
   magic_visibility_pcaps_pcaps_ownership_challenge,
   magic_visibility_pcaps_pcaps_ownership_request,
@@ -57,6 +67,26 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps/ownership`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -103,6 +133,21 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps/ownership/${pathParam(args, "ownership_id")}`,
     }),
@@ -143,6 +188,48 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "result_info": {
+              "$ref": "#/$defs/magic-visibility-pcaps_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+        "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps/ownership`,
@@ -192,6 +279,26 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps/ownership/validate`,

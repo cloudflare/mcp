@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+  access_uuid_output,
+} from "../../../outputs.js";
+import { access_certificates_2_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.infrastructure.ssh_ca`.
@@ -36,6 +42,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: SSH Auditing Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_certificates-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_certificates-2": access_certificates_2_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/gateway_ca`,
@@ -76,6 +97,26 @@ export const tools: readonly Tool[] = [
         "Access: SSH Auditing Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_uuid"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/gateway_ca/${pathParam(args, "certificate_id")}`,
     }),
@@ -110,6 +151,52 @@ export const tools: readonly Tool[] = [
         "Access: SSH Auditing Write",
         "Access: SSH Auditing Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_certificates-2"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_certificates-2": access_certificates_2_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/gateway_ca`,

@@ -2,7 +2,27 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  stream_api_response_common_failure_output,
+  stream_downloadedFrom_output,
+  stream_height_output,
+  stream_messages_output,
+  stream_name_output,
+  stream_opacity_output,
+  stream_padding_output,
+  stream_position_output,
+  stream_scale_output,
+  stream_watermark_created_output,
+  stream_watermark_identifier_output,
+  stream_watermark_size_output,
+  stream_watermarks_output,
+  stream_width_output,
+} from "../../outputs.js";
 import { stream_creator } from "../../schemas.js";
+import {
+  stream_identifier_output,
+  stream_scheduledDeletion_output,
+} from "../outputs.js";
 import {
   stream_allowedOrigins,
   stream_maxDurationSeconds,
@@ -66,6 +86,48 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Stream Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "scheduledDeletion": {
+              "$ref": "#/$defs/stream_scheduledDeletion"
+            },
+            "uid": {
+              "$ref": "#/$defs/stream_identifier"
+            },
+            "uploadURL": {
+              "type": "string"
+            },
+            "watermark": {
+              "$ref": "#/$defs/stream_watermarks"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_downloadedFrom": stream_downloadedFrom_output,
+        "stream_height": stream_height_output,
+        "stream_identifier": stream_identifier_output,
+        "stream_messages": stream_messages_output,
+        "stream_name": stream_name_output,
+        "stream_opacity": stream_opacity_output,
+        "stream_padding": stream_padding_output,
+        "stream_position": stream_position_output,
+        "stream_scale": stream_scale_output,
+        "stream_scheduledDeletion": stream_scheduledDeletion_output,
+        "stream_watermark_created": stream_watermark_created_output,
+        "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_size": stream_watermark_size_output,
+        "stream_watermarks": stream_watermarks_output,
+        "stream_width": stream_width_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/direct_upload`,

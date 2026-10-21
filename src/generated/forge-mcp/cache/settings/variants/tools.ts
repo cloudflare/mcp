@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  cache_settings_api_response_common_failure_output,
+  cache_settings_messages_output,
+} from "../../../outputs.js";
+import {
+  cache_settings_variants_output,
+  cache_settings_variants_value_output,
+} from "./outputs.js";
 import { cache_settings_variants_value } from "./schemas.js";
 
 /**
@@ -54,6 +62,21 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_variants"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_variants": cache_settings_variants_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/variants`,
@@ -122,6 +145,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_variants"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_variants_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_variants": cache_settings_variants_output,
+        "cache-settings_variants_value": cache_settings_variants_value_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/variants`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -175,6 +229,37 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_variants"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_variants_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_variants": cache_settings_variants_output,
+        "cache-settings_variants_value": cache_settings_variants_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/variants`,

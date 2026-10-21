@@ -3,10 +3,27 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  posture_api_FindingCategoryTypeEnum_output,
+  posture_api_FindingCategory_output,
+  posture_api_FindingTypeVendorsEnum_output,
+  posture_api_ObservationEnum_output,
+  posture_api_ProductEnum_output,
+  posture_api_SeverityEnum_output,
+  posture_api_error_response_output,
+  posture_api_messages_output,
+  posture_api_result_info_output,
+} from "../outputs.js";
+import {
   posture_api_FindingCategoryTypeEnum,
   posture_api_FindingTypeVendorsEnum,
   posture_api_SeverityEnum,
 } from "../schemas.js";
+import {
+  posture_api_BaseFindingType_output,
+  posture_api_FindingTypeValidationError_output,
+  posture_api_ValidateFindingTypeResult_output,
+  posture_api_custom_finding_type_response_output,
+} from "./outputs.js";
 import {
   posture_api_FindingTypeOriginEnum,
   posture_api_FindingTypeSeverityEnum,
@@ -57,6 +74,42 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/posture-api_custom-finding-type-response"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "409": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "422": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "500": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/finding_types`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -98,6 +151,30 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "204": null,
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "409": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "500": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/finding_types/${pathParam(args, "finding_type_id")}`,
     }),
@@ -138,6 +215,24 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_BaseFindingType"
+        },
+        "400": null,
+        "404": null
+      },
+      $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/finding_types/${pathParam(args, "finding_type_id")}`,
@@ -256,6 +351,43 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/posture-api_BaseFindingType"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/posture-api_result-info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": null,
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/finding_types`,
       query: [
@@ -318,6 +450,45 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_custom-finding-type-response"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "404": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "409": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "422": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "500": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/finding_types/${pathParam(args, "finding_type_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -361,6 +532,31 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_ValidateFindingTypeResult"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "500": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_FindingTypeValidationError": posture_api_FindingTypeValidationError_output,
+        "posture-api_ValidateFindingTypeResult": posture_api_ValidateFindingTypeResult_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/finding_types/validate`,

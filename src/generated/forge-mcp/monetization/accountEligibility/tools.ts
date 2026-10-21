@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  monetization_api_response_common_failure_output,
+  monetization_response_info_output,
+} from "../outputs.js";
+import { monetization_monetization_eligibility_result_output } from "./outputs.js";
 import { monetization_monetization_account_eligibility_check_input } from "./schemas.js";
 
 /**
@@ -52,6 +57,24 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/monetization_monetization-eligibility-result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_monetization-eligibility-result": monetization_monetization_eligibility_result_output,
+        "monetization_response-info": monetization_response_info_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/monetization`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -93,6 +116,27 @@ export const tools: readonly Tool[] = [
     path: "/{account_or_zone}/{account_or_zone_id}/monetization",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/monetization_monetization-eligibility-result"
+        },
+        "404": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_monetization-eligibility-result": monetization_monetization_eligibility_result_output,
+        "monetization_response-info": monetization_response_info_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/monetization`,

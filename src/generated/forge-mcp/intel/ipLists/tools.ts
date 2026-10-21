@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  intel_api_response_common_failure_output,
+  intel_messages_output,
+  intel_result_info_output,
+} from "../outputs.js";
+import {
+  intel_components_schemas_response_output,
+  intel_ip_list_output,
+} from "./outputs.js";
 
 /**
  * The tools of `intel.ip_lists`.
@@ -37,6 +46,44 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/intel_ip-list"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/intel_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/intel_components-schemas-response"
+            },
+            {
+              "$ref": "#/$defs/intel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_components-schemas-response": intel_components_schemas_response_output,
+        "intel_ip-list": intel_ip_list_output,
+        "intel_messages": intel_messages_output,
+        "intel_result_info": intel_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/ip-lists`,

@@ -3,6 +3,22 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  stream_api_response_common_failure_output,
+  stream_downloadedFrom_output,
+  stream_height_output,
+  stream_messages_output,
+  stream_name_output,
+  stream_opacity_output,
+  stream_padding_output,
+  stream_position_output,
+  stream_scale_output,
+  stream_watermark_created_output,
+  stream_watermark_identifier_output,
+  stream_watermark_size_output,
+  stream_watermarks_output,
+  stream_width_output,
+} from "../outputs.js";
+import {
   stream_name,
   stream_opacity,
   stream_padding,
@@ -86,6 +102,32 @@ export const tools: readonly Tool[] = [
         "Stream Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_watermarks"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_downloadedFrom": stream_downloadedFrom_output,
+        "stream_height": stream_height_output,
+        "stream_messages": stream_messages_output,
+        "stream_name": stream_name_output,
+        "stream_opacity": stream_opacity_output,
+        "stream_padding": stream_padding_output,
+        "stream_position": stream_position_output,
+        "stream_scale": stream_scale_output,
+        "stream_watermark_created": stream_watermark_created_output,
+        "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_size": stream_watermark_size_output,
+        "stream_watermarks": stream_watermarks_output,
+        "stream_width": stream_width_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/watermarks`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -125,6 +167,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Stream Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/watermarks/${pathParam(args, "identifier")}`,
@@ -166,6 +222,32 @@ export const tools: readonly Tool[] = [
         "Stream Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_watermarks"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_downloadedFrom": stream_downloadedFrom_output,
+        "stream_height": stream_height_output,
+        "stream_messages": stream_messages_output,
+        "stream_name": stream_name_output,
+        "stream_opacity": stream_opacity_output,
+        "stream_padding": stream_padding_output,
+        "stream_position": stream_position_output,
+        "stream_scale": stream_scale_output,
+        "stream_watermark_created": stream_watermark_created_output,
+        "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_size": stream_watermark_size_output,
+        "stream_watermarks": stream_watermarks_output,
+        "stream_width": stream_width_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/watermarks/${pathParam(args, "identifier")}`,
     }),
@@ -200,6 +282,46 @@ export const tools: readonly Tool[] = [
         "Stream Write",
         "Stream Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/stream_watermarks"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_downloadedFrom": stream_downloadedFrom_output,
+        "stream_height": stream_height_output,
+        "stream_messages": stream_messages_output,
+        "stream_name": stream_name_output,
+        "stream_opacity": stream_opacity_output,
+        "stream_padding": stream_padding_output,
+        "stream_position": stream_position_output,
+        "stream_scale": stream_scale_output,
+        "stream_watermark_created": stream_watermark_created_output,
+        "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_size": stream_watermark_size_output,
+        "stream_watermarks": stream_watermarks_output,
+        "stream_width": stream_width_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/watermarks`,

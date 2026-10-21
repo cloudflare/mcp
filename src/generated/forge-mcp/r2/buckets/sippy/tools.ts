@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_v4_response_failure_output,
+} from "../../outputs.js";
+import {
+  r2_sippy_destination_output,
+  r2_sippy_output,
+  r2_sippy_source_output,
+} from "./outputs.js";
+import {
   r2_enable_sippy_aws,
   r2_enable_sippy_aws_destination,
   r2_enable_sippy_aws_source,
@@ -67,6 +77,29 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "enabled": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/sippy`,
       headers: [
@@ -126,6 +159,24 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_sippy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_sippy": r2_sippy_output,
+        "r2_sippy_destination": r2_sippy_destination_output,
+        "r2_sippy_source": r2_sippy_source_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/sippy`,
@@ -217,6 +268,24 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_sippy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_sippy": r2_sippy_output,
+        "r2_sippy_destination": r2_sippy_destination_output,
+        "r2_sippy_source": r2_sippy_source_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/sippy`,

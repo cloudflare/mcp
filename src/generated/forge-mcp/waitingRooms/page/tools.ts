@@ -2,7 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  waitingroom_api_response_common_failure_output,
+  waitingroom_messages_output,
+} from "../outputs.js";
 import { waitingroom_custom_page_html } from "../schemas.js";
+import {
+  waitingroom_preview_response_output,
+  waitingroom_preview_response_result_output,
+  waitingroom_preview_url_output,
+} from "./outputs.js";
 import { waitingroom_query_preview } from "./schemas.js";
 
 /**
@@ -52,6 +61,35 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "preview_url": {
+              "$ref": "#/$defs/waitingroom_preview_url"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waitingroom_preview_response"
+            },
+            {
+              "$ref": "#/$defs/waitingroom_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_messages": waitingroom_messages_output,
+        "waitingroom_preview_response": waitingroom_preview_response_output,
+        "waitingroom_preview_response_result": waitingroom_preview_response_result_output,
+        "waitingroom_preview_url": waitingroom_preview_url_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/waiting_rooms/preview`,

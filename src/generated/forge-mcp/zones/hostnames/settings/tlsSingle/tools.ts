@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../../../outputs.js";
+import {
+  tls_certificates_and_hostnames_created_at_4_output,
+  tls_certificates_and_hostnames_hostname_3_output,
+  tls_certificates_and_hostnames_per_hostname_settings_response_output,
+  tls_certificates_and_hostnames_settingObject_output,
+  tls_certificates_and_hostnames_status_12_output,
+  tls_certificates_and_hostnames_updated_at_5_output,
+  tls_certificates_and_hostnames_value_output,
+} from "../outputs.js";
 
 /**
  * The tools of `zones.hostnames.settings.tls_single`.
@@ -49,6 +62,34 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_settingObject"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_per_hostname_settings_response"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_created_at-4": tls_certificates_and_hostnames_created_at_4_output,
+        "tls-certificates-and-hostnames_hostname-3": tls_certificates_and_hostnames_hostname_3_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_per_hostname_settings_response": tls_certificates_and_hostnames_per_hostname_settings_response_output,
+        "tls-certificates-and-hostnames_settingObject": tls_certificates_and_hostnames_settingObject_output,
+        "tls-certificates-and-hostnames_status-12": tls_certificates_and_hostnames_status_12_output,
+        "tls-certificates-and-hostnames_updated_at-5": tls_certificates_and_hostnames_updated_at_5_output,
+        "tls-certificates-and-hostnames_value": tls_certificates_and_hostnames_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/hostnames/settings/${pathParam(args, "setting_id")}/${pathParam(args, "hostname")}`,

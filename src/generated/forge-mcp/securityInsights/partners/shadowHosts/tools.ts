@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  security_center_api_response_common_failure_output,
+  security_center_messages_output,
+} from "../../../outputs.js";
+import {
+  security_center_partnerEntitlement_output,
+  security_center_shadowHost_output,
+} from "../outputs.js";
 import { security_center_identifier } from "../schemas.js";
 
 /**
@@ -59,6 +67,53 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write",
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "collection_truncated": {
+              "type": "boolean"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "entitlement": {
+              "$ref": "#/$defs/security-center_partnerEntitlement"
+            },
+            "has_more": {
+              "type": "boolean"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/security-center_shadowHost"
+              },
+              "type": "array"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "collection_truncated",
+            "domain",
+            "entitlement",
+            "has_more",
+            "items",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_partnerEntitlement": security_center_partnerEntitlement_output,
+        "security-center_shadowHost": security_center_shadowHost_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/security-center/partners/${pathParam(args, "partner")}/shadow-hosts`,

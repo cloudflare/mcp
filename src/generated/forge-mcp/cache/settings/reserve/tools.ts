@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  cache_settings_api_response_common_failure_output,
+  cache_settings_messages_output,
+} from "../../../outputs.js";
+import {
+  cache_settings_cache_reserve_clear_end_ts_output,
+  cache_settings_cache_reserve_clear_output,
+  cache_settings_cache_reserve_clear_start_ts_output,
+  cache_settings_cache_reserve_clear_state_output,
+  cache_settings_cache_reserve_output,
+  cache_settings_cache_reserve_value_output,
+} from "./outputs.js";
 import { cache_settings_cache_reserve_value } from "./schemas.js";
 
 /**
@@ -54,6 +66,46 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_cache_reserve_clear"
+            },
+            {
+              "properties": {
+                "end_ts": {
+                  "$ref": "#/$defs/cache-settings_cache_reserve_clear_end_ts"
+                },
+                "start_ts": {
+                  "$ref": "#/$defs/cache-settings_cache_reserve_clear_start_ts"
+                },
+                "state": {
+                  "$ref": "#/$defs/cache-settings_cache_reserve_clear_state"
+                }
+              },
+              "required": [
+                "start_ts",
+                "state"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_cache_reserve_clear": cache_settings_cache_reserve_clear_output,
+        "cache-settings_cache_reserve_clear_end_ts": cache_settings_cache_reserve_clear_end_ts_output,
+        "cache-settings_cache_reserve_clear_start_ts": cache_settings_cache_reserve_clear_start_ts_output,
+        "cache-settings_cache_reserve_clear_state": cache_settings_cache_reserve_clear_state_output,
+        "cache-settings_messages": cache_settings_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/cache_reserve_clear`,
@@ -123,6 +175,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_cache_reserve"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_cache_reserve_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_cache_reserve": cache_settings_cache_reserve_output,
+        "cache-settings_cache_reserve_value": cache_settings_cache_reserve_value_output,
+        "cache-settings_messages": cache_settings_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/cache_reserve`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -177,6 +260,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_cache_reserve"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_cache_reserve_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_cache_reserve": cache_settings_cache_reserve_output,
+        "cache-settings_cache_reserve_value": cache_settings_cache_reserve_value_output,
+        "cache-settings_messages": cache_settings_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/cache_reserve`,
     }),
@@ -229,6 +343,46 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_cache_reserve_clear"
+            },
+            {
+              "properties": {
+                "end_ts": {
+                  "$ref": "#/$defs/cache-settings_cache_reserve_clear_end_ts"
+                },
+                "start_ts": {
+                  "$ref": "#/$defs/cache-settings_cache_reserve_clear_start_ts"
+                },
+                "state": {
+                  "$ref": "#/$defs/cache-settings_cache_reserve_clear_state"
+                }
+              },
+              "required": [
+                "start_ts",
+                "state"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_cache_reserve_clear": cache_settings_cache_reserve_clear_output,
+        "cache-settings_cache_reserve_clear_end_ts": cache_settings_cache_reserve_clear_end_ts_output,
+        "cache-settings_cache_reserve_clear_start_ts": cache_settings_cache_reserve_clear_start_ts_output,
+        "cache-settings_cache_reserve_clear_state": cache_settings_cache_reserve_clear_state_output,
+        "cache-settings_messages": cache_settings_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/cache_reserve_clear`,

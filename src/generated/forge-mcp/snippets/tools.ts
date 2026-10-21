@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import {
+  snippets_Errors_output,
+  snippets_Message_output,
+  snippets_Messages_output,
+  snippets_Page_output,
+  snippets_PerPage_output,
+  snippets_Response_output,
+  snippets_ResultInfo_output,
+  snippets_SnippetName_output,
+  snippets_Snippet_output,
+} from "./outputs.js";
 import { snippets_Page, snippets_PerPage } from "./schemas.js";
 
 /**
@@ -49,6 +60,80 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "errors": {},
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "5XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "snippets_Errors": snippets_Errors_output,
+        "snippets_Message": snippets_Message_output,
+        "snippets_Messages": snippets_Messages_output,
+        "snippets_Response": snippets_Response_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/snippets/${pathParam(args, "snippet_name")}`,
     }),
@@ -94,6 +179,82 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "errors": {},
+                "result": {
+                  "$ref": "#/$defs/snippets_Snippet"
+                },
+                "success": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "5XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "snippets_Errors": snippets_Errors_output,
+        "snippets_Message": snippets_Message_output,
+        "snippets_Messages": snippets_Messages_output,
+        "snippets_Response": snippets_Response_output,
+        "snippets_Snippet": snippets_Snippet_output,
+        "snippets_SnippetName": snippets_SnippetName_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/snippets/${pathParam(args, "snippet_name")}`,
@@ -149,6 +310,91 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "errors": {},
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/snippets_Snippet"
+                  },
+                  "type": "array"
+                },
+                "result_info": {
+                  "$ref": "#/$defs/snippets_ResultInfo"
+                },
+                "success": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "5XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "snippets_Errors": snippets_Errors_output,
+        "snippets_Message": snippets_Message_output,
+        "snippets_Messages": snippets_Messages_output,
+        "snippets_Page": snippets_Page_output,
+        "snippets_PerPage": snippets_PerPage_output,
+        "snippets_Response": snippets_Response_output,
+        "snippets_ResultInfo": snippets_ResultInfo_output,
+        "snippets_Snippet": snippets_Snippet_output,
+        "snippets_SnippetName": snippets_SnippetName_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/snippets`,

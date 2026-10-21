@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_apiErrorResponse_output,
+} from "../../outputs.js";
+import {
+  pay_per_crawl_PPUOperatorConfigurationResult_output,
+  pay_per_crawl_PPUOperatorConfiguration_output,
+} from "./outputs.js";
+import {
   pay_per_crawl_PPUOperatorConfiguration,
   pay_per_crawl_PPUOperatorConfigurationUpdate,
 } from "./schemas.js";
@@ -36,6 +45,25 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/pay-per-use/operator/configuration",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfigurationResult"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUOperatorConfigurationResult": pay_per_crawl_PPUOperatorConfigurationResult_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-use/operator/configuration`,
     }),
@@ -73,6 +101,28 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/pay-per-use/operator/configuration",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfiguration"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-use/operator/configuration`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -111,6 +161,31 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/pay-per-use/operator/configuration",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfiguration"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-use/operator/configuration`,
       body: { value: args["body"], mediaType: "application/json" },

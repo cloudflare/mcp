@@ -3,6 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  r2_slurper_Jurisdiction_output,
+  r2_slurper_api_v4_error_output,
+  r2_slurper_api_v4_failure_output,
+  r2_slurper_api_v4_message_output,
+} from "../outputs.js";
+import {
   r2_slurper_GCSLikeCredsSchema,
   r2_slurper_GCSSourceSchema,
   r2_slurper_Jurisdiction,
@@ -12,6 +18,13 @@ import {
   r2_slurper_S3SourceSchema,
   r2_slurper_SourceJobSchema,
 } from "../schemas.js";
+import {
+  r2_slurper_JobProgressResponse_output,
+  r2_slurper_JobResponse_output,
+  r2_slurper_JobResponse_source_output,
+  r2_slurper_JobResponse_target_output,
+  r2_slurper_JobStatus_output,
+} from "./outputs.js";
 import { r2_slurper_CreateJobRequest } from "./schemas.js";
 
 /**
@@ -46,6 +59,21 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/slurper/jobs/{job_id}/abort",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs/${pathParam(args, "job_id")}/abort`,
     }),
@@ -74,6 +102,21 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/slurper/jobs/abortAll",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs/abortAll`,
     }),
@@ -117,6 +160,29 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/slurper/jobs",
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "409": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -150,6 +216,24 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/slurper/jobs/{job_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "409": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs/${pathParam(args, "job_id")}`,
     }),
@@ -182,6 +266,26 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/slurper/jobs/{job_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2-slurper_JobResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_JobResponse": r2_slurper_JobResponse_output,
+        "r2-slurper_JobResponse_source": r2_slurper_JobResponse_source_output,
+        "r2-slurper_JobResponse_target": r2_slurper_JobResponse_target_output,
+        "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
+        "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs/${pathParam(args, "job_id")}`,
     }),
@@ -216,6 +320,40 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/slurper/jobs",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/r2-slurper_JobResponse"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_JobResponse": r2_slurper_JobResponse_output,
+        "r2-slurper_JobResponse_source": r2_slurper_JobResponse_source_output,
+        "r2-slurper_JobResponse_target": r2_slurper_JobResponse_target_output,
+        "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
+        "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs`,
       query: [
@@ -252,6 +390,24 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/slurper/jobs/{job_id}/pause",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "409": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs/${pathParam(args, "job_id")}/pause`,
     }),
@@ -284,6 +440,23 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/slurper/jobs/{job_id}/progress",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2-slurper_JobProgressResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_JobProgressResponse": r2_slurper_JobProgressResponse_output,
+        "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs/${pathParam(args, "job_id")}/progress`,
     }),
@@ -316,6 +489,21 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/slurper/jobs/{job_id}/resume",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/jobs/${pathParam(args, "job_id")}/resume`,
     }),

@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  pages_api_response_common_failure_output,
+  pages_messages_output,
+} from "../outputs.js";
+import {
+  pages_domain_name_output,
+  pages_domain_output,
+  pages_domain_validation_data_output,
+  pages_domain_verification_data_output,
+} from "./outputs.js";
 import { pages_domain_name } from "./schemas.js";
 
 /**
@@ -59,6 +69,24 @@ export const tools: readonly Tool[] = [
         "Pages Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pages_domain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_domain": pages_domain_output,
+        "pages_domain_name": pages_domain_name_output,
+        "pages_domain_validation_data": pages_domain_validation_data_output,
+        "pages_domain_verification_data": pages_domain_verification_data_output,
+        "pages_messages": pages_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/domains`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -103,6 +131,27 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Pages Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_messages": pages_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/domains/${pathParam(args, "domain_name")}`,
@@ -149,6 +198,24 @@ export const tools: readonly Tool[] = [
         "Pages Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pages_domain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_domain": pages_domain_output,
+        "pages_domain_name": pages_domain_name_output,
+        "pages_domain_validation_data": pages_domain_validation_data_output,
+        "pages_domain_verification_data": pages_domain_verification_data_output,
+        "pages_messages": pages_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/domains/${pathParam(args, "domain_name")}`,
     }),
@@ -188,6 +255,55 @@ export const tools: readonly Tool[] = [
         "Pages Read",
         "Pages Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/pages_domain"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_domain": pages_domain_output,
+        "pages_domain_name": pages_domain_name_output,
+        "pages_domain_validation_data": pages_domain_validation_data_output,
+        "pages_domain_verification_data": pages_domain_verification_data_output,
+        "pages_messages": pages_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/domains`,

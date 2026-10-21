@@ -2,6 +2,23 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  addressing_account_identifier_output,
+  addressing_api_response_common_failure_output,
+  addressing_loa_document_identifier_output,
+  addressing_messages_output,
+  addressing_timestamp_output,
+} from "../outputs.js";
+import {
+  addressing_auto_generated_output,
+  addressing_filename_output,
+  addressing_loa_document_collection_output,
+  addressing_loa_document_collection_result_info_output,
+  addressing_loa_document_output,
+  addressing_size_bytes_output,
+  addressing_verified_at_output,
+  addressing_verified_output,
+} from "./outputs.js";
 
 /**
  * The tools of `addressing.loa_documents`.
@@ -43,6 +60,18 @@ export const tools: readonly Tool[] = [
         "Magic Transit Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "$ref": "#/$defs/addressing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/loa_documents/${pathParam(args, "loa_document_id")}/download`,
     }),
@@ -77,6 +106,69 @@ export const tools: readonly Tool[] = [
         "Magic Transit Read",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/addressing_loa_document"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_loa_document_collection"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_auto_generated": addressing_auto_generated_output,
+        "addressing_filename": addressing_filename_output,
+        "addressing_loa_document": addressing_loa_document_output,
+        "addressing_loa_document_collection": addressing_loa_document_collection_output,
+        "addressing_loa_document_collection_result_info": addressing_loa_document_collection_result_info_output,
+        "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_size_bytes": addressing_size_bytes_output,
+        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_verified": addressing_verified_output,
+        "addressing_verified_at": addressing_verified_at_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/loa_documents`,

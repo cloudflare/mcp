@@ -63,6 +63,29 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "query_id": {
+              "type": "integer"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "message",
+            "success"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/logo/queries`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -100,6 +123,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "message",
+            "success"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/logo/queries/${pathParam(args, "query_id")}`,
@@ -142,6 +185,54 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "items": {
+            "properties": {
+              "content_type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "image_data": {
+                "type": "string"
+              },
+              "r2_path": {
+                "type": "string"
+              },
+              "similarity_threshold": {
+                "type": "number"
+              },
+              "tag": {
+                "type": "string"
+              },
+              "uploaded_at": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "r2_path",
+              "similarity_threshold",
+              "tag",
+              "uploaded_at"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/logo/queries`,

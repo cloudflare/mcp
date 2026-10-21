@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../../outputs.js";
+import {
+  organizations_api_MemberID_output,
+  organizations_api_MemberSubjectUser_output,
+  organizations_api_Member_output,
+  organizations_api_PageTokenResultInfo_output,
+} from "../outputs.js";
+import {
   organizations_api_CreateMemberRequest,
   organizations_api_CreateSingleMember,
   organizations_api_CreateSingleMember_user,
@@ -45,6 +55,23 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/organizations/{organization_id}/members",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_Member"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/members`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -79,6 +106,18 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/organizations/{organization_id}/members/{member_id}",
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/members/${pathParam(args, "member_id")}`,
     }),
@@ -112,6 +151,23 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/organizations/{organization_id}/members/{member_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_Member"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/members/${pathParam(args, "member_id")}`,
     }),
@@ -177,6 +233,38 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/organizations/{organization_id}/members",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_Member"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/members`,
       query: [

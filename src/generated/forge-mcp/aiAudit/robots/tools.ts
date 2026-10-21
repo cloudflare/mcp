@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  ai_audit_api_message_output,
+  ai_audit_api_response_common_failure_output,
+  ai_audit_bulk_robots_rules_output,
+  ai_audit_content_signal_output,
+  ai_audit_robots_rules_output,
+  ai_audit_user_agent_rules_output,
+} from "./outputs.js";
 
 /**
  * The tools of `ai_audit.robots`.
@@ -46,6 +54,42 @@ export const tools: readonly Tool[] = [
         "Zone Settings Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/ai-audit_bulk_robots_rules"
+        },
+        "400": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "401": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "403": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "408": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "500": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "503": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "ai-audit_api-response-common-failure": ai_audit_api_response_common_failure_output,
+        "ai-audit_api_message": ai_audit_api_message_output,
+        "ai-audit_bulk_robots_rules": ai_audit_bulk_robots_rules_output,
+        "ai-audit_content_signal": ai_audit_content_signal_output,
+        "ai-audit_robots_rules": ai_audit_robots_rules_output,
+        "ai-audit_user_agent_rules": ai_audit_user_agent_rules_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ai-audit/robots/bulk`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -85,6 +129,38 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write",
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/ai-audit_robots_rules"
+        },
+        "400": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "401": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "403": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "500": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        },
+        "503": {
+          "$ref": "#/$defs/ai-audit_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "ai-audit_api-response-common-failure": ai_audit_api_response_common_failure_output,
+        "ai-audit_api_message": ai_audit_api_message_output,
+        "ai-audit_content_signal": ai_audit_content_signal_output,
+        "ai-audit_robots_rules": ai_audit_robots_rules_output,
+        "ai-audit_user_agent_rules": ai_audit_user_agent_rules_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ai-audit/robots`,

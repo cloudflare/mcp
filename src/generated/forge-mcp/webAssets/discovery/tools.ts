@@ -3,9 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_messages_output,
+  api_shield_timestamp_2_output,
+  api_shield_timestamp_output,
+} from "../../outputs.js";
+import {
   api_shield_identifier,
   api_shield_identifier_2,
 } from "../../schemas.js";
+import {
+  api_shield_openapi_output,
+  api_shield_schema_response_discovery_output,
+  api_shield_schema_response_discovery_result_output,
+} from "./outputs.js";
 
 /**
  * The tools of `web_assets.discovery`.
@@ -46,6 +57,47 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "schemas": {
+              "items": {
+                "$ref": "#/$defs/api-shield_openapi"
+              },
+              "type": "array"
+            },
+            "timestamp": {
+              "$ref": "#/$defs/api-shield_timestamp-2"
+            }
+          },
+          "required": [
+            "schemas",
+            "timestamp"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_schema_response_discovery"
+            },
+            {
+              "$ref": "#/$defs/api-shield_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_openapi": api_shield_openapi_output,
+        "api-shield_schema_response_discovery": api_shield_schema_response_discovery_output,
+        "api-shield_schema_response_discovery_result": api_shield_schema_response_discovery_result_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/discovery`,

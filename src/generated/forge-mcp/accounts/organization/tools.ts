@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  organizations_api_OrganizationFlags_output,
+  organizations_api_OrganizationID_output,
+  organizations_api_Organization_meta_output,
+  organizations_api_Organization_output,
+  organizations_api_Organization_parent_output,
+  organizations_api_Profile_output,
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `accounts.organization`.
@@ -35,6 +45,40 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Account Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_Organization"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/organizations`,

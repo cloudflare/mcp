@@ -53,6 +53,66 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "accountId": {
+              "type": "string"
+            },
+            "accountTag": {
+              "type": "string"
+            },
+            "createdAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "updatedAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "accountId",
+            "uuid"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/-/groups/${pathParam(args, "group_id")}/members`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -96,6 +156,51 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/-/groups/${pathParam(args, "group_id")}/members/${pathParam(args, "member_id")}`,
     }),
@@ -134,6 +239,69 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "items": {
+            "properties": {
+              "accountId": {
+                "type": "string"
+              },
+              "accountTag": {
+                "type": "string"
+              },
+              "createdAt": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "updatedAt": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "accountId",
+              "uuid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/-/groups/${pathParam(args, "group_id")}/members`,

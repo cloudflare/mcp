@@ -3,6 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_api_response_common_failure_output,
+  magic_automatic_return_routing_output,
+  magic_bgp_config_output,
+  magic_bgp_status_with_state_output,
+  magic_health_check_base_target_output,
+  magic_health_check_target_output,
+  magic_interface_address6_output,
+  magic_interface_address_output,
+  magic_messages_output,
+  magic_schemas_created_on_output,
+  magic_schemas_identifier_output,
+  magic_schemas_modified_on_output,
+  magic_tunnel_health_check_output,
+} from "../outputs.js";
+import {
   magic_automatic_return_routing,
   magic_bgp_config,
   magic_health_check_base_target,
@@ -11,6 +26,15 @@ import {
   magic_interface_address6,
   magic_tunnel_health_check,
 } from "../schemas.js";
+import {
+  magic_cloudflare_gre_endpoint_output,
+  magic_customer_gre_endpoint_output,
+  magic_gre_tunnel_name_output,
+  magic_gre_tunnel_output,
+  magic_mtu_output,
+  magic_schemas_description_output,
+  magic_ttl_output,
+} from "./outputs.js";
 import {
   magic_cloudflare_gre_endpoint,
   magic_create_gre_tunnel_request,
@@ -70,6 +94,49 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_gre_tunnels": {
+              "items": {
+                "$ref": "#/$defs/magic_gre-tunnel"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_gre_endpoint": magic_cloudflare_gre_endpoint_output,
+        "magic_customer_gre_endpoint": magic_customer_gre_endpoint_output,
+        "magic_gre-tunnel": magic_gre_tunnel_output,
+        "magic_gre_tunnel_name": magic_gre_tunnel_name_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_messages": magic_messages_output,
+        "magic_mtu": magic_mtu_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-description": magic_schemas_description_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_ttl": magic_ttl_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/gre_tunnels`,
@@ -140,6 +207,38 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_gre-tunnel"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_gre_endpoint": magic_cloudflare_gre_endpoint_output,
+        "magic_customer_gre_endpoint": magic_customer_gre_endpoint_output,
+        "magic_gre-tunnel": magic_gre_tunnel_output,
+        "magic_gre_tunnel_name": magic_gre_tunnel_name_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_messages": magic_messages_output,
+        "magic_mtu": magic_mtu_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-description": magic_schemas_description_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_ttl": magic_ttl_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/gre_tunnels`,
       headers: [
@@ -193,6 +292,46 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_gre_tunnel": {
+              "$ref": "#/$defs/magic_gre-tunnel"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_gre_endpoint": magic_cloudflare_gre_endpoint_output,
+        "magic_customer_gre_endpoint": magic_customer_gre_endpoint_output,
+        "magic_gre-tunnel": magic_gre_tunnel_output,
+        "magic_gre_tunnel_name": magic_gre_tunnel_name_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_messages": magic_messages_output,
+        "magic_mtu": magic_mtu_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-description": magic_schemas_description_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_ttl": magic_ttl_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/gre_tunnels/${pathParam(args, "gre_tunnel_id")}`,
@@ -249,6 +388,43 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "gre_tunnel": {
+              "$ref": "#/$defs/magic_gre-tunnel"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_gre_endpoint": magic_cloudflare_gre_endpoint_output,
+        "magic_customer_gre_endpoint": magic_customer_gre_endpoint_output,
+        "magic_gre-tunnel": magic_gre_tunnel_output,
+        "magic_gre_tunnel_name": magic_gre_tunnel_name_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_messages": magic_messages_output,
+        "magic_mtu": magic_mtu_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-description": magic_schemas_description_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_ttl": magic_ttl_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/gre_tunnels/${pathParam(args, "gre_tunnel_id")}`,
       headers: [
@@ -298,6 +474,46 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "gre_tunnels": {
+              "items": {
+                "$ref": "#/$defs/magic_gre-tunnel"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_gre_endpoint": magic_cloudflare_gre_endpoint_output,
+        "magic_customer_gre_endpoint": magic_customer_gre_endpoint_output,
+        "magic_gre-tunnel": magic_gre_tunnel_output,
+        "magic_gre_tunnel_name": magic_gre_tunnel_name_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_messages": magic_messages_output,
+        "magic_mtu": magic_mtu_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-description": magic_schemas_description_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_ttl": magic_ttl_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/gre_tunnels`,
@@ -370,6 +586,46 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_gre_tunnel": {
+              "$ref": "#/$defs/magic_gre-tunnel"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_gre_endpoint": magic_cloudflare_gre_endpoint_output,
+        "magic_customer_gre_endpoint": magic_customer_gre_endpoint_output,
+        "magic_gre-tunnel": magic_gre_tunnel_output,
+        "magic_gre_tunnel_name": magic_gre_tunnel_name_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_messages": magic_messages_output,
+        "magic_mtu": magic_mtu_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-description": magic_schemas_description_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_ttl": magic_ttl_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/gre_tunnels/${pathParam(args, "gre_tunnel_id")}`,

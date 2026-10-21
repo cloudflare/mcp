@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  dos_api_response_common_failure_output,
+  dos_messages_output,
+} from "../../outputs.js";
 import { dos_timestamp } from "./schemas.js";
 
 /**
@@ -49,6 +53,32 @@ export const tools: readonly Tool[] = [
         "DDoS Botnet Feed Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "cidr": {
+              "type": "string"
+            },
+            "date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "offense_count": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/botnet_feed/asn/${pathParam(args, "asn_id")}/day_report`,
       query: [
@@ -90,6 +120,32 @@ export const tools: readonly Tool[] = [
         "DDoS Botnet Feed Write",
         "DDoS Botnet Feed Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "cidr": {
+              "type": "string"
+            },
+            "date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "offense_count": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/botnet_feed/asn/${pathParam(args, "asn_id")}/full_report`,

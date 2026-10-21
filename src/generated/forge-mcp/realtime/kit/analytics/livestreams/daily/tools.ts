@@ -55,6 +55,45 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "date": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "total_ingest_seconds": {
+                    "type": "integer"
+                  },
+                  "total_viewer_seconds": {
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/analytics/livestreams/daywise`,
       query: [

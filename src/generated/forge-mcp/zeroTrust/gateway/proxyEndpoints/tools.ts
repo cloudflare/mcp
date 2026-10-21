@@ -3,6 +3,26 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+  zero_trust_gateway_read_only_timestamp_output,
+} from "../../outputs.js";
+import {
+  zero_trust_gateway_empty_response_output,
+  zero_trust_gateway_result_info_output,
+  zero_trust_gateway_uuid_3_output,
+} from "../outputs.js";
+import {
+  zero_trust_gateway_ips_output,
+  zero_trust_gateway_name_6_output,
+  zero_trust_gateway_proxy_endpoint_identity_output,
+  zero_trust_gateway_proxy_endpoint_ip_output,
+  zero_trust_gateway_proxy_endpoints_output,
+  zero_trust_gateway_response_collection_9_output,
+  zero_trust_gateway_single_response_5_output,
+  zero_trust_gateway_subdomain_2_output,
+} from "./outputs.js";
+import {
   zero_trust_gateway_ips,
   zero_trust_gateway_name_6,
   zero_trust_gateway_proxy_endpoint_identity_create,
@@ -72,6 +92,36 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/gateway/proxy_endpoints",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_proxy-endpoints"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-5"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_ips": zero_trust_gateway_ips_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-6": zero_trust_gateway_name_6_output,
+        "zero-trust-gateway_proxy-endpoint-identity": zero_trust_gateway_proxy_endpoint_identity_output,
+        "zero-trust-gateway_proxy-endpoint-ip": zero_trust_gateway_proxy_endpoint_ip_output,
+        "zero-trust-gateway_proxy-endpoints": zero_trust_gateway_proxy_endpoints_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_single_response-5": zero_trust_gateway_single_response_5_output,
+        "zero-trust-gateway_subdomain-2": zero_trust_gateway_subdomain_2_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/proxy_endpoints`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -106,6 +156,28 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/gateway/proxy_endpoints/{proxy_endpoint_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_empty_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_empty_response": zero_trust_gateway_empty_response_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/proxy_endpoints/${pathParam(args, "proxy_endpoint_id")}`,
     }),
@@ -157,6 +229,36 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/gateway/proxy_endpoints/{proxy_endpoint_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_proxy-endpoints"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-5"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_ips": zero_trust_gateway_ips_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-6": zero_trust_gateway_name_6_output,
+        "zero-trust-gateway_proxy-endpoint-identity": zero_trust_gateway_proxy_endpoint_identity_output,
+        "zero-trust-gateway_proxy-endpoint-ip": zero_trust_gateway_proxy_endpoint_ip_output,
+        "zero-trust-gateway_proxy-endpoints": zero_trust_gateway_proxy_endpoints_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_single_response-5": zero_trust_gateway_single_response_5_output,
+        "zero-trust-gateway_subdomain-2": zero_trust_gateway_subdomain_2_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/proxy_endpoints/${pathParam(args, "proxy_endpoint_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -191,6 +293,36 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/proxy_endpoints/{proxy_endpoint_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_proxy-endpoints"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-5"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_ips": zero_trust_gateway_ips_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-6": zero_trust_gateway_name_6_output,
+        "zero-trust-gateway_proxy-endpoint-identity": zero_trust_gateway_proxy_endpoint_identity_output,
+        "zero-trust-gateway_proxy-endpoint-ip": zero_trust_gateway_proxy_endpoint_ip_output,
+        "zero-trust-gateway_proxy-endpoints": zero_trust_gateway_proxy_endpoints_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_single_response-5": zero_trust_gateway_single_response_5_output,
+        "zero-trust-gateway_subdomain-2": zero_trust_gateway_subdomain_2_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/proxy_endpoints/${pathParam(args, "proxy_endpoint_id")}`,
     }),
@@ -248,6 +380,51 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/proxy_endpoints",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_proxy-endpoints"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/zero-trust-gateway_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_response_collection-9"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_ips": zero_trust_gateway_ips_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-6": zero_trust_gateway_name_6_output,
+        "zero-trust-gateway_proxy-endpoint-identity": zero_trust_gateway_proxy_endpoint_identity_output,
+        "zero-trust-gateway_proxy-endpoint-ip": zero_trust_gateway_proxy_endpoint_ip_output,
+        "zero-trust-gateway_proxy-endpoints": zero_trust_gateway_proxy_endpoints_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_response_collection-9": zero_trust_gateway_response_collection_9_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_subdomain-2": zero_trust_gateway_subdomain_2_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/proxy_endpoints`,
       query: [

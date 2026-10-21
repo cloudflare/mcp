@@ -2,6 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_created_on_output,
+  workers_identifier_output,
+  workers_messages_output,
+  workers_modified_on_output,
+} from "../../outputs.js";
+import {
+  workers_dispatch_namespace_name_output,
+  workers_namespace_response_output,
+  workers_script_count_output,
+  workers_trusted_workers_output,
+  workers_uuid_output,
+} from "./outputs.js";
 import { workers_trusted_workers } from "./schemas.js";
 
 /**
@@ -48,6 +62,28 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_namespace-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -87,6 +123,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers Scripts Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "null"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}`,
@@ -148,6 +198,28 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_namespace-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -190,6 +262,28 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_namespace-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}`,
     }),
@@ -225,6 +319,42 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Write",
         "Workers Scripts Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_namespace-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces`,
@@ -285,6 +415,28 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_namespace-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}`,

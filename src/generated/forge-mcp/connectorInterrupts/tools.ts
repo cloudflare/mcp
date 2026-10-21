@@ -3,6 +3,17 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  mconn_bad_response_output,
+  mconn_coded_message_output,
+  mconn_none_output,
+} from "../outputs.js";
+import {
+  mconn_connector_interrupts_result_output,
+  mconn_interrupt_reboot_output,
+  mconn_interrupt_restart_output,
+  mconn_interrupt_shutdown_output,
+} from "./outputs.js";
+import {
   mconn_interrupt,
   mconn_interrupt_reboot,
   mconn_interrupt_restart,
@@ -59,6 +70,40 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mconn_connector_interrupts_result"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn_bad_response"
+        }
+      },
+      $defs: {
+        "mconn_bad_response": mconn_bad_response_output,
+        "mconn_coded_message": mconn_coded_message_output,
+        "mconn_connector_interrupts_result": mconn_connector_interrupts_result_output,
+        "mconn_interrupt_reboot": mconn_interrupt_reboot_output,
+        "mconn_interrupt_restart": mconn_interrupt_restart_output,
+        "mconn_interrupt_shutdown": mconn_interrupt_shutdown_output,
+        "mconn_none": mconn_none_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors/${pathParam(args, "connector_id")}/interrupts`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -103,6 +148,51 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mconn_connector_interrupts_result"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn_bad_response"
+        }
+      },
+      $defs: {
+        "mconn_bad_response": mconn_bad_response_output,
+        "mconn_coded_message": mconn_coded_message_output,
+        "mconn_connector_interrupts_result": mconn_connector_interrupts_result_output,
+        "mconn_interrupt_reboot": mconn_interrupt_reboot_output,
+        "mconn_interrupt_restart": mconn_interrupt_restart_output,
+        "mconn_interrupt_shutdown": mconn_interrupt_shutdown_output,
+        "mconn_none": mconn_none_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors/${pathParam(args, "connector_id")}/interrupts`,

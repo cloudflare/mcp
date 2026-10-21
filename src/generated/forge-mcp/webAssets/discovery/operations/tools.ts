@@ -3,11 +3,33 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_basic_operation_output,
+  api_shield_endpoint_output,
+  api_shield_host_output,
+  api_shield_messages_output,
+  api_shield_method_output,
+  api_shield_timestamp_2_output,
+  api_shield_timestamp_output,
+  api_shield_uuid_2_output,
+  api_shield_uuid_output,
+} from "../../../outputs.js";
+import {
   api_shield_identifier,
   api_shield_identifier_2,
   api_shield_uuid,
   api_shield_uuid_2,
 } from "../../../schemas.js";
+import {
+  api_shield_api_discovery_origin_output,
+  api_shield_api_discovery_patch_multiple_request_entry_output,
+  api_shield_api_discovery_patch_multiple_request_output,
+  api_shield_api_discovery_state_output,
+  api_shield_api_discovery_state_patch_output,
+  api_shield_discovery_operation_output,
+  api_shield_traffic_stats_output,
+  api_shield_traffic_stats_traffic_stats_output,
+} from "./outputs.js";
 import {
   api_shield_api_discovery_origin,
   api_shield_api_discovery_patch_multiple_request,
@@ -60,6 +82,23 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/api-shield_api_discovery_patch_multiple_request"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api_discovery_patch_multiple_request": api_shield_api_discovery_patch_multiple_request_output,
+        "api-shield_api_discovery_patch_multiple_request_entry": api_shield_api_discovery_patch_multiple_request_entry_output,
+        "api-shield_api_discovery_state_patch": api_shield_api_discovery_state_patch_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/discovery/operations`,
@@ -118,6 +157,26 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "state": {
+              "$ref": "#/$defs/api-shield_api_discovery_state"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api_discovery_state": api_shield_api_discovery_state_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/discovery/operations/${pathParam(args, "discovery_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -165,6 +224,64 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_discovery_operation"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api_discovery_origin": api_shield_api_discovery_origin_output,
+        "api-shield_api_discovery_state": api_shield_api_discovery_state_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
+        "api-shield_discovery_operation": api_shield_discovery_operation_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_traffic_stats": api_shield_traffic_stats_output,
+        "api-shield_traffic_stats_traffic_stats": api_shield_traffic_stats_traffic_stats_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/discovery/operations/${pathParam(args, "discovery_id")}`,
@@ -266,6 +383,64 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_discovery_operation"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api_discovery_origin": api_shield_api_discovery_origin_output,
+        "api-shield_api_discovery_state": api_shield_api_discovery_state_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
+        "api-shield_discovery_operation": api_shield_discovery_operation_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_traffic_stats": api_shield_traffic_stats_output,
+        "api-shield_traffic_stats_traffic_stats": api_shield_traffic_stats_traffic_stats_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/discovery/operations`,

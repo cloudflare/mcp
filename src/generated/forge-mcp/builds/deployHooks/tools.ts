@@ -3,10 +3,29 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  builds_ApiError_output,
+  builds_BuildStatus_output,
+  builds_ErrorResponse_output,
+  builds_PaginationInfo_output,
+  builds_branch_output,
+  builds_build_uuid_output,
+  builds_created_on_output,
+  builds_deploy_hook_name_output,
+  builds_external_script_id_output,
+  builds_modified_on_output,
+} from "../../outputs.js";
+import {
   builds_account_id,
   builds_branch,
   builds_deploy_hook_name,
 } from "../../schemas.js";
+import {
+  builds_DeployHookResponse_output,
+  builds_DetailedDeployHookResponse_latest_build_output,
+  builds_DetailedDeployHookResponse_output,
+  builds_TriggerDeployHookResponse_output,
+  builds_deploy_hook_uuid_output,
+} from "./outputs.js";
 import {
   builds_CreateDeployHookRequest,
   builds_deploy_hook_uuid,
@@ -63,6 +82,36 @@ export const tools: readonly Tool[] = [
         "Workers CI Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_DeployHookResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_name")}/deploy_hooks`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -112,6 +161,30 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers CI Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_DeployHookResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_name")}/deploy_hooks/${pathParam(args, "deploy_hook_uuid")}`,
@@ -163,6 +236,30 @@ export const tools: readonly Tool[] = [
         "Workers CI Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_DeployHookResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_name")}/deploy_hooks/${pathParam(args, "deploy_hook_uuid")}`,
     }),
@@ -207,6 +304,43 @@ export const tools: readonly Tool[] = [
         "Workers CI Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_DetailedDeployHookResponse"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/builds_PaginationInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_DetailedDeployHookResponse": builds_DetailedDeployHookResponse_output,
+        "builds_DetailedDeployHookResponse_latest_build": builds_DetailedDeployHookResponse_latest_build_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_name")}/deploy_hooks`,
     }),
@@ -239,6 +373,27 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/workers/builds/deploy_hooks/{deploy_hook_uuid}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_TriggerDeployHookResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "429": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_BuildStatus": builds_BuildStatus_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_TriggerDeployHookResponse": builds_TriggerDeployHookResponse_output,
+        "builds_build_uuid": builds_build_uuid_output,
+        "builds_created_on": builds_created_on_output,
+      },
+    },
     request: (args) => ({
       path: `/workers/builds/deploy_hooks/${pathParam(args, "deploy_hook_uuid")}`,
     }),
@@ -294,6 +449,36 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers CI Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_DeployHookResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_name")}/deploy_hooks/${pathParam(args, "deploy_hook_uuid")}`,

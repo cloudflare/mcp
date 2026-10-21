@@ -3,6 +3,61 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  dns_records_api_response_common_failure_output,
+  dns_records_messages_output,
+} from "../outputs.js";
+import {
+  dns_records_AAAARecord_output,
+  dns_records_ARecord_output,
+  dns_records_CAARecord_data_output,
+  dns_records_CAARecord_output,
+  dns_records_CERTRecord_data_output,
+  dns_records_CERTRecord_output,
+  dns_records_CNAMERecord_output,
+  dns_records_CNAMERecord_settings_output,
+  dns_records_DNSKEYRecord_data_output,
+  dns_records_DNSKEYRecord_output,
+  dns_records_DSRecord_data_output,
+  dns_records_DSRecord_output,
+  dns_records_HTTPSRecord_data_output,
+  dns_records_HTTPSRecord_output,
+  dns_records_LOCRecord_data_output,
+  dns_records_LOCRecord_output,
+  dns_records_MXRecord_output,
+  dns_records_NAPTRRecord_data_output,
+  dns_records_NAPTRRecord_output,
+  dns_records_NSRecord_output,
+  dns_records_OPENPGPKEYRecord_output,
+  dns_records_PTRRecord_output,
+  dns_records_SMIMEARecord_data_output,
+  dns_records_SMIMEARecord_output,
+  dns_records_SRVRecord_data_output,
+  dns_records_SRVRecord_output,
+  dns_records_SSHFPRecord_data_output,
+  dns_records_SSHFPRecord_output,
+  dns_records_SVCBRecord_data_output,
+  dns_records_SVCBRecord_output,
+  dns_records_TLSARecord_data_output,
+  dns_records_TLSARecord_output,
+  dns_records_TXTRecord_output,
+  dns_records_URIRecord_data_output,
+  dns_records_URIRecord_output,
+  dns_records_api_response_common_output,
+  dns_records_comment_output,
+  dns_records_dns_record_response_output,
+  dns_records_dns_record_with_data_output,
+  dns_records_dns_record_without_data_output,
+  dns_records_dns_response_batch_object_output,
+  dns_records_dns_response_review_scan_object_output,
+  dns_records_identifier_output,
+  dns_records_name_output,
+  dns_records_priority_output,
+  dns_records_proxied_output,
+  dns_records_settings_output,
+  dns_records_tags_output,
+  dns_records_ttl_output,
+} from "./outputs.js";
+import {
   dns_records_AAAARecord,
   dns_records_ARecord,
   dns_records_CAARecord,
@@ -178,6 +233,67 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-records_dns-response-batch-object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_AAAARecord": dns_records_AAAARecord_output,
+        "dns-records_ARecord": dns_records_ARecord_output,
+        "dns-records_CAARecord": dns_records_CAARecord_output,
+        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
+        "dns-records_CERTRecord": dns_records_CERTRecord_output,
+        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
+        "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
+        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
+        "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
+        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
+        "dns-records_DSRecord": dns_records_DSRecord_output,
+        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
+        "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
+        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
+        "dns-records_LOCRecord": dns_records_LOCRecord_output,
+        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
+        "dns-records_MXRecord": dns_records_MXRecord_output,
+        "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
+        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
+        "dns-records_NSRecord": dns_records_NSRecord_output,
+        "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
+        "dns-records_PTRRecord": dns_records_PTRRecord_output,
+        "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
+        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
+        "dns-records_SRVRecord": dns_records_SRVRecord_output,
+        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
+        "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
+        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
+        "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
+        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
+        "dns-records_TLSARecord": dns_records_TLSARecord_output,
+        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
+        "dns-records_TXTRecord": dns_records_TXTRecord_output,
+        "dns-records_URIRecord": dns_records_URIRecord_output,
+        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_comment": dns_records_comment_output,
+        "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
+        "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns-response-batch-object": dns_records_dns_response_batch_object_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+        "dns-records_name": dns_records_name_output,
+        "dns-records_priority": dns_records_priority_output,
+        "dns-records_proxied": dns_records_proxied_output,
+        "dns-records_settings": dns_records_settings_output,
+        "dns-records_tags": dns_records_tags_output,
+        "dns-records_ttl": dns_records_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/batch`,
       query: [
@@ -288,6 +404,66 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-records_dns-record-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_AAAARecord": dns_records_AAAARecord_output,
+        "dns-records_ARecord": dns_records_ARecord_output,
+        "dns-records_CAARecord": dns_records_CAARecord_output,
+        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
+        "dns-records_CERTRecord": dns_records_CERTRecord_output,
+        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
+        "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
+        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
+        "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
+        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
+        "dns-records_DSRecord": dns_records_DSRecord_output,
+        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
+        "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
+        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
+        "dns-records_LOCRecord": dns_records_LOCRecord_output,
+        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
+        "dns-records_MXRecord": dns_records_MXRecord_output,
+        "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
+        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
+        "dns-records_NSRecord": dns_records_NSRecord_output,
+        "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
+        "dns-records_PTRRecord": dns_records_PTRRecord_output,
+        "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
+        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
+        "dns-records_SRVRecord": dns_records_SRVRecord_output,
+        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
+        "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
+        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
+        "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
+        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
+        "dns-records_TLSARecord": dns_records_TLSARecord_output,
+        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
+        "dns-records_TXTRecord": dns_records_TXTRecord_output,
+        "dns-records_URIRecord": dns_records_URIRecord_output,
+        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_comment": dns_records_comment_output,
+        "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
+        "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+        "dns-records_name": dns_records_name_output,
+        "dns-records_priority": dns_records_priority_output,
+        "dns-records_proxied": dns_records_proxied_output,
+        "dns-records_settings": dns_records_settings_output,
+        "dns-records_tags": dns_records_tags_output,
+        "dns-records_ttl": dns_records_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records`,
       query: [
@@ -346,6 +522,48 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/dns-records_identifier"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/dns-records_identifier"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "$ref": "#/$defs/dns-records_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/${pathParam(args, "dns_record_id")}`,
@@ -458,6 +676,66 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-records_dns-record-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_AAAARecord": dns_records_AAAARecord_output,
+        "dns-records_ARecord": dns_records_ARecord_output,
+        "dns-records_CAARecord": dns_records_CAARecord_output,
+        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
+        "dns-records_CERTRecord": dns_records_CERTRecord_output,
+        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
+        "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
+        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
+        "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
+        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
+        "dns-records_DSRecord": dns_records_DSRecord_output,
+        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
+        "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
+        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
+        "dns-records_LOCRecord": dns_records_LOCRecord_output,
+        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
+        "dns-records_MXRecord": dns_records_MXRecord_output,
+        "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
+        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
+        "dns-records_NSRecord": dns_records_NSRecord_output,
+        "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
+        "dns-records_PTRRecord": dns_records_PTRRecord_output,
+        "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
+        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
+        "dns-records_SRVRecord": dns_records_SRVRecord_output,
+        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
+        "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
+        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
+        "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
+        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
+        "dns-records_TLSARecord": dns_records_TLSARecord_output,
+        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
+        "dns-records_TXTRecord": dns_records_TXTRecord_output,
+        "dns-records_URIRecord": dns_records_URIRecord_output,
+        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_comment": dns_records_comment_output,
+        "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
+        "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+        "dns-records_name": dns_records_name_output,
+        "dns-records_priority": dns_records_priority_output,
+        "dns-records_proxied": dns_records_proxied_output,
+        "dns-records_settings": dns_records_settings_output,
+        "dns-records_tags": dns_records_tags_output,
+        "dns-records_ttl": dns_records_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/${pathParam(args, "dns_record_id")}`,
       query: [
@@ -512,6 +790,18 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_messages": dns_records_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/export`,
@@ -573,6 +863,66 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-records_dns-record-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_AAAARecord": dns_records_AAAARecord_output,
+        "dns-records_ARecord": dns_records_ARecord_output,
+        "dns-records_CAARecord": dns_records_CAARecord_output,
+        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
+        "dns-records_CERTRecord": dns_records_CERTRecord_output,
+        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
+        "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
+        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
+        "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
+        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
+        "dns-records_DSRecord": dns_records_DSRecord_output,
+        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
+        "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
+        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
+        "dns-records_LOCRecord": dns_records_LOCRecord_output,
+        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
+        "dns-records_MXRecord": dns_records_MXRecord_output,
+        "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
+        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
+        "dns-records_NSRecord": dns_records_NSRecord_output,
+        "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
+        "dns-records_PTRRecord": dns_records_PTRRecord_output,
+        "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
+        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
+        "dns-records_SRVRecord": dns_records_SRVRecord_output,
+        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
+        "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
+        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
+        "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
+        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
+        "dns-records_TLSARecord": dns_records_TLSARecord_output,
+        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
+        "dns-records_TXTRecord": dns_records_TXTRecord_output,
+        "dns-records_URIRecord": dns_records_URIRecord_output,
+        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_comment": dns_records_comment_output,
+        "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
+        "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+        "dns-records_name": dns_records_name_output,
+        "dns-records_priority": dns_records_priority_output,
+        "dns-records_proxied": dns_records_proxied_output,
+        "dns-records_settings": dns_records_settings_output,
+        "dns-records_tags": dns_records_tags_output,
+        "dns-records_ttl": dns_records_ttl_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/${pathParam(args, "dns_record_id")}`,
@@ -796,6 +1146,97 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dns-records_dns-record-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_AAAARecord": dns_records_AAAARecord_output,
+        "dns-records_ARecord": dns_records_ARecord_output,
+        "dns-records_CAARecord": dns_records_CAARecord_output,
+        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
+        "dns-records_CERTRecord": dns_records_CERTRecord_output,
+        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
+        "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
+        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
+        "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
+        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
+        "dns-records_DSRecord": dns_records_DSRecord_output,
+        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
+        "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
+        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
+        "dns-records_LOCRecord": dns_records_LOCRecord_output,
+        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
+        "dns-records_MXRecord": dns_records_MXRecord_output,
+        "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
+        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
+        "dns-records_NSRecord": dns_records_NSRecord_output,
+        "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
+        "dns-records_PTRRecord": dns_records_PTRRecord_output,
+        "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
+        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
+        "dns-records_SRVRecord": dns_records_SRVRecord_output,
+        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
+        "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
+        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
+        "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
+        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
+        "dns-records_TLSARecord": dns_records_TLSARecord_output,
+        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
+        "dns-records_TXTRecord": dns_records_TXTRecord_output,
+        "dns-records_URIRecord": dns_records_URIRecord_output,
+        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_comment": dns_records_comment_output,
+        "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
+        "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+        "dns-records_name": dns_records_name_output,
+        "dns-records_priority": dns_records_priority_output,
+        "dns-records_proxied": dns_records_proxied_output,
+        "dns-records_settings": dns_records_settings_output,
+        "dns-records_tags": dns_records_tags_output,
+        "dns-records_ttl": dns_records_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records`,
       query: [
@@ -884,6 +1325,97 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dns-records_dns-record-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_AAAARecord": dns_records_AAAARecord_output,
+        "dns-records_ARecord": dns_records_ARecord_output,
+        "dns-records_CAARecord": dns_records_CAARecord_output,
+        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
+        "dns-records_CERTRecord": dns_records_CERTRecord_output,
+        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
+        "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
+        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
+        "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
+        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
+        "dns-records_DSRecord": dns_records_DSRecord_output,
+        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
+        "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
+        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
+        "dns-records_LOCRecord": dns_records_LOCRecord_output,
+        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
+        "dns-records_MXRecord": dns_records_MXRecord_output,
+        "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
+        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
+        "dns-records_NSRecord": dns_records_NSRecord_output,
+        "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
+        "dns-records_PTRRecord": dns_records_PTRRecord_output,
+        "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
+        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
+        "dns-records_SRVRecord": dns_records_SRVRecord_output,
+        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
+        "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
+        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
+        "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
+        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
+        "dns-records_TLSARecord": dns_records_TLSARecord_output,
+        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
+        "dns-records_TXTRecord": dns_records_TXTRecord_output,
+        "dns-records_URIRecord": dns_records_URIRecord_output,
+        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_comment": dns_records_comment_output,
+        "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
+        "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+        "dns-records_name": dns_records_name_output,
+        "dns-records_priority": dns_records_priority_output,
+        "dns-records_proxied": dns_records_proxied_output,
+        "dns-records_settings": dns_records_settings_output,
+        "dns-records_tags": dns_records_tags_output,
+        "dns-records_ttl": dns_records_ttl_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/scan/review`,
@@ -989,6 +1521,67 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-records_dns-response-review-scan-object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_AAAARecord": dns_records_AAAARecord_output,
+        "dns-records_ARecord": dns_records_ARecord_output,
+        "dns-records_CAARecord": dns_records_CAARecord_output,
+        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
+        "dns-records_CERTRecord": dns_records_CERTRecord_output,
+        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
+        "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
+        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
+        "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
+        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
+        "dns-records_DSRecord": dns_records_DSRecord_output,
+        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
+        "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
+        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
+        "dns-records_LOCRecord": dns_records_LOCRecord_output,
+        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
+        "dns-records_MXRecord": dns_records_MXRecord_output,
+        "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
+        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
+        "dns-records_NSRecord": dns_records_NSRecord_output,
+        "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
+        "dns-records_PTRRecord": dns_records_PTRRecord_output,
+        "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
+        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
+        "dns-records_SRVRecord": dns_records_SRVRecord_output,
+        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
+        "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
+        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
+        "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
+        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
+        "dns-records_TLSARecord": dns_records_TLSARecord_output,
+        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
+        "dns-records_TXTRecord": dns_records_TXTRecord_output,
+        "dns-records_URIRecord": dns_records_URIRecord_output,
+        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_comment": dns_records_comment_output,
+        "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
+        "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns-response-review-scan-object": dns_records_dns_response_review_scan_object_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+        "dns-records_name": dns_records_name_output,
+        "dns-records_priority": dns_records_priority_output,
+        "dns-records_proxied": dns_records_proxied_output,
+        "dns-records_settings": dns_records_settings_output,
+        "dns-records_tags": dns_records_tags_output,
+        "dns-records_ttl": dns_records_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/scan/review`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -1039,6 +1632,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-records_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_api-response-common": dns_records_api_response_common_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_messages": dns_records_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/scan/trigger`,
@@ -1150,6 +1758,66 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-records_dns-record-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_AAAARecord": dns_records_AAAARecord_output,
+        "dns-records_ARecord": dns_records_ARecord_output,
+        "dns-records_CAARecord": dns_records_CAARecord_output,
+        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
+        "dns-records_CERTRecord": dns_records_CERTRecord_output,
+        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
+        "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
+        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
+        "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
+        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
+        "dns-records_DSRecord": dns_records_DSRecord_output,
+        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
+        "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
+        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
+        "dns-records_LOCRecord": dns_records_LOCRecord_output,
+        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
+        "dns-records_MXRecord": dns_records_MXRecord_output,
+        "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
+        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
+        "dns-records_NSRecord": dns_records_NSRecord_output,
+        "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
+        "dns-records_PTRRecord": dns_records_PTRRecord_output,
+        "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
+        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
+        "dns-records_SRVRecord": dns_records_SRVRecord_output,
+        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
+        "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
+        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
+        "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
+        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
+        "dns-records_TLSARecord": dns_records_TLSARecord_output,
+        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
+        "dns-records_TXTRecord": dns_records_TXTRecord_output,
+        "dns-records_URIRecord": dns_records_URIRecord_output,
+        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_comment": dns_records_comment_output,
+        "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
+        "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
+        "dns-records_name": dns_records_name_output,
+        "dns-records_priority": dns_records_priority_output,
+        "dns-records_proxied": dns_records_proxied_output,
+        "dns-records_settings": dns_records_settings_output,
+        "dns-records_tags": dns_records_tags_output,
+        "dns-records_ttl": dns_records_ttl_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/${pathParam(args, "dns_record_id")}`,

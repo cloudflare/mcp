@@ -2,7 +2,36 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  cc_ISO8601Timestamp_output,
+  cc_Image_output,
+  cc_Messages_output,
+  cc_V4BaseErrorResponse_output,
+} from "../../outputs.js";
 import { cc_Image } from "../../schemas.js";
+import {
+  cc_ApplicationHealthError_output,
+  cc_ApplicationHealthErrors_output,
+  cc_ApplicationHealthInstances_output,
+  cc_ApplicationHealth_output,
+  cc_Command_output,
+  cc_DeploymentObservability_output,
+  cc_Entrypoint_output,
+  cc_EnvironmentVariableName_output,
+  cc_EnvironmentVariableValue_output,
+  cc_EnvironmentVariable_output,
+  cc_EventName_output,
+  cc_EventType_output,
+  cc_ExecFormParam_output,
+  cc_InstanceID_output,
+  cc_InstanceType_output,
+  cc_ModifyUserDeploymentConfiguration_output,
+  cc_ObservabilityLogs_output,
+  cc_PlacementEvent_output,
+  cc_RolloutID_output,
+  cc_SSHPublicKey_output,
+  cc_UserSSHPublicKey_output,
+} from "../outputs.js";
 import {
   cc_Command,
   cc_DeploymentObservability,
@@ -17,6 +46,14 @@ import {
   cc_SSHPublicKey,
   cc_UserSSHPublicKey,
 } from "../schemas.js";
+import {
+  cc_ApplicationRolloutProgress_output,
+  cc_ApplicationRolloutProgress_version_distribution_output,
+  cc_ApplicationRollout_output,
+  cc_ApplicationRollout_version_distribution_output,
+  cc_RolloutStep_output,
+  cc_RolloutStep_step_size_output,
+} from "./outputs.js";
 import {
   cc_ContainersCreateApplicationRolloutRequest,
   cc_RolloutStepRequest,
@@ -79,6 +116,61 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/containers/applications/{application_id}/rollouts",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/cc_ApplicationRollout"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_ApplicationHealth": cc_ApplicationHealth_output,
+        "cc_ApplicationHealthError": cc_ApplicationHealthError_output,
+        "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors_output,
+        "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances_output,
+        "cc_ApplicationRollout": cc_ApplicationRollout_output,
+        "cc_ApplicationRolloutProgress": cc_ApplicationRolloutProgress_output,
+        "cc_ApplicationRolloutProgress_version_distribution": cc_ApplicationRolloutProgress_version_distribution_output,
+        "cc_ApplicationRollout_version_distribution": cc_ApplicationRollout_version_distribution_output,
+        "cc_Command": cc_Command_output,
+        "cc_DeploymentObservability": cc_DeploymentObservability_output,
+        "cc_Entrypoint": cc_Entrypoint_output,
+        "cc_EnvironmentVariable": cc_EnvironmentVariable_output,
+        "cc_EnvironmentVariableName": cc_EnvironmentVariableName_output,
+        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue_output,
+        "cc_EventName": cc_EventName_output,
+        "cc_EventType": cc_EventType_output,
+        "cc_ExecFormParam": cc_ExecFormParam_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_InstanceID": cc_InstanceID_output,
+        "cc_InstanceType": cc_InstanceType_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration_output,
+        "cc_ObservabilityLogs": cc_ObservabilityLogs_output,
+        "cc_PlacementEvent": cc_PlacementEvent_output,
+        "cc_RolloutID": cc_RolloutID_output,
+        "cc_RolloutStep": cc_RolloutStep_output,
+        "cc_RolloutStep_step_size": cc_RolloutStep_step_size_output,
+        "cc_SSHPublicKey": cc_SSHPublicKey_output,
+        "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/applications/${pathParam(args, "application_id")}/rollouts`,
       body: { value: args["body"], mediaType: "application/json" },

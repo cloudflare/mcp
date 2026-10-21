@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  workers_api_response_common_failure_output,
+  workers_binding_kind_secret_key_output,
+  workers_binding_kind_secret_text_output,
+  workers_binding_name_output,
+  workers_messages_output,
+  workers_secret_output,
+  workers_secret_patch_response_output,
+} from "../../../../outputs.js";
+import {
   workers_binding_kind_secret_key,
   workers_binding_kind_secret_text,
   workers_binding_name,
@@ -61,6 +70,28 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/secrets-bulk",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_secret-patch-response"
+        },
+        "429": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_messages": workers_messages_output,
+        "workers_secret": workers_secret_output,
+        "workers_secret-patch-response": workers_secret_patch_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}/scripts/${pathParam(args, "script_name")}/secrets-bulk`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -117,6 +148,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers Scripts Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "null"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}/scripts/${pathParam(args, "script_name")}/secrets/${pathParam(args, "secret_name")}`,
@@ -179,6 +224,24 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_secret"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_messages": workers_messages_output,
+        "workers_secret": workers_secret_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}/scripts/${pathParam(args, "script_name")}/secrets/${pathParam(args, "secret_name")}`,
       query: [
@@ -227,6 +290,38 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Write",
         "Workers Scripts Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_secret"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_messages": workers_messages_output,
+        "workers_secret": workers_secret_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}/scripts/${pathParam(args, "script_name")}/secrets`,
@@ -281,6 +376,27 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers Scripts Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_secret"
+        },
+        "429": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_messages": workers_messages_output,
+        "workers_secret": workers_secret_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}/scripts/${pathParam(args, "script_name")}/secrets`,

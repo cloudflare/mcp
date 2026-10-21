@@ -2,6 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { iam_scim_error_response_output } from "../outputs.js";
+import {
+  iam_scim_schema_attr_output,
+  iam_scim_schema_list_response_output,
+  iam_scim_schema_meta_output,
+  iam_scim_schema_output,
+} from "./outputs.js";
 
 /**
  * The tools of `scim.schemas`.
@@ -60,6 +67,22 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_schema"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_schema": iam_scim_schema_output,
+        "iam_scim_schema_attr": iam_scim_schema_attr_output,
+        "iam_scim_schema_meta": iam_scim_schema_meta_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Schemas/${pathParam(args, "schema_id")}`,
     }),
@@ -111,6 +134,23 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_schema_list_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_schema": iam_scim_schema_output,
+        "iam_scim_schema_attr": iam_scim_schema_attr_output,
+        "iam_scim_schema_list_response": iam_scim_schema_list_response_output,
+        "iam_scim_schema_meta": iam_scim_schema_meta_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Schemas`,

@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+} from "../../outputs.js";
 import { email_security_identifier } from "../../schemas.js";
 
 /**
@@ -39,6 +43,39 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": null,
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "by_month": {
+              "additionalProperties": {
+                "items": {
+                  "properties": {
+                    "disposition": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/analytics/monthly_report`,

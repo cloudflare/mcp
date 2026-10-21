@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  client_side_security_api_response_common_failure_output,
+  client_side_security_id_output,
+  client_side_security_messages_output,
+  client_side_security_result_info_output,
+} from "../outputs.js";
+import {
+  client_side_security_policy_action_output,
+  client_side_security_policy_description_output,
+  client_side_security_policy_enabled_output,
+  client_side_security_policy_expression_output,
+  client_side_security_policy_value_output,
+  client_side_security_policy_with_id_output,
+} from "./outputs.js";
+import {
   client_side_security_policy,
   client_side_security_policy_action,
   client_side_security_policy_description,
@@ -65,6 +79,27 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/client-side-security_policy-with-id"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_policy-action": client_side_security_policy_action_output,
+        "client-side-security_policy-description": client_side_security_policy_description_output,
+        "client-side-security_policy-enabled": client_side_security_policy_enabled_output,
+        "client-side-security_policy-expression": client_side_security_policy_expression_output,
+        "client-side-security_policy-value": client_side_security_policy_value_output,
+        "client-side-security_policy-with-id": client_side_security_policy_with_id_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/policies`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -112,6 +147,18 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_messages": client_side_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/policies/${pathParam(args, "policy_id")}`,
@@ -163,6 +210,27 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/client-side-security_policy-with-id"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_policy-action": client_side_security_policy_action_output,
+        "client-side-security_policy-description": client_side_security_policy_description_output,
+        "client-side-security_policy-enabled": client_side_security_policy_enabled_output,
+        "client-side-security_policy-expression": client_side_security_policy_expression_output,
+        "client-side-security_policy-value": client_side_security_policy_value_output,
+        "client-side-security_policy-with-id": client_side_security_policy_with_id_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/policies/${pathParam(args, "policy_id")}`,
     }),
@@ -207,6 +275,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/client-side-security_policy-with-id"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/client-side-security_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_policy-action": client_side_security_policy_action_output,
+        "client-side-security_policy-description": client_side_security_policy_description_output,
+        "client-side-security_policy-enabled": client_side_security_policy_enabled_output,
+        "client-side-security_policy-expression": client_side_security_policy_expression_output,
+        "client-side-security_policy-value": client_side_security_policy_value_output,
+        "client-side-security_policy-with-id": client_side_security_policy_with_id_output,
+        "client-side-security_result_info": client_side_security_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/policies`,
@@ -287,6 +391,27 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/client-side-security_policy-with-id"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_policy-action": client_side_security_policy_action_output,
+        "client-side-security_policy-description": client_side_security_policy_description_output,
+        "client-side-security_policy-enabled": client_side_security_policy_enabled_output,
+        "client-side-security_policy-expression": client_side_security_policy_expression_output,
+        "client-side-security_policy-value": client_side_security_policy_value_output,
+        "client-side-security_policy-with-id": client_side_security_policy_with_id_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/policies/${pathParam(args, "policy_id")}`,

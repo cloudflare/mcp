@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  speed_api_response_common_failure_output,
+  speed_messages_output,
+} from "../../outputs.js";
+import {
+  speed_binary_ast_response_output,
+  speed_binary_ast_value_output,
+} from "./outputs.js";
 import { speed_binary_ast_value } from "./schemas.js";
 
 /**
@@ -70,6 +78,22 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/speed_binary_ast_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/speed_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_binary_ast_response": speed_binary_ast_response_output,
+        "speed_binary_ast_value": speed_binary_ast_value_output,
+        "speed_messages": speed_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/binary_ast`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -121,6 +145,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/speed_binary_ast_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/speed_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_binary_ast_response": speed_binary_ast_response_output,
+        "speed_binary_ast_value": speed_binary_ast_value_output,
+        "speed_messages": speed_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/binary_ast`,

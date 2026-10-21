@@ -3,9 +3,29 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_DispositionLabel_output,
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+  email_security_timestamp_output,
+} from "../outputs.js";
+import {
   email_security_DispositionLabel,
   email_security_identifier,
 } from "../schemas.js";
+import {
+  email_security_DeletedDomain_output,
+  email_security_DeliveryMode_output,
+  email_security_DmarcStatus_output,
+  email_security_DomainAuthorization_output,
+  email_security_DomainId_output,
+  email_security_DomainList_output,
+  email_security_DomainStatus_output,
+  email_security_Domain_output,
+  email_security_EmailsProcessed_output,
+  email_security_Region_output,
+  email_security_ScannableFolder_output,
+  email_security_SpfStatus_output,
+} from "./outputs.js";
 import {
   email_security_CreateDomain,
   email_security_DeliveryMode,
@@ -148,6 +168,57 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deletes": {
+              "items": {
+                "$ref": "#/$defs/email-security_DeletedDomain"
+              },
+              "type": "array"
+            },
+            "patches": {
+              "$ref": "#/$defs/email-security_DomainList"
+            },
+            "posts": {
+              "$ref": "#/$defs/email-security_DomainList"
+            },
+            "puts": {
+              "$ref": "#/$defs/email-security_DomainList"
+            }
+          },
+          "required": [
+            "deletes",
+            "patches",
+            "posts",
+            "puts"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeletedDomain": email_security_DeletedDomain_output,
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainList": email_security_DomainList_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/domains/batch`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -196,6 +267,32 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/email-security_Domain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/domains`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -240,6 +337,22 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Write"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_DeletedDomain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeletedDomain": email_security_DeletedDomain_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/domains/${pathParam(args, "domain_id")}`,
@@ -294,6 +407,32 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_Domain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/domains/${pathParam(args, "domain_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -339,6 +478,32 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_Domain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/domains/${pathParam(args, "domain_id")}`,
@@ -435,6 +600,58 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_DomainList"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainList": email_security_DomainList_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/domains`,
       query: [
@@ -496,6 +713,32 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/email-security/settings/domains/{domain_id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_Domain"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/domains/${pathParam(args, "domain_id")}`,

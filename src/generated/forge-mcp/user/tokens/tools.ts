@@ -3,6 +3,39 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  iam_api_response_common_failure_output,
+  iam_cidr_list_output,
+  iam_common_components_schemas_identifier_output,
+  iam_condition_output,
+  iam_creator_email_at_creation_output,
+  iam_effect_output,
+  iam_expires_on_output,
+  iam_issued_on_output,
+  iam_last_used_on_output,
+  iam_messages_2_output,
+  iam_modified_on_output,
+  iam_name_output,
+  iam_not_before_output,
+  iam_permission_group_meta_output,
+  iam_permission_group_output,
+  iam_permission_groups_output,
+  iam_policy_identifier_output,
+  iam_policy_with_permission_groups_and_resources_output,
+  iam_provisioner_id_output,
+  iam_provisioner_type_output,
+  iam_request_ip_output,
+  iam_resources_output,
+  iam_resources_type_object_nested_output,
+  iam_resources_type_object_string_output,
+  iam_result_info_output,
+  iam_token_base_output,
+  iam_token_identifier_output,
+  iam_token_policies_output,
+  iam_token_status_output,
+  iam_token_with_value_output,
+  iam_value_output,
+} from "../../outputs.js";
+import {
   iam_cidr_list,
   iam_condition,
   iam_create_payload,
@@ -90,6 +123,46 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_token_with_value"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_cidr_list": iam_cidr_list_output,
+        "iam_condition": iam_condition_output,
+        "iam_creator_email_at_creation": iam_creator_email_at_creation_output,
+        "iam_effect": iam_effect_output,
+        "iam_expires_on": iam_expires_on_output,
+        "iam_issued_on": iam_issued_on_output,
+        "iam_last_used_on": iam_last_used_on_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_modified_on": iam_modified_on_output,
+        "iam_name": iam_name_output,
+        "iam_not_before": iam_not_before_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources_output,
+        "iam_provisioner_id": iam_provisioner_id_output,
+        "iam_provisioner_type": iam_provisioner_type_output,
+        "iam_request_ip": iam_request_ip_output,
+        "iam_resources": iam_resources_output,
+        "iam_resources_type_object_nested": iam_resources_type_object_nested_output,
+        "iam_resources_type_object_string": iam_resources_type_object_string_output,
+        "iam_token_identifier": iam_token_identifier_output,
+        "iam_token_policies": iam_token_policies_output,
+        "iam_token_status": iam_token_status_output,
+        "iam_token_with_value": iam_token_with_value_output,
+        "iam_value": iam_value_output,
+      },
+    },
     request: (args) => ({
       path: `/user/tokens`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -141,6 +214,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
+    },
     request: (args) => ({
       path: `/user/tokens/${pathParam(args, "token_id")}`,
     }),
@@ -191,6 +294,45 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_token_base"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_cidr_list": iam_cidr_list_output,
+        "iam_condition": iam_condition_output,
+        "iam_creator_email_at_creation": iam_creator_email_at_creation_output,
+        "iam_effect": iam_effect_output,
+        "iam_expires_on": iam_expires_on_output,
+        "iam_issued_on": iam_issued_on_output,
+        "iam_last_used_on": iam_last_used_on_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_modified_on": iam_modified_on_output,
+        "iam_name": iam_name_output,
+        "iam_not_before": iam_not_before_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources_output,
+        "iam_provisioner_id": iam_provisioner_id_output,
+        "iam_provisioner_type": iam_provisioner_type_output,
+        "iam_request_ip": iam_request_ip_output,
+        "iam_resources": iam_resources_output,
+        "iam_resources_type_object_nested": iam_resources_type_object_nested_output,
+        "iam_resources_type_object_string": iam_resources_type_object_string_output,
+        "iam_token_base": iam_token_base_output,
+        "iam_token_identifier": iam_token_identifier_output,
+        "iam_token_policies": iam_token_policies_output,
+        "iam_token_status": iam_token_status_output,
+      },
     },
     request: (args) => ({
       path: `/user/tokens/${pathParam(args, "token_id")}`,
@@ -259,6 +401,60 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_token_base"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_cidr_list": iam_cidr_list_output,
+        "iam_condition": iam_condition_output,
+        "iam_creator_email_at_creation": iam_creator_email_at_creation_output,
+        "iam_effect": iam_effect_output,
+        "iam_expires_on": iam_expires_on_output,
+        "iam_issued_on": iam_issued_on_output,
+        "iam_last_used_on": iam_last_used_on_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_modified_on": iam_modified_on_output,
+        "iam_name": iam_name_output,
+        "iam_not_before": iam_not_before_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources_output,
+        "iam_provisioner_id": iam_provisioner_id_output,
+        "iam_provisioner_type": iam_provisioner_type_output,
+        "iam_request_ip": iam_request_ip_output,
+        "iam_resources": iam_resources_output,
+        "iam_resources_type_object_nested": iam_resources_type_object_nested_output,
+        "iam_resources_type_object_string": iam_resources_type_object_string_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_token_base": iam_token_base_output,
+        "iam_token_identifier": iam_token_identifier_output,
+        "iam_token_policies": iam_token_policies_output,
+        "iam_token_status": iam_token_status_output,
+      },
+    },
     request: (args) => ({
       path: `/user/tokens`,
       query: [
@@ -314,6 +510,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_value"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_value": iam_value_output,
+      },
     },
     request: (args) => ({
       path: `/user/tokens/${pathParam(args, "token_id")}/value`,
@@ -388,6 +599,45 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_token_base"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_cidr_list": iam_cidr_list_output,
+        "iam_condition": iam_condition_output,
+        "iam_creator_email_at_creation": iam_creator_email_at_creation_output,
+        "iam_effect": iam_effect_output,
+        "iam_expires_on": iam_expires_on_output,
+        "iam_issued_on": iam_issued_on_output,
+        "iam_last_used_on": iam_last_used_on_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_modified_on": iam_modified_on_output,
+        "iam_name": iam_name_output,
+        "iam_not_before": iam_not_before_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources_output,
+        "iam_provisioner_id": iam_provisioner_id_output,
+        "iam_provisioner_type": iam_provisioner_type_output,
+        "iam_request_ip": iam_request_ip_output,
+        "iam_resources": iam_resources_output,
+        "iam_resources_type_object_nested": iam_resources_type_object_nested_output,
+        "iam_resources_type_object_string": iam_resources_type_object_string_output,
+        "iam_token_base": iam_token_base_output,
+        "iam_token_identifier": iam_token_identifier_output,
+        "iam_token_policies": iam_token_policies_output,
+        "iam_token_status": iam_token_status_output,
+      },
+    },
     request: (args) => ({
       path: `/user/tokens/${pathParam(args, "token_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -417,6 +667,42 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "expires_on": {
+              "$ref": "#/$defs/iam_expires_on"
+            },
+            "id": {
+              "$ref": "#/$defs/iam_token_identifier"
+            },
+            "not_before": {
+              "$ref": "#/$defs/iam_not_before"
+            },
+            "status": {
+              "$ref": "#/$defs/iam_token_status"
+            }
+          },
+          "required": [
+            "id",
+            "status"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_expires_on": iam_expires_on_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_not_before": iam_not_before_output,
+        "iam_token_identifier": iam_token_identifier_output,
+        "iam_token_status": iam_token_status_output,
+      },
     },
     request: (_args) => ({
       path: `/user/tokens/verify`,

@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import { brand_protection_api_Error_output } from "../outputs.js";
 
 /**
  * The tools of `total_queries`.
@@ -36,6 +37,16 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "default": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        }
+      },
+      $defs: {
+        "brand-protection-api_Error": brand_protection_api_Error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/brand-protection/total-queries`,

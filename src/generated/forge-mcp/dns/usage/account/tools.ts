@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  dns_records_api_response_common_failure_output,
+  dns_records_messages_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `dns.usage.account`.
@@ -62,6 +66,45 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "internal_record_quota": {
+              "type": "integer"
+            },
+            "internal_record_usage": {
+              "type": "integer"
+            },
+            "record_quota": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "record_usage": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "record_quota",
+            "record_usage"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_messages": dns_records_messages_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/dns_records/usage`,

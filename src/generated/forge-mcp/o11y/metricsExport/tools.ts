@@ -32,6 +32,161 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/workers/observability/metricsexport",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "destinations": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                  },
+                  "resourceId": {
+                    "type": "string"
+                  },
+                  "resourceType": {
+                    "enum": [
+                      "workers",
+                      "d1",
+                      "r2",
+                      "containers"
+                    ],
+                    "type": "string"
+                  },
+                  "updatedAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "createdAt",
+                  "destinations",
+                  "resourceId",
+                  "resourceType",
+                  "updatedAt"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/metricsexport`,
     }),
@@ -120,6 +275,211 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/workers/observability/metricsexport",
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "destinations": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                  },
+                  "resourceId": {
+                    "type": "string"
+                  },
+                  "resourceType": {
+                    "enum": [
+                      "workers",
+                      "d1",
+                      "r2",
+                      "containers"
+                    ],
+                    "type": "string"
+                  },
+                  "updatedAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "createdAt",
+                  "destinations",
+                  "resourceId",
+                  "resourceType",
+                  "updatedAt"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Bad Request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/metricsexport`,
       body: { value: args["body"], mediaType: "application/json" },

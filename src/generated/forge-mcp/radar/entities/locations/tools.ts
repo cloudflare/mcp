@@ -52,6 +52,68 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "location": {
+              "properties": {
+                "alpha2": {
+                  "type": "string"
+                },
+                "confidenceLevel": {
+                  "type": "integer"
+                },
+                "continent": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "string"
+                },
+                "longitude": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": "string"
+                },
+                "subregion": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "alpha2",
+                "confidenceLevel",
+                "continent",
+                "latitude",
+                "longitude",
+                "name",
+                "region",
+                "subregion"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "location"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/entities/locations/${pathParam(args, "location")}`,
       query: [
@@ -129,6 +191,86 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "locations": {
+              "items": {
+                "properties": {
+                  "alpha2": {
+                    "type": "string"
+                  },
+                  "continent": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "subregion": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "alpha2",
+                  "continent",
+                  "latitude",
+                  "longitude",
+                  "name",
+                  "region",
+                  "subregion"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "locations"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/entities/locations`,

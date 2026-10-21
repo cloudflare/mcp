@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  bot_management_api_response_common_failure_output,
+  bot_management_messages_output,
+} from "../outputs.js";
+import {
+  bot_management_feedback_report_output,
+  bot_management_feedback_type_output,
+  bot_management_metric_requests_output,
+  bot_management_requests_by_attribute_output,
+  bot_management_requests_by_score_output,
+  bot_management_requests_by_score_src_output,
+} from "./outputs.js";
+import {
   bot_management_feedback_report,
   bot_management_feedback_type,
   bot_management_metric_requests,
@@ -66,6 +78,18 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "201": null,
+        "4XX": {
+          "$ref": "#/$defs/bot-management_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bot-management_api-response-common-failure": bot_management_api_response_common_failure_output,
+        "bot-management_messages": bot_management_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/bot_management/feedback`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -109,6 +133,29 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "items": {
+            "$ref": "#/$defs/bot-management_feedback_report"
+          },
+          "type": "array"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bot-management_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bot-management_api-response-common-failure": bot_management_api_response_common_failure_output,
+        "bot-management_feedback_report": bot_management_feedback_report_output,
+        "bot-management_feedback_type": bot_management_feedback_type_output,
+        "bot-management_messages": bot_management_messages_output,
+        "bot-management_metric_requests": bot_management_metric_requests_output,
+        "bot-management_requests_by_attribute": bot_management_requests_by_attribute_output,
+        "bot-management_requests_by_score": bot_management_requests_by_score_output,
+        "bot-management_requests_by_score_src": bot_management_requests_by_score_src_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/bot_management/feedback`,

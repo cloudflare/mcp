@@ -3,9 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_messages_output,
+} from "../../outputs.js";
+import {
   api_shield_identifier,
   api_shield_identifier_2,
 } from "../../schemas.js";
+import {
+  api_shield_auth_id_characteristic_jwt_claim_output,
+  api_shield_auth_id_characteristic_output,
+  api_shield_auth_id_characteristics_output,
+  api_shield_configuration_output,
+  api_shield_configuration_single_response_output,
+} from "./outputs.js";
 import {
   api_shield_auth_id_characteristic,
   api_shield_auth_id_characteristic_jwt_claim,
@@ -56,6 +67,25 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/api-shield_configuration-single-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_auth_id_characteristic": api_shield_auth_id_characteristic_output,
+        "api-shield_auth_id_characteristic_jwt_claim": api_shield_auth_id_characteristic_jwt_claim_output,
+        "api-shield_auth_id_characteristics": api_shield_auth_id_characteristics_output,
+        "api-shield_configuration": api_shield_configuration_output,
+        "api-shield_configuration-single-response": api_shield_configuration_single_response_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/configuration`,
@@ -109,6 +139,25 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/api-shield_configuration-single-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_auth_id_characteristic": api_shield_auth_id_characteristic_output,
+        "api-shield_auth_id_characteristic_jwt_claim": api_shield_auth_id_characteristic_jwt_claim_output,
+        "api-shield_auth_id_characteristics": api_shield_auth_id_characteristics_output,
+        "api-shield_configuration": api_shield_configuration_output,
+        "api-shield_configuration-single-response": api_shield_configuration_single_response_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/configuration`,

@@ -3,6 +3,26 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../outputs.js";
+import {
+  tls_certificates_and_hostnames_brand_check_output,
+  tls_certificates_and_hostnames_cert_pack_uuid_output,
+  tls_certificates_and_hostnames_certificate_status_output,
+  tls_certificates_and_hostnames_signature_2_output,
+  tls_certificates_and_hostnames_ssl_validation_method_response_collection_output,
+  tls_certificates_and_hostnames_ssl_validation_method_response_collection_result_output,
+  tls_certificates_and_hostnames_ssl_verification_response_collection_output,
+  tls_certificates_and_hostnames_status_6_output,
+  tls_certificates_and_hostnames_validation_method_2_output,
+  tls_certificates_and_hostnames_validation_method_definition_output,
+  tls_certificates_and_hostnames_verification_info_output,
+  tls_certificates_and_hostnames_verification_output,
+  tls_certificates_and_hostnames_verification_status_output,
+  tls_certificates_and_hostnames_verification_type_output,
+} from "./outputs.js";
+import {
   tls_certificates_and_hostnames_validation_method_3,
   tls_certificates_and_hostnames_validation_method_definition,
 } from "./schemas.js";
@@ -77,6 +97,39 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "status": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_status-6"
+            },
+            "validation_method": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method_definition"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_validation_method_response_collection"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_ssl_validation_method_response_collection": tls_certificates_and_hostnames_ssl_validation_method_response_collection_output,
+        "tls-certificates-and-hostnames_ssl_validation_method_response_collection_result": tls_certificates_and_hostnames_ssl_validation_method_response_collection_result_output,
+        "tls-certificates-and-hostnames_status-6": tls_certificates_and_hostnames_status_6_output,
+        "tls-certificates-and-hostnames_validation_method_definition": tls_certificates_and_hostnames_validation_method_definition_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ssl/verification/${pathParam(args, "certificate_pack_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -137,6 +190,37 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_verification_response_collection"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_verification_response_collection"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_brand_check": tls_certificates_and_hostnames_brand_check_output,
+        "tls-certificates-and-hostnames_cert_pack_uuid": tls_certificates_and_hostnames_cert_pack_uuid_output,
+        "tls-certificates-and-hostnames_certificate_status": tls_certificates_and_hostnames_certificate_status_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_signature-2": tls_certificates_and_hostnames_signature_2_output,
+        "tls-certificates-and-hostnames_ssl_verification_response_collection": tls_certificates_and_hostnames_ssl_verification_response_collection_output,
+        "tls-certificates-and-hostnames_validation_method-2": tls_certificates_and_hostnames_validation_method_2_output,
+        "tls-certificates-and-hostnames_verification": tls_certificates_and_hostnames_verification_output,
+        "tls-certificates-and-hostnames_verification_info": tls_certificates_and_hostnames_verification_info_output,
+        "tls-certificates-and-hostnames_verification_status": tls_certificates_and_hostnames_verification_status_output,
+        "tls-certificates-and-hostnames_verification_type": tls_certificates_and_hostnames_verification_type_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ssl/verification`,

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import {
+  stream_api_response_common_failure_output,
+  stream_creator_output,
+  stream_messages_output,
+} from "./outputs.js";
 import { stream_creator } from "./schemas.js";
 
 /**
@@ -45,6 +50,35 @@ export const tools: readonly Tool[] = [
         "Stream Write",
         "Stream Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "creator": {
+              "$ref": "#/$defs/stream_creator"
+            },
+            "totalStorageMinutes": {
+              "type": "number"
+            },
+            "totalStorageMinutesLimit": {
+              "type": "integer"
+            },
+            "videoCount": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_creator": stream_creator_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/storage-usage`,

@@ -52,6 +52,104 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "as_sets": {
+              "items": {
+                "properties": {
+                  "as_members_count": {
+                    "type": "integer"
+                  },
+                  "as_set_members_count": {
+                    "type": "integer"
+                  },
+                  "as_set_upstreams_count": {
+                    "type": "integer"
+                  },
+                  "asn_cone_size": {
+                    "type": "integer"
+                  },
+                  "hierarchical_asn": {
+                    "type": "integer"
+                  },
+                  "inferred_asn": {
+                    "type": "integer"
+                  },
+                  "irr_sources": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "peeringdb_asn": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "as_members_count",
+                  "as_set_members_count",
+                  "as_set_upstreams_count",
+                  "asn_cone_size",
+                  "irr_sources",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "paths": {
+              "items": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "as_sets",
+            "paths"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/entities/asns/${pathParam(args, "asn")}/as_set`,
       query: [
@@ -143,6 +241,96 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "ases": {
+              "items": {
+                "properties": {
+                  "asn": {
+                    "type": "integer"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "rank": {
+                    "type": "integer"
+                  },
+                  "rankChange": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "asn",
+                  "country",
+                  "name",
+                  "rank"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "compareDate": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "date",
+                "total"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "ases",
+            "meta"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/entities/asns/botnet_threat_feed`,
       query: [
@@ -203,6 +391,129 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asn": {
+              "properties": {
+                "aka": {
+                  "type": "string"
+                },
+                "asn": {
+                  "type": "integer"
+                },
+                "confidenceLevel": {
+                  "type": "integer"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "countryName": {
+                  "type": "string"
+                },
+                "estimatedUsers": {
+                  "properties": {
+                    "estimatedUsers": {
+                      "type": "integer"
+                    },
+                    "locations": {
+                      "items": {
+                        "properties": {
+                          "estimatedUsers": {
+                            "type": "integer"
+                          },
+                          "locationAlpha2": {
+                            "type": "string"
+                          },
+                          "locationName": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "locationAlpha2",
+                          "locationName"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "locations"
+                  ],
+                  "type": "object"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "orgName": {
+                  "type": "string"
+                },
+                "related": {
+                  "items": {
+                    "properties": {
+                      "aka": {
+                        "type": "string"
+                      },
+                      "asn": {
+                        "type": "integer"
+                      },
+                      "estimatedUsers": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "website": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "asn",
+                "confidenceLevel",
+                "country",
+                "countryName",
+                "estimatedUsers",
+                "name",
+                "orgName",
+                "related",
+                "source",
+                "website"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "asn"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/entities/asns/${pathParam(args, "asn")}`,
       query: [
@@ -254,6 +565,125 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asn": {
+              "properties": {
+                "aka": {
+                  "type": "string"
+                },
+                "asn": {
+                  "type": "integer"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "countryName": {
+                  "type": "string"
+                },
+                "estimatedUsers": {
+                  "properties": {
+                    "estimatedUsers": {
+                      "type": "integer"
+                    },
+                    "locations": {
+                      "items": {
+                        "properties": {
+                          "estimatedUsers": {
+                            "type": "integer"
+                          },
+                          "locationAlpha2": {
+                            "type": "string"
+                          },
+                          "locationName": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "locationAlpha2",
+                          "locationName"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "locations"
+                  ],
+                  "type": "object"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "orgName": {
+                  "type": "string"
+                },
+                "related": {
+                  "items": {
+                    "properties": {
+                      "aka": {
+                        "type": "string"
+                      },
+                      "asn": {
+                        "type": "integer"
+                      },
+                      "estimatedUsers": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "website": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "asn",
+                "country",
+                "countryName",
+                "estimatedUsers",
+                "name",
+                "orgName",
+                "related",
+                "source",
+                "website"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "asn"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/entities/asns/ip`,
@@ -327,6 +757,92 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asns": {
+              "items": {
+                "properties": {
+                  "aka": {
+                    "type": "string"
+                  },
+                  "asn": {
+                    "type": "integer"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "countryName": {
+                    "type": "string"
+                  },
+                  "estimatedUsers": {
+                    "properties": {
+                      "estimatedUsers": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "orgName": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "asn",
+                  "country",
+                  "countryName",
+                  "estimatedUsers",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "asns"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/entities/asns`,
       query: [
@@ -387,6 +903,106 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "data_time": {
+                  "type": "string"
+                },
+                "query_time": {
+                  "type": "string"
+                },
+                "total_peers": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "data_time",
+                "query_time",
+                "total_peers"
+              ],
+              "type": "object"
+            },
+            "rels": {
+              "items": {
+                "properties": {
+                  "asn1": {
+                    "type": "integer"
+                  },
+                  "asn1_country": {
+                    "type": "string"
+                  },
+                  "asn1_name": {
+                    "type": "string"
+                  },
+                  "asn2": {
+                    "type": "integer"
+                  },
+                  "asn2_country": {
+                    "type": "string"
+                  },
+                  "asn2_name": {
+                    "type": "string"
+                  },
+                  "rel": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "asn1",
+                  "asn1_country",
+                  "asn1_name",
+                  "asn2",
+                  "asn2_country",
+                  "asn2_name",
+                  "rel"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "meta",
+            "rels"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/entities/asns/${pathParam(args, "asn")}/rel`,

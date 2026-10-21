@@ -3,6 +3,24 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  cloudforce_one_ApprovalConflictResponse_output,
+  cloudforce_one_ApprovalPendingResponse_output,
+  cloudforce_one_DeleteAllResponse_output,
+  cloudforce_one_ErrorResponse_output,
+  cloudforce_one_PendingRuleChange_output,
+  cloudforce_one_RuleMetaEntry_output,
+  cloudforce_one_RuleMetaEntry_value_output,
+  cloudforce_one_RulePreview_output,
+  cloudforce_one_RuleSearchResult_output,
+  cloudforce_one_RuleSearchResult_scoring_details_output,
+  cloudforce_one_Rule_output,
+  cloudforce_one_RulesPreviewListResponse_output,
+  cloudforce_one_RulesSearchResponse_interpreted_output,
+  cloudforce_one_RulesSearchResponse_output,
+  cloudforce_one_SuccessResponse_output,
+  cloudforce_one_ValidationResponse_output,
+} from "./outputs.js";
+import {
   cloudforce_one_CreateRule,
   cloudforce_one_DeleteRuleBody,
   cloudforce_one_MetaInputEntry,
@@ -49,6 +67,30 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/cloudforce-one/rules",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/cloudforce-one_Rule"
+        },
+        "202": {
+          "$ref": "#/$defs/cloudforce-one_ApprovalPendingResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ApprovalPendingResponse": cloudforce_one_ApprovalPendingResponse_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_Rule": cloudforce_one_Rule_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -91,6 +133,34 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/cloudforce-one/rules/{id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_SuccessResponse"
+        },
+        "202": {
+          "$ref": "#/$defs/cloudforce-one_ApprovalPendingResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cloudforce-one_ApprovalConflictResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ApprovalConflictResponse": cloudforce_one_ApprovalConflictResponse_output,
+        "cloudforce-one_ApprovalPendingResponse": cloudforce_one_ApprovalPendingResponse_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_SuccessResponse": cloudforce_one_SuccessResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/${pathParam(args, "id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -121,6 +191,23 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/cloudforce-one/rules",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_DeleteAllResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_DeleteAllResponse": cloudforce_one_DeleteAllResponse_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules`,
     }),
@@ -156,6 +243,26 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules/{id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_RulePreview"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/${pathParam(args, "id")}`,
     }),
@@ -249,6 +356,24 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_RulesPreviewListResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+        "cloudforce-one_RulesPreviewListResponse": cloudforce_one_RulesPreviewListResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules`,
       query: [
@@ -375,6 +500,29 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules/search",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_RulesSearchResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "503": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RuleSearchResult": cloudforce_one_RuleSearchResult_output,
+        "cloudforce-one_RuleSearchResult_scoring_details": cloudforce_one_RuleSearchResult_scoring_details_output,
+        "cloudforce-one_RulesSearchResponse": cloudforce_one_RulesSearchResponse_output,
+        "cloudforce-one_RulesSearchResponse_interpreted": cloudforce_one_RulesSearchResponse_interpreted_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/search`,
       query: [
@@ -430,6 +578,34 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/cloudforce-one/rules/{id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_RulePreview"
+        },
+        "202": {
+          "$ref": "#/$defs/cloudforce-one_ApprovalPendingResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cloudforce-one_ApprovalConflictResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ApprovalConflictResponse": cloudforce_one_ApprovalConflictResponse_output,
+        "cloudforce-one_ApprovalPendingResponse": cloudforce_one_ApprovalPendingResponse_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/${pathParam(args, "id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -489,6 +665,20 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/cloudforce-one/rules/validate",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_ValidationResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_ValidationResponse": cloudforce_one_ValidationResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/validate`,
       body: { value: args["body"], mediaType: "application/json" },

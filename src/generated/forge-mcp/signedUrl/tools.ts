@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import type { Tool } from "../_/tool.js";
+import { brand_protection_api_Error_output } from "../outputs.js";
 
 /**
  * The tools of `signed_url`.
@@ -24,6 +25,16 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/signed-url",
+    responses: {
+      schemas: {
+        "default": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        }
+      },
+      $defs: {
+        "brand-protection-api_Error": brand_protection_api_Error_output,
+      },
+    },
     request: (_args) => ({
       path: `/signed-url`,
     }),

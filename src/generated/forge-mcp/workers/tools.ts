@@ -3,11 +3,46 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  workers_api_response_common_failure_output,
+  workers_api_response_common_output,
+  workers_cache_options_output,
+  workers_limits_output,
+  workers_messages_output,
+  workers_placement_info_no_status_output,
+  workers_placement_target_output,
+} from "../outputs.js";
+import {
   workers_cache_options,
   workers_limits,
   workers_placement_info_no_status,
   workers_placement_target,
 } from "../schemas.js";
+import {
+  workers_ErrorAuth_output,
+  workers_ErrorInternalServer_output,
+  workers_ErrorWorkerNotFound_output,
+  workers_PreviewsBaseConfig_output,
+  workers_PreviewsBaseConfig_tail_consumersItem_output,
+  workers_Worker_observability_issues_output,
+  workers_Worker_observability_logs_output,
+  workers_Worker_observability_output,
+  workers_Worker_observability_traces_output,
+  workers_Worker_output,
+  workers_Worker_references_dispatch_namespace_outboundsItem_output,
+  workers_Worker_references_domainsItem_output,
+  workers_Worker_references_durable_objectsItem_output,
+  workers_Worker_references_output,
+  workers_Worker_references_queuesItem_output,
+  workers_Worker_references_workersItem_output,
+  workers_Worker_subdomain_output,
+  workers_Worker_tail_consumersItem_output,
+  workers_env_binding_item_output,
+  workers_env_output,
+  workers_observability_issues_output,
+  workers_observability_logs_output,
+  workers_observability_output,
+  workers_observability_traces_output,
+} from "./outputs.js";
 import {
   workers_PreviewsBaseConfig,
   workers_PreviewsBaseConfig_tail_consumersItem,
@@ -136,6 +171,95 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_Worker"
+        },
+        "400": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "401": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorAuth"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "403": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "409": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "500": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorInternalServer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_ErrorAuth": workers_ErrorAuth_output,
+        "workers_ErrorInternalServer": workers_ErrorInternalServer_output,
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_messages": workers_messages_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -181,6 +305,87 @@ export const tools: readonly Tool[] = [
         "Workers Admin",
         "Individual Workers Admin"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        "400": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "401": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorAuth"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "404": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorWorkerNotFound"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorInternalServer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_ErrorAuth": workers_ErrorAuth_output,
+        "workers_ErrorInternalServer": workers_ErrorInternalServer_output,
+        "workers_ErrorWorkerNotFound": workers_ErrorWorkerNotFound_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers/${pathParam(args, "worker_id")}`,
@@ -257,6 +462,117 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_Worker"
+        },
+        "400": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "401": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorAuth"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "403": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "404": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorWorkerNotFound"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "409": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "500": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorInternalServer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_ErrorAuth": workers_ErrorAuth_output,
+        "workers_ErrorInternalServer": workers_ErrorInternalServer_output,
+        "workers_ErrorWorkerNotFound": workers_ErrorWorkerNotFound_output,
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_messages": workers_messages_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers/${pathParam(args, "worker_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -306,6 +622,89 @@ export const tools: readonly Tool[] = [
         "Individual Workers Content Read-Only",
         "Individual Workers Metadata Read-Only"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_Worker"
+        },
+        "400": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "404": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorWorkerNotFound"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorInternalServer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_ErrorInternalServer": workers_ErrorInternalServer_output,
+        "workers_ErrorWorkerNotFound": workers_ErrorWorkerNotFound_output,
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_messages": workers_messages_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers/${pathParam(args, "worker_id")}`,
@@ -380,6 +779,117 @@ export const tools: readonly Tool[] = [
         "Individual Workers Content Read-Only",
         "Individual Workers Metadata Read-Only"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_Worker"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorAuth"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorInternalServer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_ErrorAuth": workers_ErrorAuth_output,
+        "workers_ErrorInternalServer": workers_ErrorInternalServer_output,
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_messages": workers_messages_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers`,
@@ -505,6 +1015,117 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_Worker"
+        },
+        "400": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "401": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorAuth"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "403": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "404": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorWorkerNotFound"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "409": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        },
+        "500": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "$ref": "#/$defs/workers_ErrorInternalServer"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "errors"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_ErrorAuth": workers_ErrorAuth_output,
+        "workers_ErrorInternalServer": workers_ErrorInternalServer_output,
+        "workers_ErrorWorkerNotFound": workers_ErrorWorkerNotFound_output,
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_messages": workers_messages_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers/${pathParam(args, "worker_id")}`,

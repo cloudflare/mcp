@@ -16,6 +16,21 @@ export type InputSchema = JsonSchema & {
   readonly required?: readonly string[];
 };
 
+/**
+ * The JSON Schemas of a method's response bodies, for the server to check
+ * responses against. `tools/list` doesn't send them.
+ */
+export interface ToolResponses {
+  /**
+   * The schema of each response's JSON body, by status as the API declares it:
+   * a code such as `200`, a range such as `4XX`, or `default`. `null` is a
+   * response without a JSON body.
+   */
+  readonly schemas: { readonly [status: string]: JsonSchema | null };
+  /** The models the schemas refer to as `#/$defs/<key>`. */
+  readonly $defs?: { readonly [key: string]: JsonSchema };
+}
+
 /** What a tool says about calling it. The hints describe the API method; they don't authorize anything. */
 export interface ToolAnnotations {
   readonly title?: string;
@@ -63,6 +78,8 @@ export interface Tool {
    * itself, such as `x-api-token-group`. For the server; clients never see them.
    */
   readonly extensions?: { readonly [name: string]: unknown };
+  /** The JSON Schemas of the method's response bodies. For the server; clients never see them. */
+  readonly responses?: ToolResponses;
   /** Returns the API request for `args`. Throws {@link InvalidArguments}. */
   request(args: Args): ApiRequest;
 }
@@ -158,14 +175,15 @@ const indexes = new WeakMap<readonly Tool[], ReadonlyMap<string, Tool>>();
 
 /**
  * Returns `tools` as `tools/list` sends them, without their request code,
- * method, path and extensions. It is built once for each array of tools, and
+ * method, path, extensions and response schemas. It is built once for each array of tools, and
  * the same array every time after.
  */
 export function listTools(tools: readonly Tool[]): readonly McpTool[] {
   let listing = listings.get(tools);
   if (!listing) {
     listing = tools.map(
-      ({ request: _request, method: _method, path: _path, extensions: _extensions, ...tool }) => tool as McpTool,
+      ({ request: _request, method: _method, path: _path, extensions: _extensions, responses: _responses, ...tool }) =>
+        tool as McpTool,
     );
     listings.set(tools, listing);
   }

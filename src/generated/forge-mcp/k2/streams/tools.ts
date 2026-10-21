@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  cloudflare_k2_K2StreamCorsOptions_output,
+  cloudflare_k2_K2StreamHttpInput_output,
+  cloudflare_k2_K2StreamListResponse_result_info_output,
+  cloudflare_k2_K2StreamWorkerBindingInput_output,
+  cloudflare_k2_K2Stream_output,
+  cloudflare_k2_workers_k2_stream_id_output,
+} from "./outputs.js";
+import {
   cloudflare_k2_CreateK2StreamRequest,
   cloudflare_k2_K2StreamCorsOptions,
   cloudflare_k2_K2StreamHttpInput,
@@ -57,6 +65,22 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudflare-k2_K2Stream"
+        },
+        "4XX": null,
+        "5XX": null
+      },
+      $defs: {
+        "cloudflare-k2_K2Stream": cloudflare_k2_K2Stream_output,
+        "cloudflare-k2_K2StreamCorsOptions": cloudflare_k2_K2StreamCorsOptions_output,
+        "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput_output,
+        "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput_output,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/k2/streams`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -100,6 +124,15 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": null,
+        "5XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/k2/streams/${pathParam(args, "stream_id")}`,
     }),
@@ -141,6 +174,22 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudflare-k2_K2Stream"
+        },
+        "4XX": null,
+        "5XX": null
+      },
+      $defs: {
+        "cloudflare-k2_K2Stream": cloudflare_k2_K2Stream_output,
+        "cloudflare-k2_K2StreamCorsOptions": cloudflare_k2_K2StreamCorsOptions_output,
+        "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput_output,
+        "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput_output,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/k2/streams/${pathParam(args, "stream_id")}`,
@@ -190,6 +239,37 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/cloudflare-k2_K2Stream"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/cloudflare-k2_K2StreamListResponse_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": null,
+        "5XX": null
+      },
+      $defs: {
+        "cloudflare-k2_K2Stream": cloudflare_k2_K2Stream_output,
+        "cloudflare-k2_K2StreamCorsOptions": cloudflare_k2_K2StreamCorsOptions_output,
+        "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput_output,
+        "cloudflare-k2_K2StreamListResponse_result_info": cloudflare_k2_K2StreamListResponse_result_info_output,
+        "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput_output,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/k2/streams`,
@@ -247,6 +327,22 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudflare-k2_K2Stream"
+        },
+        "4XX": null,
+        "5XX": null
+      },
+      $defs: {
+        "cloudflare-k2_K2Stream": cloudflare_k2_K2Stream_output,
+        "cloudflare-k2_K2StreamCorsOptions": cloudflare_k2_K2StreamCorsOptions_output,
+        "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput_output,
+        "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput_output,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/k2/streams/${pathParam(args, "stream_id")}`,

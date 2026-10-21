@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../../../outputs.js";
+import {
+  organizations_api_MemberID_output,
+  organizations_api_MemberSubjectUser_output,
+  organizations_api_Member_output,
+} from "../../outputs.js";
+import {
   organizations_api_CreateSingleMember,
   organizations_api_CreateSingleMember_user,
 } from "../schemas.js";
@@ -45,6 +54,37 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/organizations/{organization_id}/members:batchCreate",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_Member"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/members:batchCreate`,
       body: { value: args["body"], mediaType: "application/json" },

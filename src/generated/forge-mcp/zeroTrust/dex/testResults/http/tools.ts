@@ -2,6 +2,25 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_messages_output,
+  digital_experience_monitoring_uuid_output,
+} from "../../outputs.js";
+import {
+  digital_experience_monitoring_test_stat_over_time_output,
+  digital_experience_monitoring_test_stat_over_time_slotsItem_output,
+  digital_experience_monitoring_test_stat_pct_over_time_output,
+  digital_experience_monitoring_test_stat_pct_over_time_slotsItem_output,
+} from "../outputs.js";
+import {
+  digital_experience_monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem_output,
+  digital_experience_monitoring_http_details_response_httpStatsByColoItem_output,
+  digital_experience_monitoring_http_details_response_httpStats_httpStatusCodeItem_output,
+  digital_experience_monitoring_http_details_response_httpStats_output,
+  digital_experience_monitoring_http_details_response_output,
+  digital_experience_monitoring_http_details_response_target_policiesItem_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.test_results.http`.
@@ -74,6 +93,31 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_http_details_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_http_details_response": digital_experience_monitoring_http_details_response_output,
+        "digital-experience-monitoring_http_details_response_httpStats": digital_experience_monitoring_http_details_response_httpStats_output,
+        "digital-experience-monitoring_http_details_response_httpStatsByColoItem": digital_experience_monitoring_http_details_response_httpStatsByColoItem_output,
+        "digital-experience-monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem": digital_experience_monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem_output,
+        "digital-experience-monitoring_http_details_response_httpStats_httpStatusCodeItem": digital_experience_monitoring_http_details_response_httpStats_httpStatusCodeItem_output,
+        "digital-experience-monitoring_http_details_response_target_policiesItem": digital_experience_monitoring_http_details_response_target_policiesItem_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_test_stat_over_time": digital_experience_monitoring_test_stat_over_time_output,
+        "digital-experience-monitoring_test_stat_over_time_slotsItem": digital_experience_monitoring_test_stat_over_time_slotsItem_output,
+        "digital-experience-monitoring_test_stat_pct_over_time": digital_experience_monitoring_test_stat_pct_over_time_output,
+        "digital-experience-monitoring_test_stat_pct_over_time_slotsItem": digital_experience_monitoring_test_stat_pct_over_time_slotsItem_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/http-tests/${pathParam(args, "test_id")}`,

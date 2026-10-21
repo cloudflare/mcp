@@ -2,6 +2,24 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  client_side_security_api_response_common_failure_output,
+  client_side_security_id_output,
+  client_side_security_messages_output,
+  client_side_security_result_info_output,
+} from "../outputs.js";
+import {
+  client_side_security_cryptomining_score_output,
+  client_side_security_dataflow_score_output,
+  client_side_security_fetched_at_output,
+  client_side_security_hash_output,
+  client_side_security_js_integrity_score_output,
+  client_side_security_magecart_score_output,
+  client_side_security_malware_score_output,
+  client_side_security_obfuscation_score_output,
+  client_side_security_script_output,
+  client_side_security_version_output,
+} from "./outputs.js";
 
 /**
  * The tools of `client_side_security.scripts`.
@@ -52,6 +70,53 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/client-side-security_script"
+            },
+            {
+              "properties": {
+                "versions": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/client-side-security_version"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_cryptomining_score": client_side_security_cryptomining_score_output,
+        "client-side-security_dataflow_score": client_side_security_dataflow_score_output,
+        "client-side-security_fetched_at": client_side_security_fetched_at_output,
+        "client-side-security_hash": client_side_security_hash_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_js_integrity_score": client_side_security_js_integrity_score_output,
+        "client-side-security_magecart_score": client_side_security_magecart_score_output,
+        "client-side-security_malware_score": client_side_security_malware_score_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_obfuscation_score": client_side_security_obfuscation_score_output,
+        "client-side-security_script": client_side_security_script_output,
+        "client-side-security_version": client_side_security_version_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/scripts/${pathParam(args, "script_id")}`,
@@ -162,6 +227,45 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/client-side-security_script"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/client-side-security_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_cryptomining_score": client_side_security_cryptomining_score_output,
+        "client-side-security_dataflow_score": client_side_security_dataflow_score_output,
+        "client-side-security_fetched_at": client_side_security_fetched_at_output,
+        "client-side-security_hash": client_side_security_hash_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_js_integrity_score": client_side_security_js_integrity_score_output,
+        "client-side-security_magecart_score": client_side_security_magecart_score_output,
+        "client-side-security_malware_score": client_side_security_malware_score_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_obfuscation_score": client_side_security_obfuscation_score_output,
+        "client-side-security_result_info": client_side_security_result_info_output,
+        "client-side-security_script": client_side_security_script_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/scripts`,

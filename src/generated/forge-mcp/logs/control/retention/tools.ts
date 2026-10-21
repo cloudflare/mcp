@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  logcontrol_api_response_common_failure_output,
+  logcontrol_messages_output,
+} from "../outputs.js";
+import {
+  logcontrol_flag_output,
+  logcontrol_retention_flag_output,
+} from "./outputs.js";
 import { logcontrol_flag, logcontrol_retention_flag } from "./schemas.js";
 
 /**
@@ -62,6 +70,22 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/logcontrol_retention_flag"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logcontrol_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_flag": logcontrol_flag_output,
+        "logcontrol_messages": logcontrol_messages_output,
+        "logcontrol_retention_flag": logcontrol_retention_flag_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/logs/control/retention/flag`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -117,6 +141,22 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/logcontrol_retention_flag"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logcontrol_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_flag": logcontrol_flag_output,
+        "logcontrol_messages": logcontrol_messages_output,
+        "logcontrol_retention_flag": logcontrol_retention_flag_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/logs/control/retention/flag`,

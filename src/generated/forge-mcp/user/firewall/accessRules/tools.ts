@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  firewall_api_response_common_failure_output,
+  firewall_asn_configuration_output,
+  firewall_cidr_configuration_output,
+  firewall_configuration_output,
+  firewall_country_configuration_output,
+  firewall_ip_configuration_output,
+  firewall_ipv6_configuration_output,
+  firewall_messages_output,
+  firewall_notes_output,
+  firewall_result_info_output,
+  firewall_schemas_identifier_output,
+  firewall_schemas_mode_output,
+} from "../../../outputs.js";
+import {
   firewall_asn_configuration,
   firewall_cidr_configuration,
   firewall_configuration,
@@ -12,6 +26,7 @@ import {
   firewall_notes,
   firewall_schemas_mode,
 } from "../../../schemas.js";
+import { firewall_rule_output } from "./outputs.js";
 
 /**
  * The tools of `user.firewall.access_rules`.
@@ -79,6 +94,30 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/firewall_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_asn_configuration": firewall_asn_configuration_output,
+        "firewall_cidr_configuration": firewall_cidr_configuration_output,
+        "firewall_configuration": firewall_configuration_output,
+        "firewall_country_configuration": firewall_country_configuration_output,
+        "firewall_ip_configuration": firewall_ip_configuration_output,
+        "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_notes": firewall_notes_output,
+        "firewall_rule": firewall_rule_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+        "firewall_schemas-mode": firewall_schemas_mode_output,
+      },
+    },
     request: (args) => ({
       path: `/user/firewall/access_rules/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -119,6 +158,26 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/firewall_schemas-identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+      },
     },
     request: (args) => ({
       path: `/user/firewall/access_rules/rules/${pathParam(args, "rule_id")}`,
@@ -177,6 +236,30 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/firewall_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_asn_configuration": firewall_asn_configuration_output,
+        "firewall_cidr_configuration": firewall_cidr_configuration_output,
+        "firewall_configuration": firewall_configuration_output,
+        "firewall_country_configuration": firewall_country_configuration_output,
+        "firewall_ip_configuration": firewall_ip_configuration_output,
+        "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_notes": firewall_notes_output,
+        "firewall_rule": firewall_rule_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+        "firewall_schemas-mode": firewall_schemas_mode_output,
+      },
+    },
     request: (args) => ({
       path: `/user/firewall/access_rules/rules/${pathParam(args, "rule_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -218,6 +301,30 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/firewall_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_asn_configuration": firewall_asn_configuration_output,
+        "firewall_cidr_configuration": firewall_cidr_configuration_output,
+        "firewall_configuration": firewall_configuration_output,
+        "firewall_country_configuration": firewall_country_configuration_output,
+        "firewall_ip_configuration": firewall_ip_configuration_output,
+        "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_notes": firewall_notes_output,
+        "firewall_rule": firewall_rule_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+        "firewall_schemas-mode": firewall_schemas_mode_output,
+      },
     },
     request: (args) => ({
       path: `/user/firewall/access_rules/rules/${pathParam(args, "rule_id")}`,
@@ -311,6 +418,45 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/firewall_rule"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/firewall_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_asn_configuration": firewall_asn_configuration_output,
+        "firewall_cidr_configuration": firewall_cidr_configuration_output,
+        "firewall_configuration": firewall_configuration_output,
+        "firewall_country_configuration": firewall_country_configuration_output,
+        "firewall_ip_configuration": firewall_ip_configuration_output,
+        "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_notes": firewall_notes_output,
+        "firewall_result_info": firewall_result_info_output,
+        "firewall_rule": firewall_rule_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+        "firewall_schemas-mode": firewall_schemas_mode_output,
+      },
     },
     request: (args) => ({
       path: `/user/firewall/access_rules/rules`,

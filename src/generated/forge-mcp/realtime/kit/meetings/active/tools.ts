@@ -3,9 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  realtimekit_ActiveSession_output,
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+} from "../../outputs.js";
+import {
   realtimekit_account_identifier,
   realtimekit_app_id,
 } from "../../schemas.js";
+import { realtimekit_SessionParticipant_output } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.meetings.active`.
@@ -55,6 +61,29 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_ActiveSession"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "404": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session`,
@@ -123,6 +152,40 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "action": {
+                  "type": "string"
+                },
+                "participants": {
+                  "items": {
+                    "$ref": "#/$defs/realtimekit_SessionParticipant"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "404": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_SessionParticipant": realtimekit_SessionParticipant_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session/kick`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -168,6 +231,29 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "action": {
+                  "type": "string"
+                },
+                "kicked_participants_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session/kick-all`,
@@ -235,6 +321,35 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "action": {
+                  "type": "string"
+                },
+                "participants": {
+                  "items": {
+                    "$ref": "#/$defs/realtimekit_SessionParticipant"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      $defs: {
+        "realtimekit_SessionParticipant": realtimekit_SessionParticipant_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session/mute`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -292,6 +407,29 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "action": {
+                  "type": "string"
+                },
+                "muted_participants_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session/mute-all`,

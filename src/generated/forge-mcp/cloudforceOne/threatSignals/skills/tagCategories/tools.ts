@@ -45,6 +45,33 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "category_uuids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "skill_id": {
+              "enum": [
+                "default-tagging-skill"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "category_uuids",
+            "skill_id"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/skills/${pathParam(args, "skill_id")}/tag-categories`,
     }),
@@ -102,6 +129,33 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "category_uuids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "skill_id": {
+              "enum": [
+                "default-tagging-skill"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "category_uuids",
+            "skill_id"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/skills/${pathParam(args, "skill_id")}/tag-categories`,

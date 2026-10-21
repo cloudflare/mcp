@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  tunnel_api_response_common_failure_output,
+  tunnel_created_at_output,
+  tunnel_deleted_at_output,
+  tunnel_messages_output,
+  tunnel_result_info_output,
+  tunnel_tunnel_id_output,
+  tunnel_tunnel_name_output,
+  tunnel_tunnel_type_output,
+} from "../../../outputs.js";
+import {
   tunnel_existed_at,
   tunnel_page_number,
   tunnel_per_page,
@@ -10,13 +20,29 @@ import {
   tunnel_tunnel_type,
   tunnel_tunnel_types,
 } from "../../../schemas.js";
+import {
+  tunnel_virtual_network_id_output,
+  tunnel_virtual_network_name_output,
+} from "../../outputs.js";
 import { tunnel_virtual_network_id } from "../../schemas.js";
+import {
+  tunnel_ip_network_output,
+  tunnel_route_comment_output,
+  tunnel_route_id_output,
+  tunnel_teamnet_output,
+  tunnel_virtual_network_id_computed_optional_output,
+} from "../outputs.js";
 import {
   tunnel_ip_network,
   tunnel_route_comment,
   tunnel_route_id,
   tunnel_virtual_network_id_computed_optional,
 } from "../schemas.js";
+import {
+  tunnel_route_output,
+  tunnel_route_response_single_output,
+  tunnel_teamnet_response_collection_output,
+} from "./outputs.js";
 
 /**
  * The tools of `network.routes.cidr`.
@@ -80,6 +106,36 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_route"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_route_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip_network": tunnel_ip_network_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_route": tunnel_route_output,
+        "tunnel_route_comment": tunnel_route_comment_output,
+        "tunnel_route_id": tunnel_route_id_output,
+        "tunnel_route_response_single": tunnel_route_response_single_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/teamnet/routes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -120,6 +176,36 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Networks Write",
         "Cloudflare Tunnel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_route"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_route_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip_network": tunnel_ip_network_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_route": tunnel_route_output,
+        "tunnel_route_comment": tunnel_route_comment_output,
+        "tunnel_route_id": tunnel_route_id_output,
+        "tunnel_route_response_single": tunnel_route_response_single_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/teamnet/routes/${pathParam(args, "route_id")}`,
@@ -185,6 +271,36 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_route"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_route_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip_network": tunnel_ip_network_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_route": tunnel_route_output,
+        "tunnel_route_comment": tunnel_route_comment_output,
+        "tunnel_route_id": tunnel_route_id_output,
+        "tunnel_route_response_single": tunnel_route_response_single_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/teamnet/routes/${pathParam(args, "route_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -220,6 +336,36 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/teamnet/routes/{route_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_route"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_route_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip_network": tunnel_ip_network_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_route": tunnel_route_output,
+        "tunnel_route_comment": tunnel_route_comment_output,
+        "tunnel_route_id": tunnel_route_id_output,
+        "tunnel_route_response_single": tunnel_route_response_single_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/teamnet/routes/${pathParam(args, "route_id")}`,
     }),
@@ -314,6 +460,54 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write",
         "Cloudflare Tunnel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/tunnel_teamnet"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/tunnel_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_teamnet_response_collection"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip_network": tunnel_ip_network_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_route_comment": tunnel_route_comment_output,
+        "tunnel_route_id": tunnel_route_id_output,
+        "tunnel_teamnet": tunnel_teamnet_output,
+        "tunnel_teamnet_response_collection": tunnel_teamnet_response_collection_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_virtual_network_id_computed_optional": tunnel_virtual_network_id_computed_optional_output,
+        "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/teamnet/routes`,

@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  client_side_security_api_response_common_failure_output,
+  client_side_security_messages_output,
+} from "../outputs.js";
+import {
+  client_side_security_enabled_output,
+  client_side_security_get_zone_settings_response_output,
+  client_side_security_update_zone_settings_response_output,
+  client_side_security_updated_at_output,
+  client_side_security_use_cloudflare_reporting_endpoint_output,
+  client_side_security_use_connection_url_path_output,
+} from "./outputs.js";
+import {
   client_side_security_enabled,
   client_side_security_use_cloudflare_reporting_endpoint,
   client_side_security_use_connection_url_path,
@@ -52,6 +64,25 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/client-side-security_get-zone-settings-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_enabled": client_side_security_enabled_output,
+        "client-side-security_get-zone-settings-response": client_side_security_get_zone_settings_response_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_updated_at": client_side_security_updated_at_output,
+        "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint_output,
+        "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield`,
@@ -117,6 +148,25 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/client-side-security_update-zone-settings-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_enabled": client_side_security_enabled_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_update-zone-settings-response": client_side_security_update_zone_settings_response_output,
+        "client-side-security_updated_at": client_side_security_updated_at_output,
+        "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint_output,
+        "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield`,

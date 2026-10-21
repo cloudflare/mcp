@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import { waf_product_api_bundle_messages_output } from "../outputs.js";
+import {
+  waf_product_api_bundle_api_response_common_failure_3_output,
+  waf_product_api_bundle_response_settings_output,
+  waf_product_api_bundle_settings_output,
+} from "./outputs.js";
 import { waf_product_api_bundle_settings } from "./schemas.js";
 
 /**
@@ -33,6 +39,29 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/zones/{zone_id}/ai-security/settings",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-settings"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-settings": waf_product_api_bundle_response_settings_output,
+        "waf-product-api-bundle_settings": waf_product_api_bundle_settings_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ai-security/settings`,
     }),
@@ -69,6 +98,29 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/zones/{zone_id}/ai-security/settings",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-settings"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-settings": waf_product_api_bundle_response_settings_output,
+        "waf-product-api-bundle_settings": waf_product_api_bundle_settings_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ai-security/settings`,
       body: { value: args["body"], mediaType: "application/json" },

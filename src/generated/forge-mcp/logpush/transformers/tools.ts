@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  logpush_api_response_common_failure_output,
+  logpush_messages_output,
+} from "../outputs.js";
+import {
+  logpush_transformer_dataset_output,
+  logpush_transformer_description_output,
+  logpush_transformer_identifier_output,
+  logpush_transformer_job_ref_output,
+  logpush_transformer_name_output,
+  logpush_transformer_output,
+} from "./outputs.js";
+import {
   logpush_transformer_code,
   logpush_transformer_create_request,
   logpush_transformer_description,
@@ -71,6 +83,26 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/logpush_transformer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_transformer": logpush_transformer_output,
+        "logpush_transformer_dataset": logpush_transformer_dataset_output,
+        "logpush_transformer_description": logpush_transformer_description_output,
+        "logpush_transformer_identifier": logpush_transformer_identifier_output,
+        "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
+        "logpush_transformer_name": logpush_transformer_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logpush/transformers`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -127,6 +159,28 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "409": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logpush/transformers/${pathParam(args, "transformer_id")}`,
     }),
@@ -182,6 +236,26 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/logpush_transformer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_transformer": logpush_transformer_output,
+        "logpush_transformer_dataset": logpush_transformer_dataset_output,
+        "logpush_transformer_description": logpush_transformer_description_output,
+        "logpush_transformer_identifier": logpush_transformer_identifier_output,
+        "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
+        "logpush_transformer_name": logpush_transformer_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logpush/transformers/${pathParam(args, "transformer_id")}`,
     }),
@@ -231,6 +305,40 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/logpush_transformer"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_transformer": logpush_transformer_output,
+        "logpush_transformer_dataset": logpush_transformer_dataset_output,
+        "logpush_transformer_description": logpush_transformer_description_output,
+        "logpush_transformer_identifier": logpush_transformer_identifier_output,
+        "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
+        "logpush_transformer_name": logpush_transformer_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logpush/transformers`,
@@ -289,6 +397,41 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logpush/transformers/preview`,
@@ -355,6 +498,26 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/logpush_transformer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_transformer": logpush_transformer_output,
+        "logpush_transformer_dataset": logpush_transformer_dataset_output,
+        "logpush_transformer_description": logpush_transformer_description_output,
+        "logpush_transformer_identifier": logpush_transformer_identifier_output,
+        "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
+        "logpush_transformer_name": logpush_transformer_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logpush/transformers/${pathParam(args, "transformer_id")}`,

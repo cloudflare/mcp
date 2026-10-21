@@ -3,15 +3,49 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  iam_access_output,
+  iam_api_response_common_failure_output,
+  iam_common_components_schemas_identifier_output,
+  iam_email_output,
+  iam_first_name_output,
+  iam_grants_output,
+  iam_last_name_output,
+  iam_list_member_policy_output,
+  iam_membership_components_schemas_identifier_output,
+  iam_messages_2_output,
+  iam_permission_group_meta_output,
+  iam_permission_group_output,
+  iam_permission_groups_output,
+  iam_permissions_output,
+  iam_policy_identifier_output,
+  iam_resource_group_meta_output,
+  iam_resource_group_output,
+  iam_resource_groups_output,
+  iam_result_info_output,
+  iam_scope_key_output,
+  iam_scope_object_key_output,
+  iam_scope_object_output,
+  iam_scope_output,
+  iam_two_factor_authentication_enabled_output,
+} from "../../outputs.js";
+import {
   iam_access,
   iam_email,
   iam_grants,
   iam_permissions,
 } from "../../schemas.js";
 import {
+  iam_role_components_schemas_identifier_output,
+  iam_role_output,
+} from "../outputs.js";
+import {
   iam_role,
   iam_role_components_schemas_identifier,
 } from "../schemas.js";
+import {
+  iam_member_with_policies_output,
+  iam_member_with_policies_user_output,
+} from "./outputs.js";
 import {
   iam_create_member_policy,
   iam_create_member_with_policies,
@@ -100,6 +134,45 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_member_with_policies"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_email": iam_email_output,
+        "iam_first_name": iam_first_name_output,
+        "iam_grants": iam_grants_output,
+        "iam_last_name": iam_last_name_output,
+        "iam_list_member_policy": iam_list_member_policy_output,
+        "iam_member_with_policies": iam_member_with_policies_output,
+        "iam_member_with_policies_user": iam_member_with_policies_user_output,
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_permissions": iam_permissions_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_role": iam_role_output,
+        "iam_role_components-schemas-identifier": iam_role_components_schemas_identifier_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/members`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -157,6 +230,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/members/${pathParam(args, "member_id")}`,
     }),
@@ -213,6 +316,45 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_member_with_policies"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_email": iam_email_output,
+        "iam_first_name": iam_first_name_output,
+        "iam_grants": iam_grants_output,
+        "iam_last_name": iam_last_name_output,
+        "iam_list_member_policy": iam_list_member_policy_output,
+        "iam_member_with_policies": iam_member_with_policies_output,
+        "iam_member_with_policies_user": iam_member_with_policies_user_output,
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_permissions": iam_permissions_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_role": iam_role_output,
+        "iam_role_components-schemas-identifier": iam_role_components_schemas_identifier_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/members/${pathParam(args, "member_id")}`,
@@ -303,6 +445,60 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_member_with_policies"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_email": iam_email_output,
+        "iam_first_name": iam_first_name_output,
+        "iam_grants": iam_grants_output,
+        "iam_last_name": iam_last_name_output,
+        "iam_list_member_policy": iam_list_member_policy_output,
+        "iam_member_with_policies": iam_member_with_policies_output,
+        "iam_member_with_policies_user": iam_member_with_policies_user_output,
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_permissions": iam_permissions_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_role": iam_role_output,
+        "iam_role_components-schemas-identifier": iam_role_components_schemas_identifier_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/members`,
       query: [
@@ -390,6 +586,45 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_member_with_policies"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_email": iam_email_output,
+        "iam_first_name": iam_first_name_output,
+        "iam_grants": iam_grants_output,
+        "iam_last_name": iam_last_name_output,
+        "iam_list_member_policy": iam_list_member_policy_output,
+        "iam_member_with_policies": iam_member_with_policies_output,
+        "iam_member_with_policies_user": iam_member_with_policies_user_output,
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_permissions": iam_permissions_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_role": iam_role_output,
+        "iam_role_components-schemas-identifier": iam_role_components_schemas_identifier_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/members/${pathParam(args, "member_id")}`,

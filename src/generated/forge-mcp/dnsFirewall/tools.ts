@@ -3,6 +3,28 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  dns_firewall_api_response_common_failure_output,
+  dns_firewall_api_response_common_output,
+  dns_firewall_attack_mitigation_output,
+  dns_firewall_deprecate_any_requests_output,
+  dns_firewall_dns_firewall_cluster_response_output,
+  dns_firewall_dns_firewall_ips_output,
+  dns_firewall_dns_firewall_response_collection_output,
+  dns_firewall_dns_firewall_response_collection_result_info_output,
+  dns_firewall_dns_firewall_single_response_output,
+  dns_firewall_ecs_fallback_output,
+  dns_firewall_identifier_output,
+  dns_firewall_maximum_cache_ttl_output,
+  dns_firewall_messages_output,
+  dns_firewall_minimum_cache_ttl_output,
+  dns_firewall_modified_on_output,
+  dns_firewall_name_output,
+  dns_firewall_negative_cache_ttl_output,
+  dns_firewall_ratelimit_output,
+  dns_firewall_retries_output,
+  dns_firewall_upstream_ips_output,
+} from "./outputs.js";
+import {
   dns_firewall_attack_mitigation,
   dns_firewall_deprecate_any_requests,
   dns_firewall_dns_firewall_cluster,
@@ -86,6 +108,42 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-firewall_dns_firewall_single_response"
+            },
+            {
+              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_attack_mitigation": dns_firewall_attack_mitigation_output,
+        "dns-firewall_deprecate_any_requests": dns_firewall_deprecate_any_requests_output,
+        "dns-firewall_dns-firewall-cluster-response": dns_firewall_dns_firewall_cluster_response_output,
+        "dns-firewall_dns_firewall_ips": dns_firewall_dns_firewall_ips_output,
+        "dns-firewall_dns_firewall_single_response": dns_firewall_dns_firewall_single_response_output,
+        "dns-firewall_ecs_fallback": dns_firewall_ecs_fallback_output,
+        "dns-firewall_identifier": dns_firewall_identifier_output,
+        "dns-firewall_maximum_cache_ttl": dns_firewall_maximum_cache_ttl_output,
+        "dns-firewall_messages": dns_firewall_messages_output,
+        "dns-firewall_minimum_cache_ttl": dns_firewall_minimum_cache_ttl_output,
+        "dns-firewall_modified_on": dns_firewall_modified_on_output,
+        "dns-firewall_name": dns_firewall_name_output,
+        "dns-firewall_negative_cache_ttl": dns_firewall_negative_cache_ttl_output,
+        "dns-firewall_ratelimit": dns_firewall_ratelimit_output,
+        "dns-firewall_retries": dns_firewall_retries_output,
+        "dns-firewall_upstream_ips": dns_firewall_upstream_ips_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_firewall`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -141,6 +199,47 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/dns-firewall_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-firewall_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/dns-firewall_identifier"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-firewall_api-response-common": dns_firewall_api_response_common_output,
+        "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_identifier": dns_firewall_identifier_output,
+        "dns-firewall_messages": dns_firewall_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_firewall/${pathParam(args, "dns_firewall_id")}`,
@@ -214,6 +313,42 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-firewall_dns_firewall_single_response"
+            },
+            {
+              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_attack_mitigation": dns_firewall_attack_mitigation_output,
+        "dns-firewall_deprecate_any_requests": dns_firewall_deprecate_any_requests_output,
+        "dns-firewall_dns-firewall-cluster-response": dns_firewall_dns_firewall_cluster_response_output,
+        "dns-firewall_dns_firewall_ips": dns_firewall_dns_firewall_ips_output,
+        "dns-firewall_dns_firewall_single_response": dns_firewall_dns_firewall_single_response_output,
+        "dns-firewall_ecs_fallback": dns_firewall_ecs_fallback_output,
+        "dns-firewall_identifier": dns_firewall_identifier_output,
+        "dns-firewall_maximum_cache_ttl": dns_firewall_maximum_cache_ttl_output,
+        "dns-firewall_messages": dns_firewall_messages_output,
+        "dns-firewall_minimum_cache_ttl": dns_firewall_minimum_cache_ttl_output,
+        "dns-firewall_modified_on": dns_firewall_modified_on_output,
+        "dns-firewall_name": dns_firewall_name_output,
+        "dns-firewall_negative_cache_ttl": dns_firewall_negative_cache_ttl_output,
+        "dns-firewall_ratelimit": dns_firewall_ratelimit_output,
+        "dns-firewall_retries": dns_firewall_retries_output,
+        "dns-firewall_upstream_ips": dns_firewall_upstream_ips_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_firewall/${pathParam(args, "dns_firewall_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -270,6 +405,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-firewall_dns_firewall_single_response"
+            },
+            {
+              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_attack_mitigation": dns_firewall_attack_mitigation_output,
+        "dns-firewall_deprecate_any_requests": dns_firewall_deprecate_any_requests_output,
+        "dns-firewall_dns-firewall-cluster-response": dns_firewall_dns_firewall_cluster_response_output,
+        "dns-firewall_dns_firewall_ips": dns_firewall_dns_firewall_ips_output,
+        "dns-firewall_dns_firewall_single_response": dns_firewall_dns_firewall_single_response_output,
+        "dns-firewall_ecs_fallback": dns_firewall_ecs_fallback_output,
+        "dns-firewall_identifier": dns_firewall_identifier_output,
+        "dns-firewall_maximum_cache_ttl": dns_firewall_maximum_cache_ttl_output,
+        "dns-firewall_messages": dns_firewall_messages_output,
+        "dns-firewall_minimum_cache_ttl": dns_firewall_minimum_cache_ttl_output,
+        "dns-firewall_modified_on": dns_firewall_modified_on_output,
+        "dns-firewall_name": dns_firewall_name_output,
+        "dns-firewall_negative_cache_ttl": dns_firewall_negative_cache_ttl_output,
+        "dns-firewall_ratelimit": dns_firewall_ratelimit_output,
+        "dns-firewall_retries": dns_firewall_retries_output,
+        "dns-firewall_upstream_ips": dns_firewall_upstream_ips_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_firewall/${pathParam(args, "dns_firewall_id")}`,
@@ -331,6 +502,74 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-firewall_dns_firewall_response_collection"
+            },
+            {
+              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_attack_mitigation": dns_firewall_attack_mitigation_output,
+        "dns-firewall_deprecate_any_requests": dns_firewall_deprecate_any_requests_output,
+        "dns-firewall_dns-firewall-cluster-response": dns_firewall_dns_firewall_cluster_response_output,
+        "dns-firewall_dns_firewall_ips": dns_firewall_dns_firewall_ips_output,
+        "dns-firewall_dns_firewall_response_collection": dns_firewall_dns_firewall_response_collection_output,
+        "dns-firewall_dns_firewall_response_collection_result_info": dns_firewall_dns_firewall_response_collection_result_info_output,
+        "dns-firewall_ecs_fallback": dns_firewall_ecs_fallback_output,
+        "dns-firewall_identifier": dns_firewall_identifier_output,
+        "dns-firewall_maximum_cache_ttl": dns_firewall_maximum_cache_ttl_output,
+        "dns-firewall_messages": dns_firewall_messages_output,
+        "dns-firewall_minimum_cache_ttl": dns_firewall_minimum_cache_ttl_output,
+        "dns-firewall_modified_on": dns_firewall_modified_on_output,
+        "dns-firewall_name": dns_firewall_name_output,
+        "dns-firewall_negative_cache_ttl": dns_firewall_negative_cache_ttl_output,
+        "dns-firewall_ratelimit": dns_firewall_ratelimit_output,
+        "dns-firewall_retries": dns_firewall_retries_output,
+        "dns-firewall_upstream_ips": dns_firewall_upstream_ips_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_firewall`,

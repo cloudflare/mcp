@@ -2,6 +2,23 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  aaa_api_response_common_failure_3_output,
+  aaa_messages_3_output,
+  aaa_policy_id_output,
+  aaa_schemas_name_output,
+  aaa_uuid_output,
+} from "../outputs.js";
+import {
+  aaa_alert_body_output,
+  aaa_components_schemas_description_output,
+  aaa_history_components_schemas_response_collection_output,
+  aaa_history_output,
+  aaa_mechanism_output,
+  aaa_mechanism_type_output,
+  aaa_schemas_alert_type_output,
+  aaa_sent_output,
+} from "./outputs.js";
 import { aaa_before, aaa_per_page } from "./schemas.js";
 
 /**
@@ -64,6 +81,52 @@ export const tools: readonly Tool[] = [
         "Account Settings Write",
         "Account Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/aaa_history"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_history_components-schemas-response_collection"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_alert_body": aaa_alert_body_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_components-schemas-description": aaa_components_schemas_description_output,
+        "aaa_history": aaa_history_output,
+        "aaa_history_components-schemas-response_collection": aaa_history_components_schemas_response_collection_output,
+        "aaa_mechanism": aaa_mechanism_output,
+        "aaa_mechanism_type": aaa_mechanism_type_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_schemas-alert_type": aaa_schemas_alert_type_output,
+        "aaa_schemas-name": aaa_schemas_name_output,
+        "aaa_sent": aaa_sent_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/history`,

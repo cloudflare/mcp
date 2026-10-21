@@ -2,7 +2,56 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+  zero_trust_gateway_read_only_timestamp_output,
+} from "../../outputs.js";
+import {
+  zero_trust_gateway_empty_response_output,
+  zero_trust_gateway_result_info_output,
+  zero_trust_gateway_timestamp_output,
+} from "../outputs.js";
 import { zero_trust_gateway_timestamp } from "../schemas.js";
+import {
+  zero_trust_gateway_action_output,
+  zero_trust_gateway_deleted_at_output,
+  zero_trust_gateway_description_2_output,
+  zero_trust_gateway_device_posture_output,
+  zero_trust_gateway_dns_resolver_settings_v4_output,
+  zero_trust_gateway_dns_resolver_settings_v6_output,
+  zero_trust_gateway_enabled_output,
+  zero_trust_gateway_expiration_output,
+  zero_trust_gateway_filters_output,
+  zero_trust_gateway_identity_output,
+  zero_trust_gateway_name_3_output,
+  zero_trust_gateway_precedence_output,
+  zero_trust_gateway_read_only_output,
+  zero_trust_gateway_response_collection_6_output,
+  zero_trust_gateway_rule_settings_biso_admin_controls_output,
+  zero_trust_gateway_rule_settings_block_page_output,
+  zero_trust_gateway_rule_settings_check_session_output,
+  zero_trust_gateway_rule_settings_dns_resolvers_output,
+  zero_trust_gateway_rule_settings_egress_output,
+  zero_trust_gateway_rule_settings_forensic_copy_output,
+  zero_trust_gateway_rule_settings_l4override_output,
+  zero_trust_gateway_rule_settings_notification_settings_output,
+  zero_trust_gateway_rule_settings_output,
+  zero_trust_gateway_rule_settings_payload_log_output,
+  zero_trust_gateway_rule_settings_quarantine_output,
+  zero_trust_gateway_rule_settings_redirect_output,
+  zero_trust_gateway_rule_settings_resolve_dns_internally_output,
+  zero_trust_gateway_rule_settings_untrusted_cert_output,
+  zero_trust_gateway_rules_output,
+  zero_trust_gateway_schedule_output,
+  zero_trust_gateway_sharable_output,
+  zero_trust_gateway_single_response_4_output,
+  zero_trust_gateway_source_account_output,
+  zero_trust_gateway_traffic_output,
+  zero_trust_gateway_uuid_4_output,
+  zero_trust_gateway_version_output,
+  zero_trust_gateway_warning_status_output,
+} from "./outputs.js";
 import {
   zero_trust_gateway_action,
   zero_trust_gateway_description_2,
@@ -154,6 +203,65 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/gateway/rules",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_rules"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-4"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_action": zero_trust_gateway_action_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_deleted_at": zero_trust_gateway_deleted_at_output,
+        "zero-trust-gateway_description-2": zero_trust_gateway_description_2_output,
+        "zero-trust-gateway_device_posture": zero_trust_gateway_device_posture_output,
+        "zero-trust-gateway_dns_resolver_settings_v4": zero_trust_gateway_dns_resolver_settings_v4_output,
+        "zero-trust-gateway_dns_resolver_settings_v6": zero_trust_gateway_dns_resolver_settings_v6_output,
+        "zero-trust-gateway_enabled": zero_trust_gateway_enabled_output,
+        "zero-trust-gateway_expiration": zero_trust_gateway_expiration_output,
+        "zero-trust-gateway_filters": zero_trust_gateway_filters_output,
+        "zero-trust-gateway_identity": zero_trust_gateway_identity_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-3": zero_trust_gateway_name_3_output,
+        "zero-trust-gateway_precedence": zero_trust_gateway_precedence_output,
+        "zero-trust-gateway_read_only": zero_trust_gateway_read_only_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_rule-settings": zero_trust_gateway_rule_settings_output,
+        "zero-trust-gateway_rule-settings_biso_admin_controls": zero_trust_gateway_rule_settings_biso_admin_controls_output,
+        "zero-trust-gateway_rule-settings_block_page": zero_trust_gateway_rule_settings_block_page_output,
+        "zero-trust-gateway_rule-settings_check_session": zero_trust_gateway_rule_settings_check_session_output,
+        "zero-trust-gateway_rule-settings_dns_resolvers": zero_trust_gateway_rule_settings_dns_resolvers_output,
+        "zero-trust-gateway_rule-settings_egress": zero_trust_gateway_rule_settings_egress_output,
+        "zero-trust-gateway_rule-settings_forensic_copy": zero_trust_gateway_rule_settings_forensic_copy_output,
+        "zero-trust-gateway_rule-settings_l4override": zero_trust_gateway_rule_settings_l4override_output,
+        "zero-trust-gateway_rule-settings_notification_settings": zero_trust_gateway_rule_settings_notification_settings_output,
+        "zero-trust-gateway_rule-settings_payload_log": zero_trust_gateway_rule_settings_payload_log_output,
+        "zero-trust-gateway_rule-settings_quarantine": zero_trust_gateway_rule_settings_quarantine_output,
+        "zero-trust-gateway_rule-settings_redirect": zero_trust_gateway_rule_settings_redirect_output,
+        "zero-trust-gateway_rule-settings_resolve_dns_internally": zero_trust_gateway_rule_settings_resolve_dns_internally_output,
+        "zero-trust-gateway_rule-settings_untrusted_cert": zero_trust_gateway_rule_settings_untrusted_cert_output,
+        "zero-trust-gateway_rules": zero_trust_gateway_rules_output,
+        "zero-trust-gateway_schedule": zero_trust_gateway_schedule_output,
+        "zero-trust-gateway_sharable": zero_trust_gateway_sharable_output,
+        "zero-trust-gateway_single_response-4": zero_trust_gateway_single_response_4_output,
+        "zero-trust-gateway_source_account": zero_trust_gateway_source_account_output,
+        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+        "zero-trust-gateway_traffic": zero_trust_gateway_traffic_output,
+        "zero-trust-gateway_uuid-4": zero_trust_gateway_uuid_4_output,
+        "zero-trust-gateway_version": zero_trust_gateway_version_output,
+        "zero-trust-gateway_warning_status": zero_trust_gateway_warning_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -189,6 +297,28 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/gateway/rules/{rule_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_empty_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_empty_response": zero_trust_gateway_empty_response_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/rules/${pathParam(args, "rule_id")}`,
     }),
@@ -223,6 +353,65 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/rules/{rule_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_rules"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-4"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_action": zero_trust_gateway_action_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_deleted_at": zero_trust_gateway_deleted_at_output,
+        "zero-trust-gateway_description-2": zero_trust_gateway_description_2_output,
+        "zero-trust-gateway_device_posture": zero_trust_gateway_device_posture_output,
+        "zero-trust-gateway_dns_resolver_settings_v4": zero_trust_gateway_dns_resolver_settings_v4_output,
+        "zero-trust-gateway_dns_resolver_settings_v6": zero_trust_gateway_dns_resolver_settings_v6_output,
+        "zero-trust-gateway_enabled": zero_trust_gateway_enabled_output,
+        "zero-trust-gateway_expiration": zero_trust_gateway_expiration_output,
+        "zero-trust-gateway_filters": zero_trust_gateway_filters_output,
+        "zero-trust-gateway_identity": zero_trust_gateway_identity_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-3": zero_trust_gateway_name_3_output,
+        "zero-trust-gateway_precedence": zero_trust_gateway_precedence_output,
+        "zero-trust-gateway_read_only": zero_trust_gateway_read_only_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_rule-settings": zero_trust_gateway_rule_settings_output,
+        "zero-trust-gateway_rule-settings_biso_admin_controls": zero_trust_gateway_rule_settings_biso_admin_controls_output,
+        "zero-trust-gateway_rule-settings_block_page": zero_trust_gateway_rule_settings_block_page_output,
+        "zero-trust-gateway_rule-settings_check_session": zero_trust_gateway_rule_settings_check_session_output,
+        "zero-trust-gateway_rule-settings_dns_resolvers": zero_trust_gateway_rule_settings_dns_resolvers_output,
+        "zero-trust-gateway_rule-settings_egress": zero_trust_gateway_rule_settings_egress_output,
+        "zero-trust-gateway_rule-settings_forensic_copy": zero_trust_gateway_rule_settings_forensic_copy_output,
+        "zero-trust-gateway_rule-settings_l4override": zero_trust_gateway_rule_settings_l4override_output,
+        "zero-trust-gateway_rule-settings_notification_settings": zero_trust_gateway_rule_settings_notification_settings_output,
+        "zero-trust-gateway_rule-settings_payload_log": zero_trust_gateway_rule_settings_payload_log_output,
+        "zero-trust-gateway_rule-settings_quarantine": zero_trust_gateway_rule_settings_quarantine_output,
+        "zero-trust-gateway_rule-settings_redirect": zero_trust_gateway_rule_settings_redirect_output,
+        "zero-trust-gateway_rule-settings_resolve_dns_internally": zero_trust_gateway_rule_settings_resolve_dns_internally_output,
+        "zero-trust-gateway_rule-settings_untrusted_cert": zero_trust_gateway_rule_settings_untrusted_cert_output,
+        "zero-trust-gateway_rules": zero_trust_gateway_rules_output,
+        "zero-trust-gateway_schedule": zero_trust_gateway_schedule_output,
+        "zero-trust-gateway_sharable": zero_trust_gateway_sharable_output,
+        "zero-trust-gateway_single_response-4": zero_trust_gateway_single_response_4_output,
+        "zero-trust-gateway_source_account": zero_trust_gateway_source_account_output,
+        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+        "zero-trust-gateway_traffic": zero_trust_gateway_traffic_output,
+        "zero-trust-gateway_uuid-4": zero_trust_gateway_uuid_4_output,
+        "zero-trust-gateway_version": zero_trust_gateway_version_output,
+        "zero-trust-gateway_warning_status": zero_trust_gateway_warning_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/rules/${pathParam(args, "rule_id")}`,
     }),
@@ -281,6 +470,80 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/rules",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_rules"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/zero-trust-gateway_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_response_collection-6"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_action": zero_trust_gateway_action_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_deleted_at": zero_trust_gateway_deleted_at_output,
+        "zero-trust-gateway_description-2": zero_trust_gateway_description_2_output,
+        "zero-trust-gateway_device_posture": zero_trust_gateway_device_posture_output,
+        "zero-trust-gateway_dns_resolver_settings_v4": zero_trust_gateway_dns_resolver_settings_v4_output,
+        "zero-trust-gateway_dns_resolver_settings_v6": zero_trust_gateway_dns_resolver_settings_v6_output,
+        "zero-trust-gateway_enabled": zero_trust_gateway_enabled_output,
+        "zero-trust-gateway_expiration": zero_trust_gateway_expiration_output,
+        "zero-trust-gateway_filters": zero_trust_gateway_filters_output,
+        "zero-trust-gateway_identity": zero_trust_gateway_identity_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-3": zero_trust_gateway_name_3_output,
+        "zero-trust-gateway_precedence": zero_trust_gateway_precedence_output,
+        "zero-trust-gateway_read_only": zero_trust_gateway_read_only_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_response_collection-6": zero_trust_gateway_response_collection_6_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_rule-settings": zero_trust_gateway_rule_settings_output,
+        "zero-trust-gateway_rule-settings_biso_admin_controls": zero_trust_gateway_rule_settings_biso_admin_controls_output,
+        "zero-trust-gateway_rule-settings_block_page": zero_trust_gateway_rule_settings_block_page_output,
+        "zero-trust-gateway_rule-settings_check_session": zero_trust_gateway_rule_settings_check_session_output,
+        "zero-trust-gateway_rule-settings_dns_resolvers": zero_trust_gateway_rule_settings_dns_resolvers_output,
+        "zero-trust-gateway_rule-settings_egress": zero_trust_gateway_rule_settings_egress_output,
+        "zero-trust-gateway_rule-settings_forensic_copy": zero_trust_gateway_rule_settings_forensic_copy_output,
+        "zero-trust-gateway_rule-settings_l4override": zero_trust_gateway_rule_settings_l4override_output,
+        "zero-trust-gateway_rule-settings_notification_settings": zero_trust_gateway_rule_settings_notification_settings_output,
+        "zero-trust-gateway_rule-settings_payload_log": zero_trust_gateway_rule_settings_payload_log_output,
+        "zero-trust-gateway_rule-settings_quarantine": zero_trust_gateway_rule_settings_quarantine_output,
+        "zero-trust-gateway_rule-settings_redirect": zero_trust_gateway_rule_settings_redirect_output,
+        "zero-trust-gateway_rule-settings_resolve_dns_internally": zero_trust_gateway_rule_settings_resolve_dns_internally_output,
+        "zero-trust-gateway_rule-settings_untrusted_cert": zero_trust_gateway_rule_settings_untrusted_cert_output,
+        "zero-trust-gateway_rules": zero_trust_gateway_rules_output,
+        "zero-trust-gateway_schedule": zero_trust_gateway_schedule_output,
+        "zero-trust-gateway_sharable": zero_trust_gateway_sharable_output,
+        "zero-trust-gateway_source_account": zero_trust_gateway_source_account_output,
+        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+        "zero-trust-gateway_traffic": zero_trust_gateway_traffic_output,
+        "zero-trust-gateway_uuid-4": zero_trust_gateway_uuid_4_output,
+        "zero-trust-gateway_version": zero_trust_gateway_version_output,
+        "zero-trust-gateway_warning_status": zero_trust_gateway_warning_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/rules`,
       query: [
@@ -316,6 +579,80 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/rules/tenant",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_rules"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/zero-trust-gateway_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_response_collection-6"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_action": zero_trust_gateway_action_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_deleted_at": zero_trust_gateway_deleted_at_output,
+        "zero-trust-gateway_description-2": zero_trust_gateway_description_2_output,
+        "zero-trust-gateway_device_posture": zero_trust_gateway_device_posture_output,
+        "zero-trust-gateway_dns_resolver_settings_v4": zero_trust_gateway_dns_resolver_settings_v4_output,
+        "zero-trust-gateway_dns_resolver_settings_v6": zero_trust_gateway_dns_resolver_settings_v6_output,
+        "zero-trust-gateway_enabled": zero_trust_gateway_enabled_output,
+        "zero-trust-gateway_expiration": zero_trust_gateway_expiration_output,
+        "zero-trust-gateway_filters": zero_trust_gateway_filters_output,
+        "zero-trust-gateway_identity": zero_trust_gateway_identity_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-3": zero_trust_gateway_name_3_output,
+        "zero-trust-gateway_precedence": zero_trust_gateway_precedence_output,
+        "zero-trust-gateway_read_only": zero_trust_gateway_read_only_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_response_collection-6": zero_trust_gateway_response_collection_6_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_rule-settings": zero_trust_gateway_rule_settings_output,
+        "zero-trust-gateway_rule-settings_biso_admin_controls": zero_trust_gateway_rule_settings_biso_admin_controls_output,
+        "zero-trust-gateway_rule-settings_block_page": zero_trust_gateway_rule_settings_block_page_output,
+        "zero-trust-gateway_rule-settings_check_session": zero_trust_gateway_rule_settings_check_session_output,
+        "zero-trust-gateway_rule-settings_dns_resolvers": zero_trust_gateway_rule_settings_dns_resolvers_output,
+        "zero-trust-gateway_rule-settings_egress": zero_trust_gateway_rule_settings_egress_output,
+        "zero-trust-gateway_rule-settings_forensic_copy": zero_trust_gateway_rule_settings_forensic_copy_output,
+        "zero-trust-gateway_rule-settings_l4override": zero_trust_gateway_rule_settings_l4override_output,
+        "zero-trust-gateway_rule-settings_notification_settings": zero_trust_gateway_rule_settings_notification_settings_output,
+        "zero-trust-gateway_rule-settings_payload_log": zero_trust_gateway_rule_settings_payload_log_output,
+        "zero-trust-gateway_rule-settings_quarantine": zero_trust_gateway_rule_settings_quarantine_output,
+        "zero-trust-gateway_rule-settings_redirect": zero_trust_gateway_rule_settings_redirect_output,
+        "zero-trust-gateway_rule-settings_resolve_dns_internally": zero_trust_gateway_rule_settings_resolve_dns_internally_output,
+        "zero-trust-gateway_rule-settings_untrusted_cert": zero_trust_gateway_rule_settings_untrusted_cert_output,
+        "zero-trust-gateway_rules": zero_trust_gateway_rules_output,
+        "zero-trust-gateway_schedule": zero_trust_gateway_schedule_output,
+        "zero-trust-gateway_sharable": zero_trust_gateway_sharable_output,
+        "zero-trust-gateway_source_account": zero_trust_gateway_source_account_output,
+        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+        "zero-trust-gateway_traffic": zero_trust_gateway_traffic_output,
+        "zero-trust-gateway_uuid-4": zero_trust_gateway_uuid_4_output,
+        "zero-trust-gateway_version": zero_trust_gateway_version_output,
+        "zero-trust-gateway_warning_status": zero_trust_gateway_warning_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/rules/tenant`,
     }),
@@ -350,6 +687,65 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/gateway/rules/{rule_id}/reset_expiration",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_rules"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-4"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_action": zero_trust_gateway_action_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_deleted_at": zero_trust_gateway_deleted_at_output,
+        "zero-trust-gateway_description-2": zero_trust_gateway_description_2_output,
+        "zero-trust-gateway_device_posture": zero_trust_gateway_device_posture_output,
+        "zero-trust-gateway_dns_resolver_settings_v4": zero_trust_gateway_dns_resolver_settings_v4_output,
+        "zero-trust-gateway_dns_resolver_settings_v6": zero_trust_gateway_dns_resolver_settings_v6_output,
+        "zero-trust-gateway_enabled": zero_trust_gateway_enabled_output,
+        "zero-trust-gateway_expiration": zero_trust_gateway_expiration_output,
+        "zero-trust-gateway_filters": zero_trust_gateway_filters_output,
+        "zero-trust-gateway_identity": zero_trust_gateway_identity_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-3": zero_trust_gateway_name_3_output,
+        "zero-trust-gateway_precedence": zero_trust_gateway_precedence_output,
+        "zero-trust-gateway_read_only": zero_trust_gateway_read_only_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_rule-settings": zero_trust_gateway_rule_settings_output,
+        "zero-trust-gateway_rule-settings_biso_admin_controls": zero_trust_gateway_rule_settings_biso_admin_controls_output,
+        "zero-trust-gateway_rule-settings_block_page": zero_trust_gateway_rule_settings_block_page_output,
+        "zero-trust-gateway_rule-settings_check_session": zero_trust_gateway_rule_settings_check_session_output,
+        "zero-trust-gateway_rule-settings_dns_resolvers": zero_trust_gateway_rule_settings_dns_resolvers_output,
+        "zero-trust-gateway_rule-settings_egress": zero_trust_gateway_rule_settings_egress_output,
+        "zero-trust-gateway_rule-settings_forensic_copy": zero_trust_gateway_rule_settings_forensic_copy_output,
+        "zero-trust-gateway_rule-settings_l4override": zero_trust_gateway_rule_settings_l4override_output,
+        "zero-trust-gateway_rule-settings_notification_settings": zero_trust_gateway_rule_settings_notification_settings_output,
+        "zero-trust-gateway_rule-settings_payload_log": zero_trust_gateway_rule_settings_payload_log_output,
+        "zero-trust-gateway_rule-settings_quarantine": zero_trust_gateway_rule_settings_quarantine_output,
+        "zero-trust-gateway_rule-settings_redirect": zero_trust_gateway_rule_settings_redirect_output,
+        "zero-trust-gateway_rule-settings_resolve_dns_internally": zero_trust_gateway_rule_settings_resolve_dns_internally_output,
+        "zero-trust-gateway_rule-settings_untrusted_cert": zero_trust_gateway_rule_settings_untrusted_cert_output,
+        "zero-trust-gateway_rules": zero_trust_gateway_rules_output,
+        "zero-trust-gateway_schedule": zero_trust_gateway_schedule_output,
+        "zero-trust-gateway_sharable": zero_trust_gateway_sharable_output,
+        "zero-trust-gateway_single_response-4": zero_trust_gateway_single_response_4_output,
+        "zero-trust-gateway_source_account": zero_trust_gateway_source_account_output,
+        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+        "zero-trust-gateway_traffic": zero_trust_gateway_traffic_output,
+        "zero-trust-gateway_uuid-4": zero_trust_gateway_uuid_4_output,
+        "zero-trust-gateway_version": zero_trust_gateway_version_output,
+        "zero-trust-gateway_warning_status": zero_trust_gateway_warning_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/rules/${pathParam(args, "rule_id")}/reset_expiration`,
     }),
@@ -476,6 +872,65 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/gateway/rules/{rule_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_rules"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-4"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_action": zero_trust_gateway_action_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_deleted_at": zero_trust_gateway_deleted_at_output,
+        "zero-trust-gateway_description-2": zero_trust_gateway_description_2_output,
+        "zero-trust-gateway_device_posture": zero_trust_gateway_device_posture_output,
+        "zero-trust-gateway_dns_resolver_settings_v4": zero_trust_gateway_dns_resolver_settings_v4_output,
+        "zero-trust-gateway_dns_resolver_settings_v6": zero_trust_gateway_dns_resolver_settings_v6_output,
+        "zero-trust-gateway_enabled": zero_trust_gateway_enabled_output,
+        "zero-trust-gateway_expiration": zero_trust_gateway_expiration_output,
+        "zero-trust-gateway_filters": zero_trust_gateway_filters_output,
+        "zero-trust-gateway_identity": zero_trust_gateway_identity_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-3": zero_trust_gateway_name_3_output,
+        "zero-trust-gateway_precedence": zero_trust_gateway_precedence_output,
+        "zero-trust-gateway_read_only": zero_trust_gateway_read_only_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_rule-settings": zero_trust_gateway_rule_settings_output,
+        "zero-trust-gateway_rule-settings_biso_admin_controls": zero_trust_gateway_rule_settings_biso_admin_controls_output,
+        "zero-trust-gateway_rule-settings_block_page": zero_trust_gateway_rule_settings_block_page_output,
+        "zero-trust-gateway_rule-settings_check_session": zero_trust_gateway_rule_settings_check_session_output,
+        "zero-trust-gateway_rule-settings_dns_resolvers": zero_trust_gateway_rule_settings_dns_resolvers_output,
+        "zero-trust-gateway_rule-settings_egress": zero_trust_gateway_rule_settings_egress_output,
+        "zero-trust-gateway_rule-settings_forensic_copy": zero_trust_gateway_rule_settings_forensic_copy_output,
+        "zero-trust-gateway_rule-settings_l4override": zero_trust_gateway_rule_settings_l4override_output,
+        "zero-trust-gateway_rule-settings_notification_settings": zero_trust_gateway_rule_settings_notification_settings_output,
+        "zero-trust-gateway_rule-settings_payload_log": zero_trust_gateway_rule_settings_payload_log_output,
+        "zero-trust-gateway_rule-settings_quarantine": zero_trust_gateway_rule_settings_quarantine_output,
+        "zero-trust-gateway_rule-settings_redirect": zero_trust_gateway_rule_settings_redirect_output,
+        "zero-trust-gateway_rule-settings_resolve_dns_internally": zero_trust_gateway_rule_settings_resolve_dns_internally_output,
+        "zero-trust-gateway_rule-settings_untrusted_cert": zero_trust_gateway_rule_settings_untrusted_cert_output,
+        "zero-trust-gateway_rules": zero_trust_gateway_rules_output,
+        "zero-trust-gateway_schedule": zero_trust_gateway_schedule_output,
+        "zero-trust-gateway_sharable": zero_trust_gateway_sharable_output,
+        "zero-trust-gateway_single_response-4": zero_trust_gateway_single_response_4_output,
+        "zero-trust-gateway_source_account": zero_trust_gateway_source_account_output,
+        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+        "zero-trust-gateway_traffic": zero_trust_gateway_traffic_output,
+        "zero-trust-gateway_uuid-4": zero_trust_gateway_uuid_4_output,
+        "zero-trust-gateway_version": zero_trust_gateway_version_output,
+        "zero-trust-gateway_warning_status": zero_trust_gateway_warning_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/rules/${pathParam(args, "rule_id")}`,
       body: { value: args["body"], mediaType: "application/json" },

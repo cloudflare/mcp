@@ -3,6 +3,19 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_v4_response_failure_output,
+} from "../../outputs.js";
+import {
+  r2_bucket_lock_rule_condition_output,
+  r2_bucket_lock_rule_config_output,
+  r2_bucket_lock_rule_output,
+  r2_lock_rule_age_condition_output,
+  r2_lock_rule_date_condition_output,
+  r2_lock_rule_indefinite_condition_output,
+} from "./outputs.js";
+import {
   r2_bucket_lock_rule,
   r2_bucket_lock_rule_condition,
   r2_lock_rule_age_condition,
@@ -55,6 +68,21 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/r2/buckets/{bucket_name}/lock",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/lock`,
       headers: [
@@ -103,6 +131,27 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/r2/buckets/{bucket_name}/lock",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_bucket-lock-rule-config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_bucket-lock-rule": r2_bucket_lock_rule_output,
+        "r2_bucket-lock-rule-config": r2_bucket_lock_rule_config_output,
+        "r2_bucket-lock-rule_condition": r2_bucket_lock_rule_condition_output,
+        "r2_errors": r2_errors_output,
+        "r2_lock-rule-age-condition": r2_lock_rule_age_condition_output,
+        "r2_lock-rule-date-condition": r2_lock_rule_date_condition_output,
+        "r2_lock-rule-indefinite-condition": r2_lock_rule_indefinite_condition_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/lock`,
       headers: [
@@ -170,6 +219,21 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/r2/buckets/{bucket_name}/lock",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/lock`,
       headers: [

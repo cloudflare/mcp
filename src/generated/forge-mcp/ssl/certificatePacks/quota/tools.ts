@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../../outputs.js";
+import {
+  tls_certificates_and_hostnames_certificate_pack_quota_response_output,
+  tls_certificates_and_hostnames_certificate_pack_quota_response_result_output,
+  tls_certificates_and_hostnames_quota_output,
+} from "./outputs.js";
 
 /**
  * The tools of `ssl.certificate_packs.quota`.
@@ -53,6 +62,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "advanced": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_quota"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_pack_quota_response"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_certificate_pack_quota_response": tls_certificates_and_hostnames_certificate_pack_quota_response_output,
+        "tls-certificates-and-hostnames_certificate_pack_quota_response_result": tls_certificates_and_hostnames_certificate_pack_quota_response_result_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_quota": tls_certificates_and_hostnames_quota_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/ssl/certificate_packs/quota`,

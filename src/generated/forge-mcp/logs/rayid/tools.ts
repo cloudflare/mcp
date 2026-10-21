@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  logshare_api_response_common_failure_output,
+  logshare_logs_response_json_lines_output,
+  logshare_messages_output,
+} from "../outputs.js";
 import { logshare_fields, logshare_timestamps } from "../schemas.js";
 
 /**
@@ -62,6 +67,21 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/logshare_logs_response_json_lines"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logshare_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logshare_api-response-common-failure": logshare_api_response_common_failure_output,
+        "logshare_logs_response_json_lines": logshare_logs_response_json_lines_output,
+        "logshare_messages": logshare_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/logs/rayids/${pathParam(args, "ray_id")}`,

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  teams_devices_v4_error_response_output,
+  teams_devices_v4_response_message_output,
+} from "../../outputs.js";
+import { teams_devices_override_codes_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.devices.registrations.override_codes`.
@@ -40,6 +45,21 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_override_codes"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_override_codes": teams_devices_override_codes_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/registrations/${pathParam(args, "registration_id")}/override_codes`,

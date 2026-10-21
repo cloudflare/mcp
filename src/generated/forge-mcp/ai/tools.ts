@@ -59,6 +59,87 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "input": {
+              "properties": {
+                "additionalProperties": {
+                  "type": "boolean"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "additionalProperties",
+                "description",
+                "type"
+              ],
+              "type": "object"
+            },
+            "output": {
+              "properties": {
+                "additionalProperties": {
+                  "type": "boolean"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "additionalProperties",
+                "description",
+                "type"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "input",
+            "output"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/models/schema`,
       query: [
@@ -112,6 +193,69 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "extension": {
+                    "type": "string"
+                  },
+                  "mimeType": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "extension",
+                  "mimeType"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/tomarkdown/supported`,
@@ -209,6 +353,43 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/run`,
@@ -1056,6 +1237,265 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "score": {
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "format": "binary",
+                  "type": "string"
+                },
+                {
+                  "properties": {
+                    "audio": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "items": {
+                          "type": "number"
+                        },
+                        "type": "array"
+                      },
+                      "type": "array"
+                    },
+                    "shape": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "vtt": {
+                      "type": "string"
+                    },
+                    "word_count": {
+                      "type": "number"
+                    },
+                    "words": {
+                      "items": {
+                        "properties": {
+                          "end": {
+                            "type": "number"
+                          },
+                          "start": {
+                            "type": "number"
+                          },
+                          "word": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "items": {
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "score": {
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "items": {
+                    "properties": {
+                      "box": {
+                        "properties": {
+                          "xmax": {
+                            "type": "number"
+                          },
+                          "xmin": {
+                            "type": "number"
+                          },
+                          "ymax": {
+                            "type": "number"
+                          },
+                          "ymin": {
+                            "type": "number"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "score": {
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "properties": {
+                    "response": {
+                      "type": "string"
+                    },
+                    "tool_calls": {
+                      "items": {
+                        "properties": {
+                          "arguments": {
+                            "type": "object"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "usage": {
+                      "properties": {
+                        "completion_tokens": {
+                          "type": "number"
+                        },
+                        "prompt_tokens": {
+                          "type": "number"
+                        },
+                        "total_tokens": {
+                          "type": "number"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "response"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "translated_text": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "summary": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "items": {
+                          "type": "number"
+                        },
+                        "type": "array"
+                      },
+                      "type": "array"
+                    },
+                    "shape": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/run/${pathParam(args, "model_name")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -1107,6 +1547,81 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "data": {
+                    "type": "string"
+                  },
+                  "format": {
+                    "type": "string"
+                  },
+                  "mimeType": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "tokens": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "format",
+                  "mimeType",
+                  "name",
+                  "tokens"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/tomarkdown`,
@@ -1193,6 +1708,257 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "items": {
+              "items": {
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "faviconUrl": {
+                    "type": "string"
+                  },
+                  "imageUrl": {
+                    "type": "string"
+                  },
+                  "lastModifiedDate": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "properties": {
+                "latencyMs": {
+                  "type": "number"
+                },
+                "query": {
+                  "type": "string"
+                },
+                "requestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "latencyMs",
+                "query",
+                "requestId"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "items",
+            "metadata"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "anyOf": [
+            {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "properties": {
+                      "code": {
+                        "type": "number"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "messages": {
+                  "items": {},
+                  "type": "array"
+                },
+                "result": {},
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "errors",
+                "messages",
+                "result",
+                "success"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "error": {
+                  "properties": {
+                    "category": {
+                      "enum": [
+                        "gateway",
+                        "credential",
+                        "provider",
+                        "internal"
+                      ],
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "gatewayRequestId": {
+                      "type": "string"
+                    },
+                    "retryable": {
+                      "type": "boolean"
+                    },
+                    "status": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "category",
+                    "code",
+                    "gatewayRequestId",
+                    "retryable",
+                    "status"
+                  ],
+                  "type": "object"
+                },
+                "ok": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "error",
+                "ok"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "403": {
+          "properties": {
+            "error": {
+              "properties": {
+                "category": {
+                  "enum": [
+                    "gateway",
+                    "credential",
+                    "provider",
+                    "internal"
+                  ],
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "gatewayRequestId": {
+                  "type": "string"
+                },
+                "retryable": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "category",
+                "code",
+                "gatewayRequestId",
+                "retryable",
+                "status"
+              ],
+              "type": "object"
+            },
+            "ok": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "ok"
+          ],
+          "type": "object"
+        },
+        "502": {
+          "properties": {
+            "error": {
+              "properties": {
+                "category": {
+                  "enum": [
+                    "gateway",
+                    "credential",
+                    "provider",
+                    "internal"
+                  ],
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "gatewayRequestId": {
+                  "type": "string"
+                },
+                "retryable": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "category",
+                "code",
+                "gatewayRequestId",
+                "retryable",
+                "status"
+              ],
+              "type": "object"
+            },
+            "ok": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "ok"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/websearch`,

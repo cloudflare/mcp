@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  cache_settings_api_response_common_failure_output,
+  cache_settings_messages_output,
+} from "../../../outputs.js";
+import {
+  cache_settings_smart_tiered_cache_output,
+  cache_settings_smart_tiered_cache_value_output,
+} from "./outputs.js";
 import { cache_settings_smart_tiered_cache_patch } from "./schemas.js";
 
 /**
@@ -66,6 +74,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/tiered_cache_smart_topology_enable`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -117,6 +156,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/tiered_cache_smart_topology_enable`,
@@ -180,6 +234,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/tiered_cache_smart_topology_enable`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -233,6 +318,37 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cache/tiered_cache_smart_topology_enable`,

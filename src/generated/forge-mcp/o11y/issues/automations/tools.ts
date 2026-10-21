@@ -59,6 +59,335 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/workers/observability/issues/automations",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "automation": {
+              "properties": {
+                "ansPolicyId": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "number"
+                },
+                "createdByUserId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "inactivitySeconds": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "number"
+                },
+                "scope": {
+                  "enum": [
+                    "account",
+                    "service"
+                  ],
+                  "type": "string"
+                },
+                "service": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "serviceType": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "threshold": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "triggerType": {
+                  "enum": [
+                    "occurrence_threshold",
+                    "recurrence_after_inactivity"
+                  ],
+                  "type": "string"
+                },
+                "updated": {
+                  "type": "number"
+                },
+                "updatedByUserId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "ansPolicyId",
+                "created",
+                "createdByUserId",
+                "enabled",
+                "id",
+                "inactivitySeconds",
+                "name",
+                "revision",
+                "scope",
+                "service",
+                "serviceType",
+                "threshold",
+                "triggerType",
+                "updated",
+                "updatedByUserId"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "automation"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Not found"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/issues/automations`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -93,6 +422,335 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "automation": {
+              "properties": {
+                "ansPolicyId": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "number"
+                },
+                "createdByUserId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "inactivitySeconds": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "number"
+                },
+                "scope": {
+                  "enum": [
+                    "account",
+                    "service"
+                  ],
+                  "type": "string"
+                },
+                "service": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "serviceType": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "threshold": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "triggerType": {
+                  "enum": [
+                    "occurrence_threshold",
+                    "recurrence_after_inactivity"
+                  ],
+                  "type": "string"
+                },
+                "updated": {
+                  "type": "number"
+                },
+                "updatedByUserId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "ansPolicyId",
+                "created",
+                "createdByUserId",
+                "enabled",
+                "id",
+                "inactivitySeconds",
+                "name",
+                "revision",
+                "scope",
+                "service",
+                "serviceType",
+                "threshold",
+                "triggerType",
+                "updated",
+                "updatedByUserId"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "automation"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Not found"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/issues/automations/${pathParam(args, "automation_id")}`,
     }),
@@ -126,6 +784,335 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "automation": {
+              "properties": {
+                "ansPolicyId": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "number"
+                },
+                "createdByUserId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "inactivitySeconds": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "number"
+                },
+                "scope": {
+                  "enum": [
+                    "account",
+                    "service"
+                  ],
+                  "type": "string"
+                },
+                "service": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "serviceType": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "threshold": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "triggerType": {
+                  "enum": [
+                    "occurrence_threshold",
+                    "recurrence_after_inactivity"
+                  ],
+                  "type": "string"
+                },
+                "updated": {
+                  "type": "number"
+                },
+                "updatedByUserId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "ansPolicyId",
+                "created",
+                "createdByUserId",
+                "enabled",
+                "id",
+                "inactivitySeconds",
+                "name",
+                "revision",
+                "scope",
+                "service",
+                "serviceType",
+                "threshold",
+                "triggerType",
+                "updated",
+                "updatedByUserId"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "automation"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Not found"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/issues/automations/${pathParam(args, "automation_id")}`,
     }),
@@ -158,6 +1145,338 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/workers/observability/issues/automations",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "automations": {
+              "items": {
+                "properties": {
+                  "ansPolicyId": {
+                    "type": "string"
+                  },
+                  "created": {
+                    "type": "number"
+                  },
+                  "createdByUserId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "inactivitySeconds": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "revision": {
+                    "type": "number"
+                  },
+                  "scope": {
+                    "enum": [
+                      "account",
+                      "service"
+                    ],
+                    "type": "string"
+                  },
+                  "service": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "serviceType": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "threshold": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "triggerType": {
+                    "enum": [
+                      "occurrence_threshold",
+                      "recurrence_after_inactivity"
+                    ],
+                    "type": "string"
+                  },
+                  "updated": {
+                    "type": "number"
+                  },
+                  "updatedByUserId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "ansPolicyId",
+                  "created",
+                  "createdByUserId",
+                  "enabled",
+                  "id",
+                  "inactivitySeconds",
+                  "name",
+                  "revision",
+                  "scope",
+                  "service",
+                  "serviceType",
+                  "threshold",
+                  "triggerType",
+                  "updated",
+                  "updatedByUserId"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "automations"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Not found"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/issues/automations`,
       query: [
@@ -221,6 +1540,335 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "automation": {
+              "properties": {
+                "ansPolicyId": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "number"
+                },
+                "createdByUserId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "inactivitySeconds": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "number"
+                },
+                "scope": {
+                  "enum": [
+                    "account",
+                    "service"
+                  ],
+                  "type": "string"
+                },
+                "service": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "serviceType": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "threshold": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "triggerType": {
+                  "enum": [
+                    "occurrence_threshold",
+                    "recurrence_after_inactivity"
+                  ],
+                  "type": "string"
+                },
+                "updated": {
+                  "type": "number"
+                },
+                "updatedByUserId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "ansPolicyId",
+                "created",
+                "createdByUserId",
+                "enabled",
+                "id",
+                "inactivitySeconds",
+                "name",
+                "revision",
+                "scope",
+                "service",
+                "serviceType",
+                "threshold",
+                "triggerType",
+                "updated",
+                "updatedByUserId"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "automation"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Not found"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/issues/automations/${pathParam(args, "automation_id")}`,
       body: { value: args["body"], mediaType: "application/json" },

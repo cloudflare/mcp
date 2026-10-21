@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  art_APIError_output,
+  art_APIMessage_output,
+  art_ErrorResponse_output,
+  art_ResultValues_output,
+  art_SummaryResult_output,
+  art_TimeseriesResult_output,
+} from "./outputs.js";
+import {
   art_CommonQuery,
   art_Filter,
   art_QueryTimeseries,
@@ -57,6 +65,29 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/art_SummaryResult"
+        },
+        "400": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        }
+      },
+      $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
+        "art_ErrorResponse": art_ErrorResponse_output,
+        "art_ResultValues": art_ResultValues_output,
+        "art_SummaryResult": art_SummaryResult_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/analytics/query/${pathParam(args, "dataset")}/summary`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -106,6 +137,29 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/art_TimeseriesResult"
+        },
+        "400": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        }
+      },
+      $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
+        "art_ErrorResponse": art_ErrorResponse_output,
+        "art_ResultValues": art_ResultValues_output,
+        "art_TimeseriesResult": art_TimeseriesResult_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/analytics/query/${pathParam(args, "dataset")}/timeseries`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -154,6 +208,42 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/art_ResultValues"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        }
+      },
+      $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
+        "art_ErrorResponse": art_ErrorResponse_output,
+        "art_ResultValues": art_ResultValues_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/analytics/query/${pathParam(args, "dataset")}/top-n`,

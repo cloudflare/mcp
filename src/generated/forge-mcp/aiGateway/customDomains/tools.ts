@@ -83,6 +83,78 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "cname_target": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "integer"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "hostname": {
+              "type": "string"
+            },
+            "modified_at": {
+              "type": "integer"
+            },
+            "status": {
+              "enum": [
+                "initializing",
+                "pending_dcv",
+                "active",
+                "blocked",
+                "error"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "cname_target",
+            "created_at",
+            "gateway_id",
+            "hostname",
+            "modified_at",
+            "status"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/custom-domains`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -143,6 +215,85 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "type": "integer"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "hostname": {
+              "type": "string"
+            },
+            "modified_at": {
+              "type": "integer"
+            },
+            "ssl_hostname_id": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "enum": [
+                "initializing",
+                "pending_dcv",
+                "active",
+                "blocked",
+                "error"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "created_at",
+            "gateway_id",
+            "hostname",
+            "modified_at",
+            "ssl_hostname_id",
+            "status"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/custom-domains/${pathParam(args, "hostname")}`,
     }),
@@ -202,6 +353,85 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "type": "integer"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "hostname": {
+              "type": "string"
+            },
+            "modified_at": {
+              "type": "integer"
+            },
+            "ssl_hostname_id": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "enum": [
+                "initializing",
+                "pending_dcv",
+                "active",
+                "blocked",
+                "error"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "created_at",
+            "gateway_id",
+            "hostname",
+            "modified_at",
+            "ssl_hostname_id",
+            "status"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/custom-domains/${pathParam(args, "hostname")}`,
@@ -279,6 +509,99 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "created_at": {
+                    "type": "integer"
+                  },
+                  "gateway_id": {
+                    "type": "string"
+                  },
+                  "hostname": {
+                    "type": "string"
+                  },
+                  "modified_at": {
+                    "type": "integer"
+                  },
+                  "ssl_hostname_id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "initializing",
+                      "pending_dcv",
+                      "active",
+                      "blocked",
+                      "error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "created_at",
+                  "gateway_id",
+                  "hostname",
+                  "modified_at",
+                  "ssl_hostname_id",
+                  "status"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/custom-domains`,

@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_apiErrorResponse_output,
+} from "../../outputs.js";
+import {
+  pay_per_crawl_BotAccessMode_output,
+  pay_per_crawl_DaricConfig_output,
+} from "./outputs.js";
+import {
   pay_per_crawl_BotAccessMode,
   pay_per_crawl_DaricConfig,
   pay_per_crawl_DaricConfigCreate,
@@ -51,6 +60,23 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_DaricConfig"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
+        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-crawl/configuration`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -95,6 +121,23 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_DaricConfig"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
+        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-crawl/configuration`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -130,6 +173,23 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write",
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_DaricConfig"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
+        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-crawl/configuration`,

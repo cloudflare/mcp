@@ -2,7 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  waf_product_api_bundle_identifier_output,
+  waf_product_api_bundle_messages_output,
+} from "../../outputs.js";
 import { waf_product_api_bundle_identifier } from "../../schemas.js";
+import { waf_product_api_bundle_api_response_common_failure_output } from "../outputs.js";
+import {
+  waf_product_api_bundle_api_response_common_result_output,
+  waf_product_api_bundle_custom_detection_output,
+  waf_product_api_bundle_detection_id_output,
+  waf_product_api_bundle_response_custom_detection_collection_output,
+  waf_product_api_bundle_response_custom_detection_output,
+} from "./outputs.js";
 import {
   waf_product_api_bundle_custom_detection,
   waf_product_api_bundle_detection_id,
@@ -52,6 +64,31 @@ export const tools: readonly Tool[] = [
         "Account WAF Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-detection": waf_product_api_bundle_response_custom_detection_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/leaked-credential-checks/detections`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -92,6 +129,32 @@ export const tools: readonly Tool[] = [
         "Zone WAF Write",
         "Account WAF Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common_result"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_api-response-common_result": waf_product_api_bundle_api_response_common_result_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/leaked-credential-checks/detections/${pathParam(args, "detection_id")}`,
@@ -135,6 +198,31 @@ export const tools: readonly Tool[] = [
         "Account WAF Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-detection": waf_product_api_bundle_response_custom_detection_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/leaked-credential-checks/detections/${pathParam(args, "detection_id")}`,
     }),
@@ -171,6 +259,45 @@ export const tools: readonly Tool[] = [
         "Account WAF Write",
         "Account WAF Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection-collection"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-detection-collection": waf_product_api_bundle_response_custom_detection_collection_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/leaked-credential-checks/detections`,
@@ -220,6 +347,31 @@ export const tools: readonly Tool[] = [
         "Zone WAF Write",
         "Account WAF Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-detection": waf_product_api_bundle_response_custom_detection_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/leaked-credential-checks/detections/${pathParam(args, "detection_id")}`,

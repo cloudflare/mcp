@@ -3,6 +3,10 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  stream_api_response_common_failure_output,
+  stream_messages_output,
+} from "../../outputs.js";
+import {
   stream_accessRules,
   stream_signed_token_request,
   stream_signed_token_request_flags,
@@ -51,6 +55,25 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/stream/{identifier}/token",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/token`,
       body: { value: args["body"], mediaType: "application/json" },

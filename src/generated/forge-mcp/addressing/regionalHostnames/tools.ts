@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  dls_api_response_common_failure_output,
+  dls_api_response_common_output,
+  dls_hostname_output,
+  dls_messages_output,
+  dls_region_key_output,
+  dls_regional_hostname_response_output,
+  dls_routing_output,
+  dls_timestamp_output,
+} from "./outputs.js";
+import {
   dls_hostname,
   dls_identifier,
   dls_region_key,
@@ -71,6 +81,25 @@ export const tools: readonly Tool[] = [
         "DNS Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dls_regional_hostname_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dls_api-response-common-failure": dls_api_response_common_failure_output,
+        "dls_hostname": dls_hostname_output,
+        "dls_messages": dls_messages_output,
+        "dls_region_key": dls_region_key_output,
+        "dls_regional_hostname_response": dls_regional_hostname_response_output,
+        "dls_routing": dls_routing_output,
+        "dls_timestamp": dls_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/addressing/regional_hostnames`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -114,6 +143,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "DNS Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dls_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dls_api-response-common": dls_api_response_common_output,
+        "dls_api-response-common-failure": dls_api_response_common_failure_output,
+        "dls_messages": dls_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/addressing/regional_hostnames/${pathParam(args, "hostname")}`,
@@ -171,6 +215,25 @@ export const tools: readonly Tool[] = [
         "DNS Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dls_regional_hostname_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dls_api-response-common-failure": dls_api_response_common_failure_output,
+        "dls_hostname": dls_hostname_output,
+        "dls_messages": dls_messages_output,
+        "dls_region_key": dls_region_key_output,
+        "dls_regional_hostname_response": dls_regional_hostname_response_output,
+        "dls_routing": dls_routing_output,
+        "dls_timestamp": dls_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/addressing/regional_hostnames/${pathParam(args, "hostname")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -216,6 +279,25 @@ export const tools: readonly Tool[] = [
         "DNS Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dls_regional_hostname_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dls_api-response-common-failure": dls_api_response_common_failure_output,
+        "dls_hostname": dls_hostname_output,
+        "dls_messages": dls_messages_output,
+        "dls_region_key": dls_region_key_output,
+        "dls_regional_hostname_response": dls_regional_hostname_response_output,
+        "dls_routing": dls_routing_output,
+        "dls_timestamp": dls_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/addressing/regional_hostnames/${pathParam(args, "hostname")}`,
     }),
@@ -253,6 +335,56 @@ export const tools: readonly Tool[] = [
         "DNS Read",
         "DNS Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dls_regional_hostname_response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dls_api-response-common-failure": dls_api_response_common_failure_output,
+        "dls_hostname": dls_hostname_output,
+        "dls_messages": dls_messages_output,
+        "dls_region_key": dls_region_key_output,
+        "dls_regional_hostname_response": dls_regional_hostname_response_output,
+        "dls_routing": dls_routing_output,
+        "dls_timestamp": dls_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/addressing/regional_hostnames`,

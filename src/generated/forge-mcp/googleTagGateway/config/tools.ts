@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  google_tag_gateway_api_response_common_failure_output,
+  google_tag_gateway_google_tag_gateway_config_output,
+  google_tag_gateway_messages_output,
+} from "./outputs.js";
 import { google_tag_gateway_google_tag_gateway_config } from "./schemas.js";
 
 /**
@@ -55,6 +60,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/google-tag-gateway_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "google-tag-gateway_api-response-common-failure": google_tag_gateway_api_response_common_failure_output,
+        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
+        "google-tag-gateway_messages": google_tag_gateway_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/google-tag-gateway/config`,
@@ -113,6 +133,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/google-tag-gateway_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "google-tag-gateway_api-response-common-failure": google_tag_gateway_api_response_common_failure_output,
+        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
+        "google-tag-gateway_messages": google_tag_gateway_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/google-tag-gateway/config`,

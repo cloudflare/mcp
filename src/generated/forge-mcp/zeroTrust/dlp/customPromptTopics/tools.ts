@@ -3,6 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  dlp_Empty_output,
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../outputs.js";
+import { dlp_CustomPromptTopic_output } from "./outputs.js";
+import {
   dlp_CustomPromptTopicUpdate,
   dlp_NewCustomPromptTopic,
 } from "./schemas.js";
@@ -51,6 +57,21 @@ export const tools: readonly Tool[] = [
         "terraform"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_CustomPromptTopic"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/custom_prompt_topics`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -93,6 +114,21 @@ export const tools: readonly Tool[] = [
         "terraform"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_Empty"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/custom_prompt_topics/${pathParam(args, "entry_id")}`,
     }),
@@ -132,6 +168,21 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_CustomPromptTopic"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/custom_prompt_topics/${pathParam(args, "entry_id")}`,
     }),
@@ -165,6 +216,35 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dlp_CustomPromptTopic"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/custom_prompt_topics`,
@@ -214,6 +294,21 @@ export const tools: readonly Tool[] = [
       "x-stainless-skip": [
         "terraform"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_CustomPromptTopic"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/custom_prompt_topics/${pathParam(args, "entry_id")}`,

@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  rum_api_response_common_failure_output,
+  rum_messages_2_output,
+} from "../../outputs.js";
+import {
+  rum_rule_identifier_output,
+  rum_rule_output,
+  rum_rules_output,
+  rum_ruleset_identifier_output,
+  rum_ruleset_output,
+  rum_timestamp_output,
+  rum_zone_tag_output,
+} from "../outputs.js";
 import { rum_rule_identifier } from "../schemas.js";
 import {
   rum_create_rule_request,
@@ -63,6 +76,35 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "rules": {
+              "$ref": "#/$defs/rum_rules"
+            },
+            "ruleset": {
+              "$ref": "#/$defs/rum_ruleset"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/v2/${pathParam(args, "ruleset_id")}/rules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -113,6 +155,23 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/rum_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_timestamp": rum_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/v2/${pathParam(args, "ruleset_id")}/rule`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -161,6 +220,26 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/rum_rule_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/v2/${pathParam(args, "ruleset_id")}/rule/${pathParam(args, "rule_id")}`,
     }),
@@ -202,6 +281,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "rules": {
+              "$ref": "#/$defs/rum_rules"
+            },
+            "ruleset": {
+              "$ref": "#/$defs/rum_ruleset"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/v2/${pathParam(args, "ruleset_id")}/rules`,
@@ -256,6 +364,23 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/rum_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_timestamp": rum_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/v2/${pathParam(args, "ruleset_id")}/rule/${pathParam(args, "rule_id")}`,

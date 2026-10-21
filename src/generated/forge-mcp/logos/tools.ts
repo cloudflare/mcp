@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import { brand_protection_api_Error_output } from "../outputs.js";
 
 /**
  * The tools of `logos`.
@@ -39,6 +40,17 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Intel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "default": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        }
+      },
+      $defs: {
+        "brand-protection-api_Error": brand_protection_api_Error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/brand-protection/logos/${pathParam(args, "logo_id")}`,
@@ -78,6 +90,16 @@ export const tools: readonly Tool[] = [
         "Intel Read"
       ]
     },
+    responses: {
+      schemas: {
+        "default": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        }
+      },
+      $defs: {
+        "brand-protection-api_Error": brand_protection_api_Error_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/brand-protection/logos/${pathParam(args, "logo_id")}`,
     }),
@@ -111,6 +133,16 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "default": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        }
+      },
+      $defs: {
+        "brand-protection-api_Error": brand_protection_api_Error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/brand-protection/logos`,

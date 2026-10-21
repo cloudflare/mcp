@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import type { Tool } from "../../../_/tool.js";
+import {
+  iam_api_response_common_failure_output,
+  iam_messages_2_output,
+  iam_result_info_output,
+} from "../../../outputs.js";
 
 /**
  * The tools of `user.tokens.permission_groups`.
@@ -54,6 +59,76 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "category": {
+                    "enum": [
+                      "developer_platform",
+                      "ai_and_machine_learning",
+                      "dns_and_zones",
+                      "app_security",
+                      "rules_and_configuration",
+                      "cloudflare_one_and_zero_trust",
+                      "analytics_and_logs",
+                      "network_services",
+                      "media",
+                      "email_and_messaging",
+                      "cache_and_performance",
+                      "account_and_billing",
+                      "other"
+                    ],
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "is_selectable": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "scopes": {
+                    "items": {
+                      "enum": [
+                        "com.cloudflare.api.account",
+                        "com.cloudflare.api.account.zone",
+                        "com.cloudflare.api.user",
+                        "com.cloudflare.edge.r2.bucket"
+                      ],
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_result_info": iam_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/user/tokens/permission_groups`,

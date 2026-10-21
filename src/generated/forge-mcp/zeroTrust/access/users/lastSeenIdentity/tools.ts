@@ -2,6 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../../outputs.js";
+import {
+  access_device_posture_check_output,
+  access_device_posture_rule_2_output,
+  access_device_session_output,
+  access_geo_output,
+  access_identity_idp_output,
+  access_identity_mtls_auth_output,
+  access_identity_output,
+  access_string_key_map_device_session_output,
+} from "../outputs.js";
 
 /**
  * The tools of `zero_trust.access.users.last_seen_identity`.
@@ -41,6 +55,59 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Audit Logs Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_identity"
+            },
+            {
+              "properties": {
+                "passkeys": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "last_used_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_device_posture_check": access_device_posture_check_output,
+        "access_device_posture_rule-2": access_device_posture_rule_2_output,
+        "access_device_session": access_device_session_output,
+        "access_geo": access_geo_output,
+        "access_identity": access_identity_output,
+        "access_identity_idp": access_identity_idp_output,
+        "access_identity_mtls_auth": access_identity_mtls_auth_output,
+        "access_messages": access_messages_output,
+        "access_string_key_map_device_session": access_string_key_map_device_session_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/users/${pathParam(args, "user_id")}/last_seen_identity`,

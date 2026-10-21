@@ -35,6 +35,245 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "stable"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "etag": {
+              "type": "string"
+            },
+            "flows": {
+              "items": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "provider": {
+                        "enum": [
+                          "fastly"
+                        ],
+                        "type": "string"
+                      },
+                      "type": {
+                        "enum": [
+                          "provider"
+                        ],
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "enabled",
+                      "provider",
+                      "type",
+                      "version"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "transformations": {
+                        "items": {
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "trigger": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "triggers": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "minItems": 1,
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "and"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "triggers",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "triggers": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "minItems": 1,
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "or"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "triggers",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "paths": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "path"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "paths",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "extensions": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "extension"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "extensions",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "params": {
+                                "items": {
+                                  "properties": {
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "value": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "value"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "query-param"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "params",
+                              "type"
+                            ],
+                            "type": "object"
+                          }
+                        ]
+                      },
+                      "type": {
+                        "enum": [
+                          "custom"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "enabled",
+                      "name",
+                      "transformations",
+                      "trigger",
+                      "type"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "maxItems": 10,
+              "type": "array"
+            },
+            "version": {
+              "enum": [
+                2
+              ],
+              "type": "integer"
+            }
+          },
+          "required": [
+            "flows",
+            "version"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "properties": {
+            "error": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/images/v1/flows`,
     }),
@@ -286,6 +525,245 @@ export const tools: readonly Tool[] = [
     path: "/zones/{zone_id}/images/v1/flows",
     extensions: {
       "x-stability": "stable"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "etag": {
+              "type": "string"
+            },
+            "flows": {
+              "items": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "provider": {
+                        "enum": [
+                          "fastly"
+                        ],
+                        "type": "string"
+                      },
+                      "type": {
+                        "enum": [
+                          "provider"
+                        ],
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "enabled",
+                      "provider",
+                      "type",
+                      "version"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "transformations": {
+                        "items": {
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "trigger": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "triggers": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "minItems": 1,
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "and"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "triggers",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "triggers": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "minItems": 1,
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "or"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "triggers",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "paths": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "path"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "paths",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "extensions": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "extension"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "extensions",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "params": {
+                                "items": {
+                                  "properties": {
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "value": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "key",
+                                    "value"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "query-param"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "params",
+                              "type"
+                            ],
+                            "type": "object"
+                          }
+                        ]
+                      },
+                      "type": {
+                        "enum": [
+                          "custom"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "enabled",
+                      "name",
+                      "transformations",
+                      "trigger",
+                      "type"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "maxItems": 10,
+              "type": "array"
+            },
+            "version": {
+              "enum": [
+                2
+              ],
+              "type": "integer"
+            }
+          },
+          "required": [
+            "flows",
+            "version"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "properties": {
+            "error": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/images/v1/flows`,

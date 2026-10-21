@@ -2,7 +2,28 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  rum_api_response_common_failure_output,
+  rum_messages_2_output,
+} from "../../outputs.js";
+import {
+  rum_rule_identifier_output,
+  rum_rule_output,
+  rum_rules_output,
+  rum_ruleset_identifier_output,
+  rum_ruleset_output,
+  rum_timestamp_output,
+  rum_zone_tag_output,
+} from "../outputs.js";
 import { rum_zone_tag } from "../schemas.js";
+import {
+  rum_auto_install_output,
+  rum_result_info_output,
+  rum_site_output,
+  rum_site_tag_output,
+  rum_site_token_output,
+  rum_snippet_output,
+} from "./outputs.js";
 import {
   rum_auto_install,
   rum_create_site_request,
@@ -65,6 +86,32 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/rum_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_auto_install": rum_auto_install_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_site": rum_site_output,
+        "rum_site_tag": rum_site_tag_output,
+        "rum_site_token": rum_site_token_output,
+        "rum_snippet": rum_snippet_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/site_info`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -111,6 +158,26 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "site_tag": {
+              "$ref": "#/$defs/rum_site_tag"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_site_tag": rum_site_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/site_info/${pathParam(args, "site_id")}`,
     }),
@@ -155,6 +222,32 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/rum_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_auto_install": rum_auto_install_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_site": rum_site_output,
+        "rum_site_tag": rum_site_tag_output,
+        "rum_site_token": rum_site_token_output,
+        "rum_snippet": rum_snippet_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/site_info/${pathParam(args, "site_id")}`,
@@ -213,6 +306,47 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/rum_site"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/rum_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_auto_install": rum_auto_install_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_result_info": rum_result_info_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_site": rum_site_output,
+        "rum_site_tag": rum_site_tag_output,
+        "rum_site_token": rum_site_token_output,
+        "rum_snippet": rum_snippet_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/site_info/list`,
       query: [
@@ -262,6 +396,35 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/rum_site_tag"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_site_tag": rum_site_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/site_info/site_tag/list`,
       query: [
@@ -304,6 +467,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/rum_zone_tag"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/site_info/zone_tag/list`,
@@ -362,6 +554,32 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/rum_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_auto_install": rum_auto_install_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_site": rum_site_output,
+        "rum_site_tag": rum_site_tag_output,
+        "rum_site_token": rum_site_token_output,
+        "rum_snippet": rum_snippet_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/site_info/${pathParam(args, "site_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -407,6 +625,20 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages-2": rum_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/rum/site_info/validate/${pathParam(args, "hostname")}`,

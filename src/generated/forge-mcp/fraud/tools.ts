@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  fraud_api_response_common_failure_output,
+  fraud_auth_criteria_output,
+  fraud_authentication_settings_output,
+  fraud_fraud_settings_output,
+  fraud_fraud_settings_response_body_output,
+  fraud_messages_output,
+  fraud_user_profiles_status_output,
+  fraud_username_expressions_output,
+} from "./outputs.js";
+import {
   fraud_auth_criteria,
   fraud_authentication_settings,
   fraud_fraud_settings,
@@ -44,6 +54,33 @@ export const tools: readonly Tool[] = [
         "Fraud Detection Read",
         "Fraud Detection Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/fraud_fraud_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fraud_fraud_settings_response_body"
+            },
+            {
+              "$ref": "#/$defs/fraud_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "fraud_api-response-common-failure": fraud_api_response_common_failure_output,
+        "fraud_auth_criteria": fraud_auth_criteria_output,
+        "fraud_authentication_settings": fraud_authentication_settings_output,
+        "fraud_fraud_settings": fraud_fraud_settings_output,
+        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body_output,
+        "fraud_messages": fraud_messages_output,
+        "fraud_user_profiles_status": fraud_user_profiles_status_output,
+        "fraud_username_expressions": fraud_username_expressions_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/fraud_detection/settings`,
@@ -89,6 +126,33 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Fraud Detection Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/fraud_fraud_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fraud_fraud_settings_response_body"
+            },
+            {
+              "$ref": "#/$defs/fraud_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "fraud_api-response-common-failure": fraud_api_response_common_failure_output,
+        "fraud_auth_criteria": fraud_auth_criteria_output,
+        "fraud_authentication_settings": fraud_authentication_settings_output,
+        "fraud_fraud_settings": fraud_fraud_settings_output,
+        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body_output,
+        "fraud_messages": fraud_messages_output,
+        "fraud_user_profiles_status": fraud_user_profiles_status_output,
+        "fraud_username_expressions": fraud_username_expressions_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/fraud_detection/settings`,

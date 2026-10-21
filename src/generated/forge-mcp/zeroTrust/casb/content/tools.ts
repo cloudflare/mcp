@@ -3,9 +3,24 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  posture_api_CredentialHealthStatusEnum_output,
+  posture_api_DlpContext_output,
+  posture_api_ExportJobTypeEnum_output,
+  posture_api_ExportJob_output,
+  posture_api_IntegrationPolicy_output,
+  posture_api_IntegrationSummary_output,
+  posture_api_StatusEnum_output,
+  posture_api_Vendor_output,
+  posture_api_ZeroTrustProduct_output,
+  posture_api_api_response_common_output,
+  posture_api_messages_output,
+  posture_api_result_info_output,
+} from "../outputs.js";
+import {
   posture_api_DirectionEnum,
   posture_api_VendorsEnum,
 } from "../schemas.js";
+import { posture_api_ContentAsset_output } from "./outputs.js";
 import {
   posture_api_ContentExportRequest,
   posture_api_ContentOrder,
@@ -58,6 +73,19 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_ExportJob"
+        },
+        "400": null
+      },
+      $defs: {
+        "posture-api_ExportJob": posture_api_ExportJob_output,
+        "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
+        "posture-api_StatusEnum": posture_api_StatusEnum_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/content/export`,
@@ -151,6 +179,43 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/posture-api_ContentAsset"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/posture-api_result-info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        }
+      },
+      $defs: {
+        "posture-api_ContentAsset": posture_api_ContentAsset_output,
+        "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
+        "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_Vendor": posture_api_Vendor_output,
+        "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/content`,

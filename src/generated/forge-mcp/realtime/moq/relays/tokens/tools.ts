@@ -2,7 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  moq_api_response_error_errorsItem_output,
+  moq_api_response_error_output,
+  moq_cloudflare_jwt_issuer_output,
+  moq_cloudflare_jwt_token_output,
+  moq_issuer_output,
+} from "../outputs.js";
 import { moq_account_identifier } from "../schemas.js";
+import {
+  moq_api_response_common_errorsItem_output,
+  moq_api_response_common_messagesItem_output,
+  moq_api_response_common_output,
+  moq_tokens_envelope_output,
+} from "./outputs.js";
 
 /**
  * The tools of `realtime.moq.relays.tokens`.
@@ -74,6 +87,33 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/moq_tokens_envelope"
+        },
+        "400": {
+          "$ref": "#/$defs/moq_api-response-error"
+        },
+        "404": {
+          "$ref": "#/$defs/moq_api-response-error"
+        },
+        "409": {
+          "$ref": "#/$defs/moq_api-response-error"
+        },
+        "500": {
+          "$ref": "#/$defs/moq_api-response-error"
+        }
+      },
+      $defs: {
+        "moq_api-response-error": moq_api_response_error_output,
+        "moq_api-response-error_errorsItem": moq_api_response_error_errorsItem_output,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
+        "moq_issuer": moq_issuer_output,
+        "moq_tokens_envelope": moq_tokens_envelope_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/moq/relays/${pathParam(args, "relay_id")}/tokens`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -120,6 +160,29 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/moq_api-response-common"
+        },
+        "400": {
+          "$ref": "#/$defs/moq_api-response-error"
+        },
+        "404": {
+          "$ref": "#/$defs/moq_api-response-error"
+        },
+        "500": {
+          "$ref": "#/$defs/moq_api-response-error"
+        }
+      },
+      $defs: {
+        "moq_api-response-common": moq_api_response_common_output,
+        "moq_api-response-common_errorsItem": moq_api_response_common_errorsItem_output,
+        "moq_api-response-common_messagesItem": moq_api_response_common_messagesItem_output,
+        "moq_api-response-error": moq_api_response_error_output,
+        "moq_api-response-error_errorsItem": moq_api_response_error_errorsItem_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/moq/relays/${pathParam(args, "relay_id")}/tokens/${pathParam(args, "jti")}`,
     }),
@@ -159,6 +222,30 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/moq/relays/{relay_id}/tokens",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/moq_tokens_envelope"
+        },
+        "400": {
+          "$ref": "#/$defs/moq_api-response-error"
+        },
+        "404": {
+          "$ref": "#/$defs/moq_api-response-error"
+        },
+        "500": {
+          "$ref": "#/$defs/moq_api-response-error"
+        }
+      },
+      $defs: {
+        "moq_api-response-error": moq_api_response_error_output,
+        "moq_api-response-error_errorsItem": moq_api_response_error_errorsItem_output,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
+        "moq_issuer": moq_issuer_output,
+        "moq_tokens_envelope": moq_tokens_envelope_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/moq/relays/${pathParam(args, "relay_id")}/tokens`,

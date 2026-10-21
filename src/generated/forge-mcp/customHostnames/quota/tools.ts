@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { tls_certificates_and_hostnames_messages_output } from "../../outputs.js";
+import { tls_certificates_and_hostnames_custom_hostname_response_messages_output } from "../outputs.js";
+import {
+  tls_certificates_and_hostnames_custom_hostname_api_response_failure_output,
+  tls_certificates_and_hostnames_custom_hostname_quota_output,
+} from "./outputs.js";
 
 /**
  * The tools of `custom_hostnames.quota`.
@@ -43,6 +49,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_quota"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_api_response_failure"
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_custom_hostname_api_response_failure": tls_certificates_and_hostnames_custom_hostname_api_response_failure_output,
+        "tls-certificates-and-hostnames_custom_hostname_quota": tls_certificates_and_hostnames_custom_hostname_quota_output,
+        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls_certificates_and_hostnames_custom_hostname_response_messages_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/custom_hostnames/quota`,

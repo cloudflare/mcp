@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import type { Tool } from "../_/tool.js";
+import {
+  public_ip_api_response_common_failure_output,
+  public_ip_api_response_common_output,
+  public_ip_etag_output,
+  public_ip_ips_jdcloud_output,
+  public_ip_ips_output,
+  public_ip_ipv4_cidrs_output,
+  public_ip_ipv6_cidrs_output,
+  public_ip_jdcloud_cidrs_output,
+  public_ip_messages_output,
+} from "./outputs.js";
 
 /**
  * The tools of `ips`.
@@ -29,6 +40,56 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/ips",
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/public-ip_ips"
+            },
+            {
+              "$ref": "#/$defs/public-ip_ips_jdcloud"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/public-ip_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/public-ip_ips"
+                    },
+                    {
+                      "$ref": "#/$defs/public-ip_ips_jdcloud"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            },
+            {
+              "$ref": "#/$defs/public-ip_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "public-ip_api-response-common": public_ip_api_response_common_output,
+        "public-ip_api-response-common-failure": public_ip_api_response_common_failure_output,
+        "public-ip_etag": public_ip_etag_output,
+        "public-ip_ips": public_ip_ips_output,
+        "public-ip_ips_jdcloud": public_ip_ips_jdcloud_output,
+        "public-ip_ipv4_cidrs": public_ip_ipv4_cidrs_output,
+        "public-ip_ipv6_cidrs": public_ip_ipv6_cidrs_output,
+        "public-ip_jdcloud_cidrs": public_ip_jdcloud_cidrs_output,
+        "public-ip_messages": public_ip_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/ips`,
       query: [

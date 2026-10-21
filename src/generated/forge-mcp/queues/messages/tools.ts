@@ -3,10 +3,22 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  mq_api_v4_error_output,
+  mq_api_v4_failure_output,
+  mq_api_v4_message_output,
+  mq_queue_metrics_output,
+} from "../outputs.js";
+import {
   mq_batch_size,
   mq_retry_delay,
   mq_visibility_timeout,
 } from "../schemas.js";
+import {
+  mq_lease_id_output,
+  mq_queue_peek_batch_output,
+  mq_queue_pull_batch_output,
+  mq_ref_output,
+} from "./outputs.js";
 import {
   mq_lease_id,
   mq_queue_batch,
@@ -104,6 +116,35 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "ackCount": {
+              "type": "number"
+            },
+            "retryCount": {
+              "type": "number"
+            },
+            "warnings": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/queues/${pathParam(args, "queue_id")}/messages/ack`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -164,6 +205,32 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "metadata": {
+              "properties": {
+                "metrics": {
+                  "$ref": "#/$defs/mq_queue-metrics"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_queue-metrics": mq_queue_metrics_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/queues/${pathParam(args, "queue_id")}/messages/batch`,
@@ -242,6 +309,32 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "extendCount": {
+              "type": "number"
+            },
+            "warnings": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/queues/${pathParam(args, "queue_id")}/messages/extend`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -305,6 +398,28 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "messages": {
+              "$ref": "#/$defs/mq_queue-peek-batch"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_queue-peek-batch": mq_queue_peek_batch_output,
+        "mq_ref": mq_ref_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/queues/${pathParam(args, "queue_id")}/messages/peek`,
@@ -374,6 +489,40 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "message_backlog_count": {
+              "type": "number"
+            },
+            "messages": {
+              "$ref": "#/$defs/mq_queue-pull-batch"
+            },
+            "metadata": {
+              "properties": {
+                "metrics": {
+                  "$ref": "#/$defs/mq_queue-metrics"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_lease-id": mq_lease_id_output,
+        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_queue-pull-batch": mq_queue_pull_batch_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/queues/${pathParam(args, "queue_id")}/messages/pull`,
@@ -454,6 +603,40 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "warnings": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/queues/${pathParam(args, "queue_id")}/messages/purge`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -513,6 +696,32 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "metadata": {
+              "properties": {
+                "metrics": {
+                  "$ref": "#/$defs/mq_queue-metrics"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_queue-metrics": mq_queue_metrics_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/queues/${pathParam(args, "queue_id")}/messages`,

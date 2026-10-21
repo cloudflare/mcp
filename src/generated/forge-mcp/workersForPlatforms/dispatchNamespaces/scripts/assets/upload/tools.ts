@@ -3,6 +3,10 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
+  workers_api_response_common_failure_output,
+  workers_messages_output,
+} from "../../../../../outputs.js";
+import {
   workers_create_assets_upload_session_object,
   workers_manifest_value,
 } from "../../../../../schemas.js";
@@ -59,6 +63,34 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "buckets": {
+              "items": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "jwt": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}/scripts/${pathParam(args, "script_name")}/assets-upload-session`,

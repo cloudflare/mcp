@@ -10,6 +10,7 @@ import {
   unknownAccountHint
 } from '../auth/account-access'
 import { recordToolCall } from '../metrics'
+import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import type { AuthProps } from '../auth/types'
@@ -109,7 +110,22 @@ async function callForgeTool(
     },
     { caller: 'forge_tool_call' }
   )
-  const result = isJson(response) ? await response.json() : await response.text()
+  const json = isJson(response)
+  const bodyText = await response.text()
+  const result: unknown = json ? JSON.parse(bodyText) : bodyText
+
+  // Background check against the spec's response schema; never affects the result.
+  if (json) {
+    checkResponse({
+      toolName: name,
+      method: plan.method,
+      pathTemplate: plan.template,
+      status: response.status,
+      body: result,
+      bodyChars: bodyText.length,
+      props
+    })
+  }
 
   return apiCallResult(
     {

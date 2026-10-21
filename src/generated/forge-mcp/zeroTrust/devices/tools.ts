@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  teams_devices_components_schemas_uuid_output,
+  teams_devices_cursor_result_info_output,
+  teams_devices_email_output,
+  teams_devices_empty_body_output,
+  teams_devices_physical_device_output,
+  teams_devices_policy_summary_output,
+  teams_devices_registration_details_output,
+  teams_devices_user_output,
+  teams_devices_v4_error_response_output,
+  teams_devices_v4_response_message_output,
+} from "./outputs.js";
+import {
   teams_devices_physical_device_update_request,
   teams_devices_registration_type,
 } from "./schemas.js";
@@ -44,6 +56,21 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_empty_body"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_empty_body": teams_devices_empty_body_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/physical-devices/${pathParam(args, "device_id")}`,
     }),
@@ -80,6 +107,26 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/physical-devices/{device_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_physical_device"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_components-schemas-uuid": teams_devices_components_schemas_uuid_output,
+        "teams-devices_email": teams_devices_email_output,
+        "teams-devices_physical_device": teams_devices_physical_device_output,
+        "teams-devices_policy_summary": teams_devices_policy_summary_output,
+        "teams-devices_registration_details": teams_devices_registration_details_output,
+        "teams-devices_user": teams_devices_user_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/physical-devices/${pathParam(args, "device_id")}`,
       query: [
@@ -196,6 +243,41 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/physical-devices",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_physical_device"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/teams-devices_cursor_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_components-schemas-uuid": teams_devices_components_schemas_uuid_output,
+        "teams-devices_cursor_result_info": teams_devices_cursor_result_info_output,
+        "teams-devices_email": teams_devices_email_output,
+        "teams-devices_physical_device": teams_devices_physical_device_output,
+        "teams-devices_policy_summary": teams_devices_policy_summary_output,
+        "teams-devices_registration_details": teams_devices_registration_details_output,
+        "teams-devices_user": teams_devices_user_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/physical-devices`,
       query: [
@@ -253,6 +335,26 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/devices/physical-devices/{device_id}",
     extensions: {
       "x-auditable": true
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_physical_device"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_components-schemas-uuid": teams_devices_components_schemas_uuid_output,
+        "teams-devices_email": teams_devices_email_output,
+        "teams-devices_physical_device": teams_devices_physical_device_output,
+        "teams-devices_policy_summary": teams_devices_policy_summary_output,
+        "teams-devices_registration_details": teams_devices_registration_details_output,
+        "teams-devices_user": teams_devices_user_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/physical-devices/${pathParam(args, "device_id")}`,

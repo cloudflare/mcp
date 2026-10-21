@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  teams_devices_pagination_info_output,
+  teams_devices_v4_error_response_output,
+  teams_devices_v4_response_message_output,
+} from "../outputs.js";
+import { teams_devices_client_version_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.devices.client_versions`.
@@ -55,6 +61,36 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/client-versions",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_client_version"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/teams-devices_pagination_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_client_version": teams_devices_client_version_output,
+        "teams-devices_pagination_info": teams_devices_pagination_info_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/client-versions`,
       query: [

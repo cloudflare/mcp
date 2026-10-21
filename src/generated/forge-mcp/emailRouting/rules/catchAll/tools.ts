@@ -3,6 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  email_rule_catchall_action_output,
+  email_rule_catchall_actions_output,
+  email_rule_catchall_matcher_output,
+  email_rule_catchall_matchers_output,
+  email_rule_enabled_output,
+  email_rule_identifier_output,
+  email_rule_name_output,
+  email_rule_source_output,
+  email_rule_tag_output,
+} from "../outputs.js";
+import {
   email_rule_catchall_action,
   email_rule_catchall_actions,
   email_rule_catchall_matcher,
@@ -12,6 +23,7 @@ import {
   email_rule_owner_worker_tag,
   email_rule_source,
 } from "../schemas.js";
+import { email_catch_all_rule_output } from "./outputs.js";
 import { email_update_catch_all_rule_properties } from "./schemas.js";
 
 /**
@@ -64,6 +76,26 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_catch_all_rule"
+        },
+        "403": null
+      },
+      $defs: {
+        "email_catch_all_rule": email_catch_all_rule_output,
+        "email_rule_catchall-action": email_rule_catchall_action_output,
+        "email_rule_catchall-actions": email_rule_catchall_actions_output,
+        "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
+        "email_rule_catchall-matchers": email_rule_catchall_matchers_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/rules/catch_all`,
@@ -129,6 +161,27 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_catch_all_rule"
+        },
+        "400": null,
+        "422": null
+      },
+      $defs: {
+        "email_catch_all_rule": email_catch_all_rule_output,
+        "email_rule_catchall-action": email_rule_catchall_action_output,
+        "email_rule_catchall-actions": email_rule_catchall_actions_output,
+        "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
+        "email_rule_catchall-matchers": email_rule_catchall_matchers_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/rules/catch_all`,

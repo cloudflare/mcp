@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_transit_api_response_common_failure_output,
+  magic_transit_messages_output,
+} from "../outputs.js";
+import {
+  magic_transit_api_response_common_output,
+  magic_transit_check_type_output,
+  magic_transit_endpoint_health_check_response_output,
+  magic_transit_uuid_output,
+} from "./outputs.js";
+import {
   magic_transit_check_type,
   magic_transit_endpoint_health_check,
 } from "./schemas.js";
@@ -55,6 +65,23 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/magic-transit_endpoint_health_check_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-transit_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-transit_api-response-common-failure": magic_transit_api_response_common_failure_output,
+        "magic-transit_check_type": magic_transit_check_type_output,
+        "magic-transit_endpoint_health_check_response": magic_transit_endpoint_health_check_response_output,
+        "magic-transit_messages": magic_transit_messages_output,
+        "magic-transit_uuid": magic_transit_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/diagnostics/endpoint-healthchecks`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -97,6 +124,21 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-transit_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-transit_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-transit_api-response-common": magic_transit_api_response_common_output,
+        "magic-transit_api-response-common-failure": magic_transit_api_response_common_failure_output,
+        "magic-transit_messages": magic_transit_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/diagnostics/endpoint-healthchecks/${pathParam(args, "id")}`,
@@ -143,6 +185,23 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-transit_endpoint_health_check_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-transit_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-transit_api-response-common-failure": magic_transit_api_response_common_failure_output,
+        "magic-transit_check_type": magic_transit_check_type_output,
+        "magic-transit_endpoint_health_check_response": magic_transit_endpoint_health_check_response_output,
+        "magic-transit_messages": magic_transit_messages_output,
+        "magic-transit_uuid": magic_transit_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/diagnostics/endpoint-healthchecks/${pathParam(args, "id")}`,
     }),
@@ -182,6 +241,37 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic-transit_endpoint_health_check_response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-transit_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-transit_api-response-common-failure": magic_transit_api_response_common_failure_output,
+        "magic-transit_check_type": magic_transit_check_type_output,
+        "magic-transit_endpoint_health_check_response": magic_transit_endpoint_health_check_response_output,
+        "magic-transit_messages": magic_transit_messages_output,
+        "magic-transit_uuid": magic_transit_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/diagnostics/endpoint-healthchecks`,
@@ -232,6 +322,23 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-transit_endpoint_health_check_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-transit_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-transit_api-response-common-failure": magic_transit_api_response_common_failure_output,
+        "magic-transit_check_type": magic_transit_check_type_output,
+        "magic-transit_endpoint_health_check_response": magic_transit_endpoint_health_check_response_output,
+        "magic-transit_messages": magic_transit_messages_output,
+        "magic-transit_uuid": magic_transit_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/diagnostics/endpoint-healthchecks/${pathParam(args, "id")}`,

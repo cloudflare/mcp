@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  mq_api_v4_error_output,
+  mq_api_v4_failure_output,
+  mq_api_v4_message_output,
+  mq_queue_metrics_output,
+} from "../outputs.js";
 
 /**
  * The tools of `queues.metrics`.
@@ -44,6 +50,22 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Write",
         "Workers Scripts Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mq_queue-metrics"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_queue-metrics": mq_queue_metrics_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/queues/${pathParam(args, "queue_id")}/metrics`,

@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  stream_api_response_common_failure_output,
+  stream_messages_output,
+} from "../../outputs.js";
+import {
+  stream_download_percent_complete_output,
+  stream_download_status_output,
+  stream_download_url_output,
+  stream_downloads_output,
+} from "../outputs.js";
 
 /**
  * The tools of `stream.videos.downloads`.
@@ -42,6 +52,32 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/stream/{identifier}/downloads/{download_type}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "audio": {
+              "$ref": "#/$defs/stream_downloads"
+            },
+            "default": {
+              "$ref": "#/$defs/stream_downloads"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_download_percent_complete": stream_download_percent_complete_output,
+        "stream_download_status": stream_download_status_output,
+        "stream_download_url": stream_download_url_output,
+        "stream_downloads": stream_downloads_output,
+        "stream_messages": stream_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/downloads/${pathParam(args, "download_type")}`,
     }),
@@ -85,6 +121,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Stream Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/downloads/${pathParam(args, "download_type")}`,

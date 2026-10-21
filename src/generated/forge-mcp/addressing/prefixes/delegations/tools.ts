@@ -2,7 +2,26 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  addressing_api_response_common_failure_output,
+  addressing_messages_output,
+  addressing_timestamp_output,
+} from "../../outputs.js";
+import {
+  addressing_cidr_output,
+  addressing_prefix_identifier_output,
+} from "../outputs.js";
 import { addressing_cidr } from "../schemas.js";
+import {
+  addressing_delegated_account_identifier_output,
+  addressing_delegation_identifier_output,
+  addressing_id_response_output,
+  addressing_id_response_result_output,
+  addressing_ipam_delegations_output,
+  addressing_response_collection_2_output,
+  addressing_response_collection_2_result_info_output,
+  addressing_single_response_2_output,
+} from "./outputs.js";
 import { addressing_delegated_account_identifier } from "./schemas.js";
 
 /**
@@ -66,6 +85,34 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/addressing_ipam-delegations"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_single_response-2"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier_output,
+        "addressing_delegation_identifier": addressing_delegation_identifier_output,
+        "addressing_ipam-delegations": addressing_ipam_delegations_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_prefix_identifier": addressing_prefix_identifier_output,
+        "addressing_single_response-2": addressing_single_response_2_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/delegations`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -111,6 +158,35 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/addressing_delegation_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_id_response"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_delegation_identifier": addressing_delegation_identifier_output,
+        "addressing_id_response": addressing_id_response_output,
+        "addressing_id_response_result": addressing_id_response_result_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/delegations/${pathParam(args, "delegation_id")}`,
     }),
@@ -145,6 +221,66 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/addressing/prefixes/{prefix_id}/delegations",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/addressing_ipam-delegations"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_response_collection-2"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier_output,
+        "addressing_delegation_identifier": addressing_delegation_identifier_output,
+        "addressing_ipam-delegations": addressing_ipam_delegations_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_prefix_identifier": addressing_prefix_identifier_output,
+        "addressing_response_collection-2": addressing_response_collection_2_output,
+        "addressing_response_collection-2_result_info": addressing_response_collection_2_result_info_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/delegations`,
     }),

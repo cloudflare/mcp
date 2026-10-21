@@ -3,6 +3,65 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  zones_api_response_common_failure_2_output,
+  zones_messages_2_output,
+} from "../outputs.js";
+import {
+  zones_actions_output,
+  zones_always_use_https_output,
+  zones_automatic_https_rewrites_output,
+  zones_browser_cache_ttl_output,
+  zones_browser_check_output,
+  zones_bypass_cache_on_cookie_output,
+  zones_cache_by_device_type_output,
+  zones_cache_deception_armor_output,
+  zones_cache_key_fields_output,
+  zones_cache_key_fields_value_cookie_output,
+  zones_cache_key_fields_value_header_output,
+  zones_cache_key_fields_value_host_output,
+  zones_cache_key_fields_value_output,
+  zones_cache_key_fields_value_query_string_exclude_output,
+  zones_cache_key_fields_value_query_string_include_output,
+  zones_cache_key_fields_value_query_string_output,
+  zones_cache_key_fields_value_user_output,
+  zones_cache_level_output,
+  zones_cache_on_cookie_output,
+  zones_cache_ttl_by_status_output,
+  zones_created_on_output,
+  zones_disable_apps_output,
+  zones_disable_performance_output,
+  zones_disable_security_output,
+  zones_disable_zaraz_output,
+  zones_edge_cache_ttl_output,
+  zones_email_obfuscation_output,
+  zones_explicit_cache_control_output,
+  zones_forwarding_url_output,
+  zones_host_header_override_output,
+  zones_identifier_2_output,
+  zones_ip_geolocation_output,
+  zones_mirage_output,
+  zones_modified_on_output,
+  zones_opportunistic_encryption_output,
+  zones_origin_error_page_pass_thru_output,
+  zones_page_rule_output,
+  zones_polish_output,
+  zones_priority_output,
+  zones_resolve_override_output,
+  zones_respect_strong_etag_output,
+  zones_response_buffering_output,
+  zones_rocket_loader_output,
+  zones_security_level_output,
+  zones_sort_query_string_for_cache_output,
+  zones_ssl_output,
+  zones_status_output,
+  zones_string_constraint_output,
+  zones_target_output,
+  zones_targets_output,
+  zones_true_client_ip_header_output,
+  zones_url_target_output,
+  zones_waf_output,
+} from "./outputs.js";
+import {
   zones_actions,
   zones_always_use_https,
   zones_automatic_https_rewrites,
@@ -168,6 +227,73 @@ export const tools: readonly Tool[] = [
         "Page Rules Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zones_page_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_actions": zones_actions_output,
+        "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
+        "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
+        "zones_browser_check": zones_browser_check_output,
+        "zones_bypass_cache_on_cookie": zones_bypass_cache_on_cookie_output,
+        "zones_cache_by_device_type": zones_cache_by_device_type_output,
+        "zones_cache_deception_armor": zones_cache_deception_armor_output,
+        "zones_cache_key_fields": zones_cache_key_fields_output,
+        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
+        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
+        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
+        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
+        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
+        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
+        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
+        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
+        "zones_cache_level": zones_cache_level_output,
+        "zones_cache_on_cookie": zones_cache_on_cookie_output,
+        "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
+        "zones_created_on": zones_created_on_output,
+        "zones_disable_apps": zones_disable_apps_output,
+        "zones_disable_performance": zones_disable_performance_output,
+        "zones_disable_security": zones_disable_security_output,
+        "zones_disable_zaraz": zones_disable_zaraz_output,
+        "zones_edge_cache_ttl": zones_edge_cache_ttl_output,
+        "zones_email_obfuscation": zones_email_obfuscation_output,
+        "zones_explicit_cache_control": zones_explicit_cache_control_output,
+        "zones_forwarding_url": zones_forwarding_url_output,
+        "zones_host_header_override": zones_host_header_override_output,
+        "zones_identifier-2": zones_identifier_2_output,
+        "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
+        "zones_mirage": zones_mirage_output,
+        "zones_modified_on": zones_modified_on_output,
+        "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
+        "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru_output,
+        "zones_page_rule": zones_page_rule_output,
+        "zones_polish": zones_polish_output,
+        "zones_priority": zones_priority_output,
+        "zones_resolve_override": zones_resolve_override_output,
+        "zones_respect_strong_etag": zones_respect_strong_etag_output,
+        "zones_response_buffering": zones_response_buffering_output,
+        "zones_rocket_loader": zones_rocket_loader_output,
+        "zones_security_level": zones_security_level_output,
+        "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache_output,
+        "zones_ssl": zones_ssl_output,
+        "zones_status": zones_status_output,
+        "zones_string_constraint": zones_string_constraint_output,
+        "zones_target": zones_target_output,
+        "zones_targets": zones_targets_output,
+        "zones_true_client_ip_header": zones_true_client_ip_header_output,
+        "zones_url_target": zones_url_target_output,
+        "zones_waf": zones_waf_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pagerules`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -208,6 +334,36 @@ export const tools: readonly Tool[] = [
         "Zone Write",
         "Page Rules Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/zones_identifier-2"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_identifier-2": zones_identifier_2_output,
+        "zones_messages-2": zones_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pagerules/${pathParam(args, "pagerule_id")}`,
@@ -324,6 +480,73 @@ export const tools: readonly Tool[] = [
         "Page Rules Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zones_page_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_actions": zones_actions_output,
+        "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
+        "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
+        "zones_browser_check": zones_browser_check_output,
+        "zones_bypass_cache_on_cookie": zones_bypass_cache_on_cookie_output,
+        "zones_cache_by_device_type": zones_cache_by_device_type_output,
+        "zones_cache_deception_armor": zones_cache_deception_armor_output,
+        "zones_cache_key_fields": zones_cache_key_fields_output,
+        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
+        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
+        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
+        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
+        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
+        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
+        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
+        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
+        "zones_cache_level": zones_cache_level_output,
+        "zones_cache_on_cookie": zones_cache_on_cookie_output,
+        "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
+        "zones_created_on": zones_created_on_output,
+        "zones_disable_apps": zones_disable_apps_output,
+        "zones_disable_performance": zones_disable_performance_output,
+        "zones_disable_security": zones_disable_security_output,
+        "zones_disable_zaraz": zones_disable_zaraz_output,
+        "zones_edge_cache_ttl": zones_edge_cache_ttl_output,
+        "zones_email_obfuscation": zones_email_obfuscation_output,
+        "zones_explicit_cache_control": zones_explicit_cache_control_output,
+        "zones_forwarding_url": zones_forwarding_url_output,
+        "zones_host_header_override": zones_host_header_override_output,
+        "zones_identifier-2": zones_identifier_2_output,
+        "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
+        "zones_mirage": zones_mirage_output,
+        "zones_modified_on": zones_modified_on_output,
+        "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
+        "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru_output,
+        "zones_page_rule": zones_page_rule_output,
+        "zones_polish": zones_polish_output,
+        "zones_priority": zones_priority_output,
+        "zones_resolve_override": zones_resolve_override_output,
+        "zones_respect_strong_etag": zones_respect_strong_etag_output,
+        "zones_response_buffering": zones_response_buffering_output,
+        "zones_rocket_loader": zones_rocket_loader_output,
+        "zones_security_level": zones_security_level_output,
+        "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache_output,
+        "zones_ssl": zones_ssl_output,
+        "zones_status": zones_status_output,
+        "zones_string_constraint": zones_string_constraint_output,
+        "zones_target": zones_target_output,
+        "zones_targets": zones_targets_output,
+        "zones_true_client_ip_header": zones_true_client_ip_header_output,
+        "zones_url_target": zones_url_target_output,
+        "zones_waf": zones_waf_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pagerules/${pathParam(args, "pagerule_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -402,6 +625,73 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zones_page_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_actions": zones_actions_output,
+        "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
+        "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
+        "zones_browser_check": zones_browser_check_output,
+        "zones_bypass_cache_on_cookie": zones_bypass_cache_on_cookie_output,
+        "zones_cache_by_device_type": zones_cache_by_device_type_output,
+        "zones_cache_deception_armor": zones_cache_deception_armor_output,
+        "zones_cache_key_fields": zones_cache_key_fields_output,
+        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
+        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
+        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
+        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
+        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
+        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
+        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
+        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
+        "zones_cache_level": zones_cache_level_output,
+        "zones_cache_on_cookie": zones_cache_on_cookie_output,
+        "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
+        "zones_created_on": zones_created_on_output,
+        "zones_disable_apps": zones_disable_apps_output,
+        "zones_disable_performance": zones_disable_performance_output,
+        "zones_disable_security": zones_disable_security_output,
+        "zones_disable_zaraz": zones_disable_zaraz_output,
+        "zones_edge_cache_ttl": zones_edge_cache_ttl_output,
+        "zones_email_obfuscation": zones_email_obfuscation_output,
+        "zones_explicit_cache_control": zones_explicit_cache_control_output,
+        "zones_forwarding_url": zones_forwarding_url_output,
+        "zones_host_header_override": zones_host_header_override_output,
+        "zones_identifier-2": zones_identifier_2_output,
+        "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
+        "zones_mirage": zones_mirage_output,
+        "zones_modified_on": zones_modified_on_output,
+        "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
+        "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru_output,
+        "zones_page_rule": zones_page_rule_output,
+        "zones_polish": zones_polish_output,
+        "zones_priority": zones_priority_output,
+        "zones_resolve_override": zones_resolve_override_output,
+        "zones_respect_strong_etag": zones_respect_strong_etag_output,
+        "zones_response_buffering": zones_response_buffering_output,
+        "zones_rocket_loader": zones_rocket_loader_output,
+        "zones_security_level": zones_security_level_output,
+        "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache_output,
+        "zones_ssl": zones_ssl_output,
+        "zones_status": zones_status_output,
+        "zones_string_constraint": zones_string_constraint_output,
+        "zones_target": zones_target_output,
+        "zones_targets": zones_targets_output,
+        "zones_true_client_ip_header": zones_true_client_ip_header_output,
+        "zones_url_target": zones_url_target_output,
+        "zones_waf": zones_waf_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pagerules/${pathParam(args, "pagerule_id")}`,
     }),
@@ -474,6 +764,87 @@ export const tools: readonly Tool[] = [
         "Page Rules Write",
         "Page Rules Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zones_page_rule"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_actions": zones_actions_output,
+        "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
+        "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
+        "zones_browser_check": zones_browser_check_output,
+        "zones_bypass_cache_on_cookie": zones_bypass_cache_on_cookie_output,
+        "zones_cache_by_device_type": zones_cache_by_device_type_output,
+        "zones_cache_deception_armor": zones_cache_deception_armor_output,
+        "zones_cache_key_fields": zones_cache_key_fields_output,
+        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
+        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
+        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
+        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
+        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
+        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
+        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
+        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
+        "zones_cache_level": zones_cache_level_output,
+        "zones_cache_on_cookie": zones_cache_on_cookie_output,
+        "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
+        "zones_created_on": zones_created_on_output,
+        "zones_disable_apps": zones_disable_apps_output,
+        "zones_disable_performance": zones_disable_performance_output,
+        "zones_disable_security": zones_disable_security_output,
+        "zones_disable_zaraz": zones_disable_zaraz_output,
+        "zones_edge_cache_ttl": zones_edge_cache_ttl_output,
+        "zones_email_obfuscation": zones_email_obfuscation_output,
+        "zones_explicit_cache_control": zones_explicit_cache_control_output,
+        "zones_forwarding_url": zones_forwarding_url_output,
+        "zones_host_header_override": zones_host_header_override_output,
+        "zones_identifier-2": zones_identifier_2_output,
+        "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
+        "zones_mirage": zones_mirage_output,
+        "zones_modified_on": zones_modified_on_output,
+        "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
+        "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru_output,
+        "zones_page_rule": zones_page_rule_output,
+        "zones_polish": zones_polish_output,
+        "zones_priority": zones_priority_output,
+        "zones_resolve_override": zones_resolve_override_output,
+        "zones_respect_strong_etag": zones_respect_strong_etag_output,
+        "zones_response_buffering": zones_response_buffering_output,
+        "zones_rocket_loader": zones_rocket_loader_output,
+        "zones_security_level": zones_security_level_output,
+        "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache_output,
+        "zones_ssl": zones_ssl_output,
+        "zones_status": zones_status_output,
+        "zones_string_constraint": zones_string_constraint_output,
+        "zones_target": zones_target_output,
+        "zones_targets": zones_targets_output,
+        "zones_true_client_ip_header": zones_true_client_ip_header_output,
+        "zones_url_target": zones_url_target_output,
+        "zones_waf": zones_waf_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pagerules`,
@@ -599,6 +970,73 @@ export const tools: readonly Tool[] = [
         "Zone Write",
         "Page Rules Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zones_page_rule"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_actions": zones_actions_output,
+        "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
+        "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
+        "zones_browser_check": zones_browser_check_output,
+        "zones_bypass_cache_on_cookie": zones_bypass_cache_on_cookie_output,
+        "zones_cache_by_device_type": zones_cache_by_device_type_output,
+        "zones_cache_deception_armor": zones_cache_deception_armor_output,
+        "zones_cache_key_fields": zones_cache_key_fields_output,
+        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
+        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
+        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
+        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
+        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
+        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
+        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
+        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
+        "zones_cache_level": zones_cache_level_output,
+        "zones_cache_on_cookie": zones_cache_on_cookie_output,
+        "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
+        "zones_created_on": zones_created_on_output,
+        "zones_disable_apps": zones_disable_apps_output,
+        "zones_disable_performance": zones_disable_performance_output,
+        "zones_disable_security": zones_disable_security_output,
+        "zones_disable_zaraz": zones_disable_zaraz_output,
+        "zones_edge_cache_ttl": zones_edge_cache_ttl_output,
+        "zones_email_obfuscation": zones_email_obfuscation_output,
+        "zones_explicit_cache_control": zones_explicit_cache_control_output,
+        "zones_forwarding_url": zones_forwarding_url_output,
+        "zones_host_header_override": zones_host_header_override_output,
+        "zones_identifier-2": zones_identifier_2_output,
+        "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
+        "zones_mirage": zones_mirage_output,
+        "zones_modified_on": zones_modified_on_output,
+        "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
+        "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru_output,
+        "zones_page_rule": zones_page_rule_output,
+        "zones_polish": zones_polish_output,
+        "zones_priority": zones_priority_output,
+        "zones_resolve_override": zones_resolve_override_output,
+        "zones_respect_strong_etag": zones_respect_strong_etag_output,
+        "zones_response_buffering": zones_response_buffering_output,
+        "zones_rocket_loader": zones_rocket_loader_output,
+        "zones_security_level": zones_security_level_output,
+        "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache_output,
+        "zones_ssl": zones_ssl_output,
+        "zones_status": zones_status_output,
+        "zones_string_constraint": zones_string_constraint_output,
+        "zones_target": zones_target_output,
+        "zones_targets": zones_targets_output,
+        "zones_true_client_ip_header": zones_true_client_ip_header_output,
+        "zones_url_target": zones_url_target_output,
+        "zones_waf": zones_waf_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pagerules/${pathParam(args, "pagerule_id")}`,

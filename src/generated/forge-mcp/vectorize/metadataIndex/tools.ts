@@ -3,6 +3,17 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  vectorize_api_response_common_failure_output,
+  vectorize_messages_output,
+  vectorize_mutation_uuid_output,
+} from "../outputs.js";
+import {
+  vectorize_create_metadata_index_response_output,
+  vectorize_delete_metadata_index_response_output,
+  vectorize_list_metadata_index_response_metadataIndexesItem_output,
+  vectorize_list_metadata_index_response_output,
+} from "./outputs.js";
+import {
   vectorize_create_metadata_index_request,
   vectorize_delete_metadata_index_request,
 } from "./schemas.js";
@@ -62,6 +73,22 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_create-metadata-index-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_create-metadata-index-response": vectorize_create_metadata_index_response_output,
+        "vectorize_messages": vectorize_messages_output,
+        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/metadata_index/create`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -118,6 +145,22 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_delete-metadata-index-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_delete-metadata-index-response": vectorize_delete_metadata_index_response_output,
+        "vectorize_messages": vectorize_messages_output,
+        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/metadata_index/delete`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -157,6 +200,22 @@ export const tools: readonly Tool[] = [
         "Vectorize Write",
         "Vectorize Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_list-metadata-index-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_list-metadata-index-response": vectorize_list_metadata_index_response_output,
+        "vectorize_list-metadata-index-response_metadataIndexesItem": vectorize_list_metadata_index_response_metadataIndexesItem_output,
+        "vectorize_messages": vectorize_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/metadata_index/list`,

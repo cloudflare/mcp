@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { nsc_Settings_output } from "./outputs.js";
 import { nsc_SettingsRequest } from "./schemas.js";
 
 /**
@@ -40,6 +41,19 @@ export const tools: readonly Tool[] = [
         "Magic Transit Read",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_Settings"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_Settings": nsc_Settings_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/settings`,
@@ -82,6 +96,19 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_Settings"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_Settings": nsc_Settings_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/settings`,

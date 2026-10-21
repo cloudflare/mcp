@@ -57,6 +57,158 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "properties": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "properties": {
+                      "properties": {
+                        "priority": {
+                          "properties": {
+                            "items": {
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "priority_token_surcharge": {
+                          "properties": {
+                            "additionalProperties": {
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "additionalProperties",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "status": {
+                          "properties": {
+                            "items": {
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "tlp": {
+                          "properties": {
+                            "items": {
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "priority",
+                        "priority_token_surcharge",
+                        "status",
+                        "tlp"
+                      ],
+                      "type": "object"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "properties",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "success": {
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "result",
+                "success"
+              ],
+              "type": "object"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "properties",
+            "type"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/constants`,
     }),

@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_Msg_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
+  pay_per_crawl_Source_output,
+  pay_per_crawl_apiErrorResponse_output,
+  pay_per_crawl_apiNoResultResponse_output,
+} from "../../../outputs.js";
+import {
+  pay_per_crawl_StripeConnectResp_output,
+  pay_per_crawl_StripeConnection_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `pay_per_crawl.publisher.stripe`.
@@ -37,6 +50,22 @@ export const tools: readonly Tool[] = [
         "Account Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_StripeConnectResp"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_StripeConnectResp": pay_per_crawl_StripeConnectResp_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/publisher/stripe`,
     }),
@@ -70,6 +99,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Account Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/publisher/stripe`,
@@ -132,6 +180,22 @@ export const tools: readonly Tool[] = [
         "Account Settings Write",
         "Account Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_StripeConnection"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_StripeConnection": pay_per_crawl_StripeConnection_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/publisher/stripe`,

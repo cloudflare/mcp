@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import { realtimekit_PeerEvent_output } from "../outputs.js";
+import { realtimekit_ParticipantsList_output } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.sessions.participants`.
@@ -59,6 +61,30 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "participant": {
+                  "$ref": "#/$defs/realtimekit_ParticipantsList"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      $defs: {
+        "realtimekit_ParticipantsList": realtimekit_ParticipantsList_output,
+        "realtimekit_PeerEvent": realtimekit_PeerEvent_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/sessions/${pathParam(args, "session_id")}/participants/${pathParam(args, "participant_id")}`,
@@ -149,6 +175,33 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "participants": {
+                  "items": {
+                    "$ref": "#/$defs/realtimekit_ParticipantsList"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      $defs: {
+        "realtimekit_ParticipantsList": realtimekit_ParticipantsList_output,
+        "realtimekit_PeerEvent": realtimekit_PeerEvent_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/sessions/${pathParam(args, "session_id")}/participants`,

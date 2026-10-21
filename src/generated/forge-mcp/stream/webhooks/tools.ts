@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  stream_api_response_common_failure_output,
+  stream_messages_output,
+} from "../outputs.js";
 import { stream_webhook_request } from "./schemas.js";
 
 /**
@@ -38,6 +42,20 @@ export const tools: readonly Tool[] = [
         "Stream Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/webhook`,
     }),
@@ -72,6 +90,32 @@ export const tools: readonly Tool[] = [
         "Stream Write",
         "Stream Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "modified": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "notificationUrl": {
+              "type": "string"
+            },
+            "secret": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/webhook`,
@@ -113,6 +157,32 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Stream Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "modified": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "notificationUrl": {
+              "type": "string"
+            },
+            "secret": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/webhook`,

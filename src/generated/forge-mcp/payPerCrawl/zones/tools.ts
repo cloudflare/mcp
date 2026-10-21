@@ -3,6 +3,19 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_Msg_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
+  pay_per_crawl_Source_output,
+  pay_per_crawl_apiErrorResponse_output,
+  pay_per_crawl_apiNoResultResponse_output,
+} from "../../outputs.js";
+import {
+  pay_per_crawl_DaricZoneCanBeEnabled_output,
+  pay_per_crawl_ZonesCanBeEnabledPayload_output,
+} from "./outputs.js";
+import {
   pay_per_crawl_DaricZoneCanBeEnabledUpdate,
   pay_per_crawl_ZonesCanBeEnabledQueryPayload,
   pay_per_crawl_ZonesCanBeEnabledUpdatePayload,
@@ -42,6 +55,22 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write",
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_DaricZoneCanBeEnabled"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_DaricZoneCanBeEnabled": pay_per_crawl_DaricZoneCanBeEnabled_output,
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-crawl/can_be_enabled`,
@@ -113,6 +142,23 @@ export const tools: readonly Tool[] = [
         "Account Settings Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_ZonesCanBeEnabledPayload"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_DaricZoneCanBeEnabled": pay_per_crawl_DaricZoneCanBeEnabled_output,
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ZonesCanBeEnabledPayload": pay_per_crawl_ZonesCanBeEnabledPayload_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/zones_can_be_enabled/query`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -156,6 +202,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Account Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/zones_can_be_enabled`,

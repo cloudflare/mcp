@@ -15,5 +15,6 @@ export {
   type QueryParam,
   type Tool,
   type ToolAnnotations,
+  type ToolResponses,
 } from './tool.js';
 export { callTool, createHandler, readBody, serveTools, type CallContext, type HandlerOptions } from './server.js';

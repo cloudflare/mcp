@@ -2,6 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  client_side_security_api_response_common_failure_output,
+  client_side_security_id_output,
+  client_side_security_messages_output,
+  client_side_security_result_info_output,
+} from "../outputs.js";
+import { client_side_security_connection_output } from "./outputs.js";
 
 /**
  * The tools of `client_side_security.connections`.
@@ -52,6 +59,22 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/client-side-security_connection"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_connection": client_side_security_connection_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_messages": client_side_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/connections/${pathParam(args, "connection_id")}`,
@@ -156,6 +179,37 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/client-side-security_connection"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/client-side-security_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/client-side-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_connection": client_side_security_connection_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_messages": client_side_security_messages_output,
+        "client-side-security_result_info": client_side_security_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/connections`,

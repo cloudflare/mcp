@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import { realtimekit_GenericSuccessResponse_output } from "../../outputs.js";
+import { realtimekit_Recording_output } from "../outputs.js";
 import { realtimekit_TrackConfigLayer } from "./schemas.js";
 
 /**
@@ -77,6 +79,37 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "recording": {
+                      "$ref": "#/$defs/realtimekit_Recording"
+                    }
+                  },
+                  "required": [
+                    "recording"
+                  ],
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/recordings/track`,

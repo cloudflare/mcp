@@ -2,7 +2,36 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  mcn_account_id_output,
+  mcn_bad_response_output,
+  mcn_cloud_platform_client_output,
+  mcn_cloud_type_output,
+  mcn_cost_output,
+  mcn_error_meta_output,
+  mcn_error_output,
+  mcn_error_source_output,
+  mcn_list_item_output,
+  mcn_observation_output,
+  mcn_platform_client_id_output,
+  mcn_provider_id_output,
+  mcn_resource_details_output,
+  mcn_resource_details_section_item_output,
+  mcn_resource_details_section_output,
+  mcn_resource_id_output,
+  mcn_resource_preview_item_output,
+  mcn_resource_preview_output,
+  mcn_resource_type_output,
+  mcn_string_item_output,
+  mcn_yaml_diff_item_output,
+  mcn_yaml_diff_output,
+  mcn_yaml_item_output,
+} from "../outputs.js";
 import { mcn_resource_id, mcn_resource_type } from "../schemas.js";
+import {
+  mcn_resources_catalog_policy_preview_output,
+  mcn_result_info_output,
+} from "./outputs.js";
 import { mcn_resources_catalog_policy_preview_request } from "./schemas.js";
 
 /**
@@ -80,6 +109,32 @@ export const tools: readonly Tool[] = [
         "Magic WAN Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/resources/export`,
       query: [
@@ -131,6 +186,53 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic WAN Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_resource_details"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/resources/${pathParam(args, "resource_id")}`,
@@ -222,6 +324,68 @@ export const tools: readonly Tool[] = [
         "Magic WAN Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mcn_resource_details"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/mcn_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_result_info": mcn_result_info_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/resources`,
       query: [
@@ -272,6 +436,35 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/magic/cloud/resources/policy-preview",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_resources_catalog_policy_preview"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_resources_catalog_policy_preview": mcn_resources_catalog_policy_preview_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/resources/policy-preview`,
       body: { value: args["body"], mediaType: "application/json" },

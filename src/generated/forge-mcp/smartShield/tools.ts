@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  smartshield_api_response_common_failure_output,
+  smartshield_messages_output,
+  smartshield_smart_shield_settings_get_response_output,
+  smartshield_smart_shield_settings_patch_response_output,
+  smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
+  smartshield_smart_shield_settings_regional_tiered_cache_output,
+  smartshield_smart_shield_settings_smart_routing_output,
+  smartshield_smart_shield_settings_smart_tiered_cache_output,
+} from "./outputs.js";
+import {
   smartshield_smart_shield_settings_patch_body,
   smartshield_smart_shield_settings_patch_body_cache_reserve,
   smartshield_smart_shield_settings_patch_body_regional_tiered_cache,
@@ -62,6 +72,30 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/smartshield_smart_shield_settings_get_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
+        },
+        "500": {
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
+        },
+        "502": {
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
+        "smartshield_messages": smartshield_messages_output,
+        "smartshield_smart_shield_settings_get_response": smartshield_smart_shield_settings_get_response_output,
+        "smartshield_smart_shield_settings_regional_tiered_cache": smartshield_smart_shield_settings_regional_tiered_cache_output,
+        "smartshield_smart_shield_settings_smart_routing": smartshield_smart_shield_settings_smart_routing_output,
+        "smartshield_smart_shield_settings_smart_tiered_cache": smartshield_smart_shield_settings_smart_tiered_cache_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/smart_shield`,
@@ -128,6 +162,28 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
+        },
+        "500": {
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
+        },
+        "502": {
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
+        "smartshield_messages": smartshield_messages_output,
+        "smartshield_smart_shield_settings_patch_response": smartshield_smart_shield_settings_patch_response_output,
+        "smartshield_smart_shield_settings_patch_response_smart_tiered_cache": smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/smart_shield`,

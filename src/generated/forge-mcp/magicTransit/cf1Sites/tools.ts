@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_api_response_common_failure_output,
+  magic_identifier_output,
+  magic_messages_output,
+} from "../outputs.js";
+import {
+  magic_cf1_site_location_output,
+  magic_cf1_site_output,
+} from "./outputs.js";
+import {
   magic_cf1_site,
   magic_cf1_site_location,
   magic_cf1_site_update,
@@ -71,6 +80,37 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_cf1_site"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -127,6 +167,23 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_cf1_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites/${pathParam(args, "cf1_site_id")}`,
@@ -186,6 +243,23 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_cf1_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites/${pathParam(args, "cf1_site_id")}`,
     }),
@@ -238,6 +312,37 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_cf1_site"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites`,
@@ -302,6 +407,23 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_cf1_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites/${pathParam(args, "cf1_site_id")}`,

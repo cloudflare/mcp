@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../outputs.js";
+import {
+  access_saml_certificate_2_output,
+  access_saml_certificate_set_2_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.saml_encryption_certificates`.
@@ -37,6 +45,25 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_saml_certificate_set-2"
+        },
+        "404": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_saml_certificate-2": access_saml_certificate_2_output,
+        "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/saml_certificates/${pathParam(args, "saml_cert_set_id")}`,
     }),
@@ -71,6 +98,21 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}/pem",
+    responses: {
+      schemas: {
+        "200": null,
+        "404": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/saml_certificates/${pathParam(args, "saml_cert_set_id")}/pem`,
     }),
@@ -114,6 +156,53 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/saml_certificates",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_saml_certificate_set-2"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_saml_certificate-2": access_saml_certificate_2_output,
+        "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/saml_certificates`,
       query: [
@@ -153,6 +242,25 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}/rotate",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_saml_certificate_set-2"
+        },
+        "404": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_saml_certificate-2": access_saml_certificate_2_output,
+        "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/saml_certificates/${pathParam(args, "saml_cert_set_id")}/rotate`,
     }),

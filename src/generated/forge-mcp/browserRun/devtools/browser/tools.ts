@@ -104,6 +104,53 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "sessionId": {
+              "type": "string"
+            },
+            "webSocketDebuggerUrl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "sessionId"
+          ],
+          "type": "object"
+        },
+        "429": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/browser-rendering/devtools/browser`,
       query: [
@@ -166,6 +213,26 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "status": {
+              "enum": [
+                "closing",
+                "closed"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        },
+        "404": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/browser-rendering/devtools/browser/${pathParam(args, "session_id")}`,
     }),
@@ -224,6 +291,162 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "domains": {
+              "items": {
+                "properties": {
+                  "commands": {
+                    "items": {
+                      "additionalProperties": {
+                        "oneOf": [
+                          {
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "dependencies": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "domain": {
+                    "type": "string"
+                  },
+                  "events": {
+                    "items": {
+                      "additionalProperties": {
+                        "oneOf": [
+                          {
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "experimental": {
+                    "type": "boolean"
+                  },
+                  "types": {
+                    "items": {
+                      "additionalProperties": {
+                        "oneOf": [
+                          {
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "domain"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "version": {
+              "properties": {
+                "major": {
+                  "type": "string"
+                },
+                "minor": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "major",
+                "minor"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "domains"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/browser-rendering/devtools/browser/${pathParam(args, "session_id")}/json/protocol`,
     }),
@@ -281,6 +504,99 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "Browser": {
+              "type": "string"
+            },
+            "Protocol-Version": {
+              "type": "string"
+            },
+            "User-Agent": {
+              "type": "string"
+            },
+            "V8-Version": {
+              "type": "string"
+            },
+            "WebKit-Version": {
+              "type": "string"
+            },
+            "webSocketDebuggerUrl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Browser",
+            "Protocol-Version",
+            "User-Agent",
+            "V8-Version",
+            "WebKit-Version",
+            "webSocketDebuggerUrl"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/browser-rendering/devtools/browser/${pathParam(args, "session_id")}/json/version`,

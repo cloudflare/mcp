@@ -3,6 +3,23 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  tunnel_api_response_common_failure_2_output,
+  tunnel_messages_2_output,
+  tunnel_tunnel_id_2_output,
+} from "../../outputs.js";
+import {
+  tunnel_config_output,
+  tunnel_config_src_2_output,
+  tunnel_config_version_2_output,
+  tunnel_config_warp_routing_output,
+  tunnel_configuration_output,
+  tunnel_identifier_output,
+  tunnel_ingressRule_output,
+  tunnel_originRequest_access_output,
+  tunnel_originRequest_output,
+  tunnel_timestamp_output,
+} from "./outputs.js";
+import {
   tunnel_config,
   tunnel_ingressRule,
   tunnel_originRequest,
@@ -52,6 +69,31 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write",
         "Cloudflare Tunnel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_configuration"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tunnel_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure-2": tunnel_api_response_common_failure_2_output,
+        "tunnel_config": tunnel_config_output,
+        "tunnel_config_src-2": tunnel_config_src_2_output,
+        "tunnel_config_version-2": tunnel_config_version_2_output,
+        "tunnel_config_warp-routing": tunnel_config_warp_routing_output,
+        "tunnel_configuration": tunnel_configuration_output,
+        "tunnel_identifier": tunnel_identifier_output,
+        "tunnel_ingressRule": tunnel_ingressRule_output,
+        "tunnel_messages-2": tunnel_messages_2_output,
+        "tunnel_originRequest": tunnel_originRequest_output,
+        "tunnel_originRequest_access": tunnel_originRequest_access_output,
+        "tunnel_timestamp": tunnel_timestamp_output,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cfd_tunnel/${pathParam(args, "tunnel_id")}/configurations`,
@@ -108,6 +150,31 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Connector: cloudflared Write",
         "Cloudflare Tunnel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_configuration"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tunnel_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure-2": tunnel_api_response_common_failure_2_output,
+        "tunnel_config": tunnel_config_output,
+        "tunnel_config_src-2": tunnel_config_src_2_output,
+        "tunnel_config_version-2": tunnel_config_version_2_output,
+        "tunnel_config_warp-routing": tunnel_config_warp_routing_output,
+        "tunnel_configuration": tunnel_configuration_output,
+        "tunnel_identifier": tunnel_identifier_output,
+        "tunnel_ingressRule": tunnel_ingressRule_output,
+        "tunnel_messages-2": tunnel_messages_2_output,
+        "tunnel_originRequest": tunnel_originRequest_output,
+        "tunnel_originRequest_access": tunnel_originRequest_access_output,
+        "tunnel_timestamp": tunnel_timestamp_output,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cfd_tunnel/${pathParam(args, "tunnel_id")}/configurations`,

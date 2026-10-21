@@ -3,6 +3,50 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  workers_observability_distribution_result_output,
+  workers_observability_filter_leaf_output,
+  workers_observability_filter_leaf_value_output,
+  workers_observability_filter_node_output,
+  workers_observability_performance_information_output,
+  workers_observability_query_output,
+  workers_observability_query_parameters_groupBysItem_output,
+  workers_observability_query_parameters_havingsItem_output,
+  workers_observability_query_parameters_needle_output,
+  workers_observability_query_parameters_orderBy_output,
+  workers_observability_query_parameters_output,
+  workers_observability_query_results_agentsItem_output,
+  workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_output,
+  workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_value_output,
+  workers_observability_query_results_calculationsItem_aggregatesItem_output,
+  workers_observability_query_results_calculationsItem_output,
+  workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_output,
+  workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value_output,
+  workers_observability_query_results_calculationsItem_seriesItem_dataItem_output,
+  workers_observability_query_results_calculationsItem_seriesItem_output,
+  workers_observability_query_results_compareItem_aggregatesItem_groupsItem_output,
+  workers_observability_query_results_compareItem_aggregatesItem_groupsItem_value_output,
+  workers_observability_query_results_compareItem_aggregatesItem_output,
+  workers_observability_query_results_compareItem_output,
+  workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_output,
+  workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value_output,
+  workers_observability_query_results_compareItem_seriesItem_dataItem_output,
+  workers_observability_query_results_compareItem_seriesItem_output,
+  workers_observability_query_results_events_fieldsItem_output,
+  workers_observability_query_results_events_output,
+  workers_observability_query_results_events_seriesItem_dataItem_aggregates_output,
+  workers_observability_query_results_events_seriesItem_dataItem_output,
+  workers_observability_query_results_events_seriesItem_output,
+  workers_observability_query_results_output,
+  workers_observability_query_results_tracesItem_output,
+  workers_observability_query_run_output,
+  workers_observability_query_run_statistics_output,
+  workers_observability_query_run_timeframe_output,
+  workers_observability_telemetry_event__metadata_output,
+  workers_observability_telemetry_event__workers_output,
+  workers_observability_telemetry_event_output,
+  workers_observability_telemetry_event_source_output,
+} from "../outputs.js";
+import {
   workers_observability_filter_leaf,
   workers_observability_filter_leaf_value,
   workers_observability_filter_node,
@@ -47,6 +91,113 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/workers/observability/telemetry/live-tail/heartbeat",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/telemetry/live-tail/heartbeat`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -237,6 +388,348 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/workers/observability/telemetry/keys",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "lastSeenAt": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "enum": [
+                      "string",
+                      "boolean",
+                      "number"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "key",
+                  "lastSeenAt",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Bad Request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "429": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Too many requests"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "504": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Gateway timeout"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/telemetry/keys`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -347,6 +840,171 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/workers/observability/telemetry/live-tail",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "wsUrl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "wsUrl"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/telemetry/live-tail`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -793,6 +1451,357 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/workers/observability/telemetry/query",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers-observability_query_results"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Bad Request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "429": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Too many requests"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "504": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Gateway timeout"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+      $defs: {
+        "workers-observability_distribution_result": workers_observability_distribution_result_output,
+        "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
+        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
+        "workers-observability_filter_node": workers_observability_filter_node_output,
+        "workers-observability_performance_information": workers_observability_performance_information_output,
+        "workers-observability_query": workers_observability_query_output,
+        "workers-observability_query_parameters": workers_observability_query_parameters_output,
+        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
+        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
+        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
+        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
+        "workers-observability_query_results": workers_observability_query_results_output,
+        "workers-observability_query_results_agentsItem": workers_observability_query_results_agentsItem_output,
+        "workers-observability_query_results_calculationsItem": workers_observability_query_results_calculationsItem_output,
+        "workers-observability_query_results_calculationsItem_aggregatesItem": workers_observability_query_results_calculationsItem_aggregatesItem_output,
+        "workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem": workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_output,
+        "workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem_value": workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_value_output,
+        "workers-observability_query_results_calculationsItem_seriesItem": workers_observability_query_results_calculationsItem_seriesItem_output,
+        "workers-observability_query_results_calculationsItem_seriesItem_dataItem": workers_observability_query_results_calculationsItem_seriesItem_dataItem_output,
+        "workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem": workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_output,
+        "workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value": workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value_output,
+        "workers-observability_query_results_compareItem": workers_observability_query_results_compareItem_output,
+        "workers-observability_query_results_compareItem_aggregatesItem": workers_observability_query_results_compareItem_aggregatesItem_output,
+        "workers-observability_query_results_compareItem_aggregatesItem_groupsItem": workers_observability_query_results_compareItem_aggregatesItem_groupsItem_output,
+        "workers-observability_query_results_compareItem_aggregatesItem_groupsItem_value": workers_observability_query_results_compareItem_aggregatesItem_groupsItem_value_output,
+        "workers-observability_query_results_compareItem_seriesItem": workers_observability_query_results_compareItem_seriesItem_output,
+        "workers-observability_query_results_compareItem_seriesItem_dataItem": workers_observability_query_results_compareItem_seriesItem_dataItem_output,
+        "workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem": workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_output,
+        "workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value": workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value_output,
+        "workers-observability_query_results_events": workers_observability_query_results_events_output,
+        "workers-observability_query_results_events_fieldsItem": workers_observability_query_results_events_fieldsItem_output,
+        "workers-observability_query_results_events_seriesItem": workers_observability_query_results_events_seriesItem_output,
+        "workers-observability_query_results_events_seriesItem_dataItem": workers_observability_query_results_events_seriesItem_dataItem_output,
+        "workers-observability_query_results_events_seriesItem_dataItem_aggregates": workers_observability_query_results_events_seriesItem_dataItem_aggregates_output,
+        "workers-observability_query_results_tracesItem": workers_observability_query_results_tracesItem_output,
+        "workers-observability_query_run": workers_observability_query_run_output,
+        "workers-observability_query_run_statistics": workers_observability_query_run_statistics_output,
+        "workers-observability_query_run_timeframe": workers_observability_query_run_timeframe_output,
+        "workers-observability_telemetry_event": workers_observability_telemetry_event_output,
+        "workers-observability_telemetry_event__metadata": workers_observability_telemetry_event__metadata_output,
+        "workers-observability_telemetry_event__workers": workers_observability_telemetry_event__workers_output,
+        "workers-observability_telemetry_event_source": workers_observability_telemetry_event_source_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/telemetry/query`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -970,6 +1979,362 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/workers/observability/telemetry/values",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "dataset": {
+                    "type": "string"
+                  },
+                  "key": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "string",
+                      "boolean",
+                      "number"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "dataset",
+                  "key",
+                  "type",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Bad Request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Unauthorized"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Forbidden"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "429": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Too many requests"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Internal error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        },
+        "504": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "enum": [
+                      "Gateway timeout"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/observability/telemetry/values`,
       body: { value: args["body"], mediaType: "application/json" },

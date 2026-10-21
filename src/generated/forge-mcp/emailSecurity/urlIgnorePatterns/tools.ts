@@ -2,7 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+} from "../outputs.js";
 import { email_security_identifier } from "../schemas.js";
+import {
+  email_security_DeletedUrlIgnorePattern_output,
+  email_security_UrlIgnorePatternId_output,
+  email_security_UrlIgnorePattern_output,
+} from "./outputs.js";
 import {
   email_security_CreateUrlIgnorePattern,
   email_security_UpdateUrlIgnorePattern,
@@ -135,6 +144,55 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deletes": {
+              "items": {
+                "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
+              },
+              "type": "array"
+            },
+            "patches": {
+              "items": {
+                "$ref": "#/$defs/email-security_UrlIgnorePattern"
+              },
+              "type": "array"
+            },
+            "posts": {
+              "items": {
+                "$ref": "#/$defs/email-security_UrlIgnorePattern"
+              },
+              "type": "array"
+            },
+            "puts": {
+              "items": {
+                "$ref": "#/$defs/email-security_UrlIgnorePattern"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "deletes",
+            "patches",
+            "posts",
+            "puts"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeletedUrlIgnorePattern": email_security_DeletedUrlIgnorePattern_output,
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/url_ignore_patterns/batch`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -178,6 +236,22 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Write"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/email-security_UrlIgnorePattern"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/url_ignore_patterns`,
@@ -223,6 +297,22 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Write"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeletedUrlIgnorePattern": email_security_DeletedUrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/url_ignore_patterns/${pathParam(args, "pattern_id")}`,
@@ -273,6 +363,22 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_UrlIgnorePattern"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/url_ignore_patterns/${pathParam(args, "pattern_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -318,6 +424,22 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_UrlIgnorePattern"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/url_ignore_patterns/${pathParam(args, "pattern_id")}`,
@@ -367,6 +489,50 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_UrlIgnorePattern"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/url_ignore_patterns`,

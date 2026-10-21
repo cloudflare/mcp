@@ -3,12 +3,33 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_colo_output,
+  digital_experience_monitoring_messages_output,
+  digital_experience_monitoring_platform_output,
+  digital_experience_monitoring_status_output,
+  digital_experience_monitoring_timestamp_output,
+  digital_experience_monitoring_version_output,
+} from "../outputs.js";
+import {
   digital_experience_monitoring_colo,
   digital_experience_monitoring_platform,
   digital_experience_monitoring_status,
   digital_experience_monitoring_timestamp,
   digital_experience_monitoring_version,
 } from "../schemas.js";
+import {
+  digital_experience_monitoring_cpu_pct_by_app_output,
+  digital_experience_monitoring_device_output,
+  digital_experience_monitoring_directional_stat_output,
+  digital_experience_monitoring_mode_output,
+  digital_experience_monitoring_personEmail_output,
+  digital_experience_monitoring_ram_used_pct_by_app_output,
+  digital_experience_monitoring_rtt_stats_output,
+  digital_experience_monitoring_schemas_ip_info_location_output,
+  digital_experience_monitoring_schemas_ip_info_output,
+  digital_experience_monitoring_tunnel_stats_output,
+} from "./outputs.js";
 import {
   digital_experience_monitoring_device_id,
   digital_experience_monitoring_mode,
@@ -81,6 +102,35 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_device"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_colo": digital_experience_monitoring_colo_output,
+        "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
+        "digital-experience-monitoring_device": digital_experience_monitoring_device_output,
+        "digital-experience-monitoring_directional_stat": digital_experience_monitoring_directional_stat_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_mode": digital_experience_monitoring_mode_output,
+        "digital-experience-monitoring_personEmail": digital_experience_monitoring_personEmail_output,
+        "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
+        "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
+        "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
+        "digital-experience-monitoring_schemas-ip_info": digital_experience_monitoring_schemas_ip_info_output,
+        "digital-experience-monitoring_schemas-ip_info_location": digital_experience_monitoring_schemas_ip_info_location_output,
+        "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
+        "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
+        "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,
+        "digital-experience-monitoring_version": digital_experience_monitoring_version_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/devices/${pathParam(args, "device_id")}/fleet-status/live`,
@@ -191,6 +241,66 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/digital-experience-monitoring_device"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_colo": digital_experience_monitoring_colo_output,
+        "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
+        "digital-experience-monitoring_device": digital_experience_monitoring_device_output,
+        "digital-experience-monitoring_directional_stat": digital_experience_monitoring_directional_stat_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_mode": digital_experience_monitoring_mode_output,
+        "digital-experience-monitoring_personEmail": digital_experience_monitoring_personEmail_output,
+        "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
+        "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
+        "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
+        "digital-experience-monitoring_schemas-ip_info": digital_experience_monitoring_schemas_ip_info_output,
+        "digital-experience-monitoring_schemas-ip_info_location": digital_experience_monitoring_schemas_ip_info_location_output,
+        "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
+        "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
+        "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,
+        "digital-experience-monitoring_version": digital_experience_monitoring_version_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/fleet-status/devices`,

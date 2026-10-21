@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_created_at_output,
+  access_identifier_output,
+  access_messages_output,
+  access_timestamp_output,
+} from "../../outputs.js";
+import { access_idp_federation_grant_output } from "./outputs.js";
 import { access_idp_federation_grant_create_request } from "./schemas.js";
 
 /**
@@ -43,6 +51,24 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_idp_federation_grant"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_identifier": access_identifier_output,
+        "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_messages": access_messages_output,
+        "access_timestamp": access_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/idp_federation_grants`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -78,6 +104,29 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/access/idp_federation_grants/{grant_id}",
+    responses: {
+      schemas: {
+        "202": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "404": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_identifier": access_identifier_output,
+        "access_messages": access_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/idp_federation_grants/${pathParam(args, "grant_id")}`,
     }),
@@ -115,6 +164,27 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_idp_federation_grant"
+        },
+        "404": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_identifier": access_identifier_output,
+        "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_messages": access_messages_output,
+        "access_timestamp": access_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/idp_federation_grants/${pathParam(args, "grant_id")}`,
     }),
@@ -146,6 +216,55 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/access/idp_federation_grants",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_idp_federation_grant"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_identifier": access_identifier_output,
+        "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_messages": access_messages_output,
+        "access_timestamp": access_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/idp_federation_grants`,

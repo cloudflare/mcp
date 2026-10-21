@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  load_balancing_api_response_common_failure_output,
+  load_balancing_messages_output,
+  load_balancing_origin_health_ip_output,
+  load_balancing_origin_health_output,
+} from "../../../../outputs.js";
 
 /**
  * The tools of `user.load_balancers.pools.health`.
@@ -36,6 +42,41 @@ export const tools: readonly Tool[] = [
         "Load Balancing: Monitors and Pools Write",
         "Load Balancing: Monitors and Pools Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "pool_id": {
+              "type": "string"
+            },
+            "pop_health": {
+              "properties": {
+                "healthy": {
+                  "type": "boolean"
+                },
+                "origins": {
+                  "items": {
+                    "$ref": "#/$defs/load-balancing_origin-health"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_origin-health": load_balancing_origin_health_output,
+        "load-balancing_origin-health_ip": load_balancing_origin_health_ip_output,
+      },
     },
     request: (args) => ({
       path: `/user/load_balancers/pools/${pathParam(args, "pool_id")}/health`,

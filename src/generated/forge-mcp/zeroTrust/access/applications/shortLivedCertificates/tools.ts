@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../../outputs.js";
+import {
+  access_aud_output,
+  access_ca_output,
+  access_id_2_output,
+  access_public_key_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.applications.short_lived_certificates`.
@@ -51,6 +61,24 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_ca"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_aud": access_aud_output,
+        "access_ca": access_ca_output,
+        "access_id-2": access_id_2_output,
+        "access_messages": access_messages_output,
+        "access_public_key": access_public_key_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/apps/${pathParam(args, "app_id")}/ca`,
     }),
@@ -98,6 +126,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Apps and Policies Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "202": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_id-2"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_id-2": access_id_2_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/apps/${pathParam(args, "app_id")}/ca`,
@@ -147,6 +195,24 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Write",
         "Access: Apps and Policies Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_ca"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_aud": access_aud_output,
+        "access_ca": access_ca_output,
+        "access_id-2": access_id_2_output,
+        "access_messages": access_messages_output,
+        "access_public_key": access_public_key_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/apps/${pathParam(args, "app_id")}/ca`,
@@ -201,6 +267,55 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Write",
         "Access: Apps and Policies Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_ca"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_aud": access_aud_output,
+        "access_ca": access_ca_output,
+        "access_id-2": access_id_2_output,
+        "access_messages": access_messages_output,
+        "access_public_key": access_public_key_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/apps/ca`,

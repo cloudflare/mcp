@@ -3,6 +3,10 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  cloudforce_one_ErrorResponse_output,
+  cloudforce_one_ResubmitApprovalResponse_output,
+} from "../../outputs.js";
+import {
   cloudforce_one_MetaInputEntry,
   cloudforce_one_MetaInputEntry_value,
 } from "../../schemas.js";
@@ -161,6 +165,29 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/cloudforce-one/rules/structured/approvals/{id}/resubmit",
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/cloudforce-one_ResubmitApprovalResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_ResubmitApprovalResponse": cloudforce_one_ResubmitApprovalResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/structured/approvals/${pathParam(args, "id")}/resubmit`,
       query: [

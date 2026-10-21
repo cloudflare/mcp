@@ -3,6 +3,51 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  teams_devices_api_response_common_failure_output,
+  teams_devices_messages_output,
+} from "../../outputs.js";
+import {
+  teams_devices_allow_mode_switch_output,
+  teams_devices_allow_updates_output,
+  teams_devices_allowed_to_leave_output,
+  teams_devices_auto_connect_output,
+  teams_devices_captive_portal_output,
+  teams_devices_disable_auto_fallback_output,
+  teams_devices_dns_search_suffix_output,
+  teams_devices_dns_search_suffixes_output,
+  teams_devices_enable_device_credential_authentication_output,
+  teams_devices_exclude_office_ips_output,
+  teams_devices_exclude_output,
+  teams_devices_exclude_split_tunnel_with_address_output,
+  teams_devices_exclude_split_tunnel_with_host_output,
+  teams_devices_fallback_domain_output,
+  teams_devices_fallback_domains_output,
+  teams_devices_gateway_unique_id_output,
+  teams_devices_global_acceleration_output,
+  teams_devices_include_output,
+  teams_devices_include_split_tunnel_address_output,
+  teams_devices_include_split_tunnel_description_output,
+  teams_devices_include_split_tunnel_host_output,
+  teams_devices_include_split_tunnel_with_address_output,
+  teams_devices_include_split_tunnel_with_host_output,
+  teams_devices_ip_output,
+  teams_devices_profile_type_output,
+  teams_devices_register_interface_ip_with_dns_output,
+  teams_devices_sccm_vpn_boundary_support_output,
+  teams_devices_schemas_uuid_output,
+  teams_devices_service_mode_v2_output,
+  teams_devices_split_tunnel_address_output,
+  teams_devices_split_tunnel_description_output,
+  teams_devices_split_tunnel_host_output,
+  teams_devices_split_tunnel_include_output,
+  teams_devices_split_tunnel_output,
+  teams_devices_support_url_output,
+  teams_devices_switch_locked_output,
+  teams_devices_tunnel_protocol_output,
+  teams_devices_uninstall_protection_output,
+  teams_devices_virtual_networks_output,
+} from "../outputs.js";
+import {
   teams_devices_allow_mode_switch,
   teams_devices_allow_updates,
   teams_devices_allowed_to_leave,
@@ -39,6 +84,7 @@ import {
   teams_devices_uninstall_protection,
   teams_devices_virtual_networks,
 } from "../schemas.js";
+import { teams_devices_default_device_settings_policy_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.devices.profiles.default`.
@@ -68,6 +114,60 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/policy",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_default_device_settings_policy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
+        "teams-devices_allow_updates": teams_devices_allow_updates_output,
+        "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_auto_connect": teams_devices_auto_connect_output,
+        "teams-devices_captive_portal": teams_devices_captive_portal_output,
+        "teams-devices_default_device_settings_policy": teams_devices_default_device_settings_policy_output,
+        "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
+        "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
+        "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
+        "teams-devices_enable_device_credential_authentication": teams_devices_enable_device_credential_authentication_output,
+        "teams-devices_exclude": teams_devices_exclude_output,
+        "teams-devices_exclude_office_ips": teams_devices_exclude_office_ips_output,
+        "teams-devices_exclude_split_tunnel_with_address": teams_devices_exclude_split_tunnel_with_address_output,
+        "teams-devices_exclude_split_tunnel_with_host": teams_devices_exclude_split_tunnel_with_host_output,
+        "teams-devices_fallback_domain": teams_devices_fallback_domain_output,
+        "teams-devices_fallback_domains": teams_devices_fallback_domains_output,
+        "teams-devices_gateway_unique_id": teams_devices_gateway_unique_id_output,
+        "teams-devices_global_acceleration": teams_devices_global_acceleration_output,
+        "teams-devices_include": teams_devices_include_output,
+        "teams-devices_include_split_tunnel_address": teams_devices_include_split_tunnel_address_output,
+        "teams-devices_include_split_tunnel_description": teams_devices_include_split_tunnel_description_output,
+        "teams-devices_include_split_tunnel_host": teams_devices_include_split_tunnel_host_output,
+        "teams-devices_include_split_tunnel_with_address": teams_devices_include_split_tunnel_with_address_output,
+        "teams-devices_include_split_tunnel_with_host": teams_devices_include_split_tunnel_with_host_output,
+        "teams-devices_ip": teams_devices_ip_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_profile_type": teams_devices_profile_type_output,
+        "teams-devices_register_interface_ip_with_dns": teams_devices_register_interface_ip_with_dns_output,
+        "teams-devices_sccm_vpn_boundary_support": teams_devices_sccm_vpn_boundary_support_output,
+        "teams-devices_schemas-uuid": teams_devices_schemas_uuid_output,
+        "teams-devices_service_mode_v2": teams_devices_service_mode_v2_output,
+        "teams-devices_split_tunnel": teams_devices_split_tunnel_output,
+        "teams-devices_split_tunnel_address": teams_devices_split_tunnel_address_output,
+        "teams-devices_split_tunnel_description": teams_devices_split_tunnel_description_output,
+        "teams-devices_split_tunnel_host": teams_devices_split_tunnel_host_output,
+        "teams-devices_split_tunnel_include": teams_devices_split_tunnel_include_output,
+        "teams-devices_support_url": teams_devices_support_url_output,
+        "teams-devices_switch_locked": teams_devices_switch_locked_output,
+        "teams-devices_tunnel_protocol": teams_devices_tunnel_protocol_output,
+        "teams-devices_uninstall_protection": teams_devices_uninstall_protection_output,
+        "teams-devices_virtual_networks": teams_devices_virtual_networks_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/policy`,
     }),
@@ -245,6 +345,60 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_default_device_settings_policy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
+        "teams-devices_allow_updates": teams_devices_allow_updates_output,
+        "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_auto_connect": teams_devices_auto_connect_output,
+        "teams-devices_captive_portal": teams_devices_captive_portal_output,
+        "teams-devices_default_device_settings_policy": teams_devices_default_device_settings_policy_output,
+        "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
+        "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
+        "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
+        "teams-devices_enable_device_credential_authentication": teams_devices_enable_device_credential_authentication_output,
+        "teams-devices_exclude": teams_devices_exclude_output,
+        "teams-devices_exclude_office_ips": teams_devices_exclude_office_ips_output,
+        "teams-devices_exclude_split_tunnel_with_address": teams_devices_exclude_split_tunnel_with_address_output,
+        "teams-devices_exclude_split_tunnel_with_host": teams_devices_exclude_split_tunnel_with_host_output,
+        "teams-devices_fallback_domain": teams_devices_fallback_domain_output,
+        "teams-devices_fallback_domains": teams_devices_fallback_domains_output,
+        "teams-devices_gateway_unique_id": teams_devices_gateway_unique_id_output,
+        "teams-devices_global_acceleration": teams_devices_global_acceleration_output,
+        "teams-devices_include": teams_devices_include_output,
+        "teams-devices_include_split_tunnel_address": teams_devices_include_split_tunnel_address_output,
+        "teams-devices_include_split_tunnel_description": teams_devices_include_split_tunnel_description_output,
+        "teams-devices_include_split_tunnel_host": teams_devices_include_split_tunnel_host_output,
+        "teams-devices_include_split_tunnel_with_address": teams_devices_include_split_tunnel_with_address_output,
+        "teams-devices_include_split_tunnel_with_host": teams_devices_include_split_tunnel_with_host_output,
+        "teams-devices_ip": teams_devices_ip_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_profile_type": teams_devices_profile_type_output,
+        "teams-devices_register_interface_ip_with_dns": teams_devices_register_interface_ip_with_dns_output,
+        "teams-devices_sccm_vpn_boundary_support": teams_devices_sccm_vpn_boundary_support_output,
+        "teams-devices_schemas-uuid": teams_devices_schemas_uuid_output,
+        "teams-devices_service_mode_v2": teams_devices_service_mode_v2_output,
+        "teams-devices_split_tunnel": teams_devices_split_tunnel_output,
+        "teams-devices_split_tunnel_address": teams_devices_split_tunnel_address_output,
+        "teams-devices_split_tunnel_description": teams_devices_split_tunnel_description_output,
+        "teams-devices_split_tunnel_host": teams_devices_split_tunnel_host_output,
+        "teams-devices_split_tunnel_include": teams_devices_split_tunnel_include_output,
+        "teams-devices_support_url": teams_devices_support_url_output,
+        "teams-devices_switch_locked": teams_devices_switch_locked_output,
+        "teams-devices_tunnel_protocol": teams_devices_tunnel_protocol_output,
+        "teams-devices_uninstall_protection": teams_devices_uninstall_protection_output,
+        "teams-devices_virtual_networks": teams_devices_virtual_networks_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/policy`,

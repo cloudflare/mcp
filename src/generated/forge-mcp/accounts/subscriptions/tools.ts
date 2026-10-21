@@ -3,6 +3,27 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_component_value_output,
+  bill_subs_api_component_values_output,
+  bill_subs_api_currency_output,
+  bill_subs_api_current_period_end_output,
+  bill_subs_api_current_period_start_output,
+  bill_subs_api_frequency_output,
+  bill_subs_api_identifier_output,
+  bill_subs_api_install_id_output,
+  bill_subs_api_messages_output,
+  bill_subs_api_name_output,
+  bill_subs_api_price_output,
+  bill_subs_api_rate_plan_output,
+  bill_subs_api_result_info_output,
+  bill_subs_api_schemas_identifier_output,
+  bill_subs_api_state_output,
+  bill_subs_api_subscription_v2_app_output,
+  bill_subs_api_subscription_v2_output,
+  bill_subs_api_zone_output,
+} from "../../outputs.js";
+import {
   bill_subs_api_component_value,
   bill_subs_api_component_values,
   bill_subs_api_frequency,
@@ -12,6 +33,7 @@ import {
   bill_subs_api_subscription_v2_app,
   bill_subs_api_zone,
 } from "../../schemas.js";
+import { bill_subs_api_cancel_reason_output } from "./outputs.js";
 import { bill_subs_api_cancel_reason_request } from "./schemas.js";
 
 /**
@@ -76,6 +98,31 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/subscriptions/cancel-downgrade`,
@@ -155,6 +202,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/bill-subs-api_subscription-v2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_component_value": bill_subs_api_component_value_output,
+        "bill-subs-api_component_values": bill_subs_api_component_values_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
+        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
+        "bill-subs-api_frequency": bill_subs_api_frequency_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_install_id": bill_subs_api_install_id_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_name": bill_subs_api_name_output,
+        "bill-subs-api_price": bill_subs_api_price_output,
+        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_state": bill_subs_api_state_output,
+        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2_output,
+        "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app_output,
+        "bill-subs-api_zone": bill_subs_api_zone_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/subscriptions`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -218,6 +295,21 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/bill-subs-api_cancel_reason"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_cancel_reason": bill_subs_api_cancel_reason_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/subscriptions/${pathParam(args, "subscription_identifier")}/cancel-reason`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -267,6 +359,26 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "subscription_id": {
+              "$ref": "#/$defs/bill-subs-api_schemas-identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/subscriptions/${pathParam(args, "subscription_identifier")}`,
@@ -328,6 +440,51 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/bill-subs-api_subscription-v2"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/bill-subs-api_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_component_value": bill_subs_api_component_value_output,
+        "bill-subs-api_component_values": bill_subs_api_component_values_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
+        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
+        "bill-subs-api_frequency": bill_subs_api_frequency_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_install_id": bill_subs_api_install_id_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_name": bill_subs_api_name_output,
+        "bill-subs-api_price": bill_subs_api_price_output,
+        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
+        "bill-subs-api_result_info": bill_subs_api_result_info_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_state": bill_subs_api_state_output,
+        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2_output,
+        "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app_output,
+        "bill-subs-api_zone": bill_subs_api_zone_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/subscriptions`,
     }),
@@ -384,6 +541,39 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/bill-subs-api_subscription-v2"
+        },
+        "404": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_component_value": bill_subs_api_component_value_output,
+        "bill-subs-api_component_values": bill_subs_api_component_values_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
+        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
+        "bill-subs-api_frequency": bill_subs_api_frequency_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_install_id": bill_subs_api_install_id_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_name": bill_subs_api_name_output,
+        "bill-subs-api_price": bill_subs_api_price_output,
+        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_state": bill_subs_api_state_output,
+        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2_output,
+        "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app_output,
+        "bill-subs-api_zone": bill_subs_api_zone_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/subscriptions/${pathParam(args, "subscription_identifier")}`,
     }),
@@ -425,6 +615,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/bill-subs-api_cancel_reason"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_cancel_reason": bill_subs_api_cancel_reason_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/subscriptions/${pathParam(args, "subscription_identifier")}/cancel-reason`,
@@ -498,6 +703,36 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/bill-subs-api_subscription-v2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_component_value": bill_subs_api_component_value_output,
+        "bill-subs-api_component_values": bill_subs_api_component_values_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
+        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
+        "bill-subs-api_frequency": bill_subs_api_frequency_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_install_id": bill_subs_api_install_id_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_name": bill_subs_api_name_output,
+        "bill-subs-api_price": bill_subs_api_price_output,
+        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_state": bill_subs_api_state_output,
+        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2_output,
+        "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app_output,
+        "bill-subs-api_zone": bill_subs_api_zone_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/subscriptions/${pathParam(args, "subscription_identifier")}`,

@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  logpush_api_response_common_failure_output,
+  logpush_messages_output,
+} from "../outputs.js";
 import { logpush_destination_conf } from "../schemas.js";
 
 /**
@@ -78,6 +82,32 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logpush/validate/destination/exists`,

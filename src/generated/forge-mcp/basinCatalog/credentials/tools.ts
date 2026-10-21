@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  r2_data_catalog_api_response_common_failure_errorsItem_output,
+  r2_data_catalog_api_response_common_failure_output,
+  r2_data_catalog_credential_probe_status_output,
+} from "../../outputs.js";
 import { r2_data_catalog_catalog_credential_request } from "../../schemas.js";
 
 /**
@@ -50,6 +55,39 @@ export const tools: readonly Tool[] = [
         "Workers R2 Data Catalog Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "400": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "401": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "403": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "500": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
+        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/credential`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -90,6 +128,41 @@ export const tools: readonly Tool[] = [
         "Workers R2 Data Catalog Write",
         "Workers R2 Data Catalog Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "status": {
+              "$ref": "#/$defs/r2-data-catalog_credential-probe-status"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "401": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "403": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "500": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
+        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_credential-probe-status": r2_data_catalog_credential_probe_status_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/credential/status`,

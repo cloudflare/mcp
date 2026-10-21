@@ -3,6 +3,23 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  workers_api_response_common_failure_output,
+  workers_exports_reconciliation_error_output,
+  workers_exports_reconciliation_error_response_errorsItem_meta_output,
+  workers_exports_reconciliation_error_response_errorsItem_output,
+  workers_exports_reconciliation_error_response_output,
+  workers_exports_reconciliation_scenario_output,
+  workers_logpush_output,
+  workers_messages_output,
+  workers_observability_2_issues_output,
+  workers_observability_2_logs_output,
+  workers_observability_2_output,
+  workers_observability_2_traces_output,
+  workers_tag_output,
+  workers_tags_output,
+  workers_tail_consumers_script_output,
+} from "../../../../outputs.js";
+import {
   workers_logpush,
   workers_observability_2,
   workers_observability_2_issues,
@@ -12,6 +29,7 @@ import {
   workers_tags,
   workers_tail_consumers_script,
 } from "../../../../schemas.js";
+import { workers_script_settings_item_output } from "./outputs.js";
 import { workers_script_settings_item } from "./schemas.js";
 
 /**
@@ -75,6 +93,41 @@ export const tools: readonly Tool[] = [
         "sdk"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_script-settings-item"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            },
+            {
+              "$ref": "#/$defs/workers_exports_reconciliation_error_response"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_exports_reconciliation_error": workers_exports_reconciliation_error_output,
+        "workers_exports_reconciliation_error_response": workers_exports_reconciliation_error_response_output,
+        "workers_exports_reconciliation_error_response_errorsItem": workers_exports_reconciliation_error_response_errorsItem_output,
+        "workers_exports_reconciliation_error_response_errorsItem_meta": workers_exports_reconciliation_error_response_errorsItem_meta_output,
+        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario_output,
+        "workers_logpush": workers_logpush_output,
+        "workers_messages": workers_messages_output,
+        "workers_observability-2": workers_observability_2_output,
+        "workers_observability-2_issues": workers_observability_2_issues_output,
+        "workers_observability-2_logs": workers_observability_2_logs_output,
+        "workers_observability-2_traces": workers_observability_2_traces_output,
+        "workers_script-settings-item": workers_script_settings_item_output,
+        "workers_tag": workers_tag_output,
+        "workers_tags": workers_tags_output,
+        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/script-settings`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -127,6 +180,29 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_script-settings-item"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_logpush": workers_logpush_output,
+        "workers_messages": workers_messages_output,
+        "workers_observability-2": workers_observability_2_output,
+        "workers_observability-2_issues": workers_observability_2_issues_output,
+        "workers_observability-2_logs": workers_observability_2_logs_output,
+        "workers_observability-2_traces": workers_observability_2_traces_output,
+        "workers_script-settings-item": workers_script_settings_item_output,
+        "workers_tag": workers_tag_output,
+        "workers_tags": workers_tags_output,
+        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/script-settings`,

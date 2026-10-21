@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  custom_indicator_feeds_api_response_common_failure_output,
+  custom_indicator_feeds_messages_output,
+  custom_indicator_feeds_update_feed_output,
+} from "../outputs.js";
 
 /**
  * The tools of `intel.indicator_feeds.downloads`.
@@ -42,6 +47,21 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-indicator-feeds_update_feed"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-indicator-feeds_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
+        "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
+        "custom-indicator-feeds_update_feed": custom_indicator_feeds_update_feed_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/indicator-feeds/${pathParam(args, "feed_id")}/download`,

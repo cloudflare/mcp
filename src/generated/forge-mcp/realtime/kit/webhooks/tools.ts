@@ -3,6 +3,13 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  realtimekit_ErrorResponse_error_output,
+  realtimekit_ErrorResponse_output,
+  realtimekit_WebhookSuccessResponse_output,
+  realtimekit_Webhook_output,
+  realtimekit_WebhooksListSuccessResponse_output,
+} from "./outputs.js";
+import {
   realtimekit_PatchWebhookRequest,
   realtimekit_WebhookRequest,
 } from "./schemas.js";
@@ -54,6 +61,23 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/realtimekit_WebhookSuccessResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/realtimekit_ErrorResponse"
+        },
+        "401": {}
+      },
+      $defs: {
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
+        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/webhooks`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -102,6 +126,23 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/realtimekit_WebhookSuccessResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/realtimekit_ErrorResponse"
+        },
+        "401": {}
+      },
+      $defs: {
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
+        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/webhooks/${pathParam(args, "webhook_id")}`,
     }),
@@ -149,6 +190,23 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/realtimekit_WebhookSuccessResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/realtimekit_ErrorResponse"
+        },
+        "401": {}
+      },
+      $defs: {
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
+        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/webhooks/${pathParam(args, "webhook_id")}`,
     }),
@@ -188,6 +246,18 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/realtimekit_WebhooksListSuccessResponse"
+        },
+        "401": {}
+      },
+      $defs: {
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhooksListSuccessResponse": realtimekit_WebhooksListSuccessResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/webhooks`,
@@ -243,6 +313,23 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/realtimekit_WebhookSuccessResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/realtimekit_ErrorResponse"
+        },
+        "401": {}
+      },
+      $defs: {
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
+        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/webhooks/${pathParam(args, "webhook_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -297,6 +384,23 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/realtimekit_WebhookSuccessResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/realtimekit_ErrorResponse"
+        },
+        "401": {}
+      },
+      $defs: {
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
+        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/webhooks/${pathParam(args, "webhook_id")}`,

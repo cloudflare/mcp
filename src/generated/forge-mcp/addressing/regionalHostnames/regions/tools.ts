@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  dls_api_response_common_failure_output,
+  dls_messages_output,
+  dls_region_key_output,
+} from "../outputs.js";
 import { dls_identifier } from "../schemas.js";
 
 /**
@@ -41,6 +46,60 @@ export const tools: readonly Tool[] = [
         "DNS Read",
         "DNS Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "key": {
+                    "$ref": "#/$defs/dls_region_key"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dls_api-response-common-failure": dls_api_response_common_failure_output,
+        "dls_messages": dls_messages_output,
+        "dls_region_key": dls_region_key_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/regional_hostnames/regions`,

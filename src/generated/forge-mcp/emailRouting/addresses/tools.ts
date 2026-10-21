@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { email_created_output, email_modified_output } from "../../outputs.js";
+import {
+  email_destination_address_identifier_output,
+  email_destination_address_properties_output,
+  email_destination_address_tag_output,
+  email_email_output,
+  email_verified_output,
+} from "./outputs.js";
 import {
   email_create_destination_address_properties,
   email_email,
@@ -66,6 +74,23 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_destination_address_properties"
+        },
+        "422": null
+      },
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/routing/addresses`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -122,6 +147,23 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_destination_address_properties"
+        },
+        "404": null
+      },
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/routing/addresses/${pathParam(args, "destination_address_identifier")}`,
     }),
@@ -177,6 +219,23 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_destination_address_properties"
+        },
+        "404": null
+      },
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/routing/addresses/${pathParam(args, "destination_address_identifier")}`,
@@ -257,6 +316,51 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email_destination_address_properties"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "403": null
+      },
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/routing/addresses`,
       query: [
@@ -324,6 +428,23 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_destination_address_properties"
+        },
+        "404": null
+      },
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/routing/addresses/${pathParam(args, "destination_address_identifier")}`,

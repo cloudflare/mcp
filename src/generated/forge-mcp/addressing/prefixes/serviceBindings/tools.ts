@@ -2,8 +2,23 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  addressing_api_response_common_failure_output,
+  addressing_messages_output,
+  addressing_service_identifier_output,
+  addressing_service_name_output,
+} from "../../outputs.js";
 import { addressing_service_identifier } from "../../schemas.js";
+import {
+  addressing_api_response_common_output,
+  addressing_cidr_output,
+} from "../outputs.js";
 import { addressing_cidr } from "../schemas.js";
+import {
+  addressing_provisioning_output,
+  addressing_service_binding_identifier_output,
+  addressing_service_binding_output,
+} from "./outputs.js";
 import { addressing_create_binding_request } from "./schemas.js";
 
 /**
@@ -53,6 +68,26 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/addressing_service_binding"
+        },
+        "4XX": {
+          "$ref": "#/$defs/addressing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_provisioning": addressing_provisioning_output,
+        "addressing_service_binding": addressing_service_binding_output,
+        "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
+        "addressing_service_identifier": addressing_service_identifier_output,
+        "addressing_service_name": addressing_service_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bindings`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -97,6 +132,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "IP Prefixes: Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/addressing_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/addressing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_messages": addressing_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bindings/${pathParam(args, "binding_id")}`,
@@ -143,6 +193,26 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/addressing_service_binding"
+        },
+        "4XX": {
+          "$ref": "#/$defs/addressing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_provisioning": addressing_provisioning_output,
+        "addressing_service_binding": addressing_service_binding_output,
+        "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
+        "addressing_service_identifier": addressing_service_identifier_output,
+        "addressing_service_name": addressing_service_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bindings/${pathParam(args, "binding_id")}`,
     }),
@@ -182,6 +252,40 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: Write",
         "IP Prefixes: Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/addressing_service_binding"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/addressing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_provisioning": addressing_provisioning_output,
+        "addressing_service_binding": addressing_service_binding_output,
+        "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
+        "addressing_service_identifier": addressing_service_identifier_output,
+        "addressing_service_name": addressing_service_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bindings`,

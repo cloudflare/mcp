@@ -3,6 +3,17 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  custom_pages_api_response_common_failure_output,
+  custom_pages_messages_output,
+  custom_pages_timestamp_output,
+} from "../outputs.js";
+import {
+  custom_pages_asset_description_output,
+  custom_pages_asset_name_output,
+  custom_pages_asset_url_output,
+  custom_pages_custom_asset_output,
+} from "./outputs.js";
+import {
   custom_pages_asset_description,
   custom_pages_asset_name,
   custom_pages_asset_url,
@@ -83,6 +94,25 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-pages_custom_asset"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_asset_description": custom_pages_asset_description_output,
+        "custom-pages_asset_name": custom_pages_asset_name_output,
+        "custom-pages_asset_url": custom_pages_asset_url_output,
+        "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_messages": custom_pages_messages_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages/assets`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -136,6 +166,18 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_messages": custom_pages_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages/assets/${pathParam(args, "asset_name")}`,
     }),
@@ -187,6 +229,25 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-pages_custom_asset"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_asset_description": custom_pages_asset_description_output,
+        "custom-pages_asset_name": custom_pages_asset_name_output,
+        "custom-pages_asset_url": custom_pages_asset_url_output,
+        "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_messages": custom_pages_messages_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages/assets/${pathParam(args, "asset_name")}`,
@@ -244,6 +305,56 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/custom-pages_custom_asset"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_asset_description": custom_pages_asset_description_output,
+        "custom-pages_asset_name": custom_pages_asset_name_output,
+        "custom-pages_asset_url": custom_pages_asset_url_output,
+        "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_messages": custom_pages_messages_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages/assets`,
@@ -322,6 +433,25 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-pages_custom_asset"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_asset_description": custom_pages_asset_description_output,
+        "custom-pages_asset_name": custom_pages_asset_name_output,
+        "custom-pages_asset_url": custom_pages_asset_url_output,
+        "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_messages": custom_pages_messages_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages/assets/${pathParam(args, "asset_name")}`,

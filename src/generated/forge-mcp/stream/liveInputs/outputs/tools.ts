@@ -3,6 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  stream_api_response_common_failure_output,
+  stream_messages_output,
+} from "../../outputs.js";
+import {
+  stream_output_enabled_output,
+  stream_output_identifier_output,
+  stream_output_output,
+  stream_output_streamKey_output,
+  stream_output_url_output,
+} from "./outputs.js";
+import {
   stream_create_output_request,
   stream_output_enabled,
   stream_output_streamKey,
@@ -54,6 +65,25 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/stream/live_inputs/{live_input_identifier}/outputs",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_output"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+        "stream_output": stream_output_output,
+        "stream_output_enabled": stream_output_enabled_output,
+        "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_streamKey": stream_output_streamKey_output,
+        "stream_output_url": stream_output_url_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/live_inputs/${pathParam(args, "live_input_identifier")}/outputs`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -99,6 +129,12 @@ export const tools: readonly Tool[] = [
         "Stream Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {},
+        "4XX": {}
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/live_inputs/${pathParam(args, "live_input_identifier")}/outputs/${pathParam(args, "output_identifier")}`,
     }),
@@ -138,6 +174,39 @@ export const tools: readonly Tool[] = [
         "Stream Write",
         "Stream Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/stream_output"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+        "stream_output": stream_output_output,
+        "stream_output_enabled": stream_output_enabled_output,
+        "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_streamKey": stream_output_streamKey_output,
+        "stream_output_url": stream_output_url_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/live_inputs/${pathParam(args, "live_input_identifier")}/outputs`,
@@ -190,6 +259,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Stream Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_output"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_messages": stream_messages_output,
+        "stream_output": stream_output_output,
+        "stream_output_enabled": stream_output_enabled_output,
+        "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_streamKey": stream_output_streamKey_output,
+        "stream_output_url": stream_output_url_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/live_inputs/${pathParam(args, "live_input_identifier")}/outputs/${pathParam(args, "output_identifier")}`,

@@ -3,10 +3,31 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  secondary_dns_api_response_common_failure_output,
+  secondary_dns_id_response_output,
+  secondary_dns_id_response_result_output,
+  secondary_dns_identifier_output,
+  secondary_dns_messages_output,
+  secondary_dns_name_output,
+  secondary_dns_peers_output,
+  secondary_dns_soa_serial_output,
+  secondary_dns_time_output,
+} from "../outputs.js";
+import {
   secondary_dns_identifier,
   secondary_dns_name,
   secondary_dns_peers,
 } from "../schemas.js";
+import {
+  secondary_dns_disable_transfer_response_output,
+  secondary_dns_disable_transfer_result_output,
+  secondary_dns_enable_transfer_response_output,
+  secondary_dns_enable_transfer_result_output,
+  secondary_dns_force_response_2_output,
+  secondary_dns_force_result_2_output,
+  secondary_dns_single_response_outgoing_output,
+  secondary_dns_single_response_outgoing_result_output,
+} from "./outputs.js";
 import { secondary_dns_single_request_outgoing } from "./schemas.js";
 
 /**
@@ -60,6 +81,57 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "checked_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "created_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "id": {
+              "$ref": "#/$defs/secondary-dns_identifier"
+            },
+            "last_transferred_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "name": {
+              "$ref": "#/$defs/secondary-dns_name"
+            },
+            "peers": {
+              "$ref": "#/$defs/secondary-dns_peers"
+            },
+            "soa_serial": {
+              "$ref": "#/$defs/secondary-dns_soa_serial"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_single_response_outgoing"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_name": secondary_dns_name_output,
+        "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_single_response_outgoing": secondary_dns_single_response_outgoing_output,
+        "secondary-dns_single_response_outgoing_result": secondary_dns_single_response_outgoing_result_output,
+        "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
+        "secondary-dns_time": secondary_dns_time_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/secondary_dns/outgoing`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -102,6 +174,35 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/secondary-dns_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_id_response"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_id_response": secondary_dns_id_response_output,
+        "secondary-dns_id_response_result": secondary_dns_id_response_result_output,
+        "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/secondary_dns/outgoing`,
     }),
@@ -142,6 +243,29 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secondary-dns_disable_transfer_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_disable_transfer_response"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_disable_transfer_response": secondary_dns_disable_transfer_response_output,
+        "secondary-dns_disable_transfer_result": secondary_dns_disable_transfer_result_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/secondary_dns/outgoing/disable`,
@@ -184,6 +308,29 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secondary-dns_enable_transfer_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_enable_transfer_response"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_enable_transfer_response": secondary_dns_enable_transfer_response_output,
+        "secondary-dns_enable_transfer_result": secondary_dns_enable_transfer_result_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/secondary_dns/outgoing/enable`,
     }),
@@ -224,6 +371,29 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secondary-dns_force_result-2"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_force_response-2"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_force_response-2": secondary_dns_force_response_2_output,
+        "secondary-dns_force_result-2": secondary_dns_force_result_2_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/secondary_dns/outgoing/force_notify`,
@@ -267,6 +437,57 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "checked_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "created_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "id": {
+              "$ref": "#/$defs/secondary-dns_identifier"
+            },
+            "last_transferred_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "name": {
+              "$ref": "#/$defs/secondary-dns_name"
+            },
+            "peers": {
+              "$ref": "#/$defs/secondary-dns_peers"
+            },
+            "soa_serial": {
+              "$ref": "#/$defs/secondary-dns_soa_serial"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_single_response_outgoing"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_name": secondary_dns_name_output,
+        "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_single_response_outgoing": secondary_dns_single_response_outgoing_output,
+        "secondary-dns_single_response_outgoing_result": secondary_dns_single_response_outgoing_result_output,
+        "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
+        "secondary-dns_time": secondary_dns_time_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/secondary_dns/outgoing`,
@@ -318,6 +539,57 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "checked_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "created_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "id": {
+              "$ref": "#/$defs/secondary-dns_identifier"
+            },
+            "last_transferred_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "name": {
+              "$ref": "#/$defs/secondary-dns_name"
+            },
+            "peers": {
+              "$ref": "#/$defs/secondary-dns_peers"
+            },
+            "soa_serial": {
+              "$ref": "#/$defs/secondary-dns_soa_serial"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/secondary-dns_single_response_outgoing"
+            },
+            {
+              "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_name": secondary_dns_name_output,
+        "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_single_response_outgoing": secondary_dns_single_response_outgoing_output,
+        "secondary-dns_single_response_outgoing_result": secondary_dns_single_response_outgoing_result_output,
+        "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
+        "secondary-dns_time": secondary_dns_time_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/secondary_dns/outgoing`,

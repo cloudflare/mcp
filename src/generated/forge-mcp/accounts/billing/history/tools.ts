@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_messages_output,
+  bill_subs_api_result_info_output,
+} from "../../../outputs.js";
+import { bill_subs_api_account_billing_history_output } from "../outputs.js";
 
 /**
  * The tools of `accounts.billing.history`.
@@ -67,6 +73,36 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/bill-subs-api_account_billing_history"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/bill-subs-api_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_account_billing_history": bill_subs_api_account_billing_history_output,
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_result_info": bill_subs_api_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/history`,

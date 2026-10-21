@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_messages_output,
+} from "../outputs.js";
+import {
+  digital_experience_monitoring_get_commands_response_commandsItem_output,
+  digital_experience_monitoring_get_commands_response_output,
+  digital_experience_monitoring_post_commands_response_commandsItem_output,
+  digital_experience_monitoring_post_commands_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.commands`.
@@ -133,6 +143,22 @@ export const tools: readonly Tool[] = [
         "Cloudflare DEX Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_post_commands_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_post_commands_response": digital_experience_monitoring_post_commands_response_output,
+        "digital-experience-monitoring_post_commands_response_commandsItem": digital_experience_monitoring_post_commands_response_commandsItem_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/commands`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -218,6 +244,22 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_get_commands_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_get_commands_response": digital_experience_monitoring_get_commands_response_output,
+        "digital-experience-monitoring_get_commands_response_commandsItem": digital_experience_monitoring_get_commands_response_commandsItem_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/commands`,

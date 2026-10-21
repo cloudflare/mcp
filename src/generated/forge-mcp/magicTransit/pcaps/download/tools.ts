@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  magic_visibility_pcaps_api_response_common_failure_output,
+  magic_visibility_pcaps_messages_output,
+} from "../outputs.js";
 
 /**
  * The tools of `magic_transit.pcaps.download`.
@@ -48,6 +52,21 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps/${pathParam(args, "pcap_id")}/download`,

@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  posture_api_error_response_output,
+  posture_api_messages_output,
+} from "../outputs.js";
+import {
+  posture_api_AssetSchemaDetail_output,
+  posture_api_AssetSchemaSummary_output,
+  posture_api_AssetSchemaVendorGroup_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.casb.asset_schemas`.
@@ -42,6 +51,27 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_AssetSchemaDetail"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "404": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_AssetSchemaDetail": posture_api_AssetSchemaDetail_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/asset_schemas/${pathParam(args, "asset_class")}`,
@@ -100,6 +130,42 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/posture-api_AssetSchemaVendorGroup"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_AssetSchemaSummary": posture_api_AssetSchemaSummary_output,
+        "posture-api_AssetSchemaVendorGroup": posture_api_AssetSchemaVendorGroup_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/asset_schemas`,

@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  mcn_bad_response_output,
+  mcn_error_meta_output,
+  mcn_error_output,
+  mcn_error_source_output,
+} from "../../outputs.js";
+import {
+  mcn_cidr_prefix_output,
+  mcn_magic_wan_address_space_output,
+} from "./outputs.js";
+import {
   mcn_cidr_prefix,
   mcn_update_magic_wan_address_space_request,
 } from "./schemas.js";
@@ -48,6 +58,39 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_magic_wan_address_space"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cidr_prefix": mcn_cidr_prefix_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_magic_wan_address_space": mcn_magic_wan_address_space_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/magic_wan_address_space`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -82,6 +125,36 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic WAN Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_magic_wan_address_space"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cidr_prefix": mcn_cidr_prefix_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_magic_wan_address_space": mcn_magic_wan_address_space_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/magic_wan_address_space`,
@@ -123,6 +196,39 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_magic_wan_address_space"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cidr_prefix": mcn_cidr_prefix_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_magic_wan_address_space": mcn_magic_wan_address_space_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/onramps/magic_wan_address_space`,

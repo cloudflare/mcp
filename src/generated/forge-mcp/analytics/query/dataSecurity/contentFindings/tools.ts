@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  art_APIError_output,
+  art_APIMessage_output,
+  art_ErrorResponse_output,
+  art_ResultValues_output,
+} from "../../outputs.js";
 import { art_Filter } from "../../schemas.js";
 import { art_DataSecurityContentFindingsTopNQuery } from "./schemas.js";
 
@@ -47,6 +53,42 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/art_ResultValues"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        }
+      },
+      $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
+        "art_ErrorResponse": art_ErrorResponse_output,
+        "art_ResultValues": art_ResultValues_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/analytics/query/data-security/content-findings/top-n`,

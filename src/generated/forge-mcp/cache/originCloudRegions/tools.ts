@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  cache_settings_api_response_common_failure_output,
+  cache_settings_messages_output,
+} from "../../outputs.js";
+import {
+  cache_settings_origin_cloud_region_v2_batch_item_result_output,
+  cache_settings_origin_cloud_region_v2_batch_result_output,
+  cache_settings_origin_cloud_region_v2_delete_result_output,
+  cache_settings_origin_cloud_region_v2_entry_output,
+  cache_settings_origin_cloud_region_v2_result_info_output,
+  cache_settings_supported_cloud_region_output,
+  cache_settings_supported_cloud_regions_result_output,
+} from "./outputs.js";
 import { cache_settings_origin_cloud_region_v2_request } from "./schemas.js";
 
 /**
@@ -48,6 +61,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/batch`,
@@ -98,6 +127,22 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/batch`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -141,6 +186,21 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_delete_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_cloud_region_v2_delete_result": cache_settings_origin_cloud_region_v2_delete_result_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/${pathParam(args, "origin_ip")}`,
     }),
@@ -182,6 +242,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_entry"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_cloud_region_v2_entry": cache_settings_origin_cloud_region_v2_entry_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/${pathParam(args, "origin_ip")}`,
@@ -230,6 +305,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_entry"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_cloud_region_v2_entry": cache_settings_origin_cloud_region_v2_entry_output,
+        "cache-settings_origin_cloud_region_v2_result_info": cache_settings_origin_cloud_region_v2_result_info_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions`,
       query: [
@@ -270,6 +375,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_supported_cloud_regions_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_supported_cloud_region": cache_settings_supported_cloud_region_output,
+        "cache-settings_supported_cloud_regions_result": cache_settings_supported_cloud_regions_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/supported_regions`,
@@ -319,6 +440,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_entry"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_cloud_region_v2_entry": cache_settings_origin_cloud_region_v2_entry_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/${pathParam(args, "origin_ip")}`,

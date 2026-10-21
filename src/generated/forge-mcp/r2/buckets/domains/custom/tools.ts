@@ -3,6 +3,21 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_v4_response_failure_output,
+} from "../../../outputs.js";
+import {
+  r2_add_custom_domain_response_output,
+  r2_edit_custom_domain_response_output,
+  r2_get_custom_domain_response_output,
+  r2_get_custom_domain_response_status_output,
+  r2_list_custom_domains_response_domainsItem_output,
+  r2_list_custom_domains_response_domainsItem_status_output,
+  r2_list_custom_domains_response_output,
+  r2_remove_custom_domain_response_output,
+} from "./outputs.js";
+import {
   r2_add_custom_domain_request,
   r2_edit_custom_domain_request,
 } from "./schemas.js";
@@ -71,6 +86,22 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_add_custom_domain_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_add_custom_domain_response": r2_add_custom_domain_response_output,
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/domains/custom`,
       headers: [
@@ -129,6 +160,22 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers R2 Storage Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_remove_custom_domain_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_remove_custom_domain_response": r2_remove_custom_domain_response_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/domains/custom/${pathParam(args, "domain")}`,
@@ -189,6 +236,23 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_get_custom_domain_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_get_custom_domain_response": r2_get_custom_domain_response_output,
+        "r2_get_custom_domain_response_status": r2_get_custom_domain_response_status_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/domains/custom/${pathParam(args, "domain")}`,
       headers: [
@@ -248,6 +312,24 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_list_custom_domains_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_list_custom_domains_response": r2_list_custom_domains_response_output,
+        "r2_list_custom_domains_response_domainsItem": r2_list_custom_domains_response_domainsItem_output,
+        "r2_list_custom_domains_response_domainsItem_status": r2_list_custom_domains_response_domainsItem_status_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/domains/custom`,
@@ -320,6 +402,22 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_edit_custom_domain_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_edit_custom_domain_response": r2_edit_custom_domain_response_output,
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/domains/custom/${pathParam(args, "domain")}`,

@@ -2,6 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  organizations_api_Account_output,
+  organizations_api_Account_settings_output,
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../../outputs.js";
+import { organizations_api_PageTokenResultInfo_output } from "../outputs.js";
 
 /**
  * The tools of `organization.account`.
@@ -100,6 +107,37 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/organizations/{organization_id}/accounts",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_Account"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Account": organizations_api_Account_output,
+        "organizations-api_Account_settings": organizations_api_Account_settings_output,
+        "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/accounts`,
       query: [

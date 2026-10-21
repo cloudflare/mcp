@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  pages_api_response_common_failure_output,
+  pages_messages_output,
+} from "../outputs.js";
 
 /**
  * The tools of `pages.build_cache`.
@@ -41,6 +45,27 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Pages Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_messages": pages_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/purge_build_cache`,

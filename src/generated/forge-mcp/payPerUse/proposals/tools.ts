@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_apiErrorResponse_output,
+} from "../../outputs.js";
+import { pay_per_crawl_PPUPrice_output } from "../outputs.js";
+import {
+  pay_per_crawl_PPUProposal_output,
+  pay_per_crawl_PPUProposals_output,
+} from "./outputs.js";
 import { pay_per_crawl_PPUOperatorProposalActionRequest } from "./schemas.js";
 
 /**
@@ -41,6 +51,31 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/pay-per-use/proposals",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUPrice"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUPrice": pay_per_crawl_PPUPrice_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-use/proposals`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -81,6 +116,29 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/pay-per-use/proposals",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUProposals"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUProposal": pay_per_crawl_PPUProposal_output,
+        "pay-per-crawl_PPUProposals": pay_per_crawl_PPUProposals_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-use/proposals`,
       query: [

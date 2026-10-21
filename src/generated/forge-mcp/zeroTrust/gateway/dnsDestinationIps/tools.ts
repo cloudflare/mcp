@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+} from "../../outputs.js";
+import { zero_trust_gateway_result_info_output } from "../outputs.js";
+import {
+  zero_trust_gateway_dns_destination_ip_pair_output,
+  zero_trust_gateway_response_collection_2_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.gateway.dns_destination_ips`.
@@ -38,6 +47,44 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_dns_destination_ip_pair"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/zero-trust-gateway_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_response_collection-2"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_dns_destination_ip_pair": zero_trust_gateway_dns_destination_ip_pair_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_response_collection-2": zero_trust_gateway_response_collection_2_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/dns_destination_ips`,

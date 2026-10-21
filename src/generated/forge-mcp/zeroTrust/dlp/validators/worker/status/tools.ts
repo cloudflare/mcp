@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
+import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../../../outputs.js";
+import {
+  dlp_WorkerStatus_output,
+  dlp_WorkerValidatorStatus_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dlp.validators.worker.status`.
@@ -41,6 +49,22 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_WorkerValidatorStatus"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_WorkerStatus": dlp_WorkerStatus_output,
+        "dlp_WorkerValidatorStatus": dlp_WorkerValidatorStatus_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/validators/worker/${pathParam(args, "validator_id")}/status`,

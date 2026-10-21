@@ -2,7 +2,29 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  mcn_bad_response_output,
+  mcn_cloud_platform_client_output,
+  mcn_cloud_type_output,
+  mcn_error_meta_output,
+  mcn_error_output,
+  mcn_error_source_output,
+  mcn_good_response_output,
+  mcn_platform_client_id_output,
+  mcn_provider_id_output,
+} from "../outputs.js";
 import { mcn_cloud_type } from "../schemas.js";
+import {
+  mcn_aws_trust_policy_output,
+  mcn_azure_setup_output,
+  mcn_deleted_provider_output,
+  mcn_gcp_setup_output,
+  mcn_provider_discovery_progress_output,
+  mcn_provider_discovery_status_output,
+  mcn_provider_lifecycle_state_output,
+  mcn_provider_output,
+  mcn_provider_status_output,
+} from "./outputs.js";
 import {
   mcn_create_provider_request,
   mcn_update_provider_request,
@@ -52,6 +74,46 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/mcn_provider"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers`,
       headers: [
@@ -93,6 +155,36 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_deleted_provider"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_deleted_provider": mcn_deleted_provider_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_provider_id": mcn_provider_id_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers/${pathParam(args, "provider_id")}`,
     }),
@@ -128,6 +220,38 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/magic/cloud/providers/{provider_id}/discover",
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/mcn_good_response"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_good_response": mcn_good_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers/${pathParam(args, "provider_id")}/discover`,
       query: [
@@ -163,6 +287,35 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/mcn_good_response"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_good_response": mcn_good_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers/discover`,
@@ -208,6 +361,49 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_provider"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers/${pathParam(args, "provider_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -250,6 +446,43 @@ export const tools: readonly Tool[] = [
         "Magic WAN Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_provider"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers/${pathParam(args, "provider_id")}`,
       query: [
@@ -290,6 +523,47 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic WAN Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/mcn_aws_trust_policy"
+            },
+            {
+              "$ref": "#/$defs/mcn_azure_setup"
+            },
+            {
+              "$ref": "#/$defs/mcn_gcp_setup"
+            }
+          ]
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_aws_trust_policy": mcn_aws_trust_policy_output,
+        "mcn_azure_setup": mcn_azure_setup_output,
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_gcp_setup": mcn_gcp_setup_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers/${pathParam(args, "provider_id")}/initial_setup`,
@@ -337,6 +611,54 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic WAN Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mcn_provider"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers`,
@@ -387,6 +709,49 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_provider"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/providers/${pathParam(args, "provider_id")}`,

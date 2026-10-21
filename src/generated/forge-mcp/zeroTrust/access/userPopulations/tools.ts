@@ -2,7 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_created_at_output,
+  access_messages_output,
+  access_timestamp_output,
+  access_updated_at_output,
+  access_uuid_output,
+} from "../../outputs.js";
 import { access_identifier, access_uuid } from "../../schemas.js";
+import {
+  access_user_population_name_output,
+  access_user_population_output,
+} from "./outputs.js";
 import {
   access_user_population_name,
   access_user_population_request,
@@ -46,6 +58,26 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/access/user_populations",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_user_population"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_user_population": access_user_population_output,
+        "access_user_population_name": access_user_population_name_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -85,6 +117,26 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}",
+    responses: {
+      schemas: {
+        "202": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_uuid"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}`,
     }),
@@ -123,6 +175,26 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_user_population"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_user_population": access_user_population_output,
+        "access_user_population_name": access_user_population_name_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}`,
     }),
@@ -165,6 +237,57 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/user_populations",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_user_population"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_user_population": access_user_population_output,
+        "access_user_population_name": access_user_population_name_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations`,
       query: [
@@ -213,6 +336,26 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_user_population"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_user_population": access_user_population_output,
+        "access_user_population_name": access_user_population_name_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}`,
       body: { value: args["body"], mediaType: "application/json" },

@@ -54,6 +54,39 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "app": {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/apps`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -94,6 +127,41 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "name": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/apps/${pathParam(args, "app_id")}`,
@@ -155,6 +223,51 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "items": {
+                "properties": {
+                  "created_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "paging": {
+              "properties": {
+                "end_offset": {
+                  "type": "number"
+                },
+                "start_offset": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/apps`,

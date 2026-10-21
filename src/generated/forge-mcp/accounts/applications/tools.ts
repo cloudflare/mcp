@@ -2,7 +2,38 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  alexandria_api_response_common_failure_output,
+  alexandria_category_id_output,
+  alexandria_messages_output,
+} from "../outputs.js";
 import { alexandria_category_id } from "../schemas.js";
+import {
+  alexandria_application_confidence_score_output,
+  alexandria_application_created_at_output,
+  alexandria_application_gen_ai_score_output,
+  alexandria_application_hostnames_output,
+  alexandria_application_human_id_output,
+  alexandria_application_id_output,
+  alexandria_application_ip_subnets_output,
+  alexandria_application_list_item_output,
+  alexandria_application_name_output,
+  alexandria_application_output,
+  alexandria_application_port_protocols_output,
+  alexandria_application_reference_output,
+  alexandria_application_score_composition_output,
+  alexandria_application_source_output,
+  alexandria_application_support_domains_output,
+  alexandria_application_supported_output,
+  alexandria_application_type_description_output,
+  alexandria_application_type_output,
+  alexandria_application_updated_at_output,
+  alexandria_application_version_output,
+  alexandria_applications_output,
+  alexandria_delete_application_conflict_response_errorsItem_meta_output,
+  alexandria_delete_application_conflict_response_errorsItem_output,
+  alexandria_delete_application_conflict_response_output,
+} from "./outputs.js";
 import {
   alexandria_application_hostnames,
   alexandria_application_human_id,
@@ -58,6 +89,39 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/resource-library/applications",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/alexandria_application"
+        },
+        "4XX": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
+        "alexandria_application": alexandria_application_output,
+        "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
+        "alexandria_application_created_at": alexandria_application_created_at_output,
+        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score_output,
+        "alexandria_application_hostnames": alexandria_application_hostnames_output,
+        "alexandria_application_human_id": alexandria_application_human_id_output,
+        "alexandria_application_id": alexandria_application_id_output,
+        "alexandria_application_ip_subnets": alexandria_application_ip_subnets_output,
+        "alexandria_application_name": alexandria_application_name_output,
+        "alexandria_application_port_protocols": alexandria_application_port_protocols_output,
+        "alexandria_application_score_composition": alexandria_application_score_composition_output,
+        "alexandria_application_source": alexandria_application_source_output,
+        "alexandria_application_support_domains": alexandria_application_support_domains_output,
+        "alexandria_application_supported": alexandria_application_supported_output,
+        "alexandria_application_type": alexandria_application_type_output,
+        "alexandria_application_type_description": alexandria_application_type_description_output,
+        "alexandria_application_updated_at": alexandria_application_updated_at_output,
+        "alexandria_application_version": alexandria_application_version_output,
+        "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_messages": alexandria_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/resource-library/applications`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -93,6 +157,30 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "null"
+        },
+        "409": {
+          "$ref": "#/$defs/alexandria_delete_application_conflict_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        },
+        "502": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
+        "alexandria_application_reference": alexandria_application_reference_output,
+        "alexandria_delete_application_conflict_response": alexandria_delete_application_conflict_response_output,
+        "alexandria_delete_application_conflict_response_errorsItem": alexandria_delete_application_conflict_response_errorsItem_output,
+        "alexandria_delete_application_conflict_response_errorsItem_meta": alexandria_delete_application_conflict_response_errorsItem_meta_output,
+        "alexandria_messages": alexandria_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/resource-library/applications/${pathParam(args, "id")}`,
     }),
@@ -127,6 +215,39 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/alexandria_application"
+        },
+        "4XX": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
+        "alexandria_application": alexandria_application_output,
+        "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
+        "alexandria_application_created_at": alexandria_application_created_at_output,
+        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score_output,
+        "alexandria_application_hostnames": alexandria_application_hostnames_output,
+        "alexandria_application_human_id": alexandria_application_human_id_output,
+        "alexandria_application_id": alexandria_application_id_output,
+        "alexandria_application_ip_subnets": alexandria_application_ip_subnets_output,
+        "alexandria_application_name": alexandria_application_name_output,
+        "alexandria_application_port_protocols": alexandria_application_port_protocols_output,
+        "alexandria_application_score_composition": alexandria_application_score_composition_output,
+        "alexandria_application_source": alexandria_application_source_output,
+        "alexandria_application_support_domains": alexandria_application_support_domains_output,
+        "alexandria_application_supported": alexandria_application_supported_output,
+        "alexandria_application_type": alexandria_application_type_output,
+        "alexandria_application_type_description": alexandria_application_type_description_output,
+        "alexandria_application_updated_at": alexandria_application_updated_at_output,
+        "alexandria_application_version": alexandria_application_version_output,
+        "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_messages": alexandria_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/resource-library/applications/${pathParam(args, "id")}`,
     }),
@@ -190,6 +311,80 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/applications",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/alexandria_applications"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        },
+        "502": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        },
+        "503": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
+        "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
+        "alexandria_application_created_at": alexandria_application_created_at_output,
+        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score_output,
+        "alexandria_application_hostnames": alexandria_application_hostnames_output,
+        "alexandria_application_human_id": alexandria_application_human_id_output,
+        "alexandria_application_id": alexandria_application_id_output,
+        "alexandria_application_ip_subnets": alexandria_application_ip_subnets_output,
+        "alexandria_application_list_item": alexandria_application_list_item_output,
+        "alexandria_application_name": alexandria_application_name_output,
+        "alexandria_application_port_protocols": alexandria_application_port_protocols_output,
+        "alexandria_application_score_composition": alexandria_application_score_composition_output,
+        "alexandria_application_source": alexandria_application_source_output,
+        "alexandria_application_support_domains": alexandria_application_support_domains_output,
+        "alexandria_application_supported": alexandria_application_supported_output,
+        "alexandria_application_type": alexandria_application_type_output,
+        "alexandria_application_type_description": alexandria_application_type_description_output,
+        "alexandria_application_updated_at": alexandria_application_updated_at_output,
+        "alexandria_application_version": alexandria_application_version_output,
+        "alexandria_applications": alexandria_applications_output,
+        "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_messages": alexandria_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/resource-library/applications`,
       query: [
@@ -249,6 +444,80 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/resource-library/applications/lookup",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/alexandria_applications"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        },
+        "502": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        },
+        "503": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
+        "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
+        "alexandria_application_created_at": alexandria_application_created_at_output,
+        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score_output,
+        "alexandria_application_hostnames": alexandria_application_hostnames_output,
+        "alexandria_application_human_id": alexandria_application_human_id_output,
+        "alexandria_application_id": alexandria_application_id_output,
+        "alexandria_application_ip_subnets": alexandria_application_ip_subnets_output,
+        "alexandria_application_list_item": alexandria_application_list_item_output,
+        "alexandria_application_name": alexandria_application_name_output,
+        "alexandria_application_port_protocols": alexandria_application_port_protocols_output,
+        "alexandria_application_score_composition": alexandria_application_score_composition_output,
+        "alexandria_application_source": alexandria_application_source_output,
+        "alexandria_application_support_domains": alexandria_application_support_domains_output,
+        "alexandria_application_supported": alexandria_application_supported_output,
+        "alexandria_application_type": alexandria_application_type_output,
+        "alexandria_application_type_description": alexandria_application_type_description_output,
+        "alexandria_application_updated_at": alexandria_application_updated_at_output,
+        "alexandria_application_version": alexandria_application_version_output,
+        "alexandria_applications": alexandria_applications_output,
+        "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_messages": alexandria_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/resource-library/applications/lookup`,
       query: [
@@ -300,6 +569,39 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/alexandria_application"
+        },
+        "4XX": {
+          "$ref": "#/$defs/alexandria_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
+        "alexandria_application": alexandria_application_output,
+        "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
+        "alexandria_application_created_at": alexandria_application_created_at_output,
+        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score_output,
+        "alexandria_application_hostnames": alexandria_application_hostnames_output,
+        "alexandria_application_human_id": alexandria_application_human_id_output,
+        "alexandria_application_id": alexandria_application_id_output,
+        "alexandria_application_ip_subnets": alexandria_application_ip_subnets_output,
+        "alexandria_application_name": alexandria_application_name_output,
+        "alexandria_application_port_protocols": alexandria_application_port_protocols_output,
+        "alexandria_application_score_composition": alexandria_application_score_composition_output,
+        "alexandria_application_source": alexandria_application_source_output,
+        "alexandria_application_support_domains": alexandria_application_support_domains_output,
+        "alexandria_application_supported": alexandria_application_supported_output,
+        "alexandria_application_type": alexandria_application_type_output,
+        "alexandria_application_type_description": alexandria_application_type_description_output,
+        "alexandria_application_updated_at": alexandria_application_updated_at_output,
+        "alexandria_application_version": alexandria_application_version_output,
+        "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_messages": alexandria_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/resource-library/applications/${pathParam(args, "id")}`,
       body: { value: args["body"], mediaType: "application/json" },

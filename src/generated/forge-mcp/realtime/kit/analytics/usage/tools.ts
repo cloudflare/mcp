@@ -51,6 +51,79 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "recording_stats": {
+                  "properties": {
+                    "day_stats": {
+                      "items": {
+                        "properties": {
+                          "day": {
+                            "type": "string"
+                          },
+                          "total_recording_minutes": {
+                            "type": "integer"
+                          },
+                          "total_recordings": {
+                            "type": "integer"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "recording_count": {
+                      "type": "integer"
+                    },
+                    "recording_minutes_consumed": {
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                },
+                "session_stats": {
+                  "properties": {
+                    "day_stats": {
+                      "items": {
+                        "properties": {
+                          "day": {
+                            "type": "string"
+                          },
+                          "total_session_minutes": {
+                            "type": "number"
+                          },
+                          "total_sessions": {
+                            "type": "integer"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "sessions_count": {
+                      "type": "integer"
+                    },
+                    "sessions_minutes_consumed": {
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/analytics/daywise`,
       query: [

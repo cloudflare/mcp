@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_Msg_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
+  pay_per_crawl_Source_output,
+  pay_per_crawl_apiErrorResponse_output,
+  pay_per_crawl_apiNoResultResponse_output,
+} from "../../outputs.js";
+import {
+  pay_per_crawl_IronCladContract_output,
+  pay_per_crawl_SignatureLinkResponse_output,
+} from "./outputs.js";
 
 /**
  * The tools of `pay_per_crawl.terms`.
@@ -64,6 +77,22 @@ export const tools: readonly Tool[] = [
         "Account Settings Write",
         "Account Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_IronCladContract"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_IronCladContract": pay_per_crawl_IronCladContract_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/terms`,
@@ -131,6 +160,28 @@ export const tools: readonly Tool[] = [
         "Account Settings Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/terms/signature`,
       query: [
@@ -196,6 +247,22 @@ export const tools: readonly Tool[] = [
         "Account Settings Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_SignatureLinkResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_SignatureLinkResponse": pay_per_crawl_SignatureLinkResponse_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/signature_link`,
     }),
@@ -243,6 +310,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Account Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/terms/signature`,

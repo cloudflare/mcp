@@ -3,6 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  r2_slurper_api_v4_error_output,
+  r2_slurper_api_v4_failure_output,
+  r2_slurper_api_v4_message_output,
+} from "../outputs.js";
+import {
   r2_slurper_GCSLikeCredsSchema,
   r2_slurper_GCSSourceSchema,
   r2_slurper_Jurisdiction,
@@ -12,6 +17,7 @@ import {
   r2_slurper_S3SourceSchema,
   r2_slurper_SourceJobSchema,
 } from "../schemas.js";
+import { r2_slurper_ConnectivityResponse_output } from "./outputs.js";
 
 /**
  * The tools of `r2.super_slurper.connectivity_precheck`.
@@ -54,6 +60,22 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/slurper/source/connectivity-precheck",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2-slurper_ConnectivityResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/source/connectivity-precheck`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -92,6 +114,22 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/slurper/target/connectivity-precheck",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2-slurper_ConnectivityResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2-slurper_api-v4-failure"
+        }
+      },
+      $defs: {
+        "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/slurper/target/connectivity-precheck`,
       body: { value: args["body"], mediaType: "application/json" },

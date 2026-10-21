@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  speed_api_response_common_failure_output,
+  speed_messages_output,
+} from "../../outputs.js";
+import {
+  speed_cloudflare_fonts_output,
+  speed_cloudflare_fonts_value_output,
+} from "./outputs.js";
 import { speed_cloudflare_fonts_value } from "./schemas.js";
 
 /**
@@ -71,6 +79,22 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/speed_cloudflare_fonts"
+        },
+        "4XX": {
+          "$ref": "#/$defs/speed_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_cloudflare_fonts": speed_cloudflare_fonts_output,
+        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value_output,
+        "speed_messages": speed_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/fonts`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -122,6 +146,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/speed_cloudflare_fonts"
+        },
+        "4XX": {
+          "$ref": "#/$defs/speed_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_cloudflare_fonts": speed_cloudflare_fonts_output,
+        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value_output,
+        "speed_messages": speed_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/fonts`,

@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  rum_api_response_common_failure_output,
+  rum_messages_2_output,
+} from "../../outputs.js";
+import {
+  rum_editable_output,
+  rum_id_output,
+  rum_rum_site_output,
+  rum_value_output,
+} from "./outputs.js";
 import { rum_toggle_rum_request } from "./schemas.js";
 
 /**
@@ -51,6 +61,24 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/rum_rum_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_editable": rum_editable_output,
+        "rum_id": rum_id_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rum_site": rum_rum_site_output,
+        "rum_value": rum_value_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/rum`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -92,6 +120,24 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/rum_rum_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/rum_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_editable": rum_editable_output,
+        "rum_id": rum_id_output,
+        "rum_messages-2": rum_messages_2_output,
+        "rum_rum_site": rum_rum_site_output,
+        "rum_value": rum_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/rum`,

@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  cache_settings_api_response_common_failure_output,
+  cache_settings_messages_output,
+} from "../../outputs.js";
+import {
+  cache_settings_origin_tls_compliance_modes_output,
+  cache_settings_origin_tls_compliance_modes_value_output,
+} from "./outputs.js";
 import { cache_settings_origin_tls_compliance_modes_value } from "./schemas.js";
 
 /**
@@ -40,6 +48,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/origin_tls_compliance_modes`,
@@ -94,6 +117,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
+        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/origin_tls_compliance_modes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -131,6 +185,37 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
+        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/origin_tls_compliance_modes`,
@@ -184,6 +269,37 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes"
+            },
+            {
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes_value"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
+        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/origin_tls_compliance_modes`,

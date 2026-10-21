@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  images_api_response_common_failure_output,
+  images_messages_output,
+} from "../outputs.js";
+import {
+  images_image_key_name_output,
+  images_image_key_response_collection_output,
+  images_image_key_value_output,
+  images_image_keys_output,
+  images_image_keys_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `images.keys`.
@@ -36,6 +47,32 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/images/v1/keys/{signing_key_name}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_keys_response"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_key_response_collection"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image_key_name": images_image_key_name_output,
+        "images_image_key_response_collection": images_image_key_response_collection_output,
+        "images_image_key_value": images_image_key_value_output,
+        "images_image_keys": images_image_keys_output,
+        "images_image_keys_response": images_image_keys_response_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/keys/${pathParam(args, "signing_key_name")}`,
     }),
@@ -69,6 +106,32 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/images/v1/keys/{signing_key_name}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_keys_response"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_key_response_collection"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image_key_name": images_image_key_name_output,
+        "images_image_key_response_collection": images_image_key_response_collection_output,
+        "images_image_key_value": images_image_key_value_output,
+        "images_image_keys": images_image_keys_output,
+        "images_image_keys_response": images_image_keys_response_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/keys/${pathParam(args, "signing_key_name")}`,
     }),
@@ -103,6 +166,32 @@ export const tools: readonly Tool[] = [
         "Images Read",
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_keys_response"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_key_response_collection"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image_key_name": images_image_key_name_output,
+        "images_image_key_response_collection": images_image_key_response_collection_output,
+        "images_image_key_value": images_image_key_value_output,
+        "images_image_keys": images_image_keys_output,
+        "images_image_keys_response": images_image_keys_response_output,
+        "images_messages": images_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/keys`,

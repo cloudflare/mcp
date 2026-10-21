@@ -3,6 +3,12 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  csam_config_service_api_response_common_failure_output,
+  csam_config_service_api_response_message_output,
+  csam_config_service_csam_scanner_setting_output,
+  csam_config_service_csam_scanner_value_output,
+} from "./outputs.js";
+import {
   csam_config_service_csam_scanner_third_party_update_request,
   csam_config_service_csam_scanner_third_party_update_value,
   csam_config_service_zone_identifier,
@@ -51,6 +57,34 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/csam-config-service_csam_scanner_setting"
+        },
+        "400": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        },
+        "401": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        },
+        "403": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        },
+        "404": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        },
+        "500": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "csam-config-service_api_response_common_failure": csam_config_service_api_response_common_failure_output,
+        "csam-config-service_api_response_message": csam_config_service_api_response_message_output,
+        "csam-config-service_csam_scanner_setting": csam_config_service_csam_scanner_setting_output,
+        "csam-config-service_csam_scanner_value": csam_config_service_csam_scanner_value_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/csam_scanner_third_party`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -88,6 +122,34 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/csam-config-service_csam_scanner_setting"
+        },
+        "400": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        },
+        "401": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        },
+        "403": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        },
+        "404": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        },
+        "500": {
+          "$ref": "#/$defs/csam-config-service_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "csam-config-service_api_response_common_failure": csam_config_service_api_response_common_failure_output,
+        "csam-config-service_api_response_message": csam_config_service_api_response_message_output,
+        "csam-config-service_csam_scanner_setting": csam_config_service_csam_scanner_setting_output,
+        "csam-config-service_csam_scanner_value": csam_config_service_csam_scanner_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/csam_scanner_third_party`,

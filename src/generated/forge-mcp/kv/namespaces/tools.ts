@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  workers_kv_api_response_common_failure_output,
+  workers_kv_messages_output,
+} from "../outputs.js";
+import {
+  workers_kv_jurisdiction_output,
+  workers_kv_namespace_identifier_output,
+  workers_kv_namespace_mode_output,
+  workers_kv_namespace_output,
+  workers_kv_namespace_title_output,
+  workers_kv_result_info_output,
+} from "./outputs.js";
+import {
   workers_kv_create_namespace_body,
   workers_kv_create_rename_namespace_body,
   workers_kv_jurisdiction,
@@ -52,6 +64,25 @@ export const tools: readonly Tool[] = [
         "Workers KV Storage Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers-kv_namespace"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_jurisdiction": workers_kv_jurisdiction_output,
+        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_namespace": workers_kv_namespace_output,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier_output,
+        "workers-kv_namespace_mode": workers_kv_namespace_mode_output,
+        "workers-kv_namespace_title": workers_kv_namespace_title_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -92,6 +123,27 @@ export const tools: readonly Tool[] = [
         "Workers KV Storage Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_messages": workers_kv_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces/${pathParam(args, "namespace_id")}`,
     }),
@@ -131,6 +183,25 @@ export const tools: readonly Tool[] = [
         "Workers KV Storage Write",
         "Workers KV Storage Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers-kv_namespace"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_jurisdiction": workers_kv_jurisdiction_output,
+        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_namespace": workers_kv_namespace_output,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier_output,
+        "workers-kv_namespace_mode": workers_kv_namespace_mode_output,
+        "workers-kv_namespace_title": workers_kv_namespace_title_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces/${pathParam(args, "namespace_id")}`,
@@ -193,6 +264,40 @@ export const tools: readonly Tool[] = [
         "Workers KV Storage Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers-kv_namespace"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/workers-kv_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_jurisdiction": workers_kv_jurisdiction_output,
+        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_namespace": workers_kv_namespace_output,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier_output,
+        "workers-kv_namespace_mode": workers_kv_namespace_mode_output,
+        "workers-kv_namespace_title": workers_kv_namespace_title_output,
+        "workers-kv_result_info": workers_kv_result_info_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces`,
       query: [
@@ -245,6 +350,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers KV Storage Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers-kv_namespace"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_jurisdiction": workers_kv_jurisdiction_output,
+        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_namespace": workers_kv_namespace_output,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier_output,
+        "workers-kv_namespace_mode": workers_kv_namespace_mode_output,
+        "workers-kv_namespace_title": workers_kv_namespace_title_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces/${pathParam(args, "namespace_id")}`,
