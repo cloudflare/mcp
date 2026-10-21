@@ -49,7 +49,7 @@ Create a [Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens) 
 
 ### Disable Code Mode
 
-If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` and `whoami` tools remain available in both modes.
+If your MCP client already uses code mode, or you're composing this server with another server that uses code mode, you can disable it with the `?codemode=false` query parameter. This registers an individual tool for each of the ~2,500 Cloudflare API endpoints instead of the code mode API tools. The `docs` and `whoami` tools remain available in both modes. When you sign in as a user, the list leaves out endpoints that none of your roles on your accounts can use.
 
 ```
 https://mcp.cloudflare.com/mcp?codemode=false

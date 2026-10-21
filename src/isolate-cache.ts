@@ -124,6 +124,20 @@ export function getForgeToolList(): Promise<Tool[]> {
   return forgeToolList.get()
 }
 
+const forgeToolPermissions = cached(
+  async (): Promise<ReadonlyMap<string, readonly string[]>> =>
+    new Map(
+      Object.entries(
+        JSON.parse(await env.FORGE_TOOLS.permissionsJson()) as Record<string, string[]>
+      )
+    )
+)
+
+/** The API token permissions each generated tool accepts, by tool name, from the forge tools service. */
+export function getForgeToolPermissions(): Promise<ReadonlyMap<string, readonly string[]>> {
+  return forgeToolPermissions.get()
+}
+
 const products = cached(async (): Promise<string[]> => {
   const object = await env.SPEC_BUCKET.get('products.json')
   return object ? object.json() : []
@@ -200,6 +214,7 @@ export function resetIsolateCache(): void {
   products.reset()
   mcpTools.reset()
   forgeToolList.reset()
+  forgeToolPermissions.reset()
   skills.reset()
   skillFileBytes = new Map()
   skillFileCacheSize = 0

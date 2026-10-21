@@ -46,6 +46,8 @@ cloudflare-mcp/
 │   │   ├── oauth-handler.ts       # OAuth authorization flow
 │   │   ├── refresh-admission-gate.ts # Best-effort per-grant KV refresh admission
 │   │   ├── derived-oauth-scopes.ts # Canonical production OAuth scope API metadata
+│   │   ├── member-permissions.ts  # Hide direct tools the user's member roles can't use
+│   │   ├── member-role-permissions.json # Generated: permissions each member role reaches
 │   │   ├── scopes.ts              # Consent templates and OAuth bootstrap scopes
 │   │   └── workers-oauth-utils.ts # OAuth provider helpers
 ├── tests/                         # Vitest suite (top-level, mirrors src/)
@@ -57,7 +59,9 @@ cloudflare-mcp/
 │   └── *.test.ts
 ├── scripts/
 │   ├── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
-│   └── generate-tools.ts          # Regenerate src/generated/forge-mcp with forge
+│   ├── generate-tools.ts          # Regenerate src/generated/forge-mcp with forge
+│   ├── generate-member-permissions.ts # Regenerate src/auth/member-role-permissions.json
+│   └── lib/member-role-coverage.ts # Which permission groups a member role reaches
 ├── forge.json                     # The forge commit that generates src/generated/forge-mcp
 ├── .github/workflows/
 │   ├── ci.yml                     # PR validation
@@ -86,6 +90,7 @@ Node 22+ required.
 | `npm run deploy:prod`  | Deploy to production by hand (merging to `main` already deploys) |
 | `npm run deploy:forge-tools` / `deploy:forge-tools:prod` | Deploy the forge tools service to staging / production |
 | `npm run generate:tools` | Regenerate `src/generated/forge-mcp` (needs `FORGE_BINARY`) |
+| `npm run generate:member-permissions` | Regenerate `src/auth/member-role-permissions.json` (needs `--roles`, internal) |
 | `npm run types`        | Generate worker type definitions              |
 | `npm run typecheck`    | TypeScript type checking (no emit)            |
 | `npm run lint`         | Lint with oxlint                              |
@@ -177,11 +182,22 @@ The consent page offers minimal, read-only and full-access templates. Minimal is
 
 - `src/generated/forge-mcp/` is TypeScript that `forge openapi.forge.json --target mcp` writes, committed and never edited by hand. Each group's `tools.ts` has its tools: schema, hints, the method's extensions, and a `request(args)` function that builds the API request. `schemas.ts` files hold the shared model schemas, `index.ts` exports every tool, `README.md` lists the methods without a tool and why, and `_/` is forge's runtime for serving them on an `McpServer`. oxfmt and oxlint skip it
 - The MCP target lives on the long-lived `forge-mcp` branch of a forge fork; `forge.json` pins the commit. `FORGE_BINARY=… npm run generate:tools` regenerates locally. `.github/workflows/forge-tools.yml` builds that forge, regenerates from the latest `openapi.forge.json` every six hours, runs the type check and tests, and opens or updates the `bot/forge-tools` pull request when the code changes. The pull request is opened with `GITHUB_TOKEN`, so CI doesn't run on it; the workflow's own type check and tests are the check. Merging it deploys both Workers through Workers Builds. To change the generator, bump `forge.json`'s `ref`
-- The generated tools run in their own Worker, the **forge tools service** (`src/forge-tools/worker.ts`, `wrangler.forge-tools.jsonc`, `cloudflare-api-mcp-forge-tools[-staging|-dev]`), which the main Worker reaches through its `FORGE_TOOLS` service binding. Code Mode isolates never compile the ~10 MB of generated code: workerd compiles every module a Worker uploads at startup, so in the main Worker a lazy import still cost ~27 ms per isolate, and a separate uploaded module didn't help. The service holds no credentials, makes no requests, and has no route. Its RPC methods are `listJson()`, the tools as `tools/list` sends them as one JSON string, which the main Worker parses once per isolate (`getForgeToolList()` in `src/isolate-cache.ts`; decoding ~3,000 nested objects over RPC cost ~200–300 ms of CPU per `tools/list`), and `plan(name, args, { baseUrl, sessionAccountId })`, the request a call makes (`src/forge-tools/plan.ts`).
+- The generated tools run in their own Worker, the **forge tools service** (`src/forge-tools/worker.ts`, `wrangler.forge-tools.jsonc`, `cloudflare-api-mcp-forge-tools[-staging|-dev]`), which the main Worker reaches through its `FORGE_TOOLS` service binding. Code Mode isolates never compile the ~10 MB of generated code: workerd compiles every module a Worker uploads at startup, so in the main Worker a lazy import still cost ~27 ms per isolate, and a separate uploaded module didn't help. The service holds no credentials, makes no requests, and has no route. Its RPC methods are `listJson()`, the tools as `tools/list` sends them as one JSON string, which the main Worker parses once per isolate (`getForgeToolList()` in `src/isolate-cache.ts`; decoding ~3,000 nested objects over RPC cost ~200–300 ms of CPU per `tools/list`), `permissionsJson()`, each tool's `x-api-token-group` by name, for hiding tools by member role (`getForgeToolPermissions()`), and `plan(name, args, { baseUrl, sessionAccountId })`, the request a call makes (`src/forge-tools/plan.ts`).
 - `src/forge-tools/cloudflare.ts` applies the Cloudflare policy once per service isolate: `account_id` is optional with one description, and merged `account_or_zone` tools name their two values. Permissions come from each tool's `x-api-token-group` extension, which clients never see
 - `src/tools/forge-tools.ts`, in the main Worker, serves `?codemode=false&experimentalForge=true`: `docs` and `whoami` itself, and the generated tools from the service. It sends each planned request with the session's token, which never leaves the main Worker, and explains refused calls and steps up OAuth scopes like the other direct tools
 - Workers Builds deploys the service and the main Worker on every push to `main`. Ship a new RPC method in the service before the main Worker calls it, and in a new environment deploy the service first (`npm run deploy:forge-tools` / `deploy:forge-tools:prod`), since the main Worker binds to it. `npm run dev` runs both, and `npm run types` reads both configs to type the binding. Vitest builds the service with `wrangler deploy --dry-run` and runs it as an auxiliary Worker, so tests call it over the real binding
 - Tool names are forge's (`d1_list`, `zones_list`), not `src/openapi.ts`'s, so switching `?codemode=false` to forge renames every tool for its clients; that is why the flag soaks first
+
+### Direct tools filtered by member role
+
+`tools/list` for the direct tools (both engines) leaves out endpoints that none of the user's Cloudflare member roles, on any of their accounts, can use. It goes by the roles, not the connection's OAuth scopes or token permissions, so the list shows what a step-up could reach. Hiding a tool is only a convenience: `tools/call` still dispatches any tool, and Cloudflare checks every call.
+
+- `src/auth/member-permissions.ts` reads the roles from `GET /memberships` (the `user:read` bootstrap scope covers it): role names on accepted memberships' allow policies, up to 4 pages of 50. It caches them in `OAUTH_KV` under `member-roles:v1:<sha256(token)>` for 10 minutes, and caches a 403 as unknown for the same time
+- `src/auth/member-role-permissions.json` says which API token permission groups each member role reaches. Endpoints name the groups they accept in `x-api-token-group`, so a tool shows when any of them is reached (through `canonicalPermission()`, which undoes the spec's naming drift)
+- Every tool shows when the answer isn't known: account tokens, a role the snapshot lacks, more accounts than are read, a failed request, or roles that together reach everything (Super Administrators). A tool also shows when its endpoint lists no permissions, or one the snapshot doesn't know
+- No public API returns a member's effective permissions. `/accounts/{id}/tokens/permission_groups` has `is_selectable`, but only administrators can call it and OAuth only offers its write scope. So the snapshot comes from IAM's role definitions in the internal `cloudflare/www/bach` repository (`etc/seed/prod/roles`), where member roles and API token permission groups are both lists of permission keys. `scripts/generate-member-permissions.ts` regenerates it by hand; see its header for the sparse clone. Regenerate when roles change; a stale snapshot shows every tool to users holding a newer role
+- A role reaches a group when it holds one of the group's keys beyond the baseline every member holds and, if the group grants a write key, one of those (`scripts/lib/member-role-coverage.ts`). Requiring every key would hide tools from narrow roles: endpoints check one or two keys, and groups bundle many. Read-only roles never reach write groups
+- The repository is public, so the snapshot holds no permission keys, lists only the permission names the public spec uses, leaves out user-level groups (a user holds those whatever their roles), and keys roles by the first 16 hex digits of the SHA-256 of their name, since the seed files include roles for unlaunched products
 
 ### Skills over MCP
 

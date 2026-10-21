@@ -22,7 +22,8 @@ export function cloudflareTokenOwner(token: string): CloudflareTokenOwner {
   return 'unknown'
 }
 
-async function hashApiToken(token: string): Promise<string> {
+/** SHA-256 of `token`, hex. Cache keys use it so tokens are never stored. */
+export async function hashApiToken(token: string): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token))
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('')
 }

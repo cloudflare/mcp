@@ -82,9 +82,20 @@ const PERMISSION_ALIASES: ReadonlyMap<string, string> = new Map([
   ['Browser Rendering Write', 'Browser Run Write']
 ])
 
+/**
+ * The name Cloudflare gives a spec permission, undoing the drift
+ * {@link PERMISSION_ALIASES} lists.
+ *
+ * @param permission - A name from an operation's `x-api-token-group`.
+ * @returns The API token permission group's name.
+ */
+export function canonicalPermission(permission: string): string {
+  return PERMISSION_ALIASES.get(permission) ?? permission
+}
+
 /** The catalog scopes named after a spec permission. */
 function scopesForPermission(permission: string): readonly string[] {
-  return SCOPES_BY_PERMISSION.get(PERMISSION_ALIASES.get(permission) ?? permission) ?? []
+  return SCOPES_BY_PERMISSION.get(canonicalPermission(permission)) ?? []
 }
 
 /**

@@ -21,7 +21,8 @@
     "test:watch": "vitest",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "seed:staging": "tsx scripts/seed-r2.ts staging",
-    "seed:prod": "tsx scripts/seed-r2.ts production"
+    "seed:prod": "tsx scripts/seed-r2.ts production",
+    "generate:member-permissions": "tsx scripts/generate-member-permissions.ts"
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "^1.2.3",
