@@ -88,14 +88,6 @@ With code mode disabled, endpoint tools return whole results by default. The cli
 
 > **Note:** Without the cap, a broad query can return megabytes. Only turn it off when your client bounds what reaches the model.
 
-### Forge-generated tools (experimental)
-
-With code mode disabled, `?experimentalForge=true` builds the endpoint tools from code that [forge](https://github.com/cloudflare/forge) generates from the Cloudflare API's OpenAPI document. Tool names follow the `cf` CLI (`zones_list`, `d1_list`), and request bodies are typed, nested JSON. It is experimental: names and schemas may change. Once it has been tried, it will become how `?codemode=false` works.
-
-```
-https://mcp.cloudflare.com/mcp?codemode=false&experimentalForge=true
-```
-
 ### Missing Permissions
 
 When Cloudflare refuses a call because the OAuth connection lacks a scope, the server asks the client to re-authorize with that scope added to the ones it already has. Claude and other clients that follow the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) get a `403 insufficient_scope` challenge. Codex and ChatGPT get it in the tool result, which is where they look for it. Either way, the tool error says which scope is missing. Some endpoints, such as `GET /zones`, don't refuse: they answer with an empty list when the scope is missing. An empty list from a read the connection holds no accepted scope for is refused the same way, so it isn't mistaken for an empty account.
