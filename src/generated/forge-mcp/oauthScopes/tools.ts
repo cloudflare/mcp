@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import type { Tool } from "../_/tool.js";
+import {
+  iam_api_response_common_failure_output,
+  iam_messages_2_output,
+  iam_result_info_output,
+} from "../outputs.js";
+import { iam_oauth_scope_output } from "./outputs.js";
 
 /**
  * The tools of `oauth_scopes`.
@@ -31,6 +37,36 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_oauth_scope"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_oauth_scope": iam_oauth_scope_output,
+        "iam_result_info": iam_result_info_output,
+      },
     },
     request: (_args) => ({
       path: `/oauth/scopes`,

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  teams_devices_api_response_common_failure_output,
+  teams_devices_messages_output,
+} from "../outputs.js";
+import { teams_devices_zero_trust_account_device_settings_output } from "./outputs.js";
 import { teams_devices_zero_trust_account_device_settings } from "./schemas.js";
 
 /**
@@ -37,6 +42,21 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/settings`,
     }),
@@ -65,6 +85,21 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/settings",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/settings`,
     }),
@@ -104,6 +139,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/settings`,

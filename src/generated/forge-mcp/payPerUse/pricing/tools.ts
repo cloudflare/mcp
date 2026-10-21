@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_Msg_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
+  pay_per_crawl_Source_output,
+  pay_per_crawl_apiErrorResponse_output,
+  pay_per_crawl_apiNoResultResponse_output,
+} from "../../outputs.js";
+import { pay_per_crawl_PPUPrice_output } from "../outputs.js";
+import {
+  pay_per_crawl_PPUOperatorPrice_output,
+  pay_per_crawl_PPUOperatorPrices_output,
+} from "./outputs.js";
+import {
   pay_per_crawl_PPUPublisherPriceAcceptDefaultRequest,
   pay_per_crawl_PPUPublisherPriceActionRequest,
   pay_per_crawl_PPUPublisherPriceProposeRequest,
@@ -49,6 +63,30 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/zones/{zone_id}/pay-per-use/operators",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUOperatorPrices"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUOperatorPrice": pay_per_crawl_PPUOperatorPrice_output,
+        "pay-per-crawl_PPUOperatorPrices": pay_per_crawl_PPUOperatorPrices_output,
+        "pay-per-crawl_PPUPrice": pay_per_crawl_PPUPrice_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-use/operators`,
       query: [
@@ -87,6 +125,31 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/zones/{zone_id}/pay-per-use/operators/{operator_id}/price",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-use/operators/${pathParam(args, "operator_id")}/price`,
     }),
@@ -133,6 +196,31 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/zones/{zone_id}/pay-per-use/operators/{operator_id}/price",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUPrice"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUPrice": pay_per_crawl_PPUPrice_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-use/operators/${pathParam(args, "operator_id")}/price`,
       body: { value: args["body"], mediaType: "application/json" },

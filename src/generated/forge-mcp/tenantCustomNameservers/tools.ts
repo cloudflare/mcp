@@ -3,10 +3,26 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  dns_custom_nameservers_api_response_common_failure_output,
+  dns_custom_nameservers_identifier_2_output,
+  dns_custom_nameservers_messages_output,
+  dns_custom_nameservers_ns_name_output,
+  dns_custom_nameservers_ns_set_output,
+} from "../outputs.js";
+import {
   dns_custom_nameservers_CustomNSInput,
   dns_custom_nameservers_ns_name,
   dns_custom_nameservers_ns_set,
 } from "../schemas.js";
+import {
+  dns_custom_nameservers_CustomNS_2_dns_recordsItem_output,
+  dns_custom_nameservers_CustomNS_2_output,
+  dns_custom_nameservers_empty_response_3_output,
+  dns_custom_nameservers_empty_response_3_result_info_output,
+  dns_custom_nameservers_tcns_response_collection_output,
+  dns_custom_nameservers_tcns_response_collection_result_info_output,
+  dns_custom_nameservers_tcns_response_single_output,
+} from "./outputs.js";
 
 /**
  * The tools of `tenant_custom_nameservers`.
@@ -54,6 +70,33 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-custom-nameservers_CustomNS-2"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-custom-nameservers_tcns_response_single"
+            },
+            {
+              "$ref": "#/$defs/dns-custom-nameservers_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-custom-nameservers_CustomNS-2": dns_custom_nameservers_CustomNS_2_output,
+        "dns-custom-nameservers_CustomNS-2_dns_recordsItem": dns_custom_nameservers_CustomNS_2_dns_recordsItem_output,
+        "dns-custom-nameservers_api-response-common-failure": dns_custom_nameservers_api_response_common_failure_output,
+        "dns-custom-nameservers_identifier-2": dns_custom_nameservers_identifier_2_output,
+        "dns-custom-nameservers_messages": dns_custom_nameservers_messages_output,
+        "dns-custom-nameservers_ns_name": dns_custom_nameservers_ns_name_output,
+        "dns-custom-nameservers_ns_set": dns_custom_nameservers_ns_set_output,
+        "dns-custom-nameservers_tcns_response_single": dns_custom_nameservers_tcns_response_single_output,
+      },
+    },
     request: (args) => ({
       path: `/tenants/${pathParam(args, "tenant_tag")}/custom_ns`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -97,6 +140,61 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-custom-nameservers_empty_response-3"
+            },
+            {
+              "$ref": "#/$defs/dns-custom-nameservers_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-custom-nameservers_api-response-common-failure": dns_custom_nameservers_api_response_common_failure_output,
+        "dns-custom-nameservers_empty_response-3": dns_custom_nameservers_empty_response_3_output,
+        "dns-custom-nameservers_empty_response-3_result_info": dns_custom_nameservers_empty_response_3_result_info_output,
+        "dns-custom-nameservers_messages": dns_custom_nameservers_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/tenants/${pathParam(args, "tenant_tag")}/custom_ns/${pathParam(args, "custom_ns_id")}`,
     }),
@@ -133,6 +231,65 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dns-custom-nameservers_CustomNS-2"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-custom-nameservers_tcns_response_collection"
+            },
+            {
+              "$ref": "#/$defs/dns-custom-nameservers_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-custom-nameservers_CustomNS-2": dns_custom_nameservers_CustomNS_2_output,
+        "dns-custom-nameservers_CustomNS-2_dns_recordsItem": dns_custom_nameservers_CustomNS_2_dns_recordsItem_output,
+        "dns-custom-nameservers_api-response-common-failure": dns_custom_nameservers_api_response_common_failure_output,
+        "dns-custom-nameservers_identifier-2": dns_custom_nameservers_identifier_2_output,
+        "dns-custom-nameservers_messages": dns_custom_nameservers_messages_output,
+        "dns-custom-nameservers_ns_name": dns_custom_nameservers_ns_name_output,
+        "dns-custom-nameservers_ns_set": dns_custom_nameservers_ns_set_output,
+        "dns-custom-nameservers_tcns_response_collection": dns_custom_nameservers_tcns_response_collection_output,
+        "dns-custom-nameservers_tcns_response_collection_result_info": dns_custom_nameservers_tcns_response_collection_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/tenants/${pathParam(args, "tenant_tag")}/custom_ns`,

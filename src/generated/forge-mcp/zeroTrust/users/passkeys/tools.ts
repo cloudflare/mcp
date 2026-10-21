@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `zero_trust.users.passkeys`.
@@ -44,6 +48,27 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/access/users/{user_id}/passkeys/{authenticator_id}",
     extensions: {
       "x-api-token-group": null
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/users/${pathParam(args, "user_id")}/passkeys/${pathParam(args, "authenticator_id")}`,

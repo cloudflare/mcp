@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  r2_data_catalog_api_response_common_failure_errorsItem_output,
+  r2_data_catalog_api_response_common_failure_output,
+  r2_data_catalog_catalog_compaction_config_output,
+  r2_data_catalog_catalog_maintenance_config_output,
+  r2_data_catalog_catalog_maintenance_config_response_output,
+  r2_data_catalog_catalog_maintenance_state_output,
+  r2_data_catalog_catalog_target_file_size_output,
+  r2_data_catalog_credential_status_output,
+  r2_data_catalog_maintenance_interval_output,
+  r2_data_catalog_snapshot_expiration_config_output,
+} from "../../outputs.js";
+import {
   r2_data_catalog_catalog_maintenance_state,
   r2_data_catalog_catalog_maintenance_update_request,
   r2_data_catalog_catalog_target_file_size,
@@ -49,6 +61,40 @@ export const tools: readonly Tool[] = [
         "Workers R2 Data Catalog Write",
         "Workers R2 Data Catalog Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-config-response"
+        },
+        "400": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "401": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "403": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "500": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
+        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
+        "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
+        "r2-data-catalog_catalog-maintenance-config-response": r2_data_catalog_catalog_maintenance_config_response_output,
+        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
+        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
+        "r2-data-catalog_credential-status": r2_data_catalog_credential_status_output,
+        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
+        "r2-data-catalog_snapshot-expiration-config": r2_data_catalog_snapshot_expiration_config_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/maintenance-configs`,
@@ -99,6 +145,38 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers R2 Data Catalog Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-config"
+        },
+        "400": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "401": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "403": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        },
+        "500": {
+          "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
+        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
+        "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
+        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
+        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
+        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
+        "r2-data-catalog_snapshot-expiration-config": r2_data_catalog_snapshot_expiration_config_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/maintenance-configs`,

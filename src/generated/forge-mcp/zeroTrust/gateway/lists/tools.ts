@@ -3,6 +3,30 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+  zero_trust_gateway_read_only_timestamp_output,
+} from "../../outputs.js";
+import {
+  zero_trust_gateway_empty_response_output,
+  zero_trust_gateway_result_info_output,
+} from "../outputs.js";
+import {
+  zero_trust_gateway_count_output,
+  zero_trust_gateway_description_item_output,
+  zero_trust_gateway_description_output,
+  zero_trust_gateway_items_output,
+  zero_trust_gateway_list_single_response_output,
+  zero_trust_gateway_lists_output,
+  zero_trust_gateway_name_output,
+  zero_trust_gateway_response_collection_3_output,
+  zero_trust_gateway_single_response_with_list_items_output,
+  zero_trust_gateway_single_response_with_list_items_result_output,
+  zero_trust_gateway_type_2_output,
+  zero_trust_gateway_uuid_2_output,
+  zero_trust_gateway_value_output,
+} from "./outputs.js";
+import {
   zero_trust_gateway_description,
   zero_trust_gateway_description_item,
   zero_trust_gateway_items_input,
@@ -74,6 +98,60 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/gateway/lists",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+            },
+            "description": {
+              "$ref": "#/$defs/zero-trust-gateway_description"
+            },
+            "id": {
+              "$ref": "#/$defs/zero-trust-gateway_uuid-2"
+            },
+            "items": {
+              "$ref": "#/$defs/zero-trust-gateway_items"
+            },
+            "name": {
+              "$ref": "#/$defs/zero-trust-gateway_name"
+            },
+            "type": {
+              "$ref": "#/$defs/zero-trust-gateway_type-2"
+            },
+            "updated_at": {
+              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response_with_list_items"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_single_response_with_list_items": zero_trust_gateway_single_response_with_list_items_output,
+        "zero-trust-gateway_single_response_with_list_items_result": zero_trust_gateway_single_response_with_list_items_result_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/lists`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -109,6 +187,28 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/gateway/lists/{list_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_empty_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_empty_response": zero_trust_gateway_empty_response_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/lists/${pathParam(args, "list_id")}`,
     }),
@@ -165,6 +265,38 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/gateway/lists/{list_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_lists"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_list_single_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_count": zero_trust_gateway_count_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_list_single_response": zero_trust_gateway_list_single_response_output,
+        "zero-trust-gateway_lists": zero_trust_gateway_lists_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/lists/${pathParam(args, "list_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -200,6 +332,38 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/lists/{list_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_lists"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_list_single_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_count": zero_trust_gateway_count_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_list_single_response": zero_trust_gateway_list_single_response_output,
+        "zero-trust-gateway_lists": zero_trust_gateway_lists_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/lists/${pathParam(args, "list_id")}`,
     }),
@@ -266,6 +430,53 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/lists",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_lists"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/zero-trust-gateway_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_response_collection-3"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_count": zero_trust_gateway_count_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_lists": zero_trust_gateway_lists_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_response_collection-3": zero_trust_gateway_response_collection_3_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/lists`,
       query: [
@@ -335,6 +546,38 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/gateway/lists/{list_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_lists"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_list_single_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_count": zero_trust_gateway_count_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_list_single_response": zero_trust_gateway_list_single_response_output,
+        "zero-trust-gateway_lists": zero_trust_gateway_lists_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/lists/${pathParam(args, "list_id")}`,
       body: { value: args["body"], mediaType: "application/json" },

@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  tunnel_api_response_common_failure_output,
+  tunnel_messages_output,
+  tunnel_tunnel_response_token_output,
+  tunnel_tunnel_token_output,
+} from "../../outputs.js";
 import { tunnel_management_resources } from "./schemas.js";
 
 /**
@@ -62,6 +68,29 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Connector: cloudflared Write",
         "Cloudflare Tunnel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_tunnel_token"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_tunnel_response_token"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_tunnel_response_token": tunnel_tunnel_response_token_output,
+        "tunnel_tunnel_token": tunnel_tunnel_token_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cfd_tunnel/${pathParam(args, "tunnel_id")}/management`,

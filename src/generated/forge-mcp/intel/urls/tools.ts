@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  intel_api_response_common_failure_output,
+  intel_messages_output,
+  intel_schemas_messages_output,
+} from "../outputs.js";
+import {
+  intel_url_intelligence_category_with_source_output,
+  intel_url_intelligence_output,
+  intel_url_intelligence_single_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `intel.urls`.
@@ -42,6 +52,31 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/intel_url_intelligence"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/intel_url_intelligence_single_response"
+            },
+            {
+              "$ref": "#/$defs/intel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_messages": intel_messages_output,
+        "intel_schemas-messages": intel_schemas_messages_output,
+        "intel_url_intelligence": intel_url_intelligence_output,
+        "intel_url_intelligence_category_with_source": intel_url_intelligence_category_with_source_output,
+        "intel_url_intelligence_single_response": intel_url_intelligence_single_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/url`,

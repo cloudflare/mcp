@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_api_response_common_output,
+  workers_messages_output,
+} from "../outputs.js";
 
 /**
  * The tools of `previews`.
@@ -50,6 +55,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers Scripts Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers/${pathParam(args, "worker")}/previews/${pathParam(args, "name")}`,

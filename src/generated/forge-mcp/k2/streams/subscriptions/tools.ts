@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  cloudflare_k2_K2ConsumerLag_output,
+  cloudflare_k2_K2MonitoredSubscription_output,
+  cloudflare_k2_K2MonitoredSubscription_start_at_output,
+} from "./outputs.js";
 
 /**
  * The tools of `k2.streams.subscriptions`.
@@ -44,6 +49,34 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscription"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": null,
+        "5XX": null
+      },
+      $defs: {
+        "cloudflare-k2_K2ConsumerLag": cloudflare_k2_K2ConsumerLag_output,
+        "cloudflare-k2_K2MonitoredSubscription": cloudflare_k2_K2MonitoredSubscription_output,
+        "cloudflare-k2_K2MonitoredSubscription_start_at": cloudflare_k2_K2MonitoredSubscription_start_at_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/k2/streams/${pathParam(args, "stream_id")}/subscriptions`,

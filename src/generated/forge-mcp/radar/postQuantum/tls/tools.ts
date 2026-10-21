@@ -44,6 +44,83 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "bugs": {
+              "properties": {
+                "hrrFailure": {
+                  "type": "boolean"
+                },
+                "splitClientHello": {
+                  "type": "boolean"
+                },
+                "unknownKeyshare": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "hrrFailure",
+                "splitClientHello",
+                "unknownKeyshare"
+              ],
+              "type": "object"
+            },
+            "host": {
+              "type": "string"
+            },
+            "kex": {
+              "type": "number"
+            },
+            "kexName": {
+              "type": "string"
+            },
+            "pq": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "bugs",
+            "host",
+            "kex",
+            "kexName",
+            "pq"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/post_quantum/tls/support`,
       query: [

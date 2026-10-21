@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  logcontrol_api_response_common_failure_output,
+  logcontrol_messages_output,
+} from "../../outputs.js";
+import {
+  logcontrol_allow_out_of_region_access_output,
+  logcontrol_cmb_config_output,
+  logcontrol_regions_output,
+} from "./outputs.js";
+import {
   logcontrol_allow_out_of_region_access,
   logcontrol_cmb_config,
   logcontrol_regions,
@@ -61,6 +70,23 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/logcontrol_cmb_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logcontrol_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
+        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_cmb_config": logcontrol_cmb_config_output,
+        "logcontrol_messages": logcontrol_messages_output,
+        "logcontrol_regions": logcontrol_regions_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logs/control/cmb/config`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -105,6 +131,20 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "null"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logcontrol_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_messages": logcontrol_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logs/control/cmb/config`,
@@ -154,6 +194,23 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/logcontrol_cmb_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logcontrol_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
+        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_cmb_config": logcontrol_cmb_config_output,
+        "logcontrol_messages": logcontrol_messages_output,
+        "logcontrol_regions": logcontrol_regions_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logs/control/cmb/config`,

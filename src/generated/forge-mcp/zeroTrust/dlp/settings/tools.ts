@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../outputs.js";
+import {
+  dlp_DlpSettings_output,
+  dlp_PayloadLogMaskingLevel_output,
+  dlp_PayloadLogSetting_output,
+} from "./outputs.js";
+import {
   dlp_DlpSettingsUpdate,
   dlp_PayloadLogMaskingLevel,
   dlp_PayloadLogSettingUpdate,
@@ -40,6 +49,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_DlpSettings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_DlpSettings": dlp_DlpSettings_output,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/settings`,
@@ -84,6 +110,23 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_DlpSettings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_DlpSettings": dlp_DlpSettings_output,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/settings`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -118,6 +161,23 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_DlpSettings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_DlpSettings": dlp_DlpSettings_output,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/settings`,
@@ -161,6 +221,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_DlpSettings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_DlpSettings": dlp_DlpSettings_output,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/settings`,

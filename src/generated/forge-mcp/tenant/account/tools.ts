@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  organizations_api_Account_output,
+  organizations_api_Account_settings_output,
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `tenant.account`.
@@ -32,6 +38,36 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/tenants/{tenant_id}/accounts",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_Account"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Account": organizations_api_Account_output,
+        "organizations-api_Account_settings": organizations_api_Account_settings_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/tenants/${pathParam(args, "tenant_id")}/accounts`,
     }),

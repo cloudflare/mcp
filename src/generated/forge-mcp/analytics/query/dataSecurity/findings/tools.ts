@@ -2,7 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  art_APIError_output,
+  art_APIMessage_output,
+  art_ErrorResponse_output,
+  art_ResultValues_output,
+  art_SummaryResult_output,
+} from "../../outputs.js";
 import { art_Filter } from "../../schemas.js";
+import { art_DataSecurityFindingsTimeseriesResult_output } from "./outputs.js";
 import {
   art_DataSecurityFindingsSummaryQuery,
   art_DataSecurityFindingsTimeseriesQuery,
@@ -51,6 +59,29 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/art_SummaryResult"
+        },
+        "400": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        }
+      },
+      $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
+        "art_ErrorResponse": art_ErrorResponse_output,
+        "art_ResultValues": art_ResultValues_output,
+        "art_SummaryResult": art_SummaryResult_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/analytics/query/data-security/findings/summary`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -94,6 +125,29 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesResult"
+        },
+        "400": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/art_ErrorResponse"
+        }
+      },
+      $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
+        "art_DataSecurityFindingsTimeseriesResult": art_DataSecurityFindingsTimeseriesResult_output,
+        "art_ErrorResponse": art_ErrorResponse_output,
+        "art_ResultValues": art_ResultValues_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/analytics/query/data-security/findings/timeseries`,

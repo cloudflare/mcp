@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  magic_visibility_mnm_api_response_common_failure_output,
+  magic_visibility_mnm_messages_output,
+} from "../../outputs.js";
+import {
+  magic_visibility_mnm_mnm_vpc_flows_single_response_output,
+  magic_visibility_mnm_mnm_vpc_flows_token_output,
+} from "./outputs.js";
 
 /**
  * The tools of `magic_network_monitoring.vpc_flows.tokens`.
@@ -35,6 +43,29 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic Network Monitoring Admin"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_token"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_single_response"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
+        "magic-visibility-mnm_mnm_vpc_flows_single_response": magic_visibility_mnm_mnm_vpc_flows_single_response_output,
+        "magic-visibility-mnm_mnm_vpc_flows_token": magic_visibility_mnm_mnm_vpc_flows_token_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/mnm/vpc-flows/token`,

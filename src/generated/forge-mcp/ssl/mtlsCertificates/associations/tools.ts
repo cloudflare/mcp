@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../../outputs.js";
+import {
+  tls_certificates_and_hostnames_associationObject_output,
+  tls_certificates_and_hostnames_association_response_collection_output,
+  tls_certificates_and_hostnames_association_response_collection_result_info_output,
+  tls_certificates_and_hostnames_service_output,
+  tls_certificates_and_hostnames_status_10_output,
+} from "./outputs.js";
 
 /**
  * The tools of `ssl.mtls_certificates.associations`.
@@ -58,6 +69,63 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_associationObject"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_association_response_collection"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_associationObject": tls_certificates_and_hostnames_associationObject_output,
+        "tls-certificates-and-hostnames_association_response_collection": tls_certificates_and_hostnames_association_response_collection_output,
+        "tls-certificates-and-hostnames_association_response_collection_result_info": tls_certificates_and_hostnames_association_response_collection_result_info_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_service": tls_certificates_and_hostnames_service_output,
+        "tls-certificates-and-hostnames_status-10": tls_certificates_and_hostnames_status_10_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/mtls_certificates/${pathParam(args, "mtls_certificate_id")}/associations`,

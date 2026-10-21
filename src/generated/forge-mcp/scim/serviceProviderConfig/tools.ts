@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { iam_scim_error_response_output } from "../outputs.js";
+import {
+  iam_scim_authentication_scheme_output,
+  iam_scim_bulk_feature_output,
+  iam_scim_feature_output,
+  iam_scim_filter_feature_output,
+  iam_scim_service_provider_config_output,
+} from "./outputs.js";
 
 /**
  * The tools of `scim.service_provider_config`.
@@ -54,6 +62,24 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_service_provider_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_authentication_scheme": iam_scim_authentication_scheme_output,
+        "iam_scim_bulk_feature": iam_scim_bulk_feature_output,
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_feature": iam_scim_feature_output,
+        "iam_scim_filter_feature": iam_scim_filter_feature_output,
+        "iam_scim_service_provider_config": iam_scim_service_provider_config_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/ServiceProviderConfig`,

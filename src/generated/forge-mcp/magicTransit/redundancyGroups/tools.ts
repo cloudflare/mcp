@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_api_response_common_failure_output,
+  magic_messages_output,
+} from "../outputs.js";
+import {
+  magic_redundancy_group_output,
+  magic_redundancy_group_with_members_output,
+  magic_redundancy_member_data_output,
+} from "./outputs.js";
+import {
   magic_create_redundancy_group_request,
   magic_redundancy_member_request,
 } from "./schemas.js";
@@ -52,6 +61,21 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/magic_redundancy_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_messages": magic_messages_output,
+        "magic_redundancy_group": magic_redundancy_group_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/redundancy_groups`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -95,6 +119,33 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_redundancy_group": {
+              "$ref": "#/$defs/magic_redundancy_group"
+            }
+          },
+          "required": [
+            "deleted",
+            "deleted_redundancy_group"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_messages": magic_messages_output,
+        "magic_redundancy_group": magic_redundancy_group_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/redundancy_groups/${pathParam(args, "redundancy_group_id")}`,
     }),
@@ -137,6 +188,22 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_redundancy_group_with_members"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_messages": magic_messages_output,
+        "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
+        "magic_redundancy_member_data": magic_redundancy_member_data_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/redundancy_groups/${pathParam(args, "redundancy_group_id")}`,
     }),
@@ -173,6 +240,30 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "redundancy_groups": {
+              "items": {
+                "$ref": "#/$defs/magic_redundancy_group_with_members"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_messages": magic_messages_output,
+        "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
+        "magic_redundancy_member_data": magic_redundancy_member_data_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/redundancy_groups`,
@@ -223,6 +314,21 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_redundancy_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_messages": magic_messages_output,
+        "magic_redundancy_group": magic_redundancy_group_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/redundancy_groups/${pathParam(args, "redundancy_group_id")}`,

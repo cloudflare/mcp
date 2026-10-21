@@ -2,7 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+  email_security_timestamp_output,
+} from "../outputs.js";
 import { email_security_identifier } from "../schemas.js";
+import {
+  email_security_DeletedSendingDomainRestriction_output,
+  email_security_SendingDomainRestrictionId_output,
+  email_security_SendingDomainRestrictionList_output,
+  email_security_SendingDomainRestriction_output,
+} from "./outputs.js";
 import {
   email_security_CreateSendingDomainRestriction,
   email_security_SendingDomainRestrictionId,
@@ -52,6 +63,23 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/email-security_SendingDomainRestriction"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/sending_domain_restrictions`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -96,6 +124,22 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Write"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_DeletedSendingDomainRestriction"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeletedSendingDomainRestriction": email_security_DeletedSendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/sending_domain_restrictions/${pathParam(args, "sending_domain_restriction_id")}`,
@@ -146,6 +190,23 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_SendingDomainRestriction"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/sending_domain_restrictions/${pathParam(args, "sending_domain_restriction_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -191,6 +252,23 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_SendingDomainRestriction"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/sending_domain_restrictions/${pathParam(args, "sending_domain_restriction_id")}`,
@@ -260,6 +338,49 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_SendingDomainRestrictionList"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_SendingDomainRestrictionList": email_security_SendingDomainRestrictionList_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/sending_domain_restrictions`,

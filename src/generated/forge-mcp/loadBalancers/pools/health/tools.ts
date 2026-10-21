@@ -3,6 +3,13 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  load_balancing_api_response_common_failure_output,
+  load_balancing_identifier_output,
+  load_balancing_messages_output,
+  load_balancing_origin_health_ip_output,
+  load_balancing_origin_health_output,
+} from "../../../outputs.js";
+import {
   load_balancing_allow_insecure,
   load_balancing_consecutive_down,
   load_balancing_consecutive_up,
@@ -78,6 +85,32 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/load_balancers/pools/{pool_id}/preview",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "pools": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "preview_id": {
+              "$ref": "#/$defs/load-balancing_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_messages": load_balancing_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/pools/${pathParam(args, "pool_id")}/preview`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -117,6 +150,41 @@ export const tools: readonly Tool[] = [
         "Load Balancing: Monitors and Pools Write",
         "Load Balancing: Monitors and Pools Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "pool_id": {
+              "type": "string"
+            },
+            "pop_health": {
+              "properties": {
+                "healthy": {
+                  "type": "boolean"
+                },
+                "origins": {
+                  "items": {
+                    "$ref": "#/$defs/load-balancing_origin-health"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_origin-health": load_balancing_origin_health_output,
+        "load-balancing_origin-health_ip": load_balancing_origin_health_ip_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/load_balancers/pools/${pathParam(args, "pool_id")}/health`,

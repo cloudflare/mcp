@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  teams_devices_v4_error_response_output,
+  teams_devices_v4_response_message_output,
+} from "../outputs.js";
+import { teams_devices_override_code_output } from "./outputs.js";
 import { teams_devices_override_code_create_request } from "./schemas.js";
 
 /**
@@ -41,6 +46,21 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/devices/override_codes",
     extensions: {
       "x-auditable": true
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_override_code"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_override_code": teams_devices_override_code_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/override_codes`,

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  one_AuthMethodDetail_output,
+  one_Instructions_output,
+  one_PaginatedAuthMethodDetailList_result_info_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.casb.applications.auth_methods`.
@@ -65,6 +70,33 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/one/applications/{application_id}/auth-methods",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/one_AuthMethodDetail"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/one_PaginatedAuthMethodDetailList_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "404": null
+      },
+      $defs: {
+        "one_AuthMethodDetail": one_AuthMethodDetail_output,
+        "one_Instructions": one_Instructions_output,
+        "one_PaginatedAuthMethodDetailList_result_info": one_PaginatedAuthMethodDetailList_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/applications/${pathParam(args, "application_id")}/auth-methods`,

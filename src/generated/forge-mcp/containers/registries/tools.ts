@@ -3,6 +3,19 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  cc_ISO8601Timestamp_output,
+  cc_Messages_output,
+  cc_V4BaseErrorResponse_output,
+} from "../outputs.js";
+import {
+  cc_ContainersDeleteImageRegistryResponseBody_output,
+  cc_CustomerImageRegistry_kind_output,
+  cc_CustomerImageRegistry_output,
+  cc_DefaultImageRegistryKind_output,
+  cc_Domain_output,
+  cc_ExternalRegistryKind_output,
+} from "./outputs.js";
+import {
   cc_ContainersCreateImageRegistryRequestBody,
   cc_ContainersImageRegistryAuth,
   cc_ExternalRegistryKind,
@@ -53,6 +66,35 @@ export const tools: readonly Tool[] = [
         "Workers Containers Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/cc_CustomerImageRegistry"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_CustomerImageRegistry": cc_CustomerImageRegistry_output,
+        "cc_CustomerImageRegistry_kind": cc_CustomerImageRegistry_kind_output,
+        "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind_output,
+        "cc_Domain": cc_Domain_output,
+        "cc_ExternalRegistryKind": cc_ExternalRegistryKind_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/registries`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -93,6 +135,31 @@ export const tools: readonly Tool[] = [
         "Workers Containers Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cc_ContainersDeleteImageRegistryResponseBody"
+        },
+        "403": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_ContainersDeleteImageRegistryResponseBody": cc_ContainersDeleteImageRegistryResponseBody_output,
+        "cc_Domain": cc_Domain_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/registries/${pathParam(args, "domain")}`,
     }),
@@ -127,6 +194,43 @@ export const tools: readonly Tool[] = [
         "Workers Containers Write",
         "Workers Containers Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/cc_CustomerImageRegistry"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_CustomerImageRegistry": cc_CustomerImageRegistry_output,
+        "cc_CustomerImageRegistry_kind": cc_CustomerImageRegistry_kind_output,
+        "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind_output,
+        "cc_Domain": cc_Domain_output,
+        "cc_ExternalRegistryKind": cc_ExternalRegistryKind_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/registries`,

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  billable_usage_api_api_response_common_failure_output,
+  billable_usage_api_cost_and_usage_data_output,
+  billable_usage_api_message_output,
+} from "../../../outputs.js";
 import { billable_usage_api_identifier } from "../../../schemas.js";
 
 /**
@@ -53,6 +58,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
+        "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+      },
     },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/billable/usage`,

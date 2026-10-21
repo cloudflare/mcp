@@ -3,11 +3,25 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_CursorResultInfo_output,
+  email_security_DispositionLabel_output,
+  email_security_MailboxDestination_output,
+  email_security_MessageDeliveryStatus_output,
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+} from "../outputs.js";
+import {
   email_security_DispositionLabel,
   email_security_MailboxDestination,
   email_security_MessageDeliveryStatus,
   email_security_identifier,
 } from "../schemas.js";
+import {
+  email_security_BulkJobActionParams_output,
+  email_security_BulkJobDetail_output,
+  email_security_BulkJobStatus_output,
+  email_security_BulkSearchParams_output,
+} from "./outputs.js";
 import {
   email_security_BulkActionRequest,
   email_security_BulkJobId,
@@ -59,6 +73,27 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_BulkJobDetail"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
+        "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
+        "email-security_BulkJobStatus": email_security_BulkJobStatus_output,
+        "email-security_BulkSearchParams": email_security_BulkSearchParams_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_MailboxDestination": email_security_MailboxDestination_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/investigate/bulk/${pathParam(args, "job_id")}/cancel`,
     }),
@@ -106,6 +141,27 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/email-security_BulkJobDetail"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
+        "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
+        "email-security_BulkJobStatus": email_security_BulkJobStatus_output,
+        "email-security_BulkSearchParams": email_security_BulkSearchParams_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_MailboxDestination": email_security_MailboxDestination_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/investigate/bulk`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -147,6 +203,29 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/email-security/investigate/bulk/{job_id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/investigate/bulk/${pathParam(args, "job_id")}`,
@@ -192,6 +271,27 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_BulkJobDetail"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
+        "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
+        "email-security_BulkJobStatus": email_security_BulkJobStatus_output,
+        "email-security_BulkSearchParams": email_security_BulkSearchParams_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_MailboxDestination": email_security_MailboxDestination_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/investigate/bulk/${pathParam(args, "job_id")}`,
@@ -254,6 +354,42 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_BulkJobDetail"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/email-security_CursorResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
+        "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
+        "email-security_BulkJobStatus": email_security_BulkJobStatus_output,
+        "email-security_BulkSearchParams": email_security_BulkSearchParams_output,
+        "email-security_CursorResultInfo": email_security_CursorResultInfo_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_MailboxDestination": email_security_MailboxDestination_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/investigate/bulk`,

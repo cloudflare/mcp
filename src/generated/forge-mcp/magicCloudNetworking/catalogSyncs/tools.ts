@@ -3,6 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  mcn_bad_response_output,
+  mcn_error_meta_output,
+  mcn_error_output,
+  mcn_error_source_output,
+} from "../outputs.js";
+import {
+  mcn_catalog_sync_destination_id_output,
+  mcn_catalog_sync_destination_type_output,
+  mcn_catalog_sync_id_output,
+  mcn_catalog_sync_output,
+  mcn_catalog_sync_update_mode_output,
+  mcn_deleted_catalog_sync_output,
+  mcn_policy_result_output,
+} from "./outputs.js";
+import {
   mcn_catalog_sync_destination_type,
   mcn_catalog_sync_update_mode,
   mcn_create_catalog_sync_request,
@@ -54,6 +69,42 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/mcn_catalog_sync"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/catalog-syncs`,
       headers: [
@@ -97,6 +148,39 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_deleted_catalog_sync"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_deleted_catalog_sync": mcn_deleted_catalog_sync_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/catalog-syncs/${pathParam(args, "sync_id")}`,
@@ -146,6 +230,45 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_catalog_sync"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/catalog-syncs/${pathParam(args, "sync_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -185,6 +308,39 @@ export const tools: readonly Tool[] = [
         "Magic WAN Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_catalog_sync"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/catalog-syncs/${pathParam(args, "sync_id")}`,
     }),
@@ -218,6 +374,53 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic WAN Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mcn_catalog_sync"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/catalog-syncs`,
@@ -255,6 +458,41 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_policy_result"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_policy_result": mcn_policy_result_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/catalog-syncs/${pathParam(args, "sync_id")}/refresh`,
@@ -300,6 +538,45 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic WAN Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mcn_catalog_sync"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "422": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/catalog-syncs/${pathParam(args, "sync_id")}`,

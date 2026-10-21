@@ -3,6 +3,37 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  spectrum_config_api_response_common_failure_output,
+  spectrum_config_messages_output,
+} from "../outputs.js";
+import {
+  spectrum_config_app_config_output,
+  spectrum_config_app_identifier_output,
+  spectrum_config_argo_smart_routing_output,
+  spectrum_config_created_output,
+  spectrum_config_dns_name_output,
+  spectrum_config_dns_output,
+  spectrum_config_dns_ttl_output,
+  spectrum_config_dns_type_output,
+  spectrum_config_edge_ips_output,
+  spectrum_config_identifier_output,
+  spectrum_config_ip_firewall_output,
+  spectrum_config_modified_output,
+  spectrum_config_origin_direct_output,
+  spectrum_config_origin_dns_name_output,
+  spectrum_config_origin_dns_output,
+  spectrum_config_origin_dns_type_output,
+  spectrum_config_origin_port_output,
+  spectrum_config_origin_worker_id_output,
+  spectrum_config_paygo_app_config_output,
+  spectrum_config_protocol_output,
+  spectrum_config_proxy_protocol_output,
+  spectrum_config_timestamp_output,
+  spectrum_config_tls_output,
+  spectrum_config_traffic_type_output,
+  spectrum_config_virtual_network_id_output,
+} from "./outputs.js";
+import {
   spectrum_config_app_config,
   spectrum_config_argo_smart_routing,
   spectrum_config_dns,
@@ -87,6 +118,52 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/spectrum-config_app_config"
+            },
+            {
+              "$ref": "#/$defs/spectrum-config_paygo_app_config"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/spectrum-config_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "spectrum-config_api-response-common-failure": spectrum_config_api_response_common_failure_output,
+        "spectrum-config_app_config": spectrum_config_app_config_output,
+        "spectrum-config_app_identifier": spectrum_config_app_identifier_output,
+        "spectrum-config_argo_smart_routing": spectrum_config_argo_smart_routing_output,
+        "spectrum-config_created": spectrum_config_created_output,
+        "spectrum-config_dns": spectrum_config_dns_output,
+        "spectrum-config_dns_name": spectrum_config_dns_name_output,
+        "spectrum-config_dns_ttl": spectrum_config_dns_ttl_output,
+        "spectrum-config_dns_type": spectrum_config_dns_type_output,
+        "spectrum-config_edge_ips": spectrum_config_edge_ips_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_ip_firewall": spectrum_config_ip_firewall_output,
+        "spectrum-config_messages": spectrum_config_messages_output,
+        "spectrum-config_modified": spectrum_config_modified_output,
+        "spectrum-config_origin_direct": spectrum_config_origin_direct_output,
+        "spectrum-config_origin_dns": spectrum_config_origin_dns_output,
+        "spectrum-config_origin_dns_name": spectrum_config_origin_dns_name_output,
+        "spectrum-config_origin_dns_type": spectrum_config_origin_dns_type_output,
+        "spectrum-config_origin_port": spectrum_config_origin_port_output,
+        "spectrum-config_origin_worker_id": spectrum_config_origin_worker_id_output,
+        "spectrum-config_paygo_app_config": spectrum_config_paygo_app_config_output,
+        "spectrum-config_protocol": spectrum_config_protocol_output,
+        "spectrum-config_proxy_protocol": spectrum_config_proxy_protocol_output,
+        "spectrum-config_timestamp": spectrum_config_timestamp_output,
+        "spectrum-config_tls": spectrum_config_tls_output,
+        "spectrum-config_traffic_type": spectrum_config_traffic_type_output,
+        "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/spectrum/apps`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -127,6 +204,36 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/spectrum-config_identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/spectrum-config_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "spectrum-config_api-response-common-failure": spectrum_config_api_response_common_failure_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_messages": spectrum_config_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/spectrum/apps/${pathParam(args, "app_id")}`,
     }),
@@ -166,6 +273,52 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write",
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/spectrum-config_app_config"
+            },
+            {
+              "$ref": "#/$defs/spectrum-config_paygo_app_config"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/spectrum-config_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "spectrum-config_api-response-common-failure": spectrum_config_api_response_common_failure_output,
+        "spectrum-config_app_config": spectrum_config_app_config_output,
+        "spectrum-config_app_identifier": spectrum_config_app_identifier_output,
+        "spectrum-config_argo_smart_routing": spectrum_config_argo_smart_routing_output,
+        "spectrum-config_created": spectrum_config_created_output,
+        "spectrum-config_dns": spectrum_config_dns_output,
+        "spectrum-config_dns_name": spectrum_config_dns_name_output,
+        "spectrum-config_dns_ttl": spectrum_config_dns_ttl_output,
+        "spectrum-config_dns_type": spectrum_config_dns_type_output,
+        "spectrum-config_edge_ips": spectrum_config_edge_ips_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_ip_firewall": spectrum_config_ip_firewall_output,
+        "spectrum-config_messages": spectrum_config_messages_output,
+        "spectrum-config_modified": spectrum_config_modified_output,
+        "spectrum-config_origin_direct": spectrum_config_origin_direct_output,
+        "spectrum-config_origin_dns": spectrum_config_origin_dns_output,
+        "spectrum-config_origin_dns_name": spectrum_config_origin_dns_name_output,
+        "spectrum-config_origin_dns_type": spectrum_config_origin_dns_type_output,
+        "spectrum-config_origin_port": spectrum_config_origin_port_output,
+        "spectrum-config_origin_worker_id": spectrum_config_origin_worker_id_output,
+        "spectrum-config_paygo_app_config": spectrum_config_paygo_app_config_output,
+        "spectrum-config_protocol": spectrum_config_protocol_output,
+        "spectrum-config_proxy_protocol": spectrum_config_proxy_protocol_output,
+        "spectrum-config_timestamp": spectrum_config_timestamp_output,
+        "spectrum-config_tls": spectrum_config_tls_output,
+        "spectrum-config_traffic_type": spectrum_config_traffic_type_output,
+        "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/spectrum/apps/${pathParam(args, "app_id")}`,
@@ -231,6 +384,86 @@ export const tools: readonly Tool[] = [
         "Zone Settings Write",
         "Zone Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/spectrum-config_app_config"
+                  },
+                  "type": "array"
+                },
+                {
+                  "items": {
+                    "$ref": "#/$defs/spectrum-config_paygo_app_config"
+                  },
+                  "type": "array"
+                }
+              ]
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/spectrum-config_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "spectrum-config_api-response-common-failure": spectrum_config_api_response_common_failure_output,
+        "spectrum-config_app_config": spectrum_config_app_config_output,
+        "spectrum-config_app_identifier": spectrum_config_app_identifier_output,
+        "spectrum-config_argo_smart_routing": spectrum_config_argo_smart_routing_output,
+        "spectrum-config_created": spectrum_config_created_output,
+        "spectrum-config_dns": spectrum_config_dns_output,
+        "spectrum-config_dns_name": spectrum_config_dns_name_output,
+        "spectrum-config_dns_ttl": spectrum_config_dns_ttl_output,
+        "spectrum-config_dns_type": spectrum_config_dns_type_output,
+        "spectrum-config_edge_ips": spectrum_config_edge_ips_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_ip_firewall": spectrum_config_ip_firewall_output,
+        "spectrum-config_messages": spectrum_config_messages_output,
+        "spectrum-config_modified": spectrum_config_modified_output,
+        "spectrum-config_origin_direct": spectrum_config_origin_direct_output,
+        "spectrum-config_origin_dns": spectrum_config_origin_dns_output,
+        "spectrum-config_origin_dns_name": spectrum_config_origin_dns_name_output,
+        "spectrum-config_origin_dns_type": spectrum_config_origin_dns_type_output,
+        "spectrum-config_origin_port": spectrum_config_origin_port_output,
+        "spectrum-config_origin_worker_id": spectrum_config_origin_worker_id_output,
+        "spectrum-config_paygo_app_config": spectrum_config_paygo_app_config_output,
+        "spectrum-config_protocol": spectrum_config_protocol_output,
+        "spectrum-config_proxy_protocol": spectrum_config_proxy_protocol_output,
+        "spectrum-config_timestamp": spectrum_config_timestamp_output,
+        "spectrum-config_tls": spectrum_config_tls_output,
+        "spectrum-config_traffic_type": spectrum_config_traffic_type_output,
+        "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/spectrum/apps`,
@@ -303,6 +536,52 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zone Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/spectrum-config_app_config"
+            },
+            {
+              "$ref": "#/$defs/spectrum-config_paygo_app_config"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/spectrum-config_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "spectrum-config_api-response-common-failure": spectrum_config_api_response_common_failure_output,
+        "spectrum-config_app_config": spectrum_config_app_config_output,
+        "spectrum-config_app_identifier": spectrum_config_app_identifier_output,
+        "spectrum-config_argo_smart_routing": spectrum_config_argo_smart_routing_output,
+        "spectrum-config_created": spectrum_config_created_output,
+        "spectrum-config_dns": spectrum_config_dns_output,
+        "spectrum-config_dns_name": spectrum_config_dns_name_output,
+        "spectrum-config_dns_ttl": spectrum_config_dns_ttl_output,
+        "spectrum-config_dns_type": spectrum_config_dns_type_output,
+        "spectrum-config_edge_ips": spectrum_config_edge_ips_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_ip_firewall": spectrum_config_ip_firewall_output,
+        "spectrum-config_messages": spectrum_config_messages_output,
+        "spectrum-config_modified": spectrum_config_modified_output,
+        "spectrum-config_origin_direct": spectrum_config_origin_direct_output,
+        "spectrum-config_origin_dns": spectrum_config_origin_dns_output,
+        "spectrum-config_origin_dns_name": spectrum_config_origin_dns_name_output,
+        "spectrum-config_origin_dns_type": spectrum_config_origin_dns_type_output,
+        "spectrum-config_origin_port": spectrum_config_origin_port_output,
+        "spectrum-config_origin_worker_id": spectrum_config_origin_worker_id_output,
+        "spectrum-config_paygo_app_config": spectrum_config_paygo_app_config_output,
+        "spectrum-config_protocol": spectrum_config_protocol_output,
+        "spectrum-config_proxy_protocol": spectrum_config_proxy_protocol_output,
+        "spectrum-config_timestamp": spectrum_config_timestamp_output,
+        "spectrum-config_tls": spectrum_config_tls_output,
+        "spectrum-config_traffic_type": spectrum_config_traffic_type_output,
+        "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/spectrum/apps/${pathParam(args, "app_id")}`,

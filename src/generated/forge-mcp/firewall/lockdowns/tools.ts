@@ -2,7 +2,24 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  firewall_api_response_common_failure_output,
+  firewall_messages_output,
+  firewall_result_info_output,
+} from "../../outputs.js";
+import { firewall_schemas_paused_output } from "../outputs.js";
 import { firewall_description, firewall_schemas_paused } from "../schemas.js";
+import {
+  firewall_configurations_output,
+  firewall_created_on_output,
+  firewall_lockdowns_components_schemas_description_output,
+  firewall_lockdowns_components_schemas_id_output,
+  firewall_modified_on_output,
+  firewall_schemas_cidr_configuration_output,
+  firewall_schemas_ip_configuration_output,
+  firewall_schemas_urls_output,
+  firewall_zonelockdown_output,
+} from "./outputs.js";
 import {
   firewall_configurations,
   firewall_ip_range_search,
@@ -95,6 +112,30 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/firewall_zonelockdown"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_configurations": firewall_configurations_output,
+        "firewall_created_on": firewall_created_on_output,
+        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components_schemas_description_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_modified_on": firewall_modified_on_output,
+        "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration_output,
+        "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration_output,
+        "firewall_schemas-paused": firewall_schemas_paused_output,
+        "firewall_schemas-urls": firewall_schemas_urls_output,
+        "firewall_zonelockdown": firewall_zonelockdown_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/lockdowns`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -141,6 +182,31 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/firewall_lockdowns_components-schemas-id"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_messages": firewall_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/lockdowns/${pathParam(args, "lock_downs_id")}`,
     }),
@@ -186,6 +252,30 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/firewall_zonelockdown"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_configurations": firewall_configurations_output,
+        "firewall_created_on": firewall_created_on_output,
+        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components_schemas_description_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_modified_on": firewall_modified_on_output,
+        "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration_output,
+        "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration_output,
+        "firewall_schemas-paused": firewall_schemas_paused_output,
+        "firewall_schemas-urls": firewall_schemas_urls_output,
+        "firewall_zonelockdown": firewall_zonelockdown_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/lockdowns/${pathParam(args, "lock_downs_id")}`,
@@ -283,6 +373,45 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/firewall_zonelockdown"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/firewall_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_configurations": firewall_configurations_output,
+        "firewall_created_on": firewall_created_on_output,
+        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components_schemas_description_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_modified_on": firewall_modified_on_output,
+        "firewall_result_info": firewall_result_info_output,
+        "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration_output,
+        "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration_output,
+        "firewall_schemas-paused": firewall_schemas_paused_output,
+        "firewall_schemas-urls": firewall_schemas_urls_output,
+        "firewall_zonelockdown": firewall_zonelockdown_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/lockdowns`,
       query: [
@@ -364,6 +493,30 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/firewall_zonelockdown"
+        },
+        "4XX": {
+          "$ref": "#/$defs/firewall_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_configurations": firewall_configurations_output,
+        "firewall_created_on": firewall_created_on_output,
+        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components_schemas_description_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_modified_on": firewall_modified_on_output,
+        "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration_output,
+        "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration_output,
+        "firewall_schemas-paused": firewall_schemas_paused_output,
+        "firewall_schemas-urls": firewall_schemas_urls_output,
+        "firewall_zonelockdown": firewall_zonelockdown_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/firewall/lockdowns/${pathParam(args, "lock_downs_id")}`,

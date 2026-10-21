@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  dlp_Empty_output,
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../outputs.js";
+import {
+  dlp_RiskEvent_output,
+  dlp_RiskEvents_output,
+  dlp_RiskLevel_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.risk_scoring`.
@@ -41,6 +51,23 @@ export const tools: readonly Tool[] = [
         "Zero Trust: PII Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_RiskEvents"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_RiskEvent": dlp_RiskEvent_output,
+        "dlp_RiskEvents": dlp_RiskEvents_output,
+        "dlp_RiskLevel": dlp_RiskLevel_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zt_risk_scoring/${pathParam(args, "user_id")}`,
     }),
@@ -78,6 +105,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_Empty"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zt_risk_scoring/${pathParam(args, "user_id")}/reset`,

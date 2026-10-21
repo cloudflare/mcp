@@ -3,6 +3,16 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  precursor_api_response_common_failure_output,
+  precursor_messages_output,
+  precursor_precursor_config_output,
+  precursor_precursor_config_response_body_output,
+  precursor_precursor_mode_output,
+  precursor_precursor_rule_output,
+  precursor_precursor_rules_output,
+  precursor_show_interstitial_output,
+} from "./outputs.js";
+import {
   precursor_precursor_config,
   precursor_precursor_mode,
   precursor_precursor_rule,
@@ -69,6 +79,33 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/precursor_precursor_config"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/precursor_precursor_config_response_body"
+            },
+            {
+              "$ref": "#/$defs/precursor_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "precursor_api-response-common-failure": precursor_api_response_common_failure_output,
+        "precursor_messages": precursor_messages_output,
+        "precursor_precursor_config": precursor_precursor_config_output,
+        "precursor_precursor_config_response_body": precursor_precursor_config_response_body_output,
+        "precursor_precursor_mode": precursor_precursor_mode_output,
+        "precursor_precursor_rule": precursor_precursor_rule_output,
+        "precursor_precursor_rules": precursor_precursor_rules_output,
+        "precursor_show_interstitial": precursor_show_interstitial_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/precursor`,
@@ -139,6 +176,33 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/precursor_precursor_config"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/precursor_precursor_config_response_body"
+            },
+            {
+              "$ref": "#/$defs/precursor_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "precursor_api-response-common-failure": precursor_api_response_common_failure_output,
+        "precursor_messages": precursor_messages_output,
+        "precursor_precursor_config": precursor_precursor_config_output,
+        "precursor_precursor_config_response_body": precursor_precursor_config_response_body_output,
+        "precursor_precursor_mode": precursor_precursor_mode_output,
+        "precursor_precursor_rule": precursor_precursor_rule_output,
+        "precursor_precursor_rules": precursor_precursor_rules_output,
+        "precursor_show_interstitial": precursor_show_interstitial_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/precursor`,

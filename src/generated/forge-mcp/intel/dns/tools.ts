@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  intel_api_response_common_failure_output,
+  intel_messages_output,
+  intel_schemas_messages_output,
+} from "../outputs.js";
+import {
+  intel_components_schemas_single_response_output,
+  intel_passive_dns_by_ip_output,
+  intel_passive_dns_by_ip_reverse_recordsItem_output,
+  intel_schemas_result_info_output,
+} from "./outputs.js";
 import { intel_start_end_params } from "./schemas.js";
 
 /**
@@ -55,6 +66,32 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/intel_passive-dns-by-ip"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/intel_components-schemas-single_response"
+            },
+            {
+              "$ref": "#/$defs/intel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_components-schemas-single_response": intel_components_schemas_single_response_output,
+        "intel_messages": intel_messages_output,
+        "intel_passive-dns-by-ip": intel_passive_dns_by_ip_output,
+        "intel_passive-dns-by-ip_reverse_recordsItem": intel_passive_dns_by_ip_reverse_recordsItem_output,
+        "intel_schemas-messages": intel_schemas_messages_output,
+        "intel_schemas-result_info": intel_schemas_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/dns`,

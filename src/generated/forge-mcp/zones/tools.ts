@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  zones_api_response_common_failure_output,
+  zones_identifier_output,
+  zones_messages_output,
+  zones_paused_output,
+  zones_result_info_output,
+  zones_type_output,
+  zones_zone_account_output,
+  zones_zone_meta_output,
+  zones_zone_output,
+  zones_zone_owner_output,
+} from "./outputs.js";
+import {
   zones_identifier,
   zones_name,
   zones_paused,
@@ -73,6 +85,27 @@ export const tools: readonly Tool[] = [
         "Zone DNS Edit"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zones_zone"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure": zones_api_response_common_failure_output,
+        "zones_identifier": zones_identifier_output,
+        "zones_messages": zones_messages_output,
+        "zones_paused": zones_paused_output,
+        "zones_type": zones_type_output,
+        "zones_zone": zones_zone_output,
+        "zones_zone_account": zones_zone_account_output,
+        "zones_zone_meta": zones_zone_meta_output,
+        "zones_zone_owner": zones_zone_owner_output,
+      },
+    },
     request: (args) => ({
       path: `/zones`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -123,6 +156,36 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/zones_identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure": zones_api_response_common_failure_output,
+        "zones_identifier": zones_identifier_output,
+        "zones_messages": zones_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}`,
@@ -204,6 +267,27 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zones_zone"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure": zones_api_response_common_failure_output,
+        "zones_identifier": zones_identifier_output,
+        "zones_messages": zones_messages_output,
+        "zones_paused": zones_paused_output,
+        "zones_type": zones_type_output,
+        "zones_zone": zones_zone_output,
+        "zones_zone_account": zones_zone_account_output,
+        "zones_zone_meta": zones_zone_meta_output,
+        "zones_zone_owner": zones_zone_owner_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}`,
@@ -293,6 +377,27 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zones_zone"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure": zones_api_response_common_failure_output,
+        "zones_identifier": zones_identifier_output,
+        "zones_messages": zones_messages_output,
+        "zones_paused": zones_paused_output,
+        "zones_type": zones_type_output,
+        "zones_zone": zones_zone_output,
+        "zones_zone_account": zones_zone_account_output,
+        "zones_zone_meta": zones_zone_meta_output,
+        "zones_zone_owner": zones_zone_owner_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}`,
@@ -393,6 +498,42 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zone Zone Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zones_zone"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/zones_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure": zones_api_response_common_failure_output,
+        "zones_identifier": zones_identifier_output,
+        "zones_messages": zones_messages_output,
+        "zones_paused": zones_paused_output,
+        "zones_result_info": zones_result_info_output,
+        "zones_type": zones_type_output,
+        "zones_zone": zones_zone_output,
+        "zones_zone_account": zones_zone_account_output,
+        "zones_zone_meta": zones_zone_meta_output,
+        "zones_zone_owner": zones_zone_owner_output,
+      },
     },
     request: (args) => ({
       path: `/zones`,

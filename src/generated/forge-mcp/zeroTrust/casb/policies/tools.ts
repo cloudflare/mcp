@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  posture_api_error_response_output,
+  posture_api_messages_output,
+  posture_api_result_info_output,
+} from "../outputs.js";
+import {
+  posture_api_DeletePolicyResponse_output,
+  posture_api_PolicyActionsResponse_output,
+  posture_api_PolicyRemediationTypeResponse_output,
+  posture_api_PolicyResponse_output,
+  posture_api_PolicyWebhookConfigResponse_output,
+} from "./outputs.js";
+import {
   posture_api_CreatePolicyRequest,
   posture_api_PolicyActionsInput,
   posture_api_PolicyRemediationActionInput,
@@ -54,6 +66,33 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_PolicyResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "404": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_PolicyActionsResponse": posture_api_PolicyActionsResponse_output,
+        "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
+        "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
+        "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/policies`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -94,6 +133,30 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_DeletePolicyResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "404": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_DeletePolicyResponse": posture_api_DeletePolicyResponse_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/policies/${pathParam(args, "policy_id")}`,
@@ -136,6 +199,33 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_PolicyResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "404": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_PolicyActionsResponse": posture_api_PolicyActionsResponse_output,
+        "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
+        "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
+        "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/policies/${pathParam(args, "policy_id")}`,
     }),
@@ -174,6 +264,45 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/posture-api_PolicyResponse"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/posture-api_result-info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_PolicyActionsResponse": posture_api_PolicyActionsResponse_output,
+        "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
+        "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
+        "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/policies`,
@@ -227,6 +356,33 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_PolicyResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "404": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_PolicyActionsResponse": posture_api_PolicyActionsResponse_output,
+        "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
+        "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
+        "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/policies/${pathParam(args, "policy_id")}`,

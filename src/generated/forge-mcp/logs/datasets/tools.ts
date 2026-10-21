@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  lex_AvailableDestination_output,
+  lex_AvailableDestination_schema_output,
+  lex_DatasetResponse_output,
+  lex_DatasetSummary_output,
+  lex_ErrorResponse_2_output,
+  lex_LogField_output,
+  lex_V4Error_2_output,
+} from "./outputs.js";
+import {
   lex_CreateDatasetRequest,
   lex_LogField,
   lex_UpdateDatasetRequest,
@@ -51,6 +60,49 @@ export const tools: readonly Tool[] = [
         "Logs Write",
         "Logs Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/lex_AvailableDestination"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "403": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "404": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        }
+      },
+      $defs: {
+        "lex_AvailableDestination": lex_AvailableDestination_output,
+        "lex_AvailableDestination_schema": lex_AvailableDestination_schema_output,
+        "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logs/explorer/datasets/available`,
@@ -103,6 +155,31 @@ export const tools: readonly Tool[] = [
         "Logs Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/lex_DatasetResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "403": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "404": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "409": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        }
+      },
+      $defs: {
+        "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
+        "lex_LogField": lex_LogField_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logs/explorer/datasets`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -147,6 +224,31 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/{account_or_zone}/{account_or_zone_id}/logs/explorer/datasets/{dataset_id}",
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/lex_DatasetResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "403": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "404": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "409": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        }
+      },
+      $defs: {
+        "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
+        "lex_LogField": lex_LogField_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logs/explorer/datasets/${pathParam(args, "dataset_id")}`,
     }),
@@ -195,6 +297,28 @@ export const tools: readonly Tool[] = [
         "Logs Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/lex_DatasetResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "403": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "404": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        }
+      },
+      $defs: {
+        "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
+        "lex_LogField": lex_LogField_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logs/explorer/datasets/${pathParam(args, "dataset_id")}`,
     }),
@@ -242,6 +366,48 @@ export const tools: readonly Tool[] = [
         "Logs Write",
         "Logs Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/lex_DatasetSummary"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "403": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "404": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        }
+      },
+      $defs: {
+        "lex_DatasetSummary": lex_DatasetSummary_output,
+        "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logs/explorer/datasets`,
@@ -301,6 +467,28 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Logs Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/lex_DatasetResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "403": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        },
+        "404": {
+          "$ref": "#/$defs/lex_ErrorResponse-2"
+        }
+      },
+      $defs: {
+        "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
+        "lex_LogField": lex_LogField_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logs/explorer/datasets/${pathParam(args, "dataset_id")}`,

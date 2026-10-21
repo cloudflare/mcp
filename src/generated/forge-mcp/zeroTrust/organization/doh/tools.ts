@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../outputs.js";
+import { access_doh_jwt_duration_output } from "./outputs.js";
 import { access_doh_jwt_duration } from "./schemas.js";
 
 /**
@@ -39,6 +44,25 @@ export const tools: readonly Tool[] = [
         "Access: Organizations, Identity Providers, and Groups Write",
         "Access: Organizations, Identity Providers, and Groups Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "doh_jwt_duration": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/organizations/doh`,
@@ -89,6 +113,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Organizations, Identity Providers, and Groups Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "doh_jwt_duration": {
+              "$ref": "#/$defs/access_doh_jwt_duration"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_doh_jwt_duration": access_doh_jwt_duration_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/organizations/doh`,

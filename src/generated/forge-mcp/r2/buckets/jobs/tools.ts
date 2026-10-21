@@ -2,7 +2,21 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_prefix_delete_job_output,
+  r2_prefix_delete_job_prefixDelete_output,
+  r2_r2_bucket_job_status_output,
+  r2_v4_response_failure_output,
+} from "../../outputs.js";
 import { r2_r2_bucket_job_status } from "../../schemas.js";
+import {
+  r2_r2_bucket_job_output,
+  r2_r2_bucket_jobs_result_output,
+  r2_storage_class_migration_job_output,
+  r2_storage_class_migration_job_storageClassMigration_output,
+} from "./outputs.js";
 import {
   r2_create_prefix_delete_job_request,
   r2_create_storage_class_migration_job_request,
@@ -77,6 +91,33 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_r2_bucket_job"
+        },
+        "409": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        },
+        "429": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_prefix_delete_job": r2_prefix_delete_job_output,
+        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
+        "r2_r2_bucket_job": r2_r2_bucket_job_output,
+        "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
+        "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
+        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/jobs`,
       headers: [
@@ -143,6 +184,27 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_r2_bucket_job"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_prefix_delete_job": r2_prefix_delete_job_output,
+        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
+        "r2_r2_bucket_job": r2_r2_bucket_job_output,
+        "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
+        "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
+        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/jobs/${pathParam(args, "job_id")}`,
@@ -226,6 +288,28 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_r2_bucket_jobs_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_prefix_delete_job": r2_prefix_delete_job_output,
+        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
+        "r2_r2_bucket_job": r2_r2_bucket_job_output,
+        "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
+        "r2_r2_bucket_jobs_result": r2_r2_bucket_jobs_result_output,
+        "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
+        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/jobs`,

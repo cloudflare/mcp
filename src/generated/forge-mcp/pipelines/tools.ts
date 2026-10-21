@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import {
+  cloudflare_pipelines_PipelineEdge_output,
+  cloudflare_pipelines_PipelineGraph_output,
+  cloudflare_pipelines_PipelineNode_output,
+} from "./outputs.js";
 
 /**
  * The tools of `pipelines`.
@@ -60,6 +65,42 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "sql": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "created_at",
+            "id",
+            "modified_at",
+            "name",
+            "sql",
+            "status"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/pipelines`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -102,6 +143,14 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/pipelines/${pathParam(args, "pipeline_id")}`,
@@ -148,6 +197,80 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created_at": {
+              "type": "string"
+            },
+            "failure_reason": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "sql": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "tables": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "latest": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "stream",
+                      "sink"
+                    ],
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "latest",
+                  "name",
+                  "type",
+                  "version"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "created_at",
+            "id",
+            "modified_at",
+            "name",
+            "sql",
+            "status",
+            "tables"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/pipelines/${pathParam(args, "pipeline_id")}`,
@@ -200,6 +323,76 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "modified_at": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sql": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "created_at",
+                  "id",
+                  "modified_at",
+                  "name",
+                  "sql",
+                  "status"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/pipelines`,
@@ -257,6 +450,158 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "graph": {
+              "$ref": "#/$defs/cloudflare-pipelines_PipelineGraph"
+            },
+            "tables": {
+              "additionalProperties": {
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "type",
+                  "version"
+                ],
+                "type": "object"
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "tables"
+          ],
+          "type": "object"
+        },
+        "422": {
+          "properties": {
+            "diagnostics": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "span": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "end": {
+                            "properties": {
+                              "column": {
+                                "type": "integer"
+                              },
+                              "line": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "column",
+                              "line"
+                            ],
+                            "type": "object"
+                          },
+                          "start": {
+                            "properties": {
+                              "column": {
+                                "type": "integer"
+                              },
+                              "line": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "column",
+                              "line"
+                            ],
+                            "type": "object"
+                          }
+                        },
+                        "required": [
+                          "end",
+                          "start"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "diagnostics",
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+      $defs: {
+        "cloudflare-pipelines_PipelineEdge": cloudflare_pipelines_PipelineEdge_output,
+        "cloudflare-pipelines_PipelineGraph": cloudflare_pipelines_PipelineGraph_output,
+        "cloudflare-pipelines_PipelineNode": cloudflare_pipelines_PipelineNode_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/validate_sql`,

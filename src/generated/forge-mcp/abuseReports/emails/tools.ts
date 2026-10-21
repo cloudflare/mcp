@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  abuse_reports_AuthErrorResponse_output,
+  abuse_reports_CloudflareAPIErrorResponse_output,
+  abuse_reports_ErrorMessage_code_output,
+  abuse_reports_ErrorMessage_output,
+  abuse_reports_Message_output,
+  abuse_reports_UnauthorizedErrorResponse_output,
+} from "../outputs.js";
+import {
+  abuse_reports_EmailListItem_output,
+  abuse_reports_EmailListResponse_result_output,
+} from "./outputs.js";
 
 /**
  * The tools of `abuse_reports.emails`.
@@ -50,6 +62,85 @@ export const tools: readonly Tool[] = [
         "Trust and Safety Write",
         "Trust and Safety Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "emails": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_EmailListItem"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "emails"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+      $defs: {
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_EmailListItem": abuse_reports_EmailListItem_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports/${pathParam(args, "report_id")}/emails`,
@@ -102,6 +193,32 @@ export const tools: readonly Tool[] = [
         "Trust and Safety Write",
         "Trust and Safety Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/abuse-reports_EmailListResponse_result"
+        },
+        "400": null,
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_EmailListItem": abuse_reports_EmailListItem_output,
+        "abuse-reports_EmailListResponse_result": abuse_reports_EmailListResponse_result_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports/submitted/${pathParam(args, "report_id")}/emails`,

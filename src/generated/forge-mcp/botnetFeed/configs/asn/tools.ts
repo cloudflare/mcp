@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  dos_api_response_common_failure_output,
+  dos_messages_output,
+} from "../../../outputs.js";
 
 /**
  * The tools of `botnet_feed.configs.asn`.
@@ -41,6 +45,25 @@ export const tools: readonly Tool[] = [
         "DDoS Botnet Feed Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asn": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/botnet_feed/configs/asn/${pathParam(args, "asn_id")}`,
     }),
@@ -75,6 +98,25 @@ export const tools: readonly Tool[] = [
         "DDoS Botnet Feed Write",
         "DDoS Botnet Feed Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asn": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dos_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dos_api-response-common-failure": dos_api_response_common_failure_output,
+        "dos_messages": dos_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/botnet_feed/configs/asn`,

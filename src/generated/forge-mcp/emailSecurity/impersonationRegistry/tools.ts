@@ -2,7 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+  email_security_timestamp_output,
+} from "../outputs.js";
 import { email_security_identifier } from "../schemas.js";
+import {
+  email_security_DeletedImpersonationRegistry_output,
+  email_security_ImpersonationRegistryId_output,
+  email_security_ImpersonationRegistryList_output,
+  email_security_ImpersonationRegistry_output,
+  email_security_Provenance_output,
+} from "./outputs.js";
 import {
   email_security_CreateImpersonationRegistry,
   email_security_ImpersonationRegistryId,
@@ -54,6 +66,24 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/email-security_ImpersonationRegistry"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_ImpersonationRegistry": email_security_ImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_Provenance": email_security_Provenance_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/impersonation_registry`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -98,6 +128,22 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Write"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_DeletedImpersonationRegistry"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_DeletedImpersonationRegistry": email_security_DeletedImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/impersonation_registry/${pathParam(args, "impersonation_registry_id")}`,
@@ -149,6 +195,24 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_ImpersonationRegistry"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_ImpersonationRegistry": email_security_ImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_Provenance": email_security_Provenance_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/impersonation_registry/${pathParam(args, "impersonation_registry_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -194,6 +258,24 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_ImpersonationRegistry"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_ImpersonationRegistry": email_security_ImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_Provenance": email_security_Provenance_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/impersonation_registry/${pathParam(args, "impersonation_registry_id")}`,
@@ -268,6 +350,50 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_ImpersonationRegistryList"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_ImpersonationRegistry": email_security_ImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_ImpersonationRegistryList": email_security_ImpersonationRegistryList_output,
+        "email-security_Provenance": email_security_Provenance_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/impersonation_registry`,

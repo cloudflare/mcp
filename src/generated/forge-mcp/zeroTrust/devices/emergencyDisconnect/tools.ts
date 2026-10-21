@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  teams_devices_api_response_common_failure_output,
+  teams_devices_messages_output,
+} from "../outputs.js";
+import {
+  teams_devices_disconnect_output,
+  teams_devices_global_warp_override_output,
+  teams_devices_timestamp_output,
+} from "./outputs.js";
+import {
   teams_devices_disconnect,
   teams_devices_global_warp_override_request,
   teams_devices_justification,
@@ -43,6 +52,23 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_global_warp_override"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_disconnect": teams_devices_disconnect_output,
+        "teams-devices_global_warp_override": teams_devices_global_warp_override_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_timestamp": teams_devices_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/resilience/disconnect`,
@@ -85,6 +111,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Resilience Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_global_warp_override"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_disconnect": teams_devices_disconnect_output,
+        "teams-devices_global_warp_override": teams_devices_global_warp_override_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_timestamp": teams_devices_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/resilience/disconnect`,

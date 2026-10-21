@@ -3,6 +3,33 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  tunnel_account_id_output,
+  tunnel_api_response_common_failure_output,
+  tunnel_cfd_tunnel_output,
+  tunnel_client_id_output,
+  tunnel_colo_name_output,
+  tunnel_config_src_output,
+  tunnel_connection_id_output,
+  tunnel_connections_deprecated_output,
+  tunnel_conns_active_at_output,
+  tunnel_conns_inactive_at_output,
+  tunnel_created_at_output,
+  tunnel_deleted_at_output,
+  tunnel_ip_output,
+  tunnel_is_pending_reconnect_output,
+  tunnel_messages_output,
+  tunnel_metadata_output,
+  tunnel_remote_config_output,
+  tunnel_result_info_output,
+  tunnel_schemas_connection_output,
+  tunnel_status_output,
+  tunnel_tunnel_id_output,
+  tunnel_tunnel_name_output,
+  tunnel_tunnel_type_output,
+  tunnel_version_output,
+  tunnel_warp_connector_tunnel_output,
+} from "../outputs.js";
+import {
   tunnel_config_src,
   tunnel_existed_at,
   tunnel_page_number,
@@ -14,6 +41,10 @@ import {
   tunnel_tunnel_type,
   tunnel_tunnel_types,
 } from "../schemas.js";
+import {
+  tunnel_cfd_tunnel_response_single_output,
+  tunnel_tunnel_response_collection_output,
+} from "./outputs.js";
 
 /**
  * The tools of `tunnels`.
@@ -76,6 +107,49 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_cfd_tunnel"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_cfd-tunnel-response-single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_cfd-tunnel-response-single": tunnel_cfd_tunnel_response_single_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cfd_tunnel`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -117,6 +191,49 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Connector: cloudflared Write",
         "Cloudflare Tunnel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_cfd_tunnel"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_cfd-tunnel-response-single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_cfd-tunnel-response-single": tunnel_cfd_tunnel_response_single_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cfd_tunnel/${pathParam(args, "tunnel_id")}`,
@@ -177,6 +294,49 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_cfd_tunnel"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_cfd-tunnel-response-single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_cfd-tunnel-response-single": tunnel_cfd_tunnel_response_single_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cfd_tunnel/${pathParam(args, "tunnel_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -221,6 +381,49 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write",
         "Cloudflare Tunnel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_cfd_tunnel"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_cfd-tunnel-response-single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_cfd-tunnel-response-single": tunnel_cfd_tunnel_response_single_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cfd_tunnel/${pathParam(args, "tunnel_id")}`,
@@ -316,6 +519,72 @@ export const tools: readonly Tool[] = [
         "Cloudflare Tunnel Write",
         "Cloudflare Tunnel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/tunnel_cfd_tunnel"
+                  },
+                  {
+                    "$ref": "#/$defs/tunnel_warp_connector_tunnel"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/tunnel_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_tunnel-response-collection"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel-response-collection": tunnel_tunnel_response_collection_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+        "tunnel_warp_connector_tunnel": tunnel_warp_connector_tunnel_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/tunnels`,

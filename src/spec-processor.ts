@@ -33,7 +33,7 @@ const SCOPES = [
 type Scope = (typeof SCOPES)[number]
 
 /** The concrete paths a spec path stands for, with the scope it was split into. */
-function concretePaths(path: string): Array<{ path: string; scope?: Scope }> {
+export function concretePaths(path: string): Array<{ path: string; scope?: Scope }> {
   if (!path.startsWith(ACCOUNT_OR_ZONE_PREFIX)) return [{ path }]
   const rest = path.slice(ACCOUNT_OR_ZONE_PREFIX.length)
   return SCOPES.map((scope) => ({ path: `/${scope.segment}/{${scope.idParam}}${rest}`, scope }))

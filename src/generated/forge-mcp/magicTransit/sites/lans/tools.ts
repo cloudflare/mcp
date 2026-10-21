@@ -2,8 +2,29 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  magic_api_response_common_failure_output,
+  magic_cidr_output,
+  magic_identifier_output,
+  magic_messages_output,
+} from "../../outputs.js";
 import { magic_cidr } from "../../schemas.js";
+import {
+  magic_ip_address_output,
+  magic_port_output,
+  magic_vlan_tag_output,
+} from "../outputs.js";
 import { magic_ip_address, magic_port, magic_vlan_tag } from "../schemas.js";
+import {
+  magic_bond_id_output,
+  magic_dhcp_option_output,
+  magic_lan_dhcp_relay_output,
+  magic_lan_dhcp_server_output,
+  magic_lan_output,
+  magic_lan_static_addressing_output,
+  magic_nat_output,
+  magic_routed_subnet_output,
+} from "./outputs.js";
 import {
   magic_bond_id,
   magic_dhcp_option,
@@ -80,6 +101,47 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_lan"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/lans`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -141,6 +203,33 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_lan"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/lans/${pathParam(args, "lan_id")}`,
@@ -221,6 +310,33 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_lan"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/lans/${pathParam(args, "lan_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -285,6 +401,33 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_lan"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/lans/${pathParam(args, "lan_id")}`,
     }),
@@ -332,6 +475,47 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_lan"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/lans`,
@@ -411,6 +595,33 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_lan"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/lans/${pathParam(args, "lan_id")}`,

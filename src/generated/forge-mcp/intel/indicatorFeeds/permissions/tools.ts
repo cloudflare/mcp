@@ -2,6 +2,23 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  custom_indicator_feeds_api_response_common_failure_output,
+  custom_indicator_feeds_description_output,
+  custom_indicator_feeds_id_output,
+  custom_indicator_feeds_is_attributable_output,
+  custom_indicator_feeds_is_downloadable_output,
+  custom_indicator_feeds_is_public_output,
+  custom_indicator_feeds_messages_2_output,
+  custom_indicator_feeds_messages_output,
+  custom_indicator_feeds_name_output,
+} from "../outputs.js";
+import {
+  custom_indicator_feeds_permission_list_item_output,
+  custom_indicator_feeds_permission_list_item_response_output,
+  custom_indicator_feeds_permissions_response_output,
+  custom_indicator_feeds_permissions_update_output,
+} from "./outputs.js";
 import { custom_indicator_feeds_permissions_request } from "./schemas.js";
 
 /**
@@ -40,6 +57,30 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/intel/indicator-feeds/permissions/add",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-indicator-feeds_permissions_update"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/custom-indicator-feeds_permissions_response"
+            },
+            {
+              "$ref": "#/$defs/custom-indicator-feeds_api_response_common_failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
+        "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
+        "custom-indicator-feeds_permissions_response": custom_indicator_feeds_permissions_response_output,
+        "custom-indicator-feeds_permissions_update": custom_indicator_feeds_permissions_update_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/indicator-feeds/permissions/add`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -77,6 +118,30 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/intel/indicator-feeds/permissions/remove",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-indicator-feeds_permissions_update"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/custom-indicator-feeds_permissions_response"
+            },
+            {
+              "$ref": "#/$defs/custom-indicator-feeds_api_response_common_failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
+        "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
+        "custom-indicator-feeds_permissions_response": custom_indicator_feeds_permissions_response_output,
+        "custom-indicator-feeds_permissions_update": custom_indicator_feeds_permissions_update_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/indicator-feeds/permissions/remove`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -112,6 +177,50 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/custom-indicator-feeds_permission_list_item"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/custom-indicator-feeds_permission_list_item_response"
+            },
+            {
+              "$ref": "#/$defs/custom-indicator-feeds_api_response_common_failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
+        "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
+        "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
+        "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
+        "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
+        "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
+        "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
+        "custom-indicator-feeds_permission_list_item": custom_indicator_feeds_permission_list_item_output,
+        "custom-indicator-feeds_permission_list_item_response": custom_indicator_feeds_permission_list_item_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/indicator-feeds/permissions/view`,

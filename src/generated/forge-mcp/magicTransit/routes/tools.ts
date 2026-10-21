@@ -3,6 +3,26 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_api_response_common_failure_output,
+  magic_identifier_output,
+  magic_messages_output,
+} from "../outputs.js";
+import {
+  magic_colo_name_output,
+  magic_colo_names_output,
+  magic_colo_region_output,
+  magic_colo_regions_output,
+  magic_created_on_output,
+  magic_description_output,
+  magic_modified_on_output,
+  magic_nexthop_output,
+  magic_prefix_output,
+  magic_priority_output,
+  magic_route_output,
+  magic_scope_output,
+  magic_weight_output,
+} from "./outputs.js";
+import {
   magic_colo_name,
   magic_colo_names,
   magic_colo_region,
@@ -91,6 +111,45 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_routes": {
+              "items": {
+                "$ref": "#/$defs/magic_route"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/routes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -160,6 +219,34 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_route"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/routes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -216,6 +303,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_route": {
+              "$ref": "#/$defs/magic_route"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/routes/${pathParam(args, "route_id")}`,
@@ -276,6 +399,45 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_routes": {
+              "items": {
+                "$ref": "#/$defs/magic_route"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/routes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -335,6 +497,39 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "route": {
+              "$ref": "#/$defs/magic_route"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/routes/${pathParam(args, "route_id")}`,
     }),
@@ -377,6 +572,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "routes": {
+              "items": {
+                "$ref": "#/$defs/magic_route"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/routes`,
@@ -450,6 +681,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_route": {
+              "$ref": "#/$defs/magic_route"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/routes/${pathParam(args, "route_id")}`,

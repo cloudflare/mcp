@@ -3,11 +3,26 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
+  api_shield_messages_output,
+} from "../../../../outputs.js";
+import {
   api_shield_identifier,
   api_shield_identifier_2,
   api_shield_uuid,
   api_shield_uuid_2,
 } from "../../../../schemas.js";
+import {
+  api_shield_credentials_JWT_Key_EC_ES256_output,
+  api_shield_credentials_JWT_Key_EC_ES384_output,
+  api_shield_credentials_JWT_Key_EC_common_output,
+  api_shield_credentials_JWT_Key_RSA_output,
+  api_shield_credentials_JWT_Key_common_output,
+  api_shield_credentials_JWT_Key_oct_response_output,
+  api_shield_credentials_JWT_Key_response_output,
+  api_shield_credentials_output,
+} from "../outputs.js";
 import {
   api_shield_credentials_JWT_Key_EC_ES256,
   api_shield_credentials_JWT_Key_EC_ES384,
@@ -81,6 +96,44 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_credentials"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_credentials": api_shield_credentials_output,
+        "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256_output,
+        "api-shield_credentials-JWT-Key-EC-ES384": api_shield_credentials_JWT_Key_EC_ES384_output,
+        "api-shield_credentials-JWT-Key-EC-common": api_shield_credentials_JWT_Key_EC_common_output,
+        "api-shield_credentials-JWT-Key-RSA": api_shield_credentials_JWT_Key_RSA_output,
+        "api-shield_credentials-JWT-Key-common": api_shield_credentials_JWT_Key_common_output,
+        "api-shield_credentials-JWT-Key-oct-response": api_shield_credentials_JWT_Key_oct_response_output,
+        "api-shield_credentials-JWT-Key-response": api_shield_credentials_JWT_Key_response_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/config/${pathParam(args, "config_id")}/credentials`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -138,6 +191,44 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_credentials"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_credentials": api_shield_credentials_output,
+        "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256_output,
+        "api-shield_credentials-JWT-Key-EC-ES384": api_shield_credentials_JWT_Key_EC_ES384_output,
+        "api-shield_credentials-JWT-Key-EC-common": api_shield_credentials_JWT_Key_EC_common_output,
+        "api-shield_credentials-JWT-Key-RSA": api_shield_credentials_JWT_Key_RSA_output,
+        "api-shield_credentials-JWT-Key-common": api_shield_credentials_JWT_Key_common_output,
+        "api-shield_credentials-JWT-Key-oct-response": api_shield_credentials_JWT_Key_oct_response_output,
+        "api-shield_credentials-JWT-Key-response": api_shield_credentials_JWT_Key_response_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/token_validation/config/${pathParam(args, "config_id")}/credentials`,

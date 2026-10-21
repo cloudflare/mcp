@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+  zero_trust_gateway_read_only_timestamp_output,
+} from "../../../outputs.js";
+import {
+  zero_trust_gateway_public_key_output,
+  zero_trust_gateway_settings_output,
+  zero_trust_gateway_single_response_6_output,
+  zero_trust_gateway_uuid_5_output,
+} from "./outputs.js";
 import { zero_trust_gateway_public_key } from "./schemas.js";
 
 /**
@@ -33,6 +44,32 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/audit_ssh_settings",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-6"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_single_response-6": zero_trust_gateway_single_response_6_output,
+        "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/audit_ssh_settings`,
     }),
@@ -62,6 +99,32 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/gateway/audit_ssh_settings/rotate_seed",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-6"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_single_response-6": zero_trust_gateway_single_response_6_output,
+        "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/audit_ssh_settings/rotate_seed`,
     }),
@@ -107,6 +170,32 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/gateway/audit_ssh_settings",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-6"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_single_response-6": zero_trust_gateway_single_response_6_output,
+        "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/audit_ssh_settings`,
       body: { value: args["body"], mediaType: "application/json" },

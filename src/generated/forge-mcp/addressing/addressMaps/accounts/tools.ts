@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  addressing_api_response_collection_output,
+  addressing_api_response_collection_result_info_output,
+  addressing_api_response_common_failure_output,
+  addressing_messages_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `addressing.address_maps.accounts`.
@@ -47,6 +53,29 @@ export const tools: readonly Tool[] = [
         "Address Maps Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/addressing_api-response-collection"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_api-response-collection"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-collection_result_info": addressing_api_response_collection_result_info_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/address_maps/${pathParam(args, "address_map_id")}/accounts/${pathParam(args, "member_account_id")}`,
     }),
@@ -86,6 +115,29 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/accounts/{member_account_id}",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/addressing_api-response-collection"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_api-response-collection"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-collection_result_info": addressing_api_response_collection_result_info_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/address_maps/${pathParam(args, "address_map_id")}/accounts/${pathParam(args, "member_account_id")}`,
     }),

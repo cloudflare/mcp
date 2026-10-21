@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_created_on_output,
+  workers_identifier_output,
+  workers_messages_output,
+  workers_modified_on_output,
+} from "../../outputs.js";
+import { workers_script_name_output } from "./outputs.js";
 
 /**
  * The tools of `workers.scripts`.
@@ -74,6 +82,84 @@ export const tools: readonly Tool[] = [
         "Individual Workers Content Read-Only",
         "Individual Workers Metadata Read-Only"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "created_on": {
+                    "$ref": "#/$defs/workers_created_on"
+                  },
+                  "environment_is_default": {
+                    "type": "boolean"
+                  },
+                  "environment_name": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "$ref": "#/$defs/workers_identifier"
+                  },
+                  "modified_on": {
+                    "$ref": "#/$defs/workers_modified_on"
+                  },
+                  "script_name": {
+                    "$ref": "#/$defs/workers_script_name"
+                  },
+                  "service_name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "created_on",
+                  "id",
+                  "modified_on",
+                  "script_name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_script_name": workers_script_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts-search`,

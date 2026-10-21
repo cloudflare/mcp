@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
+import {
+  realtimekit_Poll_optionsItem_output,
+  realtimekit_Poll_optionsItem_votesItem_output,
+  realtimekit_Poll_output,
+} from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.meetings.active.polls`.
@@ -77,6 +82,35 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "data": {
+              "properties": {
+                "action": {
+                  "type": "string"
+                },
+                "poll": {
+                  "$ref": "#/$defs/realtimekit_Poll"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "400": null
+      },
+      $defs: {
+        "realtimekit_Poll": realtimekit_Poll_output,
+        "realtimekit_Poll_optionsItem": realtimekit_Poll_optionsItem_output,
+        "realtimekit_Poll_optionsItem_votesItem": realtimekit_Poll_optionsItem_votesItem_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session/poll`,

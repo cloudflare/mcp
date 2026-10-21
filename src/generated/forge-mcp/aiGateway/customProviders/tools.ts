@@ -113,6 +113,108 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "base_url": {
+              "type": "string"
+            },
+            "beta": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "curl_example": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "headers": {
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "js_example": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            },
+            "logo": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "position": {
+              "type": "integer"
+            },
+            "slug": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base_url",
+            "created_at",
+            "id",
+            "modified_at",
+            "name",
+            "slug"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/custom-providers`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -168,6 +270,101 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "base_url": {
+              "type": "string"
+            },
+            "beta": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "curl_example": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "headers": {
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "js_example": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            },
+            "logo": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "position": {
+              "type": "integer"
+            },
+            "slug": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base_url",
+            "created_at",
+            "id",
+            "modified_at",
+            "name",
+            "slug"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/custom-providers/${pathParam(args, "id")}`,
     }),
@@ -222,6 +419,101 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "base_url": {
+              "type": "string"
+            },
+            "beta": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "curl_example": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "headers": {
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "js_example": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            },
+            "logo": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "position": {
+              "type": "integer"
+            },
+            "slug": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base_url",
+            "created_at",
+            "id",
+            "modified_at",
+            "name",
+            "slug"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/custom-providers/${pathParam(args, "id")}`,
@@ -290,6 +582,115 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "base_url": {
+                    "type": "string"
+                  },
+                  "beta": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "curl_example": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "enable": {
+                    "type": "boolean"
+                  },
+                  "headers": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "js_example": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string"
+                  },
+                  "modified_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "integer"
+                  },
+                  "slug": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "base_url",
+                  "created_at",
+                  "id",
+                  "modified_at",
+                  "name",
+                  "slug"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/custom-providers`,
@@ -413,6 +814,138 @@ export const tools: readonly Tool[] = [
           "hidden": true
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "base_url": {
+              "type": "string"
+            },
+            "beta": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "curl_example": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "headers": {
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "js_example": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            },
+            "logo": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "position": {
+              "type": "integer"
+            },
+            "slug": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base_url",
+            "created_at",
+            "id",
+            "modified_at",
+            "name",
+            "slug"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/custom-providers/${pathParam(args, "id")}`,

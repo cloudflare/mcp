@@ -3,6 +3,28 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_visibility_pcaps_api_response_common_failure_output,
+  magic_visibility_pcaps_messages_output,
+  magic_visibility_pcaps_pcaps_byte_limit_output,
+  magic_visibility_pcaps_pcaps_colo_name_output,
+  magic_visibility_pcaps_pcaps_destination_conf_output,
+  magic_visibility_pcaps_pcaps_error_message_output,
+  magic_visibility_pcaps_pcaps_filter_v1_output,
+  magic_visibility_pcaps_pcaps_id_output,
+  magic_visibility_pcaps_pcaps_offset_time_output,
+  magic_visibility_pcaps_pcaps_packets_captured_output,
+  magic_visibility_pcaps_pcaps_response_full_output,
+  magic_visibility_pcaps_pcaps_response_simple_output,
+  magic_visibility_pcaps_pcaps_status_output,
+  magic_visibility_pcaps_pcaps_stop_requested_output,
+  magic_visibility_pcaps_pcaps_submitted_output,
+  magic_visibility_pcaps_pcaps_system_output,
+  magic_visibility_pcaps_pcaps_time_limit_full_output,
+  magic_visibility_pcaps_pcaps_time_limit_sampled_output,
+  magic_visibility_pcaps_pcaps_type_output,
+  magic_visibility_pcaps_result_info_output,
+} from "./outputs.js";
+import {
   magic_visibility_pcaps_pcaps_byte_limit,
   magic_visibility_pcaps_pcaps_colo_name,
   magic_visibility_pcaps_pcaps_destination_conf,
@@ -77,6 +99,47 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
+        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
+        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
+        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
+        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
+        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
+        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
+        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
+        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
+        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -124,6 +187,47 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
+        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
+        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
+        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
+        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
+        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
+        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
+        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
+        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
+        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps/${pathParam(args, "pcap_id")}`,
     }),
@@ -164,6 +268,62 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
+                  },
+                  {
+                    "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/magic-visibility-pcaps_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
+        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
+        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
+        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
+        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
+        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
+        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
+        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
+        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
+        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
+        "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps`,
@@ -209,6 +369,21 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pcaps/${pathParam(args, "pcap_id")}/stop`,

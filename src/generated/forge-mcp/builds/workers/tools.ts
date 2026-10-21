@@ -3,6 +3,29 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  builds_ApiError_output,
+  builds_EnvironmentVariablesResponse_output,
+  builds_ErrorResponse_output,
+  builds_SCMProviderType_output,
+  builds_WorkerBuildSettings_output,
+  builds_WorkerGitRepository_output,
+  builds_WorkerResponse_output,
+  builds_build_caching_enabled_output,
+  builds_build_command_output,
+  builds_build_token_uuid_output,
+  builds_created_on_output,
+  builds_deploy_command_output,
+  builds_external_script_id_output,
+  builds_is_secret_output,
+  builds_path_excludes_output,
+  builds_path_includes_output,
+  builds_provider_account_id_output,
+  builds_provider_account_name_output,
+  builds_repo_id_output,
+  builds_repo_name_output,
+  builds_root_directory_output,
+} from "../../outputs.js";
+import {
   builds_UpdateWorkerBuildSettingsInput,
   builds_account_id,
   builds_build_caching_enabled,
@@ -90,6 +113,48 @@ export const tools: readonly Tool[] = [
         "Workers CI Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/builds_WorkerResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_WorkerBuildSettings": builds_WorkerBuildSettings_output,
+        "builds_WorkerGitRepository": builds_WorkerGitRepository_output,
+        "builds_WorkerResponse": builds_WorkerResponse_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_is_secret": builds_is_secret_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
+        "builds_root_directory": builds_root_directory_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -134,6 +199,23 @@ export const tools: readonly Tool[] = [
         "Workers CI Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_tag")}`,
     }),
@@ -177,6 +259,42 @@ export const tools: readonly Tool[] = [
         "Workers CI Write",
         "Workers CI Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_WorkerResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_WorkerBuildSettings": builds_WorkerBuildSettings_output,
+        "builds_WorkerGitRepository": builds_WorkerGitRepository_output,
+        "builds_WorkerResponse": builds_WorkerResponse_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_is_secret": builds_is_secret_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
+        "builds_root_directory": builds_root_directory_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_tag")}`,
@@ -243,6 +361,45 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers CI Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_WorkerResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_WorkerBuildSettings": builds_WorkerBuildSettings_output,
+        "builds_WorkerGitRepository": builds_WorkerGitRepository_output,
+        "builds_WorkerResponse": builds_WorkerResponse_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_is_secret": builds_is_secret_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
+        "builds_root_directory": builds_root_directory_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/workers/${pathParam(args, "script_tag")}`,

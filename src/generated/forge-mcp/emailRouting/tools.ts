@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  email_email_setting_created_output,
+  email_email_setting_enabled_output,
+  email_email_setting_identifier_output,
+  email_email_setting_modified_output,
+  email_email_setting_name_output,
+  email_email_setting_skip_wizard_output,
+  email_email_setting_status_output,
+  email_email_setting_support_subaddress_output,
+  email_email_setting_tag_output,
+  email_email_settings_properties_output,
+} from "./outputs.js";
+import {
   email_email_setting_dns_request_body,
   email_email_setting_name,
 } from "./schemas.js";
@@ -53,6 +65,26 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_email_settings_properties"
+        },
+        "403": null
+      },
+      $defs: {
+        "email_email_setting_created": email_email_setting_created_output,
+        "email_email_setting_enabled": email_email_setting_enabled_output,
+        "email_email_setting_identifier": email_email_setting_identifier_output,
+        "email_email_setting_modified": email_email_setting_modified_output,
+        "email_email_setting_name": email_email_setting_name_output,
+        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
+        "email_email_setting_status": email_email_setting_status_output,
+        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
+        "email_email_setting_tag": email_email_setting_tag_output,
+        "email_email_settings_properties": email_email_settings_properties_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/dns`,
@@ -111,6 +143,26 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_email_settings_properties"
+        },
+        "403": null
+      },
+      $defs: {
+        "email_email_setting_created": email_email_setting_created_output,
+        "email_email_setting_enabled": email_email_setting_enabled_output,
+        "email_email_setting_identifier": email_email_setting_identifier_output,
+        "email_email_setting_modified": email_email_setting_modified_output,
+        "email_email_setting_name": email_email_setting_name_output,
+        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
+        "email_email_setting_status": email_email_setting_status_output,
+        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
+        "email_email_setting_tag": email_email_setting_tag_output,
+        "email_email_settings_properties": email_email_settings_properties_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/dns`,

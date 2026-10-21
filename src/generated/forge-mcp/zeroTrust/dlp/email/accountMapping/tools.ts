@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../../outputs.js";
+import {
+  dlp_AddinAccountMapping_output,
+  dlp_AddinAuth_output,
+} from "./outputs.js";
 import { dlp_AddinAuth, dlp_UpdateAddinAccountMapping } from "./schemas.js";
 
 /**
@@ -46,6 +54,22 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_AddinAccountMapping"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_AddinAccountMapping": dlp_AddinAccountMapping_output,
+        "dlp_AddinAuth": dlp_AddinAuth_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/email/account_mapping`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -80,6 +104,22 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_AddinAccountMapping"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_AddinAccountMapping": dlp_AddinAccountMapping_output,
+        "dlp_AddinAuth": dlp_AddinAuth_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/email/account_mapping`,

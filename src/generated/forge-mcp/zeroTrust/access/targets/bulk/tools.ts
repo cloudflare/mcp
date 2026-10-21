@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  infra_api_response_common_failure_output,
+  infra_messages_output,
+} from "../../../../outputs.js";
+import {
+  infra_IPInfo_ipv4_output,
+  infra_IPInfo_ipv6_output,
+  infra_IPInfo_output,
+  infra_TargetArray_output,
+  infra_TargetId_output,
+  infra_Target_output,
+} from "../outputs.js";
+import {
   infra_IPInfo,
   infra_IPInfo_ipv4,
   infra_IPInfo_ipv6,
@@ -58,6 +70,18 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/infrastructure/targets/batch_delete",
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "$ref": "#/$defs/infra_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_messages": infra_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/infrastructure/targets/batch_delete`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -111,6 +135,37 @@ export const tools: readonly Tool[] = [
       "x-stainless-skip": [
         "terraform"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_TargetArray"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/infra_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "infra_IPInfo": infra_IPInfo_output,
+        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
+        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
+        "infra_Target": infra_Target_output,
+        "infra_TargetArray": infra_TargetArray_output,
+        "infra_TargetId": infra_TargetId_output,
+        "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_messages": infra_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/infrastructure/targets/batch_tags`,
@@ -186,6 +241,37 @@ export const tools: readonly Tool[] = [
       "x-stainless-skip": [
         "terraform"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_TargetArray"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/infra_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "infra_IPInfo": infra_IPInfo_output,
+        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
+        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
+        "infra_Target": infra_Target_output,
+        "infra_TargetArray": infra_TargetArray_output,
+        "infra_TargetId": infra_TargetId_output,
+        "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_messages": infra_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/infrastructure/targets/batch`,

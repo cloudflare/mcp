@@ -2,6 +2,80 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_binding_item_output,
+  workers_binding_kind_ai_output,
+  workers_binding_kind_ai_search_namespace_output,
+  workers_binding_kind_ai_search_output,
+  workers_binding_kind_analytics_engine_output,
+  workers_binding_kind_artifacts_output,
+  workers_binding_kind_assets_output,
+  workers_binding_kind_browser_output,
+  workers_binding_kind_d1_output,
+  workers_binding_kind_data_blob_output,
+  workers_binding_kind_dispatch_namespace_outbound_output,
+  workers_binding_kind_dispatch_namespace_outbound_paramsItem_output,
+  workers_binding_kind_dispatch_namespace_outbound_worker_output,
+  workers_binding_kind_dispatch_namespace_output,
+  workers_binding_kind_durable_object_namespace_output,
+  workers_binding_kind_flagship_output,
+  workers_binding_kind_hyperdrive_output,
+  workers_binding_kind_images_output,
+  workers_binding_kind_inherit_output,
+  workers_binding_kind_json_output,
+  workers_binding_kind_k2_output,
+  workers_binding_kind_kv_namespace_output,
+  workers_binding_kind_media_output,
+  workers_binding_kind_messaging_output,
+  workers_binding_kind_mtls_certificate_output,
+  workers_binding_kind_pipelines_output,
+  workers_binding_kind_plain_text_output,
+  workers_binding_kind_queue_output,
+  workers_binding_kind_r2_bucket_output,
+  workers_binding_kind_ratelimit_output,
+  workers_binding_kind_ratelimit_simple_output,
+  workers_binding_kind_secret_key_output,
+  workers_binding_kind_secret_text_output,
+  workers_binding_kind_secrets_store_secret_output,
+  workers_binding_kind_send_email_output,
+  workers_binding_kind_service_output,
+  workers_binding_kind_text_blob_output,
+  workers_binding_kind_vectorize_output,
+  workers_binding_kind_version_metadata_output,
+  workers_binding_kind_vpc_network_output,
+  workers_binding_kind_vpc_service_output,
+  workers_binding_kind_wasm_module_output,
+  workers_binding_kind_workflow_output,
+  workers_binding_name_output,
+  workers_bindings_output,
+  workers_durable_object_deleted_export_output,
+  workers_durable_object_expecting_transfer_export_output,
+  workers_durable_object_export_output,
+  workers_durable_object_export_variants_output,
+  workers_durable_object_renamed_export_output,
+  workers_durable_object_transferred_export_output,
+  workers_entrypoint_cache_options_output,
+  workers_export_config_output,
+  workers_export_storage_output,
+  workers_exports_config_map_output,
+  workers_messages_output,
+  workers_namespace_identifier_output,
+  workers_worker_export_output,
+} from "../../../../outputs.js";
+import {
+  workers_version_item_full_output,
+  workers_version_item_full_resources_output,
+  workers_version_item_full_resources_script_named_handlersItem_output,
+  workers_version_item_full_resources_script_output,
+  workers_version_item_full_resources_script_runtime_limits_output,
+  workers_version_item_full_resources_script_runtime_output,
+  workers_version_item_short_metadata_output,
+  workers_version_item_short_output,
+  workers_versions_list_response_output,
+  workers_versions_list_response_result_output,
+  workers_versions_single_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `workers.legacy.scripts.versions`.
@@ -56,6 +130,92 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_version-item-full"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_versions-single-response"
+            },
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_binding_item": workers_binding_item_output,
+        "workers_binding_kind_ai": workers_binding_kind_ai_output,
+        "workers_binding_kind_ai_search": workers_binding_kind_ai_search_output,
+        "workers_binding_kind_ai_search_namespace": workers_binding_kind_ai_search_namespace_output,
+        "workers_binding_kind_analytics_engine": workers_binding_kind_analytics_engine_output,
+        "workers_binding_kind_artifacts": workers_binding_kind_artifacts_output,
+        "workers_binding_kind_assets": workers_binding_kind_assets_output,
+        "workers_binding_kind_browser": workers_binding_kind_browser_output,
+        "workers_binding_kind_d1": workers_binding_kind_d1_output,
+        "workers_binding_kind_data_blob": workers_binding_kind_data_blob_output,
+        "workers_binding_kind_dispatch_namespace": workers_binding_kind_dispatch_namespace_output,
+        "workers_binding_kind_dispatch_namespace_outbound": workers_binding_kind_dispatch_namespace_outbound_output,
+        "workers_binding_kind_dispatch_namespace_outbound_paramsItem": workers_binding_kind_dispatch_namespace_outbound_paramsItem_output,
+        "workers_binding_kind_dispatch_namespace_outbound_worker": workers_binding_kind_dispatch_namespace_outbound_worker_output,
+        "workers_binding_kind_durable_object_namespace": workers_binding_kind_durable_object_namespace_output,
+        "workers_binding_kind_flagship": workers_binding_kind_flagship_output,
+        "workers_binding_kind_hyperdrive": workers_binding_kind_hyperdrive_output,
+        "workers_binding_kind_images": workers_binding_kind_images_output,
+        "workers_binding_kind_inherit": workers_binding_kind_inherit_output,
+        "workers_binding_kind_json": workers_binding_kind_json_output,
+        "workers_binding_kind_k2": workers_binding_kind_k2_output,
+        "workers_binding_kind_kv_namespace": workers_binding_kind_kv_namespace_output,
+        "workers_binding_kind_media": workers_binding_kind_media_output,
+        "workers_binding_kind_messaging": workers_binding_kind_messaging_output,
+        "workers_binding_kind_mtls_certificate": workers_binding_kind_mtls_certificate_output,
+        "workers_binding_kind_pipelines": workers_binding_kind_pipelines_output,
+        "workers_binding_kind_plain_text": workers_binding_kind_plain_text_output,
+        "workers_binding_kind_queue": workers_binding_kind_queue_output,
+        "workers_binding_kind_r2_bucket": workers_binding_kind_r2_bucket_output,
+        "workers_binding_kind_ratelimit": workers_binding_kind_ratelimit_output,
+        "workers_binding_kind_ratelimit_simple": workers_binding_kind_ratelimit_simple_output,
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_kind_secrets_store_secret": workers_binding_kind_secrets_store_secret_output,
+        "workers_binding_kind_send_email": workers_binding_kind_send_email_output,
+        "workers_binding_kind_service": workers_binding_kind_service_output,
+        "workers_binding_kind_text_blob": workers_binding_kind_text_blob_output,
+        "workers_binding_kind_vectorize": workers_binding_kind_vectorize_output,
+        "workers_binding_kind_version_metadata": workers_binding_kind_version_metadata_output,
+        "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network_output,
+        "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service_output,
+        "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module_output,
+        "workers_binding_kind_workflow": workers_binding_kind_workflow_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_bindings": workers_bindings_output,
+        "workers_durable_object_deleted_export": workers_durable_object_deleted_export_output,
+        "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export_output,
+        "workers_durable_object_export": workers_durable_object_export_output,
+        "workers_durable_object_export_variants": workers_durable_object_export_variants_output,
+        "workers_durable_object_renamed_export": workers_durable_object_renamed_export_output,
+        "workers_durable_object_transferred_export": workers_durable_object_transferred_export_output,
+        "workers_entrypoint_cache_options": workers_entrypoint_cache_options_output,
+        "workers_export_config": workers_export_config_output,
+        "workers_export_storage": workers_export_storage_output,
+        "workers_exports_config_map": workers_exports_config_map_output,
+        "workers_messages": workers_messages_output,
+        "workers_namespace_identifier": workers_namespace_identifier_output,
+        "workers_version-item-full": workers_version_item_full_output,
+        "workers_version-item-full_resources": workers_version_item_full_resources_output,
+        "workers_version-item-full_resources_script": workers_version_item_full_resources_script_output,
+        "workers_version-item-full_resources_script_named_handlersItem": workers_version_item_full_resources_script_named_handlersItem_output,
+        "workers_version-item-full_resources_script_runtime": workers_version_item_full_resources_script_runtime_output,
+        "workers_version-item-full_resources_script_runtime_limits": workers_version_item_full_resources_script_runtime_limits_output,
+        "workers_version-item-short_metadata": workers_version_item_short_metadata_output,
+        "workers_versions-single-response": workers_versions_single_response_output,
+        "workers_worker_export": workers_worker_export_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/versions/${pathParam(args, "version_id")}`,
@@ -122,6 +282,39 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "items": {
+              "items": {
+                "$ref": "#/$defs/workers_version-item-short"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_versions-list-response"
+            },
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_version-item-short": workers_version_item_short_output,
+        "workers_version-item-short_metadata": workers_version_item_short_metadata_output,
+        "workers_versions-list-response": workers_versions_list_response_output,
+        "workers_versions-list-response_result": workers_versions_list_response_result_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/versions`,

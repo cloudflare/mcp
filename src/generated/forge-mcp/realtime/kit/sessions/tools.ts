@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import { realtimekit_ActiveSession_output } from "../outputs.js";
 
 /**
  * The tools of `realtime.kit.sessions`.
@@ -53,6 +54,24 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_ActiveSession"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      $defs: {
+        "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/sessions/${pathParam(args, "session_id")}`,
@@ -147,6 +166,46 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "sessions": {
+                  "items": {
+                    "$ref": "#/$defs/realtimekit_ActiveSession"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "paging": {
+              "properties": {
+                "end_offset": {
+                  "type": "number"
+                },
+                "start_offset": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      $defs: {
+        "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/sessions`,

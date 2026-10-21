@@ -2,6 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_created_at_output,
+  access_messages_output,
+  access_timestamp_output,
+  access_updated_at_output,
+  access_uuid_output,
+} from "../../outputs.js";
+import {
+  access_associated_hostnames_output,
+  access_certificates_output,
+  access_fingerprint_output,
+  access_name_7_output,
+} from "./outputs.js";
 import { access_associated_hostnames, access_name_7 } from "./schemas.js";
 
 /**
@@ -73,6 +87,27 @@ export const tools: readonly Tool[] = [
         "Access: Mutual TLS Certificates Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_certificates"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_associated_hostnames": access_associated_hostnames_output,
+        "access_certificates": access_certificates_output,
+        "access_created_at": access_created_at_output,
+        "access_fingerprint": access_fingerprint_output,
+        "access_messages": access_messages_output,
+        "access_name-7": access_name_7_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/certificates`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -122,6 +157,26 @@ export const tools: readonly Tool[] = [
         "Access: Mutual TLS Certificates Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_uuid"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/certificates/${pathParam(args, "certificate_id")}`,
     }),
@@ -170,6 +225,27 @@ export const tools: readonly Tool[] = [
         "Access: Mutual TLS Certificates Write",
         "Access: Mutual TLS Certificates Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_certificates"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_associated_hostnames": access_associated_hostnames_output,
+        "access_certificates": access_certificates_output,
+        "access_created_at": access_created_at_output,
+        "access_fingerprint": access_fingerprint_output,
+        "access_messages": access_messages_output,
+        "access_name-7": access_name_7_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/certificates/${pathParam(args, "certificate_id")}`,
@@ -224,6 +300,58 @@ export const tools: readonly Tool[] = [
         "Access: Mutual TLS Certificates Write",
         "Access: Mutual TLS Certificates Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_certificates"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_associated_hostnames": access_associated_hostnames_output,
+        "access_certificates": access_certificates_output,
+        "access_created_at": access_created_at_output,
+        "access_fingerprint": access_fingerprint_output,
+        "access_messages": access_messages_output,
+        "access_name-7": access_name_7_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/certificates`,
@@ -297,6 +425,27 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Mutual TLS Certificates Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_certificates"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_associated_hostnames": access_associated_hostnames_output,
+        "access_certificates": access_certificates_output,
+        "access_created_at": access_created_at_output,
+        "access_fingerprint": access_fingerprint_output,
+        "access_messages": access_messages_output,
+        "access_name-7": access_name_7_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/certificates/${pathParam(args, "certificate_id")}`,

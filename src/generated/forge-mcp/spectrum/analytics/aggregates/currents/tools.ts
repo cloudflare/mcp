@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  spectrum_analytics_api_response_common_failure_output,
+  spectrum_analytics_identifier_output,
+  spectrum_analytics_messages_output,
+} from "../../outputs.js";
 import { spectrum_analytics_app_id_param } from "./schemas.js";
 
 /**
@@ -48,6 +53,66 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Analytics Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "appID": {
+                    "allOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "$ref": "#/$defs/spectrum-analytics_identifier"
+                      }
+                    ]
+                  },
+                  "bytesEgress": {
+                    "type": "number"
+                  },
+                  "bytesIngress": {
+                    "type": "number"
+                  },
+                  "connections": {
+                    "type": "number"
+                  },
+                  "durationAvg": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "appID",
+                  "bytesEgress",
+                  "bytesIngress",
+                  "connections",
+                  "durationAvg"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/spectrum-analytics_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "spectrum-analytics_api-response-common-failure": spectrum_analytics_api_response_common_failure_output,
+        "spectrum-analytics_identifier": spectrum_analytics_identifier_output,
+        "spectrum-analytics_messages": spectrum_analytics_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/spectrum/analytics/aggregate/current`,

@@ -52,6 +52,68 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "ip": {
+              "properties": {
+                "asn": {
+                  "type": "string"
+                },
+                "asnLocation": {
+                  "type": "string"
+                },
+                "asnName": {
+                  "type": "string"
+                },
+                "asnOrgName": {
+                  "type": "string"
+                },
+                "ip": {
+                  "type": "string"
+                },
+                "ipVersion": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "locationName": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "asn",
+                "asnLocation",
+                "asnName",
+                "asnOrgName",
+                "ip",
+                "ipVersion",
+                "location",
+                "locationName"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "ip"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/entities/ip`,
       query: [

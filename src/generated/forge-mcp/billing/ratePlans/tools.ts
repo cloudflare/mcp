@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_messages_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `billing.rate_plans`.
@@ -39,6 +43,37 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "components": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "public_name": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/billing/rate_plans/${pathParam(args, "public_key")}`,

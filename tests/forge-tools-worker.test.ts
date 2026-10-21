@@ -65,7 +65,7 @@ afterEach(async () => {
 })
 
 describe('generated direct tools (?codemode=false&experimentalForge=true)', () => {
-  it('lists docs, whoami and every generated tool, without their request code', async () => {
+  it('lists docs, whoami and every generated tool, without their request code or response schemas', async () => {
     const tools = await listForgeTools(ACCOUNT_TOKEN)
 
     expect(tools.map((tool) => tool.name)).toEqual([
@@ -75,7 +75,8 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     ])
     const d1 = tools.find((tool) => tool.name === 'd1_list')!
     expect(d1.inputSchema.required ?? []).not.toContain('account_id')
-    for (const key of ['request', 'method', 'path', 'extensions']) {
+    expect(generatedTools.find((tool) => tool.name === 'd1_list')?.responses).toBeDefined()
+    for (const key of ['request', 'method', 'path', 'extensions', 'responses']) {
       expect(d1).not.toHaveProperty(key)
     }
   })

@@ -2,7 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../../outputs.js";
+import { tls_certificates_and_hostnames_enabled_4_output } from "../outputs.js";
 import { tls_certificates_and_hostnames_enabled_4 } from "../schemas.js";
+import {
+  tls_certificates_and_hostnames_enabled_response_output,
+  tls_certificates_and_hostnames_enabled_response_result_output,
+} from "./outputs.js";
 
 /**
  * The tools of `ssl.origin_tls_client_auth.settings`.
@@ -44,6 +53,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "enabled": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-4"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled_response"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4_output,
+        "tls-certificates-and-hostnames_enabled_response": tls_certificates_and_hostnames_enabled_response_output,
+        "tls-certificates-and-hostnames_enabled_response_result": tls_certificates_and_hostnames_enabled_response_result_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin_tls_client_auth/settings`,
@@ -100,6 +138,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "enabled": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-4"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled_response"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4_output,
+        "tls-certificates-and-hostnames_enabled_response": tls_certificates_and_hostnames_enabled_response_output,
+        "tls-certificates-and-hostnames_enabled_response_result": tls_certificates_and_hostnames_enabled_response_result_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/origin_tls_client_auth/settings`,

@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  web3_api_response_common_failure_output,
+  web3_messages_output,
+} from "../../outputs.js";
+import {
+  web3_content_list_action_output,
+  web3_content_list_details_output,
+  web3_content_list_details_response_output,
+} from "./outputs.js";
+import {
   web3_content_list_action,
   web3_content_list_entries,
   web3_content_list_entry,
@@ -57,6 +66,40 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/web3_content_list_details"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/web3_content_list_details_response"
+            },
+            {
+              "$ref": "#/$defs/web3_api-response-common-failure"
+            }
+          ]
+        },
+        "5XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/web3_content_list_details_response"
+            },
+            {
+              "$ref": "#/$defs/web3_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "web3_api-response-common-failure": web3_api_response_common_failure_output,
+        "web3_content_list_action": web3_content_list_action_output,
+        "web3_content_list_details": web3_content_list_details_output,
+        "web3_content_list_details_response": web3_content_list_details_response_output,
+        "web3_messages": web3_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/web3/hostnames/${pathParam(args, "identifier")}/ipfs_universal_path/content_list`,
@@ -115,6 +158,40 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/web3_content_list_details"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/web3_content_list_details_response"
+            },
+            {
+              "$ref": "#/$defs/web3_api-response-common-failure"
+            }
+          ]
+        },
+        "5XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/web3_content_list_details_response"
+            },
+            {
+              "$ref": "#/$defs/web3_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "web3_api-response-common-failure": web3_api_response_common_failure_output,
+        "web3_content_list_action": web3_content_list_action_output,
+        "web3_content_list_details": web3_content_list_details_output,
+        "web3_content_list_details_response": web3_content_list_details_response_output,
+        "web3_messages": web3_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/web3/hostnames/${pathParam(args, "identifier")}/ipfs_universal_path/content_list`,

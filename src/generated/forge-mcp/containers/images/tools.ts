@@ -2,7 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  cc_Image_output,
+  cc_Messages_output,
+  cc_V4BaseErrorResponse_output,
+} from "../outputs.js";
 import { cc_Image } from "../schemas.js";
+import {
+  cc_ContainerImagePreparationStatus_output,
+  cc_ContainerImagePreparation_output,
+} from "./outputs.js";
 import { cc_PrepareContainerImageRequestBody } from "./schemas.js";
 
 /**
@@ -42,6 +51,35 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/containers/image-preparations",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cc_ContainerImagePreparation"
+        },
+        "202": {
+          "$ref": "#/$defs/cc_ContainerImagePreparation"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_ContainerImagePreparation": cc_ContainerImagePreparation_output,
+        "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus_output,
+        "cc_Image": cc_Image_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/image-preparations`,
       body: { value: args["body"], mediaType: "application/json" },

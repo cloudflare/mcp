@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_visibility_mnm_api_response_common_failure_output,
+  magic_visibility_mnm_messages_output,
+} from "../outputs.js";
+import {
+  magic_visibility_mnm_mnm_config_default_sampling_output,
+  magic_visibility_mnm_mnm_config_name_output,
+  magic_visibility_mnm_mnm_config_output,
+  magic_visibility_mnm_mnm_config_router_ip_output,
+  magic_visibility_mnm_mnm_config_router_ips_output,
+  magic_visibility_mnm_mnm_config_single_response_output,
+  magic_visibility_mnm_mnm_config_warp_device_output,
+  magic_visibility_mnm_mnm_config_warp_devices_output,
+} from "./outputs.js";
+import {
   magic_visibility_mnm_mnm_config_default_sampling,
   magic_visibility_mnm_mnm_config_name,
   magic_visibility_mnm_mnm_config_router_ip,
@@ -77,6 +91,35 @@ export const tools: readonly Tool[] = [
         "Magic Network Monitoring Admin"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_config"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/mnm/config`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -110,6 +153,35 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Magic Network Monitoring Admin"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_config"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/mnm/config`,
@@ -174,6 +246,35 @@ export const tools: readonly Tool[] = [
         "Magic Network Monitoring Config Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_config"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/mnm/config`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -209,6 +310,35 @@ export const tools: readonly Tool[] = [
         "Magic Network Monitoring Config Write",
         "Magic Network Monitoring Config Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_config"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/mnm/config`,
@@ -276,6 +406,35 @@ export const tools: readonly Tool[] = [
         "Magic Network Monitoring Admin",
         "Magic Network Monitoring Config Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_config"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/mnm/config`,

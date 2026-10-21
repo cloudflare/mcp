@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  usage_analytics_api_error_output,
+  usage_analytics_api_message_output,
+  usage_analytics_error_response_output,
+  usage_analytics_stream_usage_data_point_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `stream.usage`.
@@ -81,6 +87,42 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Stream Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/usage-analytics_stream_usage_data_point"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/usage-analytics_error_response"
+        },
+        "401": {
+          "$ref": "#/$defs/usage-analytics_error_response"
+        },
+        "403": {
+          "$ref": "#/$defs/usage-analytics_error_response"
+        }
+      },
+      $defs: {
+        "usage-analytics_api_error": usage_analytics_api_error_output,
+        "usage-analytics_api_message": usage_analytics_api_message_output,
+        "usage-analytics_error_response": usage_analytics_error_response_output,
+        "usage-analytics_stream_usage_data_point": usage_analytics_stream_usage_data_point_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/stream/usage`,

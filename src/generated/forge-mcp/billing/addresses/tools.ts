@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import type { Tool } from "../../_/tool.js";
+import {
+  bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_messages_output,
+} from "../../outputs.js";
+import { bill_subs_api_validated_address_output } from "./outputs.js";
 import { bill_subs_api_address_validation_request } from "./schemas.js";
 
 /**
@@ -42,6 +47,29 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "validated_addresses": {
+              "items": {
+                "$ref": "#/$defs/bill-subs-api_validated_address"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_validated_address": bill_subs_api_validated_address_output,
+      },
     },
     request: (args) => ({
       path: `/billing/address-validation`,

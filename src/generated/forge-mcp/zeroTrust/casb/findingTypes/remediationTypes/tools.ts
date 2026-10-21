@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import { posture_api_result_info_output } from "../../outputs.js";
+import { posture_api_RemediationType_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.casb.finding_types.remediation_types`.
@@ -60,6 +62,33 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/posture-api_RemediationType"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/posture-api_result-info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": null,
+        "404": null
+      },
+      $defs: {
+        "posture-api_RemediationType": posture_api_RemediationType_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/finding_types/${pathParam(args, "finding_type_id")}/remediation_types`,

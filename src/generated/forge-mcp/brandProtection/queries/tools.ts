@@ -44,6 +44,30 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "dismissed": {
+              "type": "boolean"
+            },
+            "domain_id": {
+              "type": "integer"
+            },
+            "query_id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dismissed",
+            "domain_id",
+            "query_id"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/queries/${pathParam(args, "query_id")}/matches/${pathParam(args, "domain_id")}/dismiss`,
     }),
@@ -88,6 +112,175 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "anyOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "created": {
+                        "type": "string"
+                      },
+                      "parameters": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "max_time": {
+                                "type": "string"
+                              },
+                              "min_time": {
+                                "type": "string"
+                              },
+                              "string_matches": {
+                                "items": {
+                                  "properties": {
+                                    "pattern": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "pattern"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "string_matches"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "query_id": {
+                        "type": "integer"
+                      },
+                      "query_tag": {
+                        "type": "string"
+                      },
+                      "scan": {
+                        "type": "boolean"
+                      },
+                      "updated": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created",
+                      "parameters",
+                      "query_id",
+                      "query_tag",
+                      "scan",
+                      "updated"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "properties": {
+                    "created": {
+                      "type": "string"
+                    },
+                    "parameters": {
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "max_time": {
+                              "type": "string"
+                            },
+                            "min_time": {
+                              "type": "string"
+                            },
+                            "string_matches": {
+                              "items": {
+                                "properties": {
+                                  "pattern": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "pattern"
+                                ],
+                                "type": "object"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "string_matches"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "query_id": {
+                      "type": "integer"
+                    },
+                    "query_tag": {
+                      "type": "string"
+                    },
+                    "scan": {
+                      "type": "boolean"
+                    },
+                    "updated": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "parameters",
+                    "query_id",
+                    "query_tag",
+                    "scan",
+                    "updated"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/domain/queries`,
@@ -134,6 +327,30 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "dismissed": {
+              "type": "boolean"
+            },
+            "domain_id": {
+              "type": "integer"
+            },
+            "query_id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dismissed",
+            "domain_id",
+            "query_id"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/queries/${pathParam(args, "query_id")}/matches/${pathParam(args, "domain_id")}/undismiss`,

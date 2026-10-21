@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import { cloudforce_one_ErrorResponse_output } from "../outputs.js";
+import {
+  cloudforce_one_TreeNode_output,
+  cloudforce_one_TreeResponse_output,
+} from "./outputs.js";
 
 /**
  * The tools of `cloudforce_one.rules.tree`.
@@ -32,6 +37,21 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules/tree",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_TreeResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_TreeNode": cloudforce_one_TreeNode_output,
+        "cloudforce-one_TreeResponse": cloudforce_one_TreeResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/tree`,
     }),

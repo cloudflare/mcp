@@ -2,6 +2,21 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+  zero_trust_gateway_read_only_timestamp_output,
+} from "../../outputs.js";
+import { zero_trust_gateway_result_info_output } from "../outputs.js";
+import {
+  zero_trust_gateway_binding_status_output,
+  zero_trust_gateway_certificates_output,
+  zero_trust_gateway_region_output,
+  zero_trust_gateway_response_collection_output,
+  zero_trust_gateway_single_response_output,
+  zero_trust_gateway_type_output,
+  zero_trust_gateway_uuid_output,
+} from "./outputs.js";
 import { zero_trust_gateway_generate_cert_request } from "./schemas.js";
 
 /**
@@ -38,6 +53,34 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/gateway/certificates/{certificate_id}/activate",
+    responses: {
+      schemas: {
+        "202": {
+          "$ref": "#/$defs/zero-trust-gateway_certificates"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_single_response": zero_trust_gateway_single_response_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/certificates/${pathParam(args, "certificate_id")}/activate`,
     }),
@@ -73,6 +116,34 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/gateway/certificates",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_certificates"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_single_response": zero_trust_gateway_single_response_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/certificates`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -108,6 +179,34 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/gateway/certificates/{certificate_id}/deactivate",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/zero-trust-gateway_certificates"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_single_response": zero_trust_gateway_single_response_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/certificates/${pathParam(args, "certificate_id")}/deactivate`,
     }),
@@ -142,6 +241,34 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/gateway/certificates/{certificate_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_certificates"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_single_response": zero_trust_gateway_single_response_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/certificates/${pathParam(args, "certificate_id")}`,
     }),
@@ -176,6 +303,34 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/certificates/{certificate_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_certificates"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_single_response": zero_trust_gateway_single_response_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/certificates/${pathParam(args, "certificate_id")}`,
     }),
@@ -205,6 +360,49 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/certificates",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_certificates"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/zero-trust-gateway_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_response_collection"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_response_collection": zero_trust_gateway_response_collection_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/certificates`,
     }),

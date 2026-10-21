@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_v4_response_failure_output,
+} from "../../outputs.js";
+import { r2_cors_rule_allowed_output, r2_cors_rule_output } from "./outputs.js";
 import { r2_cors_rule, r2_cors_rule_allowed } from "./schemas.js";
 
 /**
@@ -49,6 +55,21 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/r2/buckets/{bucket_name}/cors",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/cors`,
       headers: [
@@ -97,6 +118,31 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/r2/buckets/{bucket_name}/cors",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "rules": {
+              "items": {
+                "$ref": "#/$defs/r2_cors-rule"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_cors-rule": r2_cors_rule_output,
+        "r2_cors-rule_allowed": r2_cors_rule_allowed_output,
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/cors`,
       headers: [
@@ -161,6 +207,21 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/r2/buckets/{bucket_name}/cors",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/cors`,
       headers: [

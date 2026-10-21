@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  flagship_ApiMessage_output,
+  flagship_App_output,
+  flagship_DeleteAppResult_output,
+  flagship_Error_output,
+} from "./outputs.js";
 
 /**
  * The tools of `flagship.apps`.
@@ -66,6 +72,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/flagship_App"
+        },
+        "400": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "401": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "429": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "500": {
+          "$ref": "#/$defs/flagship_Error"
+        }
+      },
+      $defs: {
+        "flagship_ApiMessage": flagship_ApiMessage_output,
+        "flagship_App": flagship_App_output,
+        "flagship_Error": flagship_Error_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -121,6 +157,39 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/flagship_DeleteAppResult"
+        },
+        "400": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "401": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "409": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "429": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "500": {
+          "$ref": "#/$defs/flagship_Error"
+        }
+      },
+      $defs: {
+        "flagship_ApiMessage": flagship_ApiMessage_output,
+        "flagship_DeleteAppResult": flagship_DeleteAppResult_output,
+        "flagship_Error": flagship_Error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps/${pathParam(args, "app_id")}`,
@@ -178,6 +247,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/flagship_App"
+        },
+        "400": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "401": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "429": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "500": {
+          "$ref": "#/$defs/flagship_Error"
+        }
+      },
+      $defs: {
+        "flagship_ApiMessage": flagship_ApiMessage_output,
+        "flagship_App": flagship_App_output,
+        "flagship_Error": flagship_Error_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps/${pathParam(args, "app_id")}`,
     }),
@@ -228,6 +327,50 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/flagship_App"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "401": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "429": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "500": {
+          "$ref": "#/$defs/flagship_Error"
+        }
+      },
+      $defs: {
+        "flagship_ApiMessage": flagship_ApiMessage_output,
+        "flagship_App": flagship_App_output,
+        "flagship_Error": flagship_Error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps`,
@@ -293,6 +436,36 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/flagship_App"
+        },
+        "400": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "401": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "429": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "500": {
+          "$ref": "#/$defs/flagship_Error"
+        }
+      },
+      $defs: {
+        "flagship_ApiMessage": flagship_ApiMessage_output,
+        "flagship_App": flagship_App_output,
+        "flagship_Error": flagship_Error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps/${pathParam(args, "app_id")}`,

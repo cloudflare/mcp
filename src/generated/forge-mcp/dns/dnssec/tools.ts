@@ -3,6 +3,25 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  dnssec_algorithm_output,
+  dnssec_api_response_common_failure_output,
+  dnssec_digest_algorithm_output,
+  dnssec_digest_output,
+  dnssec_digest_type_output,
+  dnssec_dnssec_multi_signer_output,
+  dnssec_dnssec_output,
+  dnssec_dnssec_presigned_output,
+  dnssec_dnssec_use_nsec3_output,
+  dnssec_ds_output,
+  dnssec_flags_output,
+  dnssec_key_tag_output,
+  dnssec_key_type_output,
+  dnssec_messages_output,
+  dnssec_modified_on_output,
+  dnssec_public_key_output,
+  dnssec_status_output,
+} from "./outputs.js";
+import {
   dnssec_dnssec_multi_signer,
   dnssec_dnssec_presigned,
   dnssec_dnssec_use_nsec3,
@@ -57,6 +76,20 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dnssec_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dnssec_api-response-common-failure": dnssec_api_response_common_failure_output,
+        "dnssec_messages": dnssec_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dnssec`,
@@ -139,6 +172,35 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dnssec_dnssec"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dnssec_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dnssec_algorithm": dnssec_algorithm_output,
+        "dnssec_api-response-common-failure": dnssec_api_response_common_failure_output,
+        "dnssec_digest": dnssec_digest_output,
+        "dnssec_digest_algorithm": dnssec_digest_algorithm_output,
+        "dnssec_digest_type": dnssec_digest_type_output,
+        "dnssec_dnssec": dnssec_dnssec_output,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer_output,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned_output,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3_output,
+        "dnssec_ds": dnssec_ds_output,
+        "dnssec_flags": dnssec_flags_output,
+        "dnssec_key_tag": dnssec_key_tag_output,
+        "dnssec_key_type": dnssec_key_type_output,
+        "dnssec_messages": dnssec_messages_output,
+        "dnssec_modified_on": dnssec_modified_on_output,
+        "dnssec_public_key": dnssec_public_key_output,
+        "dnssec_status": dnssec_status_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dnssec`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -190,6 +252,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dnssec_dnssec"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dnssec_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dnssec_algorithm": dnssec_algorithm_output,
+        "dnssec_api-response-common-failure": dnssec_api_response_common_failure_output,
+        "dnssec_digest": dnssec_digest_output,
+        "dnssec_digest_algorithm": dnssec_digest_algorithm_output,
+        "dnssec_digest_type": dnssec_digest_type_output,
+        "dnssec_dnssec": dnssec_dnssec_output,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer_output,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned_output,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3_output,
+        "dnssec_ds": dnssec_ds_output,
+        "dnssec_flags": dnssec_flags_output,
+        "dnssec_key_tag": dnssec_key_tag_output,
+        "dnssec_key_type": dnssec_key_type_output,
+        "dnssec_messages": dnssec_messages_output,
+        "dnssec_modified_on": dnssec_modified_on_output,
+        "dnssec_public_key": dnssec_public_key_output,
+        "dnssec_status": dnssec_status_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dnssec`,

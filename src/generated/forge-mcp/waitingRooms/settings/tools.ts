@@ -3,6 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  waitingroom_api_response_common_failure_output,
+  waitingroom_messages_output,
+} from "../outputs.js";
+import {
+  waitingroom_search_engine_crawler_bypass_output,
+  waitingroom_zone_settings_response_output,
+  waitingroom_zone_settings_response_result_output,
+} from "./outputs.js";
+import {
   waitingroom_search_engine_crawler_bypass,
   waitingroom_zone_settings,
 } from "./schemas.js";
@@ -55,6 +64,38 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "search_engine_crawler_bypass": {
+              "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
+            }
+          },
+          "required": [
+            "search_engine_crawler_bypass"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waitingroom_zone_settings_response"
+            },
+            {
+              "$ref": "#/$defs/waitingroom_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_messages": waitingroom_messages_output,
+        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_zone_settings_response_result": waitingroom_zone_settings_response_result_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/waiting_rooms/settings`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -96,6 +137,38 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "search_engine_crawler_bypass": {
+              "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
+            }
+          },
+          "required": [
+            "search_engine_crawler_bypass"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waitingroom_zone_settings_response"
+            },
+            {
+              "$ref": "#/$defs/waitingroom_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_messages": waitingroom_messages_output,
+        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_zone_settings_response_result": waitingroom_zone_settings_response_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/waiting_rooms/settings`,
@@ -144,6 +217,38 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "search_engine_crawler_bypass": {
+              "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
+            }
+          },
+          "required": [
+            "search_engine_crawler_bypass"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waitingroom_zone_settings_response"
+            },
+            {
+              "$ref": "#/$defs/waitingroom_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_messages": waitingroom_messages_output,
+        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_zone_settings_response_result": waitingroom_zone_settings_response_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/waiting_rooms/settings`,

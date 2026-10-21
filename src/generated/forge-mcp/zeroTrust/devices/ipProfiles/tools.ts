@@ -3,6 +3,23 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  teams_devices_pagination_info_output,
+  teams_devices_v4_error_response_output,
+  teams_devices_v4_response_message_output,
+} from "../outputs.js";
+import {
+  teams_devices_ip_profile_created_at_output,
+  teams_devices_ip_profile_description_output,
+  teams_devices_ip_profile_enabled_output,
+  teams_devices_ip_profile_id_output,
+  teams_devices_ip_profile_match_output,
+  teams_devices_ip_profile_name_output,
+  teams_devices_ip_profile_output,
+  teams_devices_ip_profile_precedence_output,
+  teams_devices_ip_profile_subnet_id_output,
+  teams_devices_ip_profile_updated_at_output,
+} from "./outputs.js";
+import {
   teams_devices_ip_profile_create_request,
   teams_devices_ip_profile_enabled,
   teams_devices_ip_profile_match,
@@ -56,6 +73,30 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_ip_profile"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_ip_profile": teams_devices_ip_profile_output,
+        "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
+        "teams-devices_ip_profile_description": teams_devices_ip_profile_description_output,
+        "teams-devices_ip_profile_enabled": teams_devices_ip_profile_enabled_output,
+        "teams-devices_ip_profile_id": teams_devices_ip_profile_id_output,
+        "teams-devices_ip_profile_match": teams_devices_ip_profile_match_output,
+        "teams-devices_ip_profile_name": teams_devices_ip_profile_name_output,
+        "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
+        "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
+        "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/ip-profiles`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -94,6 +135,25 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/ip-profiles/${pathParam(args, "profile_id")}`,
     }),
@@ -131,6 +191,30 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_ip_profile"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_ip_profile": teams_devices_ip_profile_output,
+        "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
+        "teams-devices_ip_profile_description": teams_devices_ip_profile_description_output,
+        "teams-devices_ip_profile_enabled": teams_devices_ip_profile_enabled_output,
+        "teams-devices_ip_profile_id": teams_devices_ip_profile_id_output,
+        "teams-devices_ip_profile_match": teams_devices_ip_profile_match_output,
+        "teams-devices_ip_profile_name": teams_devices_ip_profile_name_output,
+        "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
+        "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
+        "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/ip-profiles/${pathParam(args, "profile_id")}`,
@@ -175,6 +259,45 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_ip_profile"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/teams-devices_pagination_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_ip_profile": teams_devices_ip_profile_output,
+        "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
+        "teams-devices_ip_profile_description": teams_devices_ip_profile_description_output,
+        "teams-devices_ip_profile_enabled": teams_devices_ip_profile_enabled_output,
+        "teams-devices_ip_profile_id": teams_devices_ip_profile_id_output,
+        "teams-devices_ip_profile_match": teams_devices_ip_profile_match_output,
+        "teams-devices_ip_profile_name": teams_devices_ip_profile_name_output,
+        "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
+        "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
+        "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+        "teams-devices_pagination_info": teams_devices_pagination_info_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/ip-profiles`,
@@ -228,6 +351,30 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_ip_profile"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        }
+      },
+      $defs: {
+        "teams-devices_ip_profile": teams_devices_ip_profile_output,
+        "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
+        "teams-devices_ip_profile_description": teams_devices_ip_profile_description_output,
+        "teams-devices_ip_profile_enabled": teams_devices_ip_profile_enabled_output,
+        "teams-devices_ip_profile_id": teams_devices_ip_profile_id_output,
+        "teams-devices_ip_profile_match": teams_devices_ip_profile_match_output,
+        "teams-devices_ip_profile_name": teams_devices_ip_profile_name_output,
+        "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
+        "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
+        "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/ip-profiles/${pathParam(args, "profile_id")}`,

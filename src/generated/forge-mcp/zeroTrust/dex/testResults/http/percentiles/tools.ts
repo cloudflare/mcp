@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
+import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_messages_output,
+} from "../../../outputs.js";
+import { digital_experience_monitoring_percentiles_output } from "../../outputs.js";
+import { digital_experience_monitoring_http_details_percentiles_response_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.test_results.http.percentiles`.
@@ -65,6 +71,22 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_http_details_percentiles_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_http_details_percentiles_response": digital_experience_monitoring_http_details_percentiles_response_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_percentiles": digital_experience_monitoring_percentiles_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/http-tests/${pathParam(args, "test_id")}/percentiles`,

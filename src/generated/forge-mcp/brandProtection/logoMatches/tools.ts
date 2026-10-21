@@ -70,6 +70,95 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "matches": {
+              "items": {
+                "properties": {
+                  "content_type": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "image_data": {
+                    "type": "string"
+                  },
+                  "matched_at": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "query_id": {
+                    "type": "integer"
+                  },
+                  "registrar": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "similarity_score": {
+                    "type": "number"
+                  },
+                  "url_scan_id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "domain",
+                  "id",
+                  "matched_at",
+                  "query_id",
+                  "registrar",
+                  "similarity_score",
+                  "url_scan_id"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "total": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "matches",
+            "total"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/logo/matches`,
       query: [

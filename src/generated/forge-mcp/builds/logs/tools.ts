@@ -2,7 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  builds_ApiError_output,
+  builds_ErrorResponse_output,
+} from "../../outputs.js";
 import { builds_account_id, builds_build_uuid } from "../../schemas.js";
+import {
+  builds_BuildLogsResponse_output,
+  builds_cursor_output,
+} from "./outputs.js";
 import { builds_cursor } from "./schemas.js";
 
 /**
@@ -53,6 +61,25 @@ export const tools: readonly Tool[] = [
         "Workers CI Write",
         "Workers CI Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_BuildLogsResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_BuildLogsResponse": builds_BuildLogsResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_cursor": builds_cursor_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/builds/${pathParam(args, "build_uuid")}/logs`,

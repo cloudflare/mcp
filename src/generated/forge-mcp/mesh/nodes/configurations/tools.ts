@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  tunnel_api_response_common_failure_2_output,
+  tunnel_created_at_output,
+  tunnel_messages_2_output,
+  tunnel_tunnel_id_2_output,
+} from "../../../outputs.js";
+import {
+  tunnel_mesh_aws_config_output,
+  tunnel_mesh_configuration_response_output,
+  tunnel_mesh_ha_mode_output,
+  tunnel_mesh_local_config_output,
+  tunnel_mesh_vip_entry_output,
+  tunnel_updated_at_output,
+} from "./outputs.js";
+import {
   tunnel_mesh_aws_config,
   tunnel_mesh_configuration_request_body,
   tunnel_mesh_ha_mode,
@@ -51,6 +65,28 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Connector: WARP Write",
         "Cloudflare One Connector: WARP Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_mesh_configuration_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tunnel_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure-2": tunnel_api_response_common_failure_2_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_mesh_aws_config": tunnel_mesh_aws_config_output,
+        "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response_output,
+        "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode_output,
+        "tunnel_mesh_local_config": tunnel_mesh_local_config_output,
+        "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry_output,
+        "tunnel_messages-2": tunnel_messages_2_output,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+        "tunnel_updated_at": tunnel_updated_at_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/warp_connector/${pathParam(args, "tunnel_id")}/configurations`,
@@ -102,6 +138,28 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Connectors Write",
         "Cloudflare One Connector: WARP Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_mesh_configuration_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/tunnel_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure-2": tunnel_api_response_common_failure_2_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_mesh_aws_config": tunnel_mesh_aws_config_output,
+        "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response_output,
+        "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode_output,
+        "tunnel_mesh_local_config": tunnel_mesh_local_config_output,
+        "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry_output,
+        "tunnel_messages-2": tunnel_messages_2_output,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+        "tunnel_updated_at": tunnel_updated_at_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/warp_connector/${pathParam(args, "tunnel_id")}/configurations`,

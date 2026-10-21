@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  calls_api_response_common_failure_output,
+  calls_created_output,
+  calls_identifier_output,
+  calls_messages_output,
+  calls_modified_output,
+  calls_name_output,
+} from "../../outputs.js";
+import {
+  calls_turn_key_name_output,
+  calls_turn_key_object_output,
+  calls_turn_key_output,
+  calls_turn_key_with_key_output,
+} from "./outputs.js";
+import {
   calls_turn_key_editable_fields,
   calls_turn_key_name,
 } from "./schemas.js";
@@ -49,6 +63,26 @@ export const tools: readonly Tool[] = [
         "Calls Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/calls_turn_key_with_key"
+        },
+        "4XX": {
+          "$ref": "#/$defs/calls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "calls_api-response-common-failure": calls_api_response_common_failure_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_messages": calls_messages_output,
+        "calls_modified": calls_modified_output,
+        "calls_turn_key": calls_turn_key_output,
+        "calls_turn_key_name": calls_turn_key_name_output,
+        "calls_turn_key_with_key": calls_turn_key_with_key_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/turn_keys`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -88,6 +122,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Calls Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/calls_turn_key_object"
+        },
+        "4XX": {}
+      },
+      $defs: {
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_turn_key_object": calls_turn_key_object_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/turn_keys/${pathParam(args, "key_id")}`,
@@ -129,6 +178,25 @@ export const tools: readonly Tool[] = [
         "Calls Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/calls_turn_key_object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/calls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "calls_api-response-common-failure": calls_api_response_common_failure_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_messages": calls_messages_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_turn_key_object": calls_turn_key_object_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/turn_keys/${pathParam(args, "key_id")}`,
     }),
@@ -163,6 +231,39 @@ export const tools: readonly Tool[] = [
         "Calls Write",
         "Calls Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/calls_turn_key_object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/calls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "calls_api-response-common-failure": calls_api_response_common_failure_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_messages": calls_messages_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_turn_key_object": calls_turn_key_object_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/turn_keys`,
@@ -210,6 +311,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Calls Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/calls_turn_key_object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/calls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "calls_api-response-common-failure": calls_api_response_common_failure_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_messages": calls_messages_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_turn_key_object": calls_turn_key_object_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/turn_keys/${pathParam(args, "key_id")}`,

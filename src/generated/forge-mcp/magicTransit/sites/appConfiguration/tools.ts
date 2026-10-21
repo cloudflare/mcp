@@ -3,10 +3,23 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  magic_account_app_id_output,
+  magic_api_response_common_failure_output,
+  magic_identifier_output,
+  magic_managed_app_id_output,
+  magic_messages_output,
+} from "../../outputs.js";
+import {
   magic_account_app_id,
   magic_identifier,
   magic_managed_app_id,
 } from "../../schemas.js";
+import {
+  magic_app_breakout_output,
+  magic_app_breakout_preferred_wans_output,
+  magic_app_config_output,
+  magic_app_priority_output,
+} from "./outputs.js";
 import {
   magic_app_breakout,
   magic_app_breakout_preferred_wans,
@@ -74,6 +87,27 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/magic_app_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_app_breakout": magic_app_breakout_output,
+        "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
+        "magic_app_config": magic_app_config_output,
+        "magic_app_priority": magic_app_priority_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/app_configs`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -126,6 +160,27 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_app_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_app_breakout": magic_app_breakout_output,
+        "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
+        "magic_app_config": magic_app_config_output,
+        "magic_app_priority": magic_app_priority_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/app_configs/${pathParam(args, "app_config_id")}`,
     }),
@@ -173,6 +228,41 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_app_config"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_app_breakout": magic_app_breakout_output,
+        "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
+        "magic_app_config": magic_app_config_output,
+        "magic_app_priority": magic_app_priority_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/app_configs`,
@@ -237,6 +327,27 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_app_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_app_breakout": magic_app_breakout_output,
+        "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
+        "magic_app_config": magic_app_config_output,
+        "magic_app_priority": magic_app_priority_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/app_configs/${pathParam(args, "app_config_id")}`,

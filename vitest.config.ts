@@ -22,7 +22,10 @@ export default defineConfig({
           MCP_COOKIE_ENCRYPTION_KEY: 'test-cookie-encryption-key-0000000000000000',
           CLOUDFLARE_CLIENT_ID: 'test-client-id',
           CLOUDFLARE_CLIENT_SECRET: 'test-client-secret',
-          MCP_RESOURCE: 'https://mcp.cloudflare.com/mcp'
+          MCP_RESOURCE: 'https://mcp.cloudflare.com/mcp',
+          // Response schema checks run in waitUntil and can outlive a test
+          // file; tests/response-validation-worker.test.ts turns them on.
+          RESPONSE_VALIDATION_SAMPLE_RATE: '0'
         },
         workers: [
           {

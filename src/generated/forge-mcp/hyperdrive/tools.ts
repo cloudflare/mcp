@@ -3,6 +3,21 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  hyperdrive_api_response_common_failure_output,
+  hyperdrive_hyperdrive_caching_response_output,
+  hyperdrive_hyperdrive_config_response_output,
+  hyperdrive_hyperdrive_integration_provider_output,
+  hyperdrive_hyperdrive_mtls_output,
+  hyperdrive_hyperdrive_name_output,
+  hyperdrive_hyperdrive_origin_connection_limit_output,
+  hyperdrive_hyperdrive_origin_full_output,
+  hyperdrive_hyperdrive_planet_scale_integration_output,
+  hyperdrive_hyperdrive_scheme_output,
+  hyperdrive_identifier_output,
+  hyperdrive_messages_output,
+  hyperdrive_result_info_output,
+} from "./outputs.js";
+import {
   hyperdrive_hyperdrive_caching,
   hyperdrive_hyperdrive_caching_create,
   hyperdrive_hyperdrive_caching_create_disabled,
@@ -102,6 +117,30 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/hyperdrive/configs`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -152,6 +191,27 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/hyperdrive/configs/${pathParam(args, "hyperdrive_id")}`,
     }),
@@ -201,6 +261,30 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/hyperdrive/configs/${pathParam(args, "hyperdrive_id")}`,
@@ -256,6 +340,45 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/hyperdrive_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_result_info": hyperdrive_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/hyperdrive/configs`,
@@ -337,6 +460,30 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/hyperdrive/configs/${pathParam(args, "hyperdrive_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -376,6 +523,30 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Hyperdrive Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/hyperdrive/configs/${pathParam(args, "hyperdrive_id")}/restart`,
@@ -454,6 +625,30 @@ export const tools: readonly Tool[] = [
           ]
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/hyperdrive/configs/${pathParam(args, "hyperdrive_id")}`,

@@ -7,12 +7,31 @@
  * the other servers and are picked up by existing dashboards/queries.
  *
  * Positional layout (must not change — the dataset columns are positional):
- *   index1  = event type (`tool_call` | `auth_user`)
+ *   index1  = event type (`tool_call` | `auth_user` | `response_schema_mismatch`)
  *   blob1   = MCP server name      (reserved, injected by the tracker)
  *   blob2   = MCP server version   (reserved, injected by the tracker)
  *   blob3   = userId
- *   blob4   = toolName (tool_call) | errorMessage (auth_user)
- *   double1 = errorCode (tool_call)
+ *   blob4   = toolName (tool_call, response_schema_mismatch) | errorMessage (auth_user)
+ *   double1 = errorCode (tool_call; always 0 for response_schema_mismatch)
+ *
+ * `response_schema_mismatch` (a direct-tool response that doesn't match its
+ * OpenAPI response schema, see `src/response-validation.ts`) adds:
+ *   blob5   = HTTP method (`GET`)
+ *   blob6   = OpenAPI path template (`/zones/{zone_id}/dns_records`)
+ *   blob7   = product (path segment after `{account_id}`/`{zone_id}`, else the first)
+ *   blob8   = generated forge tool whose response schema was used
+ *   blob9   = response key whose schema was used (`200`, `4XX`, `default`)
+ *   blob10  = first violation's keyword (`type`, `required`, `enum`, …)
+ *   blob11  = first violation's schema location
+ *             (`#/components/schemas/<name>/…` or `#/responses/<key>/schema/…`)
+ *   blob12  = first violation's instance path, indices and undeclared keys as `*`
+ *   blob13  = OpenAPI release the generated schemas came from (`openapi@<forge commit>`)
+ *   double2 = HTTP status
+ *   double3 = number of violations
+ *   double4 = sample interval (1 / RESPONSE_VALIDATION_SAMPLE_RATE); weight counts by it
+ *   double5 = 1 if double3 counts every violation, 0 if it is a lower bound
+ *             (arrays past 25 items unchecked, or too large to count)
+ * No blob holds a response value: those are customer data.
  *
  * Note: this server is stateless (a fresh McpServer per request) so it does not
  * emit `session_start` events the way the Durable-Object-backed Cloudflare MCP
@@ -30,7 +49,8 @@ import { SERVER_INFO, type ServerInfo } from './constants'
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
-  TOOL_CALL = 'tool_call'
+  TOOL_CALL = 'tool_call',
+  RESPONSE_SCHEMA_MISMATCH = 'response_schema_mismatch'
 }
 
 type Range1To20 =
@@ -182,6 +202,58 @@ export class AuthUser extends MetricsEvent {
   }
 }
 
+export interface ResponseSchemaMismatchFields {
+  userId?: string
+  toolName: string
+  method: string
+  pathTemplate: string
+  product: string
+  /** The generated forge tool whose response schema was used. */
+  forgeTool: string
+  responseKey: string
+  /** The OpenAPI release tag the schema came from, or `null` when unknown. */
+  specRelease: string | null
+  status: number
+  errorCount: number
+  /** Whether `errorCount` is every violation rather than a lower bound. */
+  counted: boolean
+  sampleInterval: number
+  first: { keyword: string; schemaLocation: string; instancePath: string }
+}
+
+export class ResponseSchemaMismatch extends MetricsEvent {
+  constructor(private mismatch: ResponseSchemaMismatchFields) {
+    super()
+  }
+
+  toDataPoint(): AnalyticsEngineDataPoint {
+    const { mismatch } = this
+    return {
+      indexes: [MetricsEventIndexId.RESPONSE_SCHEMA_MISMATCH],
+      blobs: this.mapBlobs({
+        blob3: mismatch.userId,
+        blob4: mismatch.toolName,
+        blob5: mismatch.method,
+        blob6: mismatch.pathTemplate,
+        blob7: mismatch.product,
+        blob8: mismatch.forgeTool,
+        blob9: mismatch.responseKey,
+        blob10: mismatch.first.keyword,
+        blob11: mismatch.first.schemaLocation,
+        blob12: mismatch.first.instancePath,
+        blob13: mismatch.specRelease
+      }),
+      doubles: this.mapDoubles({
+        double1: 0,
+        double2: mismatch.status,
+        double3: mismatch.errorCount,
+        double4: mismatch.sampleInterval,
+        double5: mismatch.counted ? 1 : 0
+      })
+    }
+  }
+}
+
 /**
  * Wraps the Analytics Engine binding. Tolerates a missing binding (e.g. in
  * tests or local dev where MCP_METRICS isn't configured) by becoming a no-op.
@@ -222,6 +294,15 @@ export function recordToolCall(props: AuthProps, toolName: string, isError: bool
       errorCode: isError ? -1 : undefined
     })
   )
+}
+
+/** Record one direct-tool response that didn't match its OpenAPI response schema. */
+export function recordResponseSchemaMismatch(
+  props: AuthProps,
+  mismatch: Omit<ResponseSchemaMismatchFields, 'userId'>
+): void {
+  const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
+  metrics.logEvent(new ResponseSchemaMismatch({ ...mismatch, userId: userIdFromProps(props) }))
 }
 
 /**

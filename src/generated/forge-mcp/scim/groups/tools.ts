@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { iam_scim_error_response_output } from "../outputs.js";
+import {
+  iam_scim_group_list_response_output,
+  iam_scim_group_membersItem_output,
+  iam_scim_group_meta_output,
+  iam_scim_group_output,
+  iam_scim_group_summary_output,
+} from "./outputs.js";
 import {
   iam_scim_group_create_request,
   iam_scim_group_patch_member_value,
@@ -69,6 +77,22 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/iam_scim_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_group": iam_scim_group_output,
+        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
+        "iam_scim_group_meta": iam_scim_group_meta_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Groups`,
       body: { value: args["body"], mediaType: "application/scim+json" },
@@ -125,6 +149,17 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Groups/${pathParam(args, "group_id")}`,
@@ -192,6 +227,22 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_group": iam_scim_group_output,
+        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
+        "iam_scim_group_meta": iam_scim_group_meta_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Groups/${pathParam(args, "group_id")}`,
       body: { value: args["body"], mediaType: "application/scim+json" },
@@ -249,6 +300,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_group": iam_scim_group_output,
+        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
+        "iam_scim_group_meta": iam_scim_group_meta_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Groups/${pathParam(args, "group_id")}`,
@@ -314,6 +381,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_group_list_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_group_list_response": iam_scim_group_list_response_output,
+        "iam_scim_group_meta": iam_scim_group_meta_output,
+        "iam_scim_group_summary": iam_scim_group_summary_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Groups`,
@@ -383,6 +466,22 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_group"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_group": iam_scim_group_output,
+        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
+        "iam_scim_group_meta": iam_scim_group_meta_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Groups/${pathParam(args, "group_id")}`,

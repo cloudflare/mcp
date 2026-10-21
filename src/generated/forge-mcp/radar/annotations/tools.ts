@@ -52,6 +52,280 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "annotation": {
+              "properties": {
+                "asns": {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "asnsDetails": {
+                  "items": {
+                    "properties": {
+                      "asn": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "code",
+                              "name"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "name": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "location",
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "dataSource": {
+                  "type": "string"
+                },
+                "description": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "endDate": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "entities": {
+                  "items": {
+                    "properties": {
+                      "entityName": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "entityType": {
+                        "type": "string"
+                      },
+                      "entityValue": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "entityName",
+                      "entityType",
+                      "entityValue"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "eventType": {
+                  "type": "string"
+                },
+                "geoIds": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "linkedUrl": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "locations": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "locationsDetails": {
+                  "items": {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "origins": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "originsDetails": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "origin": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "origin"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "outage": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "outageCause": {
+                          "type": "string"
+                        },
+                        "outageType": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "outageCause",
+                        "outageType"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "scope": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "startDate": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "tags": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "asns",
+                "asnsDetails",
+                "dataSource",
+                "description",
+                "endDate",
+                "entities",
+                "eventType",
+                "geoIds",
+                "id",
+                "linkedUrl",
+                "locations",
+                "locationsDetails",
+                "origins",
+                "originsDetails",
+                "outage",
+                "scope",
+                "startDate",
+                "tags"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "annotation"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/annotations/${pathParam(args, "id")}`,
       query: [
@@ -336,6 +610,300 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "annotations": {
+              "items": {
+                "properties": {
+                  "asns": {
+                    "items": {
+                      "type": "integer"
+                    },
+                    "type": "array"
+                  },
+                  "asnsDetails": {
+                    "items": {
+                      "properties": {
+                        "asn": {
+                          "type": "string"
+                        },
+                        "location": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "code": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "name"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "name": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "asn",
+                        "location",
+                        "name"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "dataSource": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "endDate": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "entities": {
+                    "items": {
+                      "properties": {
+                        "entityName": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "entityType": {
+                          "type": "string"
+                        },
+                        "entityValue": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "entityName",
+                        "entityType",
+                        "entityValue"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "eventType": {
+                    "type": "string"
+                  },
+                  "geoIds": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "linkedUrl": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "locations": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "locationsDetails": {
+                    "items": {
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "name"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "origins": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "originsDetails": {
+                    "items": {
+                      "properties": {
+                        "name": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "origin": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "origin"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "outage": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "outageCause": {
+                            "type": "string"
+                          },
+                          "outageType": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "outageCause",
+                          "outageType"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "scope": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "startDate": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "asns",
+                  "asnsDetails",
+                  "dataSource",
+                  "description",
+                  "endDate",
+                  "entities",
+                  "eventType",
+                  "geoIds",
+                  "id",
+                  "linkedUrl",
+                  "locations",
+                  "locationsDetails",
+                  "origins",
+                  "originsDetails",
+                  "outage",
+                  "scope",
+                  "startDate",
+                  "tags"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "annotations"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/annotations`,

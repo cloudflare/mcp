@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_messages_output,
+  digital_experience_monitoring_platform_output,
+  digital_experience_monitoring_status_output,
+  digital_experience_monitoring_timestamp_output,
+  digital_experience_monitoring_version_output,
+} from "../../outputs.js";
+import {
+  digital_experience_monitoring_commands_devices_response_devicesItem_output,
+  digital_experience_monitoring_commands_devices_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.commands.eligible_devices`.
@@ -54,6 +66,26 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_commands_devices_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_commands_devices_response": digital_experience_monitoring_commands_devices_response_output,
+        "digital-experience-monitoring_commands_devices_response_devicesItem": digital_experience_monitoring_commands_devices_response_devicesItem_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
+        "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
+        "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
+        "digital-experience-monitoring_version": digital_experience_monitoring_version_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/commands/devices`,

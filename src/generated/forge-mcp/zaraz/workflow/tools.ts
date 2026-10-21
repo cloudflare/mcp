@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  zaraz_api_response_common_failure_output,
+  zaraz_messages_output,
+} from "../outputs.js";
+import { zaraz_zaraz_workflow_output } from "./outputs.js";
 import { zaraz_zaraz_workflow } from "./schemas.js";
 
 /**
@@ -39,6 +44,21 @@ export const tools: readonly Tool[] = [
         "Zaraz Read",
         "Zaraz Admin"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zaraz_zaraz-workflow"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zaraz_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
+        "zaraz_messages": zaraz_messages_output,
+        "zaraz_zaraz-workflow": zaraz_zaraz_workflow_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/zaraz/workflow`,
@@ -81,6 +101,21 @@ export const tools: readonly Tool[] = [
         "Zaraz Edit",
         "Zaraz Admin"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zaraz_zaraz-workflow"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zaraz_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
+        "zaraz_messages": zaraz_messages_output,
+        "zaraz_zaraz-workflow": zaraz_zaraz_workflow_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/zaraz/workflow`,

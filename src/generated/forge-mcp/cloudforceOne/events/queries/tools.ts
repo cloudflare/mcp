@@ -76,6 +76,133 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account_id": {
+              "type": "integer"
+            },
+            "alert_enabled": {
+              "type": "boolean"
+            },
+            "alert_rollup_enabled": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "custom_threat_feed_id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "query_json": {
+              "type": "string"
+            },
+            "rule_enabled": {
+              "type": "boolean"
+            },
+            "rule_list_id": {
+              "type": "string"
+            },
+            "rule_scope": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "user_email": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "alert_enabled",
+            "alert_rollup_enabled",
+            "created_at",
+            "id",
+            "name",
+            "query_json",
+            "rule_enabled",
+            "updated_at",
+            "user_email"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/queries/${pathParam(args, "query_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -152,6 +279,103 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account_id": {
+              "type": "integer"
+            },
+            "alert_enabled": {
+              "type": "boolean"
+            },
+            "alert_rollup_enabled": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "custom_threat_feed_id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "query_json": {
+              "type": "string"
+            },
+            "rule_enabled": {
+              "type": "boolean"
+            },
+            "rule_list_id": {
+              "type": "string"
+            },
+            "rule_scope": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "user_email": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "alert_enabled",
+            "alert_rollup_enabled",
+            "created_at",
+            "id",
+            "name",
+            "query_json",
+            "rule_enabled",
+            "updated_at",
+            "user_email"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/queries/create`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -191,6 +415,41 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/queries/${pathParam(args, "query_id")}`,
@@ -263,6 +522,133 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account_id": {
+              "type": "integer"
+            },
+            "alert_enabled": {
+              "type": "boolean"
+            },
+            "alert_rollup_enabled": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "custom_threat_feed_id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "query_json": {
+              "type": "string"
+            },
+            "rule_enabled": {
+              "type": "boolean"
+            },
+            "rule_list_id": {
+              "type": "string"
+            },
+            "rule_scope": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "user_email": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "alert_enabled",
+            "alert_rollup_enabled",
+            "created_at",
+            "id",
+            "name",
+            "query_json",
+            "rule_enabled",
+            "updated_at",
+            "user_email"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/queries/${pathParam(args, "query_id")}`,

@@ -2,7 +2,24 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  posture_api_DlpContext_output,
+  posture_api_ExportJobTypeEnum_output,
+  posture_api_ExportJob_output,
+  posture_api_RemediationJobStatusEnum_output,
+  posture_api_StatusEnum_output,
+  posture_api_result_info_output,
+} from "../../outputs.js";
 import { posture_api_DirectionEnum } from "../../schemas.js";
+import {
+  posture_api_AssetCategory_output,
+  posture_api_AssetField_output,
+  posture_api_Asset_output,
+  posture_api_FindingInstance_output,
+  posture_api_RemediationJobSummary_output,
+  posture_api_WebhookInvocationSummary_latest_job_output,
+  posture_api_WebhookInvocationSummary_output,
+} from "./outputs.js";
 import {
   posture_api_FindingInstanceBulkActionRequest,
   posture_api_FindingInstanceExportFilterRequest,
@@ -55,6 +72,26 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_FindingInstance"
+        },
+        "400": null,
+        "404": null
+      },
+      $defs: {
+        "posture-api_Asset": posture_api_Asset_output,
+        "posture-api_AssetCategory": posture_api_AssetCategory_output,
+        "posture-api_AssetField": posture_api_AssetField_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_FindingInstance": posture_api_FindingInstance_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
+        "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
+        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/findings/${pathParam(args, "finding_id")}/instances/archive`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -104,6 +141,20 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_ExportJob"
+        },
+        "400": null,
+        "404": null
+      },
+      $defs: {
+        "posture-api_ExportJob": posture_api_ExportJob_output,
+        "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
+        "posture-api_StatusEnum": posture_api_StatusEnum_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/findings/${pathParam(args, "finding_namespace_id")}/instances/export`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -151,6 +202,26 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_FindingInstance"
+        },
+        "400": null,
+        "404": null
+      },
+      $defs: {
+        "posture-api_Asset": posture_api_Asset_output,
+        "posture-api_AssetCategory": posture_api_AssetCategory_output,
+        "posture-api_AssetField": posture_api_AssetField_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_FindingInstance": posture_api_FindingInstance_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
+        "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
+        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/findings/${pathParam(args, "finding_id")}/instances/${pathParam(args, "instance_id")}`,
@@ -271,6 +342,41 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/posture-api_FindingInstance"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/posture-api_result-info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": null,
+        "404": null
+      },
+      $defs: {
+        "posture-api_Asset": posture_api_Asset_output,
+        "posture-api_AssetCategory": posture_api_AssetCategory_output,
+        "posture-api_AssetField": posture_api_AssetField_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_FindingInstance": posture_api_FindingInstance_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
+        "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
+        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/findings/${pathParam(args, "finding_id")}/instances`,
       query: [
@@ -330,6 +436,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_FindingInstance"
+        },
+        "400": null,
+        "404": null
+      },
+      $defs: {
+        "posture-api_Asset": posture_api_Asset_output,
+        "posture-api_AssetCategory": posture_api_AssetCategory_output,
+        "posture-api_AssetField": posture_api_AssetField_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_FindingInstance": posture_api_FindingInstance_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
+        "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
+        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/findings/${pathParam(args, "finding_id")}/instances/unarchive`,

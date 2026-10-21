@@ -3,6 +3,60 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  abuse_reports_AbuseReport_output,
+  abuse_reports_AuthErrorResponse_output,
+  abuse_reports_BadActError_output,
+  abuse_reports_BadAddressError_output,
+  abuse_reports_BadAgentNameError_output,
+  abuse_reports_BadCityError_output,
+  abuse_reports_BadCommentsError_output,
+  abuse_reports_BadCountryError_output,
+  abuse_reports_BadEmailError_output,
+  abuse_reports_BadIPError_output,
+  abuse_reports_BadJustError_output,
+  abuse_reports_BadNameError_output,
+  abuse_reports_BadPortsProtocolError_output,
+  abuse_reports_BadStateError_output,
+  abuse_reports_BadUrlsError_output,
+  abuse_reports_CloudflareAPIErrorResponse_output,
+  abuse_reports_DBError_output,
+  abuse_reports_DedupeError_output,
+  abuse_reports_DiffEmailError_output,
+  abuse_reports_EmailError_output,
+  abuse_reports_ErrorCode_output,
+  abuse_reports_ErrorMessage_code_output,
+  abuse_reports_ErrorMessage_output,
+  abuse_reports_InternalError_output,
+  abuse_reports_InvalidNotifyError_output,
+  abuse_reports_MaxIPsError_output,
+  abuse_reports_Message_output,
+  abuse_reports_MitigationSummary_output,
+  abuse_reports_MustNotifyError_output,
+  abuse_reports_NoAgreeError_output,
+  abuse_reports_NoOriginalWorkError_output,
+  abuse_reports_NoSigError_output,
+  abuse_reports_PortsProtocolError_output,
+  abuse_reports_RegistrarWhoIsFields_output,
+  abuse_reports_ReportStatus_output,
+  abuse_reports_ReportType_output,
+  abuse_reports_SubmissionReportType_output,
+  abuse_reports_SubmitErrorResponse_output,
+  abuse_reports_SubmitErrorResponse_request_output,
+  abuse_reports_SubmitReportResponse_output,
+  abuse_reports_SubmitReportResponse_request_output,
+  abuse_reports_SubmittedAbuseReportDenialReason_output,
+  abuse_reports_SubmittedAbuseReportDetail_output,
+  abuse_reports_SubmittedAbuseReportListItem_output,
+  abuse_reports_SubmittedAbuseReportListResponse_result_output,
+  abuse_reports_SubmittedAbuseReportStatus_output,
+  abuse_reports_SubmitterDetails_output,
+  abuse_reports_UnauthorizedErrorResponse_output,
+  abuse_reports_UnexpectedActError_output,
+  abuse_reports_UnknownError_output,
+  abuse_reports_UrlNotOrangeError_output,
+  abuse_reports_UrlNotvalidError_output,
+} from "./outputs.js";
+import {
   abuse_reports_CSAMReport,
   abuse_reports_DMCAReport,
   abuse_reports_GeneralReport,
@@ -74,6 +128,68 @@ export const tools: readonly Tool[] = [
         "Trust and Safety Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/abuse-reports_SubmitReportResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/abuse-reports_SubmitErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/abuse-reports_SubmitErrorResponse"
+        }
+      },
+      $defs: {
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_BadActError": abuse_reports_BadActError_output,
+        "abuse-reports_BadAddressError": abuse_reports_BadAddressError_output,
+        "abuse-reports_BadAgentNameError": abuse_reports_BadAgentNameError_output,
+        "abuse-reports_BadCityError": abuse_reports_BadCityError_output,
+        "abuse-reports_BadCommentsError": abuse_reports_BadCommentsError_output,
+        "abuse-reports_BadCountryError": abuse_reports_BadCountryError_output,
+        "abuse-reports_BadEmailError": abuse_reports_BadEmailError_output,
+        "abuse-reports_BadIPError": abuse_reports_BadIPError_output,
+        "abuse-reports_BadJustError": abuse_reports_BadJustError_output,
+        "abuse-reports_BadNameError": abuse_reports_BadNameError_output,
+        "abuse-reports_BadPortsProtocolError": abuse_reports_BadPortsProtocolError_output,
+        "abuse-reports_BadStateError": abuse_reports_BadStateError_output,
+        "abuse-reports_BadUrlsError": abuse_reports_BadUrlsError_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_DBError": abuse_reports_DBError_output,
+        "abuse-reports_DedupeError": abuse_reports_DedupeError_output,
+        "abuse-reports_DiffEmailError": abuse_reports_DiffEmailError_output,
+        "abuse-reports_EmailError": abuse_reports_EmailError_output,
+        "abuse-reports_ErrorCode": abuse_reports_ErrorCode_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_InternalError": abuse_reports_InternalError_output,
+        "abuse-reports_InvalidNotifyError": abuse_reports_InvalidNotifyError_output,
+        "abuse-reports_MaxIPsError": abuse_reports_MaxIPsError_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_MustNotifyError": abuse_reports_MustNotifyError_output,
+        "abuse-reports_NoAgreeError": abuse_reports_NoAgreeError_output,
+        "abuse-reports_NoOriginalWorkError": abuse_reports_NoOriginalWorkError_output,
+        "abuse-reports_NoSigError": abuse_reports_NoSigError_output,
+        "abuse-reports_PortsProtocolError": abuse_reports_PortsProtocolError_output,
+        "abuse-reports_SubmissionReportType": abuse_reports_SubmissionReportType_output,
+        "abuse-reports_SubmitErrorResponse": abuse_reports_SubmitErrorResponse_output,
+        "abuse-reports_SubmitErrorResponse_request": abuse_reports_SubmitErrorResponse_request_output,
+        "abuse-reports_SubmitReportResponse": abuse_reports_SubmitReportResponse_output,
+        "abuse-reports_SubmitReportResponse_request": abuse_reports_SubmitReportResponse_request_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+        "abuse-reports_UnexpectedActError": abuse_reports_UnexpectedActError_output,
+        "abuse-reports_UnknownError": abuse_reports_UnknownError_output,
+        "abuse-reports_UrlNotOrangeError": abuse_reports_UrlNotOrangeError_output,
+        "abuse-reports_UrlNotvalidError": abuse_reports_UrlNotvalidError_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports/${pathParam(args, "report_type")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -115,6 +231,86 @@ export const tools: readonly Tool[] = [
         "Trust and Safety Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/abuse-reports_AbuseReport"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_ErrorMessage"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/abuse-reports_AbuseReport"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_ErrorMessage"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/abuse-reports_AbuseReport"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+      $defs: {
+        "abuse-reports_AbuseReport": abuse_reports_AbuseReport_output,
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_MitigationSummary": abuse_reports_MitigationSummary_output,
+        "abuse-reports_ReportStatus": abuse_reports_ReportStatus_output,
+        "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports/${pathParam(args, "report_id")}`,
     }),
@@ -154,6 +350,36 @@ export const tools: readonly Tool[] = [
         "Trust and Safety Write",
         "Trust and Safety Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDetail"
+        },
+        "400": null,
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_RegistrarWhoIsFields": abuse_reports_RegistrarWhoIsFields_output,
+        "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_SubmittedAbuseReportDenialReason": abuse_reports_SubmittedAbuseReportDenialReason_output,
+        "abuse-reports_SubmittedAbuseReportDetail": abuse_reports_SubmittedAbuseReportDetail_output,
+        "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus_output,
+        "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports/submitted/${pathParam(args, "report_id")}`,
@@ -234,6 +460,67 @@ export const tools: readonly Tool[] = [
         "Trust and Safety Write",
         "Trust and Safety Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "reports": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_AbuseReport"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "reports"
+          ],
+          "type": "object"
+        },
+        "400": null,
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+      $defs: {
+        "abuse-reports_AbuseReport": abuse_reports_AbuseReport_output,
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_MitigationSummary": abuse_reports_MitigationSummary_output,
+        "abuse-reports_ReportStatus": abuse_reports_ReportStatus_output,
+        "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports`,
@@ -334,6 +621,35 @@ export const tools: readonly Tool[] = [
         "Trust and Safety Write",
         "Trust and Safety Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListResponse_result"
+        },
+        "400": null,
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "500": null
+      },
+      $defs: {
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_SubmittedAbuseReportDenialReason": abuse_reports_SubmittedAbuseReportDenialReason_output,
+        "abuse-reports_SubmittedAbuseReportListItem": abuse_reports_SubmittedAbuseReportListItem_output,
+        "abuse-reports_SubmittedAbuseReportListResponse_result": abuse_reports_SubmittedAbuseReportListResponse_result_output,
+        "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus_output,
+        "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports/submitted`,

@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import { realtimekit_Transcript_output } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.sessions.transcripts`.
@@ -59,6 +60,24 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_Transcript"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      $defs: {
+        "realtimekit_Transcript": realtimekit_Transcript_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/sessions/${pathParam(args, "session_id")}/transcript`,

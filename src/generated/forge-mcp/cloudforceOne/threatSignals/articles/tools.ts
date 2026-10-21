@@ -59,6 +59,22 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "updated_count": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "updated_count"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -99,6 +115,237 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "bullet_points": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "impact": {
+                      "type": "string"
+                    },
+                    "what_happened": {
+                      "type": "string"
+                    },
+                    "who_affected": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "impact",
+                    "what_happened",
+                    "who_affected"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "content_r2_key": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "feed_display_name": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "feed_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "fetched_at": {
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "indicator_extraction_status": {
+              "enum": [
+                "in_progress",
+                "complete",
+                "failed",
+                "unknown"
+              ],
+              "type": "string"
+            },
+            "link": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "metadata": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "published_at": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "read": {
+              "type": "boolean"
+            },
+            "read_at": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "skill_version": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "source_count": {
+              "type": "number"
+            },
+            "summary": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "summary_r2_key": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tag_skill_version": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tags": {
+              "items": {
+                "properties": {
+                  "applied_by": {
+                    "enum": [
+                      "ai",
+                      "analyst",
+                      "system"
+                    ],
+                    "type": "string"
+                  },
+                  "categoryId": {
+                    "oneOf": [
+                      {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "uuid": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "applied_by",
+                  "categoryId",
+                  "uuid",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "title": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "bullet_points",
+            "content_r2_key",
+            "feed_display_name",
+            "feed_id",
+            "fetched_at",
+            "id",
+            "indicator_extraction_status",
+            "link",
+            "metadata",
+            "published_at",
+            "read",
+            "read_at",
+            "source_count",
+            "summary",
+            "summary_r2_key",
+            "tags",
+            "title"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/${pathParam(args, "article_id")}`,
@@ -147,6 +394,12 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/${pathParam(args, "article_id")}/content`,
@@ -294,6 +547,206 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "articles": {
+              "items": {
+                "properties": {
+                  "dataset_id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "event_id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "feed_display_name": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "feed_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "link": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "published_at": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "read": {
+                    "type": "boolean"
+                  },
+                  "read_at": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "summary": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "tags": {
+                    "items": {
+                      "properties": {
+                        "applied_by": {
+                          "enum": [
+                            "ai",
+                            "analyst",
+                            "system"
+                          ],
+                          "type": "string"
+                        },
+                        "categoryId": {
+                          "oneOf": [
+                            {
+                              "format": "uuid",
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "uuid": {
+                          "format": "uuid",
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "applied_by",
+                        "categoryId",
+                        "uuid",
+                        "value"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "title": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "dataset_id",
+                  "event_id",
+                  "feed_display_name",
+                  "feed_id",
+                  "fetched_at",
+                  "id",
+                  "link",
+                  "published_at",
+                  "read",
+                  "read_at",
+                  "summary",
+                  "tags",
+                  "title"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "has_more": {
+              "type": "boolean"
+            },
+            "next_cursor": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "total_count": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "total_count_is_exact": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "articles",
+            "has_more",
+            "next_cursor",
+            "total_count",
+            "total_count_is_exact"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles`,
       query: [
@@ -365,6 +818,237 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "bullet_points": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "impact": {
+                      "type": "string"
+                    },
+                    "what_happened": {
+                      "type": "string"
+                    },
+                    "who_affected": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "impact",
+                    "what_happened",
+                    "who_affected"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "content_r2_key": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "feed_display_name": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "feed_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "fetched_at": {
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "indicator_extraction_status": {
+              "enum": [
+                "in_progress",
+                "complete",
+                "failed",
+                "unknown"
+              ],
+              "type": "string"
+            },
+            "link": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "metadata": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "published_at": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "read": {
+              "type": "boolean"
+            },
+            "read_at": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "skill_version": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "source_count": {
+              "type": "number"
+            },
+            "summary": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "summary_r2_key": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tag_skill_version": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tags": {
+              "items": {
+                "properties": {
+                  "applied_by": {
+                    "enum": [
+                      "ai",
+                      "analyst",
+                      "system"
+                    ],
+                    "type": "string"
+                  },
+                  "categoryId": {
+                    "oneOf": [
+                      {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "uuid": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "applied_by",
+                  "categoryId",
+                  "uuid",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "title": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "bullet_points",
+            "content_r2_key",
+            "feed_display_name",
+            "feed_id",
+            "fetched_at",
+            "id",
+            "indicator_extraction_status",
+            "link",
+            "metadata",
+            "published_at",
+            "read",
+            "read_at",
+            "source_count",
+            "summary",
+            "summary_r2_key",
+            "tags",
+            "title"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/${pathParam(args, "article_id")}`,

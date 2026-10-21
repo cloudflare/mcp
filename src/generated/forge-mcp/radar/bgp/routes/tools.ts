@@ -75,6 +75,118 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asns": {
+              "items": {
+                "properties": {
+                  "asn": {
+                    "type": "integer"
+                  },
+                  "coneSize": {
+                    "type": "integer"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "ipv4Count": {
+                    "type": "integer"
+                  },
+                  "ipv6Count": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "pfxsCount": {
+                    "type": "integer"
+                  },
+                  "rpkiInvalid": {
+                    "type": "integer"
+                  },
+                  "rpkiUnknown": {
+                    "type": "integer"
+                  },
+                  "rpkiValid": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "asn",
+                  "coneSize",
+                  "country",
+                  "ipv4Count",
+                  "ipv6Count",
+                  "name",
+                  "pfxsCount",
+                  "rpkiInvalid",
+                  "rpkiUnknown",
+                  "rpkiValid"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "dataTime": {
+                  "type": "string"
+                },
+                "queryTime": {
+                  "type": "string"
+                },
+                "totalPeers": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "dataTime",
+                "queryTime",
+                "totalPeers"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "asns",
+            "meta"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/bgp/routes/ases`,
       query: [
@@ -134,6 +246,105 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "data_time": {
+                  "type": "string"
+                },
+                "query_time": {
+                  "type": "string"
+                },
+                "total_peers": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "data_time",
+                "query_time",
+                "total_peers"
+              ],
+              "type": "object"
+            },
+            "moas": {
+              "items": {
+                "properties": {
+                  "origins": {
+                    "items": {
+                      "properties": {
+                        "origin": {
+                          "type": "integer"
+                        },
+                        "peer_count": {
+                          "type": "integer"
+                        },
+                        "rpki_validation": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "origin",
+                        "peer_count",
+                        "rpki_validation"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "prefix": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "origins",
+                  "prefix"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "meta",
+            "moas"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/bgp/routes/moas`,
@@ -203,6 +414,94 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "data_time": {
+                  "type": "string"
+                },
+                "query_time": {
+                  "type": "string"
+                },
+                "total_peers": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "data_time",
+                "query_time",
+                "total_peers"
+              ],
+              "type": "object"
+            },
+            "prefix_origins": {
+              "items": {
+                "properties": {
+                  "origin": {
+                    "type": "integer"
+                  },
+                  "peer_count": {
+                    "type": "integer"
+                  },
+                  "prefix": {
+                    "type": "string"
+                  },
+                  "rpki_validation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "origin",
+                  "peer_count",
+                  "prefix",
+                  "rpki_validation"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "meta",
+            "prefix_origins"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/bgp/routes/pfx2as`,
       query: [
@@ -254,6 +553,205 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "asn_info": {
+                  "items": {
+                    "properties": {
+                      "as_name": {
+                        "type": "string"
+                      },
+                      "asn": {
+                        "type": "integer"
+                      },
+                      "country_code": {
+                        "type": "string"
+                      },
+                      "org_id": {
+                        "type": "string"
+                      },
+                      "org_name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "as_name",
+                      "asn",
+                      "country_code",
+                      "org_id",
+                      "org_name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "collectors": {
+                  "items": {
+                    "properties": {
+                      "collector": {
+                        "type": "string"
+                      },
+                      "latest_realtime_ts": {
+                        "type": "string"
+                      },
+                      "latest_rib_ts": {
+                        "type": "string"
+                      },
+                      "latest_updates_ts": {
+                        "type": "string"
+                      },
+                      "peers_count": {
+                        "type": "integer"
+                      },
+                      "peers_v4_count": {
+                        "type": "integer"
+                      },
+                      "peers_v6_count": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "collector",
+                      "latest_realtime_ts",
+                      "latest_rib_ts",
+                      "latest_updates_ts",
+                      "peers_count",
+                      "peers_v4_count",
+                      "peers_v6_count"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "data_time": {
+                  "type": "string"
+                },
+                "prefix_origins": {
+                  "items": {
+                    "properties": {
+                      "origin": {
+                        "type": "integer"
+                      },
+                      "prefix": {
+                        "type": "string"
+                      },
+                      "rpki_validation": {
+                        "type": "string"
+                      },
+                      "total_peers": {
+                        "type": "integer"
+                      },
+                      "total_visible": {
+                        "type": "integer"
+                      },
+                      "visibility": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "origin",
+                      "prefix",
+                      "rpki_validation",
+                      "total_peers",
+                      "total_visible",
+                      "visibility"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "query_time": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "asn_info",
+                "collectors",
+                "data_time",
+                "prefix_origins",
+                "query_time"
+              ],
+              "type": "object"
+            },
+            "routes": {
+              "items": {
+                "properties": {
+                  "as_path": {
+                    "items": {
+                      "type": "integer"
+                    },
+                    "type": "array"
+                  },
+                  "collector": {
+                    "type": "string"
+                  },
+                  "communities": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "prefix": {
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "as_path",
+                  "collector",
+                  "communities",
+                  "prefix",
+                  "timestamp"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "meta",
+            "routes"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/bgp/routes/realtime`,
@@ -308,6 +806,147 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "data_time": {
+                  "type": "string"
+                },
+                "query_time": {
+                  "type": "string"
+                },
+                "total_peers": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "data_time",
+                "query_time",
+                "total_peers"
+              ],
+              "type": "object"
+            },
+            "stats": {
+              "properties": {
+                "distinct_origins": {
+                  "type": "integer"
+                },
+                "distinct_origins_ipv4": {
+                  "type": "integer"
+                },
+                "distinct_origins_ipv6": {
+                  "type": "integer"
+                },
+                "distinct_prefixes": {
+                  "type": "integer"
+                },
+                "distinct_prefixes_ipv4": {
+                  "type": "integer"
+                },
+                "distinct_prefixes_ipv6": {
+                  "type": "integer"
+                },
+                "routes_invalid": {
+                  "type": "integer"
+                },
+                "routes_invalid_ipv4": {
+                  "type": "integer"
+                },
+                "routes_invalid_ipv6": {
+                  "type": "integer"
+                },
+                "routes_total": {
+                  "type": "integer"
+                },
+                "routes_total_ipv4": {
+                  "type": "integer"
+                },
+                "routes_total_ipv6": {
+                  "type": "integer"
+                },
+                "routes_unknown": {
+                  "type": "integer"
+                },
+                "routes_unknown_ipv4": {
+                  "type": "integer"
+                },
+                "routes_unknown_ipv6": {
+                  "type": "integer"
+                },
+                "routes_valid": {
+                  "type": "integer"
+                },
+                "routes_valid_ipv4": {
+                  "type": "integer"
+                },
+                "routes_valid_ipv6": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "distinct_origins",
+                "distinct_origins_ipv4",
+                "distinct_origins_ipv6",
+                "distinct_prefixes",
+                "distinct_prefixes_ipv4",
+                "distinct_prefixes_ipv6",
+                "routes_invalid",
+                "routes_invalid_ipv4",
+                "routes_invalid_ipv6",
+                "routes_total",
+                "routes_total_ipv4",
+                "routes_total_ipv6",
+                "routes_unknown",
+                "routes_unknown_ipv4",
+                "routes_unknown_ipv6",
+                "routes_valid",
+                "routes_valid_ipv4",
+                "routes_valid_ipv6"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "meta",
+            "stats"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/bgp/routes/stats`,

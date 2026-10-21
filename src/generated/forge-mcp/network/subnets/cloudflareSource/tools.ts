@@ -3,6 +3,23 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  tunnel_api_response_common_failure_output,
+  tunnel_created_at_output,
+  tunnel_deleted_at_output,
+  tunnel_messages_output,
+} from "../../../outputs.js";
+import {
+  tunnel_subnet_capacity_output,
+  tunnel_subnet_comment_output,
+  tunnel_subnet_id_output,
+  tunnel_subnet_ip_network_output,
+  tunnel_subnet_is_default_network_output,
+  tunnel_subnet_name_output,
+  tunnel_subnet_output,
+  tunnel_subnet_response_single_output,
+  tunnel_subnet_type_output,
+} from "../outputs.js";
+import {
   tunnel_subnet_comment,
   tunnel_subnet_ip_network,
   tunnel_subnet_name,
@@ -71,6 +88,38 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Networks Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_subnet"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_subnet_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_subnet": tunnel_subnet_output,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
+        "tunnel_subnet_comment": tunnel_subnet_comment_output,
+        "tunnel_subnet_id": tunnel_subnet_id_output,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
+        "tunnel_subnet_name": tunnel_subnet_name_output,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
+        "tunnel_subnet_type": tunnel_subnet_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/subnets/cloudflare_source/${pathParam(args, "address_family")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -106,6 +155,38 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/zerotrust/subnets/cloudflare_source/{address_family}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_subnet"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_subnet_response_single"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_subnet": tunnel_subnet_output,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
+        "tunnel_subnet_comment": tunnel_subnet_comment_output,
+        "tunnel_subnet_id": tunnel_subnet_id_output,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
+        "tunnel_subnet_name": tunnel_subnet_name_output,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
+        "tunnel_subnet_type": tunnel_subnet_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/subnets/cloudflare_source/${pathParam(args, "address_family")}`,
     }),

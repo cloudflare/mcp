@@ -66,6 +66,66 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "matches": {
+              "items": {
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  },
+                  "content_type": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "string"
+                  },
+                  "image_data": {
+                    "type": "string"
+                  },
+                  "query_id": {
+                    "type": "integer"
+                  },
+                  "r2_path": {
+                    "type": "string"
+                  },
+                  "similarity_score": {
+                    "type": "number"
+                  },
+                  "similarity_threshold": {
+                    "type": "number"
+                  },
+                  "tag": {
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "type": "number"
+                  },
+                  "url_scan_id": {
+                    "type": "string"
+                  },
+                  "vector_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "similarity_score"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "matches"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/logo/search`,
       query: [
@@ -104,6 +164,25 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "items": {
+            "properties": {
+              "total_queries": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "total_queries"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/total-queries`,

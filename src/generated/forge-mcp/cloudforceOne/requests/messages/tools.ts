@@ -94,6 +94,119 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "attachments": {
+              "items": {
+                "properties": {
+                  "contentType": {
+                    "type": "string"
+                  },
+                  "downloadable": {
+                    "type": "boolean"
+                  },
+                  "fileName": {
+                    "type": "string"
+                  },
+                  "fileSize": {
+                    "type": "integer"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "is_cloudflare_team": {
+                    "type": "boolean"
+                  },
+                  "origin": {
+                    "enum": [
+                      "cloudflare",
+                      "self"
+                    ],
+                    "type": "string"
+                  },
+                  "state": {
+                    "enum": [
+                      "active",
+                      "expired",
+                      "revoked"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contentType",
+                  "downloadable",
+                  "fileName",
+                  "fileSize",
+                  "id",
+                  "is_cloudflare_team",
+                  "origin",
+                  "state"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "content": {
+              "type": "string"
+            },
+            "created": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "is_cloudflare_team": {
+              "type": "boolean"
+            },
+            "is_published": {
+              "type": "boolean"
+            },
+            "published": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tlp": {
+              "enum": [
+                "clear",
+                "green",
+                "amber",
+                "amber-strict",
+                "red"
+              ],
+              "type": "string"
+            },
+            "updated": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attachments",
+            "content",
+            "created",
+            "id",
+            "is_cloudflare_team",
+            "is_published",
+            "published",
+            "tlp",
+            "updated"
+          ],
+          "type": "object"
+        },
+        "400": null,
+        "404": null,
+        "409": null,
+        "500": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}/messages/new`,
       headers: [
@@ -144,6 +257,117 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "attachments": {
+              "items": {
+                "properties": {
+                  "contentType": {
+                    "type": "string"
+                  },
+                  "downloadable": {
+                    "type": "boolean"
+                  },
+                  "fileName": {
+                    "type": "string"
+                  },
+                  "fileSize": {
+                    "type": "integer"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "is_cloudflare_team": {
+                    "type": "boolean"
+                  },
+                  "origin": {
+                    "enum": [
+                      "cloudflare",
+                      "self"
+                    ],
+                    "type": "string"
+                  },
+                  "state": {
+                    "enum": [
+                      "active",
+                      "expired",
+                      "revoked"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contentType",
+                  "downloadable",
+                  "fileName",
+                  "fileSize",
+                  "id",
+                  "is_cloudflare_team",
+                  "origin",
+                  "state"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "content": {
+              "type": "string"
+            },
+            "created": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "is_cloudflare_team": {
+              "type": "boolean"
+            },
+            "is_published": {
+              "type": "boolean"
+            },
+            "published": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tlp": {
+              "enum": [
+                "clear",
+                "green",
+                "amber",
+                "amber-strict",
+                "red"
+              ],
+              "type": "string"
+            },
+            "updated": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attachments",
+            "content",
+            "created",
+            "id",
+            "is_cloudflare_team",
+            "is_published",
+            "published",
+            "tlp",
+            "updated"
+          ],
+          "type": "object"
+        },
+        "404": null,
+        "500": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}/messages/${pathParam(args, "message_id")}`,
     }),
@@ -193,6 +417,152 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "messages": {
+              "items": {
+                "properties": {
+                  "attachments": {
+                    "items": {
+                      "properties": {
+                        "contentType": {
+                          "type": "string"
+                        },
+                        "downloadable": {
+                          "type": "boolean"
+                        },
+                        "fileName": {
+                          "type": "string"
+                        },
+                        "fileSize": {
+                          "type": "integer"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "is_cloudflare_team": {
+                          "type": "boolean"
+                        },
+                        "origin": {
+                          "enum": [
+                            "cloudflare",
+                            "self"
+                          ],
+                          "type": "string"
+                        },
+                        "state": {
+                          "enum": [
+                            "active",
+                            "expired",
+                            "revoked"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "contentType",
+                        "downloadable",
+                        "fileName",
+                        "fileSize",
+                        "id",
+                        "is_cloudflare_team",
+                        "origin",
+                        "state"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "created": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "is_cloudflare_team": {
+                    "type": "boolean"
+                  },
+                  "is_published": {
+                    "type": "boolean"
+                  },
+                  "published": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "tlp": {
+                    "enum": [
+                      "clear",
+                      "green",
+                      "amber",
+                      "amber-strict",
+                      "red"
+                    ],
+                    "type": "string"
+                  },
+                  "updated": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "attachments",
+                  "content",
+                  "created",
+                  "id",
+                  "is_cloudflare_team",
+                  "is_published",
+                  "published",
+                  "tlp",
+                  "updated"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "has_more": {
+                  "type": "boolean"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "has_more",
+                "page",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "messages",
+            "result_info"
+          ],
+          "type": "object"
+        },
+        "404": null,
+        "500": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}/messages`,
@@ -286,6 +656,127 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "message": {
+              "properties": {
+                "attachments": {
+                  "items": {
+                    "properties": {
+                      "contentType": {
+                        "type": "string"
+                      },
+                      "downloadable": {
+                        "type": "boolean"
+                      },
+                      "fileName": {
+                        "type": "string"
+                      },
+                      "fileSize": {
+                        "type": "integer"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "is_cloudflare_team": {
+                        "type": "boolean"
+                      },
+                      "origin": {
+                        "enum": [
+                          "cloudflare",
+                          "self"
+                        ],
+                        "type": "string"
+                      },
+                      "state": {
+                        "enum": [
+                          "active",
+                          "expired",
+                          "revoked"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "contentType",
+                      "downloadable",
+                      "fileName",
+                      "fileSize",
+                      "id",
+                      "is_cloudflare_team",
+                      "origin",
+                      "state"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "is_cloudflare_team": {
+                  "type": "boolean"
+                },
+                "is_published": {
+                  "type": "boolean"
+                },
+                "published": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "tlp": {
+                  "enum": [
+                    "clear",
+                    "green",
+                    "amber",
+                    "amber-strict",
+                    "red"
+                  ],
+                  "type": "string"
+                },
+                "updated": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "attachments",
+                "content",
+                "created",
+                "id",
+                "is_cloudflare_team",
+                "is_published",
+                "published",
+                "tlp",
+                "updated"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "message"
+          ],
+          "type": "object"
+        },
+        "400": null,
+        "404": null,
+        "409": null,
+        "500": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}/messages/${pathParam(args, "message_id")}`,

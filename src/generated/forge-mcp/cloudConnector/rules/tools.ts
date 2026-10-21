@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  cloud_connector_api_response_common_failure_output,
+  cloud_connector_messages_output,
+  cloud_connector_provider_output,
+  cloud_connector_rule_output,
+  cloud_connector_rule_parameters_output,
+  cloud_connector_rules_output,
+} from "./outputs.js";
+import {
   cloud_connector_provider,
   cloud_connector_rule,
   cloud_connector_rule_parameters,
@@ -48,6 +56,38 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cloud-connector_rules"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cloud-connector_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cloud-connector_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cloud-connector_api-response-common-failure": cloud_connector_api_response_common_failure_output,
+        "cloud-connector_messages": cloud_connector_messages_output,
+        "cloud-connector_provider": cloud_connector_provider_output,
+        "cloud-connector_rule": cloud_connector_rule_output,
+        "cloud-connector_rule_parameters": cloud_connector_rule_parameters_output,
+        "cloud-connector_rules": cloud_connector_rules_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cloud_connector/rules`,
@@ -100,6 +140,38 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cloud-connector_rules"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cloud-connector_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cloud-connector_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cloud-connector_api-response-common-failure": cloud_connector_api_response_common_failure_output,
+        "cloud-connector_messages": cloud_connector_messages_output,
+        "cloud-connector_provider": cloud_connector_provider_output,
+        "cloud-connector_rule": cloud_connector_rule_output,
+        "cloud-connector_rule_parameters": cloud_connector_rule_parameters_output,
+        "cloud-connector_rules": cloud_connector_rules_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/cloud_connector/rules`,

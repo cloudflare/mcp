@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../outputs.js";
+import { dlp_DatasetUploadStatus_output } from "../outputs.js";
+import {
+  dlp_DatasetArray_output,
+  dlp_DatasetColumn_output,
+  dlp_DatasetCreation_output,
+  dlp_DatasetNewVersion_output,
+  dlp_DatasetUpload_output,
+  dlp_Dataset_output,
+} from "./outputs.js";
 import { dlp_DatasetUpdate, dlp_NewDataset } from "./schemas.js";
 
 /**
@@ -45,6 +58,25 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_DatasetCreation"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Dataset": dlp_Dataset_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetCreation": dlp_DatasetCreation_output,
+        "dlp_DatasetUpload": dlp_DatasetUpload_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -83,6 +115,18 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets/${pathParam(args, "dataset_id")}`,
@@ -123,6 +167,24 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_Dataset"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Dataset": dlp_Dataset_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetUpload": dlp_DatasetUpload_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets/${pathParam(args, "dataset_id")}`,
     }),
@@ -156,6 +218,36 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DatasetArray"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Dataset": dlp_Dataset_output,
+        "dlp_DatasetArray": dlp_DatasetArray_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetUpload": dlp_DatasetUpload_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets`,
@@ -194,6 +286,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_DatasetNewVersion"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetNewVersion": dlp_DatasetNewVersion_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets/${pathParam(args, "dataset_id")}/upload`,
@@ -240,6 +349,24 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_Dataset"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Dataset": dlp_Dataset_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetUpload": dlp_DatasetUpload_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets/${pathParam(args, "dataset_id")}`,

@@ -2,7 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  security_center_api_response_common_failure_output,
+  security_center_messages_output,
+} from "../../../outputs.js";
 import { security_center_identifier } from "../schemas.js";
+import { security_center_partnerSettings_output } from "./outputs.js";
 import { security_center_partnerSettings } from "./schemas.js";
 
 /**
@@ -45,6 +50,37 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/security-center/partners/{partner}/settings",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "resolution_status": {
+              "enum": [
+                "resolved",
+                "not_found",
+                "no_zones",
+                "pending"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/security-center/partners/${pathParam(args, "partner")}/settings`,
     }),
@@ -90,6 +126,21 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/security-center/partners/{partner}/settings",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/security-center_partnerSettings"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_partnerSettings": security_center_partnerSettings_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/security-center/partners/${pathParam(args, "partner")}/settings`,
       body: { value: args["body"], mediaType: "application/json" },

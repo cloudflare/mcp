@@ -3,9 +3,19 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+} from "../../outputs.js";
+import {
   email_security_InvestigateId,
   email_security_identifier,
 } from "../../schemas.js";
+import {
+  email_security_MessageTrace_inbound_output,
+  email_security_MessageTrace_outbound_output,
+  email_security_MessageTrace_output,
+  email_security_TraceLine_output,
+} from "./outputs.js";
 
 /**
  * The tools of `email_security.investigate.trace`.
@@ -51,6 +61,24 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_MessageTrace"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_MessageTrace": email_security_MessageTrace_output,
+        "email-security_MessageTrace_inbound": email_security_MessageTrace_inbound_output,
+        "email-security_MessageTrace_outbound": email_security_MessageTrace_outbound_output,
+        "email-security_TraceLine": email_security_TraceLine_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/investigate/${pathParam(args, "investigate_id")}/trace`,

@@ -2,7 +2,23 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  abuse_reports_AuthErrorResponse_output,
+  abuse_reports_CloudflareAPIErrorResponse_output,
+  abuse_reports_ErrorMessage_code_output,
+  abuse_reports_ErrorMessage_output,
+  abuse_reports_Message_output,
+  abuse_reports_MitigationStatus_output,
+  abuse_reports_UnauthorizedErrorResponse_output,
+} from "../outputs.js";
 import { abuse_reports_MitigationStatus } from "../schemas.js";
+import {
+  abuse_reports_MitigatedEntityType_output,
+  abuse_reports_MitigationAppealResult_output,
+  abuse_reports_MitigationAppealResult_result_info_output,
+  abuse_reports_MitigationListItem_output,
+  abuse_reports_MitigationType_output,
+} from "./outputs.js";
 import {
   abuse_reports_AppealReason,
   abuse_reports_AppealType,
@@ -100,6 +116,65 @@ export const tools: readonly Tool[] = [
         "Trust and Safety Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "mitigations": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_MitigationListItem"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "mitigations"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+      $defs: {
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_MitigatedEntityType": abuse_reports_MitigatedEntityType_output,
+        "abuse-reports_MitigationListItem": abuse_reports_MitigationListItem_output,
+        "abuse-reports_MitigationStatus": abuse_reports_MitigationStatus_output,
+        "abuse-reports_MitigationType": abuse_reports_MitigationType_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports/${pathParam(args, "report_id")}/mitigations`,
       query: [
@@ -159,6 +234,73 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Trust and Safety Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_MitigationListItem"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/abuse-reports_MitigationAppealResult_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "207": {
+          "$ref": "#/$defs/abuse-reports_MitigationAppealResult"
+        },
+        "401": {
+          "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+      $defs: {
+        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_MitigatedEntityType": abuse_reports_MitigatedEntityType_output,
+        "abuse-reports_MitigationAppealResult": abuse_reports_MitigationAppealResult_output,
+        "abuse-reports_MitigationAppealResult_result_info": abuse_reports_MitigationAppealResult_result_info_output,
+        "abuse-reports_MitigationListItem": abuse_reports_MitigationListItem_output,
+        "abuse-reports_MitigationStatus": abuse_reports_MitigationStatus_output,
+        "abuse-reports_MitigationType": abuse_reports_MitigationType_output,
+        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/abuse-reports/${pathParam(args, "report_id")}/mitigations/appeal`,

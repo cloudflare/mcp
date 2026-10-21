@@ -47,6 +47,64 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "matches": {
+              "items": {
+                "properties": {
+                  "confidence": {
+                    "type": "number"
+                  },
+                  "domain": {
+                    "type": "string"
+                  },
+                  "domain_id": {
+                    "type": "integer"
+                  },
+                  "first_seen": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "confidence",
+                  "domain",
+                  "domain_id",
+                  "first_seen",
+                  "reason"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "total_analyzed": {
+              "type": "number"
+            },
+            "total_matches": {
+              "type": "number"
+            },
+            "truncated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "matches",
+            "total_analyzed",
+            "total_matches",
+            "truncated"
+          ],
+          "type": "object"
+        },
+        "403": null,
+        "502": null,
+        "503": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/brand-protection/domain/trial`,
       body: { value: args["body"], mediaType: "application/json" },

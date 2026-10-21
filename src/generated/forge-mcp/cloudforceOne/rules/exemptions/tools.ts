@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import { cloudforce_one_ErrorResponse_output } from "../outputs.js";
+import { cloudforce_one_AccountExemptions_output } from "./outputs.js";
 import {
   cloudforce_one_ExemptionUpdateEntry,
   cloudforce_one_PartialAccountExemptions,
@@ -43,6 +45,26 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/cloudforce-one/rules/exemptions",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_AccountExemptions"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/exemptions`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -79,6 +101,26 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/cloudforce-one/rules/exemptions",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_AccountExemptions"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/exemptions`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -109,6 +151,26 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules/exemptions",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_AccountExemptions"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/exemptions`,
     }),
@@ -145,6 +207,32 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/cloudforce-one/rules/exemptions",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cloudforce-one_AccountExemptions"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/exemptions`,
       body: { value: args["body"], mediaType: "application/json" },

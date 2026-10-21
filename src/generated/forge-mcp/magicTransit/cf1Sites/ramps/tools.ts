@@ -2,7 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  magic_api_response_common_failure_output,
+  magic_identifier_output,
+  magic_messages_output,
+} from "../../outputs.js";
 import { magic_identifier } from "../../schemas.js";
+import {
+  magic_cf1_site_managed_ramp_output,
+  magic_cf1_site_ramp_output,
+  magic_cf1_site_ramp_type_output,
+} from "./outputs.js";
 import {
   magic_cf1_site_ramp_body,
   magic_cf1_site_ramp_type,
@@ -63,6 +73,38 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_cf1_site_ramp"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp_output,
+        "magic_cf1_site_ramp": magic_cf1_site_ramp_output,
+        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites/${pathParam(args, "cf1_site_id")}/ramps`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -114,6 +156,24 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_cf1_site_ramp"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp_output,
+        "magic_cf1_site_ramp": magic_cf1_site_ramp_output,
+        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites/${pathParam(args, "cf1_site_id")}/ramps/${pathParam(args, "ramp_id")}`,
@@ -168,6 +228,24 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_cf1_site_ramp"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp_output,
+        "magic_cf1_site_ramp": magic_cf1_site_ramp_output,
+        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites/${pathParam(args, "cf1_site_id")}/ramps/${pathParam(args, "ramp_id")}`,
     }),
@@ -215,6 +293,38 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_cf1_site_ramp"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp_output,
+        "magic_cf1_site_ramp": magic_cf1_site_ramp_output,
+        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cf1_sites/${pathParam(args, "cf1_site_id")}/ramps`,

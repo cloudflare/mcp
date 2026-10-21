@@ -3,6 +3,27 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  images_api_response_common_failure_output,
+  images_deleted_response_output,
+  images_messages_output,
+} from "../outputs.js";
+import {
+  images_image_variant_definition_output,
+  images_image_variant_fit_output,
+  images_image_variant_height_output,
+  images_image_variant_identifier_output,
+  images_image_variant_list_response_output,
+  images_image_variant_neverRequireSignedURLs_output,
+  images_image_variant_options_output,
+  images_image_variant_public_request_hero_output,
+  images_image_variant_public_request_output,
+  images_image_variant_response_output,
+  images_image_variant_schemas_metadata_output,
+  images_image_variant_simple_response_output,
+  images_image_variant_width_output,
+  images_image_variants_response_output,
+} from "./outputs.js";
+import {
   images_image_variant_definition,
   images_image_variant_fit,
   images_image_variant_height,
@@ -62,6 +83,37 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_variant_response"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_variant_simple_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image_variant_definition": images_image_variant_definition_output,
+        "images_image_variant_fit": images_image_variant_fit_output,
+        "images_image_variant_height": images_image_variant_height_output,
+        "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
+        "images_image_variant_options": images_image_variant_options_output,
+        "images_image_variant_response": images_image_variant_response_output,
+        "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_simple_response": images_image_variant_simple_response_output,
+        "images_image_variant_width": images_image_variant_width_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/variants`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -100,6 +152,28 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_deleted_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_deleted_response": images_deleted_response_output,
+        "images_messages": images_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/variants/${pathParam(args, "variant_id")}`,
@@ -152,6 +226,37 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_variant_response"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_variant_simple_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image_variant_definition": images_image_variant_definition_output,
+        "images_image_variant_fit": images_image_variant_fit_output,
+        "images_image_variant_height": images_image_variant_height_output,
+        "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
+        "images_image_variant_options": images_image_variant_options_output,
+        "images_image_variant_response": images_image_variant_response_output,
+        "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_simple_response": images_image_variant_simple_response_output,
+        "images_image_variant_width": images_image_variant_width_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/variants/${pathParam(args, "variant_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -192,6 +297,37 @@ export const tools: readonly Tool[] = [
         "Images Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_variant_response"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_variant_simple_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image_variant_definition": images_image_variant_definition_output,
+        "images_image_variant_fit": images_image_variant_fit_output,
+        "images_image_variant_height": images_image_variant_height_output,
+        "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
+        "images_image_variant_options": images_image_variant_options_output,
+        "images_image_variant_response": images_image_variant_response_output,
+        "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_simple_response": images_image_variant_simple_response_output,
+        "images_image_variant_width": images_image_variant_width_output,
+        "images_messages": images_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/variants/${pathParam(args, "variant_id")}`,
     }),
@@ -226,6 +362,38 @@ export const tools: readonly Tool[] = [
         "Images Read",
         "Images Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_variants_response"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_variant_list_response"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_image_variant_fit": images_image_variant_fit_output,
+        "images_image_variant_height": images_image_variant_height_output,
+        "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_list_response": images_image_variant_list_response_output,
+        "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
+        "images_image_variant_options": images_image_variant_options_output,
+        "images_image_variant_public_request": images_image_variant_public_request_output,
+        "images_image_variant_public_request_hero": images_image_variant_public_request_hero_output,
+        "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_width": images_image_variant_width_output,
+        "images_image_variants_response": images_image_variants_response_output,
+        "images_messages": images_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/variants`,

@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
+import {
+  mconn_telemetry_coded_message_output,
+  mconn_telemetry_envelope_output,
+} from "../outputs.js";
+import {
+  mconn_telemetry_customer_events_list_result_output,
+  mconn_telemetry_event_metadata_output,
+  mconn_telemetry_event_output,
+  mconn_telemetry_recorded_event_output,
+} from "./outputs.js";
 
 /**
  * The tools of `connector_telemetry_events`.
@@ -55,6 +65,37 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mconn-telemetry_recorded_event"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "404": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "429": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        }
+      },
+      $defs: {
+        "mconn-telemetry_coded_message": mconn_telemetry_coded_message_output,
+        "mconn-telemetry_envelope": mconn_telemetry_envelope_output,
+        "mconn-telemetry_event": mconn_telemetry_event_output,
+        "mconn-telemetry_recorded_event": mconn_telemetry_recorded_event_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors/${pathParam(args, "connector_id")}/telemetry/events/${pathParam(args, "event_t")}.${pathParam(args, "event_n")}`,
@@ -118,6 +159,34 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mconn-telemetry_customer_events_list_result"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "429": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn-telemetry_envelope"
+        }
+      },
+      $defs: {
+        "mconn-telemetry_coded_message": mconn_telemetry_coded_message_output,
+        "mconn-telemetry_customer_events_list_result": mconn_telemetry_customer_events_list_result_output,
+        "mconn-telemetry_envelope": mconn_telemetry_envelope_output,
+        "mconn-telemetry_event_metadata": mconn_telemetry_event_metadata_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors/${pathParam(args, "connector_id")}/telemetry/events`,

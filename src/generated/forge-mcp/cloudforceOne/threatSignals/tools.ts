@@ -51,6 +51,75 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "results": {
+              "items": {
+                "properties": {
+                  "article_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "dataset_id": {
+                    "oneOf": [
+                      {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "event_id": {
+                    "oneOf": [
+                      {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "feed_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "score": {
+                    "type": "number"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "article_id",
+                  "dataset_id",
+                  "event_id",
+                  "feed_id",
+                  "score",
+                  "text"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/search`,
       query: [

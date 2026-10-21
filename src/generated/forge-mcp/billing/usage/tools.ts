@@ -2,7 +2,24 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  billable_usage_api_api_response_common_failure_output,
+  billable_usage_api_cost_and_usage_data_output,
+  billable_usage_api_message_output,
+  usage_analytics_api_error_output,
+  usage_analytics_api_message_output,
+  usage_analytics_error_response_output,
+} from "../../outputs.js";
 import { billable_usage_api_identifier } from "../../schemas.js";
+import {
+  billable_usage_api_usage_info_response_result_output,
+  billable_usage_api_usage_info_response_result_subscriptionsItem_output,
+  billable_usage_api_usage_record_output,
+  billable_usage_api_v2_account_billable_metric_output,
+  billable_usage_api_v2_product_category_output,
+  billable_usage_api_v2_product_family_output,
+  usage_analytics_billing_usage_data_point_output,
+} from "./outputs.js";
 import {
   billable_usage_api_v2_filter_by,
   billable_usage_api_v2_group_by,
@@ -85,6 +102,42 @@ export const tools: readonly Tool[] = [
         "Billing Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/usage-analytics_billing_usage_data_point"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/usage-analytics_error_response"
+        },
+        "401": {
+          "$ref": "#/$defs/usage-analytics_error_response"
+        },
+        "403": {
+          "$ref": "#/$defs/usage-analytics_error_response"
+        }
+      },
+      $defs: {
+        "usage-analytics_api_error": usage_analytics_api_error_output,
+        "usage-analytics_api_message": usage_analytics_api_message_output,
+        "usage-analytics_billing_usage_data_point": usage_analytics_billing_usage_data_point_output,
+        "usage-analytics_error_response": usage_analytics_error_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/usage`,
       query: [
@@ -143,6 +196,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/billable-usage-api_v2_account_billable_metric"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_v2_account_billable_metric": billable_usage_api_v2_account_billable_metric_output,
+        "billable-usage-api_v2_product_category": billable_usage_api_v2_product_category_output,
+        "billable-usage-api_v2_product_family": billable_usage_api_v2_product_family_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billable/usage/billable-metrics`,
       query: [
@@ -197,6 +281,35 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
+        "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billable/usage`,
       query: [
@@ -240,6 +353,22 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/billable-usage-api_usage_info_response_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_usage_info_response_result": billable_usage_api_usage_info_response_result_output,
+        "billable-usage-api_usage_info_response_result_subscriptionsItem": billable_usage_api_usage_info_response_result_subscriptionsItem_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billable-usage/info`,
@@ -290,6 +419,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/billable-usage-api_usage_record"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_usage_record": billable_usage_api_usage_record_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billable-usage`,
@@ -342,6 +500,35 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
+        "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billable/usage`,

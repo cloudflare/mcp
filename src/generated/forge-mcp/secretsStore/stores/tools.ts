@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  secrets_store_api_response_common_failure_output,
+  secrets_store_created_output,
+  secrets_store_messages_output,
+  secrets_store_modified_output,
+  secrets_store_store_identifier_output,
+} from "../outputs.js";
+import {
+  secrets_store_account_identifier_output,
+  secrets_store_storeObject_output,
+  secrets_store_store_name_output,
+} from "./outputs.js";
 
 /**
  * The tools of `secrets_store.stores`.
@@ -49,6 +61,26 @@ export const tools: readonly Tool[] = [
         "pro": true
       },
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secrets-store_storeObject"
+        },
+        "4XX": {
+          "$ref": "#/$defs/secrets-store_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "secrets-store_account_identifier": secrets_store_account_identifier_output,
+        "secrets-store_api-response-common-failure": secrets_store_api_response_common_failure_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_messages": secrets_store_messages_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_storeObject": secrets_store_storeObject_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
+        "secrets-store_store_name": secrets_store_store_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/secrets_store/stores/${pathParam(args, "store_id")}`,
@@ -118,6 +150,57 @@ export const tools: readonly Tool[] = [
         "pro": true
       },
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/secrets-store_storeObject"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/secrets-store_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "secrets-store_account_identifier": secrets_store_account_identifier_output,
+        "secrets-store_api-response-common-failure": secrets_store_api_response_common_failure_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_messages": secrets_store_messages_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_storeObject": secrets_store_storeObject_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
+        "secrets-store_store_name": secrets_store_store_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/secrets_store/stores`,

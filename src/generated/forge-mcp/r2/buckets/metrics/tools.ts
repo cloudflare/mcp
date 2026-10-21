@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_v4_response_failure_output,
+} from "../../outputs.js";
+import {
+  r2_account_level_metrics_output,
+  r2_class_based_metrics_output,
+  r2_object_size_metrics_output,
+} from "./outputs.js";
 
 /**
  * The tools of `r2.buckets.metrics`.
@@ -34,6 +44,24 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/r2/metrics",
     extensions: {
       "x-cfPermissionsRequired": null
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_account_level_metrics"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_account_level_metrics": r2_account_level_metrics_output,
+        "r2_class_based_metrics": r2_class_based_metrics_output,
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_object_size_metrics": r2_object_size_metrics_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/metrics`,

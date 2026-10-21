@@ -3,6 +3,26 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  vectorize_api_response_common_failure_output,
+  vectorize_create_index_response_output,
+  vectorize_index_delete_vectors_by_id_v2_response_output,
+  vectorize_index_description_output,
+  vectorize_index_dimension_configuration_output,
+  vectorize_index_dimensions_output,
+  vectorize_index_get_vectors_by_id_response_output,
+  vectorize_index_info_response_output,
+  vectorize_index_list_vectors_response_output,
+  vectorize_index_metric_output,
+  vectorize_index_name_output,
+  vectorize_index_preset_output,
+  vectorize_index_query_v2_response_matchesItem_output,
+  vectorize_index_query_v2_response_output,
+  vectorize_messages_output,
+  vectorize_mutation_uuid_output,
+  vectorize_vector_identifier_output,
+  vectorize_vector_list_item_output,
+} from "./outputs.js";
+import {
   vectorize_create_index_request,
   vectorize_index_configuration,
   vectorize_index_delete_vectors_by_id_request,
@@ -77,6 +97,27 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_create-index-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_create-index-response": vectorize_create_index_response_output,
+        "vectorize_index-description": vectorize_index_description_output,
+        "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
+        "vectorize_index-dimensions": vectorize_index_dimensions_output,
+        "vectorize_index-metric": vectorize_index_metric_output,
+        "vectorize_index-name": vectorize_index_name_output,
+        "vectorize_index-preset": vectorize_index_preset_output,
+        "vectorize_messages": vectorize_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -125,6 +166,27 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_messages": vectorize_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}`,
@@ -182,6 +244,22 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-v2-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_index-delete-vectors-by-id-v2-response": vectorize_index_delete_vectors_by_id_v2_response_output,
+        "vectorize_messages": vectorize_messages_output,
+        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/delete_by_ids`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -232,6 +310,27 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_create-index-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_create-index-response": vectorize_create_index_response_output,
+        "vectorize_index-description": vectorize_index_description_output,
+        "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
+        "vectorize_index-dimensions": vectorize_index_dimensions_output,
+        "vectorize_index-metric": vectorize_index_metric_output,
+        "vectorize_index-name": vectorize_index_name_output,
+        "vectorize_index-preset": vectorize_index_preset_output,
+        "vectorize_messages": vectorize_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}`,
     }),
@@ -278,6 +377,33 @@ export const tools: readonly Tool[] = [
         "Vectorize Write",
         "Vectorize Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_index-get-vectors-by-id-response"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_index-get-vectors-by-id-response": vectorize_index_get_vectors_by_id_response_output,
+        "vectorize_messages": vectorize_messages_output,
+        "vectorize_vector-identifier": vectorize_vector_identifier_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/get_by_ids`,
@@ -329,6 +455,23 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_index-info-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_index-dimensions": vectorize_index_dimensions_output,
+        "vectorize_index-info-response": vectorize_index_info_response_output,
+        "vectorize_messages": vectorize_messages_output,
+        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/info`,
     }),
@@ -373,6 +516,41 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/vectorize_create-index-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_create-index-response": vectorize_create_index_response_output,
+        "vectorize_index-description": vectorize_index_description_output,
+        "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
+        "vectorize_index-dimensions": vectorize_index_dimensions_output,
+        "vectorize_index-metric": vectorize_index_metric_output,
+        "vectorize_index-name": vectorize_index_name_output,
+        "vectorize_index-preset": vectorize_index_preset_output,
+        "vectorize_messages": vectorize_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes`,
@@ -432,6 +610,23 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_index-list-vectors-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_index-list-vectors-response": vectorize_index_list_vectors_response_output,
+        "vectorize_messages": vectorize_messages_output,
+        "vectorize_vector-identifier": vectorize_vector_identifier_output,
+        "vectorize_vector-list-item": vectorize_vector_list_item_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/list`,
       query: [
@@ -481,6 +676,23 @@ export const tools: readonly Tool[] = [
         "Vectorize Write",
         "Vectorize Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/vectorize_index-query-v2-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_index-query-v2-response": vectorize_index_query_v2_response_output,
+        "vectorize_index-query-v2-response_matchesItem": vectorize_index_query_v2_response_matchesItem_output,
+        "vectorize_messages": vectorize_messages_output,
+        "vectorize_vector-identifier": vectorize_vector_identifier_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/query`,

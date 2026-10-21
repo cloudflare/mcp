@@ -2,6 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  iam_api_response_common_failure_output,
+  iam_common_components_schemas_identifier_output,
+  iam_messages_2_output,
+  iam_result_info_output,
+} from "../../outputs.js";
+import {
+  iam_api_response_common_output,
+  iam_dns_verification_code_output,
+  iam_sso_connector_identifier_output,
+  iam_sso_connector_output,
+  iam_sso_connector_verification_info_output,
+  iam_use_fedramp_language_output,
+} from "./outputs.js";
 import { iam_use_fedramp_language } from "./schemas.js";
 
 /**
@@ -48,6 +62,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common": iam_api_response_common_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/sso_connectors/${pathParam(args, "sso_connector_id")}/begin_verification`,
@@ -114,6 +143,26 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_sso_connector"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_dns_verification_code": iam_dns_verification_code_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_sso_connector": iam_sso_connector_output,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
+        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/sso_connectors`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -160,6 +209,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/sso_connectors/${pathParam(args, "sso_connector_id")}`,
     }),
@@ -205,6 +284,26 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_sso_connector"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_dns_verification_code": iam_dns_verification_code_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_sso_connector": iam_sso_connector_output,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
+        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/sso_connectors/${pathParam(args, "sso_connector_id")}`,
     }),
@@ -244,6 +343,41 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_sso_connector"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_dns_verification_code": iam_dns_verification_code_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_sso_connector": iam_sso_connector_output,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
+        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/sso_connectors`,
@@ -306,6 +440,26 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_sso_connector"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_dns_verification_code": iam_dns_verification_code_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_sso_connector": iam_sso_connector_output,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
+        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/sso_connectors/${pathParam(args, "sso_connector_id")}`,

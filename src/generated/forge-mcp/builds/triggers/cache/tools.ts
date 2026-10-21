@@ -2,7 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  builds_ApiError_output,
+  builds_ErrorResponse_output,
+  builds_PaginationInfo_output,
+} from "../../../outputs.js";
 import { builds_account_id, builds_trigger_uuid } from "../../../schemas.js";
+import { builds_APIResponse_output } from "../../outputs.js";
 
 /**
  * The tools of `builds.triggers.cache`.
@@ -46,6 +52,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers CI Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/triggers/${pathParam(args, "trigger_uuid")}/purge_build_cache`,

@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  mconn_bad_response_output,
+  mconn_coded_message_output,
+  mconn_none_output,
+} from "../outputs.js";
+import {
+  mconn_customer_connector_output,
+  mconn_customer_device_output,
+  mconn_day_of_week_output,
+  mconn_embargo_date_output,
+  mconn_uuid_output,
+} from "./outputs.js";
+import {
   mconn_customer_connector_fields,
   mconn_customer_connectors_create_request,
   mconn_customer_connectors_edit_request,
@@ -62,6 +74,41 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "409": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn_bad_response"
+        }
+      },
+      $defs: {
+        "mconn_bad_response": mconn_bad_response_output,
+        "mconn_coded_message": mconn_coded_message_output,
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_none": mconn_none_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -105,6 +152,38 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn_bad_response"
+        }
+      },
+      $defs: {
+        "mconn_bad_response": mconn_bad_response_output,
+        "mconn_coded_message": mconn_coded_message_output,
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_none": mconn_none_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors/${pathParam(args, "connector_id")}`,
@@ -158,6 +237,38 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn_bad_response"
+        }
+      },
+      $defs: {
+        "mconn_bad_response": mconn_bad_response_output,
+        "mconn_coded_message": mconn_coded_message_output,
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_none": mconn_none_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors/${pathParam(args, "connector_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -202,6 +313,38 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn_bad_response"
+        }
+      },
+      $defs: {
+        "mconn_bad_response": mconn_bad_response_output,
+        "mconn_coded_message": mconn_coded_message_output,
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_none": mconn_none_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors/${pathParam(args, "connector_id")}`,
@@ -250,6 +393,49 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mconn_customer_connector"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn_bad_response"
+        }
+      },
+      $defs: {
+        "mconn_bad_response": mconn_bad_response_output,
+        "mconn_coded_message": mconn_coded_message_output,
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_none": mconn_none_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors`,
@@ -305,6 +491,38 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        },
+        "400": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/mconn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mconn_bad_response"
+        }
+      },
+      $defs: {
+        "mconn_bad_response": mconn_bad_response_output,
+        "mconn_coded_message": mconn_coded_message_output,
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_none": mconn_none_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/connectors/${pathParam(args, "connector_id")}`,

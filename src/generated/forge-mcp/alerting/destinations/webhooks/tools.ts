@@ -2,6 +2,27 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  aaa_api_response_common_2_output,
+  aaa_api_response_common_failure_3_output,
+  aaa_id_response_output,
+  aaa_id_response_result_output,
+  aaa_messages_3_output,
+  aaa_uuid_output,
+} from "../../outputs.js";
+import {
+  aaa_components_schemas_name_output,
+  aaa_components_schemas_type_output,
+  aaa_created_at_output,
+  aaa_last_failure_output,
+  aaa_last_success_output,
+  aaa_schemas_single_response_output,
+  aaa_secret_output,
+  aaa_url_output,
+  aaa_webhook_id_output,
+  aaa_webhooks_components_schemas_response_collection_output,
+  aaa_webhooks_output,
+} from "./outputs.js";
 import { aaa_components_schemas_name, aaa_secret, aaa_url } from "./schemas.js";
 
 /**
@@ -72,6 +93,35 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/aaa_uuid"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_id_response"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_id_response": aaa_id_response_output,
+        "aaa_id_response_result": aaa_id_response_result_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/destinations/webhooks`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -118,6 +168,21 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/aaa_api-response-common-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-3"
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_messages-3": aaa_messages_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/destinations/webhooks/${pathParam(args, "webhook_id")}`,
@@ -168,6 +233,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/aaa_webhooks"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_schemas-single_response"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_components-schemas-name": aaa_components_schemas_name_output,
+        "aaa_components-schemas-type": aaa_components_schemas_type_output,
+        "aaa_created_at": aaa_created_at_output,
+        "aaa_last_failure": aaa_last_failure_output,
+        "aaa_last_success": aaa_last_success_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_schemas-single_response": aaa_schemas_single_response_output,
+        "aaa_secret": aaa_secret_output,
+        "aaa_url": aaa_url_output,
+        "aaa_webhook-id": aaa_webhook_id_output,
+        "aaa_webhooks": aaa_webhooks_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/destinations/webhooks/${pathParam(args, "webhook_id")}`,
     }),
@@ -211,6 +307,51 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/aaa_webhooks"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_webhooks_components-schemas-response_collection"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_components-schemas-name": aaa_components_schemas_name_output,
+        "aaa_components-schemas-type": aaa_components_schemas_type_output,
+        "aaa_created_at": aaa_created_at_output,
+        "aaa_last_failure": aaa_last_failure_output,
+        "aaa_last_success": aaa_last_success_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_secret": aaa_secret_output,
+        "aaa_url": aaa_url_output,
+        "aaa_webhook-id": aaa_webhook_id_output,
+        "aaa_webhooks": aaa_webhooks_output,
+        "aaa_webhooks_components-schemas-response_collection": aaa_webhooks_components_schemas_response_collection_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/destinations/webhooks`,
@@ -284,6 +425,35 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/aaa_uuid"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/aaa_id_response"
+            },
+            {
+              "$ref": "#/$defs/aaa_api-response-common-failure-3"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_id_response": aaa_id_response_output,
+        "aaa_id_response_result": aaa_id_response_result_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/destinations/webhooks/${pathParam(args, "webhook_id")}`,

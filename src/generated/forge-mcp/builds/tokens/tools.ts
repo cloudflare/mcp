@@ -2,7 +2,21 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  builds_ApiError_output,
+  builds_ErrorResponse_output,
+  builds_PaginationInfo_output,
+  builds_build_token_name_output,
+  builds_build_token_uuid_output,
+} from "../../outputs.js";
 import { builds_account_id, builds_build_token_name } from "../../schemas.js";
+import { builds_APIResponse_output } from "../outputs.js";
+import {
+  builds_CreateBuildTokenResponse_output,
+  builds_ListTokensResponse_output,
+  builds_cloudflare_token_id_output,
+  builds_owner_type_output,
+} from "./outputs.js";
 import {
   builds_CreateBuildTokenRequest,
   builds_cloudflare_token_id,
@@ -52,6 +66,25 @@ export const tools: readonly Tool[] = [
         "Workers CI Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_CreateBuildTokenResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_CreateBuildTokenResponse": builds_CreateBuildTokenResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_cloudflare_token_id": builds_cloudflare_token_id_output,
+        "builds_owner_type": builds_owner_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/tokens`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -94,6 +127,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers CI Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/tokens/${pathParam(args, "build_token_uuid")}`,
@@ -142,6 +194,40 @@ export const tools: readonly Tool[] = [
         "Workers CI Write",
         "Workers CI Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_ListTokensResponse"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/builds_PaginationInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_ListTokensResponse": builds_ListTokensResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_cloudflare_token_id": builds_cloudflare_token_id_output,
+        "builds_owner_type": builds_owner_type_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/tokens`,

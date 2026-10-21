@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  security_center_api_response_common_failure_output,
+  security_center_messages_output,
+} from "../../outputs.js";
+import { security_center_accountStateResponse_output } from "./outputs.js";
 import { security_center_updateAccountStateRequest } from "./schemas.js";
 
 /**
@@ -33,6 +38,21 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/security-center/state",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/security-center_accountStateResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_accountStateResponse": security_center_accountStateResponse_output,
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/security-center/state`,
     }),
@@ -69,6 +89,21 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/security-center/state",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/security-center_accountStateResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/security-center_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "security-center_accountStateResponse": security_center_accountStateResponse_output,
+        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/security-center/state`,
       body: { value: args["body"], mediaType: "application/json" },

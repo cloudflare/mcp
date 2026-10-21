@@ -2,7 +2,28 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_identifier_output,
+  access_messages_output,
+} from "../../outputs.js";
 import { access_identifier } from "../../schemas.js";
+import {
+  access_allowed_clipboard_local_to_remote_formats_output,
+  access_allowed_clipboard_remote_to_local_formats_output,
+  access_approval_group_output,
+  access_approval_groups_output,
+  access_approval_required_output,
+  access_connection_rules_output,
+  access_connection_rules_rdp_output,
+  access_isolation_required_output,
+  access_mfa_config_output,
+  access_purpose_justification_prompt_output,
+  access_purpose_justification_required_output,
+  access_rdp_clipboard_format_output,
+  access_session_duration_3_output,
+  access_uuid_2_output,
+} from "../outputs.js";
 import {
   access_access_group_rule,
   access_access_group_rule_group,
@@ -75,6 +96,10 @@ import {
   access_user_risk_score_rule,
   access_user_risk_score_rule_user_risk_score,
 } from "../schemas.js";
+import {
+  access_app_count_output,
+  access_reusable_policy_resp_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.policies`.
@@ -187,6 +212,36 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_reusable_policy_resp"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
+        "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_count": access_app_count_output,
+        "access_approval_group": access_approval_group_output,
+        "access_approval_groups": access_approval_groups_output,
+        "access_approval_required": access_approval_required_output,
+        "access_connection_rules": access_connection_rules_output,
+        "access_connection_rules_rdp": access_connection_rules_rdp_output,
+        "access_identifier": access_identifier_output,
+        "access_isolation_required": access_isolation_required_output,
+        "access_messages": access_messages_output,
+        "access_mfa_config": access_mfa_config_output,
+        "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
+        "access_purpose_justification_required": access_purpose_justification_required_output,
+        "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
+        "access_reusable_policy_resp": access_reusable_policy_resp_output,
+        "access_session_duration-3": access_session_duration_3_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/policies`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -227,6 +282,26 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Write"
       ]
     },
+    responses: {
+      schemas: {
+        "202": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_uuid-2"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_uuid-2": access_uuid_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/policies/${pathParam(args, "policy_id")}`,
     }),
@@ -266,6 +341,36 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Write",
         "Access: Apps and Policies Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_reusable_policy_resp"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
+        "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_count": access_app_count_output,
+        "access_approval_group": access_approval_group_output,
+        "access_approval_groups": access_approval_groups_output,
+        "access_approval_required": access_approval_required_output,
+        "access_connection_rules": access_connection_rules_output,
+        "access_connection_rules_rdp": access_connection_rules_rdp_output,
+        "access_identifier": access_identifier_output,
+        "access_isolation_required": access_isolation_required_output,
+        "access_messages": access_messages_output,
+        "access_mfa_config": access_mfa_config_output,
+        "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
+        "access_purpose_justification_required": access_purpose_justification_required_output,
+        "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
+        "access_reusable_policy_resp": access_reusable_policy_resp_output,
+        "access_session_duration-3": access_session_duration_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/policies/${pathParam(args, "policy_id")}`,
@@ -311,6 +416,67 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Write",
         "Access: Apps and Policies Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_reusable_policy_resp"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
+        "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_count": access_app_count_output,
+        "access_approval_group": access_approval_group_output,
+        "access_approval_groups": access_approval_groups_output,
+        "access_approval_required": access_approval_required_output,
+        "access_connection_rules": access_connection_rules_output,
+        "access_connection_rules_rdp": access_connection_rules_rdp_output,
+        "access_identifier": access_identifier_output,
+        "access_isolation_required": access_isolation_required_output,
+        "access_messages": access_messages_output,
+        "access_mfa_config": access_mfa_config_output,
+        "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
+        "access_purpose_justification_required": access_purpose_justification_required_output,
+        "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
+        "access_reusable_policy_resp": access_reusable_policy_resp_output,
+        "access_session_duration-3": access_session_duration_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/policies`,
@@ -431,6 +597,36 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Apps and Policies Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_reusable_policy_resp"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
+        "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_count": access_app_count_output,
+        "access_approval_group": access_approval_group_output,
+        "access_approval_groups": access_approval_groups_output,
+        "access_approval_required": access_approval_required_output,
+        "access_connection_rules": access_connection_rules_output,
+        "access_connection_rules_rdp": access_connection_rules_rdp_output,
+        "access_identifier": access_identifier_output,
+        "access_isolation_required": access_isolation_required_output,
+        "access_messages": access_messages_output,
+        "access_mfa_config": access_mfa_config_output,
+        "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
+        "access_purpose_justification_required": access_purpose_justification_required_output,
+        "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
+        "access_reusable_policy_resp": access_reusable_policy_resp_output,
+        "access_session_duration-3": access_session_duration_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/policies/${pathParam(args, "policy_id")}`,

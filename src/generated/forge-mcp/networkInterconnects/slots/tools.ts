@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { nsc_AccountTag_output, nsc_FacilityInfo_output } from "../outputs.js";
+import { nsc_SlotInfo_output, nsc_SlotList_output } from "./outputs.js";
 
 /**
  * The tools of `network_interconnects.slots`.
@@ -44,6 +46,21 @@ export const tools: readonly Tool[] = [
         "Magic Transit Read",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_SlotInfo"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_SlotInfo": nsc_SlotInfo_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/slots/${pathParam(args, "slot")}`,
@@ -145,6 +162,21 @@ export const tools: readonly Tool[] = [
         "Magic Transit Read",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_SlotList"
+        },
+        "400": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_SlotInfo": nsc_SlotInfo_output,
+        "nsc_SlotList": nsc_SlotList_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/slots`,

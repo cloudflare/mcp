@@ -3,11 +3,26 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  iam_account_managed_by_output,
+  iam_account_settings_output,
+  iam_account_type_output,
+  iam_api_response_common_failure_output,
+  iam_common_components_schemas_identifier_output,
+  iam_messages_2_output,
+  iam_result_info_output,
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../outputs.js";
+import {
   iam_account_managed_by,
   iam_account_settings,
   iam_account_type,
   iam_common_components_schemas_identifier,
 } from "../schemas.js";
+import {
+  iam_account_output,
+  organizations_api_MoveAccountResult_output,
+} from "./outputs.js";
 import {
   iam_account,
   iam_create_account,
@@ -59,6 +74,25 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_account"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_account": iam_account_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts`,
@@ -113,6 +147,36 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}`,
@@ -192,6 +256,25 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_account"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_account": iam_account_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}`,
     }),
@@ -244,6 +327,40 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_account"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_account": iam_account_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_result_info": iam_result_info_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts`,
       query: [
@@ -295,6 +412,21 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/move",
     extensions: {
       "x-api-token-group": null
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_MoveAccountResult"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_MoveAccountResult": organizations_api_MoveAccountResult_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/move`,
@@ -357,6 +489,25 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_account"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_account": iam_account_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}`,

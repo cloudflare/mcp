@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_components_schemas_identifier_output,
+  bill_subs_api_messages_output,
+} from "../../outputs.js";
 import { bill_subs_api_billing_profile_request } from "./schemas.js";
 
 /**
@@ -65,6 +70,140 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account_type": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "address2": {
+              "type": "string"
+            },
+            "balance": {
+              "type": "string"
+            },
+            "card_expiry_month": {
+              "type": "integer"
+            },
+            "card_expiry_year": {
+              "type": "integer"
+            },
+            "card_number": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "company": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "created_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "device_data": {
+              "type": "string"
+            },
+            "edited_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enterprise_billing_email": {
+              "type": "string"
+            },
+            "enterprise_primary_email": {
+              "type": "string"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+            },
+            "is_partner": {
+              "type": "boolean"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "next_bill_date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "payment_address": {
+              "type": "string"
+            },
+            "payment_address2": {
+              "type": "string"
+            },
+            "payment_city": {
+              "type": "string"
+            },
+            "payment_country": {
+              "type": "string"
+            },
+            "payment_email": {
+              "type": "string"
+            },
+            "payment_first_name": {
+              "type": "string"
+            },
+            "payment_gateway": {
+              "type": "string"
+            },
+            "payment_last_name": {
+              "type": "string"
+            },
+            "payment_nonce": {
+              "type": "string"
+            },
+            "payment_state": {
+              "type": "string"
+            },
+            "payment_zipcode": {
+              "type": "string"
+            },
+            "primary_email": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "tax_id_type": {
+              "type": "string"
+            },
+            "telephone": {
+              "type": "string"
+            },
+            "validation_code": {
+              "type": "string"
+            },
+            "vat": {
+              "type": "string"
+            },
+            "zipcode": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/profile`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -105,6 +244,28 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "client_secret": {
+              "type": "string"
+            },
+            "intent_type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/profile/payment-method`,
@@ -156,6 +317,18 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/profile`,
     }),
@@ -206,6 +379,140 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account_type": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "address2": {
+              "type": "string"
+            },
+            "balance": {
+              "type": "string"
+            },
+            "card_expiry_month": {
+              "type": "integer"
+            },
+            "card_expiry_year": {
+              "type": "integer"
+            },
+            "card_number": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "company": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "created_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "device_data": {
+              "type": "string"
+            },
+            "edited_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enterprise_billing_email": {
+              "type": "string"
+            },
+            "enterprise_primary_email": {
+              "type": "string"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+            },
+            "is_partner": {
+              "type": "boolean"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "next_bill_date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "payment_address": {
+              "type": "string"
+            },
+            "payment_address2": {
+              "type": "string"
+            },
+            "payment_city": {
+              "type": "string"
+            },
+            "payment_country": {
+              "type": "string"
+            },
+            "payment_email": {
+              "type": "string"
+            },
+            "payment_first_name": {
+              "type": "string"
+            },
+            "payment_gateway": {
+              "type": "string"
+            },
+            "payment_last_name": {
+              "type": "string"
+            },
+            "payment_nonce": {
+              "type": "string"
+            },
+            "payment_state": {
+              "type": "string"
+            },
+            "payment_zipcode": {
+              "type": "string"
+            },
+            "primary_email": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "tax_id_type": {
+              "type": "string"
+            },
+            "telephone": {
+              "type": "string"
+            },
+            "validation_code": {
+              "type": "string"
+            },
+            "vat": {
+              "type": "string"
+            },
+            "zipcode": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/profile`,
@@ -267,6 +574,140 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account_type": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "address2": {
+              "type": "string"
+            },
+            "balance": {
+              "type": "string"
+            },
+            "card_expiry_month": {
+              "type": "integer"
+            },
+            "card_expiry_year": {
+              "type": "integer"
+            },
+            "card_number": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "company": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "created_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "device_data": {
+              "type": "string"
+            },
+            "edited_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enterprise_billing_email": {
+              "type": "string"
+            },
+            "enterprise_primary_email": {
+              "type": "string"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+            },
+            "is_partner": {
+              "type": "boolean"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "next_bill_date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "payment_address": {
+              "type": "string"
+            },
+            "payment_address2": {
+              "type": "string"
+            },
+            "payment_city": {
+              "type": "string"
+            },
+            "payment_country": {
+              "type": "string"
+            },
+            "payment_email": {
+              "type": "string"
+            },
+            "payment_first_name": {
+              "type": "string"
+            },
+            "payment_gateway": {
+              "type": "string"
+            },
+            "payment_last_name": {
+              "type": "string"
+            },
+            "payment_nonce": {
+              "type": "string"
+            },
+            "payment_state": {
+              "type": "string"
+            },
+            "payment_zipcode": {
+              "type": "string"
+            },
+            "primary_email": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "tax_id_type": {
+              "type": "string"
+            },
+            "telephone": {
+              "type": "string"
+            },
+            "validation_code": {
+              "type": "string"
+            },
+            "vat": {
+              "type": "string"
+            },
+            "zipcode": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/profile`,
@@ -337,6 +778,140 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account_type": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "address2": {
+              "type": "string"
+            },
+            "balance": {
+              "type": "string"
+            },
+            "card_expiry_month": {
+              "type": "integer"
+            },
+            "card_expiry_year": {
+              "type": "integer"
+            },
+            "card_number": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "company": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "created_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "device_data": {
+              "type": "string"
+            },
+            "edited_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enterprise_billing_email": {
+              "type": "string"
+            },
+            "enterprise_primary_email": {
+              "type": "string"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+            },
+            "is_partner": {
+              "type": "boolean"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "next_bill_date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "payment_address": {
+              "type": "string"
+            },
+            "payment_address2": {
+              "type": "string"
+            },
+            "payment_city": {
+              "type": "string"
+            },
+            "payment_country": {
+              "type": "string"
+            },
+            "payment_email": {
+              "type": "string"
+            },
+            "payment_first_name": {
+              "type": "string"
+            },
+            "payment_gateway": {
+              "type": "string"
+            },
+            "payment_last_name": {
+              "type": "string"
+            },
+            "payment_nonce": {
+              "type": "string"
+            },
+            "payment_state": {
+              "type": "string"
+            },
+            "payment_zipcode": {
+              "type": "string"
+            },
+            "primary_email": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "tax_id_type": {
+              "type": "string"
+            },
+            "telephone": {
+              "type": "string"
+            },
+            "validation_code": {
+              "type": "string"
+            },
+            "vat": {
+              "type": "string"
+            },
+            "zipcode": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/profile`,

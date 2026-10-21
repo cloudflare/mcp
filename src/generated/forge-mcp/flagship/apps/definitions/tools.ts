@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import { flagship_JsonValue_output } from "../outputs.js";
+import { flagship_FlagDefinitions_output } from "./outputs.js";
 
 /**
  * The tools of `flagship.apps.definitions`.
@@ -62,6 +64,108 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/flagship_FlagDefinitions"
+        },
+        "304": null,
+        "401": {
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "success"
+          ],
+          "type": "object"
+        },
+        "403": {
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "success"
+          ],
+          "type": "object"
+        },
+        "503": {
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "success": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "error",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+      $defs: {
+        "flagship_FlagDefinitions": flagship_FlagDefinitions_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps/${pathParam(args, "app_id")}/definitions`,

@@ -167,6 +167,108 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "202": {
+          "properties": {
+            "createBulkEventsRequestId": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "createdEvents": {
+              "items": {
+                "properties": {
+                  "eventIndex": {
+                    "type": "number"
+                  },
+                  "shardId": {
+                    "type": "string"
+                  },
+                  "uuid": {
+                    "format": "uuid",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "eventIndex",
+                  "shardId",
+                  "uuid"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "createdEventsCount": {
+              "type": "number"
+            },
+            "createdTagsCount": {
+              "type": "number"
+            },
+            "errorCount": {
+              "type": "number"
+            },
+            "errors": {
+              "items": {
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "eventIndex": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "error",
+                  "eventIndex"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "queuedIndicatorsCount": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "createdEventsCount",
+            "createdTagsCount",
+            "errorCount",
+            "queuedIndicatorsCount"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/create/bulk`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -351,6 +453,182 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "attacker": {
+              "type": "string"
+            },
+            "attackerCountry": {
+              "type": "string"
+            },
+            "attackerCountryAlpha3": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "datasetId": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "event": {
+              "type": "string"
+            },
+            "hasChildren": {
+              "type": "boolean"
+            },
+            "indicator": {
+              "type": "string"
+            },
+            "indicatorType": {
+              "type": "string"
+            },
+            "indicatorTypeId": {
+              "type": "number"
+            },
+            "insight": {
+              "type": "string"
+            },
+            "killChain": {
+              "type": "number"
+            },
+            "mitreAttack": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "mitreCapec": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "numReferenced": {
+              "type": "number"
+            },
+            "numReferences": {
+              "type": "number"
+            },
+            "rawId": {
+              "type": "string"
+            },
+            "referenced": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "referencedIds": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "references": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "referencesIds": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "releasabilityId": {
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "targetCountry": {
+              "type": "string"
+            },
+            "targetCountryAlpha3": {
+              "type": "string"
+            },
+            "targetIndustry": {
+              "type": "string"
+            },
+            "tlp": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attacker",
+            "attackerCountry",
+            "attackerCountryAlpha3",
+            "category",
+            "datasetId",
+            "date",
+            "event",
+            "hasChildren",
+            "indicator",
+            "indicatorType",
+            "indicatorTypeId",
+            "killChain",
+            "mitreAttack",
+            "mitreCapec",
+            "numReferenced",
+            "numReferences",
+            "rawId",
+            "referenced",
+            "referencedIds",
+            "references",
+            "referencesIds",
+            "tags",
+            "targetCountry",
+            "targetCountryAlpha3",
+            "targetIndustry",
+            "tlp",
+            "uuid"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id_path")}/cloudforce-one/events/create`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -468,6 +746,182 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "attacker": {
+              "type": "string"
+            },
+            "attackerCountry": {
+              "type": "string"
+            },
+            "attackerCountryAlpha3": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "datasetId": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "event": {
+              "type": "string"
+            },
+            "hasChildren": {
+              "type": "boolean"
+            },
+            "indicator": {
+              "type": "string"
+            },
+            "indicatorType": {
+              "type": "string"
+            },
+            "indicatorTypeId": {
+              "type": "number"
+            },
+            "insight": {
+              "type": "string"
+            },
+            "killChain": {
+              "type": "number"
+            },
+            "mitreAttack": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "mitreCapec": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "numReferenced": {
+              "type": "number"
+            },
+            "numReferences": {
+              "type": "number"
+            },
+            "rawId": {
+              "type": "string"
+            },
+            "referenced": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "referencedIds": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "references": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "referencesIds": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "releasabilityId": {
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "targetCountry": {
+              "type": "string"
+            },
+            "targetCountryAlpha3": {
+              "type": "string"
+            },
+            "targetIndustry": {
+              "type": "string"
+            },
+            "tlp": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attacker",
+            "attackerCountry",
+            "attackerCountryAlpha3",
+            "category",
+            "datasetId",
+            "date",
+            "event",
+            "hasChildren",
+            "indicator",
+            "indicatorType",
+            "indicatorTypeId",
+            "killChain",
+            "mitreAttack",
+            "mitreCapec",
+            "numReferenced",
+            "numReferences",
+            "rawId",
+            "referenced",
+            "referencedIds",
+            "references",
+            "referencesIds",
+            "tags",
+            "targetCountry",
+            "targetCountryAlpha3",
+            "targetIndustry",
+            "tlp",
+            "uuid"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/${pathParam(args, "event_id")}`,
@@ -1085,6 +1539,185 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "items": {
+            "properties": {
+              "attacker": {
+                "type": "string"
+              },
+              "attackerCountry": {
+                "type": "string"
+              },
+              "attackerCountryAlpha3": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "datasetId": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "event": {
+                "type": "string"
+              },
+              "hasChildren": {
+                "type": "boolean"
+              },
+              "indicator": {
+                "type": "string"
+              },
+              "indicatorType": {
+                "type": "string"
+              },
+              "indicatorTypeId": {
+                "type": "number"
+              },
+              "insight": {
+                "type": "string"
+              },
+              "killChain": {
+                "type": "number"
+              },
+              "mitreAttack": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "mitreCapec": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "numReferenced": {
+                "type": "number"
+              },
+              "numReferences": {
+                "type": "number"
+              },
+              "rawId": {
+                "type": "string"
+              },
+              "referenced": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "referencedIds": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "references": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "referencesIds": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "releasabilityId": {
+                "type": "string"
+              },
+              "tags": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "targetCountry": {
+                "type": "string"
+              },
+              "targetCountryAlpha3": {
+                "type": "string"
+              },
+              "targetIndustry": {
+                "type": "string"
+              },
+              "tlp": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "attacker",
+              "attackerCountry",
+              "attackerCountryAlpha3",
+              "category",
+              "datasetId",
+              "date",
+              "event",
+              "hasChildren",
+              "indicator",
+              "indicatorType",
+              "indicatorTypeId",
+              "killChain",
+              "mitreAttack",
+              "mitreCapec",
+              "numReferenced",
+              "numReferences",
+              "rawId",
+              "referenced",
+              "referencedIds",
+              "references",
+              "referencesIds",
+              "tags",
+              "targetCountry",
+              "targetCountryAlpha3",
+              "targetIndustry",
+              "tlp",
+              "uuid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events`,
@@ -1719,6 +2352,185 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "items": {
+            "properties": {
+              "attacker": {
+                "type": "string"
+              },
+              "attackerCountry": {
+                "type": "string"
+              },
+              "attackerCountryAlpha3": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "datasetId": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "event": {
+                "type": "string"
+              },
+              "hasChildren": {
+                "type": "boolean"
+              },
+              "indicator": {
+                "type": "string"
+              },
+              "indicatorType": {
+                "type": "string"
+              },
+              "indicatorTypeId": {
+                "type": "number"
+              },
+              "insight": {
+                "type": "string"
+              },
+              "killChain": {
+                "type": "number"
+              },
+              "mitreAttack": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "mitreCapec": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "numReferenced": {
+                "type": "number"
+              },
+              "numReferences": {
+                "type": "number"
+              },
+              "rawId": {
+                "type": "string"
+              },
+              "referenced": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "referencedIds": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "references": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "referencesIds": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "releasabilityId": {
+                "type": "string"
+              },
+              "tags": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "targetCountry": {
+                "type": "string"
+              },
+              "targetCountryAlpha3": {
+                "type": "string"
+              },
+              "targetIndustry": {
+                "type": "string"
+              },
+              "tlp": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "attacker",
+              "attackerCountry",
+              "attackerCountryAlpha3",
+              "category",
+              "datasetId",
+              "date",
+              "event",
+              "hasChildren",
+              "indicator",
+              "indicatorType",
+              "indicatorTypeId",
+              "killChain",
+              "mitreAttack",
+              "mitreCapec",
+              "numReferenced",
+              "numReferences",
+              "rawId",
+              "referenced",
+              "referencedIds",
+              "references",
+              "referencesIds",
+              "tags",
+              "targetCountry",
+              "targetCountryAlpha3",
+              "targetIndustry",
+              "tlp",
+              "uuid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events`,

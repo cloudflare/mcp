@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  custom_pages_api_response_common_failure_output,
+  custom_pages_messages_output,
+} from "../../outputs.js";
+import { custom_pages_preview_token_output } from "./outputs.js";
 import { custom_pages_preview_request } from "./schemas.js";
 
 /**
@@ -73,6 +78,21 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/custom-pages_preview_token"
+        },
+        "4XX": {
+          "$ref": "#/$defs/custom-pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_messages": custom_pages_messages_output,
+        "custom-pages_preview_token": custom_pages_preview_token_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/custom_pages/preview_tokens`,

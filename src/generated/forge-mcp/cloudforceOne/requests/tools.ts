@@ -109,6 +109,78 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "accountId": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "createdBy": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "priority_id": {
+                    "oneOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "projectType": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "updatedAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "accountId",
+                  "createdAt",
+                  "createdBy",
+                  "description",
+                  "id",
+                  "projectType",
+                  "status",
+                  "title",
+                  "updatedAt"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}`,
       query: [
@@ -185,6 +257,258 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write",
         "Cloudforce One Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account": {
+              "properties": {
+                "anniversary": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "anniversary",
+                "id",
+                "name"
+              ],
+              "type": "object"
+            },
+            "assignee": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "completed": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "investigation_id": {
+              "type": "string"
+            },
+            "is_free_request": {
+              "type": "boolean"
+            },
+            "message_tokens": {
+              "type": "number"
+            },
+            "priority": {
+              "enum": [
+                "unknown",
+                "low",
+                "routine",
+                "medium",
+                "high",
+                "urgent",
+                "critical"
+              ],
+              "type": "string"
+            },
+            "priority_id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "readable_id": {
+              "type": "string"
+            },
+            "release_entitlements": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "report_id": {
+              "type": "string"
+            },
+            "request": {
+              "properties": {
+                "category": {
+                  "type": "string"
+                },
+                "message_tokens": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "request_tokens": {
+                  "type": "number"
+                },
+                "response_tokens": {
+                  "type": "number"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category",
+                "message_tokens",
+                "name",
+                "request_tokens",
+                "response_tokens",
+                "result",
+                "source"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "enum": [
+                "draft",
+                "submitted",
+                "accepted",
+                "in_progress",
+                "awaiting_customer",
+                "awaiting_external",
+                "response_needed",
+                "completed",
+                "closed"
+              ],
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "tlp": {
+              "enum": [
+                "clear",
+                "green",
+                "amber",
+                "red"
+              ],
+              "type": "string"
+            },
+            "tokens": {
+              "type": "number"
+            },
+            "updated": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account",
+            "assignee",
+            "completed",
+            "created",
+            "id",
+            "investigation_id",
+            "is_free_request",
+            "message_tokens",
+            "priority",
+            "readable_id",
+            "release_entitlements",
+            "report_id",
+            "request",
+            "status",
+            "summary",
+            "tlp",
+            "tokens",
+            "updated"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}`,
@@ -316,6 +640,258 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "account": {
+              "properties": {
+                "anniversary": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "anniversary",
+                "id",
+                "name"
+              ],
+              "type": "object"
+            },
+            "assignee": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "completed": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "investigation_id": {
+              "type": "string"
+            },
+            "is_free_request": {
+              "type": "boolean"
+            },
+            "message_tokens": {
+              "type": "number"
+            },
+            "priority": {
+              "enum": [
+                "unknown",
+                "low",
+                "routine",
+                "medium",
+                "high",
+                "urgent",
+                "critical"
+              ],
+              "type": "string"
+            },
+            "priority_id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "readable_id": {
+              "type": "string"
+            },
+            "release_entitlements": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "report_id": {
+              "type": "string"
+            },
+            "request": {
+              "properties": {
+                "category": {
+                  "type": "string"
+                },
+                "message_tokens": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "request_tokens": {
+                  "type": "number"
+                },
+                "response_tokens": {
+                  "type": "number"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category",
+                "message_tokens",
+                "name",
+                "request_tokens",
+                "response_tokens",
+                "result",
+                "source"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "enum": [
+                "draft",
+                "submitted",
+                "accepted",
+                "in_progress",
+                "awaiting_customer",
+                "awaiting_external",
+                "response_needed",
+                "completed",
+                "closed"
+              ],
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "tlp": {
+              "enum": [
+                "clear",
+                "green",
+                "amber",
+                "red"
+              ],
+              "type": "string"
+            },
+            "tokens": {
+              "type": "number"
+            },
+            "updated": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account",
+            "assignee",
+            "completed",
+            "created",
+            "id",
+            "investigation_id",
+            "is_free_request",
+            "message_tokens",
+            "priority",
+            "readable_id",
+            "release_entitlements",
+            "report_id",
+            "request",
+            "status",
+            "summary",
+            "tlp",
+            "tokens",
+            "updated"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "500": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -430,6 +1006,258 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "account": {
+              "properties": {
+                "anniversary": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "anniversary",
+                "id",
+                "name"
+              ],
+              "type": "object"
+            },
+            "assignee": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "completed": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "investigation_id": {
+              "type": "string"
+            },
+            "is_free_request": {
+              "type": "boolean"
+            },
+            "message_tokens": {
+              "type": "number"
+            },
+            "priority": {
+              "enum": [
+                "unknown",
+                "low",
+                "routine",
+                "medium",
+                "high",
+                "urgent",
+                "critical"
+              ],
+              "type": "string"
+            },
+            "priority_id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "readable_id": {
+              "type": "string"
+            },
+            "release_entitlements": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "report_id": {
+              "type": "string"
+            },
+            "request": {
+              "properties": {
+                "category": {
+                  "type": "string"
+                },
+                "message_tokens": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "request_tokens": {
+                  "type": "number"
+                },
+                "response_tokens": {
+                  "type": "number"
+                },
+                "result": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category",
+                "message_tokens",
+                "name",
+                "request_tokens",
+                "response_tokens",
+                "result",
+                "source"
+              ],
+              "type": "object"
+            },
+            "status": {
+              "enum": [
+                "draft",
+                "submitted",
+                "accepted",
+                "in_progress",
+                "awaiting_customer",
+                "awaiting_external",
+                "response_needed",
+                "completed",
+                "closed"
+              ],
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "tlp": {
+              "enum": [
+                "clear",
+                "green",
+                "amber",
+                "red"
+              ],
+              "type": "string"
+            },
+            "tokens": {
+              "type": "number"
+            },
+            "updated": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account",
+            "assignee",
+            "completed",
+            "created",
+            "id",
+            "investigation_id",
+            "is_free_request",
+            "message_tokens",
+            "priority",
+            "readable_id",
+            "release_entitlements",
+            "report_id",
+            "request",
+            "status",
+            "summary",
+            "tlp",
+            "tokens",
+            "updated"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}`,

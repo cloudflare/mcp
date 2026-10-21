@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  cache_api_response_common_failure_output,
+  cache_messages_output,
+  cache_result_output,
+} from "../outputs.js";
 import { cache_schemas_patch, cache_schemas_value } from "./schemas.js";
 
 /**
@@ -55,6 +60,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache_api-response-common-failure": cache_api_response_common_failure_output,
+        "cache_messages": cache_messages_output,
+        "cache_result": cache_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/ssl_automatic_mode`,
@@ -117,6 +137,21 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache_api-response-common-failure": cache_api_response_common_failure_output,
+        "cache_messages": cache_messages_output,
+        "cache_result": cache_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/ssl_automatic_mode`,

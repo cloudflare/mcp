@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  speed_api_response_common_failure_output,
+  speed_messages_output,
+} from "../../outputs.js";
+import { speed_zone_config_item_output } from "./outputs.js";
 
 /**
  * The tools of `accounts.transformations`.
@@ -47,6 +52,35 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/speed_zone_config_item"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/speed_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_messages": speed_messages_output,
+        "speed_zone_config_item": speed_zone_config_item_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/settings/transformations`,

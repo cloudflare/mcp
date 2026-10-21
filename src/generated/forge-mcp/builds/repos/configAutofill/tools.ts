@@ -3,10 +3,18 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  builds_ApiError_output,
+  builds_ErrorResponse_output,
+} from "../../../outputs.js";
+import {
   builds_account_id,
   builds_branch,
   builds_root_directory,
 } from "../../../schemas.js";
+import {
+  builds_ConfigAutofillResponse_output,
+  builds_PackageManager_output,
+} from "./outputs.js";
 
 /**
  * The tools of `builds.repos.config_autofill`.
@@ -71,6 +79,22 @@ export const tools: readonly Tool[] = [
         "Workers CI Write",
         "Workers CI Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/builds_ConfigAutofillResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/builds_ErrorResponse"
+        }
+      },
+      $defs: {
+        "builds_ApiError": builds_ApiError_output,
+        "builds_ConfigAutofillResponse": builds_ConfigAutofillResponse_output,
+        "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PackageManager": builds_PackageManager_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/builds/repos/${pathParam(args, "provider_type")}/${pathParam(args, "provider_account_id")}/${pathParam(args, "repo_id")}/config_autofill`,

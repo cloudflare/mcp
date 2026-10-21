@@ -3,6 +3,23 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  dns_settings_account_settings_output,
+  dns_settings_api_response_common_failure_output,
+  dns_settings_dns_response_single_output,
+  dns_settings_dns_settings_account_response_nameservers_output,
+  dns_settings_dns_settings_account_response_output,
+  dns_settings_enforce_dns_only_output,
+  dns_settings_flatten_all_cnames_output,
+  dns_settings_foundation_dns_output,
+  dns_settings_internal_dns_response_output,
+  dns_settings_messages_output,
+  dns_settings_multi_provider_output,
+  dns_settings_ns_ttl_output,
+  dns_settings_secondary_overrides_output,
+  dns_settings_soa_response_output,
+  dns_settings_zone_mode_output,
+} from "./outputs.js";
+import {
   dns_settings_account_settings_patch,
   dns_settings_dns_settings_account_patch,
   dns_settings_dns_settings_account_patch_nameservers,
@@ -94,6 +111,40 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-settings_account_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-settings_dns_response_single"
+            },
+            {
+              "$ref": "#/$defs/dns-settings_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-settings_account_settings": dns_settings_account_settings_output,
+        "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_dns-settings-account-response": dns_settings_dns_settings_account_response_output,
+        "dns-settings_dns-settings-account-response_nameservers": dns_settings_dns_settings_account_response_nameservers_output,
+        "dns-settings_dns_response_single": dns_settings_dns_response_single_output,
+        "dns-settings_enforce_dns_only": dns_settings_enforce_dns_only_output,
+        "dns-settings_flatten_all_cnames": dns_settings_flatten_all_cnames_output,
+        "dns-settings_foundation_dns": dns_settings_foundation_dns_output,
+        "dns-settings_internal_dns_response": dns_settings_internal_dns_response_output,
+        "dns-settings_messages": dns_settings_messages_output,
+        "dns-settings_multi_provider": dns_settings_multi_provider_output,
+        "dns-settings_ns_ttl": dns_settings_ns_ttl_output,
+        "dns-settings_secondary_overrides": dns_settings_secondary_overrides_output,
+        "dns-settings_soa-response": dns_settings_soa_response_output,
+        "dns-settings_zone_mode": dns_settings_zone_mode_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/dns_settings`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -154,6 +205,40 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-settings_account_settings"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-settings_dns_response_single"
+            },
+            {
+              "$ref": "#/$defs/dns-settings_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-settings_account_settings": dns_settings_account_settings_output,
+        "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_dns-settings-account-response": dns_settings_dns_settings_account_response_output,
+        "dns-settings_dns-settings-account-response_nameservers": dns_settings_dns_settings_account_response_nameservers_output,
+        "dns-settings_dns_response_single": dns_settings_dns_response_single_output,
+        "dns-settings_enforce_dns_only": dns_settings_enforce_dns_only_output,
+        "dns-settings_flatten_all_cnames": dns_settings_flatten_all_cnames_output,
+        "dns-settings_foundation_dns": dns_settings_foundation_dns_output,
+        "dns-settings_internal_dns_response": dns_settings_internal_dns_response_output,
+        "dns-settings_messages": dns_settings_messages_output,
+        "dns-settings_multi_provider": dns_settings_multi_provider_output,
+        "dns-settings_ns_ttl": dns_settings_ns_ttl_output,
+        "dns-settings_secondary_overrides": dns_settings_secondary_overrides_output,
+        "dns-settings_soa-response": dns_settings_soa_response_output,
+        "dns-settings_zone_mode": dns_settings_zone_mode_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/dns_settings`,

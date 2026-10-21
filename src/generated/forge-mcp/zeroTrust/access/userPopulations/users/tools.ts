@@ -2,7 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../../outputs.js";
 import { access_identifier, access_uuid } from "../../../schemas.js";
+import {
+  access_scim_email_output,
+  access_scim_meta_output,
+  access_scim_name_output,
+  access_scim_user_list_response_output,
+  access_scim_user_output,
+} from "./outputs.js";
 import {
   access_scim_email,
   access_scim_meta,
@@ -58,6 +69,24 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}/users",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_scim_user"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -102,6 +131,18 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}/users/{user_id}",
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users/${pathParam(args, "user_id")}`,
     }),
@@ -153,6 +194,24 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}/users/{user_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_scim_user"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users/${pathParam(args, "user_id")}`,
       query: [
@@ -216,6 +275,25 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}/users",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_scim_user_list_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+        "access_scim_user_list_response": access_scim_user_list_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users`,
       query: [
@@ -274,6 +352,24 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}/users/{user_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_scim_user"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users/${pathParam(args, "user_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -324,6 +420,24 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/access/user_populations/{user_population_id}/users/{user_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_scim_user"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users/${pathParam(args, "user_id")}`,
       body: { value: args["body"], mediaType: "application/json" },

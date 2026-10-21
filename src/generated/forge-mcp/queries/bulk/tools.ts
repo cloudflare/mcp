@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { brand_protection_api_Error_output } from "../../outputs.js";
 import { brand_protection_api_QueryBulk } from "./schemas.js";
 
 /**
@@ -43,6 +44,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Intel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "422": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "default": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        }
+      },
+      $defs: {
+        "brand-protection-api_Error": brand_protection_api_Error_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/brand-protection/queries/bulk`,

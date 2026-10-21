@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_v4_response_failure_output,
+} from "../../outputs.js";
+import {
+  r2_bucket_config_output,
+  r2_queues_config_output,
+  r2_r2_action_output,
+  r2_rule_output,
+} from "./outputs.js";
 import { r2_r2_action, r2_rule } from "./schemas.js";
 
 /**
@@ -71,6 +82,21 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_notifications/r2/${pathParam(args, "bucket_name")}/configuration/queues/${pathParam(args, "queue_id")}`,
       headers: [
@@ -131,6 +157,27 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_queues-config"
+        },
+        "404": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_queues-config": r2_queues_config_output,
+        "r2_r2-action": r2_r2_action_output,
+        "r2_rule": r2_rule_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_notifications/r2/${pathParam(args, "bucket_name")}/configuration/queues/${pathParam(args, "queue_id")}`,
       headers: [
@@ -184,6 +231,28 @@ export const tools: readonly Tool[] = [
         "Workers R2 Storage Write",
         "Workers R2 Storage Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_bucket-config"
+        },
+        "404": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_bucket-config": r2_bucket_config_output,
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_queues-config": r2_queues_config_output,
+        "r2_r2-action": r2_r2_action_output,
+        "r2_rule": r2_rule_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_notifications/r2/${pathParam(args, "bucket_name")}/configuration`,
@@ -263,6 +332,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Workers R2 Storage Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_notifications/r2/${pathParam(args, "bucket_name")}/configuration/queues/${pathParam(args, "queue_id")}`,

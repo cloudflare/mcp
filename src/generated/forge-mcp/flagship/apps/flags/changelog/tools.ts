@@ -2,6 +2,21 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  flagship_ApiMessage_output,
+  flagship_Error_output,
+  flagship_JsonValue_output,
+} from "../../outputs.js";
+import {
+  flagship_Flag_output,
+  flagship_Flag_rulesItem_output,
+  flagship_Flag_rulesItem_rollout_output,
+  flagship_ResultInfo_output,
+} from "../outputs.js";
+import {
+  flagship_ChangelogEntry_output,
+  flagship_ChangelogPage_output,
+} from "./outputs.js";
 
 /**
  * The tools of `flagship.apps.flags.changelog`.
@@ -71,6 +86,53 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/flagship_ChangelogPage"
+            },
+            "result_info": {
+              "$ref": "#/$defs/flagship_ResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "401": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "429": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "500": {
+          "$ref": "#/$defs/flagship_Error"
+        }
+      },
+      $defs: {
+        "flagship_ApiMessage": flagship_ApiMessage_output,
+        "flagship_ChangelogEntry": flagship_ChangelogEntry_output,
+        "flagship_ChangelogPage": flagship_ChangelogPage_output,
+        "flagship_Error": flagship_Error_output,
+        "flagship_Flag": flagship_Flag_output,
+        "flagship_Flag_rulesItem": flagship_Flag_rulesItem_output,
+        "flagship_Flag_rulesItem_rollout": flagship_Flag_rulesItem_rollout_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+        "flagship_ResultInfo": flagship_ResultInfo_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps/${pathParam(args, "app_id")}/flags/${pathParam(args, "flag_key")}/changelog`,

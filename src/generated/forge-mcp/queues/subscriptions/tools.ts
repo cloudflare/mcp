@@ -3,6 +3,26 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  mq_api_v4_error_output,
+  mq_api_v4_failure_output,
+  mq_api_v4_message_output,
+} from "../outputs.js";
+import {
+  mq_event_destination_output,
+  mq_event_destination_queue_output,
+  mq_event_source_images_output,
+  mq_event_source_kv_output,
+  mq_event_source_output,
+  mq_event_source_r2_output,
+  mq_event_source_super_slurper_output,
+  mq_event_source_vectorize_output,
+  mq_event_source_workers_ai_model_output,
+  mq_event_source_workers_builds_worker_output,
+  mq_event_source_workers_script_output,
+  mq_event_source_workflows_workflow_output,
+  mq_event_subscription_output,
+} from "./outputs.js";
+import {
   mq_event_destination,
   mq_event_destination_queue,
   mq_event_source,
@@ -96,6 +116,40 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mq_event-subscription"
+        },
+        "400": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        },
+        "405": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_event-destination": mq_event_destination_output,
+        "mq_event-destination-queue": mq_event_destination_queue_output,
+        "mq_event-source": mq_event_source_output,
+        "mq_event-source-images": mq_event_source_images_output,
+        "mq_event-source-kv": mq_event_source_kv_output,
+        "mq_event-source-r2": mq_event_source_r2_output,
+        "mq_event-source-super-slurper": mq_event_source_super_slurper_output,
+        "mq_event-source-vectorize": mq_event_source_vectorize_output,
+        "mq_event-source-workers-ai-model": mq_event_source_workers_ai_model_output,
+        "mq_event-source-workers-builds-worker": mq_event_source_workers_builds_worker_output,
+        "mq_event-source-workers-script": mq_event_source_workers_script_output,
+        "mq_event-source-workflows-workflow": mq_event_source_workflows_workflow_output,
+        "mq_event-subscription": mq_event_subscription_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_subscriptions/subscriptions`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -137,6 +191,34 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mq_event-subscription"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_event-destination": mq_event_destination_output,
+        "mq_event-destination-queue": mq_event_destination_queue_output,
+        "mq_event-source": mq_event_source_output,
+        "mq_event-source-images": mq_event_source_images_output,
+        "mq_event-source-kv": mq_event_source_kv_output,
+        "mq_event-source-r2": mq_event_source_r2_output,
+        "mq_event-source-super-slurper": mq_event_source_super_slurper_output,
+        "mq_event-source-vectorize": mq_event_source_vectorize_output,
+        "mq_event-source-workers-ai-model": mq_event_source_workers_ai_model_output,
+        "mq_event-source-workers-builds-worker": mq_event_source_workers_builds_worker_output,
+        "mq_event-source-workers-script": mq_event_source_workers_script_output,
+        "mq_event-source-workflows-workflow": mq_event_source_workflows_workflow_output,
+        "mq_event-subscription": mq_event_subscription_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_subscriptions/subscriptions/${pathParam(args, "subscription_id")}`,
     }),
@@ -176,6 +258,34 @@ export const tools: readonly Tool[] = [
         "Queues Write",
         "Workers Scripts Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mq_event-subscription"
+        },
+        "404": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_event-destination": mq_event_destination_output,
+        "mq_event-destination-queue": mq_event_destination_queue_output,
+        "mq_event-source": mq_event_source_output,
+        "mq_event-source-images": mq_event_source_images_output,
+        "mq_event-source-kv": mq_event_source_kv_output,
+        "mq_event-source-r2": mq_event_source_r2_output,
+        "mq_event-source-super-slurper": mq_event_source_super_slurper_output,
+        "mq_event-source-vectorize": mq_event_source_vectorize_output,
+        "mq_event-source-workers-ai-model": mq_event_source_workers_ai_model_output,
+        "mq_event-source-workers-builds-worker": mq_event_source_workers_builds_worker_output,
+        "mq_event-source-workers-script": mq_event_source_workers_script_output,
+        "mq_event-source-workflows-workflow": mq_event_source_workflows_workflow_output,
+        "mq_event-subscription": mq_event_subscription_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_subscriptions/subscriptions/${pathParam(args, "subscription_id")}`,
@@ -243,6 +353,72 @@ export const tools: readonly Tool[] = [
         "Workers Scripts Write",
         "Workers Scripts Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mq_event-subscription"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_event-destination": mq_event_destination_output,
+        "mq_event-destination-queue": mq_event_destination_queue_output,
+        "mq_event-source": mq_event_source_output,
+        "mq_event-source-images": mq_event_source_images_output,
+        "mq_event-source-kv": mq_event_source_kv_output,
+        "mq_event-source-r2": mq_event_source_r2_output,
+        "mq_event-source-super-slurper": mq_event_source_super_slurper_output,
+        "mq_event-source-vectorize": mq_event_source_vectorize_output,
+        "mq_event-source-workers-ai-model": mq_event_source_workers_ai_model_output,
+        "mq_event-source-workers-builds-worker": mq_event_source_workers_builds_worker_output,
+        "mq_event-source-workers-script": mq_event_source_workers_script_output,
+        "mq_event-source-workflows-workflow": mq_event_source_workflows_workflow_output,
+        "mq_event-subscription": mq_event_subscription_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_subscriptions/subscriptions`,
@@ -324,6 +500,37 @@ export const tools: readonly Tool[] = [
           "default": null
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/mq_event-subscription"
+        },
+        "400": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/mq_api-v4-failure"
+        }
+      },
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-failure": mq_api_v4_failure_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_event-destination": mq_event_destination_output,
+        "mq_event-destination-queue": mq_event_destination_queue_output,
+        "mq_event-source": mq_event_source_output,
+        "mq_event-source-images": mq_event_source_images_output,
+        "mq_event-source-kv": mq_event_source_kv_output,
+        "mq_event-source-r2": mq_event_source_r2_output,
+        "mq_event-source-super-slurper": mq_event_source_super_slurper_output,
+        "mq_event-source-vectorize": mq_event_source_vectorize_output,
+        "mq_event-source-workers-ai-model": mq_event_source_workers_ai_model_output,
+        "mq_event-source-workers-builds-worker": mq_event_source_workers_builds_worker_output,
+        "mq_event-source-workers-script": mq_event_source_workers_script_output,
+        "mq_event-source-workflows-workflow": mq_event_source_workflows_workflow_output,
+        "mq_event-subscription": mq_event_subscription_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/event_subscriptions/subscriptions/${pathParam(args, "subscription_id")}`,

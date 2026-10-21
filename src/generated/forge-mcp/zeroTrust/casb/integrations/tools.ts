@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  one_IntegrationV2Detail_authorization_link_output,
+  one_IntegrationV2Detail_output,
+  one_IntegrationV2ListItem_auth_method_output,
+  one_IntegrationV2ListItem_output,
+  one_IntegrationV2ListItem_use_casesItem_output,
+  one_PaginatedIntegrationV2ListItemList_result_info_output,
+} from "./outputs.js";
+import {
   one_IntegrationV2CreateRequest,
   one_PatchedUpdateIntegrationV2Request,
 } from "./schemas.js";
@@ -46,6 +54,18 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/one_IntegrationV2Detail"
+        },
+        "400": null
+      },
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -84,6 +104,12 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations/${pathParam(args, "id")}`,
     }),
@@ -120,6 +146,18 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/one/integrations/{id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/one_IntegrationV2Detail"
+        },
+        "404": null
+      },
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations/${pathParam(args, "id")}`,
@@ -205,6 +243,34 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/one_IntegrationV2ListItem"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/one_PaginatedIntegrationV2ListItemList_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": null
+      },
+      $defs: {
+        "one_IntegrationV2ListItem": one_IntegrationV2ListItem_output,
+        "one_IntegrationV2ListItem_auth_method": one_IntegrationV2ListItem_auth_method_output,
+        "one_IntegrationV2ListItem_use_casesItem": one_IntegrationV2ListItem_use_casesItem_output,
+        "one_PaginatedIntegrationV2ListItemList_result_info": one_PaginatedIntegrationV2ListItemList_result_info_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations`,
       query: [
@@ -253,6 +319,18 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/one_IntegrationV2Detail"
+        },
+        "400": null
+      },
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations/${pathParam(args, "id")}/pause`,
     }),
@@ -289,6 +367,18 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/one/integrations/{id}/resume",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/one_IntegrationV2Detail"
+        },
+        "400": null
+      },
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations/${pathParam(args, "id")}/resume`,
@@ -332,6 +422,18 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/one/integrations/{id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/one_IntegrationV2Detail"
+        },
+        "400": null
+      },
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations/${pathParam(args, "id")}`,

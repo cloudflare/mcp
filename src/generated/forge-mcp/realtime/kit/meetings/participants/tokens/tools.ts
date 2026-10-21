@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_GenericSuccessResponse_output,
+} from "../../../outputs.js";
 
 /**
  * The tools of `realtime.kit.meetings.participants.tokens`.
@@ -53,6 +58,44 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants/${pathParam(args, "participant_id")}/token`,

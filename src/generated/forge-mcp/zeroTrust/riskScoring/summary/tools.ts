@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  dlp_api_response_common_failure_output,
+  dlp_messages_output,
+} from "../../outputs.js";
+import { dlp_RiskLevel_output } from "../outputs.js";
+import { dlp_RiskSummary_output, dlp_UserRiskInfo_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.risk_scoring.summary`.
@@ -35,6 +41,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust: PII Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dlp_RiskSummary"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_RiskLevel": dlp_RiskLevel_output,
+        "dlp_RiskSummary": dlp_RiskSummary_output,
+        "dlp_UserRiskInfo": dlp_UserRiskInfo_output,
+        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_messages": dlp_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zt_risk_scoring/summary`,

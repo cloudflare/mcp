@@ -55,6 +55,32 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "total_ingest_seconds": {
+                  "type": "integer"
+                },
+                "total_viewer_seconds": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/analytics/livestreams/overall`,
       query: [

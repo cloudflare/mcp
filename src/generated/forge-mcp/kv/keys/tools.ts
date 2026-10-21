@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  workers_kv_any_output,
+  workers_kv_api_response_common_failure_output,
+  workers_kv_list_metadata_output,
+  workers_kv_messages_output,
+} from "../outputs.js";
+import {
+  workers_kv_cursor_output,
+  workers_kv_cursor_result_info_output,
+  workers_kv_key_name_output,
+  workers_kv_key_output,
+} from "./outputs.js";
 
 /**
  * The tools of `kv.keys`.
@@ -47,6 +59,27 @@ export const tools: readonly Tool[] = [
         "Workers KV Storage Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_messages": workers_kv_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces/${pathParam(args, "namespace_id")}/values/${pathParam(args, "key_name")}`,
     }),
@@ -91,6 +124,18 @@ export const tools: readonly Tool[] = [
         "Workers KV Storage Write",
         "Workers KV Storage Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_messages": workers_kv_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces/${pathParam(args, "namespace_id")}/values/${pathParam(args, "key_name")}`,
@@ -149,6 +194,40 @@ export const tools: readonly Tool[] = [
         "next_cursor": "$response.result_info.cursor",
         "results": "$response.result"
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers-kv_key"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/workers-kv_cursor_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_any": workers_kv_any_output,
+        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_cursor": workers_kv_cursor_output,
+        "workers-kv_cursor_result_info": workers_kv_cursor_result_info_output,
+        "workers-kv_key": workers_kv_key_output,
+        "workers-kv_key_name": workers_kv_key_name_output,
+        "workers-kv_list_metadata": workers_kv_list_metadata_output,
+        "workers-kv_messages": workers_kv_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces/${pathParam(args, "namespace_id")}/keys`,

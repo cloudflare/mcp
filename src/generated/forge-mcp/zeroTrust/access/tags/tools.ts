@@ -3,10 +3,18 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_common_failure_output,
+  access_created_at_output,
+  access_messages_output,
+  access_timestamp_output,
+  access_updated_at_output,
+} from "../../outputs.js";
+import {
   access_created_at,
   access_timestamp,
   access_updated_at,
 } from "../../schemas.js";
+import { access_name_13_output, access_tag_output } from "./outputs.js";
 import { access_name_13, access_tag_without_app_count } from "./schemas.js";
 
 /**
@@ -50,6 +58,25 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/access/tags",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_tag"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_name-13": access_name_13_output,
+        "access_tag": access_tag_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/tags`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -85,6 +112,26 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/access/tags/{tag_name}",
+    responses: {
+      schemas: {
+        "202": {
+          "properties": {
+            "name": {
+              "$ref": "#/$defs/access_name-13"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_name-13": access_name_13_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/tags/${pathParam(args, "tag_name")}`,
     }),
@@ -119,6 +166,25 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/tags/{tag_name}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_tag"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_name-13": access_name_13_output,
+        "access_tag": access_tag_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/tags/${pathParam(args, "tag_name")}`,
     }),
@@ -158,6 +224,56 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/access/tags",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_tag"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_name-13": access_name_13_output,
+        "access_tag": access_tag_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/tags`,
       query: [
@@ -206,6 +322,25 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/access/tags/{tag_name}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_tag"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_name-13": access_name_13_output,
+        "access_tag": access_tag_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/tags/${pathParam(args, "tag_name")}`,
       body: { value: args["body"], mediaType: "application/json" },

@@ -3,9 +3,29 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  posture_api_ExportJobTypeEnum_output,
+  posture_api_ExportJob_output,
+  posture_api_RemediationJobStatusEnum_output,
+  posture_api_StatusEnum_output,
+  posture_api_error_response_output,
+  posture_api_messages_output,
+} from "../../outputs.js";
+import {
   posture_api_DirectionEnum,
   posture_api_RemediationJobStatusEnum,
 } from "../../schemas.js";
+import {
+  posture_api_CreateRemediationJobResponse_output,
+  posture_api_CreateRemediationJobResponse_result_output,
+  posture_api_PaginatedRemediationJobList_result_info_output,
+  posture_api_RemediationJobAssetCategory_output,
+  posture_api_RemediationJobAssetField_output,
+  posture_api_RemediationJobAssetField_value_output,
+  posture_api_RemediationJobAsset_output,
+  posture_api_RemediationJobFailure_output,
+  posture_api_RemediationJob_output,
+  posture_api_VendorsDisplayNameEnum_output,
+} from "./outputs.js";
 import {
   posture_api_RemediationJobActorTypeEnum,
   posture_api_RemediationJobsCreateRequest,
@@ -53,6 +73,33 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_CreateRemediationJobResponse_result"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_CreateRemediationJobResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_CreateRemediationJobResponse": posture_api_CreateRemediationJobResponse_output,
+        "posture-api_CreateRemediationJobResponse_result": posture_api_CreateRemediationJobResponse_result_output,
+        "posture-api_RemediationJob": posture_api_RemediationJob_output,
+        "posture-api_RemediationJobAsset": posture_api_RemediationJobAsset_output,
+        "posture-api_RemediationJobAssetCategory": posture_api_RemediationJobAssetCategory_output,
+        "posture-api_RemediationJobAssetField": posture_api_RemediationJobAssetField_output,
+        "posture-api_RemediationJobAssetField_value": posture_api_RemediationJobAssetField_value_output,
+        "posture-api_RemediationJobFailure": posture_api_RemediationJobFailure_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_VendorsDisplayNameEnum": posture_api_VendorsDisplayNameEnum_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/remediations/jobs`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -97,6 +144,19 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/posture-api_ExportJob"
+        },
+        "400": null
+      },
+      $defs: {
+        "posture-api_ExportJob": posture_api_ExportJob_output,
+        "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
+        "posture-api_StatusEnum": posture_api_StatusEnum_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/remediations/jobs/export`,
@@ -200,6 +260,38 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/posture-api_RemediationJob"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/posture-api_PaginatedRemediationJobList_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": null
+      },
+      $defs: {
+        "posture-api_PaginatedRemediationJobList_result_info": posture_api_PaginatedRemediationJobList_result_info_output,
+        "posture-api_RemediationJob": posture_api_RemediationJob_output,
+        "posture-api_RemediationJobAsset": posture_api_RemediationJobAsset_output,
+        "posture-api_RemediationJobAssetCategory": posture_api_RemediationJobAssetCategory_output,
+        "posture-api_RemediationJobAssetField": posture_api_RemediationJobAssetField_output,
+        "posture-api_RemediationJobAssetField_value": posture_api_RemediationJobAssetField_value_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_VendorsDisplayNameEnum": posture_api_VendorsDisplayNameEnum_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/remediations/jobs`,

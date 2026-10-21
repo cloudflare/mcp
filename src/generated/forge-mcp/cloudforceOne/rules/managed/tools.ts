@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import { cloudforce_one_ErrorResponse_output } from "../outputs.js";
 
 /**
  * The tools of `cloudforce_one.rules.managed`.
@@ -32,6 +33,58 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules/managed",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "metadata": {
+              "properties": {
+                "fetched_at": {
+                  "type": "string"
+                },
+                "total_rules": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "fetched_at",
+                "total_rules"
+              ],
+              "type": "object"
+            },
+            "rules": {
+              "items": {
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "description",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "metadata",
+            "rules"
+          ],
+          "type": "object"
+        },
+        "401": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/managed`,
     }),

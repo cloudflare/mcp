@@ -2,7 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  mcn_bad_response_output,
+  mcn_error_meta_output,
+  mcn_error_output,
+  mcn_error_source_output,
+} from "../../outputs.js";
+import { mcn_catalog_sync_destination_type_output } from "../outputs.js";
 import { mcn_catalog_sync_destination_type } from "../schemas.js";
+import { mcn_catalog_syncs_prebuilt_policy_output } from "./outputs.js";
 
 /**
  * The tools of `magic_cloud_networking.catalog_syncs.prebuilt_policies`.
@@ -44,6 +52,47 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic WAN Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mcn_catalog_syncs_prebuilt_policy"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/mcn_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/mcn_bad_response"
+        }
+      },
+      $defs: {
+        "mcn_bad_response": mcn_bad_response_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_syncs_prebuilt_policy": mcn_catalog_syncs_prebuilt_policy_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/cloud/catalog-syncs/prebuilt-policies`,

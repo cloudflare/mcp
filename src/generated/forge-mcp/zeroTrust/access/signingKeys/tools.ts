@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../outputs.js";
+import {
+  access_days_until_next_rotation_output,
+  access_key_config_output,
+  access_key_rotation_interval_days_output,
+  access_last_key_rotation_at_output,
+} from "./outputs.js";
 import { access_key_rotation_interval_days } from "./schemas.js";
 
 /**
@@ -39,6 +49,24 @@ export const tools: readonly Tool[] = [
         "Access: Organizations, Identity Providers, and Groups Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_key_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_days_until_next_rotation": access_days_until_next_rotation_output,
+        "access_key_config": access_key_config_output,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
+        "access_last_key_rotation_at": access_last_key_rotation_at_output,
+        "access_messages": access_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/keys`,
     }),
@@ -72,6 +100,24 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Organizations, Identity Providers, and Groups Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_key_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_days_until_next_rotation": access_days_until_next_rotation_output,
+        "access_key_config": access_key_config_output,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
+        "access_last_key_rotation_at": access_last_key_rotation_at_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/keys/rotate`,
@@ -122,6 +168,24 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Organizations, Identity Providers, and Groups Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_key_config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_days_until_next_rotation": access_days_until_next_rotation_output,
+        "access_key_config": access_key_config_output,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
+        "access_last_key_rotation_at": access_last_key_rotation_at_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/keys`,

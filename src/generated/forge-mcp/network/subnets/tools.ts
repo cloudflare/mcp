@@ -3,10 +3,28 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  tunnel_api_response_common_failure_output,
+  tunnel_created_at_output,
+  tunnel_deleted_at_output,
+  tunnel_messages_output,
+  tunnel_result_info_output,
+} from "../../outputs.js";
+import {
   tunnel_existed_at,
   tunnel_page_number,
   tunnel_per_page,
 } from "../../schemas.js";
+import {
+  tunnel_subnet_capacity_output,
+  tunnel_subnet_comment_output,
+  tunnel_subnet_id_output,
+  tunnel_subnet_ip_network_output,
+  tunnel_subnet_is_default_network_output,
+  tunnel_subnet_name_output,
+  tunnel_subnet_output,
+  tunnel_subnet_response_collection_output,
+  tunnel_subnet_type_output,
+} from "./outputs.js";
 import {
   tunnel_address_family,
   tunnel_ip_network_encoded,
@@ -111,6 +129,53 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Networks Write",
         "Cloudflare One Networks Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/tunnel_subnet"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/tunnel_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_subnet_response_collection"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_subnet": tunnel_subnet_output,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
+        "tunnel_subnet_comment": tunnel_subnet_comment_output,
+        "tunnel_subnet_id": tunnel_subnet_id_output,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
+        "tunnel_subnet_name": tunnel_subnet_name_output,
+        "tunnel_subnet_response_collection": tunnel_subnet_response_collection_output,
+        "tunnel_subnet_type": tunnel_subnet_type_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/zerotrust/subnets`,

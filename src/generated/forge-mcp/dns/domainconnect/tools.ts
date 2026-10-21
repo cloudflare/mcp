@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  domain_connect_httpError_output,
+  domain_connect_neededByStratus_output,
+  domain_connect_templateSpec_output,
+} from "./outputs.js";
 import { domain_connect_PostData } from "./schemas.js";
 
 /**
@@ -36,6 +41,22 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": []
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "404": {
+          "$ref": "#/$defs/domain-connect_httpError"
+        },
+        "500": {
+          "$ref": "#/$defs/domain-connect_httpError"
+        }
+      },
+      $defs: {
+        "domain-connect_httpError": domain_connect_httpError_output,
+      },
+    },
     request: (args) => ({
       path: `/v2/${pathParam(args, "domain")}/settings`,
     }),
@@ -57,6 +78,12 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/_heartbeat",
+    responses: {
+      schemas: {
+        "200": null,
+        "503": null
+      },
+    },
     request: (_args) => ({
       path: `/_heartbeat`,
     }),
@@ -99,6 +126,27 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": []
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/domain-connect_neededByStratus"
+        },
+        "400": {
+          "$ref": "#/$defs/domain-connect_httpError"
+        },
+        "403": {
+          "$ref": "#/$defs/domain-connect_httpError"
+        },
+        "404": {
+          "$ref": "#/$defs/domain-connect_httpError"
+        }
+      },
+      $defs: {
+        "domain-connect_httpError": domain_connect_httpError_output,
+        "domain-connect_neededByStratus": domain_connect_neededByStratus_output,
+        "domain-connect_templateSpec": domain_connect_templateSpec_output,
+      },
+    },
     request: (args) => ({
       path: `/v2/provconf/${pathParam(args, "provider")}/${pathParam(args, "service")}/${pathParam(args, "account")}`,
     }),
@@ -140,6 +188,19 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": []
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "404": {
+          "$ref": "#/$defs/domain-connect_httpError"
+        }
+      },
+      $defs: {
+        "domain-connect_httpError": domain_connect_httpError_output,
+      },
+    },
     request: (args) => ({
       path: `/v2/domainTemplates/providers/${pathParam(args, "provider")}/services/${pathParam(args, "service")}`,
       query: [
@@ -176,6 +237,16 @@ export const tools: readonly Tool[] = [
     path: "/v1/verify",
     extensions: {
       "x-api-token-group": []
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null,
+        "403": null,
+        "404": null,
+        "417": null,
+        "502": null
+      },
     },
     request: (args) => ({
       path: `/v1/verify`,

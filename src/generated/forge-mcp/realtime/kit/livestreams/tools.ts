@@ -59,6 +59,118 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "livestream": {
+                  "properties": {
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "disabled": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "ingest_server": {
+                      "type": "string"
+                    },
+                    "meeting_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "playback_url": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "LIVE",
+                        "IDLE",
+                        "ERRORED",
+                        "INVOKED"
+                      ],
+                      "type": "string"
+                    },
+                    "stream_key": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "paging": {
+                  "properties": {
+                    "end_offset": {
+                      "type": "integer"
+                    },
+                    "start_offset": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "session": {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "err_message": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "ingest_seconds": {
+                      "type": "number"
+                    },
+                    "invoked_time": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "livestream_id": {
+                      "type": "string"
+                    },
+                    "started_time": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "stopped_time": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "viewer_seconds": {
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/livestreams/${pathParam(args, "livestream_id")}`,
       query: [
@@ -148,6 +260,76 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "disabled": {
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "ingest_server": {
+                  "type": "string"
+                },
+                "meeting_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "paging": {
+                  "properties": {
+                    "end_offset": {
+                      "type": "integer"
+                    },
+                    "start_offset": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "playback_url": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "LIVE",
+                    "IDLE",
+                    "ERRORED",
+                    "INVOKED"
+                  ],
+                  "type": "string"
+                },
+                "stream_key": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/livestreams`,
       query: [
@@ -236,6 +418,44 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "data": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "ingest_server": {
+                  "type": "string"
+                },
+                "playback_url": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "LIVE",
+                    "IDLE",
+                    "ERRORED",
+                    "INVOKED"
+                  ],
+                  "type": "string"
+                },
+                "stream_key": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/livestreams`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -286,6 +506,26 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-livestream/stop`,

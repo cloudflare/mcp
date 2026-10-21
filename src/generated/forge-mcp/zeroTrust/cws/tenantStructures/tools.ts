@@ -3,6 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  cws_DeletedResult_output,
+  cws_ErrorResponse_output,
+  cws_MessageSource_output,
+  cws_ResponseMessage_output,
+  cws_ResultInfo_output,
+} from "../outputs.js";
+import { cws_TenantStructure_output } from "./outputs.js";
+import {
   cws_CreateTenantStructureInputBody,
   cws_UpdateTenantStructureInputBody,
 } from "./schemas.js";
@@ -46,6 +54,25 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/cws_TenantStructure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_TenantStructure": cws_TenantStructure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/tenant-structures`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -85,6 +112,25 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cws_DeletedResult"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/tenant-structures/${pathParam(args, "structure_id")}`,
     }),
@@ -122,6 +168,25 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/cws/tenant-structures/{structure_id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cws_TenantStructure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_TenantStructure": cws_TenantStructure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/tenant-structures/${pathParam(args, "structure_id")}`,
@@ -191,6 +256,47 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/cws_TenantStructure"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "result_info": {
+              "$ref": "#/$defs/cws_ResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResultInfo": cws_ResultInfo_output,
+        "cws_TenantStructure": cws_TenantStructure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/tenant-structures`,
       query: [
@@ -243,6 +349,25 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/cws/tenant-structures/{structure_id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cws_TenantStructure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/cws_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cws_ErrorResponse": cws_ErrorResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_TenantStructure": cws_TenantStructure_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cws/tenant-structures/${pathParam(args, "structure_id")}`,

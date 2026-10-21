@@ -242,6 +242,477 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "properties": {
+              "properties": {
+                "completeness": {
+                  "properties": {
+                    "properties": {
+                      "properties": {
+                        "complete": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "failedDatasets": {
+                          "properties": {
+                            "items": {
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "failedShards": {
+                          "properties": {
+                            "items": {
+                              "properties": {
+                                "properties": {
+                                  "properties": {
+                                    "datasetId": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "shardId": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "datasetId",
+                                    "shardId"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "properties",
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "warnings": {
+                          "properties": {
+                            "items": {
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "complete",
+                        "failedDatasets",
+                        "failedShards",
+                        "warnings"
+                      ],
+                      "type": "object"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "properties",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "indicators": {
+                  "properties": {
+                    "items": {
+                      "properties": {
+                        "createdAt": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "datasetId": {
+                          "type": "string"
+                        },
+                        "indicatorType": {
+                          "type": "string"
+                        },
+                        "relatedEvents": {
+                          "items": {
+                            "properties": {
+                              "datasetId": {
+                                "type": "string"
+                              },
+                              "eventDate": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "eventId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "datasetId",
+                              "eventId"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "relatedEventsHasMore": {
+                          "type": "boolean"
+                        },
+                        "sources": {
+                          "items": {
+                            "properties": {
+                              "resourceId": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "resourceType": {
+                                "enum": [
+                                  "article"
+                                ],
+                                "type": "string"
+                              },
+                              "system": {
+                                "enum": [
+                                  "threat-signals"
+                                ],
+                                "type": "string"
+                              },
+                              "title": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "resourceId",
+                              "resourceType",
+                              "system",
+                              "title"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "tags": {
+                          "items": {
+                            "properties": {
+                              "categoryId": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "categoryName": {
+                                "type": "string"
+                              },
+                              "uuid": {
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "tlp": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "updatedAt": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "uuid": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "createdAt",
+                        "indicatorType",
+                        "sources",
+                        "updatedAt",
+                        "uuid",
+                        "value"
+                      ],
+                      "type": "object"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "pagination": {
+                  "properties": {
+                    "properties": {
+                      "properties": {
+                        "count": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "cursor": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "nullable": {
+                              "type": "boolean"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "description",
+                            "nullable",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "has_more": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "description",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "page": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "per_page": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "total_count": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "nullable": {
+                              "type": "boolean"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "description",
+                            "nullable",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "total_count_is_exact": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "description",
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "count",
+                        "cursor",
+                        "has_more",
+                        "page",
+                        "per_page",
+                        "total_count",
+                        "total_count_is_exact"
+                      ],
+                      "type": "object"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "properties",
+                    "type"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "completeness",
+                "indicators",
+                "pagination"
+              ],
+              "type": "object"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "properties",
+            "type"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/indicators`,
       query: [

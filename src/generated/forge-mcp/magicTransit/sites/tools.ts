@@ -2,7 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  magic_api_response_common_failure_output,
+  magic_identifier_output,
+  magic_messages_output,
+} from "../outputs.js";
 import { magic_identifier } from "../schemas.js";
+import {
+  magic_connector_id_output,
+  magic_secondary_connector_id_output,
+  magic_site_location_output,
+  magic_site_name_output,
+  magic_site_output,
+} from "./outputs.js";
 import {
   magic_connector_id,
   magic_secondary_connector_id,
@@ -64,6 +76,26 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_connector-id": magic_connector_id_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_secondary-connector-id": magic_secondary_connector_id_output,
+        "magic_site": magic_site_output,
+        "magic_site-location": magic_site_location_output,
+        "magic_site-name": magic_site_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -120,6 +152,26 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_connector-id": magic_connector_id_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_secondary-connector-id": magic_secondary_connector_id_output,
+        "magic_site": magic_site_output,
+        "magic_site-location": magic_site_location_output,
+        "magic_site-name": magic_site_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}`,
@@ -188,6 +240,26 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_connector-id": magic_connector_id_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_secondary-connector-id": magic_secondary_connector_id_output,
+        "magic_site": magic_site_output,
+        "magic_site-location": magic_site_location_output,
+        "magic_site-name": magic_site_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -251,6 +323,26 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_connector-id": magic_connector_id_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_secondary-connector-id": magic_secondary_connector_id_output,
+        "magic_site": magic_site_output,
+        "magic_site-location": magic_site_location_output,
+        "magic_site-name": magic_site_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}`,
       headers: [
@@ -303,6 +395,40 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_site"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_connector-id": magic_connector_id_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_secondary-connector-id": magic_secondary_connector_id_output,
+        "magic_site": magic_site_output,
+        "magic_site-location": magic_site_location_output,
+        "magic_site-name": magic_site_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites`,
@@ -373,6 +499,26 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_site"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_connector-id": magic_connector_id_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_secondary-connector-id": magic_secondary_connector_id_output,
+        "magic_site": magic_site_output,
+        "magic_site-location": magic_site_location_output,
+        "magic_site-name": magic_site_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}`,

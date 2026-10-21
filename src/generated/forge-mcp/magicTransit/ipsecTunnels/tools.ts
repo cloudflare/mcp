@@ -3,6 +3,22 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_api_response_common_failure_output,
+  magic_automatic_return_routing_output,
+  magic_bgp_config_output,
+  magic_bgp_status_with_state_output,
+  magic_health_check_base_target_output,
+  magic_health_check_target_output,
+  magic_identifier_output,
+  magic_interface_address6_output,
+  magic_interface_address_output,
+  magic_messages_output,
+  magic_schemas_created_on_output,
+  magic_schemas_identifier_output,
+  magic_schemas_modified_on_output,
+  magic_tunnel_health_check_output,
+} from "../outputs.js";
+import {
   magic_automatic_return_routing,
   magic_bgp_config,
   magic_health_check_base_target,
@@ -12,6 +28,19 @@ import {
   magic_interface_address6,
   magic_tunnel_health_check,
 } from "../schemas.js";
+import {
+  magic_allow_null_cipher_output,
+  magic_cloudflare_ipsec_endpoint_output,
+  magic_components_schemas_description_output,
+  magic_custom_remote_identities_output,
+  magic_customer_ipsec_endpoint_output,
+  magic_ipsec_tunnel_applied_psk_output,
+  magic_ipsec_tunnel_name_output,
+  magic_ipsec_tunnel_output,
+  magic_psk_metadata_output,
+  magic_psk_output,
+  magic_replay_protection_output,
+} from "./outputs.js";
 import {
   magic_cloudflare_ipsec_endpoint,
   magic_components_schemas_description,
@@ -73,6 +102,51 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_ipsec_tunnels": {
+              "items": {
+                "$ref": "#/$defs/magic_ipsec-tunnel"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_allow_null_cipher": magic_allow_null_cipher_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_ipsec_endpoint": magic_cloudflare_ipsec_endpoint_output,
+        "magic_components-schemas-description": magic_components_schemas_description_output,
+        "magic_custom_remote_identities": magic_custom_remote_identities_output,
+        "magic_customer_ipsec_endpoint": magic_customer_ipsec_endpoint_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_ipsec-tunnel": magic_ipsec_tunnel_output,
+        "magic_ipsec_tunnel_name": magic_ipsec_tunnel_name_output,
+        "magic_messages": magic_messages_output,
+        "magic_psk_metadata": magic_psk_metadata_output,
+        "magic_replay_protection": magic_replay_protection_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/ipsec_tunnels`,
@@ -144,6 +218,40 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_ipsec-tunnel"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_allow_null_cipher": magic_allow_null_cipher_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_ipsec_endpoint": magic_cloudflare_ipsec_endpoint_output,
+        "magic_components-schemas-description": magic_components_schemas_description_output,
+        "magic_custom_remote_identities": magic_custom_remote_identities_output,
+        "magic_customer_ipsec_endpoint": magic_customer_ipsec_endpoint_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_ipsec-tunnel": magic_ipsec_tunnel_output,
+        "magic_ipsec_tunnel_name": magic_ipsec_tunnel_name_output,
+        "magic_messages": magic_messages_output,
+        "magic_psk_metadata": magic_psk_metadata_output,
+        "magic_replay_protection": magic_replay_protection_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/ipsec_tunnels`,
       headers: [
@@ -197,6 +305,48 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_ipsec_tunnel": {
+              "$ref": "#/$defs/magic_ipsec-tunnel"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_allow_null_cipher": magic_allow_null_cipher_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_ipsec_endpoint": magic_cloudflare_ipsec_endpoint_output,
+        "magic_components-schemas-description": magic_components_schemas_description_output,
+        "magic_custom_remote_identities": magic_custom_remote_identities_output,
+        "magic_customer_ipsec_endpoint": magic_customer_ipsec_endpoint_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_ipsec-tunnel": magic_ipsec_tunnel_output,
+        "magic_ipsec_tunnel_name": magic_ipsec_tunnel_name_output,
+        "magic_messages": magic_messages_output,
+        "magic_psk_metadata": magic_psk_metadata_output,
+        "magic_replay_protection": magic_replay_protection_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/ipsec_tunnels/${pathParam(args, "ipsec_tunnel_id")}`,
@@ -253,6 +403,45 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "ipsec_tunnel": {
+              "$ref": "#/$defs/magic_ipsec-tunnel"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_allow_null_cipher": magic_allow_null_cipher_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_ipsec_endpoint": magic_cloudflare_ipsec_endpoint_output,
+        "magic_components-schemas-description": magic_components_schemas_description_output,
+        "magic_custom_remote_identities": magic_custom_remote_identities_output,
+        "magic_customer_ipsec_endpoint": magic_customer_ipsec_endpoint_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_ipsec-tunnel": magic_ipsec_tunnel_output,
+        "magic_ipsec_tunnel_name": magic_ipsec_tunnel_name_output,
+        "magic_messages": magic_messages_output,
+        "magic_psk_metadata": magic_psk_metadata_output,
+        "magic_replay_protection": magic_replay_protection_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/ipsec_tunnels/${pathParam(args, "ipsec_tunnel_id")}`,
       headers: [
@@ -303,6 +492,48 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "ipsec_tunnels": {
+              "items": {
+                "$ref": "#/$defs/magic_ipsec-tunnel"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_allow_null_cipher": magic_allow_null_cipher_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_ipsec_endpoint": magic_cloudflare_ipsec_endpoint_output,
+        "magic_components-schemas-description": magic_components_schemas_description_output,
+        "magic_custom_remote_identities": magic_custom_remote_identities_output,
+        "magic_customer_ipsec_endpoint": magic_customer_ipsec_endpoint_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_ipsec-tunnel": magic_ipsec_tunnel_output,
+        "magic_ipsec_tunnel_name": magic_ipsec_tunnel_name_output,
+        "magic_messages": magic_messages_output,
+        "magic_psk_metadata": magic_psk_metadata_output,
+        "magic_replay_protection": magic_replay_protection_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/ipsec_tunnels`,
       headers: [
@@ -351,6 +582,35 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "ipsec_tunnel_id": {
+              "$ref": "#/$defs/magic_identifier"
+            },
+            "psk": {
+              "$ref": "#/$defs/magic_psk"
+            },
+            "psk_metadata": {
+              "$ref": "#/$defs/magic_psk_metadata"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
+        "magic_psk": magic_psk_output,
+        "magic_psk_metadata": magic_psk_metadata_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/ipsec_tunnels/${pathParam(args, "ipsec_tunnel_id")}/psk_generate`,
@@ -406,6 +666,39 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "successfully_applied_psks": {
+              "additionalProperties": {
+                "$ref": "#/$defs/magic_ipsec_tunnel_applied_psk"
+              },
+              "type": "object"
+            },
+            "unapplied_psks": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ipsec_tunnel_applied_psk": magic_ipsec_tunnel_applied_psk_output,
+        "magic_messages": magic_messages_output,
+        "magic_psk": magic_psk_output,
+        "magic_psk_metadata": magic_psk_metadata_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/ipsec_tunnels/psk`,
@@ -481,6 +774,48 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_ipsec_tunnel": {
+              "$ref": "#/$defs/magic_ipsec-tunnel"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_allow_null_cipher": magic_allow_null_cipher_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_bgp_config": magic_bgp_config_output,
+        "magic_bgp_status_with_state": magic_bgp_status_with_state_output,
+        "magic_cloudflare_ipsec_endpoint": magic_cloudflare_ipsec_endpoint_output,
+        "magic_components-schemas-description": magic_components_schemas_description_output,
+        "magic_custom_remote_identities": magic_custom_remote_identities_output,
+        "magic_customer_ipsec_endpoint": magic_customer_ipsec_endpoint_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interface_address": magic_interface_address_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_ipsec-tunnel": magic_ipsec_tunnel_output,
+        "magic_ipsec_tunnel_name": magic_ipsec_tunnel_name_output,
+        "magic_messages": magic_messages_output,
+        "magic_psk_metadata": magic_psk_metadata_output,
+        "magic_replay_protection": magic_replay_protection_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_tunnel_health_check": magic_tunnel_health_check_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/ipsec_tunnels/${pathParam(args, "ipsec_tunnel_id")}`,

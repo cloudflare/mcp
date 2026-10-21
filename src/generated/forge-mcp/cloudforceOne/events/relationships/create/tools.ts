@@ -76,6 +76,125 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "childIds": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "errors": {
+              "items": {
+                "properties": {
+                  "childId": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "errorType": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "childId",
+                  "error"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "message": {
+              "type": "string"
+            },
+            "relationships": {
+              "items": {
+                "properties": {
+                  "childDatasetId": {
+                    "type": "string"
+                  },
+                  "childId": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "parentDatasetId": {
+                    "type": "string"
+                  },
+                  "parentId": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "relationshipType": {
+                    "enum": [
+                      "related_to",
+                      "caused_by",
+                      "attributed_to"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "childDatasetId",
+                  "childId",
+                  "parentDatasetId",
+                  "parentId",
+                  "relationshipType"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "relationshipsCreated": {
+              "type": "number"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "message",
+            "relationships",
+            "success"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/relationships/create`,
       body: { value: args["body"], mediaType: "application/json" },

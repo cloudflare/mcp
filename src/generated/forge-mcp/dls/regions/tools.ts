@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  dls_bad_response_output,
+  dls_coded_message_output,
+  dls_none_output,
+} from "../outputs.js";
+import {
+  dls_RegionPublicPaginatedListResponse_result_info_output,
+  dls_RegionPublic_output,
+} from "./outputs.js";
 
 /**
  * The tools of `dls.regions`.
@@ -37,6 +46,31 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/dls/regions/{region_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dls_RegionPublic"
+        },
+        "401": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "404": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/dls_bad_response"
+        }
+      },
+      $defs: {
+        "dls_RegionPublic": dls_RegionPublic_output,
+        "dls_bad_response": dls_bad_response_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_none": dls_none_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dls/regions/${pathParam(args, "region_id")}`,
     }),
@@ -82,6 +116,46 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/dls/regions",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dls_RegionPublic"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/dls_RegionPublicPaginatedListResponse_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "401": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "403": {
+          "$ref": "#/$defs/dls_bad_response"
+        },
+        "500": {
+          "$ref": "#/$defs/dls_bad_response"
+        }
+      },
+      $defs: {
+        "dls_RegionPublic": dls_RegionPublic_output,
+        "dls_RegionPublicPaginatedListResponse_result_info": dls_RegionPublicPaginatedListResponse_result_info_output,
+        "dls_bad_response": dls_bad_response_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_none": dls_none_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dls/regions`,
       query: [

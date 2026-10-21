@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  zones_api_response_common_failure_2_output,
+  zones_messages_2_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `zones.holds`.
@@ -40,6 +44,31 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zone Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "hold": {
+              "type": "boolean"
+            },
+            "hold_after": {
+              "type": "string"
+            },
+            "include_subdomains": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_messages-2": zones_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/hold`,
@@ -81,6 +110,31 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zone Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "hold": {
+              "type": "boolean"
+            },
+            "hold_after": {
+              "type": "string"
+            },
+            "include_subdomains": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_messages-2": zones_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/hold`,
@@ -149,6 +203,31 @@ export const tools: readonly Tool[] = [
           "default": null
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "hold": {
+              "type": "boolean"
+            },
+            "hold_after": {
+              "type": "string"
+            },
+            "include_subdomains": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_messages-2": zones_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/hold`,
@@ -222,6 +301,31 @@ export const tools: readonly Tool[] = [
         "Access: Apps and Policies Write",
         "Access: Apps and Policies Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "hold": {
+              "type": "boolean"
+            },
+            "hold_after": {
+              "type": "string"
+            },
+            "include_subdomains": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_messages-2": zones_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/hold`,

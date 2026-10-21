@@ -2,6 +2,28 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  pages_api_response_common_failure_output,
+  pages_build_config_output,
+  pages_deployment_config_values_limits_output,
+  pages_deployment_config_values_output,
+  pages_deployment_config_values_placement_output,
+  pages_deployment_deployment_trigger_metadata_output,
+  pages_deployment_deployment_trigger_output,
+  pages_deployment_output,
+  pages_env_vars_output,
+  pages_messages_output,
+  pages_plain_text_env_var_output,
+  pages_project_build_image_auto_upgrade_output,
+  pages_project_deployment_configs_output,
+  pages_project_name_output,
+  pages_project_output,
+  pages_secret_text_env_var_output,
+  pages_source_config_output,
+  pages_source_output,
+  pages_source_type_output,
+  pages_stage_output,
+} from "../outputs.js";
 import { pages_source_config, pages_source_type } from "../schemas.js";
 import { pages_source_connect_request } from "./schemas.js";
 
@@ -53,6 +75,38 @@ export const tools: readonly Tool[] = [
         "Pages Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pages_project"
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_config_values": pages_deployment_config_values_output,
+        "pages_deployment_config_values_limits": pages_deployment_config_values_limits_output,
+        "pages_deployment_config_values_placement": pages_deployment_config_values_placement_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_messages": pages_messages_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project": pages_project_output,
+        "pages_project_build_image_auto_upgrade": pages_project_build_image_auto_upgrade_output,
+        "pages_project_deployment_configs": pages_project_deployment_configs_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/source`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -92,6 +146,38 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Pages Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pages_project"
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_config_values": pages_deployment_config_values_output,
+        "pages_deployment_config_values_limits": pages_deployment_config_values_limits_output,
+        "pages_deployment_config_values_placement": pages_deployment_config_values_placement_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_messages": pages_messages_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project": pages_project_output,
+        "pages_project_build_image_auto_upgrade": pages_project_build_image_auto_upgrade_output,
+        "pages_project_deployment_configs": pages_project_deployment_configs_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/source`,

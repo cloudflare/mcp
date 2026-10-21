@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  logpush_api_response_common_failure_output,
+  logpush_messages_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `logpush.account_datasets.fields`.
@@ -66,6 +70,23 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logpush/datasets/${pathParam(args, "dataset_id")}/fields`,

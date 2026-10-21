@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  one_ApplicationDetail_output,
+  one_ApplicationList_output,
+  one_AuthMethodSummary_output,
+  one_AuthMethod_output,
+  one_FeatureScope_output,
+  one_PaginatedApplicationListList_result_info_output,
+  one_Permission_output,
+  one_UseCaseDetail_output,
+  one_UseCaseSummary_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.casb.applications`.
@@ -58,6 +69,21 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/one_ApplicationDetail"
+        },
+        "404": null
+      },
+      $defs: {
+        "one_ApplicationDetail": one_ApplicationDetail_output,
+        "one_AuthMethod": one_AuthMethod_output,
+        "one_FeatureScope": one_FeatureScope_output,
+        "one_Permission": one_Permission_output,
+        "one_UseCaseDetail": one_UseCaseDetail_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/applications/${pathParam(args, "application_id")}`,
     }),
@@ -101,6 +127,35 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/one/applications",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/one_ApplicationList"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/one_PaginatedApplicationListList_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": null
+      },
+      $defs: {
+        "one_ApplicationList": one_ApplicationList_output,
+        "one_AuthMethodSummary": one_AuthMethodSummary_output,
+        "one_PaginatedApplicationListList_result_info": one_PaginatedApplicationListList_result_info_output,
+        "one_Permission": one_Permission_output,
+        "one_UseCaseSummary": one_UseCaseSummary_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/applications`,

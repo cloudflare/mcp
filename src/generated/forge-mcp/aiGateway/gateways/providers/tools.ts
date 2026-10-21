@@ -90,6 +90,93 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "alias": {
+              "type": "string"
+            },
+            "default_config": {
+              "type": "boolean"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "provider_slug": {
+              "type": "string"
+            },
+            "rate_limit": {
+              "type": "number"
+            },
+            "rate_limit_period": {
+              "type": "number"
+            },
+            "secret_id": {
+              "type": "string"
+            },
+            "secret_preview": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "alias",
+            "default_config",
+            "gateway_id",
+            "id",
+            "modified_at",
+            "provider_slug",
+            "secret_id",
+            "secret_preview"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/provider_configs`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -149,6 +236,86 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "alias": {
+              "type": "string"
+            },
+            "default_config": {
+              "type": "boolean"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "provider_slug": {
+              "type": "string"
+            },
+            "rate_limit": {
+              "type": "number"
+            },
+            "rate_limit_period": {
+              "type": "number"
+            },
+            "secret_id": {
+              "type": "string"
+            },
+            "secret_preview": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "alias",
+            "default_config",
+            "gateway_id",
+            "id",
+            "modified_at",
+            "provider_slug",
+            "secret_id",
+            "secret_preview"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/provider_configs/${pathParam(args, "id")}`,
     }),
@@ -203,6 +370,86 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "alias": {
+              "type": "string"
+            },
+            "default_config": {
+              "type": "boolean"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "provider_slug": {
+              "type": "string"
+            },
+            "rate_limit": {
+              "type": "number"
+            },
+            "rate_limit_period": {
+              "type": "number"
+            },
+            "secret_id": {
+              "type": "string"
+            },
+            "secret_preview": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "alias",
+            "default_config",
+            "gateway_id",
+            "id",
+            "modified_at",
+            "provider_slug",
+            "secret_id",
+            "secret_preview"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/provider_configs/${pathParam(args, "id")}`,
@@ -262,6 +509,100 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "alias": {
+                    "type": "string"
+                  },
+                  "default_config": {
+                    "type": "boolean"
+                  },
+                  "gateway_id": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "modified_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "provider_slug": {
+                    "type": "string"
+                  },
+                  "rate_limit": {
+                    "type": "number"
+                  },
+                  "rate_limit_period": {
+                    "type": "number"
+                  },
+                  "secret_id": {
+                    "type": "string"
+                  },
+                  "secret_preview": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "alias",
+                  "default_config",
+                  "gateway_id",
+                  "id",
+                  "modified_at",
+                  "provider_slug",
+                  "secret_id",
+                  "secret_preview"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/provider_configs`,
@@ -336,6 +677,123 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "alias": {
+              "type": "string"
+            },
+            "default_config": {
+              "type": "boolean"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "provider_slug": {
+              "type": "string"
+            },
+            "rate_limit": {
+              "type": "number"
+            },
+            "rate_limit_period": {
+              "type": "number"
+            },
+            "secret_id": {
+              "type": "string"
+            },
+            "secret_preview": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "alias",
+            "default_config",
+            "gateway_id",
+            "id",
+            "modified_at",
+            "provider_slug",
+            "secret_id",
+            "secret_preview"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-gateway/gateways/${pathParam(args, "gateway_id")}/provider_configs/${pathParam(args, "id")}`,

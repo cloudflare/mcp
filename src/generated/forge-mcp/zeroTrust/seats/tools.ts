@@ -3,6 +3,17 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+  access_timestamp_output,
+} from "../outputs.js";
+import {
+  access_access_seat_output,
+  access_gateway_seat_output,
+  access_seat_uid_output,
+  access_seats_output,
+} from "./outputs.js";
+import {
   access_access_seat,
   access_gateway_seat,
   access_seat,
@@ -53,6 +64,56 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust: Seats Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_seats"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_access_seat": access_access_seat_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_gateway_seat": access_gateway_seat_output,
+        "access_messages": access_messages_output,
+        "access_seat_uid": access_seat_uid_output,
+        "access_seats": access_seats_output,
+        "access_timestamp": access_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/seats`,

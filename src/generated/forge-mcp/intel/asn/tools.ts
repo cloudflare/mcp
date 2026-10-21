@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  intel_api_response_common_failure_output,
+  intel_messages_output,
+  intel_schemas_messages_output,
+} from "../outputs.js";
+import {
+  intel_asn_components_schemas_response_output,
+  intel_asn_output,
+} from "./outputs.js";
 
 /**
  * The tools of `intel.asn`.
@@ -41,6 +50,30 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/intel_asn"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/intel_asn_components-schemas-response"
+            },
+            {
+              "$ref": "#/$defs/intel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_asn": intel_asn_output,
+        "intel_asn_components-schemas-response": intel_asn_components_schemas_response_output,
+        "intel_messages": intel_messages_output,
+        "intel_schemas-messages": intel_schemas_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/asn/${pathParam(args, "asn")}`,

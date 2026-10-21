@@ -2,7 +2,33 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  addressing_api_response_common_failure_output,
+  addressing_messages_output,
+  addressing_timestamp_output,
+} from "../../outputs.js";
+import {
+  addressing_api_response_common_output,
+  addressing_cidr_output,
+  addressing_modified_at_nullable_output,
+} from "../outputs.js";
 import { addressing_cidr } from "../schemas.js";
+import {
+  addressing_advertised_2_output,
+  addressing_asn_2_output,
+  addressing_asn_prepend_count_output,
+  addressing_auto_advertise_withdraw_output,
+  addressing_bgp_on_demand_output,
+  addressing_bgp_prefix_identifier_output,
+  addressing_bgp_signal_opts_output,
+  addressing_bgp_signaling_enabled_output,
+  addressing_bgp_signaling_modified_at_output,
+  addressing_ipam_bgp_prefixes_output,
+  addressing_on_demand_enabled_2_output,
+  addressing_on_demand_locked_2_output,
+  addressing_response_collection_bgp_output,
+  addressing_single_response_bgp_output,
+} from "./outputs.js";
 import {
   addressing_asn_prepend_count,
   addressing_auto_advertise_withdraw,
@@ -53,6 +79,43 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes",
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_single_response_bgp"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_advertised-2": addressing_advertised_2_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_asn-2": addressing_asn_2_output,
+        "addressing_asn_prepend_count": addressing_asn_prepend_count_output,
+        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw_output,
+        "addressing_bgp_on_demand": addressing_bgp_on_demand_output,
+        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier_output,
+        "addressing_bgp_signal_opts": addressing_bgp_signal_opts_output,
+        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled_output,
+        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_ipam-bgp-prefixes": addressing_ipam_bgp_prefixes_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_modified_at_nullable": addressing_modified_at_nullable_output,
+        "addressing_on_demand_enabled-2": addressing_on_demand_enabled_2_output,
+        "addressing_on_demand_locked-2": addressing_on_demand_locked_2_output,
+        "addressing_single_response_bgp": addressing_single_response_bgp_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bgp/prefixes`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -93,6 +156,21 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes/{bgp_prefix_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/addressing_api-response-common"
+        },
+        "4XX": {
+          "$ref": "#/$defs/addressing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bgp/prefixes/${pathParam(args, "bgp_prefix_id")}`,
     }),
@@ -149,6 +227,43 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: BGP On Demand Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_single_response_bgp"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_advertised-2": addressing_advertised_2_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_asn-2": addressing_asn_2_output,
+        "addressing_asn_prepend_count": addressing_asn_prepend_count_output,
+        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw_output,
+        "addressing_bgp_on_demand": addressing_bgp_on_demand_output,
+        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier_output,
+        "addressing_bgp_signal_opts": addressing_bgp_signal_opts_output,
+        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled_output,
+        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_ipam-bgp-prefixes": addressing_ipam_bgp_prefixes_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_modified_at_nullable": addressing_modified_at_nullable_output,
+        "addressing_on_demand_enabled-2": addressing_on_demand_enabled_2_output,
+        "addressing_on_demand_locked-2": addressing_on_demand_locked_2_output,
+        "addressing_single_response_bgp": addressing_single_response_bgp_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bgp/prefixes/${pathParam(args, "bgp_prefix_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -199,6 +314,43 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: BGP On Demand Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_single_response_bgp"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_advertised-2": addressing_advertised_2_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_asn-2": addressing_asn_2_output,
+        "addressing_asn_prepend_count": addressing_asn_prepend_count_output,
+        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw_output,
+        "addressing_bgp_on_demand": addressing_bgp_on_demand_output,
+        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier_output,
+        "addressing_bgp_signal_opts": addressing_bgp_signal_opts_output,
+        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled_output,
+        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_ipam-bgp-prefixes": addressing_ipam_bgp_prefixes_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_modified_at_nullable": addressing_modified_at_nullable_output,
+        "addressing_on_demand_enabled-2": addressing_on_demand_enabled_2_output,
+        "addressing_on_demand_locked-2": addressing_on_demand_locked_2_output,
+        "addressing_single_response_bgp": addressing_single_response_bgp_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bgp/prefixes/${pathParam(args, "bgp_prefix_id")}`,
     }),
@@ -242,6 +394,57 @@ export const tools: readonly Tool[] = [
         "IP Prefixes: BGP On Demand Write",
         "IP Prefixes: BGP On Demand Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_response_collection_bgp"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_advertised-2": addressing_advertised_2_output,
+        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_asn-2": addressing_asn_2_output,
+        "addressing_asn_prepend_count": addressing_asn_prepend_count_output,
+        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw_output,
+        "addressing_bgp_on_demand": addressing_bgp_on_demand_output,
+        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier_output,
+        "addressing_bgp_signal_opts": addressing_bgp_signal_opts_output,
+        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled_output,
+        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_ipam-bgp-prefixes": addressing_ipam_bgp_prefixes_output,
+        "addressing_messages": addressing_messages_output,
+        "addressing_modified_at_nullable": addressing_modified_at_nullable_output,
+        "addressing_on_demand_enabled-2": addressing_on_demand_enabled_2_output,
+        "addressing_on_demand_locked-2": addressing_on_demand_locked_2_output,
+        "addressing_response_collection_bgp": addressing_response_collection_bgp_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/addressing/prefixes/${pathParam(args, "prefix_id")}/bgp/prefixes`,

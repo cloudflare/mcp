@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_messages_output,
+} from "../../outputs.js";
+import {
+  tls_certificates_and_hostnames_dcv_delegation_response_output,
+  tls_certificates_and_hostnames_uuidObject_output,
+  tls_certificates_and_hostnames_uuid_output,
+} from "./outputs.js";
 
 /**
  * The tools of `ssl.dcv_delegation`.
@@ -43,6 +52,30 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_uuidObject"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_dcv_delegation_response"
+            },
+            {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_dcv_delegation_response": tls_certificates_and_hostnames_dcv_delegation_response_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_uuid": tls_certificates_and_hostnames_uuid_output,
+        "tls-certificates-and-hostnames_uuidObject": tls_certificates_and_hostnames_uuidObject_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dcv_delegation/uuid`,

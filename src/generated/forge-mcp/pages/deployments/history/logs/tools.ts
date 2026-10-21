@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  pages_api_response_common_failure_output,
+  pages_messages_output,
+} from "../../../outputs.js";
+import {
+  pages_deployment_log_dataItem_output,
+  pages_deployment_log_output,
+} from "./outputs.js";
 
 /**
  * The tools of `pages.deployments.history.logs`.
@@ -47,6 +55,22 @@ export const tools: readonly Tool[] = [
         "Pages Read",
         "Pages Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pages_deployment_log"
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common-failure": pages_api_response_common_failure_output,
+        "pages_deployment_log": pages_deployment_log_output,
+        "pages_deployment_log_dataItem": pages_deployment_log_dataItem_output,
+        "pages_messages": pages_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/deployments/${pathParam(args, "deployment_id")}/history/logs`,

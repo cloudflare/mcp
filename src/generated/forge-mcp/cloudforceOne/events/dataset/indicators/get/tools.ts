@@ -48,6 +48,140 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "createdAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "datasetId": {
+              "type": "string"
+            },
+            "indicatorType": {
+              "type": "string"
+            },
+            "relatedEvents": {
+              "items": {
+                "properties": {
+                  "datasetId": {
+                    "type": "string"
+                  },
+                  "eventDate": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "eventId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "datasetId",
+                  "eventId"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "relatedEventsHasMore": {
+              "type": "boolean"
+            },
+            "tags": {
+              "items": {
+                "properties": {
+                  "categoryId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "categoryName": {
+                    "type": "string"
+                  },
+                  "uuid": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "tlp": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "updatedAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "createdAt",
+            "indicatorType",
+            "updatedAt",
+            "uuid",
+            "value"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/${pathParam(args, "dataset_id")}/indicators/${pathParam(args, "indicator_id")}`,
     }),

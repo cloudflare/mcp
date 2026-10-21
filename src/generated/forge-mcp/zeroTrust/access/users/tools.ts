@@ -2,7 +2,23 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+  access_timestamp_output,
+  access_uuid_output,
+} from "../../outputs.js";
+import { access_email_2_output, access_name_10_output } from "../outputs.js";
 import { access_email_2, access_name_10 } from "../schemas.js";
+import {
+  access_access_seat_2_output,
+  access_active_device_count_output,
+  access_gateway_seat_2_output,
+  access_last_successful_login_output,
+  access_seat_uid_2_output,
+  access_uid_output,
+  access_users_2_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.users`.
@@ -57,6 +73,31 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": null
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_users-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_access_seat-2": access_access_seat_2_output,
+        "access_active_device_count": access_active_device_count_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_email-2": access_email_2_output,
+        "access_gateway_seat-2": access_gateway_seat_2_output,
+        "access_last_successful_login": access_last_successful_login_output,
+        "access_messages": access_messages_output,
+        "access_name-10": access_name_10_output,
+        "access_seat_uid-2": access_seat_uid_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_uid": access_uid_output,
+        "access_users-2": access_users_2_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/users`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -94,6 +135,27 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/access/users/{user_id}",
     extensions: {
       "x-api-token-group": null
+    },
+    responses: {
+      schemas: {
+        "202": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/users/${pathParam(args, "user_id")}`,
@@ -133,6 +195,31 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Audit Logs Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_users-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_access_seat-2": access_access_seat_2_output,
+        "access_active_device_count": access_active_device_count_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_email-2": access_email_2_output,
+        "access_gateway_seat-2": access_gateway_seat_2_output,
+        "access_last_successful_login": access_last_successful_login_output,
+        "access_messages": access_messages_output,
+        "access_name-10": access_name_10_output,
+        "access_seat_uid-2": access_seat_uid_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_uid": access_uid_output,
+        "access_users-2": access_users_2_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/users/${pathParam(args, "user_id")}`,
@@ -189,6 +276,59 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Audit Logs Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_users-2"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_access_seat-2": access_access_seat_2_output,
+        "access_active_device_count": access_active_device_count_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_email-2": access_email_2_output,
+        "access_gateway_seat-2": access_gateway_seat_2_output,
+        "access_last_successful_login": access_last_successful_login_output,
+        "access_messages": access_messages_output,
+        "access_name-10": access_name_10_output,
+        "access_seat_uid-2": access_seat_uid_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_uid": access_uid_output,
+        "access_users-2": access_users_2_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/users`,
@@ -265,6 +405,24 @@ export const tools: readonly Tool[] = [
         "Access: Organizations, Identity Providers, and Groups Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "enum": [
+            true,
+            false
+          ],
+          "type": "boolean"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/organizations/revoke_user`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -326,6 +484,31 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust: Seats Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_users-2"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_access_seat-2": access_access_seat_2_output,
+        "access_active_device_count": access_active_device_count_output,
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_email-2": access_email_2_output,
+        "access_gateway_seat-2": access_gateway_seat_2_output,
+        "access_last_successful_login": access_last_successful_login_output,
+        "access_messages": access_messages_output,
+        "access_name-10": access_name_10_output,
+        "access_seat_uid-2": access_seat_uid_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_uid": access_uid_output,
+        "access_users-2": access_users_2_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/users/${pathParam(args, "user_id")}`,

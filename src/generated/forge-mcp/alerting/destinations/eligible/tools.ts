@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  aaa_api_response_common_failure_3_output,
+  aaa_messages_3_output,
+} from "../../outputs.js";
+import {
+  aaa_eligibility_output,
+  aaa_eligible_output,
+  aaa_ready_output,
+  aaa_schemas_type_output,
+} from "./outputs.js";
 
 /**
  * The tools of `alerting.destinations.eligible`.
@@ -32,6 +42,30 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/alerting/v3/destinations/eligible",
+    responses: {
+      schemas: {
+        "200": {
+          "additionalProperties": {
+            "items": {
+              "$ref": "#/$defs/aaa_eligibility"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-3"
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_eligibility": aaa_eligibility_output,
+        "aaa_eligible": aaa_eligible_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_ready": aaa_ready_output,
+        "aaa_schemas-type": aaa_schemas_type_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/destinations/eligible`,
     }),

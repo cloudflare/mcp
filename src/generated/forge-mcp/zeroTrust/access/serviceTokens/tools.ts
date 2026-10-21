@@ -3,6 +3,25 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_common_failure_output,
+  access_created_at_output,
+  access_messages_output,
+  access_timestamp_output,
+  access_updated_at_output,
+  access_uuid_output,
+} from "../../outputs.js";
+import {
+  access_client_id_output,
+  access_client_secret_output,
+  access_duration_output,
+  access_enabled_output,
+  access_leak_report_url_output,
+  access_leak_reported_at_output,
+  access_leak_reporter_output,
+  access_name_2_output,
+  access_service_tokens_output,
+} from "./outputs.js";
+import {
   access_client_secret_version,
   access_duration,
   access_enabled,
@@ -91,6 +110,54 @@ export const tools: readonly Tool[] = [
         "Access: Service Tokens Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "client_id": {
+              "$ref": "#/$defs/access_client_id"
+            },
+            "client_secret": {
+              "$ref": "#/$defs/access_client_secret"
+            },
+            "created_at": {
+              "$ref": "#/$defs/access_created_at"
+            },
+            "duration": {
+              "$ref": "#/$defs/access_duration"
+            },
+            "enabled": {
+              "$ref": "#/$defs/access_enabled"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "$ref": "#/$defs/access_name-2"
+            },
+            "updated_at": {
+              "$ref": "#/$defs/access_updated_at"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_client_id": access_client_id_output,
+        "access_client_secret": access_client_secret_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/service_tokens`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -140,6 +207,32 @@ export const tools: readonly Tool[] = [
         "Access: Service Tokens Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_service-tokens"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/service_tokens/${pathParam(args, "service_token_id")}`,
     }),
@@ -188,6 +281,32 @@ export const tools: readonly Tool[] = [
         "Access: Service Tokens Write",
         "Access: Service Tokens Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_service-tokens"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/service_tokens/${pathParam(args, "service_token_id")}`,
@@ -251,6 +370,63 @@ export const tools: readonly Tool[] = [
         "Access: Service Tokens Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_service-tokens"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/service_tokens`,
       query: [
@@ -296,6 +472,32 @@ export const tools: readonly Tool[] = [
         "Access: Service Tokens Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_service-tokens"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/service_tokens/${pathParam(args, "service_token_id")}/refresh`,
     }),
@@ -340,6 +542,54 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/access/service_tokens/{service_token_id}/rotate",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "client_id": {
+              "$ref": "#/$defs/access_client_id"
+            },
+            "client_secret": {
+              "$ref": "#/$defs/access_client_secret"
+            },
+            "created_at": {
+              "$ref": "#/$defs/access_created_at"
+            },
+            "duration": {
+              "$ref": "#/$defs/access_duration"
+            },
+            "enabled": {
+              "$ref": "#/$defs/access_enabled"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "$ref": "#/$defs/access_name-2"
+            },
+            "updated_at": {
+              "$ref": "#/$defs/access_updated_at"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_client_id": access_client_id_output,
+        "access_client_secret": access_client_secret_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/service_tokens/${pathParam(args, "service_token_id")}/rotate`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -423,6 +673,32 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Service Tokens Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_service-tokens"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/service_tokens/${pathParam(args, "service_token_id")}`,

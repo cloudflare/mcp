@@ -3,16 +3,35 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_endpoint_output,
+  api_shield_host_output,
+  api_shield_messages_output,
+  api_shield_method_output,
+  api_shield_timestamp_2_output,
+  api_shield_timestamp_output,
+  api_shield_uuid_2_output,
+  api_shield_uuid_output,
+} from "../../../outputs.js";
+import {
   api_shield_identifier,
   api_shield_identifier_2,
   api_shield_uuid,
   api_shield_uuid_2,
 } from "../../../schemas.js";
 import {
+  api_shield_label_description_output,
+  api_shield_label_metadata_output,
+  api_shield_label_name_output,
+  api_shield_label_output,
+  api_shield_label_source_output,
+} from "../../outputs.js";
+import {
   api_shield_label_name,
   api_shield_operation_id_selector,
   api_shield_operation_id_selector_include,
 } from "../../schemas.js";
+import { api_shield_operation_with_labels_only_output } from "./outputs.js";
 import {
   api_shield_bulk_delete_labels_on_operation_request,
   api_shield_bulk_delete_labels_on_operation_request_managed,
@@ -78,6 +97,47 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_operation_with_labels_only"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/operations/labels`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -128,6 +188,47 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_operation_with_labels_only"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/operations/labels`,
@@ -180,6 +281,47 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_operation_with_labels_only"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/operations/labels`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -230,6 +372,33 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/api-shield_operation_with_labels_only"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/operations/${pathParam(args, "operation_id")}/labels`,
@@ -282,6 +451,33 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/api-shield_operation_with_labels_only"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/operations/${pathParam(args, "operation_id")}/labels`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -332,6 +528,33 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/api-shield_operation_with_labels_only"
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/api_gateway/operations/${pathParam(args, "operation_id")}/labels`,

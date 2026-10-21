@@ -3,6 +3,35 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+  zero_trust_gateway_read_only_timestamp_output,
+} from "../../outputs.js";
+import {
+  zero_trust_gateway_activity_log_settings_output,
+  zero_trust_gateway_anti_virus_settings_output,
+  zero_trust_gateway_block_page_settings_output,
+  zero_trust_gateway_body_scanning_settings_output,
+  zero_trust_gateway_browser_isolation_settings_output,
+  zero_trust_gateway_certificate_settings_output,
+  zero_trust_gateway_custom_certificate_settings_output,
+  zero_trust_gateway_enabled_download_phase_output,
+  zero_trust_gateway_enabled_upload_phase_output,
+  zero_trust_gateway_extended_email_matching_output,
+  zero_trust_gateway_fail_closed_output,
+  zero_trust_gateway_fips_settings_output,
+  zero_trust_gateway_gateway_account_config_output,
+  zero_trust_gateway_gateway_account_settings_output,
+  zero_trust_gateway_gateway_account_settings_settings_output,
+  zero_trust_gateway_host_selector_settings_output,
+  zero_trust_gateway_inspection_settings_output,
+  zero_trust_gateway_max_ttl_secs_output,
+  zero_trust_gateway_notification_settings_output,
+  zero_trust_gateway_protocol_detection_output,
+  zero_trust_gateway_sandbox_output,
+  zero_trust_gateway_tls_settings_output,
+} from "./outputs.js";
+import {
   zero_trust_gateway_activity_log_settings,
   zero_trust_gateway_anti_virus_settings,
   zero_trust_gateway_block_page_settings,
@@ -82,6 +111,65 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/gateway/configuration",
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
+            },
+            {
+              "properties": {
+                "created_at": {
+                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                },
+                "updated_at": {
+                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway_account_config"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
+        "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
+        "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
+        "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
+        "zero-trust-gateway_certificate-settings": zero_trust_gateway_certificate_settings_output,
+        "zero-trust-gateway_custom-certificate-settings": zero_trust_gateway_custom_certificate_settings_output,
+        "zero-trust-gateway_enabled_download_phase": zero_trust_gateway_enabled_download_phase_output,
+        "zero-trust-gateway_enabled_upload_phase": zero_trust_gateway_enabled_upload_phase_output,
+        "zero-trust-gateway_extended-email-matching": zero_trust_gateway_extended_email_matching_output,
+        "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
+        "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
+        "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
+        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
+        "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
+        "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
+        "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,
+        "zero-trust-gateway_max-ttl-secs": zero_trust_gateway_max_ttl_secs_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_notification_settings": zero_trust_gateway_notification_settings_output,
+        "zero-trust-gateway_protocol-detection": zero_trust_gateway_protocol_detection_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_sandbox": zero_trust_gateway_sandbox_output,
+        "zero-trust-gateway_tls-settings": zero_trust_gateway_tls_settings_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/configuration`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -112,6 +200,65 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/gateway/configuration",
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
+            },
+            {
+              "properties": {
+                "created_at": {
+                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                },
+                "updated_at": {
+                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway_account_config"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
+        "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
+        "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
+        "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
+        "zero-trust-gateway_certificate-settings": zero_trust_gateway_certificate_settings_output,
+        "zero-trust-gateway_custom-certificate-settings": zero_trust_gateway_custom_certificate_settings_output,
+        "zero-trust-gateway_enabled_download_phase": zero_trust_gateway_enabled_download_phase_output,
+        "zero-trust-gateway_enabled_upload_phase": zero_trust_gateway_enabled_upload_phase_output,
+        "zero-trust-gateway_extended-email-matching": zero_trust_gateway_extended_email_matching_output,
+        "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
+        "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
+        "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
+        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
+        "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
+        "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
+        "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,
+        "zero-trust-gateway_max-ttl-secs": zero_trust_gateway_max_ttl_secs_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_notification_settings": zero_trust_gateway_notification_settings_output,
+        "zero-trust-gateway_protocol-detection": zero_trust_gateway_protocol_detection_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_sandbox": zero_trust_gateway_sandbox_output,
+        "zero-trust-gateway_tls-settings": zero_trust_gateway_tls_settings_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/configuration`,
     }),
@@ -168,6 +315,65 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/gateway/configuration",
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
+            },
+            {
+              "properties": {
+                "created_at": {
+                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                },
+                "updated_at": {
+                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway_account_config"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
+        "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
+        "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
+        "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
+        "zero-trust-gateway_certificate-settings": zero_trust_gateway_certificate_settings_output,
+        "zero-trust-gateway_custom-certificate-settings": zero_trust_gateway_custom_certificate_settings_output,
+        "zero-trust-gateway_enabled_download_phase": zero_trust_gateway_enabled_download_phase_output,
+        "zero-trust-gateway_enabled_upload_phase": zero_trust_gateway_enabled_upload_phase_output,
+        "zero-trust-gateway_extended-email-matching": zero_trust_gateway_extended_email_matching_output,
+        "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
+        "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
+        "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
+        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
+        "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
+        "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
+        "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,
+        "zero-trust-gateway_max-ttl-secs": zero_trust_gateway_max_ttl_secs_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_notification_settings": zero_trust_gateway_notification_settings_output,
+        "zero-trust-gateway_protocol-detection": zero_trust_gateway_protocol_detection_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_sandbox": zero_trust_gateway_sandbox_output,
+        "zero-trust-gateway_tls-settings": zero_trust_gateway_tls_settings_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/configuration`,
       body: { value: args["body"], mediaType: "application/json" },

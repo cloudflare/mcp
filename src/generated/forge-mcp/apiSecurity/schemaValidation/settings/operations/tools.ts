@@ -3,10 +3,25 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
+  api_shield_messages_output,
+  api_shield_uuid_2_output,
+  api_shield_uuid_output,
+} from "../../../../outputs.js";
+import {
   api_shield_identifier,
   api_shield_identifier_2,
   api_shield_uuid,
 } from "../../../../schemas.js";
+import {
+  api_shield_api_response_collection_output,
+  api_shield_api_response_collection_result_info_output,
+} from "../../../outputs.js";
+import {
+  api_shield_per_operation_setting_change_base_output,
+  api_shield_per_operation_setting_output,
+} from "./outputs.js";
 import { api_shield_per_operation_settings_bulk_edit_value } from "./schemas.js";
 
 /**
@@ -55,6 +70,40 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "additionalProperties": {
+                    "$ref": "#/$defs/api-shield_per_operation_setting_change_base"
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_per_operation_setting_change_base": api_shield_per_operation_setting_change_base_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/schema_validation/settings/operations`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -99,6 +148,43 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "operation_id": {
+                      "$ref": "#/$defs/api-shield_uuid-2"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/schema_validation/settings/operations/${pathParam(args, "operation_id")}`,
@@ -145,6 +231,39 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_per_operation_setting"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_per_operation_setting": api_shield_per_operation_setting_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/schema_validation/settings/operations/${pathParam(args, "operation_id")}`,
@@ -195,6 +314,43 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/api-shield_per_operation_setting"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_per_operation_setting": api_shield_per_operation_setting_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/schema_validation/settings/operations`,
@@ -268,6 +424,39 @@ export const tools: readonly Tool[] = [
         "Account API Gateway",
         "Domain API Gateway"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_per_operation_setting"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_per_operation_setting": api_shield_per_operation_setting_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/schema_validation/settings/operations/${pathParam(args, "operation_id")}`,

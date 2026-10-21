@@ -66,6 +66,95 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deletionFailures": {
+              "items": {
+                "properties": {
+                  "datasetId": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "datasetId",
+                  "reason"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "indicatorsCopied": {
+              "type": "number"
+            },
+            "insertFailures": {
+              "items": {
+                "properties": {
+                  "index": {
+                    "type": "number"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "index",
+                  "reason"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "moved": {
+              "type": "number"
+            },
+            "relationshipsCopied": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "indicatorsCopied",
+            "moved",
+            "relationshipsCopied"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/${pathParam(args, "dataset_id")}/move`,
       query: [

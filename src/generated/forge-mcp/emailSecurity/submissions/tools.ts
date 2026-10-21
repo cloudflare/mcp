@@ -3,9 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+} from "../outputs.js";
+import {
   email_security_PostfixId,
   email_security_identifier,
 } from "../schemas.js";
+import {
+  email_security_CustomerStatus_output,
+  email_security_OptionalSubmissionDisposition_output,
+  email_security_SubmissionDisposition_output,
+  email_security_SubmissionResult_output,
+  email_security_Submission_output,
+} from "./outputs.js";
 import {
   email_security_MissedDetectionSubmission,
   email_security_ReclassificationSubmission,
@@ -97,6 +108,32 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/email-security/submissions",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "202": {
+          "properties": {
+            "results": {
+              "items": {
+                "$ref": "#/$defs/email-security_SubmissionResult"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "results"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_SubmissionResult": email_security_SubmissionResult_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/submissions`,
@@ -219,6 +256,52 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": null,
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_Submission"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_CustomerStatus": email_security_CustomerStatus_output,
+        "email-security_OptionalSubmissionDisposition": email_security_OptionalSubmissionDisposition_output,
+        "email-security_Submission": email_security_Submission_output,
+        "email-security_SubmissionDisposition": email_security_SubmissionDisposition_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/submissions`,

@@ -105,6 +105,99 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "dateRange": {
+                  "items": {
+                    "properties": {
+                      "endTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "startTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "endTime",
+                      "startTime"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "dateRange"
+              ],
+              "type": "object"
+            },
+            "top_0": {
+              "items": {
+                "properties": {
+                  "ASName": {
+                    "type": "string"
+                  },
+                  "asn": {
+                    "type": "integer"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ASName",
+                  "asn",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "meta",
+            "top_0"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/bgp/top/ases`,
       query: [
@@ -165,6 +258,75 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asns": {
+              "items": {
+                "properties": {
+                  "asn": {
+                    "type": "integer"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "pfxs_count": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "asn",
+                  "country",
+                  "name",
+                  "pfxs_count"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "data_time": {
+                  "type": "string"
+                },
+                "query_time": {
+                  "type": "string"
+                },
+                "total_peers": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "data_time",
+                "query_time",
+                "total_peers"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "asns",
+            "meta"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/bgp/top/ases/prefixes`,

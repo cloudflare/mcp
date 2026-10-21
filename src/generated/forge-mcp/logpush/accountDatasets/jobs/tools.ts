@@ -2,6 +2,27 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  logpush_api_response_common_failure_output,
+  logpush_dataset_output,
+  logpush_destination_conf_output,
+  logpush_enabled_output,
+  logpush_error_message_output,
+  logpush_filter_attack_traffic_output,
+  logpush_frequency_output,
+  logpush_id_output,
+  logpush_kind_output,
+  logpush_last_complete_output,
+  logpush_last_error_output,
+  logpush_logpull_options_output,
+  logpush_logpush_job_output,
+  logpush_max_upload_bytes_output,
+  logpush_max_upload_interval_seconds_output,
+  logpush_max_upload_records_output,
+  logpush_messages_output,
+  logpush_name_output,
+  logpush_output_options_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `logpush.account_datasets.jobs`.
@@ -66,6 +87,58 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/logpush_logpush_job"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_dataset": logpush_dataset_output,
+        "logpush_destination_conf": logpush_destination_conf_output,
+        "logpush_enabled": logpush_enabled_output,
+        "logpush_error_message": logpush_error_message_output,
+        "logpush_filter_attack_traffic": logpush_filter_attack_traffic_output,
+        "logpush_frequency": logpush_frequency_output,
+        "logpush_id": logpush_id_output,
+        "logpush_kind": logpush_kind_output,
+        "logpush_last_complete": logpush_last_complete_output,
+        "logpush_last_error": logpush_last_error_output,
+        "logpush_logpull_options": logpush_logpull_options_output,
+        "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
+        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
+        "logpush_max_upload_records": logpush_max_upload_records_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_name": logpush_name_output,
+        "logpush_output_options": logpush_output_options_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/logpush/datasets/${pathParam(args, "dataset_id")}/jobs`,

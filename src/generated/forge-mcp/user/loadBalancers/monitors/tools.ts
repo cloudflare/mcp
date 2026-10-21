@@ -3,6 +3,30 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  load_balancing_allow_insecure_output,
+  load_balancing_api_response_common_failure_output,
+  load_balancing_consecutive_down_output,
+  load_balancing_consecutive_up_output,
+  load_balancing_description_output,
+  load_balancing_expected_body_output,
+  load_balancing_expected_codes_output,
+  load_balancing_follow_redirects_output,
+  load_balancing_header_output,
+  load_balancing_identifier_output,
+  load_balancing_interval_output,
+  load_balancing_messages_output,
+  load_balancing_method_output,
+  load_balancing_monitor_output,
+  load_balancing_path_output,
+  load_balancing_port_output,
+  load_balancing_probe_zone_output,
+  load_balancing_result_info_output,
+  load_balancing_retries_output,
+  load_balancing_timeout_output,
+  load_balancing_timestamp_output,
+  load_balancing_type_output,
+} from "../../../outputs.js";
+import {
   load_balancing_allow_insecure,
   load_balancing_consecutive_down,
   load_balancing_consecutive_up,
@@ -74,6 +98,39 @@ export const tools: readonly Tool[] = [
         "Load Balancing: Monitors and Pools Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
+    },
     request: (args) => ({
       path: `/user/load_balancers/monitors`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -107,6 +164,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Load Balancing: Monitors and Pools Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/load-balancing_identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_messages": load_balancing_messages_output,
+      },
     },
     request: (args) => ({
       path: `/user/load_balancers/monitors/${pathParam(args, "monitor_id")}`,
@@ -164,6 +241,39 @@ export const tools: readonly Tool[] = [
         "Load Balancing: Monitors and Pools Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
+    },
     request: (args) => ({
       path: `/user/load_balancers/monitors/${pathParam(args, "monitor_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -199,6 +309,39 @@ export const tools: readonly Tool[] = [
         "Load Balancing: Monitors and Pools Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
+    },
     request: (args) => ({
       path: `/user/load_balancers/monitors/${pathParam(args, "monitor_id")}`,
     }),
@@ -225,6 +368,54 @@ export const tools: readonly Tool[] = [
         "Load Balancing: Monitors and Pools Write",
         "Load Balancing: Monitors and Pools Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/load-balancing_monitor"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/load-balancing_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_result_info": load_balancing_result_info_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
     },
     request: (_args) => ({
       path: `/user/load_balancers/monitors`,
@@ -281,6 +472,39 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Load Balancing: Monitors and Pools Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_monitor"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
     },
     request: (args) => ({
       path: `/user/load_balancers/monitors/${pathParam(args, "monitor_id")}`,

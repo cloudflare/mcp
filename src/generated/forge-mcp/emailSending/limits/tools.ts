@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  email_sending_limits_properties_output,
+  email_sending_limits_properties_quota_output,
+  email_sending_limits_properties_usage_output,
+} from "./outputs.js";
 
 /**
  * The tools of `email_sending.limits`.
@@ -49,6 +54,19 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_sending_limits_properties"
+        },
+        "403": null
+      },
+      $defs: {
+        "email_sending_limits_properties": email_sending_limits_properties_output,
+        "email_sending_limits_properties_quota": email_sending_limits_properties_quota_output,
+        "email_sending_limits_properties_usage": email_sending_limits_properties_usage_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/sending/limits`,

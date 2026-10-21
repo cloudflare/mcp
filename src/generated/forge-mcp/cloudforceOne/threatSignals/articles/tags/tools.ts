@@ -55,6 +55,48 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "applied_by": {
+              "enum": [
+                "ai",
+                "analyst",
+                "system"
+              ],
+              "type": "string"
+            },
+            "categoryId": {
+              "oneOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "uuid": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "applied_by",
+            "categoryId",
+            "uuid",
+            "value"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/${pathParam(args, "article_id")}/tags`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -94,6 +136,63 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "tag_skill_version": {
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "properties": {
+                  "applied_by": {
+                    "enum": [
+                      "ai",
+                      "analyst",
+                      "system"
+                    ],
+                    "type": "string"
+                  },
+                  "categoryId": {
+                    "oneOf": [
+                      {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "uuid": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "applied_by",
+                  "categoryId",
+                  "uuid",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "tag_skill_version",
+            "tags"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/${pathParam(args, "article_id")}/tag`,
@@ -139,6 +238,48 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Cloudforce One Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "applied_by": {
+              "enum": [
+                "ai",
+                "analyst",
+                "system"
+              ],
+              "type": "string"
+            },
+            "categoryId": {
+              "oneOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "uuid": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "applied_by",
+            "categoryId",
+            "uuid",
+            "value"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/${pathParam(args, "article_id")}/tags/${pathParam(args, "tag_id")}`,

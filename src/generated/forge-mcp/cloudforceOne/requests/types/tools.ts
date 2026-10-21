@@ -41,6 +41,87 @@ export const tools: readonly Tool[] = [
         "Cloudforce One Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "project_type": {
+              "type": "string"
+            },
+            "request_types": {
+              "items": {
+                "properties": {
+                  "category": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "message_tokens": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "request_tokens": {
+                    "type": "integer"
+                  },
+                  "response_tokens": {
+                    "type": "integer"
+                  },
+                  "result": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "source": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "category",
+                  "description",
+                  "id",
+                  "message_tokens",
+                  "name",
+                  "request_tokens",
+                  "response_tokens",
+                  "result",
+                  "source"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "total": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "project_type",
+            "request_types",
+            "total"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/types`,
     }),

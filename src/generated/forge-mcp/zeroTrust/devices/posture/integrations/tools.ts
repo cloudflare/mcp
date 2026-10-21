@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  teams_devices_api_response_common_failure_output,
+  teams_devices_messages_output,
+  teams_devices_result_info_output,
+  teams_devices_uuid_output,
+} from "../../outputs.js";
+import {
+  teams_devices_components_schemas_name_output,
+  teams_devices_config_response_output,
+  teams_devices_device_posture_integrations_output,
+  teams_devices_interval_output,
+  teams_devices_schemas_type_output,
+  teams_devices_workspace_one_config_response_output,
+} from "./outputs.js";
+import {
   teams_devices_components_schemas_name,
   teams_devices_config_request,
   teams_devices_crowdstrike_config_request,
@@ -91,6 +105,27 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_device-posture-integrations"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_components-schemas-name": teams_devices_components_schemas_name_output,
+        "teams-devices_config_response": teams_devices_config_response_output,
+        "teams-devices_device-posture-integrations": teams_devices_device_posture_integrations_output,
+        "teams-devices_interval": teams_devices_interval_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_schemas-type": teams_devices_schemas_type_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+        "teams-devices_workspace_one_config_response": teams_devices_workspace_one_config_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/posture/integration`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -130,6 +165,27 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_messages": teams_devices_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/posture/integration/${pathParam(args, "integration_id")}`,
     }),
@@ -163,6 +219,27 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/posture/integration/{integration_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_device-posture-integrations"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_components-schemas-name": teams_devices_components_schemas_name_output,
+        "teams-devices_config_response": teams_devices_config_response_output,
+        "teams-devices_device-posture-integrations": teams_devices_device_posture_integrations_output,
+        "teams-devices_interval": teams_devices_interval_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_schemas-type": teams_devices_schemas_type_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+        "teams-devices_workspace_one_config_response": teams_devices_workspace_one_config_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/posture/integration/${pathParam(args, "integration_id")}`,
     }),
@@ -191,6 +268,42 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/devices/posture/integration",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_device-posture-integrations"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/teams-devices_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_components-schemas-name": teams_devices_components_schemas_name_output,
+        "teams-devices_config_response": teams_devices_config_response_output,
+        "teams-devices_device-posture-integrations": teams_devices_device_posture_integrations_output,
+        "teams-devices_interval": teams_devices_interval_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_result_info": teams_devices_result_info_output,
+        "teams-devices_schemas-type": teams_devices_schemas_type_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+        "teams-devices_workspace_one_config_response": teams_devices_workspace_one_config_response_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/posture/integration`,
     }),
@@ -263,6 +376,27 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/teams-devices_device-posture-integrations"
+        },
+        "4XX": {
+          "$ref": "#/$defs/teams-devices_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_components-schemas-name": teams_devices_components_schemas_name_output,
+        "teams-devices_config_response": teams_devices_config_response_output,
+        "teams-devices_device-posture-integrations": teams_devices_device_posture_integrations_output,
+        "teams-devices_interval": teams_devices_interval_output,
+        "teams-devices_messages": teams_devices_messages_output,
+        "teams-devices_schemas-type": teams_devices_schemas_type_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+        "teams-devices_workspace_one_config_response": teams_devices_workspace_one_config_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/posture/integration/${pathParam(args, "integration_id")}`,

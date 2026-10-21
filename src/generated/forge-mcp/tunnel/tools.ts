@@ -3,6 +3,32 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  tunnel_account_id_output,
+  tunnel_api_response_common_failure_output,
+  tunnel_cfd_tunnel_output,
+  tunnel_client_id_output,
+  tunnel_colo_name_output,
+  tunnel_config_src_output,
+  tunnel_connection_id_output,
+  tunnel_connections_deprecated_output,
+  tunnel_conns_active_at_output,
+  tunnel_conns_inactive_at_output,
+  tunnel_created_at_output,
+  tunnel_deleted_at_output,
+  tunnel_ip_output,
+  tunnel_is_pending_reconnect_output,
+  tunnel_messages_output,
+  tunnel_metadata_output,
+  tunnel_remote_config_output,
+  tunnel_result_info_output,
+  tunnel_schemas_connection_output,
+  tunnel_status_output,
+  tunnel_tunnel_id_output,
+  tunnel_tunnel_name_output,
+  tunnel_tunnel_type_output,
+  tunnel_version_output,
+} from "../outputs.js";
+import {
   tunnel_existed_at,
   tunnel_page_number,
   tunnel_per_page,
@@ -10,6 +36,7 @@ import {
   tunnel_tunnel_id,
   tunnel_tunnel_name,
 } from "../schemas.js";
+import { tunnel_cfd_tunnel_response_collection_output } from "./outputs.js";
 
 /**
  * The tools of `tunnel`.
@@ -103,6 +130,64 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/tunnel_cfd_tunnel"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/tunnel_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_cfd-tunnel-response-collection"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_cfd-tunnel-response-collection": tunnel_cfd_tunnel_response_collection_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cfd_tunnel`,

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  logpush_api_response_common_failure_output,
+  logpush_messages_output,
+} from "../../outputs.js";
+import { logpush_transformer_version_output } from "./outputs.js";
 
 /**
  * The tools of `logpush.transformers.versions`.
@@ -62,6 +67,35 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/logpush_transformer_version"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/logpush_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_transformer_version": logpush_transformer_version_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/logpush/transformers/${pathParam(args, "transformer_id")}/versions`,

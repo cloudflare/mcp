@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import { cloudforce_one_ErrorResponse_output } from "../../outputs.js";
 
 /**
  * The tools of `cloudforce_one.rules.email.schema`.
@@ -32,6 +33,224 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/cloudforce-one/rules/structured/schema",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "arrays": {
+              "items": {
+                "properties": {
+                  "counter": {
+                    "type": "string"
+                  },
+                  "fields": {
+                    "items": {
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "enum": [
+                            "string",
+                            "integer",
+                            "float",
+                            "boolean"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "counter",
+                  "fields",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "headers": {
+              "properties": {
+                "fields": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "enum": [
+                          "string",
+                          "integer",
+                          "float",
+                          "boolean"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "type"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "fields",
+                "path"
+              ],
+              "type": "object"
+            },
+            "operators": {
+              "properties": {
+                "boolean": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "float": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "integer": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "string": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "boolean",
+                "float",
+                "integer",
+                "string"
+              ],
+              "type": "object"
+            },
+            "scalars": {
+              "items": {
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "string",
+                      "integer",
+                      "float",
+                      "boolean"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "path",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "string_arrays": {
+              "items": {
+                "properties": {
+                  "counter": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "counter",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "structs": {
+              "items": {
+                "properties": {
+                  "fields": {
+                    "items": {
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "enum": [
+                            "string",
+                            "integer",
+                            "float",
+                            "boolean"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fields",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "arrays",
+            "headers",
+            "operators",
+            "scalars",
+            "string_arrays",
+            "structs"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/cloudforce-one_ErrorResponse"
+        }
+      },
+      $defs: {
+        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/rules/structured/schema`,
     }),

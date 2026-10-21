@@ -2,6 +2,13 @@
 /* eslint-disable */
 
 import type { Tool } from "../_/tool.js";
+import {
+  cps_api_response_common_failure_output,
+  cps_api_response_message_output,
+  cps_communication_preferences_email_output,
+  cps_communication_preferences_output,
+  cps_customer_preference_output,
+} from "./outputs.js";
 import { cps_update_communication_preferences_request } from "./schemas.js";
 
 /**
@@ -29,6 +36,35 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "User Details Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cps_communication_preferences"
+        },
+        "400": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        },
+        "401": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        },
+        "403": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        },
+        "404": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        },
+        "500": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "cps_api_response_common_failure": cps_api_response_common_failure_output,
+        "cps_api_response_message": cps_api_response_message_output,
+        "cps_communication_preferences": cps_communication_preferences_output,
+        "cps_communication_preferences_email": cps_communication_preferences_email_output,
+        "cps_customer_preference": cps_customer_preference_output,
+      },
     },
     request: (_args) => ({
       path: `/user/communication_preferences`,
@@ -65,6 +101,35 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "User Details Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cps_communication_preferences"
+        },
+        "400": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        },
+        "401": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        },
+        "403": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        },
+        "404": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        },
+        "500": {
+          "$ref": "#/$defs/cps_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "cps_api_response_common_failure": cps_api_response_common_failure_output,
+        "cps_api_response_message": cps_api_response_message_output,
+        "cps_communication_preferences": cps_communication_preferences_output,
+        "cps_communication_preferences_email": cps_communication_preferences_email_output,
+        "cps_customer_preference": cps_customer_preference_output,
+      },
     },
     request: (args) => ({
       path: `/user/communication_preferences`,

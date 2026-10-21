@@ -2,7 +2,22 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  dns_settings_api_response_common_failure_output,
+  dns_settings_messages_output,
+} from "../outputs.js";
 import { dns_settings_page } from "../schemas.js";
+import {
+  dns_settings_created_time_output,
+  dns_settings_dns_view_response_collection_output,
+  dns_settings_dns_view_response_collection_result_info_output,
+  dns_settings_dns_view_response_output,
+  dns_settings_dns_view_response_single_output,
+  dns_settings_identifier_output,
+  dns_settings_modified_time_output,
+  dns_settings_name_output,
+  dns_settings_zones_output,
+} from "./outputs.js";
 import {
   dns_settings_direction,
   dns_settings_dns_view,
@@ -73,6 +88,34 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-settings_dns-view-response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-settings_dns_view_response_single"
+            },
+            {
+              "$ref": "#/$defs/dns-settings_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
+        "dns-settings_modified_time": dns_settings_modified_time_output,
+        "dns-settings_name": dns_settings_name_output,
+        "dns-settings_zones": dns_settings_zones_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_settings/views`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -128,6 +171,48 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/dns-settings_identifier"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/dns-settings_identifier"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "$ref": "#/$defs/dns-settings_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_settings/views/${pathParam(args, "view_id")}`,
@@ -193,6 +278,34 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-settings_dns-view-response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-settings_dns_view_response_single"
+            },
+            {
+              "$ref": "#/$defs/dns-settings_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
+        "dns-settings_modified_time": dns_settings_modified_time_output,
+        "dns-settings_name": dns_settings_name_output,
+        "dns-settings_zones": dns_settings_zones_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_settings/views/${pathParam(args, "view_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -249,6 +362,34 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-settings_dns-view-response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-settings_dns_view_response_single"
+            },
+            {
+              "$ref": "#/$defs/dns-settings_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
+        "dns-settings_modified_time": dns_settings_modified_time_output,
+        "dns-settings_name": dns_settings_name_output,
+        "dns-settings_zones": dns_settings_zones_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_settings/views/${pathParam(args, "view_id")}`,
@@ -360,6 +501,66 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dns-settings_dns-view-response"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dns-settings_dns_view_response_collection"
+            },
+            {
+              "$ref": "#/$defs/dns-settings_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_dns_view_response_collection": dns_settings_dns_view_response_collection_output,
+        "dns-settings_dns_view_response_collection_result_info": dns_settings_dns_view_response_collection_result_info_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
+        "dns-settings_modified_time": dns_settings_modified_time_output,
+        "dns-settings_name": dns_settings_name_output,
+        "dns-settings_zones": dns_settings_zones_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dns_settings/views`,

@@ -3,11 +3,30 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_common_failure_output,
+  access_created_at_output,
+  access_messages_output,
+  access_timestamp_output,
+  access_updated_at_output,
+  access_uuid_output,
+} from "../../outputs.js";
+import {
   access_created_at,
   access_timestamp,
   access_updated_at,
   access_uuid,
 } from "../../schemas.js";
+import {
+  access_app_count_2_output,
+  access_contract_version_output,
+  access_custom_page_output,
+  access_custom_page_without_html_output,
+  access_name_11_output,
+  access_template_violation_output,
+  access_type_2_output,
+  access_validate_response_output,
+  access_validation_result_output,
+} from "./outputs.js";
 import {
   access_app_count_2,
   access_contract_version,
@@ -65,6 +84,35 @@ export const tools: readonly Tool[] = [
         "Access: Custom Pages Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/access_custom_page_without_html"
+        },
+        "422": {
+          "$ref": "#/$defs/access_validate_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_count-2": access_app_count_2_output,
+        "access_contract_version": access_contract_version_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_messages": access_messages_output,
+        "access_name-11": access_name_11_output,
+        "access_template_violation": access_template_violation_output,
+        "access_timestamp": access_timestamp_output,
+        "access_type-2": access_type_2_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+        "access_validate_response": access_validate_response_output,
+        "access_validation_result": access_validation_result_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -105,6 +153,26 @@ export const tools: readonly Tool[] = [
         "Access: Custom Pages Write"
       ]
     },
+    responses: {
+      schemas: {
+        "202": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_uuid"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages/${pathParam(args, "custom_page_id")}`,
     }),
@@ -144,6 +212,29 @@ export const tools: readonly Tool[] = [
         "Access: Custom Pages Write",
         "Access: Custom Pages Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_custom_page"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_count-2": access_app_count_2_output,
+        "access_contract_version": access_contract_version_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_page": access_custom_page_output,
+        "access_messages": access_messages_output,
+        "access_name-11": access_name_11_output,
+        "access_timestamp": access_timestamp_output,
+        "access_type-2": access_type_2_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages/${pathParam(args, "custom_page_id")}`,
@@ -189,6 +280,61 @@ export const tools: readonly Tool[] = [
         "Access: Custom Pages Write",
         "Access: Custom Pages Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_custom_page_without_html"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_count-2": access_app_count_2_output,
+        "access_contract_version": access_contract_version_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_messages": access_messages_output,
+        "access_name-11": access_name_11_output,
+        "access_template_violation": access_template_violation_output,
+        "access_timestamp": access_timestamp_output,
+        "access_type-2": access_type_2_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages`,
@@ -247,6 +393,35 @@ export const tools: readonly Tool[] = [
         "Access: Custom Pages Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_custom_page_without_html"
+        },
+        "422": {
+          "$ref": "#/$defs/access_validate_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_app_count-2": access_app_count_2_output,
+        "access_contract_version": access_contract_version_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_messages": access_messages_output,
+        "access_name-11": access_name_11_output,
+        "access_template_violation": access_template_violation_output,
+        "access_timestamp": access_timestamp_output,
+        "access_type-2": access_type_2_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+        "access_validate_response": access_validate_response_output,
+        "access_validation_result": access_validation_result_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages/${pathParam(args, "custom_page_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -288,6 +463,23 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: Custom Pages Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_validation_result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_template_violation": access_template_violation_output,
+        "access_type-2": access_type_2_output,
+        "access_validation_result": access_validation_result_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages/validate`,

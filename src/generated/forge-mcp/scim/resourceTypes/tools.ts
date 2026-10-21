@@ -2,6 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { iam_scim_error_response_output } from "../outputs.js";
+import {
+  iam_scim_resource_type_list_response_output,
+  iam_scim_resource_type_meta_output,
+  iam_scim_resource_type_output,
+  iam_scim_schema_extension_output,
+} from "./outputs.js";
 
 /**
  * The tools of `scim.resource_types`.
@@ -64,6 +71,22 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_resource_type"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_resource_type": iam_scim_resource_type_output,
+        "iam_scim_resource_type_meta": iam_scim_resource_type_meta_output,
+        "iam_scim_schema_extension": iam_scim_schema_extension_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/ResourceTypes/${pathParam(args, "resource_type_id")}`,
     }),
@@ -115,6 +138,23 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_scim_resource_type_list_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_scim_error_response"
+        }
+      },
+      $defs: {
+        "iam_scim_error_response": iam_scim_error_response_output,
+        "iam_scim_resource_type": iam_scim_resource_type_output,
+        "iam_scim_resource_type_list_response": iam_scim_resource_type_list_response_output,
+        "iam_scim_resource_type_meta": iam_scim_resource_type_meta_output,
+        "iam_scim_schema_extension": iam_scim_schema_extension_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/ResourceTypes`,

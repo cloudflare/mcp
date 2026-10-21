@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  aaa_api_response_common_failure_3_output,
+  aaa_messages_3_output,
+} from "../outputs.js";
+import {
+  aaa_alert_types_output,
+  aaa_description_output,
+  aaa_display_name_output,
+  aaa_filter_options_output,
+  aaa_type_output,
+} from "./outputs.js";
 
 /**
  * The tools of `alerting.available_alerts`.
@@ -40,6 +51,31 @@ export const tools: readonly Tool[] = [
         "Account Settings Write",
         "Account Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "additionalProperties": {
+            "items": {
+              "$ref": "#/$defs/aaa_alert-types"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-3"
+        }
+      },
+      $defs: {
+        "aaa_alert-types": aaa_alert_types_output,
+        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_description": aaa_description_output,
+        "aaa_display_name": aaa_display_name_output,
+        "aaa_filter_options": aaa_filter_options_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_type": aaa_type_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/alerting/v3/available_alerts`,

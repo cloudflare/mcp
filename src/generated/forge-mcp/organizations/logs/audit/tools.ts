@@ -2,6 +2,25 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  aaa_api_response_common_failure_2_errorsItem_output,
+  aaa_api_response_common_failure_2_messagesItem_output,
+  aaa_api_response_common_failure_2_output,
+  aaa_audit_log_action_output,
+  aaa_audit_log_actor_base_output,
+  aaa_audit_log_raw_output,
+  aaa_audit_logs_v2_history_not_found_output,
+  aaa_audit_logs_v2_history_result_info_output,
+  aaa_history_status_output,
+  aaa_identifier_2_output,
+  aaa_messages_2_output,
+  aaa_result_info_output,
+} from "../../../outputs.js";
+import {
+  aaa_audit_logs_v2_org_organization_output,
+  aaa_audit_logs_v2_org_output,
+  aaa_audit_logs_v2_org_resource_output,
+} from "./outputs.js";
 
 /**
  * The tools of `organizations.logs.audit`.
@@ -374,6 +393,43 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/aaa_audit-logs-v2-org"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/aaa_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-2": aaa_api_response_common_failure_2_output,
+        "aaa_api-response-common-failure-2_errorsItem": aaa_api_response_common_failure_2_errorsItem_output,
+        "aaa_api-response-common-failure-2_messagesItem": aaa_api_response_common_failure_2_messagesItem_output,
+        "aaa_audit-log-action": aaa_audit_log_action_output,
+        "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
+        "aaa_audit-log-raw": aaa_audit_log_raw_output,
+        "aaa_audit-logs-v2-org": aaa_audit_logs_v2_org_output,
+        "aaa_audit-logs-v2-org_organization": aaa_audit_logs_v2_org_organization_output,
+        "aaa_audit-logs-v2-org_resource": aaa_audit_logs_v2_org_resource_output,
+        "aaa_identifier-2": aaa_identifier_2_output,
+        "aaa_result_info": aaa_result_info_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/logs/audit`,
       query: [
@@ -495,6 +551,49 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/aaa_audit-logs-v2-org"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/aaa_audit-logs-v2-history-result-info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "$ref": "#/$defs/aaa_audit-logs-v2-history-not-found"
+        },
+        "4XX": {
+          "$ref": "#/$defs/aaa_api-response-common-failure-2"
+        }
+      },
+      $defs: {
+        "aaa_api-response-common-failure-2": aaa_api_response_common_failure_2_output,
+        "aaa_api-response-common-failure-2_errorsItem": aaa_api_response_common_failure_2_errorsItem_output,
+        "aaa_api-response-common-failure-2_messagesItem": aaa_api_response_common_failure_2_messagesItem_output,
+        "aaa_audit-log-action": aaa_audit_log_action_output,
+        "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
+        "aaa_audit-log-raw": aaa_audit_log_raw_output,
+        "aaa_audit-logs-v2-history-not-found": aaa_audit_logs_v2_history_not_found_output,
+        "aaa_audit-logs-v2-history-result-info": aaa_audit_logs_v2_history_result_info_output,
+        "aaa_audit-logs-v2-org": aaa_audit_logs_v2_org_output,
+        "aaa_audit-logs-v2-org_organization": aaa_audit_logs_v2_org_organization_output,
+        "aaa_audit-logs-v2-org_resource": aaa_audit_logs_v2_org_resource_output,
+        "aaa_history-status": aaa_history_status_output,
+        "aaa_identifier-2": aaa_identifier_2_output,
+        "aaa_messages-2": aaa_messages_2_output,
+      },
     },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/logs/audit/${pathParam(args, "id")}/history`,

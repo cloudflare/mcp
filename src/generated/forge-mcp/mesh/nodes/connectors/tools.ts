@@ -2,6 +2,25 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  tunnel_api_response_common_failure_output,
+  tunnel_arch_output,
+  tunnel_client_id_output,
+  tunnel_colo_name_output,
+  tunnel_connection_id_output,
+  tunnel_features_output,
+  tunnel_ip_output,
+  tunnel_messages_output,
+  tunnel_run_at_output,
+  tunnel_version_output,
+} from "../../../outputs.js";
+import {
+  tunnel_ha_status_output,
+  tunnel_schemas_warp_connector_connection_output,
+  tunnel_tunnel_warp_connector_client_output,
+  tunnel_warp_connector_connections_output,
+} from "../outputs.js";
+import { tunnel_tunnel_warp_connector_client_response_output } from "./outputs.js";
 
 /**
  * The tools of `mesh.nodes.connectors`.
@@ -49,6 +68,40 @@ export const tools: readonly Tool[] = [
         "Cloudflare One Connector: WARP Write",
         "Cloudflare One Connector: WARP Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/tunnel_tunnel_warp_connector_client"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/tunnel_tunnel_warp_connector_client_response"
+            },
+            {
+              "$ref": "#/$defs/tunnel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
+        "tunnel_arch": tunnel_arch_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_features": tunnel_features_output,
+        "tunnel_ha_status": tunnel_ha_status_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_messages": tunnel_messages_output,
+        "tunnel_run_at": tunnel_run_at_output,
+        "tunnel_schemas-warp-connector-connection": tunnel_schemas_warp_connector_connection_output,
+        "tunnel_tunnel_warp_connector_client": tunnel_tunnel_warp_connector_client_output,
+        "tunnel_tunnel_warp_connector_client_response": tunnel_tunnel_warp_connector_client_response_output,
+        "tunnel_version": tunnel_version_output,
+        "tunnel_warp_connector_connections": tunnel_warp_connector_connections_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/warp_connector/${pathParam(args, "node_id")}/connectors/${pathParam(args, "connector_id")}`,

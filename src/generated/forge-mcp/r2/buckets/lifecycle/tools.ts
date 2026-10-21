@@ -3,6 +3,23 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  r2_errors_output,
+  r2_messages_output,
+  r2_v4_response_failure_output,
+} from "../../outputs.js";
+import {
+  r2_lifecycle_age_condition_output,
+  r2_lifecycle_config_output,
+  r2_lifecycle_date_condition_output,
+  r2_lifecycle_rule_abortMultipartUploadsTransition_output,
+  r2_lifecycle_rule_conditions_output,
+  r2_lifecycle_rule_deleteObjectsTransition_condition_output,
+  r2_lifecycle_rule_deleteObjectsTransition_output,
+  r2_lifecycle_rule_output,
+  r2_lifecycle_storage_transition_condition_output,
+  r2_lifecycle_storage_transition_output,
+} from "./outputs.js";
+import {
   r2_lifecycle_age_condition,
   r2_lifecycle_date_condition,
   r2_lifecycle_rule,
@@ -59,6 +76,31 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/r2_lifecycle-config"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_lifecycle-age-condition": r2_lifecycle_age_condition_output,
+        "r2_lifecycle-config": r2_lifecycle_config_output,
+        "r2_lifecycle-date-condition": r2_lifecycle_date_condition_output,
+        "r2_lifecycle-rule": r2_lifecycle_rule_output,
+        "r2_lifecycle-rule_abortMultipartUploadsTransition": r2_lifecycle_rule_abortMultipartUploadsTransition_output,
+        "r2_lifecycle-rule_conditions": r2_lifecycle_rule_conditions_output,
+        "r2_lifecycle-rule_deleteObjectsTransition": r2_lifecycle_rule_deleteObjectsTransition_output,
+        "r2_lifecycle-rule_deleteObjectsTransition_condition": r2_lifecycle_rule_deleteObjectsTransition_condition_output,
+        "r2_lifecycle-storage-transition": r2_lifecycle_storage_transition_output,
+        "r2_lifecycle-storage-transition_condition": r2_lifecycle_storage_transition_condition_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/lifecycle`,
       headers: [
@@ -130,6 +172,21 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/lifecycle`,
       headers: [

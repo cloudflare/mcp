@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  email_ReputationPolicy_output,
+  email_ReputationThreshold_output,
+  email_sending_reputation_properties_output,
+} from "./outputs.js";
 
 /**
  * The tools of `email_sending.reputation`.
@@ -49,6 +54,19 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_sending_reputation_properties"
+        },
+        "403": null
+      },
+      $defs: {
+        "email_ReputationPolicy": email_ReputationPolicy_output,
+        "email_ReputationThreshold": email_ReputationThreshold_output,
+        "email_sending_reputation_properties": email_sending_reputation_properties_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/sending/reputation`,

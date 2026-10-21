@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
+import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_colo_output,
+  digital_experience_monitoring_messages_output,
+  digital_experience_monitoring_uuid_output,
+} from "../../../outputs.js";
+import {
+  digital_experience_monitoring_execution_context_output,
+  digital_experience_monitoring_traceroute_test_result_network_path_response_hopsItem_location_output,
+  digital_experience_monitoring_traceroute_test_result_network_path_response_hopsItem_output,
+  digital_experience_monitoring_traceroute_test_result_network_path_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.test_results.traceroute.network_path`.
@@ -44,6 +56,26 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/digital-experience-monitoring_traceroute_test_result_network_path_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_colo": digital_experience_monitoring_colo_output,
+        "digital-experience-monitoring_execution_context": digital_experience_monitoring_execution_context_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_traceroute_test_result_network_path_response": digital_experience_monitoring_traceroute_test_result_network_path_response_output,
+        "digital-experience-monitoring_traceroute_test_result_network_path_response_hopsItem": digital_experience_monitoring_traceroute_test_result_network_path_response_hopsItem_output,
+        "digital-experience-monitoring_traceroute_test_result_network_path_response_hopsItem_location": digital_experience_monitoring_traceroute_test_result_network_path_response_hopsItem_location_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/traceroute-test-results/${pathParam(args, "test_result_id")}/network-path`,

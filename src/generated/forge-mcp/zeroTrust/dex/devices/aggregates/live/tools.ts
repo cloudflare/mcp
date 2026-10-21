@@ -2,7 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
+import {
+  digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_messages_output,
+} from "../../../outputs.js";
 import { digital_experience_monitoring_since_minutes } from "../../schemas.js";
+import { digital_experience_monitoring_uniqueDevicesTotal_output } from "../outputs.js";
+import { digital_experience_monitoring_live_stat_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.devices.aggregates.live`.
@@ -49,6 +55,97 @@ export const tools: readonly Tool[] = [
         "Zero Trust Report",
         "Zero Trust Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deviceStats": {
+              "properties": {
+                "byColo": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "byMode": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "byPlatform": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "byStatus": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "byVersion": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "uniqueDevicesTotal": {
+                  "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_live_stat": digital_experience_monitoring_live_stat_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_uniqueDevicesTotal": digital_experience_monitoring_uniqueDevicesTotal_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dex/fleet-status/live`,

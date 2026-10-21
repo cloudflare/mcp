@@ -89,6 +89,88 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "dataTime": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "queryTime": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "dataTime",
+                "queryTime"
+              ],
+              "type": "object"
+            },
+            "serie_0": {
+              "properties": {
+                "timestamps": {
+                  "items": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "values": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "timestamps",
+                "values"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "meta",
+            "serie_0"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/bgp/rpki/roas/timeseries`,
       query: [

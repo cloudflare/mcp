@@ -3,9 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_PatternType_output,
+  email_security_api_response_common_failure_output,
+  email_security_messages_output,
+  email_security_timestamp_output,
+} from "../outputs.js";
+import {
   email_security_PatternType,
   email_security_identifier,
 } from "../schemas.js";
+import {
+  email_security_AllowPolicyId_output,
+  email_security_AllowPolicyList_output,
+  email_security_AllowPolicy_output,
+  email_security_DeletedAllowPolicy_output,
+} from "./outputs.js";
 import {
   email_security_AllowPolicyId,
   email_security_CreateAllowPolicy,
@@ -139,6 +151,43 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deletes": {
+              "items": {
+                "$ref": "#/$defs/email-security_DeletedAllowPolicy"
+              },
+              "type": "array"
+            },
+            "patches": {
+              "$ref": "#/$defs/email-security_AllowPolicyList"
+            },
+            "posts": {
+              "$ref": "#/$defs/email-security_AllowPolicyList"
+            },
+            "puts": {
+              "$ref": "#/$defs/email-security_AllowPolicyList"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_AllowPolicyList": email_security_AllowPolicyList_output,
+        "email-security_DeletedAllowPolicy": email_security_DeletedAllowPolicy_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/allow_policies/batch`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -184,6 +233,24 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/email-security_AllowPolicy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/allow_policies`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -228,6 +295,22 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Write"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_DeletedAllowPolicy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_DeletedAllowPolicy": email_security_DeletedAllowPolicy_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/allow_policies/${pathParam(args, "policy_id")}`,
@@ -279,6 +362,24 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_AllowPolicy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/allow_policies/${pathParam(args, "policy_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -324,6 +425,24 @@ export const tools: readonly Tool[] = [
         "Cloud Email Security: Read"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_AllowPolicy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/allow_policies/${pathParam(args, "policy_id")}`,
@@ -423,6 +542,50 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_AllowPolicyList"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_AllowPolicyList": email_security_AllowPolicyList_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/allow_policies`,
       query: [
@@ -483,6 +646,24 @@ export const tools: readonly Tool[] = [
     path: "/accounts/{account_id}/email-security/settings/allow_policies/{policy_id}",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email-security_AllowPolicy"
+        },
+        "4XX": {
+          "$ref": "#/$defs/email-security_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_messages": email_security_messages_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email-security/settings/allow_policies/${pathParam(args, "policy_id")}`,

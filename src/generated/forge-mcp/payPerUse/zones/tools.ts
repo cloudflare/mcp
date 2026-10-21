@@ -3,6 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_Msg_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
+  pay_per_crawl_Source_output,
+  pay_per_crawl_apiErrorResponse_output,
+  pay_per_crawl_apiNoResultResponse_output,
+} from "../../outputs.js";
+import {
+  pay_per_crawl_PPUZoneCanBeEnabled_output,
+  pay_per_crawl_PPUZoneConfigurationResult_output,
+  pay_per_crawl_PPUZoneConfiguration_output,
+} from "./outputs.js";
+import {
   pay_per_crawl_PPUZoneCanBeEnabledUpdate,
   pay_per_crawl_PPUZoneConfigurationUpdate,
   pay_per_crawl_PPUZonesCanBeEnabledPayload,
@@ -37,6 +51,22 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/zones/{zone_id}/pay-per-use/can_be_enabled",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUZoneCanBeEnabled"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUZoneCanBeEnabled": pay_per_crawl_PPUZoneCanBeEnabled_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-use/can_be_enabled`,
     }),
@@ -66,6 +96,22 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/zones/{zone_id}/pay-per-use/configuration",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUZoneConfigurationResult"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUZoneConfigurationResult": pay_per_crawl_PPUZoneConfigurationResult_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-use/configuration`,
     }),
@@ -104,6 +150,28 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/pay-per-use/zones_can_be_enabled",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-use/zones_can_be_enabled`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -142,6 +210,31 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/zones/{zone_id}/pay-per-use/configuration",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUZoneConfiguration"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "409": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUZoneConfiguration": pay_per_crawl_PPUZoneConfiguration_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-use/configuration`,
       body: { value: args["body"], mediaType: "application/json" },

@@ -2,7 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  intel_sinkholes_api_response_common_failure_output,
+  intel_sinkholes_messages_output,
+} from "../outputs.js";
 import { intel_sinkholes_identifier } from "../schemas.js";
+import { intel_sinkholes_ingress_item_output } from "./outputs.js";
 import { intel_sinkholes_ingress_create_params } from "./schemas.js";
 
 /**
@@ -52,6 +57,21 @@ export const tools: readonly Tool[] = [
         "Intel Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/intel-sinkholes_ingress_item"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/intel/sinkholes/${pathParam(args, "sinkhole_id")}/ingresses`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -99,6 +119,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Intel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/intel/sinkholes/${pathParam(args, "sinkhole_id")}/ingresses/${pathParam(args, "ingress_id")}`,
@@ -148,6 +182,21 @@ export const tools: readonly Tool[] = [
         "Intel Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/intel-sinkholes_ingress_item"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/intel/sinkholes/${pathParam(args, "sinkhole_id")}/ingresses/${pathParam(args, "ingress_id")}`,
     }),
@@ -196,6 +245,35 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/intel-sinkholes_ingress_item"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/intel/sinkholes/${pathParam(args, "sinkhole_id")}/ingresses`,
@@ -248,6 +326,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Intel Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "intel-sinkholes_api-response-common-failure": intel_sinkholes_api_response_common_failure_output,
+        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/intel/sinkholes/${pathParam(args, "sinkhole_id")}/ingresses/${pathParam(args, "ingress_id")}`,

@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../../outputs.js";
+import {
+  organizations_api_MemberID_output,
+  organizations_api_MemberSubjectUser_output,
+  organizations_api_Member_output,
+} from "../outputs.js";
 import { organizations_api_HandleOrganizationInviteRequest } from "./schemas.js";
 
 /**
@@ -46,6 +55,23 @@ export const tools: readonly Tool[] = [
     },
     method: "PUT",
     path: "/organizations/{organization_id}/invites/{member_code}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_Member"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/invites/${pathParam(args, "member_code")}`,
       body: { value: args["body"], mediaType: "application/json" },

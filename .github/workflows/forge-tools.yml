@@ -69,6 +69,7 @@ jobs:
       - name: Generate
         env:
           FORGE_BINARY: .forge/target/release/forge
+          GITHUB_TOKEN: ${{ github.token }}
         run: npm run generate:tools -- --summary "$RUNNER_TEMP/summary.md"
 
       - name: Check for changes

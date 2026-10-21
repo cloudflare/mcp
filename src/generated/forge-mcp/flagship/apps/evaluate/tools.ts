@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  flagship_ApiMessage_output,
+  flagship_Error_output,
+  flagship_EvaluationResult_output,
+  flagship_JsonValue_output,
+} from "../outputs.js";
 
 /**
  * The tools of `flagship.apps.evaluate`.
@@ -68,6 +74,37 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/flagship_EvaluationResult"
+        },
+        "400": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "401": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "500": {
+          "$ref": "#/$defs/flagship_Error"
+        },
+        "503": {
+          "$ref": "#/$defs/flagship_Error"
+        }
+      },
+      $defs: {
+        "flagship_ApiMessage": flagship_ApiMessage_output,
+        "flagship_Error": flagship_Error_output,
+        "flagship_EvaluationResult": flagship_EvaluationResult_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps/${pathParam(args, "app_id")}/evaluate`,

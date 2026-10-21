@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  secrets_store_api_response_common_failure_output,
+  secrets_store_messages_output,
+} from "../outputs.js";
+import {
+  secrets_store_quota_output,
+  secrets_store_secretsUsageObject_output,
+  secrets_store_usageQuotaObject_output,
+  secrets_store_usage_output,
+} from "./outputs.js";
 
 /**
  * The tools of `secrets_store.quota`.
@@ -44,6 +54,24 @@ export const tools: readonly Tool[] = [
         "pro": true
       },
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/secrets-store_secretsUsageObject"
+        },
+        "4XX": {
+          "$ref": "#/$defs/secrets-store_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "secrets-store_api-response-common-failure": secrets_store_api_response_common_failure_output,
+        "secrets-store_messages": secrets_store_messages_output,
+        "secrets-store_quota": secrets_store_quota_output,
+        "secrets-store_secretsUsageObject": secrets_store_secretsUsageObject_output,
+        "secrets-store_usage": secrets_store_usage_output,
+        "secrets-store_usageQuotaObject": secrets_store_usageQuotaObject_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/secrets_store/quota`,

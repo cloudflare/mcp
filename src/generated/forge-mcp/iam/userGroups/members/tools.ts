@@ -2,7 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  iam_api_response_common_failure_output,
+  iam_email_output,
+  iam_messages_2_output,
+  iam_result_info_output,
+} from "../../../outputs.js";
 import { iam_common_components_schemas_identifier } from "../../../schemas.js";
+import {
+  iam_user_group_member_detailed_output,
+  iam_user_group_member_detailed_user_output,
+  iam_user_group_member_output,
+} from "./outputs.js";
 import { iam_user_group_member_identifier } from "./schemas.js";
 
 /**
@@ -81,6 +92,36 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_user_group_member"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_user_group_member": iam_user_group_member_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups/${pathParam(args, "user_group_id")}/members`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -143,6 +184,22 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_user_group_member"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_user_group_member": iam_user_group_member_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups/${pathParam(args, "user_group_id")}/members/${pathParam(args, "member_id")}`,
     }),
@@ -204,6 +261,23 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_user_group_member_detailed"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_user_group_member_detailed": iam_user_group_member_detailed_output,
+        "iam_user_group_member_detailed_user": iam_user_group_member_detailed_user_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups/${pathParam(args, "user_group_id")}/members/${pathParam(args, "member_id")}`,
@@ -285,6 +359,37 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_user_group_member"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_user_group_member": iam_user_group_member_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups/${pathParam(args, "user_group_id")}/members`,
       query: [
@@ -356,6 +461,36 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_user_group_member"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_user_group_member": iam_user_group_member_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/iam/user_groups/${pathParam(args, "user_group_id")}/members`,

@@ -2,7 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  calls_api_response_common_failure_output,
+  calls_created_output,
+  calls_identifier_output,
+  calls_messages_output,
+  calls_modified_output,
+  calls_name_output,
+} from "../../outputs.js";
 import { calls_name } from "../../schemas.js";
+import {
+  calls_app_output,
+  calls_app_with_secret_output,
+  calls_secret_output,
+} from "./outputs.js";
 import { calls_app_editable_fields } from "./schemas.js";
 
 /**
@@ -47,6 +60,26 @@ export const tools: readonly Tool[] = [
         "Calls Write"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/calls_app_with_secret"
+        },
+        "4XX": {
+          "$ref": "#/$defs/calls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "calls_api-response-common-failure": calls_api_response_common_failure_output,
+        "calls_app_with_secret": calls_app_with_secret_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_messages": calls_messages_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_secret": calls_secret_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/apps`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -86,6 +119,21 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Calls Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/calls_app"
+        },
+        "4XX": {}
+      },
+      $defs: {
+        "calls_app": calls_app_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/apps/${pathParam(args, "app_id")}`,
@@ -127,6 +175,25 @@ export const tools: readonly Tool[] = [
         "Calls Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/calls_app"
+        },
+        "4XX": {
+          "$ref": "#/$defs/calls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "calls_api-response-common-failure": calls_api_response_common_failure_output,
+        "calls_app": calls_app_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_messages": calls_messages_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/apps/${pathParam(args, "app_id")}`,
     }),
@@ -161,6 +228,39 @@ export const tools: readonly Tool[] = [
         "Calls Write",
         "Calls Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/calls_app"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/calls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "calls_api-response-common-failure": calls_api_response_common_failure_output,
+        "calls_app": calls_app_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_messages": calls_messages_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/apps`,
@@ -208,6 +308,25 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Calls Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/calls_app"
+        },
+        "4XX": {
+          "$ref": "#/$defs/calls_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "calls_api-response-common-failure": calls_api_response_common_failure_output,
+        "calls_app": calls_app_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_messages": calls_messages_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/calls/apps/${pathParam(args, "app_id")}`,

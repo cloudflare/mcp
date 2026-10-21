@@ -3,6 +3,12 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+  access_timestamp_output,
+} from "../../../../outputs.js";
+import { access_responses_output } from "./outputs.js";
+import {
   access_cf_resource_id_3,
   access_direction,
   access_idp_id,
@@ -125,6 +131,53 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Access: SCIM Logs Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/access_responses"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_responses": access_responses_output,
+        "access_timestamp": access_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/logs/scim/updates`,

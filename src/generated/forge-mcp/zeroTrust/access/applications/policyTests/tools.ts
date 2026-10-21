@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../../outputs.js";
 import { access_identifier } from "../../../schemas.js";
 import {
   access_access_group_rule,
@@ -75,6 +79,19 @@ import {
   access_user_risk_score_rule,
   access_user_risk_score_rule_user_risk_score,
 } from "../../schemas.js";
+import {
+  access_percent_approved_output,
+  access_percent_blocked_output,
+  access_percent_errored_output,
+  access_percent_users_processed_output,
+  access_policy_test_id_output,
+  access_status_output,
+  access_total_users_output,
+  access_update_status_output,
+  access_users_approved_output,
+  access_users_blocked_output,
+  access_users_errored_output,
+} from "./outputs.js";
 import { access_policy_init_req } from "./schemas.js";
 
 /**
@@ -189,6 +206,30 @@ export const tools: readonly Tool[] = [
         "Access: Policy Test Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_policy_test_id"
+            },
+            "status": {
+              "$ref": "#/$defs/access_status"
+            }
+          },
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_policy_test_id": access_policy_test_id_output,
+        "access_status": access_status_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/policy-tests`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -229,6 +270,62 @@ export const tools: readonly Tool[] = [
         "Access: Policy Test Write",
         "Access: Policy Test Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_policy_test_id"
+            },
+            "percent_approved": {
+              "$ref": "#/$defs/access_percent_approved"
+            },
+            "percent_blocked": {
+              "$ref": "#/$defs/access_percent_blocked"
+            },
+            "percent_errored": {
+              "$ref": "#/$defs/access_percent_errored"
+            },
+            "percent_users_processed": {
+              "$ref": "#/$defs/access_percent_users_processed"
+            },
+            "status": {
+              "$ref": "#/$defs/access_update_status"
+            },
+            "total_users": {
+              "$ref": "#/$defs/access_total_users"
+            },
+            "users_approved": {
+              "$ref": "#/$defs/access_users_approved"
+            },
+            "users_blocked": {
+              "$ref": "#/$defs/access_users_blocked"
+            },
+            "users_errored": {
+              "$ref": "#/$defs/access_users_errored"
+            }
+          },
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_percent_approved": access_percent_approved_output,
+        "access_percent_blocked": access_percent_blocked_output,
+        "access_percent_errored": access_percent_errored_output,
+        "access_percent_users_processed": access_percent_users_processed_output,
+        "access_policy_test_id": access_policy_test_id_output,
+        "access_total_users": access_total_users_output,
+        "access_update_status": access_update_status_output,
+        "access_users_approved": access_users_approved_output,
+        "access_users_blocked": access_users_blocked_output,
+        "access_users_errored": access_users_errored_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/policy-tests/${pathParam(args, "policy_test_id")}`,

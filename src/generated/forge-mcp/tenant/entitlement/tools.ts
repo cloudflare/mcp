@@ -2,6 +2,19 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  organizations_api_V4ErrorResponse_output,
+  organizations_api_V4Message_output,
+} from "../../outputs.js";
+import {
+  organizations_api_BoolAllocation_output,
+  organizations_api_Entitlement_allocation_output,
+  organizations_api_Entitlement_output,
+  organizations_api_Feature_output,
+  organizations_api_InnateEntitlements_output,
+  organizations_api_MaxCountAllocation_output,
+  organizations_api_NullAllocation_output,
+} from "./outputs.js";
 
 /**
  * The tools of `tenant.entitlement`.
@@ -32,6 +45,27 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/tenants/{tenant_id}/entitlements",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/organizations-api_InnateEntitlements"
+        },
+        "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        }
+      },
+      $defs: {
+        "organizations-api_BoolAllocation": organizations_api_BoolAllocation_output,
+        "organizations-api_Entitlement": organizations_api_Entitlement_output,
+        "organizations-api_Entitlement_allocation": organizations_api_Entitlement_allocation_output,
+        "organizations-api_Feature": organizations_api_Feature_output,
+        "organizations-api_InnateEntitlements": organizations_api_InnateEntitlements_output,
+        "organizations-api_MaxCountAllocation": organizations_api_MaxCountAllocation_output,
+        "organizations-api_NullAllocation": organizations_api_NullAllocation_output,
+        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
+    },
     request: (args) => ({
       path: `/tenants/${pathParam(args, "tenant_id")}/entitlements`,
     }),

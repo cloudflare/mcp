@@ -3,6 +3,27 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_messages_output,
+  zero_trust_gateway_read_only_timestamp_output,
+} from "../../outputs.js";
+import {
+  zero_trust_gateway_api_response_collection_output,
+  zero_trust_gateway_empty_response_output,
+  zero_trust_gateway_result_info_output,
+  zero_trust_gateway_uuid_3_output,
+} from "../outputs.js";
+import {
+  zero_trust_gateway_contents_output,
+  zero_trust_gateway_description_4_output,
+  zero_trust_gateway_name_7_output,
+  zero_trust_gateway_pacfile_output,
+  zero_trust_gateway_response_collection_10_output,
+  zero_trust_gateway_single_response_7_output,
+  zero_trust_gateway_slug_output,
+  zero_trust_gateway_url_output,
+} from "./outputs.js";
+import {
   zero_trust_gateway_contents,
   zero_trust_gateway_description_4,
   zero_trust_gateway_name_7,
@@ -73,6 +94,36 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_pacfile"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-7"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_contents": zero_trust_gateway_contents_output,
+        "zero-trust-gateway_description-4": zero_trust_gateway_description_4_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-7": zero_trust_gateway_name_7_output,
+        "zero-trust-gateway_pacfile": zero_trust_gateway_pacfile_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_single_response-7": zero_trust_gateway_single_response_7_output,
+        "zero-trust-gateway_slug": zero_trust_gateway_slug_output,
+        "zero-trust-gateway_url": zero_trust_gateway_url_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/pacfiles`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -112,6 +163,28 @@ export const tools: readonly Tool[] = [
         "Zero Trust Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_empty_response"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_empty_response": zero_trust_gateway_empty_response_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/pacfiles/${pathParam(args, "pacfile_id")}`,
     }),
@@ -150,6 +223,36 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_pacfile"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-7"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_contents": zero_trust_gateway_contents_output,
+        "zero-trust-gateway_description-4": zero_trust_gateway_description_4_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-7": zero_trust_gateway_name_7_output,
+        "zero-trust-gateway_pacfile": zero_trust_gateway_pacfile_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_single_response-7": zero_trust_gateway_single_response_7_output,
+        "zero-trust-gateway_slug": zero_trust_gateway_slug_output,
+        "zero-trust-gateway_url": zero_trust_gateway_url_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/pacfiles/${pathParam(args, "pacfile_id")}`,
@@ -195,6 +298,78 @@ export const tools: readonly Tool[] = [
         "Zero Trust Read",
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "created_at": {
+                    "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                  },
+                  "description": {
+                    "$ref": "#/$defs/zero-trust-gateway_description-4"
+                  },
+                  "id": {
+                    "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+                  },
+                  "name": {
+                    "$ref": "#/$defs/zero-trust-gateway_name-7"
+                  },
+                  "slug": {
+                    "$ref": "#/$defs/zero-trust-gateway_slug"
+                  },
+                  "updated_at": {
+                    "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                  },
+                  "url": {
+                    "$ref": "#/$defs/zero-trust-gateway_url"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_response_collection-10"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_description-4": zero_trust_gateway_description_4_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-7": zero_trust_gateway_name_7_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_response_collection-10": zero_trust_gateway_response_collection_10_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_slug": zero_trust_gateway_slug_output,
+        "zero-trust-gateway_url": zero_trust_gateway_url_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/pacfiles`,
@@ -265,6 +440,36 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/zero-trust-gateway_pacfile"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_single_response-7"
+            },
+            {
+              "$ref": "#/$defs/zero-trust-gateway_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_contents": zero_trust_gateway_contents_output,
+        "zero-trust-gateway_description-4": zero_trust_gateway_description_4_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_name-7": zero_trust_gateway_name_7_output,
+        "zero-trust-gateway_pacfile": zero_trust_gateway_pacfile_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_single_response-7": zero_trust_gateway_single_response_7_output,
+        "zero-trust-gateway_slug": zero_trust_gateway_slug_output,
+        "zero-trust-gateway_url": zero_trust_gateway_url_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/gateway/pacfiles/${pathParam(args, "pacfile_id")}`,

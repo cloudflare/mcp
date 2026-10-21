@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_apiErrorResponse_output,
+} from "../../outputs.js";
+import {
+  pay_per_crawl_PPUUsageStatsBuyer_output,
+  pay_per_crawl_PPUUsageStatsDataPoint_output,
+  pay_per_crawl_PPUUsageStatsTotals_output,
+  pay_per_crawl_PPUUsageStats_output,
+} from "./outputs.js";
 
 /**
  * The tools of `pay_per_use.usage_stats`.
@@ -63,6 +74,31 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/{account_or_zone}/{account_or_zone_id}/pay-per-use/usage-stats",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_PPUUsageStats"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_PPUUsageStats": pay_per_crawl_PPUUsageStats_output,
+        "pay-per-crawl_PPUUsageStatsBuyer": pay_per_crawl_PPUUsageStatsBuyer_output,
+        "pay-per-crawl_PPUUsageStatsDataPoint": pay_per_crawl_PPUUsageStatsDataPoint_output,
+        "pay-per-crawl_PPUUsageStatsTotals": pay_per_crawl_PPUUsageStatsTotals_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/pay-per-use/usage-stats`,
       query: [

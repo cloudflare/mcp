@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_messages_output,
+} from "../../../outputs.js";
+import {
+  workers_placement_provider_output,
+  workers_placement_region_output,
+  workers_placement_regions_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `workers.placement.regions`.
@@ -41,6 +50,23 @@ export const tools: readonly Tool[] = [
       "x-fern-audiences": [
         "sdk"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_placement-regions-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_messages": workers_messages_output,
+        "workers_placement-provider": workers_placement_provider_output,
+        "workers_placement-region": workers_placement_region_output,
+        "workers_placement-regions-response": workers_placement_regions_response_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/placement/regions`,

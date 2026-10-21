@@ -3,9 +3,17 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_GenericSuccessResponse_output,
+  realtimekit_PagingInfo_output,
+  realtimekit_PagingResponse_output,
+} from "../../outputs.js";
+import {
   realtimekit_account_identifier,
   realtimekit_app_id,
 } from "../../schemas.js";
+import { realtimekit_Participant_output } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.meetings.participants`.
@@ -94,6 +102,49 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "201": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/realtimekit_Participant"
+                    },
+                    {
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "token"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -150,6 +201,56 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "custom_participant_id": {
+                      "type": "string"
+                    },
+                    "preset_id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "custom_participant_id",
+                    "preset_id",
+                    "updated_at"
+                  ],
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants/${pathParam(args, "participant_id")}`,
     }),
@@ -205,6 +306,37 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "$ref": "#/$defs/realtimekit_Participant"
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants/${pathParam(args, "participant_id")}`,
     }),
@@ -258,6 +390,38 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_PagingResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "items": {
+                    "$ref": "#/$defs/realtimekit_Participant"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
+        "realtimekit_PagingResponse": realtimekit_PagingResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants`,
@@ -358,6 +522,49 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/realtimekit_Participant"
+                    },
+                    {
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "token"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants/${pathParam(args, "participant_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -452,6 +659,49 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/realtimekit_Participant"
+                    },
+                    {
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "token"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "500": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants/${pathParam(args, "participant_id")}`,

@@ -2,6 +2,31 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  waitingroom_api_response_common_failure_output,
+  waitingroom_messages_output,
+  waitingroom_timestamp_output,
+} from "../../outputs.js";
+import {
+  waitingroom_event_description_output,
+  waitingroom_event_end_time_output,
+  waitingroom_event_id_output,
+  waitingroom_event_name_output,
+  waitingroom_event_prequeue_start_time_output,
+  waitingroom_event_shuffle_at_event_start_output,
+  waitingroom_event_start_time_output,
+  waitingroom_event_suspended_output,
+} from "../outputs.js";
+import {
+  waitingroom_event_details_custom_page_html_output,
+  waitingroom_event_details_disable_session_renewal_output,
+  waitingroom_event_details_new_users_per_minute_output,
+  waitingroom_event_details_queueing_method_output,
+  waitingroom_event_details_response_output,
+  waitingroom_event_details_result_output,
+  waitingroom_event_details_session_duration_output,
+  waitingroom_event_details_total_active_users_output,
+} from "./outputs.js";
 
 /**
  * The tools of `waiting_rooms.events.details`.
@@ -51,6 +76,44 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/waitingroom_event_details_result"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waitingroom_event_details_response"
+            },
+            {
+              "$ref": "#/$defs/waitingroom_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_event_description": waitingroom_event_description_output,
+        "waitingroom_event_details_custom_page_html": waitingroom_event_details_custom_page_html_output,
+        "waitingroom_event_details_disable_session_renewal": waitingroom_event_details_disable_session_renewal_output,
+        "waitingroom_event_details_new_users_per_minute": waitingroom_event_details_new_users_per_minute_output,
+        "waitingroom_event_details_queueing_method": waitingroom_event_details_queueing_method_output,
+        "waitingroom_event_details_response": waitingroom_event_details_response_output,
+        "waitingroom_event_details_result": waitingroom_event_details_result_output,
+        "waitingroom_event_details_session_duration": waitingroom_event_details_session_duration_output,
+        "waitingroom_event_details_total_active_users": waitingroom_event_details_total_active_users_output,
+        "waitingroom_event_end_time": waitingroom_event_end_time_output,
+        "waitingroom_event_id": waitingroom_event_id_output,
+        "waitingroom_event_name": waitingroom_event_name_output,
+        "waitingroom_event_prequeue_start_time": waitingroom_event_prequeue_start_time_output,
+        "waitingroom_event_shuffle_at_event_start": waitingroom_event_shuffle_at_event_start_output,
+        "waitingroom_event_start_time": waitingroom_event_start_time_output,
+        "waitingroom_event_suspended": waitingroom_event_suspended_output,
+        "waitingroom_messages": waitingroom_messages_output,
+        "waitingroom_timestamp": waitingroom_timestamp_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/waiting_rooms/${pathParam(args, "waiting_room_id")}/events/${pathParam(args, "event_id")}/details`,

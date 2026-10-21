@@ -2,7 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { nsc_AccountTag_output } from "../outputs.js";
 import { nsc_AccountTag } from "../schemas.js";
+import {
+  nsc_BgpControl_output,
+  nsc_BgpMode_output,
+  nsc_CniList_output,
+  nsc_Cni_output,
+  nsc_MagicSettings_output,
+} from "./outputs.js";
 import {
   nsc_BgpControl,
   nsc_BgpMode,
@@ -56,6 +64,23 @@ export const tools: readonly Tool[] = [
         "Magic Transit Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_Cni"
+        },
+        "400": null,
+        "409": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_BgpControl": nsc_BgpControl_output,
+        "nsc_BgpMode": nsc_BgpMode_output,
+        "nsc_Cni": nsc_Cni_output,
+        "nsc_MagicSettings": nsc_MagicSettings_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/cnis`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -97,6 +122,14 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": null,
+        "400": null,
+        "404": null,
+        "500": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/cnis/${pathParam(args, "cni")}`,
@@ -140,6 +173,23 @@ export const tools: readonly Tool[] = [
         "Magic Transit Read",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_Cni"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_BgpControl": nsc_BgpControl_output,
+        "nsc_BgpMode": nsc_BgpMode_output,
+        "nsc_Cni": nsc_Cni_output,
+        "nsc_MagicSettings": nsc_MagicSettings_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/cnis/${pathParam(args, "cni")}`,
@@ -220,6 +270,24 @@ export const tools: readonly Tool[] = [
         "Magic Transit Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_CniList"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_BgpControl": nsc_BgpControl_output,
+        "nsc_BgpMode": nsc_BgpMode_output,
+        "nsc_Cni": nsc_Cni_output,
+        "nsc_CniList": nsc_CniList_output,
+        "nsc_MagicSettings": nsc_MagicSettings_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/cnis`,
       query: [
@@ -277,6 +345,23 @@ export const tools: readonly Tool[] = [
         "Magic WAN Write",
         "Magic Transit Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/nsc_Cni"
+        },
+        "400": null,
+        "404": null,
+        "500": null
+      },
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_BgpControl": nsc_BgpControl_output,
+        "nsc_BgpMode": nsc_BgpMode_output,
+        "nsc_Cni": nsc_Cni_output,
+        "nsc_MagicSettings": nsc_MagicSettings_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cni/cnis/${pathParam(args, "cni")}`,

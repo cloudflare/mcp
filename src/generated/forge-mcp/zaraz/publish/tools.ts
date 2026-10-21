@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  zaraz_api_response_common_failure_output,
+  zaraz_messages_output,
+} from "../outputs.js";
 
 /**
  * The tools of `zaraz.publish`.
@@ -49,6 +53,20 @@ export const tools: readonly Tool[] = [
           }
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/zaraz_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
+        "zaraz_messages": zaraz_messages_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/zaraz/publish`,

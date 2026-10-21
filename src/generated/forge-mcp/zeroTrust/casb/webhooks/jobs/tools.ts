@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  posture_api_error_response_output,
+  posture_api_messages_output,
+} from "../../outputs.js";
+import {
+  posture_api_WebhookJobActorTypeEnum_output,
+  posture_api_WebhookJobFailureReasonEnum_output,
+  posture_api_WebhookJobFailure_output,
+  posture_api_WebhookJobParameters_output,
+  posture_api_WebhookJobStatusEnum_output,
+  posture_api_WebhookJob_output,
+} from "./outputs.js";
 import { posture_api_CreateWebhookJobsRequest } from "./schemas.js";
 
 /**
@@ -44,6 +56,53 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Zero Trust Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "created": {
+              "items": {
+                "$ref": "#/$defs/posture-api_WebhookJob"
+              },
+              "type": "array"
+            },
+            "failed": {
+              "items": {
+                "$ref": "#/$defs/posture-api_WebhookJobFailure"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "created",
+            "failed"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "401": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "403": {
+          "$ref": "#/$defs/posture-api_error-response"
+        },
+        "404": {
+          "$ref": "#/$defs/posture-api_error-response"
+        }
+      },
+      $defs: {
+        "posture-api_WebhookJob": posture_api_WebhookJob_output,
+        "posture-api_WebhookJobActorTypeEnum": posture_api_WebhookJobActorTypeEnum_output,
+        "posture-api_WebhookJobFailure": posture_api_WebhookJobFailure_output,
+        "posture-api_WebhookJobFailureReasonEnum": posture_api_WebhookJobFailureReasonEnum_output,
+        "posture-api_WebhookJobParameters": posture_api_WebhookJobParameters_output,
+        "posture-api_WebhookJobStatusEnum": posture_api_WebhookJobStatusEnum_output,
+        "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/data-security/posture/webhooks/jobs`,

@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  stream_api_response_common_failure_output,
+  stream_messages_output,
+} from "../../outputs.js";
+import { stream_identifier_output } from "../outputs.js";
+import {
+  stream_additionalAudio_output,
+  stream_audio_default_output,
+  stream_audio_label_output,
+  stream_audio_state_output,
+  stream_deleted_response_output,
+} from "./outputs.js";
+import {
   stream_audio_default,
   stream_audio_label,
   stream_copyAudioTrack,
@@ -51,6 +63,25 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/stream/{identifier}/audio/copy",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_additionalAudio"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_additionalAudio": stream_additionalAudio_output,
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_audio_default": stream_audio_default_output,
+        "stream_audio_label": stream_audio_label_output,
+        "stream_audio_state": stream_audio_state_output,
+        "stream_identifier": stream_identifier_output,
+        "stream_messages": stream_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/audio/copy`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -95,6 +126,20 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Stream Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "string"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_deleted_response"
+        }
+      },
+      $defs: {
+        "stream_deleted_response": stream_deleted_response_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/audio/${pathParam(args, "audio_identifier")}`,
@@ -149,6 +194,25 @@ export const tools: readonly Tool[] = [
         "Stream Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_additionalAudio"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_additionalAudio": stream_additionalAudio_output,
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_audio_default": stream_audio_default_output,
+        "stream_audio_label": stream_audio_label_output,
+        "stream_audio_state": stream_audio_state_output,
+        "stream_identifier": stream_identifier_output,
+        "stream_messages": stream_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/audio/${pathParam(args, "audio_identifier")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -189,6 +253,33 @@ export const tools: readonly Tool[] = [
         "Stream Write",
         "Stream Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "audio": {
+              "items": {
+                "$ref": "#/$defs/stream_additionalAudio"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_additionalAudio": stream_additionalAudio_output,
+        "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_audio_default": stream_audio_default_output,
+        "stream_audio_label": stream_audio_label_output,
+        "stream_audio_state": stream_audio_state_output,
+        "stream_identifier": stream_identifier_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/audio`,

@@ -105,6 +105,139 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asn_info": {
+              "items": {
+                "properties": {
+                  "asn": {
+                    "type": "integer"
+                  },
+                  "country_code": {
+                    "type": "string"
+                  },
+                  "org_name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "asn",
+                  "country_code",
+                  "org_name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "events": {
+              "items": {
+                "properties": {
+                  "countries": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "detected_ts": {
+                    "type": "string"
+                  },
+                  "finished": {
+                    "type": "boolean"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "leak_asn": {
+                    "type": "integer"
+                  },
+                  "leak_count": {
+                    "type": "integer"
+                  },
+                  "leak_seg": {
+                    "items": {
+                      "type": "integer"
+                    },
+                    "type": "array"
+                  },
+                  "leak_type": {
+                    "type": "integer"
+                  },
+                  "max_ts": {
+                    "type": "string"
+                  },
+                  "min_ts": {
+                    "type": "string"
+                  },
+                  "origin_count": {
+                    "type": "integer"
+                  },
+                  "peer_count": {
+                    "type": "integer"
+                  },
+                  "prefix_count": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "countries",
+                  "detected_ts",
+                  "finished",
+                  "id",
+                  "leak_asn",
+                  "leak_count",
+                  "leak_seg",
+                  "leak_type",
+                  "max_ts",
+                  "min_ts",
+                  "origin_count",
+                  "peer_count",
+                  "prefix_count"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "asn_info",
+            "events"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/bgp/leaks/events`,
       query: [

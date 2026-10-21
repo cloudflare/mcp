@@ -2,8 +2,23 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  magic_api_response_common_failure_output,
+  magic_cidr_output,
+  magic_identifier_output,
+  magic_messages_output,
+} from "../../outputs.js";
 import { magic_cidr } from "../../schemas.js";
+import { magic_ip_address_output, magic_port_output } from "../outputs.js";
 import { magic_ip_address, magic_port } from "../schemas.js";
+import {
+  magic_acl_output,
+  magic_acl_port_range_output,
+  magic_acl_subnet_output,
+  magic_forward_locally_output,
+  magic_lan_acl_configuration_output,
+  magic_unidirectional_output,
+} from "./outputs.js";
 import {
   magic_acl_port_range,
   magic_acl_subnet,
@@ -75,6 +90,30 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_acl"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/acls`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -136,6 +175,30 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_acl"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/acls/${pathParam(args, "acl_id")}`,
@@ -213,6 +276,30 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_acl"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/acls/${pathParam(args, "acl_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -277,6 +364,30 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_acl"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/acls/${pathParam(args, "acl_id")}`,
     }),
@@ -324,6 +435,44 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/magic_acl"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/acls`,
@@ -400,6 +549,30 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/magic_acl"
+        },
+        "4XX": {
+          "$ref": "#/$defs/magic_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/magic/sites/${pathParam(args, "site_id")}/acls/${pathParam(args, "acl_id")}`,

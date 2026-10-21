@@ -3,11 +3,52 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  api_shield_api_response_common_failure_output,
+  api_shield_auth_id_tokens_output,
+  api_shield_basic_operation_output,
+  api_shield_confidence_intervals_bounds_output,
+  api_shield_data_points_output,
+  api_shield_endpoint_output,
+  api_shield_host_output,
+  api_shield_messages_output,
+  api_shield_method_output,
+  api_shield_operation_feature_api_routing_api_routing_output,
+  api_shield_operation_feature_api_routing_output,
+  api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
+  api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
+  api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
+  api_shield_operation_feature_confidence_intervals_output,
+  api_shield_operation_feature_parameter_schemas_output,
+  api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
+  api_shield_operation_feature_schema_info_output,
+  api_shield_operation_feature_schema_info_schema_info_active_schema_output,
+  api_shield_operation_feature_schema_info_schema_info_output,
+  api_shield_operation_feature_thresholds_output,
+  api_shield_operation_feature_thresholds_thresholds_output,
+  api_shield_operation_features_output,
+  api_shield_operation_output,
+  api_shield_p50_output,
+  api_shield_p90_output,
+  api_shield_p99_output,
+  api_shield_parameter_schemas_definition_output,
+  api_shield_period_seconds_output,
+  api_shield_requests_output,
+  api_shield_suggested_threshold_output,
+  api_shield_timestamp_2_output,
+  api_shield_timestamp_output,
+  api_shield_uuid_2_output,
+  api_shield_uuid_output,
+} from "../../../../outputs.js";
+import {
   api_shield_identifier,
   api_shield_identifier_2,
   api_shield_uuid,
   api_shield_uuid_2,
 } from "../../../../schemas.js";
+import {
+  api_shield_api_response_collection_output,
+  api_shield_api_response_collection_result_info_output,
+} from "../../../outputs.js";
 
 /**
  * The tools of `api_security.schema_validation.schemas.operations`.
@@ -112,6 +153,80 @@ export const tools: readonly Tool[] = [
         "Domain API Gateway",
         "Domain API Gateway Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/api-shield_operation"
+                      },
+                      {
+                        "$ref": "#/$defs/api-shield_basic_operation"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/api-shield_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
+        "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
+        "api-shield_data_points": api_shield_data_points_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_operation": api_shield_operation_output,
+        "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
+        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
+        "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
+        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
+        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
+        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
+        "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
+        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
+        "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
+        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
+        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
+        "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
+        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
+        "api-shield_operation_features": api_shield_operation_features_output,
+        "api-shield_p50": api_shield_p50_output,
+        "api-shield_p90": api_shield_p90_output,
+        "api-shield_p99": api_shield_p99_output,
+        "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
+        "api-shield_period_seconds": api_shield_period_seconds_output,
+        "api-shield_requests": api_shield_requests_output,
+        "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/schema_validation/schemas/${pathParam(args, "schema_id")}/operations`,

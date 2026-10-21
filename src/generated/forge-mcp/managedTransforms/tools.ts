@@ -3,6 +3,19 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  rulesets_Errors_output,
+  rulesets_Message_output,
+  rulesets_Message_source_output,
+  rulesets_Messages_output,
+  rulesets_Response_output,
+  rulesets_Response_result_output,
+} from "../outputs.js";
+import {
+  rulesets_ManagedTransformId_output,
+  rulesets_ManagedTransform_output,
+  rulesets_ManagedTransforms_output,
+} from "./outputs.js";
+import {
   rulesets_ManagedTransform,
   rulesets_ManagedTransformId,
   rulesets_ManagedTransformsPatch,
@@ -67,6 +80,40 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "204": null,
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "rulesets_Errors": rulesets_Errors_output,
+        "rulesets_Message": rulesets_Message_output,
+        "rulesets_Message_source": rulesets_Message_source_output,
+        "rulesets_Messages": rulesets_Messages_output,
+        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Response_result": rulesets_Response_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/managed_headers`,
@@ -149,6 +196,64 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "errors": {},
+                "result": {
+                  "$ref": "#/$defs/rulesets_ManagedTransforms"
+                },
+                "success": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "rulesets_Errors": rulesets_Errors_output,
+        "rulesets_ManagedTransform": rulesets_ManagedTransform_output,
+        "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
+        "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
+        "rulesets_Message": rulesets_Message_output,
+        "rulesets_Message_source": rulesets_Message_source_output,
+        "rulesets_Messages": rulesets_Messages_output,
+        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Response_result": rulesets_Response_result_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/managed_headers`,
     }),
@@ -217,6 +322,64 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "errors": {},
+                "result": {
+                  "$ref": "#/$defs/rulesets_ManagedTransforms"
+                },
+                "success": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "rulesets_Errors": rulesets_Errors_output,
+        "rulesets_ManagedTransform": rulesets_ManagedTransform_output,
+        "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
+        "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
+        "rulesets_Message": rulesets_Message_output,
+        "rulesets_Message_source": rulesets_Message_source_output,
+        "rulesets_Messages": rulesets_Messages_output,
+        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Response_result": rulesets_Response_result_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/managed_headers`,

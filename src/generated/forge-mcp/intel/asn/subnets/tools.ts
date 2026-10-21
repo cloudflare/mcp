@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  intel_api_response_common_failure_output,
+  intel_messages_output,
+} from "../../outputs.js";
+import { intel_asn_output } from "../outputs.js";
+import {
+  intel_count_output,
+  intel_page_output,
+  intel_per_page_output,
+} from "./outputs.js";
 
 /**
  * The tools of `intel.asn.subnets`.
@@ -41,6 +51,77 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "asn": {
+              "$ref": "#/$defs/intel_asn"
+            },
+            "count": {
+              "$ref": "#/$defs/intel_count"
+            },
+            "ip_count_total": {
+              "type": "integer"
+            },
+            "page": {
+              "$ref": "#/$defs/intel_page"
+            },
+            "per_page": {
+              "$ref": "#/$defs/intel_per_page"
+            },
+            "subnets": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "properties": {
+                "asn": {
+                  "$ref": "#/$defs/intel_asn"
+                },
+                "count": {
+                  "$ref": "#/$defs/intel_count"
+                },
+                "ip_count_total": {
+                  "type": "integer"
+                },
+                "page": {
+                  "$ref": "#/$defs/intel_page"
+                },
+                "per_page": {
+                  "$ref": "#/$defs/intel_per_page"
+                },
+                "subnets": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "$ref": "#/$defs/intel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_asn": intel_asn_output,
+        "intel_count": intel_count_output,
+        "intel_messages": intel_messages_output,
+        "intel_page": intel_page_output,
+        "intel_per_page": intel_per_page_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/asn/${pathParam(args, "asn")}/subnets`,

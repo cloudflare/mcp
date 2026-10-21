@@ -2,6 +2,40 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  waitingroom_additional_routes_output,
+  waitingroom_api_response_common_failure_output,
+  waitingroom_cookie_attributes_output,
+  waitingroom_cookie_suffix_output,
+  waitingroom_custom_page_html_output,
+  waitingroom_default_template_language_output,
+  waitingroom_description_output,
+  waitingroom_disable_session_renewal_output,
+  waitingroom_enabled_origin_commands_output,
+  waitingroom_host_output,
+  waitingroom_json_response_enabled_output,
+  waitingroom_messages_output,
+  waitingroom_name_output,
+  waitingroom_new_users_per_minute_output,
+  waitingroom_next_event_prequeue_start_time_output,
+  waitingroom_next_event_start_time_output,
+  waitingroom_path_output,
+  waitingroom_queue_all_output,
+  waitingroom_queueing_method_output,
+  waitingroom_queueing_status_code_output,
+  waitingroom_session_duration_output,
+  waitingroom_suspended_output,
+  waitingroom_timestamp_output,
+  waitingroom_total_active_users_output,
+  waitingroom_turnstile_action_output,
+  waitingroom_turnstile_mode_output,
+  waitingroom_waiting_room_id_output,
+  waitingroom_waitingroom_output,
+} from "../outputs.js";
+import {
+  waitingroom_response_collection_output,
+  waitingroom_response_collection_result_info_output,
+} from "./outputs.js";
 
 /**
  * The tools of `waiting_rooms.account_waiting_rooms`.
@@ -61,6 +95,86 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/waitingroom_waitingroom"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waitingroom_response_collection"
+            },
+            {
+              "$ref": "#/$defs/waitingroom_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waitingroom_additional_routes": waitingroom_additional_routes_output,
+        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_cookie_attributes": waitingroom_cookie_attributes_output,
+        "waitingroom_cookie_suffix": waitingroom_cookie_suffix_output,
+        "waitingroom_custom_page_html": waitingroom_custom_page_html_output,
+        "waitingroom_default_template_language": waitingroom_default_template_language_output,
+        "waitingroom_description": waitingroom_description_output,
+        "waitingroom_disable_session_renewal": waitingroom_disable_session_renewal_output,
+        "waitingroom_enabled_origin_commands": waitingroom_enabled_origin_commands_output,
+        "waitingroom_host": waitingroom_host_output,
+        "waitingroom_json_response_enabled": waitingroom_json_response_enabled_output,
+        "waitingroom_messages": waitingroom_messages_output,
+        "waitingroom_name": waitingroom_name_output,
+        "waitingroom_new_users_per_minute": waitingroom_new_users_per_minute_output,
+        "waitingroom_next_event_prequeue_start_time": waitingroom_next_event_prequeue_start_time_output,
+        "waitingroom_next_event_start_time": waitingroom_next_event_start_time_output,
+        "waitingroom_path": waitingroom_path_output,
+        "waitingroom_queue_all": waitingroom_queue_all_output,
+        "waitingroom_queueing_method": waitingroom_queueing_method_output,
+        "waitingroom_queueing_status_code": waitingroom_queueing_status_code_output,
+        "waitingroom_response_collection": waitingroom_response_collection_output,
+        "waitingroom_response_collection_result_info": waitingroom_response_collection_result_info_output,
+        "waitingroom_session_duration": waitingroom_session_duration_output,
+        "waitingroom_suspended": waitingroom_suspended_output,
+        "waitingroom_timestamp": waitingroom_timestamp_output,
+        "waitingroom_total_active_users": waitingroom_total_active_users_output,
+        "waitingroom_turnstile_action": waitingroom_turnstile_action_output,
+        "waitingroom_turnstile_mode": waitingroom_turnstile_mode_output,
+        "waitingroom_waiting_room_id": waitingroom_waiting_room_id_output,
+        "waitingroom_waitingroom": waitingroom_waitingroom_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/waiting_rooms`,

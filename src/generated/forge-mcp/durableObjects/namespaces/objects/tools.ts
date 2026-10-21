@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  workers_api_response_common_failure_output,
+  workers_messages_output,
+} from "../../../outputs.js";
+import {
+  workers_api_response_collection_output,
+  workers_api_response_collection_result_info_output,
+} from "../outputs.js";
+import { workers_cursor_output, workers_object_output } from "./outputs.js";
 
 /**
  * The tools of `durable_objects.namespaces.objects`.
@@ -59,6 +68,75 @@ export const tools: readonly Tool[] = [
         "Individual Workers Content Read-Only",
         "Individual Workers Metadata Read-Only"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_object"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "$ref": "#/$defs/workers_cursor"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_object"
+                  },
+                  "type": "array"
+                },
+                "result_info": {
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    },
+                    "cursor": {
+                      "$ref": "#/$defs/workers_cursor"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "$ref": "#/$defs/workers_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-collection_result_info": workers_api_response_collection_result_info_output,
+        "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_cursor": workers_cursor_output,
+        "workers_messages": workers_messages_output,
+        "workers_object": workers_object_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/durable_objects/namespaces/${pathParam(args, "id")}/objects`,

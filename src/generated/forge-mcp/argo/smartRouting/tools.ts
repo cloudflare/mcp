@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  argo_config_api_response_common_failure_output,
+  argo_config_editable_output,
+  argo_config_messages_output,
+  argo_config_modified_on_output,
+  argo_config_result_object_output,
+  argo_config_setting_id_output,
+  argo_config_setting_value_output,
+} from "./outputs.js";
 import { argo_config_patch, argo_config_setting_value } from "./schemas.js";
 
 /**
@@ -57,6 +66,20 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "integer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/argo-config_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
+        "argo-config_messages": argo_config_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/argo/count_zones_enabled`,
     }),
@@ -101,6 +124,20 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "integer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/argo-config_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
+        "argo-config_messages": argo_config_messages_output,
+      },
     },
     request: (_args) => ({
       path: `/user/argo/count_zones_enabled`,
@@ -164,6 +201,25 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/argo-config_result_object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/argo-config_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
+        "argo-config_editable": argo_config_editable_output,
+        "argo-config_messages": argo_config_messages_output,
+        "argo-config_modified_on": argo_config_modified_on_output,
+        "argo-config_result_object": argo_config_result_object_output,
+        "argo-config_setting_id": argo_config_setting_id_output,
+        "argo-config_setting_value": argo_config_setting_value_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/argo/smart_routing`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -215,6 +271,25 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/argo-config_result_object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/argo-config_api_response_common_failure"
+        }
+      },
+      $defs: {
+        "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
+        "argo-config_editable": argo_config_editable_output,
+        "argo-config_messages": argo_config_messages_output,
+        "argo-config_modified_on": argo_config_modified_on_output,
+        "argo-config_result_object": argo_config_result_object_output,
+        "argo-config_setting_id": argo_config_setting_id_output,
+        "argo-config_setting_value": argo_config_setting_value_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/argo/smart_routing`,

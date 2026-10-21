@@ -2,6 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  logpush_api_response_common_failure_output,
+  logpush_messages_output,
+} from "../outputs.js";
+import {
+  logpush_destination_conf_2_output,
+  logpush_fields_output,
+  logpush_filter_2_output,
+  logpush_instant_logs_job_output,
+  logpush_instant_logs_job_response_collection_output,
+  logpush_instant_logs_job_response_single_output,
+  logpush_sample_output,
+  logpush_session_id_output,
+} from "./outputs.js";
 import { logpush_fields, logpush_filter_2, logpush_sample } from "./schemas.js";
 
 /**
@@ -77,6 +91,41 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/logpush_instant_logs_job"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/logpush_instant_logs_job_response_single"
+            },
+            {
+              "$ref": "#/$defs/logpush_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_destination_conf-2": logpush_destination_conf_2_output,
+        "logpush_fields": logpush_fields_output,
+        "logpush_filter-2": logpush_filter_2_output,
+        "logpush_instant_logs_job": logpush_instant_logs_job_output,
+        "logpush_instant_logs_job_response_single": logpush_instant_logs_job_response_single_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_sample": logpush_sample_output,
+        "logpush_session_id": logpush_session_id_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/logpush/edge/jobs`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -127,6 +176,55 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/logpush_instant_logs_job"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/logpush_instant_logs_job_response_collection"
+            },
+            {
+              "$ref": "#/$defs/logpush_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_destination_conf-2": logpush_destination_conf_2_output,
+        "logpush_fields": logpush_fields_output,
+        "logpush_filter-2": logpush_filter_2_output,
+        "logpush_instant_logs_job": logpush_instant_logs_job_output,
+        "logpush_instant_logs_job_response_collection": logpush_instant_logs_job_response_collection_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_sample": logpush_sample_output,
+        "logpush_session_id": logpush_session_id_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/logpush/edge/jobs`,

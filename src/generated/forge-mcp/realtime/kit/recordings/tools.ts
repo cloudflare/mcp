@@ -3,6 +3,22 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  realtimekit_AudioConfig_output,
+  realtimekit_GenericSuccessResponse_output,
+  realtimekit_LivestreamingConfig_output,
+  realtimekit_Meeting_output,
+  realtimekit_PagingInfo_output,
+  realtimekit_PagingResponse_output,
+  realtimekit_RecordingConfig_output,
+  realtimekit_StorageConfig_auth_method_output,
+  realtimekit_StorageConfig_output,
+  realtimekit_StorageConfig_type_output,
+  realtimekit_VideoConfig_output,
+  realtimekit_VideoConfig_watermark_output,
+  realtimekit_VideoConfig_watermark_size_output,
+  realtimekit_realtimekitBucketConfig_output,
+} from "../outputs.js";
+import {
   realtimekit_AudioConfig,
   realtimekit_LivestreamingConfig,
   realtimekit_StorageConfig,
@@ -13,6 +29,13 @@ import {
   realtimekit_VideoConfig_watermark_size,
   realtimekit_realtimekitBucketConfig,
 } from "../schemas.js";
+import {
+  realtimekit_Recording_output,
+  realtimekit_startReason_caller_output,
+  realtimekit_startReason_output,
+  realtimekit_stopReason_caller_output,
+  realtimekit_stopReason_output,
+} from "./outputs.js";
 import { realtimekit_InteractiveConfig } from "./schemas.js";
 
 /**
@@ -79,6 +102,54 @@ export const tools: readonly Tool[] = [
       ],
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/realtimekit_Recording"
+                    },
+                    {
+                      "properties": {
+                        "start_reason": {
+                          "$ref": "#/$defs/realtimekit_startReason"
+                        },
+                        "stop_reason": {
+                          "$ref": "#/$defs/realtimekit_stopReason"
+                        },
+                        "storage_config": {
+                          "$ref": "#/$defs/realtimekit_StorageConfig"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_startReason": realtimekit_startReason_output,
+        "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
+        "realtimekit_stopReason": realtimekit_stopReason_output,
+        "realtimekit_stopReason_caller": realtimekit_stopReason_caller_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/recordings/${pathParam(args, "recording_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -126,6 +197,54 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/realtimekit_Recording"
+                    },
+                    {
+                      "properties": {
+                        "start_reason": {
+                          "$ref": "#/$defs/realtimekit_startReason"
+                        },
+                        "stop_reason": {
+                          "$ref": "#/$defs/realtimekit_stopReason"
+                        },
+                        "storage_config": {
+                          "$ref": "#/$defs/realtimekit_StorageConfig"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_startReason": realtimekit_startReason_output,
+        "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
+        "realtimekit_stopReason": realtimekit_stopReason_output,
+        "realtimekit_stopReason_caller": realtimekit_stopReason_caller_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/recordings/${pathParam(args, "recording_id")}`,
@@ -225,6 +344,64 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_PagingResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/$defs/realtimekit_Recording"
+                      },
+                      {
+                        "properties": {
+                          "storage_config": {
+                            "$ref": "#/$defs/realtimekit_StorageConfig"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "meeting": {
+                            "$ref": "#/$defs/realtimekit_Meeting"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "realtimekit_AudioConfig": realtimekit_AudioConfig_output,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig_output,
+        "realtimekit_Meeting": realtimekit_Meeting_output,
+        "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
+        "realtimekit_PagingResponse": realtimekit_PagingResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig_output,
+        "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark_output,
+        "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size_output,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/recordings`,
@@ -341,6 +518,54 @@ export const tools: readonly Tool[] = [
         "Realtime"
       ],
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/realtimekit_Recording"
+                    },
+                    {
+                      "properties": {
+                        "start_reason": {
+                          "$ref": "#/$defs/realtimekit_startReason"
+                        },
+                        "stop_reason": {
+                          "$ref": "#/$defs/realtimekit_stopReason"
+                        },
+                        "storage_config": {
+                          "$ref": "#/$defs/realtimekit_StorageConfig"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_startReason": realtimekit_startReason_output,
+        "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
+        "realtimekit_stopReason": realtimekit_stopReason_output,
+        "realtimekit_stopReason_caller": realtimekit_stopReason_caller_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/recordings`,

@@ -2,6 +2,20 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  iam_api_response_common_failure_output,
+  iam_messages_2_output,
+  iam_result_info_output,
+} from "../../outputs.js";
+import { iam_role_names_output } from "../outputs.js";
+import {
+  iam_invite_components_schemas_identifier_output,
+  iam_invited_by_output,
+  iam_invited_member_email_output,
+  iam_invited_on_output,
+  iam_schemas_expires_on_output,
+  iam_user_invite_output,
+} from "./outputs.js";
 
 /**
  * The tools of `user.invites`.
@@ -44,6 +58,27 @@ export const tools: readonly Tool[] = [
         "pro": false
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_user_invite"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
+        "iam_invited_by": iam_invited_by_output,
+        "iam_invited_member_email": iam_invited_member_email_output,
+        "iam_invited_on": iam_invited_on_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-expires_on": iam_schemas_expires_on_output,
+        "iam_user_invite": iam_user_invite_output,
+      },
+    },
     request: (args) => ({
       path: `/user/invites/${pathParam(args, "invite_id")}`,
     }),
@@ -76,6 +111,42 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_user_invite"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/iam_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
+        "iam_invited_by": iam_invited_by_output,
+        "iam_invited_member_email": iam_invited_member_email_output,
+        "iam_invited_on": iam_invited_on_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-expires_on": iam_schemas_expires_on_output,
+        "iam_user_invite": iam_user_invite_output,
+      },
     },
     request: (_args) => ({
       path: `/user/invites`,
@@ -133,6 +204,27 @@ export const tools: readonly Tool[] = [
         "free": false,
         "pro": false
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_user_invite"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
+        "iam_invited_by": iam_invited_by_output,
+        "iam_invited_member_email": iam_invited_member_email_output,
+        "iam_invited_on": iam_invited_on_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-expires_on": iam_schemas_expires_on_output,
+        "iam_user_invite": iam_user_invite_output,
+      },
     },
     request: (args) => ({
       path: `/user/invites/${pathParam(args, "invite_id")}`,

@@ -3,6 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  monetization_api_response_common_failure_output,
+  monetization_response_info_output,
+} from "../outputs.js";
+import {
+  monetization_identifier_output,
+  monetization_monetization_price_output,
+  monetization_monetization_rule_collection_output,
+  monetization_monetization_rule_input_fixed_price_output,
+  monetization_monetization_rule_input_origin_controlled_output,
+  monetization_monetization_rule_output,
+} from "./outputs.js";
+import {
   monetization_identifier,
   monetization_monetization_price,
   monetization_monetization_rule_input,
@@ -55,6 +67,32 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/monetization_monetization-rule-collection"
+        },
+        "404": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/monetization/rules/${pathParam(args, "rule_id")}`,
     }),
@@ -89,6 +127,29 @@ export const tools: readonly Tool[] = [
     path: "/zones/{zone_id}/monetization/rules",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/monetization_monetization-rule-collection"
+        },
+        "4XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/monetization/rules`,
@@ -138,6 +199,35 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/monetization_monetization-rule-collection"
+        },
+        "403": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/monetization/rules/${pathParam(args, "rule_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -180,6 +270,31 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-stability": "beta"
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/monetization_monetization-rule"
+        },
+        "404": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/monetization/rules/${pathParam(args, "rule_id")}`,
     }),
@@ -214,6 +329,32 @@ export const tools: readonly Tool[] = [
     path: "/zones/{zone_id}/monetization/rules",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/monetization_monetization-rule-collection"
+        },
+        "404": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/monetization/rules`,
@@ -259,6 +400,32 @@ export const tools: readonly Tool[] = [
     path: "/zones/{zone_id}/monetization/rules",
     extensions: {
       "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/monetization_monetization-rule-collection"
+        },
+        "403": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        },
+        "5XX": {
+          "$ref": "#/$defs/monetization_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/monetization/rules`,

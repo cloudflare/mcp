@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  access_api_response_common_failure_output,
+  access_messages_output,
+} from "../../outputs.js";
+import {
+  access_saml_certificate_output,
+  access_saml_certificate_set_output,
+} from "../outputs.js";
 
 /**
  * The tools of `zero_trust.identity_providers.saml_certificate`.
@@ -37,6 +45,31 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/access/identity_providers/{identity_provider_id}/saml_certificate",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/access_saml_certificate_set"
+        },
+        "201": {
+          "$ref": "#/$defs/access_saml_certificate_set"
+        },
+        "403": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        },
+        "404": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        },
+        "4XX": {
+          "$ref": "#/$defs/access_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_messages": access_messages_output,
+        "access_saml_certificate": access_saml_certificate_output,
+        "access_saml_certificate_set": access_saml_certificate_set_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/identity_providers/${pathParam(args, "identity_provider_id")}/saml_certificate`,
     }),

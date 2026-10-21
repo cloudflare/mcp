@@ -268,6 +268,351 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "confidenceInfo": {
+                  "properties": {
+                    "annotations": {
+                      "items": {
+                        "properties": {
+                          "dataSource": {
+                            "enum": [
+                              "ALL",
+                              "AI_BOTS",
+                              "AI_GATEWAY",
+                              "BGP",
+                              "BOTS",
+                              "CONNECTION_ANOMALY",
+                              "CT",
+                              "DNS",
+                              "DNS_MAGNITUDE",
+                              "DNS_AS112",
+                              "DOS",
+                              "EMAIL_ROUTING",
+                              "EMAIL_SECURITY",
+                              "FW",
+                              "FW_PG",
+                              "HTTP",
+                              "HTTP_CONTROL",
+                              "HTTP_CRAWLER_REFERER",
+                              "HTTP_ORIGINS",
+                              "IQI",
+                              "LEAKED_CREDENTIALS",
+                              "NET",
+                              "ROBOTS_TXT",
+                              "SPEED",
+                              "WORKERS_AI"
+                            ],
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "endDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "enum": [
+                              "GENERAL",
+                              "OUTAGE",
+                              "PARTIAL_PROJECTION",
+                              "PIPELINE",
+                              "TRAFFIC_ANOMALY"
+                            ],
+                            "type": "string"
+                          },
+                          "isInstantaneous": {
+                            "type": "boolean"
+                          },
+                          "linkedUrl": {
+                            "type": "string"
+                          },
+                          "startDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "tags": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "dataSource",
+                          "description",
+                          "endDate",
+                          "eventType",
+                          "isInstantaneous",
+                          "linkedUrl",
+                          "startDate"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "level": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "annotations",
+                    "level"
+                  ],
+                  "type": "object"
+                },
+                "dateRange": {
+                  "items": {
+                    "properties": {
+                      "endTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "startTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "endTime",
+                      "startTime"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "lastUpdated": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "normalization": {
+                  "enum": [
+                    "PERCENTAGE",
+                    "MIN0_MAX",
+                    "MIN_MAX",
+                    "RAW_VALUES",
+                    "PERCENTAGE_CHANGE",
+                    "ROLLING_AVERAGE",
+                    "OVERLAPPED_PERCENTAGE",
+                    "RATIO"
+                  ],
+                  "type": "string"
+                },
+                "units": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "confidenceInfo",
+                "dateRange",
+                "lastUpdated",
+                "normalization",
+                "units"
+              ],
+              "type": "object"
+            },
+            "summary_0": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "rfc6962": {
+                      "type": "string"
+                    },
+                    "static": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "rfc6962",
+                    "static"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "gt_121d": {
+                      "type": "string"
+                    },
+                    "gt_16d_lte_31d": {
+                      "type": "string"
+                    },
+                    "gt_31d_lte_91d": {
+                      "type": "string"
+                    },
+                    "gt_3d_lte_16d": {
+                      "type": "string"
+                    },
+                    "gt_91d_lte_121d": {
+                      "type": "string"
+                    },
+                    "lte_3d": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "gt_121d",
+                    "gt_16d_lte_31d",
+                    "gt_31d_lte_91d",
+                    "gt_3d_lte_16d",
+                    "gt_91d_lte_121d",
+                    "lte_3d"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "CERTIFICATE": {
+                      "type": "string"
+                    },
+                    "PRECERTIFICATE": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "CERTIFICATE",
+                    "PRECERTIFICATE"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "EXPIRED": {
+                      "type": "string"
+                    },
+                    "VALID": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "EXPIRED",
+                    "VALID"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "NEGATIVE": {
+                      "type": "string"
+                    },
+                    "POSITIVE": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "NEGATIVE",
+                    "POSITIVE"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "DSA": {
+                      "type": "string"
+                    },
+                    "ECDSA": {
+                      "type": "string"
+                    },
+                    "RSA": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "DSA",
+                    "ECDSA",
+                    "RSA"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "domain": {
+                      "type": "string"
+                    },
+                    "extended": {
+                      "type": "string"
+                    },
+                    "organization": {
+                      "type": "string"
+                    },
+                    "unknown": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "domain",
+                    "extended",
+                    "organization",
+                    "unknown"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "required": [
+            "meta",
+            "summary_0"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
     request: (args) => ({
       path: `/radar/ct/summary/${pathParam(args, "dimension")}`,
       query: [
@@ -530,6 +875,240 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "additionalProperties": {
+            "properties": {
+              "timestamps": {
+                "items": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "values": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "timestamps",
+              "values"
+            ],
+            "type": "object"
+          },
+          "properties": {
+            "meta": {
+              "properties": {
+                "aggInterval": {
+                  "enum": [
+                    "FIFTEEN_MINUTES",
+                    "ONE_HOUR",
+                    "ONE_DAY",
+                    "ONE_WEEK",
+                    "ONE_MONTH"
+                  ],
+                  "type": "string"
+                },
+                "confidenceInfo": {
+                  "properties": {
+                    "annotations": {
+                      "items": {
+                        "properties": {
+                          "dataSource": {
+                            "enum": [
+                              "ALL",
+                              "AI_BOTS",
+                              "AI_GATEWAY",
+                              "BGP",
+                              "BOTS",
+                              "CONNECTION_ANOMALY",
+                              "CT",
+                              "DNS",
+                              "DNS_MAGNITUDE",
+                              "DNS_AS112",
+                              "DOS",
+                              "EMAIL_ROUTING",
+                              "EMAIL_SECURITY",
+                              "FW",
+                              "FW_PG",
+                              "HTTP",
+                              "HTTP_CONTROL",
+                              "HTTP_CRAWLER_REFERER",
+                              "HTTP_ORIGINS",
+                              "IQI",
+                              "LEAKED_CREDENTIALS",
+                              "NET",
+                              "ROBOTS_TXT",
+                              "SPEED",
+                              "WORKERS_AI"
+                            ],
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "endDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "enum": [
+                              "GENERAL",
+                              "OUTAGE",
+                              "PARTIAL_PROJECTION",
+                              "PIPELINE",
+                              "TRAFFIC_ANOMALY"
+                            ],
+                            "type": "string"
+                          },
+                          "isInstantaneous": {
+                            "type": "boolean"
+                          },
+                          "linkedUrl": {
+                            "type": "string"
+                          },
+                          "startDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "tags": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "dataSource",
+                          "description",
+                          "endDate",
+                          "eventType",
+                          "isInstantaneous",
+                          "linkedUrl",
+                          "startDate"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "level": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "annotations",
+                    "level"
+                  ],
+                  "type": "object"
+                },
+                "dateRange": {
+                  "items": {
+                    "properties": {
+                      "endTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "startTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "endTime",
+                      "startTime"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "lastUpdated": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "normalization": {
+                  "enum": [
+                    "PERCENTAGE",
+                    "MIN0_MAX",
+                    "MIN_MAX",
+                    "RAW_VALUES",
+                    "PERCENTAGE_CHANGE",
+                    "ROLLING_AVERAGE",
+                    "OVERLAPPED_PERCENTAGE",
+                    "RATIO"
+                  ],
+                  "type": "string"
+                },
+                "units": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "aggInterval",
+                "confidenceInfo",
+                "dateRange",
+                "lastUpdated",
+                "normalization",
+                "units"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "meta"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/ct/timeseries`,
@@ -828,6 +1407,440 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "meta": {
+              "properties": {
+                "aggInterval": {
+                  "enum": [
+                    "FIFTEEN_MINUTES",
+                    "ONE_HOUR",
+                    "ONE_DAY",
+                    "ONE_WEEK",
+                    "ONE_MONTH"
+                  ],
+                  "type": "string"
+                },
+                "confidenceInfo": {
+                  "properties": {
+                    "annotations": {
+                      "items": {
+                        "properties": {
+                          "dataSource": {
+                            "enum": [
+                              "ALL",
+                              "AI_BOTS",
+                              "AI_GATEWAY",
+                              "BGP",
+                              "BOTS",
+                              "CONNECTION_ANOMALY",
+                              "CT",
+                              "DNS",
+                              "DNS_MAGNITUDE",
+                              "DNS_AS112",
+                              "DOS",
+                              "EMAIL_ROUTING",
+                              "EMAIL_SECURITY",
+                              "FW",
+                              "FW_PG",
+                              "HTTP",
+                              "HTTP_CONTROL",
+                              "HTTP_CRAWLER_REFERER",
+                              "HTTP_ORIGINS",
+                              "IQI",
+                              "LEAKED_CREDENTIALS",
+                              "NET",
+                              "ROBOTS_TXT",
+                              "SPEED",
+                              "WORKERS_AI"
+                            ],
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "endDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "enum": [
+                              "GENERAL",
+                              "OUTAGE",
+                              "PARTIAL_PROJECTION",
+                              "PIPELINE",
+                              "TRAFFIC_ANOMALY"
+                            ],
+                            "type": "string"
+                          },
+                          "isInstantaneous": {
+                            "type": "boolean"
+                          },
+                          "linkedUrl": {
+                            "type": "string"
+                          },
+                          "startDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "tags": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "dataSource",
+                          "description",
+                          "endDate",
+                          "eventType",
+                          "isInstantaneous",
+                          "linkedUrl",
+                          "startDate"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "level": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "annotations",
+                    "level"
+                  ],
+                  "type": "object"
+                },
+                "dateRange": {
+                  "items": {
+                    "properties": {
+                      "endTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "startTime": {
+                        "format": "date-time",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "endTime",
+                      "startTime"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "lastUpdated": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "normalization": {
+                  "enum": [
+                    "PERCENTAGE",
+                    "MIN0_MAX",
+                    "MIN_MAX",
+                    "RAW_VALUES",
+                    "PERCENTAGE_CHANGE",
+                    "ROLLING_AVERAGE",
+                    "OVERLAPPED_PERCENTAGE",
+                    "RATIO"
+                  ],
+                  "type": "string"
+                },
+                "units": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "aggInterval",
+                "confidenceInfo",
+                "dateRange",
+                "lastUpdated",
+                "normalization",
+                "units"
+              ],
+              "type": "object"
+            },
+            "serie_0": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "properties": {
+                    "timestamps": {
+                      "items": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "timestamps"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "rfc6962": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "static": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "rfc6962",
+                    "static"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "gt_121d": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "gt_16d_lte_31d": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "gt_31d_lte_91d": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "gt_3d_lte_16d": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "gt_91d_lte_121d": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "lte_3d": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "gt_121d",
+                    "gt_16d_lte_31d",
+                    "gt_31d_lte_91d",
+                    "gt_3d_lte_16d",
+                    "gt_91d_lte_121d",
+                    "lte_3d"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "CERTIFICATE": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "PRECERTIFICATE": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "CERTIFICATE",
+                    "PRECERTIFICATE"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "EXPIRED": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "VALID": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "EXPIRED",
+                    "VALID"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "NEGATIVE": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "POSITIVE": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "NEGATIVE",
+                    "POSITIVE"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "DSA": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "ECDSA": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "RSA": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "DSA",
+                    "ECDSA",
+                    "RSA"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "domain": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "extended": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "organization": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "unknown": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "domain",
+                    "extended",
+                    "organization",
+                    "unknown"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "required": [
+            "meta",
+            "serie_0"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
     },
     request: (args) => ({
       path: `/radar/ct/timeseries_groups/${pathParam(args, "dimension")}`,

@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  argo_analytics_api_response_common_failure_output,
+  argo_analytics_messages_output,
+  argo_analytics_response_single_output,
+} from "./outputs.js";
 
 /**
  * The tools of `analytics.latency`.
@@ -55,6 +60,28 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/argo-analytics_response_single"
+            },
+            {
+              "$ref": "#/$defs/argo-analytics_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "argo-analytics_api-response-common-failure": argo_analytics_api_response_common_failure_output,
+        "argo-analytics_messages": argo_analytics_messages_output,
+        "argo-analytics_response_single": argo_analytics_response_single_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/analytics/latency`,

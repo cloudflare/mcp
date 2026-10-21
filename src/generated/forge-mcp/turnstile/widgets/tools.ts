@@ -3,6 +3,27 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  turnstile_api_response_common_failure_output,
+  turnstile_bot_fight_mode_output,
+  turnstile_clearance_level_output,
+  turnstile_created_on_output,
+  turnstile_deployed_via_output,
+  turnstile_domains_output,
+  turnstile_ephemeral_id_output,
+  turnstile_last_modified_via_output,
+  turnstile_messages_output,
+  turnstile_modified_on_output,
+  turnstile_name_output,
+  turnstile_offlabel_output,
+  turnstile_region_output,
+  turnstile_result_info_output,
+  turnstile_secret_output,
+  turnstile_sitekey_output,
+  turnstile_widget_detail_output,
+  turnstile_widget_list_output,
+  turnstile_widget_mode_output,
+} from "./outputs.js";
+import {
   turnstile_bot_fight_mode,
   turnstile_clearance_level,
   turnstile_domains,
@@ -142,6 +163,35 @@ export const tools: readonly Tool[] = [
         }
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/turnstile_widget_detail"
+        },
+        "4XX": {
+          "$ref": "#/$defs/turnstile_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/challenges/widgets`,
       query: [
@@ -194,6 +244,35 @@ export const tools: readonly Tool[] = [
         "Account Settings Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/turnstile_widget_detail"
+        },
+        "4XX": {
+          "$ref": "#/$defs/turnstile_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/challenges/widgets/${pathParam(args, "sitekey")}`,
     }),
@@ -239,6 +318,35 @@ export const tools: readonly Tool[] = [
         "Account Settings Write",
         "Account Settings Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/turnstile_widget_detail"
+        },
+        "4XX": {
+          "$ref": "#/$defs/turnstile_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/challenges/widgets/${pathParam(args, "sitekey")}`,
@@ -313,6 +421,49 @@ export const tools: readonly Tool[] = [
         "Account Settings Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/turnstile_widget_list"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/turnstile_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/turnstile_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_result_info": turnstile_result_info_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_list": turnstile_widget_list_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/challenges/widgets`,
       query: [
@@ -375,6 +526,35 @@ export const tools: readonly Tool[] = [
         "Turnstile Sites Write",
         "Account Settings Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/turnstile_widget_detail"
+        },
+        "4XX": {
+          "$ref": "#/$defs/turnstile_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/challenges/widgets/${pathParam(args, "sitekey")}/rotate_secret`,
@@ -475,6 +655,35 @@ export const tools: readonly Tool[] = [
           "description": "Widget mode"
         }
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/turnstile_widget_detail"
+        },
+        "4XX": {
+          "$ref": "#/$defs/turnstile_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/challenges/widgets/${pathParam(args, "sitekey")}`,

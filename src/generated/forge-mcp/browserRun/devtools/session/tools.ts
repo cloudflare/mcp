@@ -61,6 +61,60 @@ export const tools: readonly Tool[] = [
         "pro": true
       }
     },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "properties": {
+                "closeReason": {
+                  "type": "number"
+                },
+                "closeReasonText": {
+                  "type": "string"
+                },
+                "connectionEndTime": {
+                  "type": "number"
+                },
+                "connectionId": {
+                  "type": "string"
+                },
+                "connectionStartTime": {
+                  "type": "number"
+                },
+                "devtoolsFrontendUrl": {
+                  "type": "string"
+                },
+                "endTime": {
+                  "type": "number"
+                },
+                "lastUpdated": {
+                  "type": "number"
+                },
+                "sessionId": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "startTime": {
+                  "type": "number"
+                },
+                "webSocketDebuggerUrl": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "404": null
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/browser-rendering/devtools/session/${pathParam(args, "session_id")}`,
     }),
@@ -120,6 +174,57 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "items": {
+            "properties": {
+              "closeReason": {
+                "type": "number"
+              },
+              "closeReasonText": {
+                "type": "string"
+              },
+              "connectionEndTime": {
+                "type": "number"
+              },
+              "connectionId": {
+                "type": "string"
+              },
+              "connectionStartTime": {
+                "type": "number"
+              },
+              "devtoolsFrontendUrl": {
+                "type": "string"
+              },
+              "endTime": {
+                "type": "number"
+              },
+              "lastUpdated": {
+                "type": "number"
+              },
+              "sessionId": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "startTime": {
+                "type": "number"
+              },
+              "webSocketDebuggerUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sessionId"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "400": null,
+        "500": null
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/browser-rendering/devtools/session`,

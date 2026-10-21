@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  registrar_api_sandbox_api_response_common_failure_output,
+  registrar_api_sandbox_messages_output,
+} from "../outputs.js";
+import {
+  registrar_api_sandbox_extension_item_metadata_output,
+  registrar_api_sandbox_extension_item_output,
+} from "./outputs.js";
 
 /**
  * The tools of `registrar_sandbox.extensions`.
@@ -37,6 +45,23 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/registrar-sandbox/extensions/{extension}",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/registrar-api-sandbox_extension-item"
+        },
+        "304": null,
+        "4XX": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_extension-item": registrar_api_sandbox_extension_item_output,
+        "registrar-api-sandbox_extension-item_metadata": registrar_api_sandbox_extension_item_metadata_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/extensions/${pathParam(args, "extension")}`,
     }),
@@ -98,6 +123,48 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/registrar-sandbox/extensions",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/registrar-api-sandbox_extension-item"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "304": null,
+        "4XX": {
+          "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "registrar-api-sandbox_api-response-common-failure": registrar_api_sandbox_api_response_common_failure_output,
+        "registrar-api-sandbox_extension-item": registrar_api_sandbox_extension_item_output,
+        "registrar-api-sandbox_extension-item_metadata": registrar_api_sandbox_extension_item_metadata_output,
+        "registrar-api-sandbox_messages": registrar_api_sandbox_messages_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/extensions`,
       query: [

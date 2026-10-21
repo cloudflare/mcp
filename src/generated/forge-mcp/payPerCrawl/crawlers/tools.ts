@@ -2,6 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_RESTError_output,
+  pay_per_crawl_apiErrorResponse_output,
+} from "../../outputs.js";
+import {
+  pay_per_crawl_CrawlerEntry_output,
+  pay_per_crawl_listCrawlersResponse_result_output,
+} from "./outputs.js";
 
 /**
  * The tools of `pay_per_crawl.crawlers`.
@@ -32,6 +41,23 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/pay-per-crawl/crawlers",
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/pay-per-crawl_listCrawlersResponse_result"
+        },
+        "400": {
+          "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
+        }
+      },
+      $defs: {
+        "pay-per-crawl_CrawlerEntry": pay_per_crawl_CrawlerEntry_output,
+        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_listCrawlersResponse_result": pay_per_crawl_listCrawlersResponse_result_output,
+      },
+    },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pay-per-crawl/crawlers`,
     }),

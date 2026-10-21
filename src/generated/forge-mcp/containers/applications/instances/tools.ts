@@ -2,6 +2,27 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  cc_ISO8601Timestamp_output,
+  cc_Image_output,
+  cc_Messages_output,
+  cc_V4BaseErrorResponse_output,
+} from "../../outputs.js";
+import {
+  cc_ApplicationID_output,
+  cc_Region_output,
+  cc_V4PaginatedResultInfo_output,
+} from "../outputs.js";
+import {
+  cc_ContainerInstanceConfiguration_output,
+  cc_ContainerInstanceID_output,
+  cc_ContainerInstanceLocation_output,
+  cc_ContainerInstanceStatusState_output,
+  cc_ContainerInstanceStatus_output,
+  cc_ContainerInstance_output,
+  cc_ContainersListContainerInstancesV2_output,
+  cc_LocationID_output,
+} from "./outputs.js";
 
 /**
  * The tools of `containers.applications.instances`.
@@ -47,6 +68,40 @@ export const tools: readonly Tool[] = [
         "Workers Containers Write",
         "Workers Containers Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cc_ContainerInstance"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_ApplicationID": cc_ApplicationID_output,
+        "cc_ContainerInstance": cc_ContainerInstance_output,
+        "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration_output,
+        "cc_ContainerInstanceID": cc_ContainerInstanceID_output,
+        "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation_output,
+        "cc_ContainerInstanceStatus": cc_ContainerInstanceStatus_output,
+        "cc_ContainerInstanceStatusState": cc_ContainerInstanceStatusState_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_LocationID": cc_LocationID_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_Region": cc_Region_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/applications/${pathParam(args, "application_id")}/instances/${pathParam(args, "instance_id")}`,
@@ -112,6 +167,53 @@ export const tools: readonly Tool[] = [
         "next_cursor": "$response.result_info.next_page_token",
         "results": "$response.result"
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_ContainersListContainerInstancesV2"
+            },
+            "result_info": {
+              "$ref": "#/$defs/cc_V4PaginatedResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/cc_V4BaseErrorResponse"
+        }
+      },
+      $defs: {
+        "cc_ApplicationID": cc_ApplicationID_output,
+        "cc_ContainerInstance": cc_ContainerInstance_output,
+        "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration_output,
+        "cc_ContainerInstanceID": cc_ContainerInstanceID_output,
+        "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation_output,
+        "cc_ContainerInstanceStatus": cc_ContainerInstanceStatus_output,
+        "cc_ContainerInstanceStatusState": cc_ContainerInstanceStatusState_output,
+        "cc_ContainersListContainerInstancesV2": cc_ContainersListContainerInstancesV2_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_LocationID": cc_LocationID_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_Region": cc_Region_output,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4PaginatedResultInfo": cc_V4PaginatedResultInfo_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/containers/applications/${pathParam(args, "application_id")}/instances-v2`,

@@ -3,6 +3,46 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  bot_management_ai_bots_migration_opt_out_output,
+  bot_management_ai_bots_protection_output,
+  bot_management_ai_search_output,
+  bot_management_ai_training_output,
+  bot_management_ai_user_output,
+  bot_management_api_response_common_failure_output,
+  bot_management_auto_update_model_output,
+  bot_management_base_config_output,
+  bot_management_bm_cookie_enabled_output,
+  bot_management_bm_subscription_config_output,
+  bot_management_bot_fight_mode_config_output,
+  bot_management_bot_management_response_body_output,
+  bot_management_bot_management_response_body_result_output,
+  bot_management_bot_preference_sync_enabled_output,
+  bot_management_cf_robots_variant_output,
+  bot_management_content_bots_protection_output,
+  bot_management_crawler_protection_output,
+  bot_management_enable_js_output,
+  bot_management_fight_mode_output,
+  bot_management_fight_mode_turned_on_output,
+  bot_management_is_robots_txt_managed_output,
+  bot_management_jsd_api_results_enabled_output,
+  bot_management_messages_output,
+  bot_management_optimize_wordpress_output,
+  bot_management_optimize_wordpress_turned_on_output,
+  bot_management_sbfm_definitely_automated_output,
+  bot_management_sbfm_definitely_automated_turned_on_output,
+  bot_management_sbfm_definitely_config_output,
+  bot_management_sbfm_likely_automated_output,
+  bot_management_sbfm_likely_automated_turned_on_output,
+  bot_management_sbfm_likely_config_output,
+  bot_management_sbfm_static_resource_protection_output,
+  bot_management_sbfm_static_resource_protection_turned_on_output,
+  bot_management_sbfm_verified_bots_output,
+  bot_management_sbfm_verified_bots_turned_on_output,
+  bot_management_suppress_session_score_output,
+  bot_management_suppress_session_score_turned_off_output,
+  bot_management_using_latest_model_output,
+} from "./outputs.js";
+import {
   bot_management_ai_bots_migration_opt_out,
   bot_management_ai_bots_protection,
   bot_management_ai_search,
@@ -72,6 +112,76 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/bot-management_bot_fight_mode_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_sbfm_definitely_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_sbfm_likely_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_bm_subscription_config"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/bot-management_bot_management_response_body"
+            },
+            {
+              "$ref": "#/$defs/bot-management_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "bot-management_ai_bots_migration_opt_out": bot_management_ai_bots_migration_opt_out_output,
+        "bot-management_ai_bots_protection": bot_management_ai_bots_protection_output,
+        "bot-management_ai_search": bot_management_ai_search_output,
+        "bot-management_ai_training": bot_management_ai_training_output,
+        "bot-management_ai_user": bot_management_ai_user_output,
+        "bot-management_api-response-common-failure": bot_management_api_response_common_failure_output,
+        "bot-management_auto_update_model": bot_management_auto_update_model_output,
+        "bot-management_base_config": bot_management_base_config_output,
+        "bot-management_bm_cookie_enabled": bot_management_bm_cookie_enabled_output,
+        "bot-management_bm_subscription_config": bot_management_bm_subscription_config_output,
+        "bot-management_bot_fight_mode_config": bot_management_bot_fight_mode_config_output,
+        "bot-management_bot_management_response_body": bot_management_bot_management_response_body_output,
+        "bot-management_bot_management_response_body_result": bot_management_bot_management_response_body_result_output,
+        "bot-management_bot_preference_sync_enabled": bot_management_bot_preference_sync_enabled_output,
+        "bot-management_cf_robots_variant": bot_management_cf_robots_variant_output,
+        "bot-management_content_bots_protection": bot_management_content_bots_protection_output,
+        "bot-management_crawler_protection": bot_management_crawler_protection_output,
+        "bot-management_enable_js": bot_management_enable_js_output,
+        "bot-management_fight_mode": bot_management_fight_mode_output,
+        "bot-management_fight_mode_turned_on": bot_management_fight_mode_turned_on_output,
+        "bot-management_is_robots_txt_managed": bot_management_is_robots_txt_managed_output,
+        "bot-management_jsd_api_results_enabled": bot_management_jsd_api_results_enabled_output,
+        "bot-management_messages": bot_management_messages_output,
+        "bot-management_optimize_wordpress": bot_management_optimize_wordpress_output,
+        "bot-management_optimize_wordpress_turned_on": bot_management_optimize_wordpress_turned_on_output,
+        "bot-management_sbfm_definitely_automated": bot_management_sbfm_definitely_automated_output,
+        "bot-management_sbfm_definitely_automated_turned_on": bot_management_sbfm_definitely_automated_turned_on_output,
+        "bot-management_sbfm_definitely_config": bot_management_sbfm_definitely_config_output,
+        "bot-management_sbfm_likely_automated": bot_management_sbfm_likely_automated_output,
+        "bot-management_sbfm_likely_automated_turned_on": bot_management_sbfm_likely_automated_turned_on_output,
+        "bot-management_sbfm_likely_config": bot_management_sbfm_likely_config_output,
+        "bot-management_sbfm_static_resource_protection": bot_management_sbfm_static_resource_protection_output,
+        "bot-management_sbfm_static_resource_protection_turned_on": bot_management_sbfm_static_resource_protection_turned_on_output,
+        "bot-management_sbfm_verified_bots": bot_management_sbfm_verified_bots_output,
+        "bot-management_sbfm_verified_bots_turned_on": bot_management_sbfm_verified_bots_turned_on_output,
+        "bot-management_suppress_session_score": bot_management_suppress_session_score_output,
+        "bot-management_suppress_session_score_turned_off": bot_management_suppress_session_score_turned_off_output,
+        "bot-management_using_latest_model": bot_management_using_latest_model_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/bot_management`,
@@ -145,6 +255,76 @@ export const tools: readonly Tool[] = [
         "free": true,
         "pro": true
       }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/bot-management_bot_fight_mode_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_sbfm_definitely_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_sbfm_likely_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_bm_subscription_config"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/bot-management_bot_management_response_body"
+            },
+            {
+              "$ref": "#/$defs/bot-management_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "bot-management_ai_bots_migration_opt_out": bot_management_ai_bots_migration_opt_out_output,
+        "bot-management_ai_bots_protection": bot_management_ai_bots_protection_output,
+        "bot-management_ai_search": bot_management_ai_search_output,
+        "bot-management_ai_training": bot_management_ai_training_output,
+        "bot-management_ai_user": bot_management_ai_user_output,
+        "bot-management_api-response-common-failure": bot_management_api_response_common_failure_output,
+        "bot-management_auto_update_model": bot_management_auto_update_model_output,
+        "bot-management_base_config": bot_management_base_config_output,
+        "bot-management_bm_cookie_enabled": bot_management_bm_cookie_enabled_output,
+        "bot-management_bm_subscription_config": bot_management_bm_subscription_config_output,
+        "bot-management_bot_fight_mode_config": bot_management_bot_fight_mode_config_output,
+        "bot-management_bot_management_response_body": bot_management_bot_management_response_body_output,
+        "bot-management_bot_management_response_body_result": bot_management_bot_management_response_body_result_output,
+        "bot-management_bot_preference_sync_enabled": bot_management_bot_preference_sync_enabled_output,
+        "bot-management_cf_robots_variant": bot_management_cf_robots_variant_output,
+        "bot-management_content_bots_protection": bot_management_content_bots_protection_output,
+        "bot-management_crawler_protection": bot_management_crawler_protection_output,
+        "bot-management_enable_js": bot_management_enable_js_output,
+        "bot-management_fight_mode": bot_management_fight_mode_output,
+        "bot-management_fight_mode_turned_on": bot_management_fight_mode_turned_on_output,
+        "bot-management_is_robots_txt_managed": bot_management_is_robots_txt_managed_output,
+        "bot-management_jsd_api_results_enabled": bot_management_jsd_api_results_enabled_output,
+        "bot-management_messages": bot_management_messages_output,
+        "bot-management_optimize_wordpress": bot_management_optimize_wordpress_output,
+        "bot-management_optimize_wordpress_turned_on": bot_management_optimize_wordpress_turned_on_output,
+        "bot-management_sbfm_definitely_automated": bot_management_sbfm_definitely_automated_output,
+        "bot-management_sbfm_definitely_automated_turned_on": bot_management_sbfm_definitely_automated_turned_on_output,
+        "bot-management_sbfm_definitely_config": bot_management_sbfm_definitely_config_output,
+        "bot-management_sbfm_likely_automated": bot_management_sbfm_likely_automated_output,
+        "bot-management_sbfm_likely_automated_turned_on": bot_management_sbfm_likely_automated_turned_on_output,
+        "bot-management_sbfm_likely_config": bot_management_sbfm_likely_config_output,
+        "bot-management_sbfm_static_resource_protection": bot_management_sbfm_static_resource_protection_output,
+        "bot-management_sbfm_static_resource_protection_turned_on": bot_management_sbfm_static_resource_protection_turned_on_output,
+        "bot-management_sbfm_verified_bots": bot_management_sbfm_verified_bots_output,
+        "bot-management_sbfm_verified_bots_turned_on": bot_management_sbfm_verified_bots_turned_on_output,
+        "bot-management_suppress_session_score": bot_management_suppress_session_score_output,
+        "bot-management_suppress_session_score_turned_off": bot_management_suppress_session_score_turned_off_output,
+        "bot-management_using_latest_model": bot_management_using_latest_model_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/bot_management`,

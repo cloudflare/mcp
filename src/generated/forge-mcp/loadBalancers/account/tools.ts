@@ -2,7 +2,47 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  load_balancing_api_response_common_failure_output,
+  load_balancing_messages_output,
+  load_balancing_networks_output,
+  load_balancing_result_info_output,
+  load_balancing_timestamp_output,
+} from "../../outputs.js";
 import { load_balancing_networks } from "../../schemas.js";
+import {
+  load_balancing_adaptive_routing_output,
+  load_balancing_components_schemas_description_output,
+  load_balancing_components_schemas_enabled_output,
+  load_balancing_components_schemas_name_output,
+  load_balancing_components_schemas_zone_name_output,
+  load_balancing_country_pools_output,
+  load_balancing_default_pools_output,
+  load_balancing_fallback_pool_output,
+  load_balancing_fixed_response_output,
+  load_balancing_load_balancer_components_schemas_identifier_output,
+  load_balancing_load_balancer_output,
+  load_balancing_location_strategy_output,
+  load_balancing_match_output,
+  load_balancing_pool_default_weight_output,
+  load_balancing_pool_set_output,
+  load_balancing_pool_set_overrides_output,
+  load_balancing_pool_sets_output,
+  load_balancing_pool_weights_output,
+  load_balancing_pools_output,
+  load_balancing_pop_pools_output,
+  load_balancing_proxied_output,
+  load_balancing_random_steering_output,
+  load_balancing_region_pools_output,
+  load_balancing_rule_overrides_output,
+  load_balancing_rules_output,
+  load_balancing_session_affinity_attributes_output,
+  load_balancing_session_affinity_output,
+  load_balancing_session_affinity_ttl_output,
+  load_balancing_steering_policy_output,
+  load_balancing_topology_match_output,
+  load_balancing_ttl_output,
+} from "./outputs.js";
 import {
   load_balancing_adaptive_routing,
   load_balancing_components_schemas_description,
@@ -190,6 +230,53 @@ export const tools: readonly Tool[] = [
         "Load Balancers Account Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_load-balancer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
+        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
+        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
+        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
+        "load-balancing_country_pools": load_balancing_country_pools_output,
+        "load-balancing_default_pools": load_balancing_default_pools_output,
+        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
+        "load-balancing_fixed_response": load_balancing_fixed_response_output,
+        "load-balancing_load-balancer": load_balancing_load_balancer_output,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_location_strategy": load_balancing_location_strategy_output,
+        "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_networks": load_balancing_networks_output,
+        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
+        "load-balancing_pool_set": load_balancing_pool_set_output,
+        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
+        "load-balancing_pool_sets": load_balancing_pool_sets_output,
+        "load-balancing_pool_weights": load_balancing_pool_weights_output,
+        "load-balancing_pools": load_balancing_pools_output,
+        "load-balancing_pop_pools": load_balancing_pop_pools_output,
+        "load-balancing_proxied": load_balancing_proxied_output,
+        "load-balancing_random_steering": load_balancing_random_steering_output,
+        "load-balancing_region_pools": load_balancing_region_pools_output,
+        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
+        "load-balancing_rules": load_balancing_rules_output,
+        "load-balancing_session_affinity": load_balancing_session_affinity_output,
+        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
+        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
+        "load-balancing_steering_policy": load_balancing_steering_policy_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_topology_match": load_balancing_topology_match_output,
+        "load-balancing_ttl": load_balancing_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/load_balancers`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -237,6 +324,26 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Load Balancers Account Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
+            }
+          },
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_messages": load_balancing_messages_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/load_balancers/${pathParam(args, "load_balancer_id")}`,
@@ -316,6 +423,53 @@ export const tools: readonly Tool[] = [
         "Load Balancers Account Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_load-balancer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
+        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
+        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
+        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
+        "load-balancing_country_pools": load_balancing_country_pools_output,
+        "load-balancing_default_pools": load_balancing_default_pools_output,
+        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
+        "load-balancing_fixed_response": load_balancing_fixed_response_output,
+        "load-balancing_load-balancer": load_balancing_load_balancer_output,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_location_strategy": load_balancing_location_strategy_output,
+        "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_networks": load_balancing_networks_output,
+        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
+        "load-balancing_pool_set": load_balancing_pool_set_output,
+        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
+        "load-balancing_pool_sets": load_balancing_pool_sets_output,
+        "load-balancing_pool_weights": load_balancing_pool_weights_output,
+        "load-balancing_pools": load_balancing_pools_output,
+        "load-balancing_pop_pools": load_balancing_pop_pools_output,
+        "load-balancing_proxied": load_balancing_proxied_output,
+        "load-balancing_random_steering": load_balancing_random_steering_output,
+        "load-balancing_region_pools": load_balancing_region_pools_output,
+        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
+        "load-balancing_rules": load_balancing_rules_output,
+        "load-balancing_session_affinity": load_balancing_session_affinity_output,
+        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
+        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
+        "load-balancing_steering_policy": load_balancing_steering_policy_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_topology_match": load_balancing_topology_match_output,
+        "load-balancing_ttl": load_balancing_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/load_balancers/${pathParam(args, "load_balancer_id")}`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -365,6 +519,53 @@ export const tools: readonly Tool[] = [
         "Load Balancers Account Read"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_load-balancer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
+        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
+        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
+        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
+        "load-balancing_country_pools": load_balancing_country_pools_output,
+        "load-balancing_default_pools": load_balancing_default_pools_output,
+        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
+        "load-balancing_fixed_response": load_balancing_fixed_response_output,
+        "load-balancing_load-balancer": load_balancing_load_balancer_output,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_location_strategy": load_balancing_location_strategy_output,
+        "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_networks": load_balancing_networks_output,
+        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
+        "load-balancing_pool_set": load_balancing_pool_set_output,
+        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
+        "load-balancing_pool_sets": load_balancing_pool_sets_output,
+        "load-balancing_pool_weights": load_balancing_pool_weights_output,
+        "load-balancing_pools": load_balancing_pools_output,
+        "load-balancing_pop_pools": load_balancing_pop_pools_output,
+        "load-balancing_proxied": load_balancing_proxied_output,
+        "load-balancing_random_steering": load_balancing_random_steering_output,
+        "load-balancing_region_pools": load_balancing_region_pools_output,
+        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
+        "load-balancing_rules": load_balancing_rules_output,
+        "load-balancing_session_affinity": load_balancing_session_affinity_output,
+        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
+        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
+        "load-balancing_steering_policy": load_balancing_steering_policy_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_topology_match": load_balancing_topology_match_output,
+        "load-balancing_ttl": load_balancing_ttl_output,
+      },
+    },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/load_balancers/${pathParam(args, "load_balancer_id")}`,
     }),
@@ -408,6 +609,68 @@ export const tools: readonly Tool[] = [
         "Load Balancers Account Write",
         "Load Balancers Account Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/load-balancing_load-balancer"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/load-balancing_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
+        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
+        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
+        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
+        "load-balancing_country_pools": load_balancing_country_pools_output,
+        "load-balancing_default_pools": load_balancing_default_pools_output,
+        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
+        "load-balancing_fixed_response": load_balancing_fixed_response_output,
+        "load-balancing_load-balancer": load_balancing_load_balancer_output,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_location_strategy": load_balancing_location_strategy_output,
+        "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_networks": load_balancing_networks_output,
+        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
+        "load-balancing_pool_set": load_balancing_pool_set_output,
+        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
+        "load-balancing_pool_sets": load_balancing_pool_sets_output,
+        "load-balancing_pool_weights": load_balancing_pool_weights_output,
+        "load-balancing_pools": load_balancing_pools_output,
+        "load-balancing_pop_pools": load_balancing_pop_pools_output,
+        "load-balancing_proxied": load_balancing_proxied_output,
+        "load-balancing_random_steering": load_balancing_random_steering_output,
+        "load-balancing_region_pools": load_balancing_region_pools_output,
+        "load-balancing_result_info": load_balancing_result_info_output,
+        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
+        "load-balancing_rules": load_balancing_rules_output,
+        "load-balancing_session_affinity": load_balancing_session_affinity_output,
+        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
+        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
+        "load-balancing_steering_policy": load_balancing_steering_policy_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_topology_match": load_balancing_topology_match_output,
+        "load-balancing_ttl": load_balancing_ttl_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/load_balancers`,
@@ -572,6 +835,53 @@ export const tools: readonly Tool[] = [
       "x-api-token-group": [
         "Load Balancers Account Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_load-balancer"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
+        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
+        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
+        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
+        "load-balancing_country_pools": load_balancing_country_pools_output,
+        "load-balancing_default_pools": load_balancing_default_pools_output,
+        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
+        "load-balancing_fixed_response": load_balancing_fixed_response_output,
+        "load-balancing_load-balancer": load_balancing_load_balancer_output,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_location_strategy": load_balancing_location_strategy_output,
+        "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_networks": load_balancing_networks_output,
+        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
+        "load-balancing_pool_set": load_balancing_pool_set_output,
+        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
+        "load-balancing_pool_sets": load_balancing_pool_sets_output,
+        "load-balancing_pool_weights": load_balancing_pool_weights_output,
+        "load-balancing_pools": load_balancing_pools_output,
+        "load-balancing_pop_pools": load_balancing_pop_pools_output,
+        "load-balancing_proxied": load_balancing_proxied_output,
+        "load-balancing_random_steering": load_balancing_random_steering_output,
+        "load-balancing_region_pools": load_balancing_region_pools_output,
+        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
+        "load-balancing_rules": load_balancing_rules_output,
+        "load-balancing_session_affinity": load_balancing_session_affinity_output,
+        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
+        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
+        "load-balancing_steering_policy": load_balancing_steering_policy_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_topology_match": load_balancing_topology_match_output,
+        "load-balancing_ttl": load_balancing_ttl_output,
+      },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/load_balancers/${pathParam(args, "load_balancer_id")}`,

@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import { realtimekit_WebhookEventsSuccessResponse_output } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.webhooks.events`.
@@ -42,6 +43,16 @@ export const tools: readonly Tool[] = [
         "Realtime Admin",
         "Realtime"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/realtimekit_WebhookEventsSuccessResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_WebhookEventsSuccessResponse": realtimekit_WebhookEventsSuccessResponse_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/webhooks/all`,

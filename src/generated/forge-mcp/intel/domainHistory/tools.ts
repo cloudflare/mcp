@@ -2,6 +2,18 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  intel_api_response_common_failure_output,
+  intel_domain_name_output,
+  intel_messages_output,
+  intel_result_info_output,
+} from "../outputs.js";
+import {
+  intel_domain_history_categorizationsItem_categoriesItem_output,
+  intel_domain_history_categorizationsItem_output,
+  intel_domain_history_output,
+  intel_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `intel.domain_history`.
@@ -40,6 +52,47 @@ export const tools: readonly Tool[] = [
         "Intel Write",
         "Intel Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/intel_domain-history"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/intel_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/intel_response"
+            },
+            {
+              "$ref": "#/$defs/intel_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_domain-history": intel_domain_history_output,
+        "intel_domain-history_categorizationsItem": intel_domain_history_categorizationsItem_output,
+        "intel_domain-history_categorizationsItem_categoriesItem": intel_domain_history_categorizationsItem_categoriesItem_output,
+        "intel_domain_name": intel_domain_name_output,
+        "intel_messages": intel_messages_output,
+        "intel_response": intel_response_output,
+        "intel_result_info": intel_result_info_output,
+      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/intel/domain-history`,

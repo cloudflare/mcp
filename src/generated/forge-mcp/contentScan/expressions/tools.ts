@@ -2,6 +2,17 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  waf_product_api_bundle_identifier_output,
+  waf_product_api_bundle_messages_output,
+} from "../../outputs.js";
+import { waf_product_api_bundle_api_response_common_failure_2_output } from "../outputs.js";
+import {
+  waf_product_api_bundle_custom_scan_id_output,
+  waf_product_api_bundle_custom_scan_output,
+  waf_product_api_bundle_custom_scan_payload_output,
+  waf_product_api_bundle_response_custom_scan_collection_output,
+} from "./outputs.js";
 import { waf_product_api_bundle_custom_scan_payload } from "./schemas.js";
 
 /**
@@ -59,6 +70,46 @@ export const tools: readonly Tool[] = [
         "Account WAF Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/waf-product-api-bundle_custom-scan"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-scan-collection"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-2"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
+        "waf-product-api-bundle_custom-scan": waf_product_api_bundle_custom_scan_output,
+        "waf-product-api-bundle_custom-scan-id": waf_product_api_bundle_custom_scan_id_output,
+        "waf-product-api-bundle_custom-scan-payload": waf_product_api_bundle_custom_scan_payload_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-scan-collection": waf_product_api_bundle_response_custom_scan_collection_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/content-upload-scan/payloads`,
       body: { value: args["body"], mediaType: "application/json" },
@@ -100,6 +151,46 @@ export const tools: readonly Tool[] = [
         "Account WAF Write"
       ]
     },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/waf-product-api-bundle_custom-scan"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-scan-collection"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-2"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
+        "waf-product-api-bundle_custom-scan": waf_product_api_bundle_custom_scan_output,
+        "waf-product-api-bundle_custom-scan-id": waf_product_api_bundle_custom_scan_id_output,
+        "waf-product-api-bundle_custom-scan-payload": waf_product_api_bundle_custom_scan_payload_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-scan-collection": waf_product_api_bundle_response_custom_scan_collection_output,
+      },
+    },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/content-upload-scan/payloads/${pathParam(args, "expression_id")}`,
     }),
@@ -136,6 +227,46 @@ export const tools: readonly Tool[] = [
         "Account WAF Write",
         "Account WAF Read"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/waf-product-api-bundle_custom-scan"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-scan-collection"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-2"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
+        "waf-product-api-bundle_custom-scan": waf_product_api_bundle_custom_scan_output,
+        "waf-product-api-bundle_custom-scan-id": waf_product_api_bundle_custom_scan_id_output,
+        "waf-product-api-bundle_custom-scan-payload": waf_product_api_bundle_custom_scan_payload_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-scan-collection": waf_product_api_bundle_response_custom_scan_collection_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/content-upload-scan/payloads`,
@@ -193,6 +324,46 @@ export const tools: readonly Tool[] = [
         "Zone WAF Write",
         "Account WAF Write"
       ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/waf-product-api-bundle_custom-scan"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_response-custom-scan-collection"
+            },
+            {
+              "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-2"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
+        "waf-product-api-bundle_custom-scan": waf_product_api_bundle_custom_scan_output,
+        "waf-product-api-bundle_custom-scan-id": waf_product_api_bundle_custom_scan_id_output,
+        "waf-product-api-bundle_custom-scan-payload": waf_product_api_bundle_custom_scan_payload_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-scan-collection": waf_product_api_bundle_response_custom_scan_collection_output,
+      },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/content-upload-scan/payloads/${pathParam(args, "expression_id")}`,
