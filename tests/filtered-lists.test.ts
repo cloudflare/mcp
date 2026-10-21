@@ -277,11 +277,13 @@ describe('endpoint tools', () => {
 })
 
 describe('forge tools', () => {
+  const FORGE_QUERY = '?codemode=false&experimentalForge=true'
+
   it('challenge for the scope', async () => {
     const token = await connectWithOAuth(BASELINE)
     answer(`/accounts/${ACCOUNT_ID}/d1/database`, cfSuccess([]))
 
-    expectChallenge(await callDirectTool(token, 'd1_list', {}, '?forge=true'), 'd1.read')
+    expectChallenge(await callDirectTool(token, 'd1_list', {}, FORGE_QUERY), 'd1.read')
   })
 
   it('trust a list with rows', async () => {
@@ -289,7 +291,7 @@ describe('forge tools', () => {
     answer(`/accounts/${ACCOUNT_ID}/d1/database`, cfSuccess([{ uuid: 'db-1' }]))
 
     const { status, result, text } = await resultOf(
-      await callDirectTool(token, 'd1_list', {}, '?forge=true')
+      await callDirectTool(token, 'd1_list', {}, FORGE_QUERY)
     )
 
     expect(status).toBe(200)
@@ -302,7 +304,7 @@ describe('forge tools', () => {
     answer(`/zones/${ZONE_ID}/access/apps`, cfSuccess([]))
     answer(`/accounts/${ACCOUNT_ID}/access/apps`, cfSuccess([]))
     const apps = (args: Record<string, unknown>) =>
-      callDirectTool(token, 'zero_trust_access_applications_list', args, '?forge=true')
+      callDirectTool(token, 'zero_trust_access_applications_list', args, FORGE_QUERY)
 
     expectChallenge(
       await apps({ account_or_zone: 'zones', account_or_zone_id: ZONE_ID }),

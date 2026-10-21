@@ -26,7 +26,7 @@ function forgeTools() {
 
 /**
  * Serve the direct tools forge generates from `openapi.forge.json`
- * (`?forge=true`), alongside `docs` and `whoami`.
+ * (`?codemode=false&experimentalForge=true`), alongside `docs` and `whoami`.
  *
  * The generated tools live in the forge tools service, a Worker of their own,
  * so that isolates serving Code Mode never compile them. `tools/list` asks it

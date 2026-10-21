@@ -392,14 +392,18 @@ describe('tool result truncation', () => {
     expect(rows.slice(0, -1)).toEqual(ROWS.slice(0, rows.length - 1))
   })
 
-  it('truncates an oversized endpoint tool response to valid JSON', async () => {
+  it('truncates an oversized endpoint tool response with ?codemode=false&truncateToolResult=true', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
         HttpResponse.json(cfSuccess(ROWS))
       )
     )
 
-    const text = await callToolText('get_accounts_workers_scripts', {}, `${MCP_URL}?codemode=false`)
+    const text = await callToolText(
+      'get_accounts_workers_scripts',
+      {},
+      `${MCP_URL}?codemode=false&truncateToolResult=true`
+    )
     const body = JSON.parse(text)
 
     expect(text.length).toBeLessThanOrEqual(24_000)
@@ -427,18 +431,14 @@ describe('tool result truncation', () => {
     expect(JSON.parse(text)).toEqual(ROWS)
   })
 
-  it('returns the whole endpoint tool response with ?codemode=false&truncateToolResult=false', async () => {
+  it('returns the whole endpoint tool response by default with ?codemode=false', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
         HttpResponse.json(cfSuccess(ROWS))
       )
     )
 
-    const text = await callToolText(
-      'get_accounts_workers_scripts',
-      {},
-      `${MCP_URL}?codemode=false&truncateToolResult=false`
-    )
+    const text = await callToolText('get_accounts_workers_scripts', {}, `${MCP_URL}?codemode=false`)
 
     expect(JSON.parse(text)).toEqual(cfSuccess(ROWS))
   })

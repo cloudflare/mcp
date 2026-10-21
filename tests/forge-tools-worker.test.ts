@@ -15,7 +15,8 @@ import {
 import { server } from './setup/msw'
 
 /**
- * The generated direct tools at /mcp?forge=true, through the real worker:
+ * The generated direct tools at /mcp?codemode=false&experimentalForge=true,
+ * through the real worker:
  * auth, the transport, the generated tools and their request code, and
  * account resolution are real; the Cloudflare API is mocked with MSW.
  */
@@ -23,6 +24,7 @@ import { server } from './setup/msw'
 const ACCOUNT_ID = '00000000000000000000000000000001'
 const ACCOUNT_TOKEN = 'acct-token-forge'
 const ZONE_ID = '0000000000000000000000000000000z'
+const FORGE_URL = `${MCP_URL}?codemode=false&experimentalForge=true`
 
 type ListedTool = {
   name: string
@@ -31,15 +33,24 @@ type ListedTool = {
 }
 
 async function listForgeTools(token: string): Promise<ListedTool[]> {
-  const req = new Request(`${MCP_URL}?forge=true`, mcpToolListRequest(token))
+  return listTools(token, FORGE_URL)
+}
+
+async function listTools(token: string, url: string): Promise<ListedTool[]> {
+  const req = new Request(url, mcpToolListRequest(token))
   const result = (await parseMcpResult(await exports.default.fetch(req))) as unknown as {
     result?: { tools?: ListedTool[] }
   }
   return result.result?.tools ?? []
 }
 
-async function callForgeTool(token: string, name: string, args: Record<string, unknown>) {
-  const req = new Request(`${MCP_URL}?forge=true`, mcpToolCallRequest(token, name, args))
+async function callForgeTool(
+  token: string,
+  name: string,
+  args: Record<string, unknown>,
+  url = FORGE_URL
+) {
+  const req = new Request(url, mcpToolCallRequest(token, name, args))
   return parseMcpResult(await exports.default.fetch(req))
 }
 
@@ -53,7 +64,7 @@ afterEach(async () => {
   await clearKv(env.OAUTH_KV)
 })
 
-describe('generated direct tools (?forge=true)', () => {
+describe('generated direct tools (?codemode=false&experimentalForge=true)', () => {
   it('lists docs, whoami and every generated tool, without their request code', async () => {
     const tools = await listForgeTools(ACCOUNT_TOKEN)
 
@@ -176,12 +187,51 @@ describe('generated direct tools (?forge=true)', () => {
     expect(toolText(result)).toBe('Tool nope not found')
   })
 
-  it('leaves the other tool surfaces alone without ?forge=true', async () => {
-    const req = new Request(`${MCP_URL}?codemode=false`, mcpToolListRequest(ACCOUNT_TOKEN))
-    const result = (await parseMcpResult(await exports.default.fetch(req))) as unknown as {
-      result?: { tools?: Array<{ name: string }> }
-    }
+  it('keeps the mcp-tools.json direct tools for ?codemode=false without the flag', async () => {
+    const names = (await listTools(ACCOUNT_TOKEN, `${MCP_URL}?codemode=false`)).map(
+      (tool) => tool.name
+    )
 
-    expect(result.result?.tools?.map((tool) => tool.name)).not.toContain('d1_list')
+    expect(names).not.toContain('d1_list')
+  })
+
+  it.each(['?experimentalForge=true', '?forge=true'])('serves Code Mode for %s', async (query) => {
+    const names = (await listTools(ACCOUNT_TOKEN, `${MCP_URL}${query}`)).map((tool) => tool.name)
+
+    expect(names).toEqual(['docs', 'search', 'execute', 'whoami'])
+  })
+
+  describe('results', () => {
+    // ~94K characters as pretty JSON, well past the ~24K-character cap.
+    const SCRIPTS = Array.from({ length: 2_000 }, (_, i) => ({ id: `worker-${i}`, i }))
+
+    beforeEach(() => {
+      server.use(
+        http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
+          HttpResponse.json(cfSuccess(SCRIPTS))
+        )
+      )
+    })
+
+    it('returns the whole response by default', async () => {
+      const result = await callForgeTool(ACCOUNT_TOKEN, 'workers_legacy_scripts_list', {
+        account_id: ACCOUNT_ID
+      })
+
+      expect(JSON.parse(toolText(result))).toEqual(cfSuccess(SCRIPTS))
+    })
+
+    it('caps the response with ?truncateToolResult=true', async () => {
+      const result = await callForgeTool(
+        ACCOUNT_TOKEN,
+        'workers_legacy_scripts_list',
+        { account_id: ACCOUNT_ID },
+        `${FORGE_URL}&truncateToolResult=true`
+      )
+      const text = toolText(result)
+
+      expect(text.length).toBeLessThanOrEqual(24_000)
+      expect(JSON.parse(text).result.at(-1)).toMatch(/^--- TRUNCATED --- [\d,]+ more items$/)
+    })
   })
 })

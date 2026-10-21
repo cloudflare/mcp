@@ -1,7 +1,7 @@
 {
 	// The forge tools service (src/forge-tools/worker.ts): the generated direct
-	// tools served at /mcp?forge=true, which the main Worker (wrangler.jsonc)
-	// reaches over its FORGE_TOOLS service binding. It holds no credentials,
+	// tools served at /mcp?codemode=false&experimentalForge=true, which the main
+	// Worker (wrangler.jsonc) reaches over its FORGE_TOOLS service binding. It holds no credentials,
 	// makes no requests, and has no public route. Workers Builds deploys it with
 	// the main Worker on every push to main. In a new environment, deploy it
 	// first, since the main Worker binds to it.

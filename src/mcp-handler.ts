@@ -34,17 +34,22 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
 ]
 
 /**
- * Read the server options from the MCP URL query string. `codemode` and
- * `truncateToolResult` stay on unless the client passes exactly `false`, e.g.
- * `/mcp?codemode=false`; `forge` is off unless it is exactly `true`.
+ * Read the server options from the MCP URL query string.
+ *
+ * - `codemode` stays on unless the client passes exactly `false`, e.g.
+ *   `/mcp?codemode=false`.
+ * - `experimentalForge` is off unless it is exactly `true`, e.g.
+ *   `/mcp?codemode=false&experimentalForge=true`.
+ * - Without `truncateToolResult`, `createServer` picks the default for the tool
+ *   mode. With it, truncation is on unless the value is exactly `false`.
  */
 function serverOptionsFromUrl(url: string): ServerOptions {
   const params = new URL(url).searchParams
+  const truncate = params.get('truncateToolResult')
   return {
     codemode: params.get('codemode') !== 'false',
-    truncateToolResult: params.get('truncateToolResult') !== 'false',
-    // Off unless the client passes exactly `true`, e.g. `/mcp?forge=true`.
-    forge: params.get('forge') === 'true'
+    experimentalForge: params.get('experimentalForge') === 'true',
+    ...(truncate === null ? {} : { truncateToolResult: truncate !== 'false' })
   }
 }
 
