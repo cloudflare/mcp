@@ -3,7 +3,8 @@ import { env } from 'cloudflare:workers'
 import type { McpServer, CallToolResult } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
-import { getForgeToolList } from '../isolate-cache'
+import { getForgeToolList, getForgeToolPermissions } from '../isolate-cache'
+import { memberPermissions, visibleTools } from '../auth/member-permissions'
 import {
   autoResolvedAccountId,
   missingAccountMessage,
@@ -30,7 +31,7 @@ function forgeTools() {
  *
  * The generated tools live in the forge tools service, a Worker of their own,
  * so that isolates serving Code Mode never compile them. `tools/list` asks it
- * for the tools; `tools/call` asks it for the request a call makes, then sends
+ * for the tools, less those none of the user's member roles reach; `tools/call` asks it for the request a call makes, then sends
  * that request with the session's token, which never leaves this Worker. A
  * refused call is explained, and asks for a step-up when a missing OAuth scope
  * would let it through, as the other direct tools do.
@@ -42,9 +43,14 @@ export function registerForgeTools(
   connection: Connection,
   scopeChallenge: ScopeChallenge
 ): void {
-  server.server.setRequestHandler('tools/list', async () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...(await getForgeToolList())]
-  }))
+  server.server.setRequestHandler('tools/list', async () => {
+    const [tools, granted] = await Promise.all([getForgeToolList(), memberPermissions(props)])
+    const permissions = granted ? await toolPermissions() : undefined
+    const listed = permissions
+      ? visibleTools(tools, (name) => permissions.get(name), granted)
+      : tools
+    return { tools: [DOCS_TOOL, WHOAMI_TOOL, ...listed] }
+  })
 
   server.server.setRequestHandler('tools/call', async (request) => {
     const name = request.params.name
@@ -80,6 +86,19 @@ export function registerForgeTools(
     recordToolCall(props, name, result.isError === true)
     return result
   })
+}
+
+/**
+ * The generated tools' permissions, or `undefined` to list every tool when the
+ * service can't send them, such as while it deploys after this Worker.
+ */
+async function toolPermissions(): Promise<ReadonlyMap<string, readonly string[]> | undefined> {
+  try {
+    return await getForgeToolPermissions()
+  } catch (error) {
+    console.warn('forge_tools permissions unavailable', error)
+    return undefined
+  }
 }
 
 async function callForgeTool(

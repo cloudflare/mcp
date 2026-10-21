@@ -17,13 +17,14 @@ import {
   toolsByName,
   type Args
 } from '../generated/forge-mcp'
-import { cloudflareTool } from './cloudflare'
+import { cloudflareTool, permissionsOf } from './cloudflare'
 import { planCall, type CallPlan, type PlanOptions } from './plan'
 
 /** The generated tools with the Cloudflare policy, built once per isolate. */
 const tools = generatedTools.map(cloudflareTool)
 
 let listing: string | undefined
+let permissions: string | undefined
 
 export default class ForgeTools extends WorkerEntrypoint {
   /**
@@ -34,6 +35,23 @@ export default class ForgeTools extends WorkerEntrypoint {
   listJson(): string {
     listing ??= JSON.stringify(listTools(tools))
     return listing
+  }
+
+  /**
+   * The API token permissions each tool's endpoint accepts, by tool name, as
+   * one JSON string built once per isolate. Tools whose endpoint lists none
+   * are left out.
+   */
+  permissionsJson(): string {
+    permissions ??= JSON.stringify(
+      Object.fromEntries(
+        tools.flatMap((tool) => {
+          const accepted = permissionsOf(tool)
+          return accepted ? [[tool.name, accepted]] : []
+        })
+      )
+    )
+    return permissions
   }
 
   /** The request calling the tool `name` with `args` makes, or why it can't be made. */

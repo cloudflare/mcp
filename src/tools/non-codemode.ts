@@ -4,6 +4,7 @@ import type { McpServer, CallToolResult } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { getMcpTools } from '../isolate-cache'
+import { memberPermissions, visibleTools } from '../auth/member-permissions'
 import {
   NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE,
   autoResolvedAccountId,
@@ -23,9 +24,10 @@ import type { ScopeChallenge } from '../scope-challenge'
  * Install lazy non-Code-Mode protocol handlers.
  *
  * Unlike `registerTool`, these handlers do not create ~3,000 closures and Zod
- * schemas per HTTP request. `tools/list` serves `mcp-tools.json` exactly as the
- * scheduled handler generated it (cached per isolate); `tools/call` validates
- * and dispatches only the requested operation.
+ * schemas per HTTP request. `tools/list` serves `mcp-tools.json` as the
+ * scheduled handler generated it (cached per isolate), less the tools none of
+ * the user's member roles reach; `tools/call` validates and dispatches only
+ * the requested operation.
  * `formatResult` turns each API response body into the tool's text output.
  */
 export async function registerNonCodemodeTools(
@@ -37,9 +39,11 @@ export async function registerNonCodemodeTools(
 ): Promise<void> {
   const tools = await getMcpTools()
 
-  server.server.setRequestHandler('tools/list', () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.list]
-  }))
+  server.server.setRequestHandler('tools/list', async () => {
+    const granted = await memberPermissions(props)
+    const listed = visibleTools(tools.list, (name) => tools.byName.get(name)?.permissions, granted)
+    return { tools: [DOCS_TOOL, WHOAMI_TOOL, ...listed] }
+  })
 
   server.server.setRequestHandler('tools/call', async (request) => {
     const name = request.params.name
