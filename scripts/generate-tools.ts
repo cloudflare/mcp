@@ -1,6 +1,6 @@
 /**
  * Regenerates `src/generated/forge-mcp`, the direct tools served at
- * `/mcp?forge=true`, with forge's MCP target:
+ * `/mcp?codemode=false&experimentalForge=true`, with forge's MCP target:
  *
  *   FORGE_BINARY=path/to/forge npm run generate:tools [-- --spec openapi.forge.json] [-- --summary summary.md]
  *

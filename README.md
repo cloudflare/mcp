@@ -76,22 +76,24 @@ When code mode is disabled:
 
 > **Note:** Disabling code mode significantly increases the token cost (~244k tokens vs ~1k tokens). Only disable it when necessary for composition with other code mode systems.
 
-### Disable Tool Result Truncation
+### Tool Result Truncation
 
-The server caps each tool result at ~6,000 tokens by default. Oversized JSON stays valid JSON: long lists keep their first items whole, long strings are clipped, and every cut is marked with `--- TRUNCATED ---`. Clients that bound results themselves can turn the cap off with the `?truncateToolResult=false` query parameter. Code mode clients are the main case. They parse each tool result as JSON and run more code on it before anything reaches the model, so they need the whole result. The parameter works with or without code mode and covers `search`, `execute`, and every endpoint tool.
+In code mode, the server caps each tool result at ~6,000 tokens. Oversized JSON stays valid JSON: long lists keep their first items whole, long strings are clipped, and every cut is marked with `--- TRUNCATED ---`. Code mode clients that bound results themselves can turn the cap off with `?truncateToolResult=false`. They parse each tool result as JSON and run more code on it before anything reaches the model, so they need the whole result.
 
 ```
-https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
+https://mcp.cloudflare.com/mcp?truncateToolResult=false
 ```
+
+With code mode disabled, endpoint tools return whole results by default. Add `?truncateToolResult=true` to cap them.
 
 > **Note:** Without the cap, a broad query can return megabytes. Only turn it off when your client bounds what reaches the model.
 
-### Forge-generated tools (preview)
+### Forge-generated tools (experimental)
 
-`?forge=true` serves direct tools whose code [forge](https://github.com/cloudflare/forge) generates from the Cloudflare API's OpenAPI document instead. Tool names follow the `cf` CLI (`zones_list`, `d1_list`), and request bodies are typed, nested JSON. It is a preview: names and schemas may change.
+With code mode disabled, `?experimentalForge=true` builds the endpoint tools from code that [forge](https://github.com/cloudflare/forge) generates from the Cloudflare API's OpenAPI document. Tool names follow the `cf` CLI (`zones_list`, `d1_list`), and request bodies are typed, nested JSON. It is experimental: names and schemas may change. Once it has been tried, it will become how `?codemode=false` works.
 
 ```
-https://mcp.cloudflare.com/mcp?forge=true
+https://mcp.cloudflare.com/mcp?codemode=false&experimentalForge=true
 ```
 
 ### Missing Permissions

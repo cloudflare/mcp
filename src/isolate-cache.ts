@@ -115,10 +115,10 @@ const forgeToolList = cached(
 )
 
 /**
- * The generated tools (`?forge=true`) as `tools/list` sends them, from the
- * forge tools service. The service sends one JSON string, which is parsed here
- * once per isolate: decoding ~3,000 nested objects over RPC costs every
- * `tools/list` hundreds of milliseconds of CPU.
+ * The generated tools (`?codemode=false&experimentalForge=true`) as
+ * `tools/list` sends them, from the forge tools service. The service sends one
+ * JSON string, which is parsed here once per isolate: decoding ~3,000 nested
+ * objects over RPC costs every `tools/list` hundreds of milliseconds of CPU.
  */
 export function getForgeToolList(): Promise<Tool[]> {
   return forgeToolList.get()

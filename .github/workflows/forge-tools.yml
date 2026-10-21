@@ -1,9 +1,10 @@
 name: Forge tools
 
 # Every six hours, regenerates src/generated/forge-mcp, the direct tools served
-# at /mcp?forge=true, from the latest openapi.forge.json Forge release with the
-# forge commit that forge.json names. When the generated code changes, it opens
-# or updates one pull request; merging it deploys through Workers Builds.
+# at /mcp?codemode=false&experimentalForge=true, from the latest
+# openapi.forge.json Forge release with the forge commit that forge.json names.
+# When the generated code changes, it opens or updates one pull request; merging
+# it deploys through Workers Builds.
 #
 # Pull requests opened with GITHUB_TOKEN don't start other workflows, so this
 # job runs the type check and tests itself before opening one.
@@ -98,7 +99,7 @@ jobs:
           git commit -q -m "$TITLE"
           git push -q --force origin "$BRANCH"
           {
-            echo "Regenerated from the latest \`openapi.forge.json\` with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?forge=true\`."
+            echo "Regenerated from the latest \`openapi.forge.json\` with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?codemode=false&experimentalForge=true\`."
             echo
             cat "$RUNNER_TEMP/summary.md"
           } > "$RUNNER_TEMP/body.md"
