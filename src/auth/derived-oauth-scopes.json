@@ -183,6 +183,10 @@
     "category": "Account & Billing",
     "name": "Account API Gateway"
   },
+  "account-api-tokens.write": {
+    "name": "Account API Tokens Write",
+    "category": "Account & Billing"
+  },
   "account-custom-asset.read": {
     "category": "Account & Billing",
     "name": "Account Custom Asset Read"
@@ -262,6 +266,14 @@
   "account-security-center-insights.write": {
     "category": "App Security",
     "name": "Account Security Center Insights Write"
+  },
+  "account-security-center-partner-integrations.read": {
+    "name": "Account Security Insights Partner Integrations Read",
+    "category": "App Security"
+  },
+  "account-security-center-partner-integrations.write": {
+    "name": "Account Security Insights Partner Integrations Write",
+    "category": "App Security"
   },
   "account-settings.read": {
     "category": "Account & Billing",
@@ -574,6 +586,14 @@
   "custom-pages.write": {
     "category": "Rules & Configuration",
     "name": "Custom Pages Write"
+  },
+  "cws.read": {
+    "name": "Cloud Workload Security Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "cws.write": {
+    "name": "Cloud Workload Security Write",
+    "category": "Cloudflare One / Zero Trust"
   },
   "d1.metadata_read": {
     "category": "Developer Platform",
@@ -1439,6 +1459,14 @@
     "category": "Developer Platform",
     "name": "Workers Routes Write"
   },
+  "workers-scripts.admin": {
+    "name": "Workers Admin",
+    "category": "Developer Platform"
+  },
+  "workers-scripts.content_read": {
+    "name": "Workers Content Read-Only",
+    "category": "Developer Platform"
+  },
   "workers-scripts.edit": {
     "category": "Developer Platform",
     "name": "Workers Editor"
@@ -1526,6 +1554,10 @@
   "zone-security-center-insights.write": {
     "category": "App Security",
     "name": "Zone Security Center Insights Write"
+  },
+  "zone-security-center-partner-assets.read": {
+    "name": "Zone Security Insights Partner Assets Read",
+    "category": "App Security"
   },
   "zone-settings.read": {
     "category": "DNS & Zones",
