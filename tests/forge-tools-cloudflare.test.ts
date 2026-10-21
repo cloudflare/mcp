@@ -41,14 +41,30 @@ describe('the Cloudflare policy for generated tools', () => {
     expect(tool.inputSchema.required).toEqual(['script_name'])
   })
 
-  it('names the two values of a merged account-or-zone path', () => {
-    const tool = cloudflareTool(generated('/{account_or_zone}/{account_or_zone_id}/access/apps'))
+  it('keeps a merged path’s account_or_zone and makes its account_or_zone_id optional', () => {
+    const merged = generated('/{account_or_zone}/{account_or_zone_id}/access/apps')
+    const tool = cloudflareTool(merged)
 
-    expect(tool.inputSchema.properties).toMatchObject({
-      account_or_zone: { type: 'string', enum: ['accounts', 'zones'] },
-      account_or_zone_id: { type: 'string', description: ACCOUNT_OR_ZONE_ID_DESCRIPTION }
+    expect(tool.inputSchema.properties?.account_or_zone).toBe(
+      merged.inputSchema.properties?.account_or_zone
+    )
+    expect(tool.inputSchema.properties?.account_or_zone_id).toEqual({
+      type: 'string',
+      description: ACCOUNT_OR_ZONE_ID_DESCRIPTION
     })
     expect(tool.inputSchema.required).toEqual(['account_or_zone'])
+  })
+
+  it('gets the two values of account_or_zone from the document (cloudflare/forge#59)', () => {
+    const merged = tools.filter((tool) => tool.path.startsWith('/{account_or_zone}/'))
+
+    expect(merged.length).toBeGreaterThan(0)
+    for (const tool of merged) {
+      expect(tool.inputSchema.properties?.account_or_zone).toMatchObject({
+        type: 'string',
+        enum: ['accounts', 'zones']
+      })
+    }
   })
 
   it('leaves other tools alone and keeps their request code', () => {

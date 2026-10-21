@@ -199,9 +199,19 @@ export const tools: readonly Tool[] = [
               "properties": {
                 "headers": {
                   "additionalProperties": {
-                    "type": "string"
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "type": "object"
+                },
+                "replaceHeaders": {
+                  "type": "boolean"
                 },
                 "type": {
                   "enum": [
@@ -225,7 +235,6 @@ export const tools: readonly Tool[] = [
             }
           },
           "required": [
-            "configuration",
             "enabled"
           ],
           "type": "object"

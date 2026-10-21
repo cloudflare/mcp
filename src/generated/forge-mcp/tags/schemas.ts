@@ -24,6 +24,7 @@ export const resource_tagging_resource_type: JsonSchema = {
     "account",
     "account_ruleset",
     "ai_gateway",
+    "ai_search_instance",
     "alerting_policy",
     "alerting_webhook",
     "api_gateway_operation",

@@ -140,10 +140,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_or_zone": {
+          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+          "enum": [
+            "accounts",
+            "zones"
+          ],
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The unique ID of the account.",
+          "description": "The account ID or zone ID, as selected by account_or_zone.",
           "type": "string"
         },
         "body": {
@@ -349,10 +354,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_or_zone": {
+          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+          "enum": [
+            "accounts",
+            "zones"
+          ],
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The unique ID of the account.",
+          "description": "The account ID or zone ID, as selected by account_or_zone.",
           "type": "string"
         },
         "id": {
@@ -413,10 +423,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_or_zone": {
+          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+          "enum": [
+            "accounts",
+            "zones"
+          ],
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The unique ID of the account.",
+          "description": "The account ID or zone ID, as selected by account_or_zone.",
           "type": "string"
         },
         "id": {
@@ -477,10 +492,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_or_zone": {
+          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+          "enum": [
+            "accounts",
+            "zones"
+          ],
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The unique ID of the account.",
+          "description": "The account ID or zone ID, as selected by account_or_zone.",
           "type": "string"
         },
         "cursor": {
@@ -552,10 +572,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_or_zone": {
+          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+          "enum": [
+            "accounts",
+            "zones"
+          ],
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The unique ID of the account.",
+          "description": "The account ID or zone ID, as selected by account_or_zone.",
           "type": "string"
         },
         "body": {

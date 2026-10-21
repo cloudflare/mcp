@@ -289,6 +289,7 @@ import { tools as dls_regionalServices_prefixBindingsTools } from "./dls/regiona
 import { tools as dls_regionsTools } from "./dls/regions/tools.js";
 import { tools as dns_dnssec_listTools } from "./dns/dnssec/list/tools.js";
 import { tools as dns_dnssecTools } from "./dns/dnssec/tools.js";
+import { tools as dns_domainconnectTools } from "./dns/domainconnect/tools.js";
 import { tools as dns_recordsTools } from "./dns/records/tools.js";
 import { tools as dns_settings_account_nameserverSetsTools } from "./dns/settings/account/nameserverSets/tools.js";
 import { tools as dns_settings_accountTools } from "./dns/settings/account/tools.js";
@@ -1379,6 +1380,7 @@ export const tools: readonly Tool[] = [
   ...dls_regionsTools,
   ...dns_dnssecTools,
   ...dns_dnssec_listTools,
+  ...dns_domainconnectTools,
   ...dns_recordsTools,
   ...dns_settings_accountTools,
   ...dns_settings_account_nameserverSetsTools,

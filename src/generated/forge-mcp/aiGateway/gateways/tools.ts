@@ -650,6 +650,7 @@ export const tools: readonly Tool[] = [
               ]
             },
             "store_id": {
+              "description": "Secrets Store used by this gateway. Omit on update to keep the current store. Cannot be cleared while stored keys or secret references depend on it.",
               "oneOf": [
                 {
                   "type": "string"
@@ -1629,6 +1630,7 @@ export const tools: readonly Tool[] = [
               ]
             },
             "store_id": {
+              "description": "Secrets Store used by this gateway. Omit on update to keep the current store. Cannot be cleared while stored keys or secret references depend on it.",
               "oneOf": [
                 {
                   "type": "string"

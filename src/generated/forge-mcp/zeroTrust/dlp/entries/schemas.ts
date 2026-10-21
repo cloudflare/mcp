@@ -4,81 +4,52 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `dlp_CustomEntryUpdateType`.
- */
-export const dlp_CustomEntryUpdateType: JsonSchema = {
-  "properties": {
-    "description": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "name": {
-      "type": "string"
-    },
-    "pattern": {
-      "$ref": "#/$defs/dlp_Pattern"
-    },
-    "validator_ids": {
-      "description": "Validators this entry should reference, by id, at most 10. Replaces the current set.\n\nOptional, unlike the rest of this body: omitting it leaves the current attachments alone, so a\nclient that predates validators cannot detach them by accident. Send `[]` to detach.",
-      "items": {
-        "format": "uuid",
-        "type": "string"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "name",
-    "pattern"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `dlp_EntryUpdate`.
  */
 export const dlp_EntryUpdate: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "allOf": [
-        {
-          "$ref": "#/$defs/dlp_CustomEntryUpdateType"
-        },
+      "oneOf": [
         {
           "properties": {
+            "description": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "pattern": {
+              "$ref": "#/$defs/dlp_Pattern"
+            },
             "type": {
               "enum": [
                 "custom"
               ],
               "type": "string"
+            },
+            "validator_ids": {
+              "description": "Validators this entry should reference, by id, at most 10. Replaces the current set.\n\nOptional, unlike the rest of this body: omitting it leaves the current attachments alone, so a\nclient that predates validators cannot detach them by accident. Send `[]` to detach.",
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           "required": [
+            "name",
+            "pattern",
             "type"
           ],
           "type": "object"
         },
-        {
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "enabled"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
         {
           "properties": {
             "type": {
@@ -95,21 +66,6 @@ export const dlp_EntryUpdate: JsonSchema = {
         },
         {
           "properties": {
-            "enabled": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "enabled"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "properties": {
             "type": {
               "enum": [
                 "integration"
@@ -121,19 +77,19 @@ export const dlp_EntryUpdate: JsonSchema = {
             "type"
           ],
           "type": "object"
-        },
-        {
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "enabled"
-          ],
-          "type": "object"
         }
       ]
+    },
+    {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "type": "object"
     }
   ]
 };

@@ -33,7 +33,7 @@ export const magic_bgp_config: JsonSchema = {
       "type": "string"
     },
     "extra_prefixes": {
-      "description": "Prefixes in this list will be advertised to the customer device, in addition to the routes in the Magic routing table.",
+      "description": "Prefixes in this list will be advertised to the customer device, in addition to the routes in the Magic routing table.\nEach entry must be a network address in CIDR notation with no host bits set (for example `192.0.2.0/24`, not\n`192.0.2.1/24`) and must not repeat another entry. IPv6 prefixes are accepted only when the tunnel has an\n`interface_address6`.\n",
       "items": {
         "type": "string"
       },
