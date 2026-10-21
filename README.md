@@ -78,7 +78,7 @@ When code mode is disabled:
 
 ### Tool Result Truncation
 
-In code mode, the server caps each tool result at ~6,000 tokens, because the result goes straight to the model. Oversized JSON stays valid JSON: long lists keep their first items whole, long strings are clipped, and every cut is marked with `--- TRUNCATED ---`. Clients that bound results themselves, for example by writing them to a file, can turn the cap off with `?truncateToolResult=false`.
+In code mode, the server caps each tool result at ~6,000 tokens, to avoid context overload. Oversized JSON stays valid JSON: long lists keep their first items whole, long strings are clipped, and every cut is marked with `--- TRUNCATED ---`. Clients that bound tool results themselves, for example by writing them to a file, can turn the cap off with `?truncateToolResult=false`.
 
 ```
 https://mcp.cloudflare.com/mcp?truncateToolResult=false
