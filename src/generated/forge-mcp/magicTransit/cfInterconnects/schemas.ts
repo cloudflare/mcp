@@ -54,7 +54,7 @@ export const magic_interconnect_bgp_config: JsonSchema = {
       "type": "string"
     },
     "extra_prefixes": {
-      "description": "Prefixes in this list will be advertised to the customer device, in addition to the routes in the Magic routing table.",
+      "description": "IPv4 prefixes in this list will be advertised to the customer device, in addition to the routes in the Magic\nrouting table. Each entry must be a network address in CIDR notation with no host bits set (for example\n`192.0.2.0/24`, not `192.0.2.1/24`) and must not repeat another entry.\n",
       "items": {
         "type": "string"
       },

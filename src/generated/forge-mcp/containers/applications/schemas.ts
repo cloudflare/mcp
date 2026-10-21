@@ -90,11 +90,15 @@ export const cc_ContainersCreateApplicationRequest: JsonSchema = {
  * The schema of `cc_ContainersCreateDurableObjectApplicationRequest`.
  */
 export const cc_ContainersCreateDurableObjectApplicationRequest: JsonSchema = {
-  "description": "Create a Durable Object-managed Containers application. Each Durable Object\ncreates and manages the lifecycle of its container instance. Supply `name`,\n`scheduling_policy`, and `durable_objects`, with optional `configuration` and\ntop-level `observability` settings. Deployment configuration, instance counts,\nscaling, constraints, versions, and rollouts do not apply.\n",
+  "description": "Create a Durable Object-managed Containers application. Each Durable Object\ncreates and manages the lifecycle of its container instance. Supply `name`,\n`scheduling_policy`, and `durable_objects`, with optional `configuration` and\ntop-level `observability` settings. `constraints.jurisdiction` selects the\njurisdiction of the application's primary control-plane object at creation time.\nDeployment configuration, instance counts, scaling, other placement constraints,\nversions, and rollouts do not apply.\n",
   "properties": {
     "configuration": {
       "$ref": "#/$defs/cc_DurableObjectApplicationConfiguration",
       "description": "Configuration for a Durable Object-managed application."
+    },
+    "constraints": {
+      "$ref": "#/$defs/cc_DurableObjectApplicationConstraints",
+      "description": "The jurisdiction of a Durable Object-managed application's primary control-plane object.\nSet this when creating the application; it cannot be changed afterwards.\nOther placement constraints are not supported by this scheduling policy.\n"
     },
     "durable_objects": {
       "$ref": "#/$defs/cc_DurableObjectsConfiguration",
@@ -109,8 +113,7 @@ export const cc_ContainersCreateDurableObjectApplicationRequest: JsonSchema = {
       "description": "Application-wide logging settings for a Durable Object-managed application.\nThe application publishes these settings to its runtime metadata. Updating\nthem does not create a deployment or rollout.\n"
     },
     "scheduling_policy": {
-      "$ref": "#/$defs/cc_DurableObjectApplicationSchedulingPolicy",
-      "description": "Selects a Durable Object-managed application. Each Durable Object creates and\nmanages the lifecycle of its container instance. Configure application-wide\nobservability settings here. Deployment configuration, scaling, placement\nconstraints, versions, and rollouts do not apply.\n"
+      "$ref": "#/$defs/cc_DurableObjectApplicationSchedulingPolicy"
     }
   },
   "required": [
@@ -160,8 +163,7 @@ export const cc_ContainersCreateScheduledApplicationRequest: JsonSchema = {
       "description": "Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.\nDefaults to 0.\n"
     },
     "scheduling_policy": {
-      "$ref": "#/$defs/cc_ScheduledApplicationSchedulingPolicy",
-      "description": "Selects a scheduler-backed application. Use `default` when the Containers\nscheduler should maintain the requested number of instances and manage deployment\nconfiguration, placement, scaling, versions, and rollouts.\n"
+      "$ref": "#/$defs/cc_ScheduledApplicationSchedulingPolicy"
     }
   },
   "required": [
@@ -255,6 +257,27 @@ export const cc_DurableObjectApplicationConfiguration: JsonSchema = {
       "description": "Configuration properties for connecting with SSH to a container using Wrangler."
     }
   },
+  "type": "object"
+};
+
+/**
+ * The schema of `cc_DurableObjectApplicationConstraints`.
+ */
+export const cc_DurableObjectApplicationConstraints: JsonSchema = {
+  "description": "The jurisdiction of a Durable Object-managed application's primary control-plane object.\nSet this when creating the application; it cannot be changed afterwards.\nOther placement constraints are not supported by this scheduling policy.\n",
+  "properties": {
+    "jurisdiction": {
+      "enum": [
+        "eu",
+        "fedramp",
+        "us"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "jurisdiction"
+  ],
   "type": "object"
 };
 

@@ -234,8 +234,25 @@ export const tools: readonly Tool[] = [
           "description": "Specifies the public ID of the account.",
           "type": "string"
         },
+        "direction": {
+          "default": "asc",
+          "description": "Sort direction.",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string"
+        },
         "name": {
           "description": "Filters sinks by name (case-insensitive substring).",
+          "type": "string"
+        },
+        "order_by": {
+          "description": "Sorts sinks by this field. Defaults to `created_at`.",
+          "enum": [
+            "name",
+            "created_at"
+          ],
           "type": "string"
         },
         "page": {
@@ -279,6 +296,8 @@ export const tools: readonly Tool[] = [
       query: [
         ["pipeline_id", args["pipeline_id"], true],
         ["name", args["name"], true],
+        ["order_by", args["order_by"], true],
+        ["direction", args["direction"], true],
         ["page", args["page"], true],
         ["per_page", args["per_page"], true],
       ],

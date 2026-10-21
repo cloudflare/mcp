@@ -3,11 +3,7 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import { dlp_Pattern, dlp_Validation } from "../schemas.js";
-import {
-  dlp_CustomEntryUpdateType,
-  dlp_EntryUpdate,
-  dlp_NewEntry,
-} from "./schemas.js";
+import { dlp_EntryUpdate, dlp_NewEntry } from "./schemas.js";
 
 /**
  * The tools of `zero_trust.dlp.entries`.
@@ -193,7 +189,6 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dlp_CustomEntryUpdateType": dlp_CustomEntryUpdateType,
         "dlp_EntryUpdate": dlp_EntryUpdate,
         "dlp_Pattern": dlp_Pattern,
         "dlp_Validation": dlp_Validation,

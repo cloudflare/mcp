@@ -18,11 +18,10 @@ export function extractProduct(path: string): string | undefined {
 /**
  * Forge merges operations that exist under both `/accounts/{account_id}` and
  * `/zones/{zone_id}` into one `/{account_or_zone}/{account_or_zone_id}` path,
- * whose `account_or_zone` is a bare string: the document doesn't say it must be
- * `accounts` or `zones`. Each merged path is split back into its account and
- * zone routes, so Code Mode sees paths it can call as written and the direct
- * tools fill in `account_id` as they do for any account route. Drop this once
- * the document describes the parameter (cloudflare/forge#59).
+ * whose `account_or_zone` is `accounts` or `zones` (cloudflare/forge#59). Each
+ * merged path is split back into its account and zone routes, so Code Mode
+ * sees paths it can call as written and the direct tools fill in `account_id`
+ * as they do for any account route.
  */
 const ACCOUNT_OR_ZONE_PREFIX = '/{account_or_zone}/{account_or_zone_id}'
 

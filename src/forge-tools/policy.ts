@@ -13,12 +13,6 @@ export const FORGE_ACCOUNT_DISCOVERY_GUIDANCE = `Call the ${ACCOUNTS_TOOL} tool 
  */
 export const FORGE_ACCOUNT_ID_DESCRIPTION = `Cloudflare account ID. Optional when the session is authorized for exactly one account; otherwise required. ${FORGE_ACCOUNT_DISCOVERY_GUIDANCE}`
 
-/** The values of the `account_or_zone` path parameter Forge adds to methods it merged. */
-export const ACCOUNT_OR_ZONE_VALUES = ['accounts', 'zones'] as const
-
-export const ACCOUNT_OR_ZONE_DESCRIPTION =
-  'Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).'
-
 export const ACCOUNT_OR_ZONE_ID_DESCRIPTION = `The account or zone ID that account_or_zone names. Optional for \`accounts\` when the session is authorized for exactly one account. ${FORGE_ACCOUNT_DISCOVERY_GUIDANCE}`
 
 /** The extension a tool's accepted API token permissions are kept under. */

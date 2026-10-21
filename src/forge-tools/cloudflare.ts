@@ -1,8 +1,6 @@
 import type { InputSchema, JsonSchema, Tool } from '../generated/forge-mcp'
 import {
-  ACCOUNT_OR_ZONE_DESCRIPTION,
   ACCOUNT_OR_ZONE_ID_DESCRIPTION,
-  ACCOUNT_OR_ZONE_VALUES,
   FORGE_ACCOUNT_ID_DESCRIPTION,
   PERMISSIONS_EXTENSION
 } from './policy'
@@ -13,29 +11,23 @@ import {
  * - `account_id` is optional with one description, so tool lists don't depend
  *   on the session; the server fills it in when the session has one account.
  * - Forge merges methods that exist under both accounts and zones into
- *   `/{account_or_zone}/{account_or_zone_id}/…`. `account_or_zone` gets its
- *   two values, and `account_or_zone_id` is optional like `account_id`. The
- *   document doesn't describe them yet (cloudflare/forge#59); once it does,
- *   the generator can carry them and this can go.
+ *   `/{account_or_zone}/{account_or_zone_id}/…`. The document gives
+ *   `account_or_zone` its two values (cloudflare/forge#59);
+ *   `account_or_zone_id` is optional here like `account_id`, since the server
+ *   fills in the session's account for `accounts`.
  *
  * The tool's request code is kept, so calls build the same requests.
  */
 export function cloudflareTool(tool: Tool): Tool {
   const properties = tool.inputSchema.properties
-  if (!properties || !('account_id' in properties || 'account_or_zone' in properties)) return tool
+  if (!properties || !('account_id' in properties || 'account_or_zone_id' in properties))
+    return tool
 
   const changed: Record<string, JsonSchema> = { ...properties }
   const optional = new Set<string>()
   if ('account_id' in changed) {
     changed.account_id = { type: 'string', description: FORGE_ACCOUNT_ID_DESCRIPTION }
     optional.add('account_id')
-  }
-  if ('account_or_zone' in changed) {
-    changed.account_or_zone = {
-      type: 'string',
-      enum: [...ACCOUNT_OR_ZONE_VALUES],
-      description: ACCOUNT_OR_ZONE_DESCRIPTION
-    }
   }
   if ('account_or_zone_id' in changed) {
     changed.account_or_zone_id = { type: 'string', description: ACCOUNT_OR_ZONE_ID_DESCRIPTION }
