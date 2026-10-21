@@ -202,6 +202,35 @@ describe('execute: REST responses', () => {
   })
 })
 
+describe('execute: sandbox return values', () => {
+  it('handles BigInt return values without formatter errors', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: 'async () => 1n'
+    })
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toBe('1n')
+  })
+
+  it('handles circular objects without throwing', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: 'async () => { const x = {}; x.self = x; return x }'
+    })
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toContain('[Circular]')
+  })
+
+  it('handles code that returns undefined (e.g. no return)', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: 'async () => {}'
+    })
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toBe('undefined')
+  })
+})
+
 describe('execute: retries', () => {
   it('resends the request body when the Cloudflare API rate-limits a write', async () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
@@ -468,5 +497,15 @@ describe('search: real SPEC_BUCKET', () => {
     // The search isolate cannot make outbound requests.
     expect(toolText(result)).not.toContain('should not reach')
     expect(result.result?.isError).toBe(true)
+  })
+
+  it('handles non-JSON return values without formatter errors', async () => {
+    await seedSpec(SPEC_PATHS)
+
+    const result = await callTool(API_TOKEN, 'search', {
+      code: `async () => 1n`
+    })
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toBe('1n')
   })
 })
