@@ -235,7 +235,7 @@ How the challenge reaches the client depends on the client (`src/clients.ts`):
 
 Responses capped at ~6,000 tokens (~24KB). `src/truncate.ts` shrinks oversized JSON structurally so it stays valid JSON: arrays keep whole items from the start and end with a `--- TRUNCATED --- N more items` element, long strings are clipped, and objects drop their largest values first, naming them in a `--- TRUNCATED ---` entry. Plain text is cut at the cap and followed by a notice with the original size.
 
-The cap is on by default in Code Mode and off for the direct tools (`?codemode=false`, with or without `experimentalForge`): `createServer` defaults `truncateToolResult` to `codemode`. An explicit `?truncateToolResult=` overrides either default; truncation is then on unless the value is exactly `false`. Code Mode clients that bound results themselves pass `?truncateToolResult=false` to get whole `search` and `execute` results.
+The cap is on by default in Code Mode and off for the direct tools (`?codemode=false`, with or without `experimentalForge`): `createServer` defaults `truncateToolResult` to `codemode`. Clients without code mode of their own use our Code Mode, where results go straight to the model. Clients with their own code mode use the direct tools and parse each result in their own code, so a capped result would lose data. An explicit `?truncateToolResult=` overrides either default; truncation is then on unless the value is exactly `false`. Code Mode clients that bound results themselves, for example by writing them to a file, pass `?truncateToolResult=false`.
 
 ### Usage metrics (Analytics Engine)
 

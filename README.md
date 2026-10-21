@@ -78,13 +78,13 @@ When code mode is disabled:
 
 ### Tool Result Truncation
 
-In code mode, the server caps each tool result at ~6,000 tokens. Oversized JSON stays valid JSON: long lists keep their first items whole, long strings are clipped, and every cut is marked with `--- TRUNCATED ---`. Code mode clients that bound results themselves can turn the cap off with `?truncateToolResult=false`. They parse each tool result as JSON and run more code on it before anything reaches the model, so they need the whole result.
+In code mode, the server caps each tool result at ~6,000 tokens, because the result goes straight to the model. Oversized JSON stays valid JSON: long lists keep their first items whole, long strings are clipped, and every cut is marked with `--- TRUNCATED ---`. Clients that bound results themselves, for example by writing them to a file, can turn the cap off with `?truncateToolResult=false`.
 
 ```
 https://mcp.cloudflare.com/mcp?truncateToolResult=false
 ```
 
-With code mode disabled, endpoint tools return whole results by default. Add `?truncateToolResult=true` to cap them.
+With code mode disabled, endpoint tools return whole results by default. The clients that disable it usually run code mode themselves: they call the endpoint tools from their own code and parse each result, so a capped result would lose data. Add `?truncateToolResult=true` to cap them.
 
 > **Note:** Without the cap, a broad query can return megabytes. Only turn it off when your client bounds what reaches the model.
 
