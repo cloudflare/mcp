@@ -2,8 +2,9 @@
 	// The forge tools service (src/forge-tools/worker.ts): the generated direct
 	// tools served at /mcp?forge=true, which the main Worker (wrangler.jsonc)
 	// reaches over its FORGE_TOOLS service binding. It holds no credentials,
-	// makes no requests, and has no public route. Deploy it before the main
-	// Worker in each environment, since the main Worker binds to it.
+	// makes no requests, and has no public route. Workers Builds deploys it with
+	// the main Worker on every push to main. In a new environment, deploy it
+	// first, since the main Worker binds to it.
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "cloudflare-api-mcp-forge-tools-dev",
 	"account_id": "6702657b6aa048cf3081ff3ff3c9c52f",

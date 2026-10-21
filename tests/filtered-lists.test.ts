@@ -296,6 +296,20 @@ describe('forge tools', () => {
     expect(result?.isError).toBeFalsy()
     expect(text).toContain('db-1')
   })
+
+  it('challenge for the zone scope on a zone path and the account scope on an account path', async () => {
+    const token = await connectWithOAuth(BASELINE)
+    answer(`/zones/${ZONE_ID}/access/apps`, cfSuccess([]))
+    answer(`/accounts/${ACCOUNT_ID}/access/apps`, cfSuccess([]))
+    const apps = (args: Record<string, unknown>) =>
+      callDirectTool(token, 'zero_trust_access_applications_list', args, '?forge=true')
+
+    expectChallenge(
+      await apps({ account_or_zone: 'zones', account_or_zone_id: ZONE_ID }),
+      'zone-access.read'
+    )
+    expectChallenge(await apps({ account_or_zone: 'accounts' }), 'access.read')
+  })
 })
 
 describe('forge account-or-zone templates', () => {

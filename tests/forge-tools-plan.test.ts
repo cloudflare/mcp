@@ -49,7 +49,7 @@ describe('planning a generated tool call', () => {
     })
   })
 
-  it('makes a merged account-or-zone template concrete', async () => {
+  it('fills in the account for a merged account-or-zone path called with accounts', async () => {
     const zone = await plan('zero_trust_access_applications_list', {
       account_or_zone: 'zones',
       account_or_zone_id: 'z1'
@@ -60,11 +60,13 @@ describe('planning a generated tool call', () => {
       { sessionAccountId: ACCOUNT }
     )
 
-    expect(zone).toMatchObject({ template: '/zones/{zone_id}/access/apps' })
+    expect(zone).toMatchObject({
+      url: `${BASE}/zones/z1/access/apps`,
+      template: '/{account_or_zone}/{account_or_zone_id}/access/apps'
+    })
     expect(zone.kind === 'request' && zone.accountId).toBeFalsy()
     expect(account).toMatchObject({
       url: `${BASE}/accounts/${ACCOUNT}/access/apps`,
-      template: '/accounts/{account_id}/access/apps',
       accountId: ACCOUNT
     })
   })
