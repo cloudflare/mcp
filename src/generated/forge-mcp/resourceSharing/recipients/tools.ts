@@ -62,6 +62,22 @@ export const tools: readonly Tool[] = [
         "resource-sharing_organization_id": resource_sharing_organization_id,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_recipient_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_recipient_association_status": resource_sharing_recipient_association_status_output,
+        "resource-sharing_recipient_id": resource_sharing_recipient_id_output,
+        "resource-sharing_recipient_resource_error": resource_sharing_recipient_resource_error_output,
+        "resource-sharing_recipient_resource_error_terminal": resource_sharing_recipient_resource_error_terminal_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_recipient_object": resource_sharing_share_recipient_object_output,
+        "resource-sharing_share_recipient_resource_object": resource_sharing_share_recipient_resource_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -139,6 +155,22 @@ export const tools: readonly Tool[] = [
         "share_id",
         "recipient_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_recipient_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_recipient_association_status": resource_sharing_recipient_association_status_output,
+        "resource-sharing_recipient_id": resource_sharing_recipient_id_output,
+        "resource-sharing_recipient_resource_error": resource_sharing_recipient_resource_error_output,
+        "resource-sharing_recipient_resource_error_terminal": resource_sharing_recipient_resource_error_terminal_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_recipient_object": resource_sharing_share_recipient_object_output,
+        "resource-sharing_share_recipient_resource_object": resource_sharing_share_recipient_resource_object_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -220,6 +252,22 @@ export const tools: readonly Tool[] = [
         "share_id",
         "recipient_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_recipient_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_recipient_association_status": resource_sharing_recipient_association_status_output,
+        "resource-sharing_recipient_id": resource_sharing_recipient_id_output,
+        "resource-sharing_recipient_resource_error": resource_sharing_recipient_resource_error_output,
+        "resource-sharing_recipient_resource_error_terminal": resource_sharing_recipient_resource_error_terminal_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_recipient_object": resource_sharing_share_recipient_object_output,
+        "resource-sharing_share_recipient_resource_object": resource_sharing_share_recipient_resource_object_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -309,6 +357,37 @@ export const tools: readonly Tool[] = [
         "account_id_path",
         "share_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/resource-sharing_share_recipient_object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/resource-sharing_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_recipient_association_status": resource_sharing_recipient_association_status_output,
+        "resource-sharing_recipient_id": resource_sharing_recipient_id_output,
+        "resource-sharing_recipient_resource_error": resource_sharing_recipient_resource_error_output,
+        "resource-sharing_recipient_resource_error_terminal": resource_sharing_recipient_resource_error_terminal_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_result_info": resource_sharing_result_info_output,
+        "resource-sharing_share_recipient_object": resource_sharing_share_recipient_object_output,
+        "resource-sharing_share_recipient_resource_object": resource_sharing_share_recipient_resource_object_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

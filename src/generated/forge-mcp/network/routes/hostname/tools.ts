@@ -76,6 +76,20 @@ export const tools: readonly Tool[] = [
         "tunnel_tunnel_id-3": tunnel_tunnel_id_3,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_hostname_route",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -147,6 +161,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "hostname_route_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_hostname_route",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -242,6 +270,20 @@ export const tools: readonly Tool[] = [
         "tunnel_tunnel_id-3": tunnel_tunnel_id_3,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_hostname_route",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -313,6 +355,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "hostname_route_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_hostname_route",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -423,6 +479,35 @@ export const tools: readonly Tool[] = [
         "tunnel_page_number": tunnel_page_number,
         "tunnel_per_page": tunnel_per_page,
         "tunnel_tunnel_id-3": tunnel_tunnel_id_3,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tunnel_hostname_route"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/tunnel_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_hostname": tunnel_hostname_output,
+        "tunnel_hostname_comment": tunnel_hostname_comment_output,
+        "tunnel_hostname_route": tunnel_hostname_route_output,
+        "tunnel_hostname_route_id": tunnel_hostname_route_id_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_tunnel_id-3": tunnel_tunnel_id_3_output,
+        "tunnel_tunnel_name-2": tunnel_tunnel_name_2_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
       },
     },
     annotations: {

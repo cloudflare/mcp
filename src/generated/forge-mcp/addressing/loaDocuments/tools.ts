@@ -92,6 +92,51 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_loa_document"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier_output,
+        "addressing_auto_generated": addressing_auto_generated_output,
+        "addressing_filename": addressing_filename_output,
+        "addressing_loa_document": addressing_loa_document_output,
+        "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
+        "addressing_size_bytes": addressing_size_bytes_output,
+        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_verified": addressing_verified_output,
+        "addressing_verified_at": addressing_verified_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

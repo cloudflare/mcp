@@ -59,6 +59,17 @@ export const tools: readonly Tool[] = [
         "membership_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/iam_membership_components-schemas-identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -151,6 +162,48 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_properties-name": iam_properties_name,
+      },
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/iam_collection_membership_response"
+        },
+        {
+          "$ref": "#/$defs/iam_collection_membership_response_with_policies"
+        }
+      ],
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_api_access_enabled": iam_api_access_enabled_output,
+        "iam_collection_membership_response": iam_collection_membership_response_output,
+        "iam_collection_membership_response_with_policies": iam_collection_membership_response_with_policies_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_grants": iam_grants_output,
+        "iam_list_member_policy": iam_list_member_policy_output,
+        "iam_membership": iam_membership_output,
+        "iam_membership-with-policies": iam_membership_with_policies_output,
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_permissions": iam_permissions_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-account": iam_schemas_account_output,
+        "iam_schemas-status": iam_schemas_status_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
       },
     },
     annotations: {
@@ -264,6 +317,36 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_membership-with-policies",
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_api_access_enabled": iam_api_access_enabled_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_grants": iam_grants_output,
+        "iam_list_member_policy": iam_list_member_policy_output,
+        "iam_membership-with-policies": iam_membership_with_policies_output,
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_permissions": iam_permissions_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-account": iam_schemas_account_output,
+        "iam_schemas-status": iam_schemas_status_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -337,6 +420,36 @@ export const tools: readonly Tool[] = [
       required: [
         "membership_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_membership-with-policies",
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_api_access_enabled": iam_api_access_enabled_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_grants": iam_grants_output,
+        "iam_list_member_policy": iam_list_member_policy_output,
+        "iam_membership-with-policies": iam_membership_with_policies_output,
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_permissions": iam_permissions_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-account": iam_schemas_account_output,
+        "iam_schemas-status": iam_schemas_status_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -427,6 +540,36 @@ export const tools: readonly Tool[] = [
       required: [
         "membership_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_membership-with-policies",
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_api_access_enabled": iam_api_access_enabled_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_grants": iam_grants_output,
+        "iam_list_member_policy": iam_list_member_policy_output,
+        "iam_membership-with-policies": iam_membership_with_policies_output,
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_permissions": iam_permissions_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-account": iam_schemas_account_output,
+        "iam_schemas-status": iam_schemas_status_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

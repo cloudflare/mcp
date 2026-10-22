@@ -87,6 +87,35 @@ export const tools: readonly Tool[] = [
         "before"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_audit-logs-v2"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/aaa_audit-logs-v2-history-result-info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_audit-log-action": aaa_audit_log_action_output,
+        "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
+        "aaa_audit-log-raw": aaa_audit_log_raw_output,
+        "aaa_audit-logs-v2": aaa_audit_logs_v2_output,
+        "aaa_audit-logs-v2-history-result-info": aaa_audit_logs_v2_history_result_info_output,
+        "aaa_audit-logs-v2_account": aaa_audit_logs_v2_account_output,
+        "aaa_audit-logs-v2_resource": aaa_audit_logs_v2_resource_output,
+        "aaa_audit-logs-v2_zone": aaa_audit_logs_v2_zone_output,
+        "aaa_history-status": aaa_history_status_output,
+        "aaa_identifier-2": aaa_identifier_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -587,6 +616,34 @@ export const tools: readonly Tool[] = [
         "before"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_audit-logs-v2"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/aaa_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_audit-log-action": aaa_audit_log_action_output,
+        "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
+        "aaa_audit-log-raw": aaa_audit_log_raw_output,
+        "aaa_audit-logs-v2": aaa_audit_logs_v2_output,
+        "aaa_audit-logs-v2_account": aaa_audit_logs_v2_account_output,
+        "aaa_audit-logs-v2_resource": aaa_audit_logs_v2_resource_output,
+        "aaa_audit-logs-v2_zone": aaa_audit_logs_v2_zone_output,
+        "aaa_identifier-2": aaa_identifier_2_output,
+        "aaa_result_info": aaa_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -717,6 +774,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_audit-logs-v2-product-category"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_audit-logs-v2-product-category": aaa_audit_logs_v2_product_category_output,
+        "aaa_audit-logs-v2-product-category-item": aaa_audit_logs_v2_product_category_item_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

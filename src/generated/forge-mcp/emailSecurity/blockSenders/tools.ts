@@ -136,6 +136,34 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "deletes": {
+          "items": {
+            "$ref": "#/$defs/email-security_DeletedBlockedSender"
+          },
+          "type": "array"
+        },
+        "patches": {
+          "$ref": "#/$defs/email-security_BlockedSenderList"
+        },
+        "posts": {
+          "$ref": "#/$defs/email-security_BlockedSenderList"
+        },
+        "puts": {
+          "$ref": "#/$defs/email-security_BlockedSenderList"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "email-security_BlockedSender": email_security_BlockedSender_output,
+        "email-security_BlockedSenderId": email_security_BlockedSenderId_output,
+        "email-security_BlockedSenderList": email_security_BlockedSenderList_output,
+        "email-security_DeletedBlockedSender": email_security_DeletedBlockedSender_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -218,6 +246,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_BlockedSender",
+      $defs: {
+        "email-security_BlockedSender": email_security_BlockedSender_output,
+        "email-security_BlockedSenderId": email_security_BlockedSenderId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -279,6 +316,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BlockedSenderId": email_security_BlockedSenderId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_DeletedBlockedSender",
+      $defs: {
+        "email-security_BlockedSenderId": email_security_BlockedSenderId_output,
+        "email-security_DeletedBlockedSender": email_security_DeletedBlockedSender_output,
       },
     },
     annotations: {
@@ -347,6 +391,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_BlockedSender",
+      $defs: {
+        "email-security_BlockedSender": email_security_BlockedSender_output,
+        "email-security_BlockedSenderId": email_security_BlockedSenderId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -408,6 +461,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BlockedSenderId": email_security_BlockedSenderId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_BlockedSender",
+      $defs: {
+        "email-security_BlockedSender": email_security_BlockedSender_output,
+        "email-security_BlockedSenderId": email_security_BlockedSenderId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {
@@ -508,6 +570,41 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_PatternType": email_security_PatternType,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email-security_BlockedSenderList"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_BlockedSender": email_security_BlockedSender_output,
+        "email-security_BlockedSenderId": email_security_BlockedSenderId_output,
+        "email-security_BlockedSenderList": email_security_BlockedSenderList_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {
@@ -613,6 +710,15 @@ export const tools: readonly Tool[] = [
         "email-security_CreateBlockedSender": email_security_CreateBlockedSender,
         "email-security_PatternType": email_security_PatternType,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_BlockedSender",
+      $defs: {
+        "email-security_BlockedSender": email_security_BlockedSender_output,
+        "email-security_BlockedSenderId": email_security_BlockedSenderId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {

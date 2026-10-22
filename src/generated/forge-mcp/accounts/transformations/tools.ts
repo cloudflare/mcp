@@ -28,6 +28,26 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/speed_zone_config_item"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "speed_zone_config_item": speed_zone_config_item_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

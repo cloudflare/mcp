@@ -32,6 +32,12 @@ export const tools: readonly Tool[] = [
         "builds_account_id": builds_account_id,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_GetAccountLimitResponse",
+      $defs: {
+        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

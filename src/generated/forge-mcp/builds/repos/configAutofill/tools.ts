@@ -65,6 +65,13 @@ export const tools: readonly Tool[] = [
         "builds_root_directory": builds_root_directory,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_ConfigAutofillResponse",
+      $defs: {
+        "builds_ConfigAutofillResponse": builds_ConfigAutofillResponse_output,
+        "builds_PackageManager": builds_PackageManager_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

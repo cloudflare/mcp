@@ -61,6 +61,69 @@ export const tools: readonly Tool[] = [
         "query_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "account_id": {
+          "type": "integer"
+        },
+        "alert_enabled": {
+          "type": "boolean"
+        },
+        "alert_rollup_enabled": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "custom_threat_feed_id": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "query_json": {
+          "type": "string"
+        },
+        "rule_enabled": {
+          "type": "boolean"
+        },
+        "rule_list_id": {
+          "type": "string"
+        },
+        "rule_scope": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "user_email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "alert_enabled",
+        "alert_rollup_enabled",
+        "created_at",
+        "id",
+        "name",
+        "query_json",
+        "rule_enabled",
+        "updated_at",
+        "user_email"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -263,6 +326,69 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "account_id": {
+          "type": "integer"
+        },
+        "alert_enabled": {
+          "type": "boolean"
+        },
+        "alert_rollup_enabled": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "custom_threat_feed_id": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "query_json": {
+          "type": "string"
+        },
+        "rule_enabled": {
+          "type": "boolean"
+        },
+        "rule_list_id": {
+          "type": "string"
+        },
+        "rule_scope": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "user_email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "alert_enabled",
+        "alert_rollup_enabled",
+        "created_at",
+        "id",
+        "name",
+        "query_json",
+        "rule_enabled",
+        "updated_at",
+        "user_email"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -508,6 +634,69 @@ export const tools: readonly Tool[] = [
         "account_id",
         "query_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "account_id": {
+          "type": "integer"
+        },
+        "alert_enabled": {
+          "type": "boolean"
+        },
+        "alert_rollup_enabled": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "custom_threat_feed_id": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "query_json": {
+          "type": "string"
+        },
+        "rule_enabled": {
+          "type": "boolean"
+        },
+        "rule_list_id": {
+          "type": "string"
+        },
+        "rule_scope": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "user_email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "alert_enabled",
+        "alert_rollup_enabled",
+        "created_at",
+        "id",
+        "name",
+        "query_json",
+        "rule_enabled",
+        "updated_at",
+        "user_email"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

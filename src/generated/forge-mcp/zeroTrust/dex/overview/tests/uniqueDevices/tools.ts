@@ -39,6 +39,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_unique_devices_response",
+      $defs: {
+        "digital-experience-monitoring_unique_devices_response": digital_experience_monitoring_unique_devices_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

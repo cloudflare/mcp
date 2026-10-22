@@ -47,6 +47,15 @@ export const tools: readonly Tool[] = [
         "email_create_sending_subdomain_properties": email_create_sending_subdomain_properties,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_sending_subdomain_properties",
+      $defs: {
+        "email_created": email_created_output,
+        "email_modified": email_modified_output,
+        "email_sending_subdomain_identifier": email_sending_subdomain_identifier_output,
+        "email_sending_subdomain_properties": email_sending_subdomain_properties_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -114,6 +123,13 @@ export const tools: readonly Tool[] = [
         "subdomain_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_api-response-common",
+      $defs: {
+        "email_api-response-common": email_api_response_common_output,
+        "email_messages": email_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -178,6 +194,15 @@ export const tools: readonly Tool[] = [
         "subdomain_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_sending_subdomain_properties",
+      $defs: {
+        "email_created": email_created_output,
+        "email_modified": email_modified_output,
+        "email_sending_subdomain_identifier": email_sending_subdomain_identifier_output,
+        "email_sending_subdomain_properties": email_sending_subdomain_properties_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -238,6 +263,46 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_sending_subdomain_properties"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email_created": email_created_output,
+        "email_modified": email_modified_output,
+        "email_sending_subdomain_identifier": email_sending_subdomain_identifier_output,
+        "email_sending_subdomain_properties": email_sending_subdomain_properties_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -338,6 +403,28 @@ export const tools: readonly Tool[] = [
         "email_create_sending_subdomain_properties": email_create_sending_subdomain_properties,
       },
     },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/email_sending_subdomain_config_error"
+          },
+          "type": "array"
+        },
+        "records": {
+          "items": {
+            "$ref": "#/$defs/email_dns_record"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "email_dns_record": email_dns_record_output,
+        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -423,6 +510,15 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email_update_sending_subdomain_properties": email_update_sending_subdomain_properties,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_sending_subdomain_properties",
+      $defs: {
+        "email_created": email_created_output,
+        "email_modified": email_modified_output,
+        "email_sending_subdomain_identifier": email_sending_subdomain_identifier_output,
+        "email_sending_subdomain_properties": email_sending_subdomain_properties_output,
       },
     },
     annotations: {

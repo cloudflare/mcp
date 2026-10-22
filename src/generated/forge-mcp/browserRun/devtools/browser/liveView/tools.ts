@@ -68,6 +68,56 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "devtoolsFrontendUrl": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "options": {
+          "properties": {
+            "guardrails": {
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "readonly"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "type": "object"
+            },
+            "mode": {
+              "enum": [
+                "devtools",
+                "tab",
+                "full"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "mode"
+          ],
+          "type": "object"
+        },
+        "webSocketDebuggerUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "devtoolsFrontendUrl",
+        "id",
+        "options",
+        "webSocketDebuggerUrl"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

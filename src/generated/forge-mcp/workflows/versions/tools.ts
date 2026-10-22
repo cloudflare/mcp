@@ -31,6 +31,76 @@ export const tools: readonly Tool[] = [
         "version_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "class_name": {
+          "type": "string"
+        },
+        "concurrency": {
+          "properties": {
+            "limit": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "default_retention": {
+          "properties": {
+            "error_retention": {
+              "type": "integer"
+            },
+            "success_retention": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "has_dag": {
+          "type": "boolean"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "language": {
+          "enum": [
+            "javascript",
+            "python"
+          ],
+          "type": "string"
+        },
+        "limits": {
+          "properties": {
+            "steps": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "modified_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "workflow_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "class_name",
+        "created_on",
+        "has_dag",
+        "id",
+        "language",
+        "modified_on",
+        "workflow_id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -256,6 +326,810 @@ export const tools: readonly Tool[] = [
         "workflow_name",
         "version_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "class_name": {
+          "type": "string"
+        },
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "graph": {
+          "oneOf": [
+            {
+              "properties": {
+                "version": {
+                  "type": "number"
+                },
+                "workflow": {
+                  "properties": {
+                    "class_name": {
+                      "type": "string"
+                    },
+                    "functions": {
+                      "additionalProperties": {
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "nodes": {
+                            "items": {
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "type": {
+                            "enum": [
+                              "function_def"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "nodes",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "object"
+                    },
+                    "nodes": {
+                      "items": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "duration": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "resolves": {
+                                "type": "number"
+                              },
+                              "starts": {
+                                "type": "number"
+                              },
+                              "type": {
+                                "enum": [
+                                  "step_sleep"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "duration",
+                              "name",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "config": {
+                                "properties": {
+                                  "retries": {
+                                    "properties": {
+                                      "backoff": {
+                                        "enum": [
+                                          "constant",
+                                          "linear",
+                                          "exponential"
+                                        ],
+                                        "type": "string"
+                                      },
+                                      "delay": {
+                                        "anyOf": [
+                                          {
+                                            "type": "number"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "limit": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "backoff",
+                                      "delay",
+                                      "limit"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "timeout": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "retries",
+                                  "timeout"
+                                ],
+                                "type": "object"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "nodes": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "resolves": {
+                                "type": "number"
+                              },
+                              "starts": {
+                                "type": "number"
+                              },
+                              "type": {
+                                "enum": [
+                                  "step_do"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "config",
+                              "name",
+                              "nodes",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "options": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "event_type": {
+                                        "type": "string"
+                                      },
+                                      "timeout": {
+                                        "anyOf": [
+                                          {
+                                            "type": "number"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "event_type",
+                                      "timeout"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "payload": {
+                                "anyOf": [
+                                  {
+                                    "properties": {
+                                      "type": {
+                                        "enum": [
+                                          "unknown"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  {
+                                    "properties": {
+                                      "fields": {
+                                        "additionalProperties": {
+                                          "type": "object"
+                                        },
+                                        "type": "object"
+                                      },
+                                      "type": {
+                                        "enum": [
+                                          "object"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "fields",
+                                      "type"
+                                    ],
+                                    "type": "object"
+                                  }
+                                ]
+                              },
+                              "resolves": {
+                                "type": "number"
+                              },
+                              "starts": {
+                                "type": "number"
+                              },
+                              "type": {
+                                "enum": [
+                                  "step_wait_for_event"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "options",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "resolves": {
+                                "type": "number"
+                              },
+                              "starts": {
+                                "type": "number"
+                              },
+                              "timestamp": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "enum": [
+                                  "step_sleep_until"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "timestamp",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "nodes": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "loop"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "nodes",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "kind": {
+                                "enum": [
+                                  "all",
+                                  "any",
+                                  "all_settled",
+                                  "race"
+                                ],
+                                "type": "string"
+                              },
+                              "nodes": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "parallel"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "nodes",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "catch_block": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "nodes": {
+                                        "items": {
+                                          "type": "object"
+                                        },
+                                        "type": "array"
+                                      },
+                                      "type": {
+                                        "enum": [
+                                          "block"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "nodes",
+                                      "type"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "finally_block": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "nodes": {
+                                        "items": {
+                                          "type": "object"
+                                        },
+                                        "type": "array"
+                                      },
+                                      "type": {
+                                        "enum": [
+                                          "block"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "nodes",
+                                      "type"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "try_block": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "nodes": {
+                                        "items": {
+                                          "type": "object"
+                                        },
+                                        "type": "array"
+                                      },
+                                      "type": {
+                                        "enum": [
+                                          "block"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "nodes",
+                                      "type"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "type": {
+                                "enum": [
+                                  "try"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "catch_block",
+                              "finally_block",
+                              "try_block",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "nodes": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "block"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "nodes",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "branches": {
+                                "items": {
+                                  "properties": {
+                                    "condition": {
+                                      "oneOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "nodes": {
+                                      "items": {
+                                        "type": "object"
+                                      },
+                                      "type": "array"
+                                    }
+                                  },
+                                  "required": [
+                                    "condition",
+                                    "nodes"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "if"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "branches",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "branches": {
+                                "items": {
+                                  "properties": {
+                                    "condition": {
+                                      "oneOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "nodes": {
+                                      "items": {
+                                        "type": "object"
+                                      },
+                                      "type": "array"
+                                    }
+                                  },
+                                  "required": [
+                                    "condition",
+                                    "nodes"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "discriminant": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "enum": [
+                                  "switch"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "branches",
+                              "discriminant",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "class_name": {
+                                "type": "string"
+                              },
+                              "functions": {
+                                "additionalProperties": {
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "nodes": {
+                                      "items": {
+                                        "type": "object"
+                                      },
+                                      "type": "array"
+                                    },
+                                    "type": {
+                                      "enum": [
+                                        "function_def"
+                                      ],
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "nodes",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "object"
+                              },
+                              "nodes": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "payload": {
+                                "anyOf": [
+                                  {
+                                    "properties": {
+                                      "type": {
+                                        "enum": [
+                                          "unknown"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  {
+                                    "properties": {
+                                      "fields": {
+                                        "additionalProperties": {
+                                          "type": "object"
+                                        },
+                                        "type": "object"
+                                      },
+                                      "type": {
+                                        "enum": [
+                                          "object"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "fields",
+                                      "type"
+                                    ],
+                                    "type": "object"
+                                  }
+                                ]
+                              },
+                              "type": {
+                                "enum": [
+                                  "start"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "class_name",
+                              "functions",
+                              "nodes",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "resolves": {
+                                "type": "number"
+                              },
+                              "starts": {
+                                "type": "number"
+                              },
+                              "type": {
+                                "enum": [
+                                  "function_call"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "nodes": {
+                                "items": {
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "function_def"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "nodes",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "kind": {
+                                "enum": [
+                                  "break",
+                                  "return"
+                                ],
+                                "type": "string"
+                              },
+                              "type": {
+                                "enum": [
+                                  "break"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "kind",
+                              "type"
+                            ],
+                            "type": "object"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    },
+                    "payload": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "type": {
+                              "enum": [
+                                "unknown"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "properties": {
+                            "fields": {
+                              "additionalProperties": {
+                                "type": "object"
+                              },
+                              "type": "object"
+                            },
+                            "type": {
+                              "enum": [
+                                "object"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "fields",
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "class_name",
+                    "functions",
+                    "nodes"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "version",
+                "workflow"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "modified_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "workflow_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "class_name",
+        "created_on",
+        "graph",
+        "id",
+        "modified_on",
+        "workflow_id"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1175,6 +2049,115 @@ export const tools: readonly Tool[] = [
         "account_id",
         "workflow_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "class_name": {
+                "type": "string"
+              },
+              "concurrency": {
+                "properties": {
+                  "limit": {
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "created_on": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "default_retention": {
+                "properties": {
+                  "error_retention": {
+                    "type": "integer"
+                  },
+                  "success_retention": {
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "has_dag": {
+                "type": "boolean"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "language": {
+                "enum": [
+                  "javascript",
+                  "python"
+                ],
+                "type": "string"
+              },
+              "limits": {
+                "properties": {
+                  "steps": {
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "modified_on": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "workflow_id": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            "required": [
+              "class_name",
+              "created_on",
+              "has_dag",
+              "id",
+              "language",
+              "modified_on",
+              "workflow_id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

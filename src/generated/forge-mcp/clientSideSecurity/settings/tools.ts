@@ -40,6 +40,16 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/client-side-security_get-zone-settings-response",
+      $defs: {
+        "client-side-security_enabled": client_side_security_enabled_output,
+        "client-side-security_get-zone-settings-response": client_side_security_get_zone_settings_response_output,
+        "client-side-security_updated_at": client_side_security_updated_at_output,
+        "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint_output,
+        "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -125,6 +135,16 @@ export const tools: readonly Tool[] = [
         "client-side-security_enabled": client_side_security_enabled,
         "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint,
         "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/client-side-security_update-zone-settings-response",
+      $defs: {
+        "client-side-security_enabled": client_side_security_enabled_output,
+        "client-side-security_update-zone-settings-response": client_side_security_update_zone_settings_response_output,
+        "client-side-security_updated_at": client_side_security_updated_at_output,
+        "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint_output,
+        "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path_output,
       },
     },
     annotations: {

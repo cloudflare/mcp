@@ -23,6 +23,49 @@ export const tools: readonly Tool[] = [
         "host"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "bugs": {
+          "properties": {
+            "hrrFailure": {
+              "type": "boolean"
+            },
+            "splitClientHello": {
+              "type": "boolean"
+            },
+            "unknownKeyshare": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "hrrFailure",
+            "splitClientHello",
+            "unknownKeyshare"
+          ],
+          "type": "object"
+        },
+        "host": {
+          "type": "string"
+        },
+        "kex": {
+          "type": "number"
+        },
+        "kexName": {
+          "type": "string"
+        },
+        "pq": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "bugs",
+        "host",
+        "kex",
+        "kexName",
+        "pq"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

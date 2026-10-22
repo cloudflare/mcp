@@ -41,6 +41,12 @@ export const tools: readonly Tool[] = [
         "magic_netflow_config_request": magic_netflow_config_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_netflow_config",
+      $defs: {
+        "magic_netflow_config": magic_netflow_config_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -98,6 +104,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "site_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_netflow_config",
+      $defs: {
+        "magic_netflow_config": magic_netflow_config_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -167,6 +179,12 @@ export const tools: readonly Tool[] = [
         "magic_netflow_config_request": magic_netflow_config_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_netflow_config",
+      $defs: {
+        "magic_netflow_config": magic_netflow_config_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -228,6 +246,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "site_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_netflow_config",
+      $defs: {
+        "magic_netflow_config": magic_netflow_config_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -297,6 +321,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_netflow_config_request": magic_netflow_config_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_netflow_config",
+      $defs: {
+        "magic_netflow_config": magic_netflow_config_output,
       },
     },
     annotations: {

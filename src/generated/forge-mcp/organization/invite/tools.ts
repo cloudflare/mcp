@@ -46,6 +46,14 @@ export const tools: readonly Tool[] = [
         "organizations-api_HandleOrganizationInviteRequest": organizations_api_HandleOrganizationInviteRequest,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_Member",
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,

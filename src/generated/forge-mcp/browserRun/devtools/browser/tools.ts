@@ -73,6 +73,20 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "sessionId": {
+          "type": "string"
+        },
+        "webSocketDebuggerUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sessionId"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -185,6 +199,21 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "status": {
+          "enum": [
+            "closing",
+            "closed"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -258,6 +287,100 @@ export const tools: readonly Tool[] = [
         "account_id",
         "session_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "domains": {
+          "items": {
+            "properties": {
+              "commands": {
+                "items": {
+                  "additionalProperties": {
+                    "oneOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "dependencies": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "events": {
+                "items": {
+                  "additionalProperties": {
+                    "oneOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "experimental": {
+                "type": "boolean"
+              },
+              "types": {
+                "items": {
+                  "additionalProperties": {
+                    "oneOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "domain"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "version": {
+          "properties": {
+            "major": {
+              "type": "string"
+            },
+            "minor": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "major",
+            "minor"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "domains"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -472,6 +595,37 @@ export const tools: readonly Tool[] = [
         "account_id",
         "session_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "Browser": {
+          "type": "string"
+        },
+        "Protocol-Version": {
+          "type": "string"
+        },
+        "User-Agent": {
+          "type": "string"
+        },
+        "V8-Version": {
+          "type": "string"
+        },
+        "WebKit-Version": {
+          "type": "string"
+        },
+        "webSocketDebuggerUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Browser",
+        "Protocol-Version",
+        "User-Agent",
+        "V8-Version",
+        "WebKit-Version",
+        "webSocketDebuggerUrl"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

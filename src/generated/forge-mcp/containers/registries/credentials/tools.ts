@@ -46,6 +46,13 @@ export const tools: readonly Tool[] = [
         "cc_ImageRegistryPermissions": cc_ImageRegistryPermissions,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cc_ContainersAccountRegistryToken",
+      $defs: {
+        "cc_AccountID": cc_AccountID_output,
+        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

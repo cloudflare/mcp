@@ -23,6 +23,43 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "result": {
+            "items": {
+              "properties": {
+                "alpha2": {
+                  "type": "string"
+                },
+                "alpha3": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "alpha2",
+                "alpha3",
+                "name"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "success": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "result",
+          "success"
+        ],
+        "type": "object"
+      },
+      "type": "array",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -37,6 +37,13 @@ export const tools: readonly Tool[] = [
         "intel_miscategorization": intel_miscategorization,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/intel_schemas-api-response-common",
+      $defs: {
+        "intel_schemas-api-response-common": intel_schemas_api_response_common_output,
+        "intel_schemas-messages": intel_schemas_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

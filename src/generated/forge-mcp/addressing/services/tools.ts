@@ -29,6 +29,35 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/addressing_service_identifier"
+              },
+              "name": {
+                "$ref": "#/$defs/addressing_service_name"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "addressing_service_identifier": addressing_service_identifier_output,
+        "addressing_service_name": addressing_service_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

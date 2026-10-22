@@ -42,6 +42,12 @@ export const tools: readonly Tool[] = [
         "pay-per-crawl_PPUOperatorProposalActionRequest": pay_per_crawl_PPUOperatorProposalActionRequest,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUPrice",
+      $defs: {
+        "pay-per-crawl_PPUPrice": pay_per_crawl_PPUPrice_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -106,6 +112,13 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUProposals",
+      $defs: {
+        "pay-per-crawl_PPUProposal": pay_per_crawl_PPUProposal_output,
+        "pay-per-crawl_PPUProposals": pay_per_crawl_PPUProposals_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

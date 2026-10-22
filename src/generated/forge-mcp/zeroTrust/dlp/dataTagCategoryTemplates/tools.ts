@@ -36,6 +36,13 @@ export const tools: readonly Tool[] = [
         "template_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataTagCategoryTemplate",
+      $defs: {
+        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate_output,
+        "dlp_DataTagTemplate": dlp_DataTagTemplate_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -88,6 +95,25 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_DataTagCategoryTemplateArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate_output,
+        "dlp_DataTagCategoryTemplateArray": dlp_DataTagCategoryTemplateArray_output,
+        "dlp_DataTagTemplate": dlp_DataTagTemplate_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

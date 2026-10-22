@@ -56,6 +56,24 @@ export const tools: readonly Tool[] = [
         "registrar-api-sandbox_domain_check_request": registrar_api_sandbox_domain_check_request,
       },
     },
+    outputSchema: {
+      "properties": {
+        "domains": {
+          "items": {
+            "$ref": "#/$defs/registrar-api-sandbox_domain_check_result"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "domains"
+      ],
+      "type": "object",
+      $defs: {
+        "registrar-api-sandbox_domain_check_result": registrar_api_sandbox_domain_check_result_output,
+        "registrar-api-sandbox_pricing_registration": registrar_api_sandbox_pricing_registration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -136,6 +154,14 @@ export const tools: readonly Tool[] = [
         "registrar-api-sandbox_registration_create_request": registrar_api_sandbox_registration_create_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api-sandbox_workflow_status",
+      $defs: {
+        "registrar-api-sandbox_workflow_error": registrar_api_sandbox_workflow_error_output,
+        "registrar-api-sandbox_workflow_links": registrar_api_sandbox_workflow_links_output,
+        "registrar-api-sandbox_workflow_status": registrar_api_sandbox_workflow_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -194,6 +220,13 @@ export const tools: readonly Tool[] = [
         "domain_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api-sandbox_registration",
+      $defs: {
+        "registrar-api-sandbox_domain_name": registrar_api_sandbox_domain_name_output,
+        "registrar-api-sandbox_registration": registrar_api_sandbox_registration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -243,6 +276,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "domain_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api-sandbox_workflow_status",
+      $defs: {
+        "registrar-api-sandbox_workflow_error": registrar_api_sandbox_workflow_error_output,
+        "registrar-api-sandbox_workflow_links": registrar_api_sandbox_workflow_links_output,
+        "registrar-api-sandbox_workflow_status": registrar_api_sandbox_workflow_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -294,6 +335,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "domain_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api-sandbox_workflow_status",
+      $defs: {
+        "registrar-api-sandbox_workflow_error": registrar_api_sandbox_workflow_error_output,
+        "registrar-api-sandbox_workflow_links": registrar_api_sandbox_workflow_links_output,
+        "registrar-api-sandbox_workflow_status": registrar_api_sandbox_workflow_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -368,6 +417,28 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/registrar-api-sandbox_registration"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/registrar-api-sandbox_cursor_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "registrar-api-sandbox_cursor_result_info": registrar_api_sandbox_cursor_result_info_output,
+        "registrar-api-sandbox_domain_name": registrar_api_sandbox_domain_name_output,
+        "registrar-api-sandbox_registration": registrar_api_sandbox_registration_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -453,6 +524,24 @@ export const tools: readonly Tool[] = [
         "query"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "domains": {
+          "items": {
+            "$ref": "#/$defs/registrar-api-sandbox_domain_search_result"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "domains"
+      ],
+      "type": "object",
+      $defs: {
+        "registrar-api-sandbox_domain_search_result": registrar_api_sandbox_domain_search_result_output,
+        "registrar-api-sandbox_pricing_registration": registrar_api_sandbox_pricing_registration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -531,6 +620,14 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "registrar-api-sandbox_registration_update_request": registrar_api_sandbox_registration_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api-sandbox_workflow_status",
+      $defs: {
+        "registrar-api-sandbox_workflow_error": registrar_api_sandbox_workflow_error_output,
+        "registrar-api-sandbox_workflow_links": registrar_api_sandbox_workflow_links_output,
+        "registrar-api-sandbox_workflow_status": registrar_api_sandbox_workflow_status_output,
       },
     },
     annotations: {

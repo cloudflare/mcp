@@ -33,6 +33,37 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/smartshield_cache_reserve_clear"
+        },
+        {
+          "properties": {
+            "end_ts": {
+              "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
+            },
+            "start_ts": {
+              "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
+            },
+            "state": {
+              "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
+            }
+          },
+          "required": [
+            "start_ts",
+            "state"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
+        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
+        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
+        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -123,6 +154,37 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/smartshield_cache_reserve_clear"
+        },
+        {
+          "properties": {
+            "end_ts": {
+              "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
+            },
+            "start_ts": {
+              "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
+            },
+            "state": {
+              "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
+            }
+          },
+          "required": [
+            "start_ts",
+            "state"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
+        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
+        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
+        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -715,6 +715,9 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -868,6 +871,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "job_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "job_id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "job_id",
+        "message"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -1054,6 +1072,167 @@ export const tools: readonly Tool[] = [
         "account_id",
         "job_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "browserSecondsUsed": {
+          "type": "number"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "finished": {
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "records": {
+          "items": {
+            "properties": {
+              "html": {
+                "type": "string"
+              },
+              "json": {
+                "additionalProperties": {
+                  "oneOf": [
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              "markdown": {
+                "type": "string"
+              },
+              "metadata": {
+                "properties": {
+                  "lastModified": {
+                    "type": "string"
+                  },
+                  "og:description": {
+                    "type": "string"
+                  },
+                  "og:image": {
+                    "type": "string"
+                  },
+                  "og:site_name": {
+                    "type": "string"
+                  },
+                  "og:title": {
+                    "type": "string"
+                  },
+                  "og:type": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "number"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "outcome": {
+                "enum": [
+                  "success",
+                  "robots_disallowed",
+                  "crawl_purpose_disallowed",
+                  "content_use_disallowed",
+                  "connection_error",
+                  "timeout",
+                  "browser_unavailable",
+                  "format_generation_error",
+                  "unsupported_content_type",
+                  "unclassified_error",
+                  "page_error",
+                  "too_large"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "queued",
+                  "errored",
+                  "completed",
+                  "disallowed",
+                  "skipped",
+                  "cancelled"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "url"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "robots": {
+          "items": {
+            "properties": {
+              "origin": {
+                "type": "string"
+              },
+              "state": {
+                "enum": [
+                  "available",
+                  "absent",
+                  "fetch_failed"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "origin",
+              "state"
+            ],
+            "type": "object"
+          },
+          "maxItems": 50,
+          "type": "array"
+        },
+        "skipped": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        },
+        "total": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "browserSecondsUsed",
+        "finished",
+        "id",
+        "records",
+        "robots",
+        "skipped",
+        "status",
+        "total"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

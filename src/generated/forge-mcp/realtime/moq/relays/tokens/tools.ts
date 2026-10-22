@@ -75,6 +75,15 @@ export const tools: readonly Tool[] = [
         "moq_account_identifier": moq_account_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/moq_tokens_envelope",
+      $defs: {
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
+        "moq_issuer": moq_issuer_output,
+        "moq_tokens_envelope": moq_tokens_envelope_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -148,6 +157,14 @@ export const tools: readonly Tool[] = [
         "moq_account_identifier": moq_account_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/moq_api-response-common",
+      $defs: {
+        "moq_api-response-common": moq_api_response_common_output,
+        "moq_api-response-common_errorsItem": moq_api_response_common_errorsItem_output,
+        "moq_api-response-common_messagesItem": moq_api_response_common_messagesItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -209,6 +226,15 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "moq_account_identifier": moq_account_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/moq_tokens_envelope",
+      $defs: {
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
+        "moq_issuer": moq_issuer_output,
+        "moq_tokens_envelope": moq_tokens_envelope_output,
       },
     },
     annotations: {

@@ -86,6 +86,50 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/realtimekit_Recording"
+                },
+                {
+                  "properties": {
+                    "start_reason": {
+                      "$ref": "#/$defs/realtimekit_startReason"
+                    },
+                    "stop_reason": {
+                      "$ref": "#/$defs/realtimekit_stopReason"
+                    },
+                    "storage_config": {
+                      "$ref": "#/$defs/realtimekit_StorageConfig"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_startReason": realtimekit_startReason_output,
+        "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
+        "realtimekit_stopReason": realtimekit_stopReason_output,
+        "realtimekit_stopReason_caller": realtimekit_stopReason_caller_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -181,6 +225,50 @@ export const tools: readonly Tool[] = [
         "app_id",
         "recording_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/realtimekit_Recording"
+                },
+                {
+                  "properties": {
+                    "start_reason": {
+                      "$ref": "#/$defs/realtimekit_startReason"
+                    },
+                    "stop_reason": {
+                      "$ref": "#/$defs/realtimekit_stopReason"
+                    },
+                    "storage_config": {
+                      "$ref": "#/$defs/realtimekit_StorageConfig"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_startReason": realtimekit_startReason_output,
+        "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
+        "realtimekit_stopReason": realtimekit_stopReason_output,
+        "realtimekit_stopReason_caller": realtimekit_stopReason_caller_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -329,6 +417,60 @@ export const tools: readonly Tool[] = [
         "account_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_PagingResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "items": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/realtimekit_Recording"
+                  },
+                  {
+                    "properties": {
+                      "storage_config": {
+                        "$ref": "#/$defs/realtimekit_StorageConfig"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "properties": {
+                      "meeting": {
+                        "$ref": "#/$defs/realtimekit_Meeting"
+                      }
+                    },
+                    "type": "object"
+                  }
+                ]
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_AudioConfig": realtimekit_AudioConfig_output,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig_output,
+        "realtimekit_Meeting": realtimekit_Meeting_output,
+        "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
+        "realtimekit_PagingResponse": realtimekit_PagingResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig_output,
+        "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark_output,
+        "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size_output,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -501,6 +643,50 @@ export const tools: readonly Tool[] = [
         "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark,
         "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size,
         "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/realtimekit_Recording"
+                },
+                {
+                  "properties": {
+                    "start_reason": {
+                      "$ref": "#/$defs/realtimekit_startReason"
+                    },
+                    "stop_reason": {
+                      "$ref": "#/$defs/realtimekit_stopReason"
+                    },
+                    "storage_config": {
+                      "$ref": "#/$defs/realtimekit_StorageConfig"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_startReason": realtimekit_startReason_output,
+        "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
+        "realtimekit_stopReason": realtimekit_stopReason_output,
+        "realtimekit_stopReason_caller": realtimekit_stopReason_caller_output,
       },
     },
     annotations: {

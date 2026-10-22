@@ -59,6 +59,22 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dns-settings_nameserver-set-response",
+      $defs: {
+        "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
+        "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
+        "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
+        "dns-settings_nameserver-set-advanced-response-member": dns_settings_nameserver_set_advanced_response_member_output,
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id_output,
+        "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
+        "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
+        "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
+        "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -132,6 +148,20 @@ export const tools: readonly Tool[] = [
         "nameserver_set_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/dns-settings_nameserver-set-id"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      $defs: {
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -201,6 +231,22 @@ export const tools: readonly Tool[] = [
         "account_id",
         "nameserver_set_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dns-settings_nameserver-set-response",
+      $defs: {
+        "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
+        "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
+        "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
+        "dns-settings_nameserver-set-advanced-response-member": dns_settings_nameserver_set_advanced_response_member_output,
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id_output,
+        "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
+        "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
+        "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
+        "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -284,6 +330,53 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dns-settings_page": dns_settings_page,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-settings_nameserver-set-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
+        "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
+        "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
+        "dns-settings_nameserver-set-advanced-response-member": dns_settings_nameserver_set_advanced_response_member_output,
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id_output,
+        "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
+        "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
+        "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
+        "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
       },
     },
     annotations: {

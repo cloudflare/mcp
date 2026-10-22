@@ -52,6 +52,16 @@ export const tools: readonly Tool[] = [
         "builds_cloudflare_token_id": builds_cloudflare_token_id,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_CreateBuildTokenResponse",
+      $defs: {
+        "builds_CreateBuildTokenResponse": builds_CreateBuildTokenResponse_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_cloudflare_token_id": builds_cloudflare_token_id_output,
+        "builds_owner_type": builds_owner_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -112,6 +122,14 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "builds_account_id": builds_account_id,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/builds_APIResponse",
+      $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
       },
     },
     annotations: {
@@ -178,6 +196,31 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "builds_account_id": builds_account_id,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/builds_ListTokensResponse"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/builds_PaginationInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "builds_ListTokensResponse": builds_ListTokensResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_cloudflare_token_id": builds_cloudflare_token_id_output,
+        "builds_owner_type": builds_owner_type_output,
       },
     },
     annotations: {

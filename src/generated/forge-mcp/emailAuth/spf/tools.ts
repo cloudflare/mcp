@@ -42,6 +42,15 @@ export const tools: readonly Tool[] = [
         "email-auth_identifier": email_auth_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-auth_SpfTree",
+      $defs: {
+        "email-auth_InspectError": email_auth_InspectError_output,
+        "email-auth_SpfComponent": email_auth_SpfComponent_output,
+        "email-auth_SpfResult": email_auth_SpfResult_output,
+        "email-auth_SpfTree": email_auth_SpfTree_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

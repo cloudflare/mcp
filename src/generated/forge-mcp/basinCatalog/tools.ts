@@ -171,6 +171,12 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_catalog-activation-response",
+      $defs: {
+        "r2-data-catalog_catalog-activation-response": r2_data_catalog_catalog_activation_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -239,6 +245,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_catalog",
+      $defs: {
+        "r2-data-catalog_catalog": r2_data_catalog_catalog_output,
+        "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
+        "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
+        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
+        "r2-data-catalog_catalog-status": r2_data_catalog_catalog_status_output,
+        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
+        "r2-data-catalog_credential-status": r2_data_catalog_credential_status_output,
+        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
+        "r2-data-catalog_snapshot-expiration-config": r2_data_catalog_snapshot_expiration_config_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -309,6 +329,21 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_catalog-list",
+      $defs: {
+        "r2-data-catalog_catalog": r2_data_catalog_catalog_output,
+        "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
+        "r2-data-catalog_catalog-list": r2_data_catalog_catalog_list_output,
+        "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
+        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
+        "r2-data-catalog_catalog-status": r2_data_catalog_catalog_status_output,
+        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
+        "r2-data-catalog_credential-status": r2_data_catalog_credential_status_output,
+        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
+        "r2-data-catalog_snapshot-expiration-config": r2_data_catalog_snapshot_expiration_config_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

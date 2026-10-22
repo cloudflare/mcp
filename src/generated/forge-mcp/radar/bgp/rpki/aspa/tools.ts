@@ -42,6 +42,127 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "asnInfo": {
+          "properties": {
+            "13335": {
+              "properties": {
+                "asn": {
+                  "type": "integer"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "asn",
+                "country",
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "13335"
+          ],
+          "type": "object"
+        },
+        "changes": {
+          "items": {
+            "properties": {
+              "customersAdded": {
+                "type": "integer"
+              },
+              "customersRemoved": {
+                "type": "integer"
+              },
+              "date": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "entries": {
+                "items": {
+                  "properties": {
+                    "customerAsn": {
+                      "type": "integer"
+                    },
+                    "providers": {
+                      "items": {
+                        "type": "integer"
+                      },
+                      "type": "array"
+                    },
+                    "type": {
+                      "enum": [
+                        "CustomerAdded",
+                        "CustomerRemoved",
+                        "ProvidersAdded",
+                        "ProvidersRemoved"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "customerAsn",
+                    "providers",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "providersAdded": {
+                "type": "integer"
+              },
+              "providersRemoved": {
+                "type": "integer"
+              },
+              "totalCount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "customersAdded",
+              "customersRemoved",
+              "date",
+              "entries",
+              "providersAdded",
+              "providersRemoved",
+              "totalCount"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "dataTime": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "queryTime": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "dataTime",
+            "queryTime"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "asnInfo",
+        "changes",
+        "meta"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -263,6 +384,85 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "asnInfo": {
+          "properties": {
+            "13335": {
+              "properties": {
+                "asn": {
+                  "type": "integer"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "asn",
+                "country",
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "13335"
+          ],
+          "type": "object"
+        },
+        "aspaObjects": {
+          "items": {
+            "properties": {
+              "customerAsn": {
+                "type": "integer"
+              },
+              "providers": {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "customerAsn",
+              "providers"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "dataTime": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "queryTime": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "totalCount": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dataTime",
+            "queryTime",
+            "totalCount"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "asnInfo",
+        "aspaObjects",
+        "meta"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -462,6 +662,54 @@ export const tools: readonly Tool[] = [
           "type": "array"
         }
       },
+    },
+    outputSchema: {
+      "properties": {
+        "meta": {
+          "properties": {
+            "dataTime": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "queryTime": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "dataTime",
+            "queryTime"
+          ],
+          "type": "object"
+        },
+        "serie_0": {
+          "properties": {
+            "timestamps": {
+              "items": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "values": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "timestamps",
+            "values"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "meta",
+        "serie_0"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

@@ -36,6 +36,12 @@ export const tools: readonly Tool[] = [
         "asn"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/intel_asn",
+      $defs: {
+        "intel_asn": intel_asn_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -54,6 +54,16 @@ export const tools: readonly Tool[] = [
         "resource-sharing_create_share_excluded_recipient_request": resource_sharing_create_share_excluded_recipient_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -126,6 +136,16 @@ export const tools: readonly Tool[] = [
         "excluded_recipient_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -196,6 +216,16 @@ export const tools: readonly Tool[] = [
         "share_id",
         "excluded_recipient_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -272,6 +302,31 @@ export const tools: readonly Tool[] = [
         "account_id_path",
         "share_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/resource-sharing_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_result_info": resource_sharing_result_info_output,
+        "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

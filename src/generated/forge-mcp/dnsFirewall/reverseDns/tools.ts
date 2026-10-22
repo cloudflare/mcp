@@ -44,6 +44,12 @@ export const tools: readonly Tool[] = [
         "dns-firewall_dns-firewall-reverse-dns": dns_firewall_dns_firewall_reverse_dns,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response",
+      $defs: {
+        "dns-firewall_dns-firewall-reverse-dns-response": dns_firewall_dns_firewall_reverse_dns_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -122,6 +128,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "dns_firewall_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response",
+      $defs: {
+        "dns-firewall_dns-firewall-reverse-dns-response": dns_firewall_dns_firewall_reverse_dns_response_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

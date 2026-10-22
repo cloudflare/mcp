@@ -48,6 +48,14 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_SendingDomainRestriction",
+      $defs: {
+        "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -108,6 +116,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_DeletedSendingDomainRestriction",
+      $defs: {
+        "email-security_DeletedSendingDomainRestriction": email_security_DeletedSendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
       },
     },
     annotations: {
@@ -175,6 +190,14 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_SendingDomainRestriction",
+      $defs: {
+        "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -235,6 +258,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_SendingDomainRestriction",
+      $defs: {
+        "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {
@@ -321,6 +352,40 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email-security_SendingDomainRestrictionList"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
+        "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_SendingDomainRestrictionList": email_security_SendingDomainRestrictionList_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {

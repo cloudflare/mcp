@@ -92,6 +92,21 @@ export const tools: readonly Tool[] = [
         "firewall_urls": firewall_urls,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/firewall_zonelockdown",
+      $defs: {
+        "firewall_configurations": firewall_configurations_output,
+        "firewall_created_on": firewall_created_on_output,
+        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components_schemas_description_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_modified_on": firewall_modified_on_output,
+        "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration_output,
+        "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration_output,
+        "firewall_schemas-paused": firewall_schemas_paused_output,
+        "firewall_schemas-urls": firewall_schemas_urls_output,
+        "firewall_zonelockdown": firewall_zonelockdown_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -162,6 +177,22 @@ export const tools: readonly Tool[] = [
         "lock_downs_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/firewall_lockdowns_components-schemas-id"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -231,6 +262,21 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "lock_downs_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/firewall_zonelockdown",
+      $defs: {
+        "firewall_configurations": firewall_configurations_output,
+        "firewall_created_on": firewall_created_on_output,
+        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components_schemas_description_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_modified_on": firewall_modified_on_output,
+        "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration_output,
+        "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration_output,
+        "firewall_schemas-paused": firewall_schemas_paused_output,
+        "firewall_schemas-urls": firewall_schemas_urls_output,
+        "firewall_zonelockdown": firewall_zonelockdown_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -350,6 +396,36 @@ export const tools: readonly Tool[] = [
         "firewall_schemas-description_search": firewall_schemas_description_search,
         "firewall_schemas-priority": firewall_schemas_priority,
         "firewall_uri_search": firewall_uri_search,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/firewall_zonelockdown"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/firewall_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "firewall_configurations": firewall_configurations_output,
+        "firewall_created_on": firewall_created_on_output,
+        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components_schemas_description_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_modified_on": firewall_modified_on_output,
+        "firewall_result_info": firewall_result_info_output,
+        "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration_output,
+        "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration_output,
+        "firewall_schemas-paused": firewall_schemas_paused_output,
+        "firewall_schemas-urls": firewall_schemas_urls_output,
+        "firewall_zonelockdown": firewall_zonelockdown_output,
       },
     },
     annotations: {
@@ -472,6 +548,21 @@ export const tools: readonly Tool[] = [
         "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration,
         "firewall_urls": firewall_urls,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/firewall_zonelockdown",
+      $defs: {
+        "firewall_configurations": firewall_configurations_output,
+        "firewall_created_on": firewall_created_on_output,
+        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components_schemas_description_output,
+        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components_schemas_id_output,
+        "firewall_modified_on": firewall_modified_on_output,
+        "firewall_schemas-cidr_configuration": firewall_schemas_cidr_configuration_output,
+        "firewall_schemas-ip_configuration": firewall_schemas_ip_configuration_output,
+        "firewall_schemas-paused": firewall_schemas_paused_output,
+        "firewall_schemas-urls": firewall_schemas_urls_output,
+        "firewall_zonelockdown": firewall_zonelockdown_output,
       },
     },
     annotations: {

@@ -72,6 +72,19 @@ export const tools: readonly Tool[] = [
         "firewall_ua_configuration": firewall_ua_configuration,
       },
     },
+    outputSchema: {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -142,6 +155,19 @@ export const tools: readonly Tool[] = [
         "ua_rule_id"
       ],
     },
+    outputSchema: {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -209,6 +235,19 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id",
         "ua_rule_id"
+      ],
+    },
+    outputSchema: {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -299,6 +338,33 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "firewall_description_search": firewall_description_search,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/firewall_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "firewall_result_info": firewall_result_info_output,
       },
     },
     annotations: {
@@ -425,6 +491,19 @@ export const tools: readonly Tool[] = [
         "firewall_schemas-mode": firewall_schemas_mode,
         "firewall_schemas-paused": firewall_schemas_paused,
       },
+    },
+    outputSchema: {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
     },
     annotations: {
       "destructiveHint": true,

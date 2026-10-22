@@ -59,6 +59,31 @@ export const tools: readonly Tool[] = [
         "report_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/reports_GetReportResponse",
+      $defs: {
+        "reports_ApplicationSecurityReportV1": reports_ApplicationSecurityReportV1_output,
+        "reports_ApplicationSecurityReportV1Data": reports_ApplicationSecurityReportV1Data_output,
+        "reports_ApplicationSecurityReportV1Data_industry": reports_ApplicationSecurityReportV1Data_industry_output,
+        "reports_ApplicationSecurityReportV1Data_time_range": reports_ApplicationSecurityReportV1Data_time_range_output,
+        "reports_ApplicationSecurityReportV1Data_top_countries_by_mitigated_requestsItem": reports_ApplicationSecurityReportV1Data_top_countries_by_mitigated_requestsItem_output,
+        "reports_ApplicationSecurityReportV1Data_top_countries_by_served_requestsItem": reports_ApplicationSecurityReportV1Data_top_countries_by_served_requestsItem_output,
+        "reports_ApplicationSecurityReportV1Data_top_hostnames_by_mitigated_requestsItem": reports_ApplicationSecurityReportV1Data_top_hostnames_by_mitigated_requestsItem_output,
+        "reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem": reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_output,
+        "reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_kind": reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_kind_output,
+        "reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_source": reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_source_output,
+        "reports_ApplicationSecurityReportV1Data_total_requests": reports_ApplicationSecurityReportV1Data_total_requests_output,
+        "reports_ApplicationSecurityReportV1Data_total_requests_mitigated": reports_ApplicationSecurityReportV1Data_total_requests_mitigated_output,
+        "reports_ApplicationSecurityReportV1Data_total_requests_served": reports_ApplicationSecurityReportV1Data_total_requests_served_output,
+        "reports_ApplicationSecurityReportV1_input": reports_ApplicationSecurityReportV1_input_output,
+        "reports_ApplicationSecurityReportV1_input_time_range": reports_ApplicationSecurityReportV1_input_time_range_output,
+        "reports_GetReportResponse": reports_GetReportResponse_output,
+        "reports_GetReportResponse_reason": reports_GetReportResponse_reason_output,
+        "reports_GetReportResponse_report": reports_GetReportResponse_report_output,
+        "reports_GetReportResponse_report_settings": reports_GetReportResponse_report_settings_output,
+        "reports_GetReportResponse_report_status": reports_GetReportResponse_report_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -126,6 +151,36 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/reports_ReportsListResponse_resultItem"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "reports_ReportsListResponse_resultItem": reports_ReportsListResponse_resultItem_output,
+        "reports_ReportsListResponse_resultItem_reason": reports_ReportsListResponse_resultItem_reason_output,
+        "reports_ReportsListResponse_resultItem_report_settings": reports_ReportsListResponse_resultItem_report_settings_output,
+        "reports_ReportsListResponse_resultItem_report_status": reports_ReportsListResponse_resultItem_report_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

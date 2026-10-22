@@ -35,6 +35,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/reports_AccountIndustrySingleResponse",
+      $defs: {
+        "reports_AccountIndustrySingleResponse": reports_AccountIndustrySingleResponse_output,
+        "reports_AccountIndustrySingleResponse_industry": reports_AccountIndustrySingleResponse_industry_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -85,6 +92,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "reports_PatchAccountIndustryBody": reports_PatchAccountIndustryBody,
         "reports_PatchAccountIndustryBody_industry": reports_PatchAccountIndustryBody_industry,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/reports_AccountIndustryPatchResponse",
+      $defs: {
+        "reports_AccountIndustryPatchResponse": reports_AccountIndustryPatchResponse_output,
+        "reports_AccountIndustryPatchResponse_industry": reports_AccountIndustryPatchResponse_industry_output,
       },
     },
     annotations: {

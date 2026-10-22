@@ -32,6 +32,31 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_Organization"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

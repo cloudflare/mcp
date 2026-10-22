@@ -58,6 +58,14 @@ export const tools: readonly Tool[] = [
         "builds_repo_connection_uuid": builds_repo_connection_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_APIResponse",
+      $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -122,6 +130,21 @@ export const tools: readonly Tool[] = [
         "builds_provider_account_name": builds_provider_account_name,
         "builds_repo_id": builds_repo_id,
         "builds_repo_name": builds_repo_name,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/builds_UpsertRepoConnectionResponse",
+      $defs: {
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deleted_on": builds_deleted_on_output,
+        "builds_modified_on": builds_modified_on_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
       },
     },
     annotations: {

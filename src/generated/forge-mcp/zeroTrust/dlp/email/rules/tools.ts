@@ -52,6 +52,17 @@ export const tools: readonly Tool[] = [
         "dlp_UpdateEmailRulePriorities": dlp_UpdateEmailRulePriorities,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_EmailRule",
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -119,6 +130,17 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_EmailRule",
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -178,6 +200,17 @@ export const tools: readonly Tool[] = [
         "rule_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_EmailRule",
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -236,6 +269,17 @@ export const tools: readonly Tool[] = [
         "rule_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_EmailRule",
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -289,6 +333,29 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_EmailRuleArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleArray": dlp_EmailRuleArray_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -372,6 +439,17 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_EmailRule",
+      $defs: {
+        "dlp_EmailRule": dlp_EmailRule_output,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
+        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
+        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
       },
     },
     annotations: {

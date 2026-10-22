@@ -79,6 +79,15 @@ export const tools: readonly Tool[] = [
         "per_page"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_device_isps_response",
+      $defs: {
+        "digital-experience-monitoring_device_isp": digital_experience_monitoring_device_isp_output,
+        "digital-experience-monitoring_device_isps_response": digital_experience_monitoring_device_isps_response_output,
+        "digital-experience-monitoring_ip_info": digital_experience_monitoring_ip_info_output,
+        "digital-experience-monitoring_ip_location": digital_experience_monitoring_ip_location_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -78,6 +78,16 @@ export const tools: readonly Tool[] = [
         "infra_IPInfo_ipv6": infra_IPInfo_ipv6,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/infra_Target",
+      $defs: {
+        "infra_IPInfo": infra_IPInfo_output,
+        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
+        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
+        "infra_Target": infra_Target_output,
+        "infra_TargetId": infra_TargetId_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -177,6 +187,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "target_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/infra_Target",
+      $defs: {
+        "infra_IPInfo": infra_IPInfo_output,
+        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
+        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
+        "infra_Target": infra_Target_output,
+        "infra_TargetId": infra_TargetId_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -432,6 +452,45 @@ export const tools: readonly Tool[] = [
         "infra_SortingDirection": infra_SortingDirection,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/infra_TargetArray"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "infra_IPInfo": infra_IPInfo_output,
+        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
+        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
+        "infra_Target": infra_Target_output,
+        "infra_TargetArray": infra_TargetArray_output,
+        "infra_TargetId": infra_TargetId_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -572,6 +631,16 @@ export const tools: readonly Tool[] = [
         "infra_IPInfo": infra_IPInfo,
         "infra_IPInfo_ipv4": infra_IPInfo_ipv4,
         "infra_IPInfo_ipv6": infra_IPInfo_ipv6,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/infra_Target",
+      $defs: {
+        "infra_IPInfo": infra_IPInfo_output,
+        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
+        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
+        "infra_Target": infra_Target_output,
+        "infra_TargetId": infra_TargetId_output,
       },
     },
     annotations: {

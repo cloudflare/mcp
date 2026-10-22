@@ -76,6 +76,94 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "configuration": {
+          "properties": {
+            "headers": {
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            "jobStatus": {
+              "properties": {
+                "error_message": {
+                  "type": "string"
+                },
+                "last_complete": {
+                  "type": "string"
+                },
+                "last_error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error_message",
+                "last_complete",
+                "last_error"
+              ],
+              "type": "object"
+            },
+            "logpushDataset": {
+              "enum": [
+                "opentelemetry-traces",
+                "opentelemetry-logs",
+                "opentelemetry-metrics"
+              ],
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "logpush"
+              ],
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "headers",
+            "jobStatus",
+            "logpushDataset",
+            "type",
+            "url"
+          ],
+          "type": "object"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "scripts": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "configuration",
+        "enabled",
+        "name",
+        "scripts",
+        "slug"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -401,6 +489,94 @@ export const tools: readonly Tool[] = [
         "account_id",
         "slug"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "configuration": {
+          "properties": {
+            "headers": {
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            "jobStatus": {
+              "properties": {
+                "error_message": {
+                  "type": "string"
+                },
+                "last_complete": {
+                  "type": "string"
+                },
+                "last_error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error_message",
+                "last_complete",
+                "last_error"
+              ],
+              "type": "object"
+            },
+            "logpushDataset": {
+              "enum": [
+                "opentelemetry-traces",
+                "opentelemetry-logs",
+                "opentelemetry-metrics"
+              ],
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "logpush"
+              ],
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "headers",
+            "jobStatus",
+            "logpushDataset",
+            "type",
+            "url"
+          ],
+          "type": "object"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "scripts": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "configuration",
+        "enabled",
+        "name",
+        "scripts",
+        "slug"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -747,6 +923,108 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "configuration": {
+                "properties": {
+                  "headers": {
+                    "additionalProperties": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "type": "object"
+                  },
+                  "jobStatus": {
+                    "properties": {
+                      "error_message": {
+                        "type": "string"
+                      },
+                      "last_complete": {
+                        "type": "string"
+                      },
+                      "last_error": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "error_message",
+                      "last_complete",
+                      "last_error"
+                    ],
+                    "type": "object"
+                  },
+                  "logpushDataset": {
+                    "enum": [
+                      "opentelemetry-traces",
+                      "opentelemetry-logs",
+                      "opentelemetry-metrics"
+                    ],
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "logpush"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "jobStatus",
+                  "logpushDataset",
+                  "type",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "scripts": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "slug": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "configuration",
+              "enabled",
+              "name",
+              "scripts",
+              "slug"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1087,6 +1365,94 @@ export const tools: readonly Tool[] = [
         "account_id",
         "slug"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "configuration": {
+          "properties": {
+            "headers": {
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            "jobStatus": {
+              "properties": {
+                "error_message": {
+                  "type": "string"
+                },
+                "last_complete": {
+                  "type": "string"
+                },
+                "last_error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error_message",
+                "last_complete",
+                "last_error"
+              ],
+              "type": "object"
+            },
+            "logpushDataset": {
+              "enum": [
+                "opentelemetry-traces",
+                "opentelemetry-logs",
+                "opentelemetry-metrics"
+              ],
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "logpush"
+              ],
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "headers",
+            "jobStatus",
+            "logpushDataset",
+            "type",
+            "url"
+          ],
+          "type": "object"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "scripts": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "configuration",
+        "enabled",
+        "name",
+        "scripts",
+        "slug"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

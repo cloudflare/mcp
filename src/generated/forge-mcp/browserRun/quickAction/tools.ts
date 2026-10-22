@@ -418,6 +418,23 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "accessibilityTree": {
+          "$ref": "#/$defs/brapi_SerializedAXNode"
+        }
+      },
+      "required": [
+        "accessibilityTree"
+      ],
+      "type": "object",
+      $defs: {
+        "brapi_SerializedAXNode": brapi_SerializedAXNode_output,
+        "brapi_SerializedAXNode_checked": brapi_SerializedAXNode_checked_output,
+        "brapi_SerializedAXNode_pressed": brapi_SerializedAXNode_pressed_output,
+        "brapi_SerializedAXNode_value": brapi_SerializedAXNode_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -993,6 +1010,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "type": "string",
     },
     annotations: {
       "destructiveHint": false,
@@ -1601,6 +1621,19 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -2184,6 +2217,23 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -2759,6 +2809,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "type": "string",
     },
     annotations: {
       "destructiveHint": false,
@@ -4050,6 +4103,82 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "results": {
+                "properties": {
+                  "attributes": {
+                    "items": {
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "value"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "height": {
+                    "type": "number"
+                  },
+                  "html": {
+                    "type": "string"
+                  },
+                  "left": {
+                    "type": "number"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "top": {
+                    "type": "number"
+                  },
+                  "width": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "attributes",
+                  "height",
+                  "html",
+                  "left",
+                  "text",
+                  "top",
+                  "width"
+                ],
+                "type": "object"
+              },
+              "selector": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "results",
+              "selector"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -4759,6 +4888,35 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -5421,6 +5579,29 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "accessibilityTree": {
+          "$ref": "#/$defs/brapi_SerializedAXNode"
+        },
+        "content": {
+          "type": "string"
+        },
+        "markdown": {
+          "type": "string"
+        },
+        "screenshot": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "brapi_SerializedAXNode": brapi_SerializedAXNode_output,
+        "brapi_SerializedAXNode_checked": brapi_SerializedAXNode_checked_output,
+        "brapi_SerializedAXNode_pressed": brapi_SerializedAXNode_pressed_output,
+        "brapi_SerializedAXNode_value": brapi_SerializedAXNode_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

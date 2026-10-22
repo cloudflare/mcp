@@ -91,6 +91,54 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "scope": {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "account"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "sending_domain"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -358,6 +406,54 @@ export const tools: readonly Tool[] = [
         "account_id",
         "suppression_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "scope": {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "account"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "sending_domain"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -651,6 +747,93 @@ export const tools: readonly Tool[] = [
         "suppression_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "expires_at": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "note": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "read_only": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "scope": {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "account"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "sending_domain"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "created_at",
+        "email",
+        "expires_at",
+        "id",
+        "read_only",
+        "reason"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -913,6 +1096,93 @@ export const tools: readonly Tool[] = [
         "suppression_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "expires_at": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "note": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "read_only": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "scope": {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "account"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "sending_domain"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "created_at",
+        "email",
+        "expires_at",
+        "id",
+        "read_only",
+        "reason"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1159,6 +1429,108 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "deduplicated": {
+          "type": "integer"
+        },
+        "errors": {
+          "type": "integer"
+        },
+        "invalid": {
+          "type": "integer"
+        },
+        "items": {
+          "items": {
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "index": {
+                "type": "integer"
+              },
+              "scope": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "account"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "sending_domain"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "value"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "status": {
+                "enum": [
+                  "processed",
+                  "invalid",
+                  "error",
+                  "skipped"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "index",
+              "status"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "processed": {
+          "type": "integer"
+        },
+        "skipped": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "deduplicated",
+        "errors",
+        "invalid",
+        "items",
+        "processed",
+        "skipped",
+        "total"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1379,6 +1751,130 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "expires_at": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "note": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "read_only": {
+                "type": "boolean"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "scope": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "account"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "sending_domain"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "value"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "created_at",
+              "email",
+              "expires_at",
+              "id",
+              "read_only",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "next_cursor": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "next_cursor",
+            "per_page"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

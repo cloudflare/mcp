@@ -28,6 +28,20 @@ export const tools: readonly Tool[] = [
         "project_type"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "display_name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

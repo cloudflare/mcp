@@ -62,6 +62,21 @@ export const tools: readonly Tool[] = [
         "logpush_ownership_challenge": logpush_ownership_challenge,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "valid": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

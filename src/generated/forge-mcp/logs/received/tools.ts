@@ -69,6 +69,12 @@ export const tools: readonly Tool[] = [
         "logshare_timestamps": logshare_timestamps,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/logshare_logs_response_json_lines",
+      $defs: {
+        "logshare_logs_response_json_lines": logshare_logs_response_json_lines_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -53,6 +53,24 @@ export const tools: readonly Tool[] = [
         "logpush_logpull_options": logpush_logpull_options,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "valid": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

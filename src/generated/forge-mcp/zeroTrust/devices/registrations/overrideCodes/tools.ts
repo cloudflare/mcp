@@ -31,6 +31,12 @@ export const tools: readonly Tool[] = [
         "registration_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_override_codes",
+      $defs: {
+        "teams-devices_override_codes": teams_devices_override_codes_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

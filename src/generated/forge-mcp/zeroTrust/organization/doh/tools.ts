@@ -29,6 +29,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "doh_jwt_duration": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -98,6 +106,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_doh_jwt_duration": access_doh_jwt_duration,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "doh_jwt_duration": {
+          "$ref": "#/$defs/access_doh_jwt_duration"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_doh_jwt_duration": access_doh_jwt_duration_output,
       },
     },
     annotations: {

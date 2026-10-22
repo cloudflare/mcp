@@ -74,6 +74,26 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/usage-analytics_stream_usage_data_point"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "usage-analytics_stream_usage_data_point": usage_analytics_stream_usage_data_point_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

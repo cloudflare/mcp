@@ -58,6 +58,18 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_BulkJobDetail",
+      $defs: {
+        "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
+        "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
+        "email-security_BulkJobStatus": email_security_BulkJobStatus_output,
+        "email-security_BulkSearchParams": email_security_BulkSearchParams_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_MailboxDestination": email_security_MailboxDestination_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -126,6 +138,18 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_BulkJobDetail",
+      $defs: {
+        "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
+        "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
+        "email-security_BulkJobStatus": email_security_BulkJobStatus_output,
+        "email-security_BulkSearchParams": email_security_BulkSearchParams_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_MailboxDestination": email_security_MailboxDestination_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -192,6 +216,18 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -254,6 +290,18 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobId": email_security_BulkJobId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_BulkJobDetail",
+      $defs: {
+        "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
+        "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
+        "email-security_BulkJobStatus": email_security_BulkJobStatus_output,
+        "email-security_BulkSearchParams": email_security_BulkSearchParams_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_MailboxDestination": email_security_MailboxDestination_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
       },
     },
     annotations: {
@@ -337,6 +385,33 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobStatus": email_security_BulkJobStatus,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email-security_BulkJobDetail"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/email-security_CursorResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
+        "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
+        "email-security_BulkJobStatus": email_security_BulkJobStatus_output,
+        "email-security_BulkSearchParams": email_security_BulkSearchParams_output,
+        "email-security_CursorResultInfo": email_security_CursorResultInfo_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_MailboxDestination": email_security_MailboxDestination_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
       },
     },
     annotations: {

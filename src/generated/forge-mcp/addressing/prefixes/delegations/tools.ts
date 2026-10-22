@@ -71,6 +71,17 @@ export const tools: readonly Tool[] = [
         "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_ipam-delegations",
+      $defs: {
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier_output,
+        "addressing_delegation_identifier": addressing_delegation_identifier_output,
+        "addressing_ipam-delegations": addressing_ipam_delegations_output,
+        "addressing_prefix_identifier": addressing_prefix_identifier_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -144,6 +155,17 @@ export const tools: readonly Tool[] = [
         "delegation_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/addressing_delegation_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "addressing_delegation_identifier": addressing_delegation_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -211,6 +233,48 @@ export const tools: readonly Tool[] = [
         "account_id",
         "prefix_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_ipam-delegations"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier_output,
+        "addressing_delegation_identifier": addressing_delegation_identifier_output,
+        "addressing_ipam-delegations": addressing_ipam_delegations_output,
+        "addressing_prefix_identifier": addressing_prefix_identifier_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

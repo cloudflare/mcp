@@ -65,6 +65,17 @@ export const tools: readonly Tool[] = [
         "web3_content_list_entry_type": web3_content_list_entry_type,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/web3_content_list_entry",
+      $defs: {
+        "web3_content_list_entry": web3_content_list_entry_output,
+        "web3_content_list_entry_content": web3_content_list_entry_content_output,
+        "web3_content_list_entry_description": web3_content_list_entry_description_output,
+        "web3_content_list_entry_type": web3_content_list_entry_type_output,
+        "web3_identifier": web3_identifier_output,
+        "web3_timestamp": web3_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -150,6 +161,27 @@ export const tools: readonly Tool[] = [
         "identifier",
         "content_list_entry_identifier"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/web3_identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "web3_identifier": web3_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -250,6 +282,17 @@ export const tools: readonly Tool[] = [
         "content_list_entry_identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/web3_content_list_entry",
+      $defs: {
+        "web3_content_list_entry": web3_content_list_entry_output,
+        "web3_content_list_entry_content": web3_content_list_entry_content_output,
+        "web3_content_list_entry_description": web3_content_list_entry_description_output,
+        "web3_content_list_entry_type": web3_content_list_entry_type_output,
+        "web3_identifier": web3_identifier_output,
+        "web3_timestamp": web3_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -333,6 +376,23 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "identifier"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "entries": {
+          "$ref": "#/$defs/web3_content_list_entries"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "web3_content_list_entries": web3_content_list_entries_output,
+        "web3_content_list_entry": web3_content_list_entry_output,
+        "web3_content_list_entry_content": web3_content_list_entry_content_output,
+        "web3_content_list_entry_description": web3_content_list_entry_description_output,
+        "web3_content_list_entry_type": web3_content_list_entry_type_output,
+        "web3_identifier": web3_identifier_output,
+        "web3_timestamp": web3_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -439,6 +499,17 @@ export const tools: readonly Tool[] = [
         "web3_content_list_entry_create_request": web3_content_list_entry_create_request,
         "web3_content_list_entry_description": web3_content_list_entry_description,
         "web3_content_list_entry_type": web3_content_list_entry_type,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/web3_content_list_entry",
+      $defs: {
+        "web3_content_list_entry": web3_content_list_entry_output,
+        "web3_content_list_entry_content": web3_content_list_entry_content_output,
+        "web3_content_list_entry_description": web3_content_list_entry_description_output,
+        "web3_content_list_entry_type": web3_content_list_entry_type_output,
+        "web3_identifier": web3_identifier_output,
+        "web3_timestamp": web3_timestamp_output,
       },
     },
     annotations: {

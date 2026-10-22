@@ -33,6 +33,148 @@ export const tools: readonly Tool[] = [
         "event_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "attacker": {
+          "type": "string"
+        },
+        "attackerCountry": {
+          "type": "string"
+        },
+        "attackerCountryAlpha3": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "event": {
+          "type": "string"
+        },
+        "hasChildren": {
+          "type": "boolean"
+        },
+        "indicator": {
+          "type": "string"
+        },
+        "indicatorType": {
+          "type": "string"
+        },
+        "indicatorTypeId": {
+          "type": "number"
+        },
+        "insight": {
+          "type": "string"
+        },
+        "killChain": {
+          "type": "number"
+        },
+        "mitreAttack": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "mitreCapec": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "numReferenced": {
+          "type": "number"
+        },
+        "numReferences": {
+          "type": "number"
+        },
+        "rawId": {
+          "type": "string"
+        },
+        "referenced": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "referencedIds": {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "referencesIds": {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "releasabilityId": {
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "targetCountry": {
+          "type": "string"
+        },
+        "targetCountryAlpha3": {
+          "type": "string"
+        },
+        "targetIndustry": {
+          "type": "string"
+        },
+        "tlp": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "attacker",
+        "attackerCountry",
+        "attackerCountryAlpha3",
+        "category",
+        "datasetId",
+        "date",
+        "event",
+        "hasChildren",
+        "indicator",
+        "indicatorType",
+        "indicatorTypeId",
+        "killChain",
+        "mitreAttack",
+        "mitreCapec",
+        "numReferenced",
+        "numReferences",
+        "rawId",
+        "referenced",
+        "referencedIds",
+        "references",
+        "referencesIds",
+        "tags",
+        "targetCountry",
+        "targetCountryAlpha3",
+        "targetIndustry",
+        "tlp",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

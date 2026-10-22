@@ -56,6 +56,24 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/intel_domain",
+      $defs: {
+        "intel_additional_information": intel_additional_information_output,
+        "intel_application": intel_application_output,
+        "intel_categories_with_super_category_ids_example_empty": intel_categories_with_super_category_ids_example_empty_output,
+        "intel_category_with_super_category_id": intel_category_with_super_category_id_output,
+        "intel_content_categories": intel_content_categories_output,
+        "intel_domain": intel_domain_output,
+        "intel_domain_name": intel_domain_name_output,
+        "intel_inherited_from": intel_inherited_from_output,
+        "intel_popularity_rank": intel_popularity_rank_output,
+        "intel_resolves_to_ref": intel_resolves_to_ref_output,
+        "intel_resolves_to_refs": intel_resolves_to_refs_output,
+        "intel_risk_score": intel_risk_score_output,
+        "intel_stix_identifier": intel_stix_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

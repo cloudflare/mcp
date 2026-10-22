@@ -75,6 +75,14 @@ export const tools: readonly Tool[] = [
         "posture-api_VendorsEnum": posture_api_VendorsEnum,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_ExportJob",
+      $defs: {
+        "posture-api_ExportJob": posture_api_ExportJob_output,
+        "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
+        "posture-api_StatusEnum": posture_api_StatusEnum_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -129,6 +137,26 @@ export const tools: readonly Tool[] = [
         "account_id",
         "finding_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_Finding",
+      $defs: {
+        "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
+        "posture-api_Finding": posture_api_Finding_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingRemediation": posture_api_FindingRemediation_output,
+        "posture-api_FindingSeverityOverride": posture_api_FindingSeverityOverride_output,
+        "posture-api_FindingType": posture_api_FindingType_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
+        "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_Vendor": posture_api_Vendor_output,
+        "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -208,6 +236,26 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "posture-api_FindingBulkActionRequest": posture_api_FindingBulkActionRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_Finding",
+      $defs: {
+        "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
+        "posture-api_Finding": posture_api_Finding_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingRemediation": posture_api_FindingRemediation_output,
+        "posture-api_FindingSeverityOverride": posture_api_FindingSeverityOverride_output,
+        "posture-api_FindingType": posture_api_FindingType_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
+        "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_Vendor": posture_api_Vendor_output,
+        "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
       },
     },
     annotations: {
@@ -371,6 +419,41 @@ export const tools: readonly Tool[] = [
         "posture-api_VendorsEnum": posture_api_VendorsEnum,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_Finding"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/posture-api_result-info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
+        "posture-api_Finding": posture_api_Finding_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingRemediation": posture_api_FindingRemediation_output,
+        "posture-api_FindingSeverityOverride": posture_api_FindingSeverityOverride_output,
+        "posture-api_FindingType": posture_api_FindingType_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
+        "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_Vendor": posture_api_Vendor_output,
+        "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -480,6 +563,26 @@ export const tools: readonly Tool[] = [
         "finding_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_Finding",
+      $defs: {
+        "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
+        "posture-api_Finding": posture_api_Finding_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingRemediation": posture_api_FindingRemediation_output,
+        "posture-api_FindingSeverityOverride": posture_api_FindingSeverityOverride_output,
+        "posture-api_FindingType": posture_api_FindingType_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
+        "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_Vendor": posture_api_Vendor_output,
+        "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -558,6 +661,26 @@ export const tools: readonly Tool[] = [
         "posture-api_TuneFindingSeverityRequest": posture_api_TuneFindingSeverityRequest,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_Finding",
+      $defs: {
+        "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
+        "posture-api_Finding": posture_api_Finding_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingRemediation": posture_api_FindingRemediation_output,
+        "posture-api_FindingSeverityOverride": posture_api_FindingSeverityOverride_output,
+        "posture-api_FindingType": posture_api_FindingType_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
+        "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_Vendor": posture_api_Vendor_output,
+        "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -629,6 +752,26 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "posture-api_FindingBulkActionRequest": posture_api_FindingBulkActionRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_Finding",
+      $defs: {
+        "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
+        "posture-api_Finding": posture_api_Finding_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingRemediation": posture_api_FindingRemediation_output,
+        "posture-api_FindingSeverityOverride": posture_api_FindingSeverityOverride_output,
+        "posture-api_FindingType": posture_api_FindingType_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
+        "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_Vendor": posture_api_Vendor_output,
+        "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
       },
     },
     annotations: {

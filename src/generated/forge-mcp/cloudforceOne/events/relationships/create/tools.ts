@@ -61,6 +61,91 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "childIds": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "errors": {
+          "items": {
+            "properties": {
+              "childId": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              },
+              "errorType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "childId",
+              "error"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        },
+        "relationships": {
+          "items": {
+            "properties": {
+              "childDatasetId": {
+                "type": "string"
+              },
+              "childId": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "parentDatasetId": {
+                "type": "string"
+              },
+              "parentId": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "relationshipType": {
+                "enum": [
+                  "related_to",
+                  "caused_by",
+                  "attributed_to"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "childDatasetId",
+              "childId",
+              "parentDatasetId",
+              "parentId",
+              "relationshipType"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "relationshipsCreated": {
+          "type": "number"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "message",
+        "relationships",
+        "success"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

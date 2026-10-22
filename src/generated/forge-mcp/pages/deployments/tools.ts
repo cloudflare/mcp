@@ -53,6 +53,16 @@ export const tools: readonly Tool[] = [
         "deployment_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -120,6 +130,23 @@ export const tools: readonly Tool[] = [
         "project_name",
         "deployment_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pages_deployment",
+      $defs: {
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -202,6 +229,54 @@ export const tools: readonly Tool[] = [
         "account_id",
         "project_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/pages_deployment"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -310,6 +385,23 @@ export const tools: readonly Tool[] = [
         "deployment_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pages_deployment",
+      $defs: {
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -379,6 +471,23 @@ export const tools: readonly Tool[] = [
         "project_name",
         "deployment_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pages_deployment",
+      $defs: {
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
     },
     annotations: {
       "destructiveHint": true,

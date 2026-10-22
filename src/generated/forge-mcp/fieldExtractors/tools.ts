@@ -37,6 +37,16 @@ export const tools: readonly Tool[] = [
         "extractor"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -93,6 +103,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "extractor"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/field-extractors_ExtractorResult",
+      $defs: {
+        "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
+        "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
+        "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -194,6 +212,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "extractor"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/field-extractors_ExtractorResult",
+      $defs: {
+        "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
+        "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
+        "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
+      },
     },
     annotations: {
       "destructiveHint": true,

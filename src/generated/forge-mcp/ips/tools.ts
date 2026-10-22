@@ -31,6 +31,24 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/public-ip_ips"
+        },
+        {
+          "$ref": "#/$defs/public-ip_ips_jdcloud"
+        }
+      ],
+      $defs: {
+        "public-ip_etag": public_ip_etag_output,
+        "public-ip_ips": public_ip_ips_output,
+        "public-ip_ips_jdcloud": public_ip_ips_jdcloud_output,
+        "public-ip_ipv4_cidrs": public_ip_ipv4_cidrs_output,
+        "public-ip_ipv6_cidrs": public_ip_ipv6_cidrs_output,
+        "public-ip_jdcloud_cidrs": public_ip_jdcloud_cidrs_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

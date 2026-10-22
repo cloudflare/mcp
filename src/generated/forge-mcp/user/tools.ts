@@ -71,6 +71,80 @@ export const tools: readonly Tool[] = [
         "iam_zipcode": iam_zipcode,
       },
     },
+    outputSchema: {
+      "properties": {
+        "betas": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "country": {
+          "$ref": "#/$defs/iam_country"
+        },
+        "email": {
+          "type": "string"
+        },
+        "first_name": {
+          "$ref": "#/$defs/iam_first_name"
+        },
+        "has_business_zones": {
+          "type": "boolean"
+        },
+        "has_enterprise_zones": {
+          "type": "boolean"
+        },
+        "has_pro_zones": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "last_name": {
+          "$ref": "#/$defs/iam_last_name"
+        },
+        "organizations": {
+          "items": {
+            "$ref": "#/$defs/iam_organization"
+          },
+          "type": "array"
+        },
+        "suspended": {
+          "type": "boolean"
+        },
+        "telephone": {
+          "$ref": "#/$defs/iam_telephone"
+        },
+        "two_factor_authentication_enabled": {
+          "$ref": "#/$defs/iam_two_factor_authentication_enabled"
+        },
+        "two_factor_authentication_locked": {
+          "$ref": "#/$defs/iam_two_factor_authentication_locked"
+        },
+        "zipcode": {
+          "$ref": "#/$defs/iam_zipcode"
+        }
+      },
+      "required": [
+        "email",
+        "id"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_components-schemas-status": iam_components_schemas_status_output,
+        "iam_country": iam_country_output,
+        "iam_first_name": iam_first_name_output,
+        "iam_last_name": iam_last_name_output,
+        "iam_organization": iam_organization_output,
+        "iam_schemas-name": iam_schemas_name_output,
+        "iam_schemas-permissions": iam_schemas_permissions_output,
+        "iam_telephone": iam_telephone_output,
+        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
+        "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
+        "iam_zipcode": iam_zipcode_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -196,6 +270,80 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {},
+    },
+    outputSchema: {
+      "properties": {
+        "betas": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "country": {
+          "$ref": "#/$defs/iam_country"
+        },
+        "email": {
+          "type": "string"
+        },
+        "first_name": {
+          "$ref": "#/$defs/iam_first_name"
+        },
+        "has_business_zones": {
+          "type": "boolean"
+        },
+        "has_enterprise_zones": {
+          "type": "boolean"
+        },
+        "has_pro_zones": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "last_name": {
+          "$ref": "#/$defs/iam_last_name"
+        },
+        "organizations": {
+          "items": {
+            "$ref": "#/$defs/iam_organization"
+          },
+          "type": "array"
+        },
+        "suspended": {
+          "type": "boolean"
+        },
+        "telephone": {
+          "$ref": "#/$defs/iam_telephone"
+        },
+        "two_factor_authentication_enabled": {
+          "$ref": "#/$defs/iam_two_factor_authentication_enabled"
+        },
+        "two_factor_authentication_locked": {
+          "$ref": "#/$defs/iam_two_factor_authentication_locked"
+        },
+        "zipcode": {
+          "$ref": "#/$defs/iam_zipcode"
+        }
+      },
+      "required": [
+        "email",
+        "id"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_components-schemas-status": iam_components_schemas_status_output,
+        "iam_country": iam_country_output,
+        "iam_first_name": iam_first_name_output,
+        "iam_last_name": iam_last_name_output,
+        "iam_organization": iam_organization_output,
+        "iam_schemas-name": iam_schemas_name_output,
+        "iam_schemas-permissions": iam_schemas_permissions_output,
+        "iam_telephone": iam_telephone_output,
+        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
+        "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
+        "iam_zipcode": iam_zipcode_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

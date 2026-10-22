@@ -36,6 +36,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/brand-protection-api_LogoMatch",
+      $defs: {
+        "brand-protection-api_LogoMatch": brand_protection_api_LogoMatch_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -58,6 +58,20 @@ export const tools: readonly Tool[] = [
         "posture-api_FindingInstanceBulkActionRequest": posture_api_FindingInstanceBulkActionRequest,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_FindingInstance",
+      $defs: {
+        "posture-api_Asset": posture_api_Asset_output,
+        "posture-api_AssetCategory": posture_api_AssetCategory_output,
+        "posture-api_AssetField": posture_api_AssetField_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_FindingInstance": posture_api_FindingInstance_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
+        "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
+        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -126,6 +140,14 @@ export const tools: readonly Tool[] = [
         "posture-api_FindingInstanceExportOrderFilterRequest": posture_api_FindingInstanceExportOrderFilterRequest,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_ExportJob",
+      $defs: {
+        "posture-api_ExportJob": posture_api_ExportJob_output,
+        "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
+        "posture-api_StatusEnum": posture_api_StatusEnum_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -187,6 +209,20 @@ export const tools: readonly Tool[] = [
         "finding_id",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_FindingInstance",
+      $defs: {
+        "posture-api_Asset": posture_api_Asset_output,
+        "posture-api_AssetCategory": posture_api_AssetCategory_output,
+        "posture-api_AssetField": posture_api_AssetField_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_FindingInstance": posture_api_FindingInstance_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
+        "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
+        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -327,6 +363,35 @@ export const tools: readonly Tool[] = [
         "finding_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_FindingInstance"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/posture-api_result-info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "posture-api_Asset": posture_api_Asset_output,
+        "posture-api_AssetCategory": posture_api_AssetCategory_output,
+        "posture-api_AssetField": posture_api_AssetField_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_FindingInstance": posture_api_FindingInstance_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
+        "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
+        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -421,6 +486,20 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "posture-api_FindingInstanceBulkActionRequest": posture_api_FindingInstanceBulkActionRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_FindingInstance",
+      $defs: {
+        "posture-api_Asset": posture_api_Asset_output,
+        "posture-api_AssetCategory": posture_api_AssetCategory_output,
+        "posture-api_AssetField": posture_api_AssetField_output,
+        "posture-api_DlpContext": posture_api_DlpContext_output,
+        "posture-api_FindingInstance": posture_api_FindingInstance_output,
+        "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
+        "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
+        "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
+        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
       },
     },
     annotations: {

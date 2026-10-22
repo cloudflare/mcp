@@ -77,6 +77,18 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_config",
+      $defs: {
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -139,6 +151,18 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_config",
+      $defs: {
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -231,6 +255,18 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_config",
+      $defs: {
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -294,6 +330,18 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_config",
+      $defs: {
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -390,6 +438,18 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips,
         "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device,
         "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_config",
+      $defs: {
+        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
+        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
+        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
+        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
       },
     },
     annotations: {

@@ -47,6 +47,17 @@ export const tools: readonly Tool[] = [
         "d1_time-travel-timestamp": d1_time_travel_timestamp,
       },
     },
+    outputSchema: {
+      "properties": {
+        "bookmark": {
+          "$ref": "#/$defs/d1_time-travel-bookmark"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "d1_time-travel-bookmark": d1_time_travel_bookmark_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -121,6 +132,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_time-travel-bookmark": d1_time_travel_bookmark,
         "d1_time-travel-timestamp": d1_time_travel_timestamp,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/d1_time-travel-restore-response",
+      $defs: {
+        "d1_time-travel-bookmark": d1_time_travel_bookmark_output,
+        "d1_time-travel-restore-response": d1_time_travel_restore_response_output,
       },
     },
     annotations: {

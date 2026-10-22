@@ -47,6 +47,15 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_ca",
+      $defs: {
+        "access_aud": access_aud_output,
+        "access_ca": access_ca_output,
+        "access_id-2": access_id_2_output,
+        "access_public_key": access_public_key_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -112,6 +121,17 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_id-2"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_id-2": access_id_2_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -180,6 +200,15 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_ca",
+      $defs: {
+        "access_aud": access_aud_output,
+        "access_ca": access_ca_output,
+        "access_id-2": access_id_2_output,
+        "access_public_key": access_public_key_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -252,6 +281,46 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_ca"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_aud": access_aud_output,
+        "access_ca": access_ca_output,
+        "access_id-2": access_id_2_output,
+        "access_public_key": access_public_key_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

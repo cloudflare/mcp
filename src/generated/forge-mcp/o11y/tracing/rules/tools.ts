@@ -23,6 +23,56 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "rules": {
+          "items": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "set_trace_settings"
+                ],
+                "type": "string"
+              },
+              "action_parameters": {
+                "properties": {
+                  "sampling_ratio": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "sampling_ratio"
+                ],
+                "type": "object"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "expression": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "action",
+              "action_parameters",
+              "description",
+              "enabled",
+              "expression"
+            ],
+            "type": "object"
+          },
+          "maxItems": 1000,
+          "type": "array"
+        }
+      },
+      "required": [
+        "rules"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -305,6 +355,56 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "rules": {
+          "items": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "set_trace_settings"
+                ],
+                "type": "string"
+              },
+              "action_parameters": {
+                "properties": {
+                  "sampling_ratio": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "sampling_ratio"
+                ],
+                "type": "object"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "expression": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "action",
+              "action_parameters",
+              "description",
+              "enabled",
+              "expression"
+            ],
+            "type": "object"
+          },
+          "maxItems": 1000,
+          "type": "array"
+        }
+      },
+      "required": [
+        "rules"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -643,6 +743,56 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "rules": {
+          "items": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "set_trace_settings"
+                ],
+                "type": "string"
+              },
+              "action_parameters": {
+                "properties": {
+                  "sampling_ratio": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "sampling_ratio"
+                ],
+                "type": "object"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "expression": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "action",
+              "action_parameters",
+              "description",
+              "enabled",
+              "expression"
+            ],
+            "type": "object"
+          },
+          "maxItems": 1000,
+          "type": "array"
+        }
+      },
+      "required": [
+        "rules"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

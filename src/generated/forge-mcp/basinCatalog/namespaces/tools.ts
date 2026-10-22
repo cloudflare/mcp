@@ -58,6 +58,14 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_namespace-list-response",
+      $defs: {
+        "r2-data-catalog_namespace-details": r2_data_catalog_namespace_details_output,
+        "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
+        "r2-data-catalog_namespace-list-response": r2_data_catalog_namespace_list_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -136,6 +136,34 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "deletes": {
+          "items": {
+            "$ref": "#/$defs/email-security_DeletedAllowPolicy"
+          },
+          "type": "array"
+        },
+        "patches": {
+          "$ref": "#/$defs/email-security_AllowPolicyList"
+        },
+        "posts": {
+          "$ref": "#/$defs/email-security_AllowPolicyList"
+        },
+        "puts": {
+          "$ref": "#/$defs/email-security_AllowPolicyList"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_AllowPolicyList": email_security_AllowPolicyList_output,
+        "email-security_DeletedAllowPolicy": email_security_DeletedAllowPolicy_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -218,6 +246,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_AllowPolicy",
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -279,6 +316,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_AllowPolicyId": email_security_AllowPolicyId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_DeletedAllowPolicy",
+      $defs: {
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_DeletedAllowPolicy": email_security_DeletedAllowPolicy_output,
       },
     },
     annotations: {
@@ -347,6 +391,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_AllowPolicy",
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -408,6 +461,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_AllowPolicyId": email_security_AllowPolicyId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_AllowPolicy",
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {
@@ -526,6 +588,41 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email-security_AllowPolicyList"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_AllowPolicyList": email_security_AllowPolicyList_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -633,6 +730,15 @@ export const tools: readonly Tool[] = [
         "email-security_CreateAllowPolicy": email_security_CreateAllowPolicy,
         "email-security_PatternType": email_security_PatternType,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_AllowPolicy",
+      $defs: {
+        "email-security_AllowPolicy": email_security_AllowPolicy_output,
+        "email-security_AllowPolicyId": email_security_AllowPolicyId_output,
+        "email-security_PatternType": email_security_PatternType_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {

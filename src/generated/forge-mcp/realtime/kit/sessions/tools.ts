@@ -40,6 +40,20 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/realtimekit_ActiveSession"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -151,6 +165,42 @@ export const tools: readonly Tool[] = [
         "account_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "sessions": {
+              "items": {
+                "$ref": "#/$defs/realtimekit_ActiveSession"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "paging": {
+          "properties": {
+            "end_offset": {
+              "type": "number"
+            },
+            "start_offset": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

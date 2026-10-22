@@ -118,6 +118,276 @@ export const tools: readonly Tool[] = [
         "request_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "properties": {
+          "properties": {
+            "assets": {
+              "properties": {
+                "items": {
+                  "properties": {
+                    "properties": {
+                      "properties": {
+                        "contentType": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "description": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "downloadable": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "description",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "expiresAt": {
+                          "properties": {
+                            "nullable": {
+                              "type": "boolean"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "nullable",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "fileName": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "fileSize": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "id": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "is_cloudflare_team": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "description",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "metadata": {
+                          "properties": {
+                            "additionalProperties": {
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            "nullable": {
+                              "type": "boolean"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "additionalProperties",
+                            "nullable",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "origin": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "state": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "tlp": {
+                          "properties": {
+                            "enum": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "type": "array"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "enum",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "uploadedAt": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "uploadedBy": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "description",
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "description",
+                        "contentType",
+                        "downloadable",
+                        "expiresAt",
+                        "fileName",
+                        "fileSize",
+                        "id",
+                        "is_cloudflare_team",
+                        "metadata",
+                        "origin",
+                        "state",
+                        "tlp",
+                        "uploadedAt",
+                        "uploadedBy"
+                      ],
+                      "type": "object"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "properties",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "items",
+                "type"
+              ],
+              "type": "object"
+            },
+            "count": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "assets",
+            "count"
+          ],
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "properties",
+        "type"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -451,6 +721,204 @@ export const tools: readonly Tool[] = [
         "project_type",
         "request_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "properties": {
+          "properties": {
+            "contentType": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            "downloadable": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "description",
+                "type"
+              ],
+              "type": "object"
+            },
+            "expiresAt": {
+              "properties": {
+                "nullable": {
+                  "type": "boolean"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "nullable",
+                "type"
+              ],
+              "type": "object"
+            },
+            "fileName": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            "fileSize": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            "id": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            "is_cloudflare_team": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "description",
+                "type"
+              ],
+              "type": "object"
+            },
+            "metadata": {
+              "properties": {
+                "additionalProperties": {
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "nullable": {
+                  "type": "boolean"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "additionalProperties",
+                "nullable",
+                "type"
+              ],
+              "type": "object"
+            },
+            "origin": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            "state": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            "tlp": {
+              "properties": {
+                "enum": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "enum",
+                "type"
+              ],
+              "type": "object"
+            },
+            "uploadedAt": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "contentType",
+            "downloadable",
+            "expiresAt",
+            "fileName",
+            "fileSize",
+            "id",
+            "is_cloudflare_team",
+            "metadata",
+            "origin",
+            "state",
+            "tlp",
+            "uploadedAt"
+          ],
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "properties",
+        "type"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

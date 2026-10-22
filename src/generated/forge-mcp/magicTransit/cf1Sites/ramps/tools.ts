@@ -56,6 +56,29 @@ export const tools: readonly Tool[] = [
         "magic_identifier": magic_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_cf1_site_ramp"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp_output,
+        "magic_cf1_site_ramp": magic_cf1_site_ramp_output,
+        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type_output,
+        "magic_identifier": magic_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -136,6 +159,15 @@ export const tools: readonly Tool[] = [
         "ramp_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_cf1_site_ramp",
+      $defs: {
+        "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp_output,
+        "magic_cf1_site_ramp": magic_cf1_site_ramp_output,
+        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type_output,
+        "magic_identifier": magic_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -205,6 +237,15 @@ export const tools: readonly Tool[] = [
         "ramp_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_cf1_site_ramp",
+      $defs: {
+        "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp_output,
+        "magic_cf1_site_ramp": magic_cf1_site_ramp_output,
+        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type_output,
+        "magic_identifier": magic_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -270,6 +311,29 @@ export const tools: readonly Tool[] = [
         "account_id",
         "cf1_site_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_cf1_site_ramp"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp_output,
+        "magic_cf1_site_ramp": magic_cf1_site_ramp_output,
+        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type_output,
+        "magic_identifier": magic_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

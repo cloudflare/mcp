@@ -100,6 +100,20 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_audit_logs_response_collection_alt",
+      $defs: {
+        "aaa_api-response-common": aaa_api_response_common_output,
+        "aaa_audit-logs": aaa_audit_logs_output,
+        "aaa_audit-logs_action": aaa_audit_logs_action_output,
+        "aaa_audit-logs_actor": aaa_audit_logs_actor_output,
+        "aaa_audit-logs_owner": aaa_audit_logs_owner_output,
+        "aaa_audit-logs_resource": aaa_audit_logs_resource_output,
+        "aaa_audit_logs_response_collection_alt": aaa_audit_logs_response_collection_alt_output,
+        "aaa_identifier": aaa_identifier_output,
+        "aaa_messages": aaa_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

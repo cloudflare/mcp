@@ -34,6 +34,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dos_api-response-common",
+      $defs: {
+        "dos_api-response-common": dos_api_response_common_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -89,6 +96,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dos_NewTcpFlowProtectionRule": dos_NewTcpFlowProtectionRule,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dos_TcpFlowProtectionRule",
+      $defs: {
+        "dos_TcpFlowProtectionRule": dos_TcpFlowProtectionRule_output,
       },
     },
     annotations: {
@@ -151,6 +164,13 @@ export const tools: readonly Tool[] = [
         "rule_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dos_api-response-common",
+      $defs: {
+        "dos_api-response-common": dos_api_response_common_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -204,6 +224,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "rule_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dos_TcpFlowProtectionRule",
+      $defs: {
+        "dos_TcpFlowProtectionRule": dos_TcpFlowProtectionRule_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -270,6 +296,43 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dos_TcpFlowProtectionRule"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dos_TcpFlowProtectionRule": dos_TcpFlowProtectionRule_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -369,6 +432,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dos_TcpFlowProtectionRuleUpdate": dos_TcpFlowProtectionRuleUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dos_TcpFlowProtectionRule",
+      $defs: {
+        "dos_TcpFlowProtectionRule": dos_TcpFlowProtectionRule_output,
       },
     },
     annotations: {

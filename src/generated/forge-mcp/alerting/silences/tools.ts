@@ -52,6 +52,13 @@ export const tools: readonly Tool[] = [
         "aaa_silence_create_request": aaa_silence_create_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_api-response-common-2",
+      $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
+        "aaa_messages-3": aaa_messages_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -119,6 +126,13 @@ export const tools: readonly Tool[] = [
         "silence_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_api-response-common-2",
+      $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
+        "aaa_messages-3": aaa_messages_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -185,6 +199,14 @@ export const tools: readonly Tool[] = [
         "silence_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_silence",
+      $defs: {
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_silence": aaa_silence_output,
+        "aaa_silence-id": aaa_silence_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -247,6 +269,28 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_silence"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_silence": aaa_silence_output,
+        "aaa_silence-id": aaa_silence_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -334,6 +378,28 @@ export const tools: readonly Tool[] = [
       $defs: {
         "aaa_silence-id": aaa_silence_id,
         "aaa_silence_update_request": aaa_silence_update_request,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_silence"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_silence": aaa_silence_output,
+        "aaa_silence-id": aaa_silence_id_output,
       },
     },
     annotations: {

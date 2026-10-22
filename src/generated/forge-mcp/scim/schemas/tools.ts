@@ -35,6 +35,14 @@ export const tools: readonly Tool[] = [
         "schema_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_schema",
+      $defs: {
+        "iam_scim_schema": iam_scim_schema_output,
+        "iam_scim_schema_attr": iam_scim_schema_attr_output,
+        "iam_scim_schema_meta": iam_scim_schema_meta_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -102,6 +110,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_schema_list_response",
+      $defs: {
+        "iam_scim_schema": iam_scim_schema_output,
+        "iam_scim_schema_attr": iam_scim_schema_attr_output,
+        "iam_scim_schema_list_response": iam_scim_schema_list_response_output,
+        "iam_scim_schema_meta": iam_scim_schema_meta_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

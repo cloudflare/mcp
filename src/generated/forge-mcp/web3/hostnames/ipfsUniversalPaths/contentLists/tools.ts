@@ -46,6 +46,13 @@ export const tools: readonly Tool[] = [
         "identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/web3_content_list_details",
+      $defs: {
+        "web3_content_list_action": web3_content_list_action_output,
+        "web3_content_list_details": web3_content_list_details_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -137,6 +144,13 @@ export const tools: readonly Tool[] = [
         "web3_content_list_entry_description": web3_content_list_entry_description,
         "web3_content_list_entry_type": web3_content_list_entry_type,
         "web3_content_list_update_request": web3_content_list_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/web3_content_list_details",
+      $defs: {
+        "web3_content_list_action": web3_content_list_action_output,
+        "web3_content_list_details": web3_content_list_details_output,
       },
     },
     annotations: {

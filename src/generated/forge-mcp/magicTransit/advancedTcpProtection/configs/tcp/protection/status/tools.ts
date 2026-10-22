@@ -30,6 +30,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dos_ProtectionStatus",
+      $defs: {
+        "dos_ProtectionStatus": dos_ProtectionStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -86,6 +92,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dos_UpdateProtectionStatus": dos_UpdateProtectionStatus,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dos_ProtectionStatus",
+      $defs: {
+        "dos_ProtectionStatus": dos_ProtectionStatus_output,
       },
     },
     annotations: {

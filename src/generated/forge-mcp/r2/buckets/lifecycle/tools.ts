@@ -67,6 +67,21 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_lifecycle-config",
+      $defs: {
+        "r2_lifecycle-age-condition": r2_lifecycle_age_condition_output,
+        "r2_lifecycle-config": r2_lifecycle_config_output,
+        "r2_lifecycle-date-condition": r2_lifecycle_date_condition_output,
+        "r2_lifecycle-rule": r2_lifecycle_rule_output,
+        "r2_lifecycle-rule_abortMultipartUploadsTransition": r2_lifecycle_rule_abortMultipartUploadsTransition_output,
+        "r2_lifecycle-rule_conditions": r2_lifecycle_rule_conditions_output,
+        "r2_lifecycle-rule_deleteObjectsTransition": r2_lifecycle_rule_deleteObjectsTransition_output,
+        "r2_lifecycle-rule_deleteObjectsTransition_condition": r2_lifecycle_rule_deleteObjectsTransition_condition_output,
+        "r2_lifecycle-storage-transition": r2_lifecycle_storage_transition_output,
+        "r2_lifecycle-storage-transition_condition": r2_lifecycle_storage_transition_condition_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -162,6 +177,9 @@ export const tools: readonly Tool[] = [
         "r2_lifecycle-storage-transition": r2_lifecycle_storage_transition,
         "r2_lifecycle-storage-transition_condition": r2_lifecycle_storage_transition_condition,
       },
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

@@ -43,6 +43,23 @@ export const tools: readonly Tool[] = [
         "operation_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/lists_api-response-common_result"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "lists_api-response-common_result": lists_api_response_common_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

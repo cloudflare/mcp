@@ -46,6 +46,21 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_catch_all_rule",
+      $defs: {
+        "email_catch_all_rule": email_catch_all_rule_output,
+        "email_rule_catchall-action": email_rule_catchall_action_output,
+        "email_rule_catchall-actions": email_rule_catchall_actions_output,
+        "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
+        "email_rule_catchall-matchers": email_rule_catchall_matchers_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -130,6 +145,21 @@ export const tools: readonly Tool[] = [
         "email_rule_owner_worker_tag": email_rule_owner_worker_tag,
         "email_rule_source": email_rule_source,
         "email_update_catch_all_rule_properties": email_update_catch_all_rule_properties,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_catch_all_rule",
+      $defs: {
+        "email_catch_all_rule": email_catch_all_rule_output,
+        "email_rule_catchall-action": email_rule_catchall_action_output,
+        "email_rule_catchall-actions": email_rule_catchall_actions_output,
+        "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
+        "email_rule_catchall-matchers": email_rule_catchall_matchers_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
       },
     },
     annotations: {

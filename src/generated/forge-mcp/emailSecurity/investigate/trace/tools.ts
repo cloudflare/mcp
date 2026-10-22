@@ -46,6 +46,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_MessageTrace",
+      $defs: {
+        "email-security_MessageTrace": email_security_MessageTrace_output,
+        "email-security_MessageTrace_inbound": email_security_MessageTrace_inbound_output,
+        "email-security_MessageTrace_outbound": email_security_MessageTrace_outbound_output,
+        "email-security_TraceLine": email_security_TraceLine_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

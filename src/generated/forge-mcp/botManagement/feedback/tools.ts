@@ -111,6 +111,20 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "items": {
+        "$ref": "#/$defs/bot-management_feedback_report"
+      },
+      "type": "array",
+      $defs: {
+        "bot-management_feedback_report": bot_management_feedback_report_output,
+        "bot-management_feedback_type": bot_management_feedback_type_output,
+        "bot-management_metric_requests": bot_management_metric_requests_output,
+        "bot-management_requests_by_attribute": bot_management_requests_by_attribute_output,
+        "bot-management_requests_by_score": bot_management_requests_by_score_output,
+        "bot-management_requests_by_score_src": bot_management_requests_by_score_src_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -32,6 +32,27 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_dns_destination_ip_pair"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/zero-trust-gateway_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_dns_destination_ip_pair": zero_trust_gateway_dns_destination_ip_pair_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

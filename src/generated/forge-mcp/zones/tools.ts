@@ -70,6 +70,18 @@ export const tools: readonly Tool[] = [
         "zones_type": zones_type,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/zones_zone",
+      $defs: {
+        "zones_identifier": zones_identifier_output,
+        "zones_paused": zones_paused_output,
+        "zones_type": zones_type_output,
+        "zones_zone": zones_zone_output,
+        "zones_zone_account": zones_zone_account_output,
+        "zones_zone_meta": zones_zone_meta_output,
+        "zones_zone_owner": zones_zone_owner_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -126,6 +138,27 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/zones_identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "zones_identifier": zones_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -248,6 +281,18 @@ export const tools: readonly Tool[] = [
         "zones_vanity_name_servers": zones_vanity_name_servers,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/zones_zone",
+      $defs: {
+        "zones_identifier": zones_identifier_output,
+        "zones_paused": zones_paused_output,
+        "zones_type": zones_type_output,
+        "zones_zone": zones_zone_output,
+        "zones_zone_account": zones_zone_account_output,
+        "zones_zone_meta": zones_zone_meta_output,
+        "zones_zone_owner": zones_zone_owner_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -309,6 +354,18 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zones_zone",
+      $defs: {
+        "zones_identifier": zones_identifier_output,
+        "zones_paused": zones_paused_output,
+        "zones_type": zones_type_output,
+        "zones_zone": zones_zone_output,
+        "zones_zone_account": zones_zone_account_output,
+        "zones_zone_meta": zones_zone_meta_output,
+        "zones_zone_owner": zones_zone_owner_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -483,6 +540,33 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         }
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zones_zone"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/zones_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zones_identifier": zones_identifier_output,
+        "zones_paused": zones_paused_output,
+        "zones_result_info": zones_result_info_output,
+        "zones_type": zones_type_output,
+        "zones_zone": zones_zone_output,
+        "zones_zone_account": zones_zone_account_output,
+        "zones_zone_meta": zones_zone_meta_output,
+        "zones_zone_owner": zones_zone_owner_output,
       },
     },
     annotations: {

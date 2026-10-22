@@ -28,6 +28,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_TreeResponse",
+      $defs: {
+        "cloudforce-one_TreeNode": cloudforce_one_TreeNode_output,
+        "cloudforce-one_TreeResponse": cloudforce_one_TreeResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

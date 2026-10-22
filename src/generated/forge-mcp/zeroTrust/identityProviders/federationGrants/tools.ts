@@ -39,6 +39,15 @@ export const tools: readonly Tool[] = [
         "access_idp_federation_grant_create_request": access_idp_federation_grant_create_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_idp_federation_grant",
+      $defs: {
+        "access_created_at": access_created_at_output,
+        "access_identifier": access_identifier_output,
+        "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_timestamp": access_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -94,6 +103,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "grant_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_identifier": access_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -152,6 +172,15 @@ export const tools: readonly Tool[] = [
         "grant_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_idp_federation_grant",
+      $defs: {
+        "access_created_at": access_created_at_output,
+        "access_identifier": access_identifier_output,
+        "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_timestamp": access_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -204,6 +233,46 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_idp_federation_grant"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_created_at": access_created_at_output,
+        "access_identifier": access_identifier_output,
+        "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_timestamp": access_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

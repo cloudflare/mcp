@@ -187,6 +187,203 @@ export const tools: readonly Tool[] = [
         "tls_version"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "meta": {
+          "properties": {
+            "confidenceInfo": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "annotations": {
+                      "items": {
+                        "properties": {
+                          "dataSource": {
+                            "enum": [
+                              "ALL",
+                              "AI_BOTS",
+                              "AI_GATEWAY",
+                              "BGP",
+                              "BOTS",
+                              "CONNECTION_ANOMALY",
+                              "CT",
+                              "DNS",
+                              "DNS_MAGNITUDE",
+                              "DNS_AS112",
+                              "DOS",
+                              "EMAIL_ROUTING",
+                              "EMAIL_SECURITY",
+                              "FW",
+                              "FW_PG",
+                              "HTTP",
+                              "HTTP_CONTROL",
+                              "HTTP_CRAWLER_REFERER",
+                              "HTTP_ORIGINS",
+                              "IQI",
+                              "LEAKED_CREDENTIALS",
+                              "NET",
+                              "ROBOTS_TXT",
+                              "SPEED",
+                              "WORKERS_AI"
+                            ],
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "endDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "enum": [
+                              "GENERAL",
+                              "OUTAGE",
+                              "PARTIAL_PROJECTION",
+                              "PIPELINE",
+                              "TRAFFIC_ANOMALY"
+                            ],
+                            "type": "string"
+                          },
+                          "isInstantaneous": {
+                            "type": "boolean"
+                          },
+                          "linkedUrl": {
+                            "type": "string"
+                          },
+                          "startDate": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "tags": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "dataSource",
+                          "description",
+                          "endDate",
+                          "eventType",
+                          "isInstantaneous",
+                          "linkedUrl",
+                          "startDate"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "level": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "annotations",
+                    "level"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "dateRange": {
+              "items": {
+                "properties": {
+                  "endTime": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "startTime": {
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "endTime",
+                  "startTime"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "lastUpdated": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "normalization": {
+              "enum": [
+                "PERCENTAGE",
+                "MIN0_MAX",
+                "MIN_MAX",
+                "RAW_VALUES",
+                "PERCENTAGE_CHANGE",
+                "ROLLING_AVERAGE",
+                "OVERLAPPED_PERCENTAGE",
+                "RATIO"
+              ],
+              "type": "string"
+            },
+            "units": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "confidenceInfo",
+            "dateRange",
+            "lastUpdated",
+            "normalization",
+            "units"
+          ],
+          "type": "object"
+        },
+        "top_0": {
+          "items": {
+            "properties": {
+              "clientASN": {
+                "type": "integer"
+              },
+              "clientASName": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "clientASN",
+              "clientASName",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "meta",
+        "top_0"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

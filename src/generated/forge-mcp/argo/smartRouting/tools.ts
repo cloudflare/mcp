@@ -33,6 +33,9 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "type": "integer",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -91,6 +94,9 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {},
+    },
+    outputSchema: {
+      "type": "integer",
     },
     annotations: {
       "destructiveHint": false,
@@ -167,6 +173,16 @@ export const tools: readonly Tool[] = [
         "argo-config_setting_value": argo_config_setting_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/argo-config_result_object",
+      $defs: {
+        "argo-config_editable": argo_config_editable_output,
+        "argo-config_modified_on": argo_config_modified_on_output,
+        "argo-config_result_object": argo_config_result_object_output,
+        "argo-config_setting_id": argo_config_setting_id_output,
+        "argo-config_setting_value": argo_config_setting_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -240,6 +256,16 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/argo-config_result_object",
+      $defs: {
+        "argo-config_editable": argo_config_editable_output,
+        "argo-config_modified_on": argo_config_modified_on_output,
+        "argo-config_result_object": argo_config_result_object_output,
+        "argo-config_setting_id": argo_config_setting_id_output,
+        "argo-config_setting_value": argo_config_setting_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

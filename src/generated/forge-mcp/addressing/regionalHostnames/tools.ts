@@ -67,6 +67,16 @@ export const tools: readonly Tool[] = [
         "dls_routing": dls_routing,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dls_regional_hostname_response",
+      $defs: {
+        "dls_hostname": dls_hostname_output,
+        "dls_region_key": dls_region_key_output,
+        "dls_regional_hostname_response": dls_regional_hostname_response_output,
+        "dls_routing": dls_routing_output,
+        "dls_timestamp": dls_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -128,6 +138,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dls_hostname": dls_hostname,
         "dls_identifier": dls_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dls_api-response-common",
+      $defs: {
+        "dls_api-response-common": dls_api_response_common_output,
+        "dls_messages": dls_messages_output,
       },
     },
     annotations: {
@@ -201,6 +218,16 @@ export const tools: readonly Tool[] = [
         "dls_region_key": dls_region_key,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dls_regional_hostname_response",
+      $defs: {
+        "dls_hostname": dls_hostname_output,
+        "dls_region_key": dls_region_key_output,
+        "dls_regional_hostname_response": dls_regional_hostname_response_output,
+        "dls_routing": dls_routing_output,
+        "dls_timestamp": dls_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -264,6 +291,16 @@ export const tools: readonly Tool[] = [
         "dls_identifier": dls_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dls_regional_hostname_response",
+      $defs: {
+        "dls_hostname": dls_hostname_output,
+        "dls_region_key": dls_region_key_output,
+        "dls_regional_hostname_response": dls_regional_hostname_response_output,
+        "dls_routing": dls_routing_output,
+        "dls_timestamp": dls_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -319,6 +356,47 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dls_identifier": dls_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dls_regional_hostname_response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dls_hostname": dls_hostname_output,
+        "dls_region_key": dls_region_key_output,
+        "dls_regional_hostname_response": dls_regional_hostname_response_output,
+        "dls_routing": dls_routing_output,
+        "dls_timestamp": dls_timestamp_output,
       },
     },
     annotations: {

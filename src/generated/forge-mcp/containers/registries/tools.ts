@@ -52,6 +52,17 @@ export const tools: readonly Tool[] = [
         "cc_SecretsStoreRef": cc_SecretsStoreRef,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cc_CustomerImageRegistry",
+      $defs: {
+        "cc_CustomerImageRegistry": cc_CustomerImageRegistry_output,
+        "cc_CustomerImageRegistry_kind": cc_CustomerImageRegistry_kind_output,
+        "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind_output,
+        "cc_Domain": cc_Domain_output,
+        "cc_ExternalRegistryKind": cc_ExternalRegistryKind_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -121,6 +132,13 @@ export const tools: readonly Tool[] = [
         "domain"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cc_ContainersDeleteImageRegistryResponseBody",
+      $defs: {
+        "cc_ContainersDeleteImageRegistryResponseBody": cc_ContainersDeleteImageRegistryResponseBody_output,
+        "cc_Domain": cc_Domain_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -179,6 +197,31 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/cc_CustomerImageRegistry"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cc_CustomerImageRegistry": cc_CustomerImageRegistry_output,
+        "cc_CustomerImageRegistry_kind": cc_CustomerImageRegistry_kind_output,
+        "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind_output,
+        "cc_Domain": cc_Domain_output,
+        "cc_ExternalRegistryKind": cc_ExternalRegistryKind_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

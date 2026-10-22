@@ -65,6 +65,12 @@ export const tools: readonly Tool[] = [
         "r2_add_custom_domain_request": r2_add_custom_domain_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_add_custom_domain_response",
+      $defs: {
+        "r2_add_custom_domain_response": r2_add_custom_domain_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -147,6 +153,12 @@ export const tools: readonly Tool[] = [
         "domain"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_remove_custom_domain_response",
+      $defs: {
+        "r2_remove_custom_domain_response": r2_remove_custom_domain_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -221,6 +233,13 @@ export const tools: readonly Tool[] = [
         "domain"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_get_custom_domain_response",
+      $defs: {
+        "r2_get_custom_domain_response": r2_get_custom_domain_response_output,
+        "r2_get_custom_domain_response_status": r2_get_custom_domain_response_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -291,6 +310,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_list_custom_domains_response",
+      $defs: {
+        "r2_list_custom_domains_response": r2_list_custom_domains_response_output,
+        "r2_list_custom_domains_response_domainsItem": r2_list_custom_domains_response_domainsItem_output,
+        "r2_list_custom_domains_response_domainsItem_status": r2_list_custom_domains_response_domainsItem_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -380,6 +407,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_edit_custom_domain_request": r2_edit_custom_domain_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_edit_custom_domain_response",
+      $defs: {
+        "r2_edit_custom_domain_response": r2_edit_custom_domain_response_output,
       },
     },
     annotations: {

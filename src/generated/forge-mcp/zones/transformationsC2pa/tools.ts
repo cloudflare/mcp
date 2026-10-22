@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "speed_transformations_c2pa_value": speed_transformations_c2pa_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_transformations_c2pa_response",
+      $defs: {
+        "speed_transformations_c2pa_response": speed_transformations_c2pa_response_output,
+        "speed_transformations_c2pa_value": speed_transformations_c2pa_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -104,6 +111,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_transformations_c2pa_response",
+      $defs: {
+        "speed_transformations_c2pa_response": speed_transformations_c2pa_response_output,
+        "speed_transformations_c2pa_value": speed_transformations_c2pa_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

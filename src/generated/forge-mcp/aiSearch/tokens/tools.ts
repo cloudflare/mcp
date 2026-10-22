@@ -45,6 +45,62 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "cf_api_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "legacy": {
+          "type": "boolean"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cf_api_id",
+        "created_at",
+        "id",
+        "modified_at",
+        "name"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -204,6 +260,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "token_id"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -373,6 +432,62 @@ export const tools: readonly Tool[] = [
         "account_id",
         "token_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "cf_api_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "legacy": {
+          "type": "boolean"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cf_api_id",
+        "created_at",
+        "id",
+        "modified_at",
+        "name"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -571,6 +686,96 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "cf_api_id": {
+                "type": "string"
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "created_by": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "legacy": {
+                "type": "boolean"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "modified_by": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "cf_api_id",
+              "created_at",
+              "id",
+              "modified_at",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -784,6 +989,62 @@ export const tools: readonly Tool[] = [
         "account_id",
         "token_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "cf_api_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "legacy": {
+          "type": "boolean"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cf_api_id",
+        "created_at",
+        "id",
+        "modified_at",
+        "name"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

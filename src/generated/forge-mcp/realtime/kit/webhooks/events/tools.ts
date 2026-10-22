@@ -29,6 +29,12 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/realtimekit_WebhookEventsSuccessResponse",
+      $defs: {
+        "realtimekit_WebhookEventsSuccessResponse": realtimekit_WebhookEventsSuccessResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

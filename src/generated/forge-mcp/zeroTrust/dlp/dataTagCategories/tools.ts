@@ -47,6 +47,13 @@ export const tools: readonly Tool[] = [
         "dlp_NewDataTagCategory": dlp_NewDataTagCategory,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataTagCategory",
+      $defs: {
+        "dlp_DataTag": dlp_DataTag_output,
+        "dlp_DataTagCategory": dlp_DataTagCategory_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -102,6 +109,12 @@ export const tools: readonly Tool[] = [
         "category_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -155,6 +168,13 @@ export const tools: readonly Tool[] = [
         "category_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataTagCategory",
+      $defs: {
+        "dlp_DataTag": dlp_DataTag_output,
+        "dlp_DataTagCategory": dlp_DataTagCategory_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -204,6 +224,25 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_DataTagCategoryArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_DataTag": dlp_DataTag_output,
+        "dlp_DataTagCategory": dlp_DataTagCategory_output,
+        "dlp_DataTagCategoryArray": dlp_DataTagCategoryArray_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -279,6 +318,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_DataTagCategoryTagUpdate": dlp_DataTagCategoryTagUpdate,
         "dlp_DataTagCategoryUpdate": dlp_DataTagCategoryUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataTagCategory",
+      $defs: {
+        "dlp_DataTag": dlp_DataTag_output,
+        "dlp_DataTagCategory": dlp_DataTagCategory_output,
       },
     },
     annotations: {

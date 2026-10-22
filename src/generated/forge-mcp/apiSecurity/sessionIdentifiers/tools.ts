@@ -51,6 +51,17 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier-2": api_shield_identifier_2,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/api-shield_configuration-single-response",
+      $defs: {
+        "api-shield_auth_id_characteristic": api_shield_auth_id_characteristic_output,
+        "api-shield_auth_id_characteristic_jwt_claim": api_shield_auth_id_characteristic_jwt_claim_output,
+        "api-shield_auth_id_characteristics": api_shield_auth_id_characteristics_output,
+        "api-shield_configuration": api_shield_configuration_output,
+        "api-shield_configuration-single-response": api_shield_configuration_single_response_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -123,6 +134,17 @@ export const tools: readonly Tool[] = [
         "api-shield_configuration": api_shield_configuration,
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/api-shield_configuration-single-response",
+      $defs: {
+        "api-shield_auth_id_characteristic": api_shield_auth_id_characteristic_output,
+        "api-shield_auth_id_characteristic_jwt_claim": api_shield_auth_id_characteristic_jwt_claim_output,
+        "api-shield_auth_id_characteristics": api_shield_auth_id_characteristics_output,
+        "api-shield_configuration": api_shield_configuration_output,
+        "api-shield_configuration-single-response": api_shield_configuration_single_response_output,
+        "api-shield_messages": api_shield_messages_output,
       },
     },
     annotations: {

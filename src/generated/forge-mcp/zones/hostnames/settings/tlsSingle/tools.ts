@@ -46,6 +46,17 @@ export const tools: readonly Tool[] = [
         "hostname"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_settingObject",
+      $defs: {
+        "tls-certificates-and-hostnames_created_at-4": tls_certificates_and_hostnames_created_at_4_output,
+        "tls-certificates-and-hostnames_hostname-3": tls_certificates_and_hostnames_hostname_3_output,
+        "tls-certificates-and-hostnames_settingObject": tls_certificates_and_hostnames_settingObject_output,
+        "tls-certificates-and-hostnames_status-12": tls_certificates_and_hostnames_status_12_output,
+        "tls-certificates-and-hostnames_updated_at-5": tls_certificates_and_hostnames_updated_at_5_output,
+        "tls-certificates-and-hostnames_value": tls_certificates_and_hostnames_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

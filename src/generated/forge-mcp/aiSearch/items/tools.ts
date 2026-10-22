@@ -44,6 +44,79 @@ export const tools: readonly Tool[] = [
         "item_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "end_byte": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "item": {
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "type": "object"
+                  },
+                  "timestamp": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "type": "object"
+              },
+              "start_byte": {
+                "type": "number"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "item",
+              "text"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "limit": {
+              "type": "integer"
+            },
+            "offset": {
+              "type": "integer"
+            },
+            "total": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "limit",
+            "offset",
+            "total"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -301,6 +374,17 @@ export const tools: readonly Tool[] = [
         "instance_id",
         "item_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -829,6 +913,126 @@ export const tools: readonly Tool[] = [
         "item_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "checksum": {
+          "type": "string"
+        },
+        "chunks_count": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "file_size": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "last_seen_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "next_action": {
+          "oneOf": [
+            {
+              "enum": [
+                "INDEX",
+                "DELETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "completed",
+            "error",
+            "skipped",
+            "outdated"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "checksum",
+        "chunks_count",
+        "created_at",
+        "file_size",
+        "id",
+        "key",
+        "last_seen_at",
+        "metadata",
+        "namespace",
+        "next_action",
+        "source_id",
+        "status"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1132,6 +1336,159 @@ export const tools: readonly Tool[] = [
         "namespace",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "checksum": {
+                "type": "string"
+              },
+              "chunks_count": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              },
+              "file_size": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              },
+              "last_seen_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "metadata": {
+                "oneOf": [
+                  {
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "namespace": {
+                "type": "string"
+              },
+              "next_action": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "INDEX",
+                      "DELETE"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source_id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "status": {
+                "enum": [
+                  "queued",
+                  "running",
+                  "completed",
+                  "error",
+                  "skipped",
+                  "outdated"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "checksum",
+              "chunks_count",
+              "created_at",
+              "file_size",
+              "id",
+              "key",
+              "last_seen_at",
+              "metadata",
+              "namespace",
+              "next_action",
+              "source_id",
+              "status"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1475,6 +1832,111 @@ export const tools: readonly Tool[] = [
         "item_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "chunkCount": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "errorType": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "fileKey": {
+                "type": "string"
+              },
+              "message": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "processingTimeMs": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "timestamp": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "action",
+              "chunkCount",
+              "errorType",
+              "fileKey",
+              "message",
+              "processingTimeMs",
+              "timestamp"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "truncated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "count",
+            "cursor",
+            "per_page",
+            "truncated"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1783,6 +2245,126 @@ export const tools: readonly Tool[] = [
         "instance_id",
         "item_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "checksum": {
+          "type": "string"
+        },
+        "chunks_count": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "file_size": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "last_seen_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "next_action": {
+          "oneOf": [
+            {
+              "enum": [
+                "INDEX",
+                "DELETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "completed",
+            "error",
+            "skipped",
+            "outdated"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "checksum",
+        "chunks_count",
+        "created_at",
+        "file_size",
+        "id",
+        "key",
+        "last_seen_at",
+        "metadata",
+        "namespace",
+        "next_action",
+        "source_id",
+        "status"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -2161,6 +2743,180 @@ export const tools: readonly Tool[] = [
         "namespace",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "checksum": {
+          "type": "string"
+        },
+        "chunks_count": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "file_size": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "last_seen_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "next_action": {
+          "oneOf": [
+            {
+              "enum": [
+                "INDEX",
+                "DELETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "completed",
+            "error",
+            "skipped",
+            "outdated"
+          ],
+          "type": "string"
+        },
+        "warnings": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "custom_metadata_value_not_indexed"
+                    ],
+                    "type": "string"
+                  },
+                  "expected_type": {
+                    "enum": [
+                      "text",
+                      "number",
+                      "boolean",
+                      "datetime"
+                    ],
+                    "type": "string"
+                  },
+                  "field": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "expected_type",
+                  "field"
+                ],
+                "type": "object"
+              },
+              {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "custom_metadata_field_not_filterable"
+                    ],
+                    "type": "string"
+                  },
+                  "field": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "field"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "maxItems": 10,
+          "type": "array"
+        }
+      },
+      "required": [
+        "checksum",
+        "chunks_count",
+        "created_at",
+        "file_size",
+        "id",
+        "key",
+        "last_seen_at",
+        "metadata",
+        "namespace",
+        "next_action",
+        "source_id",
+        "status"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -2808,6 +3564,126 @@ export const tools: readonly Tool[] = [
         "namespace",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "checksum": {
+          "type": "string"
+        },
+        "chunks_count": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "file_size": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "last_seen_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "next_action": {
+          "oneOf": [
+            {
+              "enum": [
+                "INDEX",
+                "DELETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "completed",
+            "error",
+            "skipped",
+            "outdated"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "checksum",
+        "chunks_count",
+        "created_at",
+        "file_size",
+        "id",
+        "key",
+        "last_seen_at",
+        "metadata",
+        "namespace",
+        "next_action",
+        "source_id",
+        "status"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

@@ -47,6 +47,14 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_scansListResponse",
+      $defs: {
+        "security-center_scanQuota": security_center_scanQuota_output,
+        "security-center_scanStatusResponse": security_center_scanStatusResponse_output,
+        "security-center_scansListResponse": security_center_scansListResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -109,6 +117,12 @@ export const tools: readonly Tool[] = [
         "security-center_issueClass": security_center_issueClass,
         "security-center_issueType": security_center_issueType,
         "security-center_newScanRequest": security_center_newScanRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_newScanResponse",
+      $defs: {
+        "security-center_newScanResponse": security_center_newScanResponse_output,
       },
     },
     annotations: {

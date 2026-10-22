@@ -28,6 +28,53 @@ export const tools: readonly Tool[] = [
         "model"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "input": {
+          "properties": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "additionalProperties",
+            "description",
+            "type"
+          ],
+          "type": "object"
+        },
+        "output": {
+          "properties": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "additionalProperties",
+            "description",
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "input",
+        "output"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -162,6 +209,35 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "extension": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "extension",
+              "mimeType"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -322,6 +398,9 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1203,6 +1282,231 @@ export const tools: readonly Tool[] = [
         "model_name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "score": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "format": "binary",
+              "type": "string"
+            },
+            {
+              "properties": {
+                "audio": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "data": {
+                  "items": {
+                    "items": {
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "type": "array"
+                },
+                "shape": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "vtt": {
+                  "type": "string"
+                },
+                "word_count": {
+                  "type": "number"
+                },
+                "words": {
+                  "items": {
+                    "properties": {
+                      "end": {
+                        "type": "number"
+                      },
+                      "start": {
+                        "type": "number"
+                      },
+                      "word": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "type": "object"
+            },
+            {
+              "items": {
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "score": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "items": {
+                "properties": {
+                  "box": {
+                    "properties": {
+                      "xmax": {
+                        "type": "number"
+                      },
+                      "xmin": {
+                        "type": "number"
+                      },
+                      "ymax": {
+                        "type": "number"
+                      },
+                      "ymin": {
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "score": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "properties": {
+                "response": {
+                  "type": "string"
+                },
+                "tool_calls": {
+                  "items": {
+                    "properties": {
+                      "arguments": {
+                        "type": "object"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "usage": {
+                  "properties": {
+                    "completion_tokens": {
+                      "type": "number"
+                    },
+                    "prompt_tokens": {
+                      "type": "number"
+                    },
+                    "total_tokens": {
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "response"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "translated_text": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "summary": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "description": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "description": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "data": {
+                  "items": {
+                    "items": {
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "type": "array"
+                },
+                "shape": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1517,6 +1821,47 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "data": {
+                "type": "string"
+              },
+              "format": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "tokens": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "format",
+              "mimeType",
+              "name",
+              "tokens"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1681,6 +2026,65 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "items": {
+          "items": {
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "faviconUrl": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              },
+              "lastModifiedDate": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "metadata": {
+          "properties": {
+            "latencyMs": {
+              "type": "number"
+            },
+            "query": {
+              "type": "string"
+            },
+            "requestId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "latencyMs",
+            "query",
+            "requestId"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "items",
+        "metadata"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

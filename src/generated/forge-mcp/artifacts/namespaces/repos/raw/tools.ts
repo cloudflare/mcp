@@ -43,6 +43,9 @@ export const tools: readonly Tool[] = [
         "path"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

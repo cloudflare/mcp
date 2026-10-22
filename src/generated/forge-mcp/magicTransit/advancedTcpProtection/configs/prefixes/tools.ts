@@ -30,6 +30,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dos_api-response-common",
+      $defs: {
+        "dos_api-response-common": dos_api_response_common_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -87,6 +94,12 @@ export const tools: readonly Tool[] = [
         "dos_NewPrefix": dos_NewPrefix,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dos_Prefix",
+      $defs: {
+        "dos_Prefix": dos_Prefix_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -142,6 +155,13 @@ export const tools: readonly Tool[] = [
         "prefix_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dos_api-response-common",
+      $defs: {
+        "dos_api-response-common": dos_api_response_common_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -195,6 +215,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "prefix_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dos_Prefix",
+      $defs: {
+        "dos_Prefix": dos_Prefix_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -261,6 +287,43 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dos_Prefix"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dos_Prefix": dos_Prefix_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -360,6 +423,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dos_PrefixUpdate": dos_PrefixUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dos_Prefix",
+      $defs: {
+        "dos_Prefix": dos_Prefix_output,
       },
     },
     annotations: {

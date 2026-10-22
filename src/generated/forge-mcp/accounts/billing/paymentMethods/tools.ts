@@ -37,6 +37,12 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_payment_method": bill_subs_api_payment_method,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_payment_method",
+      $defs: {
+        "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -192,6 +198,12 @@ export const tools: readonly Tool[] = [
         "payment_method_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_payment_method",
+      $defs: {
+        "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -267,6 +279,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_payment_method"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/bill-subs-api_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_result_info": bill_subs_api_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -447,6 +480,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "bill-subs-api_payment_method": bill_subs_api_payment_method,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_payment_method",
+      $defs: {
+        "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
       },
     },
     annotations: {

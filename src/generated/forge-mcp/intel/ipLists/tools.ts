@@ -32,6 +32,27 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel_ip-list"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/intel_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "intel_ip-list": intel_ip_list_output,
+        "intel_result_info": intel_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

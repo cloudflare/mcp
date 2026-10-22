@@ -39,6 +39,30 @@ export const tools: readonly Tool[] = [
         "identifier"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/stream_captions"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "stream_caption_status": stream_caption_status_output,
+        "stream_captions": stream_captions_output,
+        "stream_generated_caption": stream_generated_caption_output,
+        "stream_label": stream_label_output,
+        "stream_language": stream_language_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

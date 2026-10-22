@@ -30,6 +30,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_status",
+      $defs: {
+        "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -95,6 +101,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "waf-product-api-bundle_status": waf_product_api_bundle_status,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_status",
+      $defs: {
+        "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
       },
     },
     annotations: {

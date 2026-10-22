@@ -44,6 +44,18 @@ export const tools: readonly Tool[] = [
         "email_email": email_email,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_destination_address_properties",
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -117,6 +129,18 @@ export const tools: readonly Tool[] = [
         "destination_address_identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_destination_address_properties",
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -188,6 +212,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "destination_address_identifier"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_destination_address_properties",
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -284,6 +320,46 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_destination_address_properties"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -397,6 +473,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email_update_destination_address_properties": email_update_destination_address_properties,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_destination_address_properties",
+      $defs: {
+        "email_created": email_created_output,
+        "email_destination_address_identifier": email_destination_address_identifier_output,
+        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_tag": email_destination_address_tag_output,
+        "email_email": email_email_output,
+        "email_modified": email_modified_output,
+        "email_verified": email_verified_output,
       },
     },
     annotations: {

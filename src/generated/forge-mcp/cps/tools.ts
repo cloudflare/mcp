@@ -23,6 +23,14 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {},
     },
+    outputSchema: {
+      "$ref": "#/$defs/cps_communication_preferences",
+      $defs: {
+        "cps_communication_preferences": cps_communication_preferences_output,
+        "cps_communication_preferences_email": cps_communication_preferences_email_output,
+        "cps_customer_preference": cps_customer_preference_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -86,6 +94,14 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cps_update_communication_preferences_request": cps_update_communication_preferences_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cps_communication_preferences",
+      $defs: {
+        "cps_communication_preferences": cps_communication_preferences_output,
+        "cps_communication_preferences_email": cps_communication_preferences_email_output,
+        "cps_customer_preference": cps_customer_preference_output,
       },
     },
     annotations: {

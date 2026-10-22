@@ -65,6 +65,101 @@ export const tools: readonly Tool[] = [
         "domain"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "details_0": {
+          "properties": {
+            "bucket": {
+              "type": "string"
+            },
+            "categories": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "superCategoryId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "superCategoryId"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "rank": {
+              "type": "integer"
+            },
+            "top_locations": {
+              "items": {
+                "properties": {
+                  "locationCode": {
+                    "type": "string"
+                  },
+                  "locationName": {
+                    "type": "string"
+                  },
+                  "rank": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "locationCode",
+                  "locationName",
+                  "rank"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "categories"
+          ],
+          "type": "object"
+        },
+        "meta": {
+          "properties": {
+            "dateRange": {
+              "items": {
+                "properties": {
+                  "endTime": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "startTime": {
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "endTime",
+                  "startTime"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "dateRange"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "details_0",
+        "meta"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

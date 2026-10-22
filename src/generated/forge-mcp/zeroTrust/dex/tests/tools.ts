@@ -67,6 +67,21 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_device-dex-test-schemas-description": digital_experience_monitoring_device_dex_test_schemas_description_output,
+        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital_experience_monitoring_device_dex_test_schemas_enabled_output,
+        "digital-experience-monitoring_device-dex-test-schemas-http": digital_experience_monitoring_device_dex_test_schemas_http_output,
+        "digital-experience-monitoring_device-dex-test-schemas-interval": digital_experience_monitoring_device_dex_test_schemas_interval_output,
+        "digital-experience-monitoring_device-dex-test-schemas-name": digital_experience_monitoring_device_dex_test_schemas_name_output,
+        "digital-experience-monitoring_device-dex-test-target-policies": digital_experience_monitoring_device_dex_test_target_policies_output,
+        "digital-experience-monitoring_dex_target_policy": digital_experience_monitoring_dex_target_policy_output,
+        "digital-experience-monitoring_schemas-test-id": digital_experience_monitoring_schemas_test_id_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -130,6 +145,29 @@ export const tools: readonly Tool[] = [
         "account_id",
         "dex_test_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "dex_tests": {
+          "items": {
+            "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_device-dex-test-schemas-description": digital_experience_monitoring_device_dex_test_schemas_description_output,
+        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital_experience_monitoring_device_dex_test_schemas_enabled_output,
+        "digital-experience-monitoring_device-dex-test-schemas-http": digital_experience_monitoring_device_dex_test_schemas_http_output,
+        "digital-experience-monitoring_device-dex-test-schemas-interval": digital_experience_monitoring_device_dex_test_schemas_interval_output,
+        "digital-experience-monitoring_device-dex-test-schemas-name": digital_experience_monitoring_device_dex_test_schemas_name_output,
+        "digital-experience-monitoring_device-dex-test-target-policies": digital_experience_monitoring_device_dex_test_target_policies_output,
+        "digital-experience-monitoring_dex_target_policy": digital_experience_monitoring_dex_target_policy_output,
+        "digital-experience-monitoring_schemas-test-id": digital_experience_monitoring_schemas_test_id_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -201,6 +239,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "dex_test_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_device-dex-test-schemas-description": digital_experience_monitoring_device_dex_test_schemas_description_output,
+        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital_experience_monitoring_device_dex_test_schemas_enabled_output,
+        "digital-experience-monitoring_device-dex-test-schemas-http": digital_experience_monitoring_device_dex_test_schemas_http_output,
+        "digital-experience-monitoring_device-dex-test-schemas-interval": digital_experience_monitoring_device_dex_test_schemas_interval_output,
+        "digital-experience-monitoring_device-dex-test-schemas-name": digital_experience_monitoring_device_dex_test_schemas_name_output,
+        "digital-experience-monitoring_device-dex-test-target-policies": digital_experience_monitoring_device_dex_test_target_policies_output,
+        "digital-experience-monitoring_dex_target_policy": digital_experience_monitoring_dex_target_policy_output,
+        "digital-experience-monitoring_schemas-test-id": digital_experience_monitoring_schemas_test_id_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -284,6 +337,35 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_device-dex-test-schemas-description": digital_experience_monitoring_device_dex_test_schemas_description_output,
+        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital_experience_monitoring_device_dex_test_schemas_enabled_output,
+        "digital-experience-monitoring_device-dex-test-schemas-http": digital_experience_monitoring_device_dex_test_schemas_http_output,
+        "digital-experience-monitoring_device-dex-test-schemas-interval": digital_experience_monitoring_device_dex_test_schemas_interval_output,
+        "digital-experience-monitoring_device-dex-test-schemas-name": digital_experience_monitoring_device_dex_test_schemas_name_output,
+        "digital-experience-monitoring_device-dex-test-target-policies": digital_experience_monitoring_device_dex_test_target_policies_output,
+        "digital-experience-monitoring_dex_target_policy": digital_experience_monitoring_dex_target_policy_output,
+        "digital-experience-monitoring_schemas-test-id": digital_experience_monitoring_schemas_test_id_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -384,6 +466,21 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_device-dex-test-target-policies": digital_experience_monitoring_device_dex_test_target_policies,
         "digital-experience-monitoring_dex_target_policy": digital_experience_monitoring_dex_target_policy,
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_device-dex-test-schemas-description": digital_experience_monitoring_device_dex_test_schemas_description_output,
+        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital_experience_monitoring_device_dex_test_schemas_enabled_output,
+        "digital-experience-monitoring_device-dex-test-schemas-http": digital_experience_monitoring_device_dex_test_schemas_http_output,
+        "digital-experience-monitoring_device-dex-test-schemas-interval": digital_experience_monitoring_device_dex_test_schemas_interval_output,
+        "digital-experience-monitoring_device-dex-test-schemas-name": digital_experience_monitoring_device_dex_test_schemas_name_output,
+        "digital-experience-monitoring_device-dex-test-target-policies": digital_experience_monitoring_device_dex_test_target_policies_output,
+        "digital-experience-monitoring_dex_target_policy": digital_experience_monitoring_dex_target_policy_output,
+        "digital-experience-monitoring_schemas-test-id": digital_experience_monitoring_schemas_test_id_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
       },
     },
     annotations: {

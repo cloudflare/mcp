@@ -44,6 +44,13 @@ export const tools: readonly Tool[] = [
         "art_Filter": art_Filter,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/art_SummaryResult",
+      $defs: {
+        "art_ResultValues": art_ResultValues_output,
+        "art_SummaryResult": art_SummaryResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -109,6 +116,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "art_DataSecurityFindingsTimeseriesQuery": art_DataSecurityFindingsTimeseriesQuery,
         "art_Filter": art_Filter,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesResult",
+      $defs: {
+        "art_DataSecurityFindingsTimeseriesResult": art_DataSecurityFindingsTimeseriesResult_output,
+        "art_ResultValues": art_ResultValues_output,
       },
     },
     annotations: {

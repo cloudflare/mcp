@@ -58,6 +58,36 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp,
       },
     },
+    outputSchema: {
+      "properties": {
+        "deviceStats": {
+          "properties": {
+            "byMode": {
+              "items": {
+                "$ref": "#/$defs/digital-experience-monitoring_schemas-aggregate_stat"
+              },
+              "type": "array"
+            },
+            "byStatus": {
+              "items": {
+                "$ref": "#/$defs/digital-experience-monitoring_schemas-aggregate_stat"
+              },
+              "type": "array"
+            },
+            "uniqueDevicesTotal": {
+              "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "digital-experience-monitoring_schemas-aggregate_stat": digital_experience_monitoring_schemas_aggregate_stat_output,
+        "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
+        "digital-experience-monitoring_uniqueDevicesTotal": digital_experience_monitoring_uniqueDevicesTotal_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

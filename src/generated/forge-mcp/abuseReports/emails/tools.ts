@@ -48,6 +48,23 @@ export const tools: readonly Tool[] = [
         "report_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "emails": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_EmailListItem"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "emails"
+      ],
+      "type": "object",
+      $defs: {
+        "abuse-reports_EmailListItem": abuse_reports_EmailListItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -178,6 +195,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "report_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/abuse-reports_EmailListResponse_result",
+      $defs: {
+        "abuse-reports_EmailListItem": abuse_reports_EmailListItem_output,
+        "abuse-reports_EmailListResponse_result": abuse_reports_EmailListResponse_result_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

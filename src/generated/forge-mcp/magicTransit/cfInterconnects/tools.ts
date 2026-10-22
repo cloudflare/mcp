@@ -68,6 +68,37 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "modified": {
+          "type": "boolean"
+        },
+        "modified_interconnects": {
+          "items": {
+            "$ref": "#/$defs/magic_interconnect"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_components-schemas-name": magic_components_schemas_name_output,
+        "magic_gre": magic_gre_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interconnect": magic_interconnect_output,
+        "magic_interconnect_bgp_config": magic_interconnect_bgp_config_output,
+        "magic_interconnect_components-schemas-description": magic_interconnect_components_schemas_description_output,
+        "magic_interconnect_health_check": magic_interconnect_health_check_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_interface_address_interconnect": magic_interface_address_interconnect_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_schemas-mtu": magic_schemas_mtu_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -162,6 +193,31 @@ export const tools: readonly Tool[] = [
         "cf_interconnect_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "interconnect": {
+          "$ref": "#/$defs/magic_interconnect"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_components-schemas-name": magic_components_schemas_name_output,
+        "magic_gre": magic_gre_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interconnect": magic_interconnect_output,
+        "magic_interconnect_bgp_config": magic_interconnect_bgp_config_output,
+        "magic_interconnect_components-schemas-description": magic_interconnect_components_schemas_description_output,
+        "magic_interconnect_health_check": magic_interconnect_health_check_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_interface_address_interconnect": magic_interface_address_interconnect_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_schemas-mtu": magic_schemas_mtu_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -245,6 +301,34 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "interconnects": {
+          "items": {
+            "$ref": "#/$defs/magic_interconnect"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_components-schemas-name": magic_components_schemas_name_output,
+        "magic_gre": magic_gre_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interconnect": magic_interconnect_output,
+        "magic_interconnect_bgp_config": magic_interconnect_bgp_config_output,
+        "magic_interconnect_components-schemas-description": magic_interconnect_components_schemas_description_output,
+        "magic_interconnect_health_check": magic_interconnect_health_check_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_interface_address_interconnect": magic_interface_address_interconnect_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_schemas-mtu": magic_schemas_mtu_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -354,6 +438,34 @@ export const tools: readonly Tool[] = [
         "magic_interface_address6": magic_interface_address6,
         "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_schemas-mtu": magic_schemas_mtu,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "modified": {
+          "type": "boolean"
+        },
+        "modified_interconnect": {
+          "$ref": "#/$defs/magic_interconnect"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_automatic_return_routing": magic_automatic_return_routing_output,
+        "magic_components-schemas-name": magic_components_schemas_name_output,
+        "magic_gre": magic_gre_output,
+        "magic_health_check_base_target": magic_health_check_base_target_output,
+        "magic_health_check_target": magic_health_check_target_output,
+        "magic_interconnect": magic_interconnect_output,
+        "magic_interconnect_bgp_config": magic_interconnect_bgp_config_output,
+        "magic_interconnect_components-schemas-description": magic_interconnect_components_schemas_description_output,
+        "magic_interconnect_health_check": magic_interconnect_health_check_output,
+        "magic_interface_address6": magic_interface_address6_output,
+        "magic_interface_address_interconnect": magic_interface_address_interconnect_output,
+        "magic_schemas-created_on": magic_schemas_created_on_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+        "magic_schemas-modified_on": magic_schemas_modified_on_output,
+        "magic_schemas-mtu": magic_schemas_mtu_output,
       },
     },
     annotations: {

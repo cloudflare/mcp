@@ -46,6 +46,23 @@ export const tools: readonly Tool[] = [
         "to"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/digital-experience-monitoring_colos_response"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "digital-experience-monitoring_colos_response": digital_experience_monitoring_colos_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

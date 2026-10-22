@@ -44,6 +44,25 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "durableObjectId": {
+          "type": "string"
+        },
+        "indicatorType": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "durableObjectId",
+        "indicatorType",
+        "message"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

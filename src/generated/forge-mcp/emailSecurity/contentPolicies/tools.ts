@@ -134,6 +134,34 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "deletes": {
+          "items": {
+            "$ref": "#/$defs/email-security_DeletedContentPolicy"
+          },
+          "type": "array"
+        },
+        "patches": {
+          "$ref": "#/$defs/email-security_ContentPolicyList"
+        },
+        "posts": {
+          "$ref": "#/$defs/email-security_ContentPolicyList"
+        },
+        "puts": {
+          "$ref": "#/$defs/email-security_ContentPolicyList"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "email-security_ContentPolicy": email_security_ContentPolicy_output,
+        "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
+        "email-security_ContentPolicyList": email_security_ContentPolicyList_output,
+        "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_DeletedContentPolicy": email_security_DeletedContentPolicy_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -216,6 +244,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_ContentPolicy",
+      $defs: {
+        "email-security_ContentPolicy": email_security_ContentPolicy_output,
+        "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
+        "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -277,6 +314,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_ContentPolicyId": email_security_ContentPolicyId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_DeletedContentPolicy",
+      $defs: {
+        "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
+        "email-security_DeletedContentPolicy": email_security_DeletedContentPolicy_output,
       },
     },
     annotations: {
@@ -345,6 +389,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_ContentPolicy",
+      $defs: {
+        "email-security_ContentPolicy": email_security_ContentPolicy_output,
+        "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
+        "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -406,6 +459,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_ContentPolicyId": email_security_ContentPolicyId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_ContentPolicy",
+      $defs: {
+        "email-security_ContentPolicy": email_security_ContentPolicy_output,
+        "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
+        "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {
@@ -505,6 +567,41 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email-security_ContentPolicyList"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_ContentPolicy": email_security_ContentPolicy_output,
+        "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
+        "email-security_ContentPolicyList": email_security_ContentPolicyList_output,
+        "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {

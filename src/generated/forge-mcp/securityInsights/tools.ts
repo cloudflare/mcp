@@ -76,6 +76,13 @@ export const tools: readonly Tool[] = [
         "security-center_userClassificationUpdate": security_center_userClassificationUpdate,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_api-response-common",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -143,6 +150,13 @@ export const tools: readonly Tool[] = [
         "issue_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_api-response-common",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -262,6 +276,38 @@ export const tools: readonly Tool[] = [
         "security-center_sources": security_center_sources,
         "security-center_subject": security_center_subject,
         "security-center_subjects": security_center_subjects,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "count": {
+          "$ref": "#/$defs/security-center_count"
+        },
+        "issues": {
+          "items": {
+            "$ref": "#/$defs/security-center_issue"
+          },
+          "type": "array"
+        },
+        "page": {
+          "$ref": "#/$defs/security-center_page"
+        },
+        "per_page": {
+          "$ref": "#/$defs/security-center_perPage"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "security-center_count": security_center_count_output,
+        "security-center_issue": security_center_issue_output,
+        "security-center_issueClass": security_center_issueClass_output,
+        "security-center_issueType": security_center_issueType_output,
+        "security-center_issue_payload": security_center_issue_payload_output,
+        "security-center_page": security_center_page_output,
+        "security-center_perPage": security_center_perPage_output,
+        "security-center_source": security_center_source_output,
+        "security-center_subject": security_center_subject_output,
+        "security-center_userClassification": security_center_userClassification_output,
       },
     },
     annotations: {

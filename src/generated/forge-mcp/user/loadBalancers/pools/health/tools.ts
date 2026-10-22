@@ -28,6 +28,32 @@ export const tools: readonly Tool[] = [
         "pool_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "pool_id": {
+          "type": "string"
+        },
+        "pop_health": {
+          "properties": {
+            "healthy": {
+              "type": "boolean"
+            },
+            "origins": {
+              "items": {
+                "$ref": "#/$defs/load-balancing_origin-health"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "load-balancing_origin-health": load_balancing_origin_health_output,
+        "load-balancing_origin-health_ip": load_balancing_origin_health_ip_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

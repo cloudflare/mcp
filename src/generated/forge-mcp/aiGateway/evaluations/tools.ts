@@ -54,6 +54,194 @@ export const tools: readonly Tool[] = [
         "gateway_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "datasets": {
+          "items": {
+            "properties": {
+              "account_id": {
+                "type": "string"
+              },
+              "account_tag": {
+                "type": "string"
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "enable": {
+                "type": "boolean"
+              },
+              "filters": {
+                "items": {
+                  "properties": {
+                    "key": {
+                      "enum": [
+                        "created_at",
+                        "request_content_type",
+                        "response_content_type",
+                        "success",
+                        "cached",
+                        "provider",
+                        "model",
+                        "cost",
+                        "tokens",
+                        "tokens_in",
+                        "tokens_out",
+                        "duration",
+                        "feedback"
+                      ],
+                      "type": "string"
+                    },
+                    "operator": {
+                      "enum": [
+                        "eq",
+                        "contains",
+                        "lt",
+                        "gt"
+                      ],
+                      "type": "string"
+                    },
+                    "value": {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "operator",
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "gateway_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "account_id",
+              "account_tag",
+              "created_at",
+              "enable",
+              "filters",
+              "gateway_id",
+              "id",
+              "modified_at",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "processed": {
+          "type": "boolean"
+        },
+        "results": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "evaluation_id": {
+                "type": "string"
+              },
+              "evaluation_type_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "result": {
+                "type": "string"
+              },
+              "status": {
+                "type": "number"
+              },
+              "status_description": {
+                "type": "string"
+              },
+              "total_logs": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "created_at",
+              "evaluation_id",
+              "evaluation_type_id",
+              "id",
+              "modified_at",
+              "result",
+              "status",
+              "status_description",
+              "total_logs"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "total_logs": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "created_at",
+        "datasets",
+        "gateway_id",
+        "id",
+        "modified_at",
+        "name",
+        "processed",
+        "results",
+        "total_logs"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -342,6 +530,194 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "datasets": {
+          "items": {
+            "properties": {
+              "account_id": {
+                "type": "string"
+              },
+              "account_tag": {
+                "type": "string"
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "enable": {
+                "type": "boolean"
+              },
+              "filters": {
+                "items": {
+                  "properties": {
+                    "key": {
+                      "enum": [
+                        "created_at",
+                        "request_content_type",
+                        "response_content_type",
+                        "success",
+                        "cached",
+                        "provider",
+                        "model",
+                        "cost",
+                        "tokens",
+                        "tokens_in",
+                        "tokens_out",
+                        "duration",
+                        "feedback"
+                      ],
+                      "type": "string"
+                    },
+                    "operator": {
+                      "enum": [
+                        "eq",
+                        "contains",
+                        "lt",
+                        "gt"
+                      ],
+                      "type": "string"
+                    },
+                    "value": {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "operator",
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "gateway_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "account_id",
+              "account_tag",
+              "created_at",
+              "enable",
+              "filters",
+              "gateway_id",
+              "id",
+              "modified_at",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "processed": {
+          "type": "boolean"
+        },
+        "results": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "evaluation_id": {
+                "type": "string"
+              },
+              "evaluation_type_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "result": {
+                "type": "string"
+              },
+              "status": {
+                "type": "number"
+              },
+              "status_description": {
+                "type": "string"
+              },
+              "total_logs": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "created_at",
+              "evaluation_id",
+              "evaluation_type_id",
+              "id",
+              "modified_at",
+              "result",
+              "status",
+              "status_description",
+              "total_logs"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "total_logs": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "created_at",
+        "datasets",
+        "gateway_id",
+        "id",
+        "modified_at",
+        "name",
+        "processed",
+        "results",
+        "total_logs"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -621,6 +997,194 @@ export const tools: readonly Tool[] = [
         "gateway_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "datasets": {
+          "items": {
+            "properties": {
+              "account_id": {
+                "type": "string"
+              },
+              "account_tag": {
+                "type": "string"
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "enable": {
+                "type": "boolean"
+              },
+              "filters": {
+                "items": {
+                  "properties": {
+                    "key": {
+                      "enum": [
+                        "created_at",
+                        "request_content_type",
+                        "response_content_type",
+                        "success",
+                        "cached",
+                        "provider",
+                        "model",
+                        "cost",
+                        "tokens",
+                        "tokens_in",
+                        "tokens_out",
+                        "duration",
+                        "feedback"
+                      ],
+                      "type": "string"
+                    },
+                    "operator": {
+                      "enum": [
+                        "eq",
+                        "contains",
+                        "lt",
+                        "gt"
+                      ],
+                      "type": "string"
+                    },
+                    "value": {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "operator",
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "gateway_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "account_id",
+              "account_tag",
+              "created_at",
+              "enable",
+              "filters",
+              "gateway_id",
+              "id",
+              "modified_at",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "processed": {
+          "type": "boolean"
+        },
+        "results": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "evaluation_id": {
+                "type": "string"
+              },
+              "evaluation_type_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "result": {
+                "type": "string"
+              },
+              "status": {
+                "type": "number"
+              },
+              "status_description": {
+                "type": "string"
+              },
+              "total_logs": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "created_at",
+              "evaluation_id",
+              "evaluation_type_id",
+              "id",
+              "modified_at",
+              "result",
+              "status",
+              "status_description",
+              "total_logs"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "total_logs": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "created_at",
+        "datasets",
+        "gateway_id",
+        "id",
+        "modified_at",
+        "name",
+        "processed",
+        "results",
+        "total_logs"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -916,6 +1480,208 @@ export const tools: readonly Tool[] = [
         "account_id",
         "gateway_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "datasets": {
+                "items": {
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    },
+                    "account_tag": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "enable": {
+                      "type": "boolean"
+                    },
+                    "filters": {
+                      "items": {
+                        "properties": {
+                          "key": {
+                            "enum": [
+                              "created_at",
+                              "request_content_type",
+                              "response_content_type",
+                              "success",
+                              "cached",
+                              "provider",
+                              "model",
+                              "cost",
+                              "tokens",
+                              "tokens_in",
+                              "tokens_out",
+                              "duration",
+                              "feedback"
+                            ],
+                            "type": "string"
+                          },
+                          "operator": {
+                            "enum": [
+                              "eq",
+                              "contains",
+                              "lt",
+                              "gt"
+                            ],
+                            "type": "string"
+                          },
+                          "value": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "key",
+                          "operator",
+                          "value"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "gateway_id": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "modified_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "account_id",
+                    "account_tag",
+                    "created_at",
+                    "enable",
+                    "filters",
+                    "gateway_id",
+                    "id",
+                    "modified_at",
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "gateway_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "processed": {
+                "type": "boolean"
+              },
+              "results": {
+                "items": {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "evaluation_id": {
+                      "type": "string"
+                    },
+                    "evaluation_type_id": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "modified_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "number"
+                    },
+                    "status_description": {
+                      "type": "string"
+                    },
+                    "total_logs": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "evaluation_id",
+                    "evaluation_type_id",
+                    "id",
+                    "modified_at",
+                    "result",
+                    "status",
+                    "status_description",
+                    "total_logs"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "total_logs": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "created_at",
+              "datasets",
+              "gateway_id",
+              "id",
+              "modified_at",
+              "name",
+              "processed",
+              "results",
+              "total_logs"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

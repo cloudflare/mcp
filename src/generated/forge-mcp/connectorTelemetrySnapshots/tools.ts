@@ -50,6 +50,22 @@ export const tools: readonly Tool[] = [
         "snapshot_t"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mconn-telemetry_snapshot",
+      $defs: {
+        "mconn-telemetry_snapshot": mconn_telemetry_snapshot_output,
+        "mconn-telemetry_snapshot_bond": mconn_telemetry_snapshot_bond_output,
+        "mconn-telemetry_snapshot_dhcp_lease": mconn_telemetry_snapshot_dhcp_lease_output,
+        "mconn-telemetry_snapshot_disk": mconn_telemetry_snapshot_disk_output,
+        "mconn-telemetry_snapshot_interface": mconn_telemetry_snapshot_interface_output,
+        "mconn-telemetry_snapshot_interface_address": mconn_telemetry_snapshot_interface_address_output,
+        "mconn-telemetry_snapshot_mount": mconn_telemetry_snapshot_mount_output,
+        "mconn-telemetry_snapshot_netdev": mconn_telemetry_snapshot_netdev_output,
+        "mconn-telemetry_snapshot_route": mconn_telemetry_snapshot_route_output,
+        "mconn-telemetry_snapshot_thermal": mconn_telemetry_snapshot_thermal_output,
+        "mconn-telemetry_snapshot_tunnel": mconn_telemetry_snapshot_tunnel_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -148,6 +164,13 @@ export const tools: readonly Tool[] = [
         "from",
         "to"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mconn-telemetry_customer_snapshots_list_result",
+      $defs: {
+        "mconn-telemetry_customer_snapshots_list_result": mconn_telemetry_customer_snapshots_list_result_output,
+        "mconn-telemetry_snapshot_metadata": mconn_telemetry_snapshot_metadata_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

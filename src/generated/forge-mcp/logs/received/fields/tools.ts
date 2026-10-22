@@ -28,6 +28,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/logshare_fields_response",
+      $defs: {
+        "logshare_fields_response": logshare_fields_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

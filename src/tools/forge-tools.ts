@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
-import type { McpServer, CallToolResult } from '@modelcontextprotocol/server'
+import { PROTOCOL_VERSION_META_KEY } from '@modelcontextprotocol/server'
+import type { McpServer, CallToolResult, ServerContext } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { getForgeToolList } from '../isolate-cache'
@@ -35,19 +36,28 @@ function forgeTools() {
  * that request with the session's token, which never leaves this Worker. A
  * refused call is explained, and asks for a step-up when a missing OAuth scope
  * would let it through, as the other direct tools do.
+ *
+ * With `outputSchema` (`&experimentalOutputSchema=true`), a 2026-07-28 request
+ * lists each tool with its generated output schema, and a successful call
+ * returns the whole response body as `structuredContent`, never truncated.
  */
 export function registerForgeTools(
   server: McpServer,
   props: AuthProps,
   formatResult: FormatToolResult,
   connection: Connection,
-  scopeChallenge: ScopeChallenge
+  scopeChallenge: ScopeChallenge,
+  { outputSchema = false }: { outputSchema?: boolean } = {}
 ): void {
-  server.server.setRequestHandler('tools/list', async () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...(await getForgeToolList())]
+  server.server.setRequestHandler('tools/list', async (_request, ctx) => ({
+    tools: [
+      DOCS_TOOL,
+      WHOAMI_TOOL,
+      ...(await getForgeToolList({ outputSchema: outputSchema && isModern(ctx) }))
+    ]
   }))
 
-  server.server.setRequestHandler('tools/call', async (request) => {
+  server.server.setRequestHandler('tools/call', async (request, ctx) => {
     const name = request.params.name
     const args = request.params.arguments ?? {}
     let result: CallToolResult
@@ -71,7 +81,8 @@ export function registerForgeTools(
         })) as CallPlan
         result = await callForgeTool(name, plan, props, formatResult, {
           connection,
-          scopeChallenge
+          scopeChallenge,
+          structured: outputSchema && isModern(ctx)
         })
       }
     } catch (error) {
@@ -88,7 +99,11 @@ async function callForgeTool(
   plan: CallPlan,
   props: AuthProps,
   formatResult: FormatToolResult,
-  { connection, scopeChallenge }: { connection: Connection; scopeChallenge: ScopeChallenge }
+  {
+    connection,
+    scopeChallenge,
+    structured
+  }: { connection: Connection; scopeChallenge: ScopeChallenge; structured: boolean }
 ): Promise<CallToolResult> {
   switch (plan.kind) {
     case 'unknown':
@@ -127,7 +142,7 @@ async function callForgeTool(
     })
   }
 
-  return apiCallResult(
+  const toolResult = apiCallResult(
     {
       method: plan.method,
       path: new URL(plan.url).pathname.slice(new URL(env.CLOUDFLARE_API_BASE).pathname.length),
@@ -139,6 +154,18 @@ async function callForgeTool(
     plan.accountId ? [unknownAccountHint(props, plan.accountId)] : [],
     { connection, scopeChallenge, formatResult }
   )
+  return structured && json && !toolResult.isError
+    ? { ...toolResult, structuredContent: result }
+    : toolResult
+}
+
+/**
+ * Whether the request is protocol 2026-07-28 or later. Only those carry the
+ * per-request `_meta` envelope, which names the protocol version.
+ */
+function isModern(ctx: ServerContext): boolean {
+  const envelope: Record<string, unknown> | undefined = ctx.mcpReq.envelope
+  return typeof envelope?.[PROTOCOL_VERSION_META_KEY] === 'string'
 }
 
 /** Whether `response` is JSON, including `+json` types such as `application/scim+json`. */

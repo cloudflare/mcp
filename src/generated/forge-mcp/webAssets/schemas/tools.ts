@@ -65,6 +65,23 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier-2": api_shield_identifier_2,
       },
     },
+    outputSchema: {
+      "properties": {
+        "schemas": {
+          "items": {
+            "$ref": "#/$defs/api-shield_openapi-with-thresholds"
+          },
+          "type": "array"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "api-shield_openapi-with-thresholds": api_shield_openapi_with_thresholds_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

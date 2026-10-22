@@ -51,6 +51,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_ImpersonationRegistry",
+      $defs: {
+        "email-security_ImpersonationRegistry": email_security_ImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_Provenance": email_security_Provenance_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -112,6 +121,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_DeletedImpersonationRegistry",
+      $defs: {
+        "email-security_DeletedImpersonationRegistry": email_security_DeletedImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
       },
     },
     annotations: {
@@ -180,6 +196,15 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_ImpersonationRegistry",
+      $defs: {
+        "email-security_ImpersonationRegistry": email_security_ImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_Provenance": email_security_Provenance_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -241,6 +266,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_ImpersonationRegistry",
+      $defs: {
+        "email-security_ImpersonationRegistry": email_security_ImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_Provenance": email_security_Provenance_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {
@@ -333,6 +367,41 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_Provenance": email_security_Provenance,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email-security_ImpersonationRegistryList"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_ImpersonationRegistry": email_security_ImpersonationRegistry_output,
+        "email-security_ImpersonationRegistryId": email_security_ImpersonationRegistryId_output,
+        "email-security_ImpersonationRegistryList": email_security_ImpersonationRegistryList_output,
+        "email-security_Provenance": email_security_Provenance_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {

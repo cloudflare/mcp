@@ -53,6 +53,98 @@ export const tools: readonly Tool[] = [
         "dimension"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "meta": {
+          "properties": {
+            "date": {
+              "format": "date",
+              "type": "string"
+            },
+            "domainCategories": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "lastUpdated": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "normalization": {
+              "enum": [
+                "PERCENTAGE",
+                "MIN0_MAX",
+                "MIN_MAX",
+                "RAW_VALUES",
+                "PERCENTAGE_CHANGE",
+                "ROLLING_AVERAGE",
+                "OVERLAPPED_PERCENTAGE",
+                "RATIO"
+              ],
+              "type": "string"
+            },
+            "successfulDomains": {
+              "type": "integer"
+            },
+            "totalDomains": {
+              "type": "integer"
+            },
+            "units": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "date",
+            "domainCategories",
+            "lastUpdated",
+            "normalization",
+            "successfulDomains",
+            "totalDomains",
+            "units"
+          ],
+          "type": "object"
+        },
+        "summary_0": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "meta",
+        "summary_0"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

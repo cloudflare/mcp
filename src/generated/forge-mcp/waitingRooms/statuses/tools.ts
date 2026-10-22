@@ -40,6 +40,33 @@ export const tools: readonly Tool[] = [
         "waiting_room_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "estimated_queued_users": {
+          "$ref": "#/$defs/waitingroom_estimated_queued_users"
+        },
+        "estimated_total_active_users": {
+          "$ref": "#/$defs/waitingroom_estimated_total_active_users"
+        },
+        "event_id": {
+          "$ref": "#/$defs/waitingroom_status_event_id"
+        },
+        "max_estimated_time_minutes": {
+          "$ref": "#/$defs/waitingroom_max_estimated_time_minutes"
+        },
+        "status": {
+          "$ref": "#/$defs/waitingroom_status"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "waitingroom_estimated_queued_users": waitingroom_estimated_queued_users_output,
+        "waitingroom_estimated_total_active_users": waitingroom_estimated_total_active_users_output,
+        "waitingroom_max_estimated_time_minutes": waitingroom_max_estimated_time_minutes_output,
+        "waitingroom_status": waitingroom_status_output,
+        "waitingroom_status_event_id": waitingroom_status_event_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

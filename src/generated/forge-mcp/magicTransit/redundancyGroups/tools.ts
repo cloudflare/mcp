@@ -44,6 +44,12 @@ export const tools: readonly Tool[] = [
         "magic_redundancy_member_request": magic_redundancy_member_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_redundancy_group",
+      $defs: {
+        "magic_redundancy_group": magic_redundancy_group_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -101,6 +107,24 @@ export const tools: readonly Tool[] = [
         "account_id",
         "redundancy_group_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "deleted_redundancy_group": {
+          "$ref": "#/$defs/magic_redundancy_group"
+        }
+      },
+      "required": [
+        "deleted",
+        "deleted_redundancy_group"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_redundancy_group": magic_redundancy_group_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -171,6 +195,13 @@ export const tools: readonly Tool[] = [
         "redundancy_group_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_redundancy_group_with_members",
+      $defs: {
+        "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
+        "magic_redundancy_member_data": magic_redundancy_member_data_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -223,6 +254,21 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "redundancy_groups": {
+          "items": {
+            "$ref": "#/$defs/magic_redundancy_group_with_members"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
+        "magic_redundancy_member_data": magic_redundancy_member_data_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -296,6 +342,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_create_redundancy_group_request": magic_create_redundancy_group_request,
         "magic_redundancy_member_request": magic_redundancy_member_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_redundancy_group",
+      $defs: {
+        "magic_redundancy_group": magic_redundancy_group_output,
       },
     },
     annotations: {

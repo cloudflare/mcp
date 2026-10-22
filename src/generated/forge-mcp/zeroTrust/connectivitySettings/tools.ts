@@ -53,6 +53,21 @@ export const tools: readonly Tool[] = [
         "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
       },
     },
+    outputSchema: {
+      "properties": {
+        "icmp_proxy_enabled": {
+          "$ref": "#/$defs/tunnel_icmp_proxy_enabled"
+        },
+        "offramp_warp_enabled": {
+          "$ref": "#/$defs/tunnel_offramp_warp_enabled"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled_output,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -111,6 +126,21 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "icmp_proxy_enabled": {
+          "$ref": "#/$defs/tunnel_icmp_proxy_enabled"
+        },
+        "offramp_warp_enabled": {
+          "$ref": "#/$defs/tunnel_offramp_warp_enabled"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled_output,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

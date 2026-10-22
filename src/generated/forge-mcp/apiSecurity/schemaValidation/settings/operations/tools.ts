@@ -55,6 +55,32 @@ export const tools: readonly Tool[] = [
         "api-shield_per_operation_settings_bulk_edit_value": api_shield_per_operation_settings_bulk_edit_value,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "additionalProperties": {
+                "$ref": "#/$defs/api-shield_per_operation_setting_change_base"
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_per_operation_setting_change_base": api_shield_per_operation_setting_change_base_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -132,6 +158,35 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
         "api-shield_uuid": api_shield_uuid,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "operation_id": {
+                  "$ref": "#/$defs/api-shield_uuid-2"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
       },
     },
     annotations: {
@@ -215,6 +270,31 @@ export const tools: readonly Tool[] = [
         "api-shield_uuid": api_shield_uuid,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/api-shield_per_operation_setting"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_per_operation_setting": api_shield_per_operation_setting_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -296,6 +376,35 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_per_operation_setting"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_per_operation_setting": api_shield_per_operation_setting_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
       },
     },
     annotations: {
@@ -408,6 +517,31 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
         "api-shield_uuid": api_shield_uuid,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/api-shield_per_operation_setting"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_messages": api_shield_messages_output,
+        "api-shield_per_operation_setting": api_shield_per_operation_setting_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
       },
     },
     annotations: {

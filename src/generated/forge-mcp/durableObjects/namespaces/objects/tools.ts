@@ -46,6 +46,35 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "$ref": "#/$defs/workers_cursor"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_cursor": workers_cursor_output,
+        "workers_object": workers_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

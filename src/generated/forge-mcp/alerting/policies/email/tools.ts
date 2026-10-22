@@ -47,6 +47,15 @@ export const tools: readonly Tool[] = [
         "token"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_unsubscribe_email",
+      $defs: {
+        "aaa_account-id": aaa_account_id_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_schemas-name": aaa_schemas_name_output,
+        "aaa_unsubscribe_email": aaa_unsubscribe_email_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -119,6 +128,14 @@ export const tools: readonly Tool[] = [
         "email",
         "token"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_unsubscribe_email_post",
+      $defs: {
+        "aaa_account-id": aaa_account_id_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_unsubscribe_email_post": aaa_unsubscribe_email_post_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -33,6 +33,23 @@ export const tools: readonly Tool[] = [
         "config_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "1.1.1.1": {
+          "items": {
+            "$ref": "#/$defs/cloudforce-one-port-scan-api_port"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "1.1.1.1"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudforce-one-port-scan-api_port": cloudforce_one_port_scan_api_port_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -98,6 +115,23 @@ export const tools: readonly Tool[] = [
         "account_id",
         "config_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "1.1.1.1": {
+          "items": {
+            "$ref": "#/$defs/cloudforce-one-port-scan-api_port"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "1.1.1.1"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudforce-one-port-scan-api_port": cloudforce_one_port_scan_api_port_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

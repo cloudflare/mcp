@@ -44,6 +44,114 @@ export const tools: readonly Tool[] = [
         "livestream_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "livestream": {
+              "properties": {
+                "created_at": {
+                  "type": "string"
+                },
+                "disabled": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "ingest_server": {
+                  "type": "string"
+                },
+                "meeting_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "playback_url": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "LIVE",
+                    "IDLE",
+                    "ERRORED",
+                    "INVOKED"
+                  ],
+                  "type": "string"
+                },
+                "stream_key": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "paging": {
+              "properties": {
+                "end_offset": {
+                  "type": "integer"
+                },
+                "start_offset": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "session": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "err_message": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "ingest_seconds": {
+                  "type": "number"
+                },
+                "invoked_time": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "livestream_id": {
+                  "type": "string"
+                },
+                "started_time": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "stopped_time": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "viewer_seconds": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -245,6 +353,72 @@ export const tools: readonly Tool[] = [
         "realtimekit_app_id": realtimekit_app_id,
       },
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "disabled": {
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "ingest_server": {
+              "type": "string"
+            },
+            "meeting_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "paging": {
+              "properties": {
+                "end_offset": {
+                  "type": "integer"
+                },
+                "start_offset": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "playback_url": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "LIVE",
+                "IDLE",
+                "ERRORED",
+                "INVOKED"
+              ],
+              "type": "string"
+            },
+            "stream_key": {
+              "type": "string"
+            },
+            "updated_at": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -403,6 +577,40 @@ export const tools: readonly Tool[] = [
         "realtimekit_app_id": realtimekit_app_id,
       },
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "ingest_server": {
+              "type": "string"
+            },
+            "playback_url": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "LIVE",
+                "IDLE",
+                "ERRORED",
+                "INVOKED"
+              ],
+              "type": "string"
+            },
+            "stream_key": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -491,6 +699,22 @@ export const tools: readonly Tool[] = [
         "realtimekit_account_identifier": realtimekit_account_identifier,
         "realtimekit_app_id": realtimekit_app_id,
       },
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

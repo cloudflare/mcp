@@ -40,6 +40,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_on",
+        "id",
+        "limit",
+        "name"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -260,6 +285,31 @@ export const tools: readonly Tool[] = [
         "account_id",
         "key_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "status": {
+          "enum": [
+            "ok"
+          ],
+          "type": "string"
+        },
+        "success": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "success"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -538,6 +588,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_on",
+        "id",
+        "limit",
+        "name"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -758,6 +833,51 @@ export const tools: readonly Tool[] = [
         "account_id",
         "key_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "referencing_workflows": {
+          "items": {
+            "properties": {
+              "version_id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "workflow_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "version_id",
+              "workflow_name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "created_on",
+        "id",
+        "limit",
+        "name",
+        "referencing_workflows"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1002,6 +1122,70 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_on": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "created_on",
+              "id",
+              "limit",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

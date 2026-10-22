@@ -45,6 +45,54 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "region": {
+                "$ref": "#/$defs/observatory_labeled_region"
+              },
+              "scheduleFrequency": {
+                "$ref": "#/$defs/observatory_schedule_frequency"
+              },
+              "tests": {
+                "items": {
+                  "$ref": "#/$defs/observatory_page_test"
+                },
+                "type": "array"
+              },
+              "url": {
+                "$ref": "#/$defs/observatory_url"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "observatory_device_type": observatory_device_type_output,
+        "observatory_labeled_region": observatory_labeled_region_output,
+        "observatory_lighthouse_error_code": observatory_lighthouse_error_code_output,
+        "observatory_lighthouse_report": observatory_lighthouse_report_output,
+        "observatory_lighthouse_report_error": observatory_lighthouse_report_error_output,
+        "observatory_lighthouse_state": observatory_lighthouse_state_output,
+        "observatory_page_test": observatory_page_test_output,
+        "observatory_region": observatory_region_output,
+        "observatory_schedule_frequency": observatory_schedule_frequency_output,
+        "observatory_timestamp": observatory_timestamp_output,
+        "observatory_url": observatory_url_output,
+        "observatory_uuid": observatory_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -178,6 +226,12 @@ export const tools: readonly Tool[] = [
         "observatory_device_type": observatory_device_type,
         "observatory_region": observatory_region,
         "observatory_timestamp": observatory_timestamp,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/observatory_trend",
+      $defs: {
+        "observatory_trend": observatory_trend_output,
       },
     },
     annotations: {

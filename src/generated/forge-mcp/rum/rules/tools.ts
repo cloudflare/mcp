@@ -56,6 +56,26 @@ export const tools: readonly Tool[] = [
         "rum_rule_identifier": rum_rule_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "rules": {
+          "$ref": "#/$defs/rum_rules"
+        },
+        "ruleset": {
+          "$ref": "#/$defs/rum_ruleset"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -138,6 +158,14 @@ export const tools: readonly Tool[] = [
         "rum_create-rule-request": rum_create_rule_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/rum_rule",
+      $defs: {
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_timestamp": rum_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -203,6 +231,17 @@ export const tools: readonly Tool[] = [
         "rule_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/rum_rule_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "rum_rule_identifier": rum_rule_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -264,6 +303,26 @@ export const tools: readonly Tool[] = [
         "account_id",
         "ruleset_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "rules": {
+          "$ref": "#/$defs/rum_rules"
+        },
+        "ruleset": {
+          "$ref": "#/$defs/rum_ruleset"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -346,6 +405,14 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "rum_create-rule-request": rum_create_rule_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/rum_rule",
+      $defs: {
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_timestamp": rum_timestamp_output,
       },
     },
     annotations: {

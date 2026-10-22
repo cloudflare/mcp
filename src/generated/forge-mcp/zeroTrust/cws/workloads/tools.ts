@@ -42,6 +42,12 @@ export const tools: readonly Tool[] = [
         "cws_CreateWorkloadInputBody": cws_CreateWorkloadInputBody,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_Workload",
+      $defs: {
+        "cws_Workload": cws_Workload_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -100,6 +106,12 @@ export const tools: readonly Tool[] = [
         "workload_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_DeletedResult",
+      $defs: {
+        "cws_DeletedResult": cws_DeletedResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -156,6 +168,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "workload_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_Workload",
+      $defs: {
+        "cws_Workload": cws_Workload_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -244,6 +262,34 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/cws_Workload"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/cws_ResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cws_ResultInfo": cws_ResultInfo_output,
+        "cws_Workload": cws_Workload_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -337,6 +383,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cws_UpdateWorkloadInputBody": cws_UpdateWorkloadInputBody,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_Workload",
+      $defs: {
+        "cws_Workload": cws_Workload_output,
       },
     },
     annotations: {

@@ -42,6 +42,12 @@ export const tools: readonly Tool[] = [
         "cws_CreateDeploymentInputBody": cws_CreateDeploymentInputBody,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_Deployment",
+      $defs: {
+        "cws_Deployment": cws_Deployment_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -100,6 +106,12 @@ export const tools: readonly Tool[] = [
         "deployment_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_DeletedResult",
+      $defs: {
+        "cws_DeletedResult": cws_DeletedResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -156,6 +168,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "deployment_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_Deployment",
+      $defs: {
+        "cws_Deployment": cws_Deployment_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -239,6 +257,34 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/cws_Deployment"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/cws_ResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cws_Deployment": cws_Deployment_output,
+        "cws_ResultInfo": cws_ResultInfo_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -331,6 +377,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cws_UpdateDeploymentInputBody": cws_UpdateDeploymentInputBody,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_Deployment",
+      $defs: {
+        "cws_Deployment": cws_Deployment_output,
       },
     },
     annotations: {

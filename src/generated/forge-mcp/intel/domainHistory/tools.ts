@@ -38,6 +38,30 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel_domain-history"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/intel_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "intel_domain-history": intel_domain_history_output,
+        "intel_domain-history_categorizationsItem": intel_domain_history_categorizationsItem_output,
+        "intel_domain-history_categorizationsItem_categoriesItem": intel_domain_history_categorizationsItem_categoriesItem_output,
+        "intel_domain_name": intel_domain_name_output,
+        "intel_result_info": intel_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

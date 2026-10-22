@@ -40,6 +40,13 @@ export const tools: readonly Tool[] = [
         "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache_auto_origin_tls_kex_result",
+      $defs: {
+        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
+        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -92,6 +99,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache_auto_origin_tls_kex_result",
+      $defs: {
+        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
+        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

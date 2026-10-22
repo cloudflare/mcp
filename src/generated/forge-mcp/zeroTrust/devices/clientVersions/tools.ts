@@ -52,6 +52,27 @@ export const tools: readonly Tool[] = [
         "release_track"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_client_version"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/teams-devices_pagination_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "teams-devices_client_version": teams_devices_client_version_output,
+        "teams-devices_pagination_info": teams_devices_pagination_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

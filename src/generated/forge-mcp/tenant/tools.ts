@@ -35,6 +35,17 @@ export const tools: readonly Tool[] = [
         "tenant_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_Tenant",
+      $defs: {
+        "organizations-api_Tenant": organizations_api_Tenant_output,
+        "organizations-api_TenantUnit": organizations_api_TenantUnit_output,
+        "organizations-api_Tenant_tenant_contacts": organizations_api_Tenant_tenant_contacts_output,
+        "organizations-api_Tenant_tenant_metadata": organizations_api_Tenant_tenant_metadata_output,
+        "organizations-api_Tenant_tenant_metadata_dns": organizations_api_Tenant_tenant_metadata_dns_output,
+        "organizations-api_Tenant_tenant_metadata_dns_ns_pool": organizations_api_Tenant_tenant_metadata_dns_ns_pool_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

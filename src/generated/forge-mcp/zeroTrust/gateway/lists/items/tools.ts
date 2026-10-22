@@ -53,6 +53,43 @@ export const tools: readonly Tool[] = [
         "list_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/zero-trust-gateway_items"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

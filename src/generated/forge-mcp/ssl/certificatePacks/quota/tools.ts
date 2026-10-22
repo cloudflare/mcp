@@ -32,6 +32,17 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "advanced": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_quota"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_quota": tls_certificates_and_hostnames_quota_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

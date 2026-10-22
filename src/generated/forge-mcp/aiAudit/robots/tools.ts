@@ -39,6 +39,15 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/ai-audit_bulk_robots_rules",
+      $defs: {
+        "ai-audit_bulk_robots_rules": ai_audit_bulk_robots_rules_output,
+        "ai-audit_content_signal": ai_audit_content_signal_output,
+        "ai-audit_robots_rules": ai_audit_robots_rules_output,
+        "ai-audit_user_agent_rules": ai_audit_user_agent_rules_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -114,6 +123,14 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/ai-audit_robots_rules",
+      $defs: {
+        "ai-audit_content_signal": ai_audit_content_signal_output,
+        "ai-audit_robots_rules": ai_audit_robots_rules_output,
+        "ai-audit_user_agent_rules": ai_audit_user_agent_rules_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

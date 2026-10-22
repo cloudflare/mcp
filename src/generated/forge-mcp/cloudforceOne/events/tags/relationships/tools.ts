@@ -71,6 +71,9 @@ export const tools: readonly Tool[] = [
         "tag_uuid"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -159,6 +162,14 @@ export const tools: readonly Tool[] = [
         "rel_uuid",
         "dataset_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -330,6 +341,52 @@ export const tools: readonly Tool[] = [
         "tag_uuid"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "counts": {
+          "type": "object"
+        },
+        "cursor": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "entities": {
+          "items": {
+            "$ref": "#/$defs/cloudforce-one-events_HydratedEntity"
+          },
+          "type": "array"
+        },
+        "failedShardCount": {
+          "type": "number"
+        },
+        "hasMore": {
+          "type": "boolean"
+        },
+        "hydrationErrors": {
+          "type": "object"
+        },
+        "partialResults": {
+          "type": "boolean"
+        },
+        "relationships": {
+          "items": {
+            "$ref": "#/$defs/cloudforce-one-events_RelationshipEdge"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "cloudforce-one-events_HydratedEntity": cloudforce_one_events_HydratedEntity_output,
+        "cloudforce-one-events_RelationshipEdge": cloudforce_one_events_RelationshipEdge_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -498,6 +555,9 @@ export const tools: readonly Tool[] = [
         "rel_uuid",
         "dataset_id"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

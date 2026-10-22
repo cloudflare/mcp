@@ -87,6 +87,40 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/realtimekit_Participant"
+                },
+                {
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -184,6 +218,47 @@ export const tools: readonly Tool[] = [
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
         "realtimekit_app_id": realtimekit_app_id,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "custom_participant_id": {
+                  "type": "string"
+                },
+                "preset_id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "custom_participant_id",
+                "preset_id",
+                "updated_at"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
       },
     },
     annotations: {
@@ -291,6 +366,28 @@ export const tools: readonly Tool[] = [
         "realtimekit_app_id": realtimekit_app_id,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_Participant"
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -375,6 +472,29 @@ export const tools: readonly Tool[] = [
         "app_id",
         "meeting_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_PagingResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/$defs/realtimekit_Participant"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
+        "realtimekit_PagingResponse": realtimekit_PagingResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -505,6 +625,40 @@ export const tools: readonly Tool[] = [
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
         "realtimekit_app_id": realtimekit_app_id,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/realtimekit_Participant"
+                },
+                {
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
       },
     },
     annotations: {
@@ -643,6 +797,40 @@ export const tools: readonly Tool[] = [
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
         "realtimekit_app_id": realtimekit_app_id,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/realtimekit_Participant"
+                },
+                {
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Participant": realtimekit_Participant_output,
       },
     },
     annotations: {

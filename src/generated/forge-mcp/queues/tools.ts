@@ -73,6 +73,31 @@ export const tools: readonly Tool[] = [
         "mq_queue-name": mq_queue_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/mq_queue",
+      $defs: {
+        "mq_batch-size": mq_batch_size_output,
+        "mq_consumer-response": mq_consumer_response_output,
+        "mq_http-consumer-response": mq_http_consumer_response_output,
+        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
+        "mq_identifier": mq_identifier_output,
+        "mq_jurisdiction": mq_jurisdiction_output,
+        "mq_max-concurrency": mq_max_concurrency_output,
+        "mq_max-retries": mq_max_retries_output,
+        "mq_max-wait-time": mq_max_wait_time_output,
+        "mq_producer": mq_producer_output,
+        "mq_queue": mq_queue_output,
+        "mq_queue-name": mq_queue_name_output,
+        "mq_queue-settings": mq_queue_settings_output,
+        "mq_r2-producer": mq_r2_producer_output,
+        "mq_retry-delay": mq_retry_delay_output,
+        "mq_script-name": mq_script_name_output,
+        "mq_visibility-timeout": mq_visibility_timeout_output,
+        "mq_worker-consumer-response": mq_worker_consumer_response_output,
+        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
+        "mq_worker-producer": mq_worker_producer_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -159,6 +184,14 @@ export const tools: readonly Tool[] = [
         "queue_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mq_api-v4-success",
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -232,6 +265,31 @@ export const tools: readonly Tool[] = [
         "mq_queue": mq_queue,
         "mq_queue-name": mq_queue_name,
         "mq_queue-settings": mq_queue_settings,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mq_queue",
+      $defs: {
+        "mq_batch-size": mq_batch_size_output,
+        "mq_consumer-response": mq_consumer_response_output,
+        "mq_http-consumer-response": mq_http_consumer_response_output,
+        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
+        "mq_identifier": mq_identifier_output,
+        "mq_jurisdiction": mq_jurisdiction_output,
+        "mq_max-concurrency": mq_max_concurrency_output,
+        "mq_max-retries": mq_max_retries_output,
+        "mq_max-wait-time": mq_max_wait_time_output,
+        "mq_producer": mq_producer_output,
+        "mq_queue": mq_queue_output,
+        "mq_queue-name": mq_queue_name_output,
+        "mq_queue-settings": mq_queue_settings_output,
+        "mq_r2-producer": mq_r2_producer_output,
+        "mq_retry-delay": mq_retry_delay_output,
+        "mq_script-name": mq_script_name_output,
+        "mq_visibility-timeout": mq_visibility_timeout_output,
+        "mq_worker-consumer-response": mq_worker_consumer_response_output,
+        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
+        "mq_worker-producer": mq_worker_producer_output,
       },
     },
     annotations: {
@@ -320,6 +378,31 @@ export const tools: readonly Tool[] = [
         "queue_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mq_queue",
+      $defs: {
+        "mq_batch-size": mq_batch_size_output,
+        "mq_consumer-response": mq_consumer_response_output,
+        "mq_http-consumer-response": mq_http_consumer_response_output,
+        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
+        "mq_identifier": mq_identifier_output,
+        "mq_jurisdiction": mq_jurisdiction_output,
+        "mq_max-concurrency": mq_max_concurrency_output,
+        "mq_max-retries": mq_max_retries_output,
+        "mq_max-wait-time": mq_max_wait_time_output,
+        "mq_producer": mq_producer_output,
+        "mq_queue": mq_queue_output,
+        "mq_queue-name": mq_queue_name_output,
+        "mq_queue-settings": mq_queue_settings_output,
+        "mq_r2-producer": mq_r2_producer_output,
+        "mq_retry-delay": mq_retry_delay_output,
+        "mq_script-name": mq_script_name_output,
+        "mq_visibility-timeout": mq_visibility_timeout_output,
+        "mq_worker-consumer-response": mq_worker_consumer_response_output,
+        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
+        "mq_worker-producer": mq_worker_producer_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -401,6 +484,62 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mq_queue"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "mq_batch-size": mq_batch_size_output,
+        "mq_consumer-response": mq_consumer_response_output,
+        "mq_http-consumer-response": mq_http_consumer_response_output,
+        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
+        "mq_identifier": mq_identifier_output,
+        "mq_jurisdiction": mq_jurisdiction_output,
+        "mq_max-concurrency": mq_max_concurrency_output,
+        "mq_max-retries": mq_max_retries_output,
+        "mq_max-wait-time": mq_max_wait_time_output,
+        "mq_producer": mq_producer_output,
+        "mq_queue": mq_queue_output,
+        "mq_queue-name": mq_queue_name_output,
+        "mq_queue-settings": mq_queue_settings_output,
+        "mq_r2-producer": mq_r2_producer_output,
+        "mq_retry-delay": mq_retry_delay_output,
+        "mq_script-name": mq_script_name_output,
+        "mq_visibility-timeout": mq_visibility_timeout_output,
+        "mq_worker-consumer-response": mq_worker_consumer_response_output,
+        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
+        "mq_worker-producer": mq_worker_producer_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

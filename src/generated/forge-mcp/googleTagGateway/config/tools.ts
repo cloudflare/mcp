@@ -29,6 +29,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config",
+      $defs: {
+        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -101,6 +107,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config",
+      $defs: {
+        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
       },
     },
     annotations: {

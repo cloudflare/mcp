@@ -50,6 +50,13 @@ export const tools: readonly Tool[] = [
         "art_Filter": art_Filter,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/art_SummaryResult",
+      $defs: {
+        "art_ResultValues": art_ResultValues_output,
+        "art_SummaryResult": art_SummaryResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -122,6 +129,13 @@ export const tools: readonly Tool[] = [
         "art_QueryTimeseries": art_QueryTimeseries,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/art_TimeseriesResult",
+      $defs: {
+        "art_ResultValues": art_ResultValues_output,
+        "art_TimeseriesResult": art_TimeseriesResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -192,6 +206,26 @@ export const tools: readonly Tool[] = [
       $defs: {
         "art_Filter": art_Filter,
         "art_QueryTopN": art_QueryTopN,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/art_ResultValues"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "art_ResultValues": art_ResultValues_output,
       },
     },
     annotations: {

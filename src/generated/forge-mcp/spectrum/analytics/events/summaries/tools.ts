@@ -82,6 +82,66 @@ export const tools: readonly Tool[] = [
         "spectrum-analytics_until": spectrum_analytics_until,
       },
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/$defs/spectrum-analytics_column"
+          },
+          "type": "array"
+        },
+        "data_lag": {
+          "type": "number"
+        },
+        "max": {
+          "$ref": "#/$defs/spectrum-analytics_stat"
+        },
+        "min": {
+          "$ref": "#/$defs/spectrum-analytics_stat"
+        },
+        "query": {
+          "$ref": "#/$defs/spectrum-analytics_query"
+        },
+        "rows": {
+          "type": "number"
+        },
+        "time_intervals": {
+          "items": {
+            "items": {
+              "$ref": "#/$defs/spectrum-analytics_timestamp"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "totals": {
+          "$ref": "#/$defs/spectrum-analytics_stat"
+        }
+      },
+      "required": [
+        "data",
+        "data_lag",
+        "max",
+        "min",
+        "query",
+        "rows",
+        "totals"
+      ],
+      "type": "object",
+      $defs: {
+        "spectrum-analytics_column": spectrum_analytics_column_output,
+        "spectrum-analytics_column_metrics": spectrum_analytics_column_metrics_output,
+        "spectrum-analytics_dimensions": spectrum_analytics_dimensions_output,
+        "spectrum-analytics_filters": spectrum_analytics_filters_output,
+        "spectrum-analytics_metrics": spectrum_analytics_metrics_output,
+        "spectrum-analytics_query": spectrum_analytics_query_output,
+        "spectrum-analytics_since": spectrum_analytics_since_output,
+        "spectrum-analytics_sort": spectrum_analytics_sort_output,
+        "spectrum-analytics_stat": spectrum_analytics_stat_output,
+        "spectrum-analytics_timestamp": spectrum_analytics_timestamp_output,
+        "spectrum-analytics_until": spectrum_analytics_until_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

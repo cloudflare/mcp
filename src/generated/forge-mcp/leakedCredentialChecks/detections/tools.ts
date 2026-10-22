@@ -49,6 +49,14 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_custom-detection",
+      $defs: {
+        "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -114,6 +122,23 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "detection_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/waf-product-api-bundle_api-response-common_result"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "waf-product-api-bundle_api-response-common_result": waf_product_api_bundle_api_response_common_result_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -181,6 +206,14 @@ export const tools: readonly Tool[] = [
         "detection_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_custom-detection",
+      $defs: {
+        "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -242,6 +275,28 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -331,6 +386,14 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id,
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_custom-detection",
+      $defs: {
+        "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
       },
     },
     annotations: {

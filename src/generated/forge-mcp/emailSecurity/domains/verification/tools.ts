@@ -40,6 +40,13 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_DomainVerificationInfo",
+      $defs: {
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_DomainVerificationInfo": email_security_DomainVerificationInfo_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

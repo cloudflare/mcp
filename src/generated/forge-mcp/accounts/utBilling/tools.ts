@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "speed_ut_billing_value": speed_ut_billing_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_ut_billing_response",
+      $defs: {
+        "speed_ut_billing_response": speed_ut_billing_response_output,
+        "speed_ut_billing_value": speed_ut_billing_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -108,6 +115,13 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_ut_billing_response",
+      $defs: {
+        "speed_ut_billing_response": speed_ut_billing_response_output,
+        "speed_ut_billing_value": speed_ut_billing_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

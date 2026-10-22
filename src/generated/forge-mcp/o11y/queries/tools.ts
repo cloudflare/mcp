@@ -315,6 +315,20 @@ export const tools: readonly Tool[] = [
         "workers-observability_filter_node": workers_observability_filter_node,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers-observability_query",
+      $defs: {
+        "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
+        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
+        "workers-observability_filter_node": workers_observability_filter_node_output,
+        "workers-observability_query": workers_observability_query_output,
+        "workers-observability_query_parameters": workers_observability_query_parameters_output,
+        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
+        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
+        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
+        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -516,6 +530,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "query_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers-observability_query",
+      $defs: {
+        "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
+        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
+        "workers-observability_filter_node": workers_observability_filter_node_output,
+        "workers-observability_query": workers_observability_query_output,
+        "workers-observability_query_parameters": workers_observability_query_parameters_output,
+        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
+        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
+        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
+        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -994,6 +1022,20 @@ export const tools: readonly Tool[] = [
         "workers-observability_filter_node": workers_observability_filter_node,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers-observability_query",
+      $defs: {
+        "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
+        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
+        "workers-observability_filter_node": workers_observability_filter_node_output,
+        "workers-observability_query": workers_observability_query_output,
+        "workers-observability_query_parameters": workers_observability_query_parameters_output,
+        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
+        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
+        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
+        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1195,6 +1237,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "query_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers-observability_query",
+      $defs: {
+        "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
+        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
+        "workers-observability_filter_node": workers_observability_filter_node_output,
+        "workers-observability_query": workers_observability_query_output,
+        "workers-observability_query_parameters": workers_observability_query_parameters_output,
+        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
+        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
+        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
+        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -1416,6 +1472,34 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers-observability_query"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
+        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
+        "workers-observability_filter_node": workers_observability_filter_node_output,
+        "workers-observability_query": workers_observability_query_output,
+        "workers-observability_query_parameters": workers_observability_query_parameters_output,
+        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
+        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
+        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
+        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -9,6 +9,7 @@ import {
   MCP_URL,
   mcpToolCallRequest,
   mcpToolListRequest,
+  modernMcpRequest,
   parseMcpResult,
   toolText
 } from './helpers/mcp'
@@ -233,6 +234,98 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
 
       expect(text.length).toBeLessThanOrEqual(24_000)
       expect(JSON.parse(text).result.at(-1)).toMatch(/^--- TRUNCATED --- [\d,]+ more items$/)
+    })
+  })
+
+  describe('output schemas (&experimentalOutputSchema=true)', () => {
+    const OUTPUT_URL = `${FORGE_URL}&experimentalOutputSchema=true`
+    const D1_OUTPUT = generatedTools.find((tool) => tool.name === 'd1_list')!.outputSchema
+
+    async function listModern(url: string): Promise<ListedTool[]> {
+      const req = modernMcpRequest(ACCOUNT_TOKEN, 'tools/list', {}, { url })
+      const result = (await parseMcpResult(await exports.default.fetch(req))) as unknown as {
+        result?: { tools?: ListedTool[] }
+      }
+      return result.result?.tools ?? []
+    }
+
+    async function callModern(name: string, args: Record<string, unknown>, url = OUTPUT_URL) {
+      const req = modernMcpRequest(ACCOUNT_TOKEN, 'tools/call', { name, arguments: args }, { url })
+      return parseMcpResult(await exports.default.fetch(req))
+    }
+
+    it("lists each tool's generated output schema to 2026-07-28 requests", async () => {
+      const tools = await listModern(OUTPUT_URL)
+
+      expect(D1_OUTPUT).toBeDefined()
+      expect(tools.find((tool) => tool.name === 'd1_list')?.outputSchema).toEqual(D1_OUTPUT)
+      expect(tools.find((tool) => tool.name === 'd1_list')).not.toHaveProperty('responses')
+      const withOutput = generatedTools.filter((tool) => tool.outputSchema).map((tool) => tool.name)
+      expect(tools.filter((tool) => tool.outputSchema).map((tool) => tool.name)).toEqual([
+        'docs',
+        'whoami',
+        ...withOutput
+      ])
+    })
+
+    it.each([
+      ['a 2025-era request', () => listTools(ACCOUNT_TOKEN, OUTPUT_URL)],
+      ['a request without the parameter', () => listModern(FORGE_URL)],
+      [
+        'the endpoint tools',
+        () => listModern(`${MCP_URL}?codemode=false&experimentalOutputSchema=true`)
+      ],
+      [
+        'Code Mode',
+        () => listModern(`${MCP_URL}?experimentalForge=true&experimentalOutputSchema=true`)
+      ]
+    ])('lists no generated output schemas to %s', async (_case, list) => {
+      const tools = await list()
+
+      expect(tools.length).toBeGreaterThan(0)
+      const named = tools.filter((tool) => tool.outputSchema).map((tool) => tool.name)
+      expect(named.filter((name) => name !== 'docs' && name !== 'whoami')).toEqual([])
+    })
+
+    describe('calls', () => {
+      // ~94K characters as pretty JSON, well past the ~24K-character cap.
+      const DATABASES = Array.from({ length: 2_000 }, (_, i) => ({ uuid: `db-${i}`, i }))
+
+      beforeEach(() => {
+        server.use(
+          http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, () =>
+            HttpResponse.json(cfSuccess(DATABASES))
+          ),
+          http.get(`${API_BASE}/accounts/not-mine/d1/database`, () =>
+            HttpResponse.json(cfError([{ code: 9109, message: 'Unauthorized' }]), { status: 403 })
+          )
+        )
+      })
+
+      it('returns the whole body as structuredContent, even when the text is truncated', async () => {
+        const result = await callModern('d1_list', {}, `${OUTPUT_URL}&truncateToolResult=true`)
+
+        expect(result.result?.isError).toBeFalsy()
+        expect(result.result?.structuredContent).toEqual(cfSuccess(DATABASES))
+        expect(toolText(result)).toMatch(/--- TRUNCATED ---/)
+      })
+
+      it('leaves structuredContent out of an error', async () => {
+        const result = await callModern('d1_list', { account_id: 'not-mine' })
+
+        expect(result.result?.isError).toBe(true)
+        expect(result.result).not.toHaveProperty('structuredContent')
+      })
+
+      it.each([
+        ['a 2025-era request', () => callForgeTool(ACCOUNT_TOKEN, 'd1_list', {}, OUTPUT_URL)],
+        ['a request without the parameter', () => callModern('d1_list', {}, FORGE_URL)]
+      ])('leaves structuredContent out of %s', async (_case, call) => {
+        const result = await call()
+
+        expect(result.result?.isError).toBeFalsy()
+        expect(result.result).not.toHaveProperty('structuredContent')
+      })
     })
   })
 })

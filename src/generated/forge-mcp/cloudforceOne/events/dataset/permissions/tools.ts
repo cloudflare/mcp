@@ -56,6 +56,57 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "resourceType": {
+          "enum": [
+            "dataset"
+          ],
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "read",
+            "write"
+          ],
+          "type": "string"
+        },
+        "subjectId": {
+          "type": "string"
+        },
+        "subjectType": {
+          "enum": [
+            "account",
+            "group"
+          ],
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "resourceType",
+        "role",
+        "subjectId",
+        "subjectType",
+        "updatedAt",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -187,6 +238,17 @@ export const tools: readonly Tool[] = [
         "grant_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -301,6 +363,60 @@ export const tools: readonly Tool[] = [
         "account_id",
         "dataset_id"
       ],
+    },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "resourceId": {
+            "type": "string"
+          },
+          "resourceType": {
+            "enum": [
+              "dataset"
+            ],
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "read",
+              "write"
+            ],
+            "type": "string"
+          },
+          "subjectId": {
+            "type": "string"
+          },
+          "subjectType": {
+            "enum": [
+              "account",
+              "group"
+            ],
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "resourceType",
+          "role",
+          "subjectId",
+          "subjectType",
+          "updatedAt",
+          "uuid"
+        ],
+        "type": "object"
+      },
+      "type": "array",
     },
     annotations: {
       "destructiveHint": false,
@@ -479,6 +595,17 @@ export const tools: readonly Tool[] = [
         "dataset_id",
         "grant_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

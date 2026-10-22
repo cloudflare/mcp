@@ -28,6 +28,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_sending_reputation_properties",
+      $defs: {
+        "email_ReputationPolicy": email_ReputationPolicy_output,
+        "email_ReputationThreshold": email_ReputationThreshold_output,
+        "email_sending_reputation_properties": email_sending_reputation_properties_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

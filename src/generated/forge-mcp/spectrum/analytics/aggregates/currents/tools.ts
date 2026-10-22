@@ -40,6 +40,57 @@ export const tools: readonly Tool[] = [
         "spectrum-analytics_app_id_param": spectrum_analytics_app_id_param,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "appID": {
+                "allOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/$defs/spectrum-analytics_identifier"
+                  }
+                ]
+              },
+              "bytesEgress": {
+                "type": "number"
+              },
+              "bytesIngress": {
+                "type": "number"
+              },
+              "connections": {
+                "type": "number"
+              },
+              "durationAvg": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "appID",
+              "bytesEgress",
+              "bytesIngress",
+              "connections",
+              "durationAvg"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "spectrum-analytics_identifier": spectrum_analytics_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

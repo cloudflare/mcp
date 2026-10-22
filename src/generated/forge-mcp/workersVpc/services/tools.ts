@@ -74,6 +74,23 @@ export const tools: readonly Tool[] = [
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/infra_ServiceConfig",
+      $defs: {
+        "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
+        "infra_DualStackHost": infra_DualStackHost_output,
+        "infra_HostnameHost": infra_HostnameHost_output,
+        "infra_HttpServiceConfig": infra_HttpServiceConfig_output,
+        "infra_IPv4Host": infra_IPv4Host_output,
+        "infra_IPv6Host": infra_IPv6Host_output,
+        "infra_Network": infra_Network_output,
+        "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceConfig": infra_ServiceConfig_output,
+        "infra_ServiceHost": infra_ServiceHost_output,
+        "infra_ServiceType": infra_ServiceType_output,
+        "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -179,6 +196,23 @@ export const tools: readonly Tool[] = [
         "service_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/infra_ServiceConfig",
+      $defs: {
+        "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
+        "infra_DualStackHost": infra_DualStackHost_output,
+        "infra_HostnameHost": infra_HostnameHost_output,
+        "infra_HttpServiceConfig": infra_HttpServiceConfig_output,
+        "infra_IPv4Host": infra_IPv4Host_output,
+        "infra_IPv6Host": infra_IPv6Host_output,
+        "infra_Network": infra_Network_output,
+        "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceConfig": infra_ServiceConfig_output,
+        "infra_ServiceHost": infra_ServiceHost_output,
+        "infra_ServiceType": infra_ServiceType_output,
+        "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -255,6 +289,52 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "infra_ServiceType": infra_ServiceType,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/infra_ConnectivityServiceArray"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
+        "infra_ConnectivityServiceArray": infra_ConnectivityServiceArray_output,
+        "infra_DualStackHost": infra_DualStackHost_output,
+        "infra_HostnameHost": infra_HostnameHost_output,
+        "infra_HttpServiceConfig": infra_HttpServiceConfig_output,
+        "infra_IPv4Host": infra_IPv4Host_output,
+        "infra_IPv6Host": infra_IPv6Host_output,
+        "infra_Network": infra_Network_output,
+        "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceConfig": infra_ServiceConfig_output,
+        "infra_ServiceHost": infra_ServiceHost_output,
+        "infra_ServiceType": infra_ServiceType_output,
+        "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
       },
     },
     annotations: {
@@ -366,6 +446,23 @@ export const tools: readonly Tool[] = [
         "infra_ServiceHost": infra_ServiceHost,
         "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/infra_ServiceConfig",
+      $defs: {
+        "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
+        "infra_DualStackHost": infra_DualStackHost_output,
+        "infra_HostnameHost": infra_HostnameHost_output,
+        "infra_HttpServiceConfig": infra_HttpServiceConfig_output,
+        "infra_IPv4Host": infra_IPv4Host_output,
+        "infra_IPv6Host": infra_IPv6Host_output,
+        "infra_Network": infra_Network_output,
+        "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceConfig": infra_ServiceConfig_output,
+        "infra_ServiceHost": infra_ServiceHost_output,
+        "infra_ServiceType": infra_ServiceType_output,
+        "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
       },
     },
     annotations: {

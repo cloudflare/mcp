@@ -50,6 +50,38 @@ export const tools: readonly Tool[] = [
         "source_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "code": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connectivityStatus": {
+          "enum": [
+            "ok",
+            "error"
+          ],
+          "type": "string"
+        },
+        "reason": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -145,6 +177,13 @@ export const tools: readonly Tool[] = [
         "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/images_sourcingkit_source",
+      $defs: {
+        "images_sourcingkit_source": images_sourcingkit_source_output,
+        "images_sourcingkit_vendor": images_sourcingkit_vendor_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -209,6 +248,9 @@ export const tools: readonly Tool[] = [
         "source_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -269,6 +311,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "source_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_sourcingkit_source",
+      $defs: {
+        "images_sourcingkit_source": images_sourcingkit_source_output,
+        "images_sourcingkit_vendor": images_sourcingkit_vendor_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -342,6 +391,21 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/images_sourcingkit_source"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "images_sourcingkit_source": images_sourcingkit_source_output,
+        "images_sourcingkit_vendor": images_sourcingkit_vendor_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -423,6 +487,38 @@ export const tools: readonly Tool[] = [
         "images_sourcingkit_connectivity_precheck_request": images_sourcingkit_connectivity_precheck_request,
         "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
+    },
+    outputSchema: {
+      "properties": {
+        "code": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connectivityStatus": {
+          "enum": [
+            "ok",
+            "error"
+          ],
+          "type": "string"
+        },
+        "reason": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -521,6 +617,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "images_sourcingkit_source_update_request": images_sourcingkit_source_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_sourcingkit_source",
+      $defs: {
+        "images_sourcingkit_source": images_sourcingkit_source_output,
+        "images_sourcingkit_vendor": images_sourcingkit_vendor_output,
       },
     },
     annotations: {

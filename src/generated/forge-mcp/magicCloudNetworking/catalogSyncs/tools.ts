@@ -55,6 +55,19 @@ export const tools: readonly Tool[] = [
         "mcn_create_catalog_sync_request": mcn_create_catalog_sync_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_catalog_sync",
+      $defs: {
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -134,6 +147,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "sync_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_deleted_catalog_sync",
+      $defs: {
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_deleted_catalog_sync": mcn_deleted_catalog_sync_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -216,6 +236,19 @@ export const tools: readonly Tool[] = [
         "mcn_update_catalog_sync_request": mcn_update_catalog_sync_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_catalog_sync",
+      $defs: {
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -293,6 +326,19 @@ export const tools: readonly Tool[] = [
         "sync_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_catalog_sync",
+      $defs: {
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -359,6 +405,33 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mcn_catalog_sync"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -445,6 +518,12 @@ export const tools: readonly Tool[] = [
         "sync_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_policy_result",
+      $defs: {
+        "mcn_policy_result": mcn_policy_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -523,6 +602,19 @@ export const tools: readonly Tool[] = [
       $defs: {
         "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode,
         "mcn_update_catalog_sync_request": mcn_update_catalog_sync_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_catalog_sync",
+      $defs: {
+        "mcn_catalog_sync": mcn_catalog_sync_output,
+        "mcn_catalog_sync_destination_id": mcn_catalog_sync_destination_id_output,
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_sync_id": mcn_catalog_sync_id_output,
+        "mcn_catalog_sync_update_mode": mcn_catalog_sync_update_mode_output,
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
       },
     },
     annotations: {

@@ -49,6 +49,13 @@ export const tools: readonly Tool[] = [
         "vectorize_create-metadata-index-request": vectorize_create_metadata_index_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_create-metadata-index-response",
+      $defs: {
+        "vectorize_create-metadata-index-response": vectorize_create_metadata_index_response_output,
+        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -121,6 +128,13 @@ export const tools: readonly Tool[] = [
         "vectorize_delete-metadata-index-request": vectorize_delete_metadata_index_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_delete-metadata-index-response",
+      $defs: {
+        "vectorize_delete-metadata-index-response": vectorize_delete_metadata_index_response_output,
+        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -185,6 +199,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "index_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_list-metadata-index-response",
+      $defs: {
+        "vectorize_list-metadata-index-response": vectorize_list_metadata_index_response_output,
+        "vectorize_list-metadata-index-response_metadataIndexesItem": vectorize_list_metadata_index_response_metadataIndexesItem_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

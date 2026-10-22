@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "speed_h2_prioritization_value": speed_h2_prioritization_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_h2_prioritization_response",
+      $defs: {
+        "speed_h2_prioritization_response": speed_h2_prioritization_response_output,
+        "speed_h2_prioritization_value": speed_h2_prioritization_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -114,6 +121,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_h2_prioritization_response",
+      $defs: {
+        "speed_h2_prioritization_response": speed_h2_prioritization_response_output,
+        "speed_h2_prioritization_value": speed_h2_prioritization_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

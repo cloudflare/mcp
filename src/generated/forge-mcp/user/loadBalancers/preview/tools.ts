@@ -28,6 +28,13 @@ export const tools: readonly Tool[] = [
         "preview_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_preview_result",
+      $defs: {
+        "load-balancing_origin_health_data": load_balancing_origin_health_data_output,
+        "load-balancing_preview_result": load_balancing_preview_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

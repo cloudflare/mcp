@@ -39,6 +39,24 @@ export const tools: readonly Tool[] = [
         "key_name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers-kv_list_metadata"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers-kv_any": workers_kv_any_output,
+        "workers-kv_list_metadata": workers_kv_list_metadata_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

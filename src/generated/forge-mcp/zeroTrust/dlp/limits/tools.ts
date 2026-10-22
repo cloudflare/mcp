@@ -27,6 +27,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Limits",
+      $defs: {
+        "dlp_Limits": dlp_Limits_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

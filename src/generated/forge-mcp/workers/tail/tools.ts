@@ -40,6 +40,13 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_api-response-common",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -101,6 +108,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "script_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_tail",
+      $defs: {
+        "workers_identifier": workers_identifier_output,
+        "workers_tail": workers_tail_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -168,6 +182,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "script_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_tail",
+      $defs: {
+        "workers_identifier": workers_identifier_output,
+        "workers_tail": workers_tail_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

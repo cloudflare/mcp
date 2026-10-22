@@ -26,6 +26,17 @@ export const tools: readonly Tool[] = [
         "finetune_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -115,6 +126,21 @@ export const tools: readonly Tool[] = [
         "finetune_id",
         "file_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "file_name": {
+          "type": "string"
+        },
+        "file_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "file_name",
+        "file_url"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

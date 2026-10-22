@@ -53,6 +53,71 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "config": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "output_schema": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "default",
+            "custom"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "config",
+        "created_at",
+        "id",
+        "is_active",
+        "name",
+        "output_schema",
+        "prompt",
+        "source",
+        "type",
+        "updated_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -162,6 +227,71 @@ export const tools: readonly Tool[] = [
         "skill_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "config": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "output_schema": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "default",
+            "custom"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "config",
+        "created_at",
+        "id",
+        "is_active",
+        "name",
+        "output_schema",
+        "prompt",
+        "source",
+        "type",
+        "updated_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -269,6 +399,71 @@ export const tools: readonly Tool[] = [
         "account_id",
         "skill_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "config": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "output_schema": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "default",
+            "custom"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "config",
+        "created_at",
+        "id",
+        "is_active",
+        "name",
+        "output_schema",
+        "prompt",
+        "source",
+        "type",
+        "updated_at"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -383,6 +578,102 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "custom_skills_available": {
+          "type": "boolean"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        },
+        "skills": {
+          "items": {
+            "properties": {
+              "config": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "is_active": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "output_schema": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "prompt": {
+                "type": "string"
+              },
+              "source": {
+                "enum": [
+                  "default",
+                  "custom"
+                ],
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "config",
+              "created_at",
+              "id",
+              "is_active",
+              "name",
+              "output_schema",
+              "prompt",
+              "source",
+              "type",
+              "updated_at"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "total_count": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "custom_skills_available",
+        "page",
+        "per_page",
+        "skills",
+        "total_count"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -552,6 +843,71 @@ export const tools: readonly Tool[] = [
         "account_id",
         "skill_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "config": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "output_schema": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "default",
+            "custom"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "config",
+        "created_at",
+        "id",
+        "is_active",
+        "name",
+        "output_schema",
+        "prompt",
+        "source",
+        "type",
+        "updated_at"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

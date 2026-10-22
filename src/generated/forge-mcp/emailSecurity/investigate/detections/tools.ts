@@ -52,6 +52,21 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_MessageDetectionDetails",
+      $defs: {
+        "email-security_Attachment": email_security_Attachment_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_Finding": email_security_Finding_output,
+        "email-security_Link": email_security_Link_output,
+        "email-security_MessageDetectionDetails": email_security_MessageDetectionDetails_output,
+        "email-security_MessageDetectionDetails_sender_info": email_security_MessageDetectionDetails_sender_info_output,
+        "email-security_MessageHeader": email_security_MessageHeader_output,
+        "email-security_ThreatCategory": email_security_ThreatCategory_output,
+        "email-security_Validation": email_security_Validation_output,
+        "email-security_ValidationStatus": email_security_ValidationStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

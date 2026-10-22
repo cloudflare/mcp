@@ -41,6 +41,13 @@ export const tools: readonly Tool[] = [
         "deployment_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pages_deployment_log",
+      $defs: {
+        "pages_deployment_log": pages_deployment_log_output,
+        "pages_deployment_log_dataItem": pages_deployment_log_dataItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -38,6 +38,35 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "description",
+        "name",
+        "updatedAt",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -141,6 +170,17 @@ export const tools: readonly Tool[] = [
         "group_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -238,6 +278,35 @@ export const tools: readonly Tool[] = [
         "account_id",
         "group_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "description",
+        "name",
+        "updatedAt",
+        "uuid"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

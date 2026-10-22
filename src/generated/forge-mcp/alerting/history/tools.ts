@@ -64,6 +64,35 @@ export const tools: readonly Tool[] = [
         "aaa_per_page": aaa_per_page,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_history"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_alert_body": aaa_alert_body_output,
+        "aaa_components-schemas-description": aaa_components_schemas_description_output,
+        "aaa_history": aaa_history_output,
+        "aaa_mechanism": aaa_mechanism_output,
+        "aaa_mechanism_type": aaa_mechanism_type_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_schemas-alert_type": aaa_schemas_alert_type_output,
+        "aaa_schemas-name": aaa_schemas_name_output,
+        "aaa_sent": aaa_sent_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

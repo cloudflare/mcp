@@ -46,6 +46,16 @@ export const tools: readonly Tool[] = [
         "dlp_WorkerValidatorWrite": dlp_WorkerValidatorWrite,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_WorkerValidator",
+      $defs: {
+        "dlp_AttachedEntry": dlp_AttachedEntry_output,
+        "dlp_EntryType": dlp_EntryType_output,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
+        "dlp_WorkerDefault": dlp_WorkerDefault_output,
+        "dlp_WorkerValidator": dlp_WorkerValidator_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -104,6 +114,12 @@ export const tools: readonly Tool[] = [
         "validator_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -157,6 +173,16 @@ export const tools: readonly Tool[] = [
         "validator_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_WorkerValidator",
+      $defs: {
+        "dlp_AttachedEntry": dlp_AttachedEntry_output,
+        "dlp_EntryType": dlp_EntryType_output,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
+        "dlp_WorkerDefault": dlp_WorkerDefault_output,
+        "dlp_WorkerValidator": dlp_WorkerValidator_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -209,6 +235,28 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_WorkerValidatorArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_AttachedEntry": dlp_AttachedEntry_output,
+        "dlp_EntryType": dlp_EntryType_output,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
+        "dlp_WorkerDefault": dlp_WorkerDefault_output,
+        "dlp_WorkerValidator": dlp_WorkerValidator_output,
+        "dlp_WorkerValidatorArray": dlp_WorkerValidatorArray_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -287,6 +335,16 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidatorWrite": dlp_WorkerValidatorWrite,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_WorkerValidator",
+      $defs: {
+        "dlp_AttachedEntry": dlp_AttachedEntry_output,
+        "dlp_EntryType": dlp_EntryType_output,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
+        "dlp_WorkerDefault": dlp_WorkerDefault_output,
+        "dlp_WorkerValidator": dlp_WorkerValidator_output,
       },
     },
     annotations: {

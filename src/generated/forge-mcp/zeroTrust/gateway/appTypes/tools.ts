@@ -40,6 +40,33 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_app-types"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/zero-trust-gateway_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_app-types": zero_trust_gateway_app_types_output,
+        "zero-trust-gateway_app_id": zero_trust_gateway_app_id_output,
+        "zero-trust-gateway_app_type_id": zero_trust_gateway_app_type_id_output,
+        "zero-trust-gateway_application": zero_trust_gateway_application_output,
+        "zero-trust-gateway_application_type": zero_trust_gateway_application_type_output,
+        "zero-trust-gateway_name-4": zero_trust_gateway_name_4_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

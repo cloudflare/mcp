@@ -55,6 +55,57 @@ export const tools: readonly Tool[] = [
         "to"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers-observability_agent_session"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursors": {
+              "properties": {
+                "after": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "after"
+              ],
+              "type": "object"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "cursors",
+            "per_page"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers-observability_agent_session": workers_observability_agent_session_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -479,6 +530,57 @@ export const tools: readonly Tool[] = [
         "from",
         "to"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers-observability_agent_session_run"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursors": {
+              "properties": {
+                "after": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "after"
+              ],
+              "type": "object"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "cursors",
+            "per_page"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers-observability_agent_session_run": workers_observability_agent_session_run_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

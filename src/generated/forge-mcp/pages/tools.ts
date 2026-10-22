@@ -228,6 +228,29 @@ export const tools: readonly Tool[] = [
         "pages_secret_text_env_var": pages_secret_text_env_var,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/pages_project",
+      $defs: {
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_config_values": pages_deployment_config_values_output,
+        "pages_deployment_config_values_limits": pages_deployment_config_values_limits_output,
+        "pages_deployment_config_values_placement": pages_deployment_config_values_placement_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project": pages_project_output,
+        "pages_project_build_image_auto_upgrade": pages_project_build_image_auto_upgrade_output,
+        "pages_project_deployment_configs": pages_project_deployment_configs_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -298,6 +321,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id",
         "project_name"
+      ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -532,6 +565,29 @@ export const tools: readonly Tool[] = [
         "pages_secret_text_env_var": pages_secret_text_env_var,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/pages_project",
+      $defs: {
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_config_values": pages_deployment_config_values_output,
+        "pages_deployment_config_values_limits": pages_deployment_config_values_limits_output,
+        "pages_deployment_config_values_placement": pages_deployment_config_values_placement_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project": pages_project_output,
+        "pages_project_build_image_auto_upgrade": pages_project_build_image_auto_upgrade_output,
+        "pages_project_deployment_configs": pages_project_deployment_configs_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -603,6 +659,29 @@ export const tools: readonly Tool[] = [
         "account_id",
         "project_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pages_project",
+      $defs: {
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_config_values": pages_deployment_config_values_output,
+        "pages_deployment_config_values_limits": pages_deployment_config_values_limits_output,
+        "pages_deployment_config_values_placement": pages_deployment_config_values_placement_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project": pages_project_output,
+        "pages_project_build_image_auto_upgrade": pages_project_build_image_auto_upgrade_output,
+        "pages_project_deployment_configs": pages_project_deployment_configs_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -678,6 +757,60 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/pages_project"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "pages_build_config": pages_build_config_output,
+        "pages_deployment": pages_deployment_output,
+        "pages_deployment_config_values": pages_deployment_config_values_output,
+        "pages_deployment_config_values_limits": pages_deployment_config_values_limits_output,
+        "pages_deployment_config_values_placement": pages_deployment_config_values_placement_output,
+        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
+        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
+        "pages_env_vars": pages_env_vars_output,
+        "pages_plain_text_env_var": pages_plain_text_env_var_output,
+        "pages_project": pages_project_output,
+        "pages_project_build_image_auto_upgrade": pages_project_build_image_auto_upgrade_output,
+        "pages_project_deployment_configs": pages_project_deployment_configs_output,
+        "pages_project_name": pages_project_name_output,
+        "pages_secret_text_env_var": pages_secret_text_env_var_output,
+        "pages_source": pages_source_output,
+        "pages_source_config": pages_source_config_output,
+        "pages_source_type": pages_source_type_output,
+        "pages_stage": pages_stage_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

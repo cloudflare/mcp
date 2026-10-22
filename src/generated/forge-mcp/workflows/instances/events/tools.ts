@@ -35,6 +35,22 @@ export const tools: readonly Tool[] = [
         "event_type"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "instanceId": {
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "instanceId",
+        "timestamp"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

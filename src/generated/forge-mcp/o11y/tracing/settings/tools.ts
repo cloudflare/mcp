@@ -23,6 +23,46 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "destinations": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "forward_context": {
+          "type": "boolean"
+        },
+        "persist": {
+          "type": "boolean"
+        },
+        "propagation_policy": {
+          "enum": [
+            "accept",
+            "authenticated",
+            "reject"
+          ],
+          "type": "string"
+        },
+        "sampling_ratio": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "destinations",
+        "enabled",
+        "forward_context",
+        "persist",
+        "propagation_policy",
+        "sampling_ratio"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -295,6 +335,46 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "destinations": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "forward_context": {
+          "type": "boolean"
+        },
+        "persist": {
+          "type": "boolean"
+        },
+        "propagation_policy": {
+          "enum": [
+            "accept",
+            "authenticated",
+            "reject"
+          ],
+          "type": "string"
+        },
+        "sampling_ratio": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "destinations",
+        "enabled",
+        "forward_context",
+        "persist",
+        "propagation_policy",
+        "sampling_ratio"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -608,6 +688,46 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "destinations": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "forward_context": {
+          "type": "boolean"
+        },
+        "persist": {
+          "type": "boolean"
+        },
+        "propagation_policy": {
+          "enum": [
+            "accept",
+            "authenticated",
+            "reject"
+          ],
+          "type": "string"
+        },
+        "sampling_ratio": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "destinations",
+        "enabled",
+        "forward_context",
+        "persist",
+        "propagation_policy",
+        "sampling_ratio"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

@@ -139,6 +139,20 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "status_code": {
+          "type": "integer"
+        },
+        "trace": {
+          "$ref": "#/$defs/request-tracer_trace"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "request-tracer_trace": request_tracer_trace_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

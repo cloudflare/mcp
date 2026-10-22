@@ -70,6 +70,26 @@ export const tools: readonly Tool[] = [
         "addressing_cidr": addressing_cidr,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_ipam-bgp-prefixes",
+      $defs: {
+        "addressing_advertised-2": addressing_advertised_2_output,
+        "addressing_asn-2": addressing_asn_2_output,
+        "addressing_asn_prepend_count": addressing_asn_prepend_count_output,
+        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw_output,
+        "addressing_bgp_on_demand": addressing_bgp_on_demand_output,
+        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier_output,
+        "addressing_bgp_signal_opts": addressing_bgp_signal_opts_output,
+        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled_output,
+        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_ipam-bgp-prefixes": addressing_ipam_bgp_prefixes_output,
+        "addressing_modified_at_nullable": addressing_modified_at_nullable_output,
+        "addressing_on_demand_enabled-2": addressing_on_demand_enabled_2_output,
+        "addressing_on_demand_locked-2": addressing_on_demand_locked_2_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -147,6 +167,13 @@ export const tools: readonly Tool[] = [
         "bgp_prefix_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-common",
+      $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -209,6 +236,26 @@ export const tools: readonly Tool[] = [
         "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_prefix_update_advertisement": addressing_bgp_prefix_update_advertisement,
         "addressing_bgp_prefix_update_advertisement_on_demand": addressing_bgp_prefix_update_advertisement_on_demand,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_ipam-bgp-prefixes",
+      $defs: {
+        "addressing_advertised-2": addressing_advertised_2_output,
+        "addressing_asn-2": addressing_asn_2_output,
+        "addressing_asn_prepend_count": addressing_asn_prepend_count_output,
+        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw_output,
+        "addressing_bgp_on_demand": addressing_bgp_on_demand_output,
+        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier_output,
+        "addressing_bgp_signal_opts": addressing_bgp_signal_opts_output,
+        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled_output,
+        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_ipam-bgp-prefixes": addressing_ipam_bgp_prefixes_output,
+        "addressing_modified_at_nullable": addressing_modified_at_nullable_output,
+        "addressing_on_demand_enabled-2": addressing_on_demand_enabled_2_output,
+        "addressing_on_demand_locked-2": addressing_on_demand_locked_2_output,
+        "addressing_timestamp": addressing_timestamp_output,
       },
     },
     annotations: {
@@ -295,6 +342,26 @@ export const tools: readonly Tool[] = [
         "bgp_prefix_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_ipam-bgp-prefixes",
+      $defs: {
+        "addressing_advertised-2": addressing_advertised_2_output,
+        "addressing_asn-2": addressing_asn_2_output,
+        "addressing_asn_prepend_count": addressing_asn_prepend_count_output,
+        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw_output,
+        "addressing_bgp_on_demand": addressing_bgp_on_demand_output,
+        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier_output,
+        "addressing_bgp_signal_opts": addressing_bgp_signal_opts_output,
+        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled_output,
+        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_ipam-bgp-prefixes": addressing_ipam_bgp_prefixes_output,
+        "addressing_modified_at_nullable": addressing_modified_at_nullable_output,
+        "addressing_on_demand_enabled-2": addressing_on_demand_enabled_2_output,
+        "addressing_on_demand_locked-2": addressing_on_demand_locked_2_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -375,6 +442,40 @@ export const tools: readonly Tool[] = [
         "account_id",
         "prefix_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "addressing_advertised-2": addressing_advertised_2_output,
+        "addressing_asn-2": addressing_asn_2_output,
+        "addressing_asn_prepend_count": addressing_asn_prepend_count_output,
+        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw_output,
+        "addressing_bgp_on_demand": addressing_bgp_on_demand_output,
+        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier_output,
+        "addressing_bgp_signal_opts": addressing_bgp_signal_opts_output,
+        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled_output,
+        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at_output,
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_ipam-bgp-prefixes": addressing_ipam_bgp_prefixes_output,
+        "addressing_modified_at_nullable": addressing_modified_at_nullable_output,
+        "addressing_on_demand_enabled-2": addressing_on_demand_enabled_2_output,
+        "addressing_on_demand_locked-2": addressing_on_demand_locked_2_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

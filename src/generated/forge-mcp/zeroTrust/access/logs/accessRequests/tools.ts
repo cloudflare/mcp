@@ -179,6 +179,35 @@ export const tools: readonly Tool[] = [
         "access_user_id": access_user_id,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_access-requests"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_access-requests": access_access_requests_output,
+        "access_action": access_action_output,
+        "access_allowed": access_allowed_output,
+        "access_app_domain": access_app_domain_output,
+        "access_app_uid": access_app_uid_output,
+        "access_connection": access_connection_output,
+        "access_email-3": access_email_3_output,
+        "access_ip": access_ip_output,
+        "access_ray_id": access_ray_id_output,
+        "access_timestamp": access_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

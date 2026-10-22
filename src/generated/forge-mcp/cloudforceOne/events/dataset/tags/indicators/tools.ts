@@ -106,6 +106,141 @@ export const tools: readonly Tool[] = [
         "tag_uuid"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "indicators": {
+          "items": {
+            "properties": {
+              "createdAt": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "datasetId": {
+                "type": "string"
+              },
+              "indicatorType": {
+                "type": "string"
+              },
+              "relatedEvents": {
+                "items": {
+                  "properties": {
+                    "datasetId": {
+                      "type": "string"
+                    },
+                    "eventDate": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "eventId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "datasetId",
+                    "eventId"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "relatedEventsHasMore": {
+                "type": "boolean"
+              },
+              "tags": {
+                "items": {
+                  "properties": {
+                    "categoryId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "categoryName": {
+                      "type": "string"
+                    },
+                    "uuid": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "tlp": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "updatedAt": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "createdAt",
+              "indicatorType",
+              "updatedAt",
+              "uuid",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "pagination": {
+          "properties": {
+            "page": {
+              "type": "number"
+            },
+            "pageSize": {
+              "type": "number"
+            },
+            "totalCount": {
+              "type": "number"
+            },
+            "totalPages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "page",
+            "pageSize",
+            "totalCount",
+            "totalPages"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "indicators",
+        "pagination"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

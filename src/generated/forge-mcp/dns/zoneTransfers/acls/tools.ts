@@ -64,6 +64,15 @@ export const tools: readonly Tool[] = [
         "secondary-dns_name-4": secondary_dns_name_4,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_acl",
+      $defs: {
+        "secondary-dns_acl": secondary_dns_acl_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip_range": secondary_dns_ip_range_output,
+        "secondary-dns_name-4": secondary_dns_name_4_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -133,6 +142,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "acl_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/secondary-dns_identifier-3"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -206,6 +226,15 @@ export const tools: readonly Tool[] = [
         "acl_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_acl",
+      $defs: {
+        "secondary-dns_acl": secondary_dns_acl_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip_range": secondary_dns_ip_range_output,
+        "secondary-dns_name-4": secondary_dns_name_4_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -271,6 +300,46 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/secondary-dns_acl"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "secondary-dns_acl": secondary_dns_acl_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip_range": secondary_dns_ip_range_output,
+        "secondary-dns_name-4": secondary_dns_name_4_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -381,6 +450,15 @@ export const tools: readonly Tool[] = [
         "secondary-dns_acl": secondary_dns_acl,
         "secondary-dns_ip_range": secondary_dns_ip_range,
         "secondary-dns_name-4": secondary_dns_name_4,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_acl",
+      $defs: {
+        "secondary-dns_acl": secondary_dns_acl_output,
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip_range": secondary_dns_ip_range_output,
+        "secondary-dns_name-4": secondary_dns_name_4_output,
       },
     },
     annotations: {

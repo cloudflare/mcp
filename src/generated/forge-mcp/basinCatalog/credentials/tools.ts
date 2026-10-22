@@ -41,6 +41,16 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_catalog-credential-request": r2_data_catalog_catalog_credential_request,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -113,6 +123,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/r2-data-catalog_credential-probe-status"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object",
+      $defs: {
+        "r2-data-catalog_credential-probe-status": r2_data_catalog_credential_probe_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

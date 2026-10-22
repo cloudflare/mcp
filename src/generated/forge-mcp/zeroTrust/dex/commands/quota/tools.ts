@@ -28,6 +28,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_get_commands_quota_response",
+      $defs: {
+        "digital-experience-monitoring_get_commands_quota_response": digital_experience_monitoring_get_commands_quota_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

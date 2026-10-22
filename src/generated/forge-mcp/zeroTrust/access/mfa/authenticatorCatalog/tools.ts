@@ -32,6 +32,45 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_authenticator_device_aaguid"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_aaguid": access_aaguid_output,
+        "access_authenticator_device_aaguid": access_authenticator_device_aaguid_output,
+        "access_name-14": access_name_14_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

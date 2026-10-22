@@ -31,6 +31,14 @@ export const tools: readonly Tool[] = [
         "asn_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "asn": {
+          "type": "integer"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -83,6 +91,14 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "asn": {
+          "type": "integer"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

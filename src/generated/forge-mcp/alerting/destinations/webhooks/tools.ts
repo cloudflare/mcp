@@ -72,6 +72,17 @@ export const tools: readonly Tool[] = [
         "aaa_url": aaa_url,
       },
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/aaa_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "aaa_uuid": aaa_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -148,6 +159,13 @@ export const tools: readonly Tool[] = [
         "webhook_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_api-response-common-2",
+      $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
+        "aaa_messages-3": aaa_messages_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -208,6 +226,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "webhook_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_webhooks",
+      $defs: {
+        "aaa_components-schemas-name": aaa_components_schemas_name_output,
+        "aaa_components-schemas-type": aaa_components_schemas_type_output,
+        "aaa_created_at": aaa_created_at_output,
+        "aaa_last_failure": aaa_last_failure_output,
+        "aaa_last_success": aaa_last_success_output,
+        "aaa_secret": aaa_secret_output,
+        "aaa_url": aaa_url_output,
+        "aaa_webhook-id": aaa_webhook_id_output,
+        "aaa_webhooks": aaa_webhooks_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -283,6 +315,34 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_webhooks"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_components-schemas-name": aaa_components_schemas_name_output,
+        "aaa_components-schemas-type": aaa_components_schemas_type_output,
+        "aaa_created_at": aaa_created_at_output,
+        "aaa_last_failure": aaa_last_failure_output,
+        "aaa_last_success": aaa_last_success_output,
+        "aaa_secret": aaa_secret_output,
+        "aaa_url": aaa_url_output,
+        "aaa_webhook-id": aaa_webhook_id_output,
+        "aaa_webhooks": aaa_webhooks_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -403,6 +463,17 @@ export const tools: readonly Tool[] = [
         "aaa_components-schemas-name": aaa_components_schemas_name,
         "aaa_secret": aaa_secret,
         "aaa_url": aaa_url,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/aaa_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "aaa_uuid": aaa_uuid_output,
       },
     },
     annotations: {

@@ -109,6 +109,173 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "trafficAnomalies": {
+          "items": {
+            "properties": {
+              "asnDetails": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "asn": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "code",
+                              "name"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "name": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "location",
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "endDate": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "locationDetails": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "originDetails": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "name": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "origin": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "origin"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "startDate": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              },
+              "visibleInDataSources": {
+                "oneOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "asnDetails",
+              "endDate",
+              "locationDetails",
+              "originDetails",
+              "startDate",
+              "status",
+              "type",
+              "uuid",
+              "visibleInDataSources"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "trafficAnomalies"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -372,6 +539,170 @@ export const tools: readonly Tool[] = [
       required: [
         "uuid"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "trafficAnomaly": {
+          "properties": {
+            "asnDetails": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "asn": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "name": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "asn",
+                    "location",
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "endDate": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "locationDetails": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "originDetails": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "name": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "origin": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "origin"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "startDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            },
+            "visibleInDataSources": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "asnDetails",
+            "endDate",
+            "locationDetails",
+            "originDetails",
+            "startDate",
+            "status",
+            "type",
+            "uuid",
+            "visibleInDataSources"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "trafficAnomaly"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

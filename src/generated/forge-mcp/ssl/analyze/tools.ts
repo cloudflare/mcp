@@ -51,6 +51,9 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_certificate": tls_certificates_and_hostnames_certificate,
       },
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

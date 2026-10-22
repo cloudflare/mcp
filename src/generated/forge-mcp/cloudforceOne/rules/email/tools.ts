@@ -156,6 +156,23 @@ export const tools: readonly Tool[] = [
         "cloudforce-one_MetaInputEntry_value": cloudforce_one_MetaInputEntry_value,
       },
     },
+    outputSchema: {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/cloudforce-one_RulePreview"
+        },
+        {
+          "$ref": "#/$defs/cloudforce-one_ApprovalPendingResponse"
+        }
+      ],
+      $defs: {
+        "cloudforce-one_ApprovalPendingResponse": cloudforce_one_ApprovalPendingResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -215,6 +232,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/cloudforce-one_SuccessResponse"
+        },
+        {
+          "$ref": "#/$defs/cloudforce-one_ApprovalPendingResponse"
+        }
+      ],
+      $defs: {
+        "cloudforce-one_ApprovalPendingResponse": cloudforce_one_ApprovalPendingResponse_output,
+        "cloudforce-one_SuccessResponse": cloudforce_one_SuccessResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -278,6 +309,15 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_RulePreview",
+      $defs: {
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -345,6 +385,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_EmailRulesListResponse",
+      $defs: {
+        "cloudforce-one_EmailRulesListResponse": cloudforce_one_EmailRulesListResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -414,6 +464,27 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "matched": {
+          "type": "boolean"
+        },
+        "rules": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "matched",
+        "rules"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -577,6 +648,23 @@ export const tools: readonly Tool[] = [
         "cloudforce-one_EmailRuleScalarCondition_value": cloudforce_one_EmailRuleScalarCondition_value,
         "cloudforce-one_MetaInputEntry": cloudforce_one_MetaInputEntry,
         "cloudforce-one_MetaInputEntry_value": cloudforce_one_MetaInputEntry_value,
+      },
+    },
+    outputSchema: {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/cloudforce-one_RulePreview"
+        },
+        {
+          "$ref": "#/$defs/cloudforce-one_ApprovalPendingResponse"
+        }
+      ],
+      $defs: {
+        "cloudforce-one_ApprovalPendingResponse": cloudforce_one_ApprovalPendingResponse_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
       },
     },
     annotations: {
@@ -754,6 +842,18 @@ export const tools: readonly Tool[] = [
         "cloudforce-one_MetaInputEntry_value": cloudforce_one_MetaInputEntry_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_EditApprovalResponse",
+      $defs: {
+        "cloudforce-one_ApprovalProposedChanges": cloudforce_one_ApprovalProposedChanges_output,
+        "cloudforce-one_EditApprovalResponse": cloudforce_one_EditApprovalResponse_output,
+        "cloudforce-one_PendingApproval": cloudforce_one_PendingApproval_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -920,6 +1020,12 @@ export const tools: readonly Tool[] = [
         "cloudforce-one_EmailRuleScalarCondition_value": cloudforce_one_EmailRuleScalarCondition_value,
         "cloudforce-one_MetaInputEntry": cloudforce_one_MetaInputEntry,
         "cloudforce-one_MetaInputEntry_value": cloudforce_one_MetaInputEntry_value,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_EmailRuleValidationResponse",
+      $defs: {
+        "cloudforce-one_EmailRuleValidationResponse": cloudforce_one_EmailRuleValidationResponse_output,
       },
     },
     annotations: {

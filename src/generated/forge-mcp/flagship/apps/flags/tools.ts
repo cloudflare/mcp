@@ -493,6 +493,15 @@ export const tools: readonly Tool[] = [
         "flagship_JsonValue": flagship_JsonValue,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_Flag",
+      $defs: {
+        "flagship_Flag": flagship_Flag_output,
+        "flagship_Flag_rulesItem": flagship_Flag_rulesItem_output,
+        "flagship_Flag_rulesItem_rollout": flagship_Flag_rulesItem_rollout_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -586,6 +595,12 @@ export const tools: readonly Tool[] = [
         "app_id",
         "flag_key"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_DeleteFlagResult",
+      $defs: {
+        "flagship_DeleteFlagResult": flagship_DeleteFlagResult_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -696,6 +711,13 @@ export const tools: readonly Tool[] = [
         "flagship_JsonValue": flagship_JsonValue,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_EvaluationResult",
+      $defs: {
+        "flagship_EvaluationResult": flagship_EvaluationResult_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -789,6 +811,15 @@ export const tools: readonly Tool[] = [
         "app_id",
         "flag_key"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_Flag",
+      $defs: {
+        "flagship_Flag": flagship_Flag_output,
+        "flagship_Flag_rulesItem": flagship_Flag_rulesItem_output,
+        "flagship_Flag_rulesItem_rollout": flagship_Flag_rulesItem_rollout_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -886,6 +917,28 @@ export const tools: readonly Tool[] = [
         "account_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/flagship_FlagsPage"
+        },
+        "result_info": {
+          "$ref": "#/$defs/flagship_ResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "flagship_Flag": flagship_Flag_output,
+        "flagship_Flag_rulesItem": flagship_Flag_rulesItem_output,
+        "flagship_Flag_rulesItem_rollout": flagship_Flag_rulesItem_rollout_output,
+        "flagship_FlagsPage": flagship_FlagsPage_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+        "flagship_ResultInfo": flagship_ResultInfo_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -1446,6 +1499,15 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "flagship_JsonValue": flagship_JsonValue,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_Flag",
+      $defs: {
+        "flagship_Flag": flagship_Flag_output,
+        "flagship_Flag_rulesItem": flagship_Flag_rulesItem_output,
+        "flagship_Flag_rulesItem_rollout": flagship_Flag_rulesItem_rollout_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
       },
     },
     annotations: {

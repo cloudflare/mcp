@@ -49,6 +49,16 @@ export const tools: readonly Tool[] = [
         "access_name-13": access_name_13,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_tag",
+      $defs: {
+        "access_created_at": access_created_at_output,
+        "access_name-13": access_name_13_output,
+        "access_tag": access_tag_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -103,6 +113,17 @@ export const tools: readonly Tool[] = [
         "tag_name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/access_name-13"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_name-13": access_name_13_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -156,6 +177,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "tag_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_tag",
+      $defs: {
+        "access_created_at": access_created_at_output,
+        "access_name-13": access_name_13_output,
+        "access_tag": access_tag_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -214,6 +245,47 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_tag"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_created_at": access_created_at_output,
+        "access_name-13": access_name_13_output,
+        "access_tag": access_tag_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -311,6 +383,16 @@ export const tools: readonly Tool[] = [
         "access_tag_without_app_count": access_tag_without_app_count,
         "access_timestamp": access_timestamp,
         "access_updated_at": access_updated_at,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_tag",
+      $defs: {
+        "access_created_at": access_created_at_output,
+        "access_name-13": access_name_13_output,
+        "access_tag": access_tag_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
       },
     },
     annotations: {

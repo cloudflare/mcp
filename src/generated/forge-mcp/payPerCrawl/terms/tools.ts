@@ -36,6 +36,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_IronCladContract",
+      $defs: {
+        "pay-per-crawl_IronCladContract": pay_per_crawl_IronCladContract_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -116,6 +122,16 @@ export const tools: readonly Tool[] = [
       },
       required: [
         "account_id"
+      ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -204,6 +220,12 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_SignatureLinkResponse",
+      $defs: {
+        "pay-per-crawl_SignatureLinkResponse": pay_per_crawl_SignatureLinkResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -296,6 +318,15 @@ export const tools: readonly Tool[] = [
         "event_type",
         "vid"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",
+      $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

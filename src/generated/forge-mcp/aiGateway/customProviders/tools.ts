@@ -66,6 +66,67 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "base_url": {
+          "type": "string"
+        },
+        "beta": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "curl_example": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "headers": {
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "js_example": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "base_url",
+        "created_at",
+        "id",
+        "modified_at",
+        "name",
+        "slug"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -240,6 +301,67 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "base_url": {
+          "type": "string"
+        },
+        "beta": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "curl_example": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "headers": {
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "js_example": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "base_url",
+        "created_at",
+        "id",
+        "modified_at",
+        "name",
+        "slug"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -388,6 +510,67 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "base_url": {
+          "type": "string"
+        },
+        "beta": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "curl_example": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "headers": {
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "js_example": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "base_url",
+        "created_at",
+        "id",
+        "modified_at",
+        "name",
+        "slug"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -551,6 +734,81 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "base_url": {
+                "type": "string"
+              },
+              "beta": {
+                "type": "boolean"
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "curl_example": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enable": {
+                "type": "boolean"
+              },
+              "headers": {
+                "type": "string"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "js_example": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "logo": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "position": {
+                "type": "integer"
+              },
+              "slug": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "base_url",
+              "created_at",
+              "id",
+              "modified_at",
+              "name",
+              "slug"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -764,6 +1022,67 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "base_url": {
+          "type": "string"
+        },
+        "beta": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "curl_example": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "headers": {
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "js_example": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "base_url",
+        "created_at",
+        "id",
+        "modified_at",
+        "name",
+        "slug"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

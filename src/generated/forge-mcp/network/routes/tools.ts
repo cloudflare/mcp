@@ -58,6 +58,22 @@ export const tools: readonly Tool[] = [
         "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_teamnet",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip_network": tunnel_ip_network_output,
+        "tunnel_route_comment": tunnel_route_comment_output,
+        "tunnel_route_id": tunnel_route_id_output,
+        "tunnel_teamnet": tunnel_teamnet_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_virtual_network_id_computed_optional": tunnel_virtual_network_id_computed_optional_output,
+        "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

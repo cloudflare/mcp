@@ -80,6 +80,22 @@ export const tools: readonly Tool[] = [
         "account_tag"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/analytics-sql_IntrospectionResponse",
+      $defs: {
+        "analytics-sql_Attribute": analytics_sql_Attribute_output,
+        "analytics-sql_CustomAttribute": analytics_sql_CustomAttribute_output,
+        "analytics-sql_DatasetAvailability": analytics_sql_DatasetAvailability_output,
+        "analytics-sql_IntrospectionColumn": analytics_sql_IntrospectionColumn_output,
+        "analytics-sql_IntrospectionDataset": analytics_sql_IntrospectionDataset_output,
+        "analytics-sql_IntrospectionDatasetKind": analytics_sql_IntrospectionDatasetKind_output,
+        "analytics-sql_IntrospectionDatasetKind_events": analytics_sql_IntrospectionDatasetKind_events_output,
+        "analytics-sql_IntrospectionDatasetKind_logs": analytics_sql_IntrospectionDatasetKind_logs_output,
+        "analytics-sql_IntrospectionDatasetKind_states": analytics_sql_IntrospectionDatasetKind_states_output,
+        "analytics-sql_IntrospectionResponse": analytics_sql_IntrospectionResponse_output,
+        "analytics-sql_IntrospectionSampling": analytics_sql_IntrospectionSampling_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -164,6 +180,26 @@ export const tools: readonly Tool[] = [
         "analytics-sql_SqlQueryScope": analytics_sql_SqlQueryScope,
         "analytics-sql_SqlQueryTimeRange": analytics_sql_SqlQueryTimeRange,
         "analytics-sql_SqlQueryZoneScope": analytics_sql_SqlQueryZoneScope,
+      },
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/analytics-sql_SqlQueryResponse"
+        },
+        {
+          "$ref": "#/$defs/analytics-sql_ClickHouseJsonQueryResponse"
+        },
+        {
+          "$ref": "#/$defs/analytics-sql_LogExplorerQueryResponse"
+        }
+      ],
+      $defs: {
+        "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
+        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
+        "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
+        "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,
+        "analytics-sql_SqlQueryStatistics": analytics_sql_SqlQueryStatistics_output,
       },
     },
     annotations: {

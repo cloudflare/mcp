@@ -168,6 +168,27 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_zone": bill_subs_api_zone,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_subscription-v2",
+      $defs: {
+        "bill-subs-api_component_value": bill_subs_api_component_value_output,
+        "bill-subs-api_component_values": bill_subs_api_component_values_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
+        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
+        "bill-subs-api_frequency": bill_subs_api_frequency_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_install_id": bill_subs_api_install_id_output,
+        "bill-subs-api_name": bill_subs_api_name_output,
+        "bill-subs-api_price": bill_subs_api_price_output,
+        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_state": bill_subs_api_state_output,
+        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2_output,
+        "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app_output,
+        "bill-subs-api_zone": bill_subs_api_zone_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -265,6 +286,12 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_cancel_reason_request": bill_subs_api_cancel_reason_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_cancel_reason",
+      $defs: {
+        "bill-subs-api_cancel_reason": bill_subs_api_cancel_reason_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -335,6 +362,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "subscription_identifier"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "subscription_id": {
+          "$ref": "#/$defs/bill-subs-api_schemas-identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -408,6 +446,42 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_subscription-v2"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/bill-subs-api_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "bill-subs-api_component_value": bill_subs_api_component_value_output,
+        "bill-subs-api_component_values": bill_subs_api_component_values_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
+        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
+        "bill-subs-api_frequency": bill_subs_api_frequency_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_install_id": bill_subs_api_install_id_output,
+        "bill-subs-api_name": bill_subs_api_name_output,
+        "bill-subs-api_price": bill_subs_api_price_output,
+        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
+        "bill-subs-api_result_info": bill_subs_api_result_info_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_state": bill_subs_api_state_output,
+        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2_output,
+        "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app_output,
+        "bill-subs-api_zone": bill_subs_api_zone_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -510,6 +584,27 @@ export const tools: readonly Tool[] = [
         "subscription_identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_subscription-v2",
+      $defs: {
+        "bill-subs-api_component_value": bill_subs_api_component_value_output,
+        "bill-subs-api_component_values": bill_subs_api_component_values_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
+        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
+        "bill-subs-api_frequency": bill_subs_api_frequency_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_install_id": bill_subs_api_install_id_output,
+        "bill-subs-api_name": bill_subs_api_name_output,
+        "bill-subs-api_price": bill_subs_api_price_output,
+        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_state": bill_subs_api_state_output,
+        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2_output,
+        "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app_output,
+        "bill-subs-api_zone": bill_subs_api_zone_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -599,6 +694,12 @@ export const tools: readonly Tool[] = [
         "subscription_identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_cancel_reason",
+      $defs: {
+        "bill-subs-api_cancel_reason": bill_subs_api_cancel_reason_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -668,6 +769,27 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2,
         "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app,
         "bill-subs-api_zone": bill_subs_api_zone,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_subscription-v2",
+      $defs: {
+        "bill-subs-api_component_value": bill_subs_api_component_value_output,
+        "bill-subs-api_component_values": bill_subs_api_component_values_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
+        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
+        "bill-subs-api_frequency": bill_subs_api_frequency_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_install_id": bill_subs_api_install_id_output,
+        "bill-subs-api_name": bill_subs_api_name_output,
+        "bill-subs-api_price": bill_subs_api_price_output,
+        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
+        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_state": bill_subs_api_state_output,
+        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2_output,
+        "bill-subs-api_subscription-v2_app": bill_subs_api_subscription_v2_app_output,
+        "bill-subs-api_zone": bill_subs_api_zone_output,
       },
     },
     annotations: {

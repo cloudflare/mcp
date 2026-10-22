@@ -30,6 +30,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_token",
+      $defs: {
+        "magic-visibility-mnm_mnm_vpc_flows_token": magic_visibility_mnm_mnm_vpc_flows_token_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

@@ -49,6 +49,57 @@ export const tools: readonly Tool[] = [
         "type"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "error": {
+          "oneOf": [
+            {
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "name"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "event_type": {
+          "type": "string"
+        },
+        "output": {
+          "type": "object"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "paused",
+            "errored",
+            "terminated",
+            "complete",
+            "waitingForPause",
+            "waiting",
+            "rollingBack"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "error",
+        "status"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

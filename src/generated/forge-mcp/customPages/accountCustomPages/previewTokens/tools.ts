@@ -45,6 +45,12 @@ export const tools: readonly Tool[] = [
         "custom-pages_preview_request": custom_pages_preview_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-pages_preview_token",
+      $defs: {
+        "custom-pages_preview_token": custom_pages_preview_token_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

@@ -39,6 +39,88 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_since_minutes": digital_experience_monitoring_since_minutes,
       },
     },
+    outputSchema: {
+      "properties": {
+        "deviceStats": {
+          "properties": {
+            "byColo": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "byMode": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "byPlatform": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "byStatus": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "byVersion": {
+              "oneOf": [
+                {
+                  "items": {
+                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "uniqueDevicesTotal": {
+              "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "digital-experience-monitoring_live_stat": digital_experience_monitoring_live_stat_output,
+        "digital-experience-monitoring_uniqueDevicesTotal": digital_experience_monitoring_uniqueDevicesTotal_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

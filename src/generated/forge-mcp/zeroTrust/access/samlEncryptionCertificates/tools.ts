@@ -36,6 +36,13 @@ export const tools: readonly Tool[] = [
         "saml_cert_set_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_saml_certificate_set-2",
+      $defs: {
+        "access_saml_certificate-2": access_saml_certificate_2_output,
+        "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -147,6 +154,44 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_saml_certificate_set-2"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_saml_certificate-2": access_saml_certificate_2_output,
+        "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -232,6 +277,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "saml_cert_set_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_saml_certificate_set-2",
+      $defs: {
+        "access_saml_certificate-2": access_saml_certificate_2_output,
+        "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

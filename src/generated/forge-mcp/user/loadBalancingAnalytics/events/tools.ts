@@ -74,6 +74,35 @@ export const tools: readonly Tool[] = [
         "load-balancing_until": load_balancing_until,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/load-balancing_analytics"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/load-balancing_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "load-balancing_address": load_balancing_address_output,
+        "load-balancing_analytics": load_balancing_analytics_output,
+        "load-balancing_origin-analytics": load_balancing_origin_analytics_output,
+        "load-balancing_origin-changed": load_balancing_origin_changed_output,
+        "load-balancing_origin-failure-reason": load_balancing_origin_failure_reason_output,
+        "load-balancing_origin-healthy": load_balancing_origin_healthy_output,
+        "load-balancing_origin-ip": load_balancing_origin_ip_output,
+        "load-balancing_result_info": load_balancing_result_info_output,
+        "load-balancing_schemas-enabled": load_balancing_schemas_enabled_output,
+        "load-balancing_schemas-name": load_balancing_schemas_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -40,6 +40,29 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "isAnalytics": {
+          "type": "boolean"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "isAnalytics",
+        "isPublic",
+        "name",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -156,6 +179,29 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "isAnalytics": {
+          "type": "boolean"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "isAnalytics",
+        "isPublic",
+        "name",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -253,6 +299,29 @@ export const tools: readonly Tool[] = [
         "account_id",
         "dataset_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "isAnalytics": {
+          "type": "boolean"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "isAnalytics",
+        "isPublic",
+        "name",
+        "uuid"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -380,6 +449,44 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "deletedAt": {
+            "type": "string"
+          },
+          "indicatorWriteMode": {
+            "enum": [
+              "read_only",
+              "create_only",
+              "full"
+            ],
+            "type": "string"
+          },
+          "isAnalytics": {
+            "type": "boolean"
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "indicatorWriteMode",
+          "isAnalytics",
+          "isPublic",
+          "name",
+          "uuid"
+        ],
+        "type": "object"
+      },
+      "type": "array",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -499,6 +606,37 @@ export const tools: readonly Tool[] = [
         "dataset_id",
         "event_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "accountId": {
+          "type": "number"
+        },
+        "created": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "id": {
+          "type": "number"
+        },
+        "source": {
+          "type": "string"
+        },
+        "tlp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accountId",
+        "created",
+        "data",
+        "id",
+        "source",
+        "tlp"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

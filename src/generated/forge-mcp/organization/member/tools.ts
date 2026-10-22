@@ -46,6 +46,14 @@ export const tools: readonly Tool[] = [
         "organizations-api_CreateSingleMember_user": organizations_api_CreateSingleMember_user,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_Member",
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -142,6 +150,14 @@ export const tools: readonly Tool[] = [
         "member_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_Member",
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -223,6 +239,29 @@ export const tools: readonly Tool[] = [
       required: [
         "organization_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_Member"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

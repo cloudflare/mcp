@@ -30,6 +30,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_force_result",
+      $defs: {
+        "secondary-dns_force_result": secondary_dns_force_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

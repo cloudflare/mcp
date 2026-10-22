@@ -35,6 +35,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_bgp_settings",
+      $defs: {
+        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
+        "magic_bgp_settings": magic_bgp_settings_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -95,6 +102,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_update_bgp_settings_redistribute_sources": magic_update_bgp_settings_redistribute_sources,
         "magic_update_bgp_settings_request": magic_update_bgp_settings_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_bgp_settings",
+      $defs: {
+        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
+        "magic_bgp_settings": magic_bgp_settings_output,
       },
     },
     annotations: {

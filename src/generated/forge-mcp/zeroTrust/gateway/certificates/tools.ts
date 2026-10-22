@@ -44,6 +44,17 @@ export const tools: readonly Tool[] = [
         "certificate_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_certificates",
+      $defs: {
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -105,6 +116,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zero-trust-gateway_generate-cert-request": zero_trust_gateway_generate_cert_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_certificates",
+      $defs: {
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
       },
     },
     annotations: {
@@ -170,6 +192,17 @@ export const tools: readonly Tool[] = [
         "certificate_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_certificates",
+      $defs: {
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -231,6 +264,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "certificate_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_certificates",
+      $defs: {
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -294,6 +338,17 @@ export const tools: readonly Tool[] = [
         "certificate_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_certificates",
+      $defs: {
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -350,6 +405,32 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_certificates"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/zero-trust-gateway_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_binding_status": zero_trust_gateway_binding_status_output,
+        "zero-trust-gateway_certificates": zero_trust_gateway_certificates_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_region": zero_trust_gateway_region_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_type": zero_trust_gateway_type_output,
+        "zero-trust-gateway_uuid": zero_trust_gateway_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

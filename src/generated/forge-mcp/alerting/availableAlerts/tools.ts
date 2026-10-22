@@ -34,6 +34,22 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "additionalProperties": {
+        "items": {
+          "$ref": "#/$defs/aaa_alert-types"
+        },
+        "type": "array"
+      },
+      "type": "object",
+      $defs: {
+        "aaa_alert-types": aaa_alert_types_output,
+        "aaa_description": aaa_description_output,
+        "aaa_display_name": aaa_display_name_output,
+        "aaa_filter_options": aaa_filter_options_output,
+        "aaa_type": aaa_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

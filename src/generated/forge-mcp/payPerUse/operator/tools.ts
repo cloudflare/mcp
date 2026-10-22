@@ -36,6 +36,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfigurationResult",
+      $defs: {
+        "pay-per-crawl_PPUOperatorConfigurationResult": pay_per_crawl_PPUOperatorConfigurationResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -90,6 +96,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfiguration",
+      $defs: {
+        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration_output,
       },
     },
     annotations: {
@@ -150,6 +162,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "pay-per-crawl_PPUOperatorConfigurationUpdate": pay_per_crawl_PPUOperatorConfigurationUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfiguration",
+      $defs: {
+        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration_output,
       },
     },
     annotations: {

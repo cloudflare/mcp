@@ -721,6 +721,704 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "byok_only": {
+          "type": "boolean"
+        },
+        "cache_invalidate_on_update": {
+          "type": "boolean"
+        },
+        "cache_ttl": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "collect_logs": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "dlp": {
+          "anyOf": [
+            {
+              "properties": {
+                "action": {
+                  "enum": [
+                    "BLOCK",
+                    "FLAG"
+                  ],
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "profiles": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "action",
+                "enabled",
+                "profiles"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "policies": {
+                  "items": {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "FLAG",
+                          "BLOCK"
+                        ],
+                        "type": "string"
+                      },
+                      "check": {
+                        "items": {
+                          "enum": [
+                            "REQUEST",
+                            "RESPONSE"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "profiles": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "check",
+                      "enabled",
+                      "id",
+                      "profiles"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "enabled",
+                "policies"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "guardrails": {
+          "oneOf": [
+            {
+              "properties": {
+                "prompt": {
+                  "properties": {
+                    "P1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S10": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S11": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S12": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S2": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S3": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S4": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S5": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S6": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S7": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S8": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S9": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "response": {
+                  "properties": {
+                    "P1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S10": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S11": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S12": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S2": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S3": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S4": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S5": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S6": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S7": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S8": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S9": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "prompt",
+                "response"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean"
+        },
+        "log_classification": {
+          "type": "boolean"
+        },
+        "log_management": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "log_management_strategy": {
+          "oneOf": [
+            {
+              "enum": [
+                "STOP_INSERTING",
+                "DELETE_OLDEST"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logpush": {
+          "type": "boolean"
+        },
+        "logpush_public_key": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "otel": {
+          "oneOf": [
+            {
+              "items": {
+                "properties": {
+                  "authorization": {
+                    "type": "string"
+                  },
+                  "content_type": {
+                    "enum": [
+                      "json",
+                      "protobuf"
+                    ],
+                    "type": "string"
+                  },
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "maxItems": 5,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_interval": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_limit": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_technique": {
+          "oneOf": [
+            {
+              "enum": [
+                "fixed",
+                "sliding"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_backoff": {
+          "oneOf": [
+            {
+              "enum": [
+                "constant",
+                "linear",
+                "exponential"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_delay": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_max_attempts": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spend_limits": {
+          "oneOf": [
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "rules": {
+                  "items": {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "limit": {
+                        "type": "number"
+                      },
+                      "limitType": {
+                        "enum": [
+                          "cost"
+                        ],
+                        "type": "string"
+                      },
+                      "metadata": {
+                        "additionalProperties": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "partition"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "mode"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "filter"
+                                  ],
+                                  "type": "string"
+                                },
+                                "values": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "mode",
+                                "values"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "type": "object"
+                      },
+                      "model": {
+                        "properties": {
+                          "mode": {
+                            "enum": [
+                              "filter"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      "provider": {
+                        "properties": {
+                          "mode": {
+                            "enum": [
+                              "filter"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      "technique": {
+                        "enum": [
+                          "fixed",
+                          "sliding"
+                        ],
+                        "type": "string"
+                      },
+                      "window": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "limit",
+                      "limitType",
+                      "window"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 20,
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "store_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stripe": {
+          "oneOf": [
+            {
+              "properties": {
+                "authorization": {
+                  "type": "string"
+                },
+                "usage_events": {
+                  "items": {
+                    "properties": {
+                      "payload": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "payload"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "authorization",
+                "usage_events"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workers_ai_billing_mode": {
+          "enum": [
+            "postpaid",
+            "unified"
+          ],
+          "type": "string"
+        },
+        "zdr": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "cache_invalidate_on_update",
+        "cache_ttl",
+        "collect_logs",
+        "created_at",
+        "id",
+        "modified_at",
+        "rate_limiting_interval",
+        "rate_limiting_limit"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1515,6 +2213,704 @@ export const tools: readonly Tool[] = [
         "gateway_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "byok_only": {
+          "type": "boolean"
+        },
+        "cache_invalidate_on_update": {
+          "type": "boolean"
+        },
+        "cache_ttl": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "collect_logs": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "dlp": {
+          "anyOf": [
+            {
+              "properties": {
+                "action": {
+                  "enum": [
+                    "BLOCK",
+                    "FLAG"
+                  ],
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "profiles": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "action",
+                "enabled",
+                "profiles"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "policies": {
+                  "items": {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "FLAG",
+                          "BLOCK"
+                        ],
+                        "type": "string"
+                      },
+                      "check": {
+                        "items": {
+                          "enum": [
+                            "REQUEST",
+                            "RESPONSE"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "profiles": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "check",
+                      "enabled",
+                      "id",
+                      "profiles"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "enabled",
+                "policies"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "guardrails": {
+          "oneOf": [
+            {
+              "properties": {
+                "prompt": {
+                  "properties": {
+                    "P1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S10": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S11": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S12": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S2": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S3": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S4": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S5": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S6": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S7": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S8": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S9": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "response": {
+                  "properties": {
+                    "P1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S10": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S11": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S12": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S2": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S3": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S4": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S5": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S6": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S7": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S8": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S9": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "prompt",
+                "response"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean"
+        },
+        "log_classification": {
+          "type": "boolean"
+        },
+        "log_management": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "log_management_strategy": {
+          "oneOf": [
+            {
+              "enum": [
+                "STOP_INSERTING",
+                "DELETE_OLDEST"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logpush": {
+          "type": "boolean"
+        },
+        "logpush_public_key": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "otel": {
+          "oneOf": [
+            {
+              "items": {
+                "properties": {
+                  "authorization": {
+                    "type": "string"
+                  },
+                  "content_type": {
+                    "enum": [
+                      "json",
+                      "protobuf"
+                    ],
+                    "type": "string"
+                  },
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "maxItems": 5,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_interval": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_limit": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_technique": {
+          "oneOf": [
+            {
+              "enum": [
+                "fixed",
+                "sliding"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_backoff": {
+          "oneOf": [
+            {
+              "enum": [
+                "constant",
+                "linear",
+                "exponential"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_delay": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_max_attempts": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spend_limits": {
+          "oneOf": [
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "rules": {
+                  "items": {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "limit": {
+                        "type": "number"
+                      },
+                      "limitType": {
+                        "enum": [
+                          "cost"
+                        ],
+                        "type": "string"
+                      },
+                      "metadata": {
+                        "additionalProperties": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "partition"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "mode"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "filter"
+                                  ],
+                                  "type": "string"
+                                },
+                                "values": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "mode",
+                                "values"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "type": "object"
+                      },
+                      "model": {
+                        "properties": {
+                          "mode": {
+                            "enum": [
+                              "filter"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      "provider": {
+                        "properties": {
+                          "mode": {
+                            "enum": [
+                              "filter"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      "technique": {
+                        "enum": [
+                          "fixed",
+                          "sliding"
+                        ],
+                        "type": "string"
+                      },
+                      "window": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "limit",
+                      "limitType",
+                      "window"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 20,
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "store_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stripe": {
+          "oneOf": [
+            {
+              "properties": {
+                "authorization": {
+                  "type": "string"
+                },
+                "usage_events": {
+                  "items": {
+                    "properties": {
+                      "payload": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "payload"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "authorization",
+                "usage_events"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workers_ai_billing_mode": {
+          "enum": [
+            "postpaid",
+            "unified"
+          ],
+          "type": "string"
+        },
+        "zdr": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "cache_invalidate_on_update",
+        "cache_ttl",
+        "collect_logs",
+        "created_at",
+        "id",
+        "modified_at",
+        "rate_limiting_interval",
+        "rate_limiting_limit"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -2300,6 +3696,704 @@ export const tools: readonly Tool[] = [
         "account_id",
         "gateway_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "byok_only": {
+          "type": "boolean"
+        },
+        "cache_invalidate_on_update": {
+          "type": "boolean"
+        },
+        "cache_ttl": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "collect_logs": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "dlp": {
+          "anyOf": [
+            {
+              "properties": {
+                "action": {
+                  "enum": [
+                    "BLOCK",
+                    "FLAG"
+                  ],
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "profiles": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "action",
+                "enabled",
+                "profiles"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "policies": {
+                  "items": {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "FLAG",
+                          "BLOCK"
+                        ],
+                        "type": "string"
+                      },
+                      "check": {
+                        "items": {
+                          "enum": [
+                            "REQUEST",
+                            "RESPONSE"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "profiles": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "check",
+                      "enabled",
+                      "id",
+                      "profiles"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "enabled",
+                "policies"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "guardrails": {
+          "oneOf": [
+            {
+              "properties": {
+                "prompt": {
+                  "properties": {
+                    "P1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S10": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S11": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S12": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S2": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S3": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S4": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S5": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S6": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S7": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S8": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S9": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "response": {
+                  "properties": {
+                    "P1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S10": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S11": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S12": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S2": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S3": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S4": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S5": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S6": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S7": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S8": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S9": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "prompt",
+                "response"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean"
+        },
+        "log_classification": {
+          "type": "boolean"
+        },
+        "log_management": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "log_management_strategy": {
+          "oneOf": [
+            {
+              "enum": [
+                "STOP_INSERTING",
+                "DELETE_OLDEST"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logpush": {
+          "type": "boolean"
+        },
+        "logpush_public_key": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "otel": {
+          "oneOf": [
+            {
+              "items": {
+                "properties": {
+                  "authorization": {
+                    "type": "string"
+                  },
+                  "content_type": {
+                    "enum": [
+                      "json",
+                      "protobuf"
+                    ],
+                    "type": "string"
+                  },
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "maxItems": 5,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_interval": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_limit": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_technique": {
+          "oneOf": [
+            {
+              "enum": [
+                "fixed",
+                "sliding"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_backoff": {
+          "oneOf": [
+            {
+              "enum": [
+                "constant",
+                "linear",
+                "exponential"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_delay": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_max_attempts": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spend_limits": {
+          "oneOf": [
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "rules": {
+                  "items": {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "limit": {
+                        "type": "number"
+                      },
+                      "limitType": {
+                        "enum": [
+                          "cost"
+                        ],
+                        "type": "string"
+                      },
+                      "metadata": {
+                        "additionalProperties": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "partition"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "mode"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "filter"
+                                  ],
+                                  "type": "string"
+                                },
+                                "values": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "mode",
+                                "values"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "type": "object"
+                      },
+                      "model": {
+                        "properties": {
+                          "mode": {
+                            "enum": [
+                              "filter"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      "provider": {
+                        "properties": {
+                          "mode": {
+                            "enum": [
+                              "filter"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      "technique": {
+                        "enum": [
+                          "fixed",
+                          "sliding"
+                        ],
+                        "type": "string"
+                      },
+                      "window": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "limit",
+                      "limitType",
+                      "window"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 20,
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "store_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stripe": {
+          "oneOf": [
+            {
+              "properties": {
+                "authorization": {
+                  "type": "string"
+                },
+                "usage_events": {
+                  "items": {
+                    "properties": {
+                      "payload": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "payload"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "authorization",
+                "usage_events"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workers_ai_billing_mode": {
+          "enum": [
+            "postpaid",
+            "unified"
+          ],
+          "type": "string"
+        },
+        "zdr": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "cache_invalidate_on_update",
+        "cache_ttl",
+        "collect_logs",
+        "created_at",
+        "id",
+        "modified_at",
+        "rate_limiting_interval",
+        "rate_limiting_limit"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -3092,6 +5186,9 @@ export const tools: readonly Tool[] = [
         "ai_gateway_provider"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -3190,6 +5287,718 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "authentication": {
+                "type": "boolean"
+              },
+              "byok_only": {
+                "type": "boolean"
+              },
+              "cache_invalidate_on_update": {
+                "type": "boolean"
+              },
+              "cache_ttl": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "collect_logs": {
+                "type": "boolean"
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "dlp": {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "BLOCK",
+                          "FLAG"
+                        ],
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "profiles": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "enabled",
+                      "profiles"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "policies": {
+                        "items": {
+                          "properties": {
+                            "action": {
+                              "enum": [
+                                "FLAG",
+                                "BLOCK"
+                              ],
+                              "type": "string"
+                            },
+                            "check": {
+                              "items": {
+                                "enum": [
+                                  "REQUEST",
+                                  "RESPONSE"
+                                ],
+                                "type": "string"
+                              },
+                              "type": "array"
+                            },
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "profiles": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "check",
+                            "enabled",
+                            "id",
+                            "profiles"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "enabled",
+                      "policies"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "guardrails": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "prompt": {
+                        "properties": {
+                          "P1": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S1": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S10": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S11": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S12": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S13": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S2": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S3": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S4": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S5": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S6": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S7": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S8": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S9": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "response": {
+                        "properties": {
+                          "P1": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S1": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S10": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S11": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S12": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S13": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S2": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S3": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S4": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S5": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S6": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S7": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S8": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S9": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "prompt",
+                      "response"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "is_default": {
+                "type": "boolean"
+              },
+              "log_classification": {
+                "type": "boolean"
+              },
+              "log_management": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "log_management_strategy": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "STOP_INSERTING",
+                      "DELETE_OLDEST"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "logpush": {
+                "type": "boolean"
+              },
+              "logpush_public_key": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "otel": {
+                "oneOf": [
+                  {
+                    "items": {
+                      "properties": {
+                        "authorization": {
+                          "type": "string"
+                        },
+                        "content_type": {
+                          "enum": [
+                            "json",
+                            "protobuf"
+                          ],
+                          "type": "string"
+                        },
+                        "headers": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "headers",
+                        "url"
+                      ],
+                      "type": "object"
+                    },
+                    "maxItems": 5,
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "rate_limiting_interval": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "rate_limiting_limit": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "rate_limiting_technique": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "fixed",
+                      "sliding"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "retry_backoff": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "constant",
+                      "linear",
+                      "exponential"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "retry_delay": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "retry_max_attempts": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "spend_limits": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "rules": {
+                        "items": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "limit": {
+                              "type": "number"
+                            },
+                            "limitType": {
+                              "enum": [
+                                "cost"
+                              ],
+                              "type": "string"
+                            },
+                            "metadata": {
+                              "additionalProperties": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "mode": {
+                                        "enum": [
+                                          "partition"
+                                        ],
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "mode"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  {
+                                    "properties": {
+                                      "mode": {
+                                        "enum": [
+                                          "filter"
+                                        ],
+                                        "type": "string"
+                                      },
+                                      "values": {
+                                        "items": {
+                                          "type": "string"
+                                        },
+                                        "type": "array"
+                                      }
+                                    },
+                                    "required": [
+                                      "mode",
+                                      "values"
+                                    ],
+                                    "type": "object"
+                                  }
+                                ]
+                              },
+                              "type": "object"
+                            },
+                            "model": {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "filter"
+                                  ],
+                                  "type": "string"
+                                },
+                                "values": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "mode",
+                                "values"
+                              ],
+                              "type": "object"
+                            },
+                            "provider": {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "filter"
+                                  ],
+                                  "type": "string"
+                                },
+                                "values": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "mode",
+                                "values"
+                              ],
+                              "type": "object"
+                            },
+                            "technique": {
+                              "enum": [
+                                "fixed",
+                                "sliding"
+                              ],
+                              "type": "string"
+                            },
+                            "window": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "limit",
+                            "limitType",
+                            "window"
+                          ],
+                          "type": "object"
+                        },
+                        "maxItems": 20,
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "store_id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "stripe": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "authorization": {
+                        "type": "string"
+                      },
+                      "usage_events": {
+                        "items": {
+                          "properties": {
+                            "payload": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "payload"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "authorization",
+                      "usage_events"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "workers_ai_billing_mode": {
+                "enum": [
+                  "postpaid",
+                  "unified"
+                ],
+                "type": "string"
+              },
+              "zdr": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "cache_invalidate_on_update",
+              "cache_ttl",
+              "collect_logs",
+              "created_at",
+              "id",
+              "modified_at",
+              "rate_limiting_interval",
+              "rate_limiting_limit"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -4690,6 +7499,704 @@ export const tools: readonly Tool[] = [
         "account_id",
         "gateway_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "authentication": {
+          "type": "boolean"
+        },
+        "byok_only": {
+          "type": "boolean"
+        },
+        "cache_invalidate_on_update": {
+          "type": "boolean"
+        },
+        "cache_ttl": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "collect_logs": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "dlp": {
+          "anyOf": [
+            {
+              "properties": {
+                "action": {
+                  "enum": [
+                    "BLOCK",
+                    "FLAG"
+                  ],
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "profiles": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "action",
+                "enabled",
+                "profiles"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "policies": {
+                  "items": {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "FLAG",
+                          "BLOCK"
+                        ],
+                        "type": "string"
+                      },
+                      "check": {
+                        "items": {
+                          "enum": [
+                            "REQUEST",
+                            "RESPONSE"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "profiles": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "check",
+                      "enabled",
+                      "id",
+                      "profiles"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "enabled",
+                "policies"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "guardrails": {
+          "oneOf": [
+            {
+              "properties": {
+                "prompt": {
+                  "properties": {
+                    "P1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S10": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S11": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S12": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S2": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S3": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S4": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S5": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S6": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S7": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S8": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S9": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "response": {
+                  "properties": {
+                    "P1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S1": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S10": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S11": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S12": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S2": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S3": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S4": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S5": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S6": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S7": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S8": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S9": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "prompt",
+                "response"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean"
+        },
+        "log_classification": {
+          "type": "boolean"
+        },
+        "log_management": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "log_management_strategy": {
+          "oneOf": [
+            {
+              "enum": [
+                "STOP_INSERTING",
+                "DELETE_OLDEST"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logpush": {
+          "type": "boolean"
+        },
+        "logpush_public_key": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "otel": {
+          "oneOf": [
+            {
+              "items": {
+                "properties": {
+                  "authorization": {
+                    "type": "string"
+                  },
+                  "content_type": {
+                    "enum": [
+                      "json",
+                      "protobuf"
+                    ],
+                    "type": "string"
+                  },
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "maxItems": 5,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_interval": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_limit": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rate_limiting_technique": {
+          "oneOf": [
+            {
+              "enum": [
+                "fixed",
+                "sliding"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_backoff": {
+          "oneOf": [
+            {
+              "enum": [
+                "constant",
+                "linear",
+                "exponential"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_delay": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_max_attempts": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spend_limits": {
+          "oneOf": [
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "rules": {
+                  "items": {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "limit": {
+                        "type": "number"
+                      },
+                      "limitType": {
+                        "enum": [
+                          "cost"
+                        ],
+                        "type": "string"
+                      },
+                      "metadata": {
+                        "additionalProperties": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "partition"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "mode"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "mode": {
+                                  "enum": [
+                                    "filter"
+                                  ],
+                                  "type": "string"
+                                },
+                                "values": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "mode",
+                                "values"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "type": "object"
+                      },
+                      "model": {
+                        "properties": {
+                          "mode": {
+                            "enum": [
+                              "filter"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      "provider": {
+                        "properties": {
+                          "mode": {
+                            "enum": [
+                              "filter"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      "technique": {
+                        "enum": [
+                          "fixed",
+                          "sliding"
+                        ],
+                        "type": "string"
+                      },
+                      "window": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "limit",
+                      "limitType",
+                      "window"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 20,
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "store_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stripe": {
+          "oneOf": [
+            {
+              "properties": {
+                "authorization": {
+                  "type": "string"
+                },
+                "usage_events": {
+                  "items": {
+                    "properties": {
+                      "payload": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "payload"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "authorization",
+                "usage_events"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workers_ai_billing_mode": {
+          "enum": [
+            "postpaid",
+            "unified"
+          ],
+          "type": "string"
+        },
+        "zdr": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "cache_invalidate_on_update",
+        "cache_ttl",
+        "collect_logs",
+        "created_at",
+        "id",
+        "modified_at",
+        "rate_limiting_interval",
+        "rate_limiting_limit"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

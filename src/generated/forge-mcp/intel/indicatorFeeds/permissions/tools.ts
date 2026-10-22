@@ -48,6 +48,12 @@ export const tools: readonly Tool[] = [
         "custom-indicator-feeds_permissions_request": custom_indicator_feeds_permissions_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-indicator-feeds_permissions_update",
+      $defs: {
+        "custom-indicator-feeds_permissions_update": custom_indicator_feeds_permissions_update_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -109,6 +115,12 @@ export const tools: readonly Tool[] = [
         "custom-indicator-feeds_permissions_request": custom_indicator_feeds_permissions_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-indicator-feeds_permissions_update",
+      $defs: {
+        "custom-indicator-feeds_permissions_update": custom_indicator_feeds_permissions_update_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -162,6 +174,32 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/custom-indicator-feeds_permission_list_item"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
+        "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
+        "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
+        "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
+        "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
+        "custom-indicator-feeds_permission_list_item": custom_indicator_feeds_permission_list_item_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -56,6 +56,22 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "default_retention": {
+          "properties": {
+            "error_retention": {
+              "type": "integer"
+            },
+            "success_retention": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -173,6 +189,22 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "default_retention": {
+          "properties": {
+            "error_retention": {
+              "type": "integer"
+            },
+            "success_retention": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

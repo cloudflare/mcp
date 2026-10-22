@@ -114,14 +114,22 @@ const forgeToolList = cached(
   async (): Promise<Tool[]> => JSON.parse(await env.FORGE_TOOLS.listJson()) as Tool[]
 )
 
+const forgeToolListWithOutput = cached(
+  async (): Promise<Tool[]> =>
+    JSON.parse(await env.FORGE_TOOLS.listJson({ outputSchema: true })) as Tool[]
+)
+
 /**
  * The generated tools (`?codemode=false&experimentalForge=true`) as
  * `tools/list` sends them, from the forge tools service. The service sends one
  * JSON string, which is parsed here once per isolate: decoding ~3,000 nested
  * objects over RPC costs every `tools/list` hundreds of milliseconds of CPU.
+ *
+ * @param outputSchema - Include each tool's generated output schema, a
+ *   separate listing that is loaded only when asked for.
  */
-export function getForgeToolList(): Promise<Tool[]> {
-  return forgeToolList.get()
+export function getForgeToolList({ outputSchema = false } = {}): Promise<Tool[]> {
+  return outputSchema ? forgeToolListWithOutput.get() : forgeToolList.get()
 }
 
 const products = cached(async (): Promise<string[]> => {
@@ -200,6 +208,7 @@ export function resetIsolateCache(): void {
   products.reset()
   mcpTools.reset()
   forgeToolList.reset()
+  forgeToolListWithOutput.reset()
   skills.reset()
   skillFileBytes = new Map()
   skillFileCacheSize = 0

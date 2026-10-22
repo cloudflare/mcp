@@ -61,6 +61,27 @@ export const tools: readonly Tool[] = [
         "iam_user_group_member_identifier": iam_user_group_member_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_user_group_member"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_email": iam_email_output,
+        "iam_user_group_member": iam_user_group_member_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -153,6 +174,13 @@ export const tools: readonly Tool[] = [
         "member_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_user_group_member",
+      $defs: {
+        "iam_email": iam_email_output,
+        "iam_user_group_member": iam_user_group_member_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -229,6 +257,14 @@ export const tools: readonly Tool[] = [
         "user_group_id",
         "member_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_user_group_member_detailed",
+      $defs: {
+        "iam_email": iam_email_output,
+        "iam_user_group_member_detailed": iam_user_group_member_detailed_output,
+        "iam_user_group_member_detailed_user": iam_user_group_member_detailed_user_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -326,6 +362,28 @@ export const tools: readonly Tool[] = [
         "account_id",
         "user_group_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_user_group_member"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_email": iam_email_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_user_group_member": iam_user_group_member_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -439,6 +497,27 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
         "iam_user_group_member_identifier": iam_user_group_member_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_user_group_member"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_email": iam_email_output,
+        "iam_user_group_member": iam_user_group_member_output,
       },
     },
     annotations: {

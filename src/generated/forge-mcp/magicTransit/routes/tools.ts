@@ -80,6 +80,36 @@ export const tools: readonly Tool[] = [
         "magic_weight": magic_weight,
       },
     },
+    outputSchema: {
+      "properties": {
+        "modified": {
+          "type": "boolean"
+        },
+        "modified_routes": {
+          "items": {
+            "$ref": "#/$defs/magic_route"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -188,6 +218,25 @@ export const tools: readonly Tool[] = [
         "magic_weight": magic_weight,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_route",
+      $defs: {
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -272,6 +321,33 @@ export const tools: readonly Tool[] = [
         "account_id",
         "route_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "deleted_route": {
+          "$ref": "#/$defs/magic_route"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -366,6 +442,36 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_route_delete_id": magic_route_delete_id,
         "magic_route_delete_many_request": magic_route_delete_many_request,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "deleted_routes": {
+          "items": {
+            "$ref": "#/$defs/magic_route"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
       },
     },
     annotations: {
@@ -464,6 +570,30 @@ export const tools: readonly Tool[] = [
         "route_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "route": {
+          "$ref": "#/$defs/magic_route"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -549,6 +679,33 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "routes": {
+          "items": {
+            "$ref": "#/$defs/magic_route"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -649,6 +806,33 @@ export const tools: readonly Tool[] = [
         "magic_route_add_single_request": magic_route_add_single_request,
         "magic_scope": magic_scope,
         "magic_weight": magic_weight,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "modified": {
+          "type": "boolean"
+        },
+        "modified_route": {
+          "$ref": "#/$defs/magic_route"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "magic_colo_name": magic_colo_name_output,
+        "magic_colo_names": magic_colo_names_output,
+        "magic_colo_region": magic_colo_region_output,
+        "magic_colo_regions": magic_colo_regions_output,
+        "magic_created_on": magic_created_on_output,
+        "magic_description": magic_description_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_modified_on": magic_modified_on_output,
+        "magic_nexthop": magic_nexthop_output,
+        "magic_prefix": magic_prefix_output,
+        "magic_priority": magic_priority_output,
+        "magic_route": magic_route_output,
+        "magic_scope": magic_scope_output,
+        "magic_weight": magic_weight_output,
       },
     },
     annotations: {

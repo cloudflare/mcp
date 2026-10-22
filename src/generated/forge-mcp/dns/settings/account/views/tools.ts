@@ -58,6 +58,17 @@ export const tools: readonly Tool[] = [
         "dns-settings_zones": dns_settings_zones,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dns-settings_dns-view-response",
+      $defs: {
+        "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_modified_time": dns_settings_modified_time_output,
+        "dns-settings_name": dns_settings_name_output,
+        "dns-settings_zones": dns_settings_zones_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -141,6 +152,22 @@ export const tools: readonly Tool[] = [
         "account_id",
         "view_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/dns-settings_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "dns-settings_identifier": dns_settings_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -248,6 +275,17 @@ export const tools: readonly Tool[] = [
         "dns-settings_zones": dns_settings_zones,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dns-settings_dns-view-response",
+      $defs: {
+        "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_modified_time": dns_settings_modified_time_output,
+        "dns-settings_name": dns_settings_name_output,
+        "dns-settings_zones": dns_settings_zones_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -331,6 +369,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "view_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dns-settings_dns-view-response",
+      $defs: {
+        "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_modified_time": dns_settings_modified_time_output,
+        "dns-settings_name": dns_settings_name_output,
+        "dns-settings_zones": dns_settings_zones_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -469,6 +518,48 @@ export const tools: readonly Tool[] = [
         "dns-settings_order": dns_settings_order,
         "dns-settings_page": dns_settings_page,
         "dns-settings_per_page": dns_settings_per_page,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-settings_dns-view-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_modified_time": dns_settings_modified_time_output,
+        "dns-settings_name": dns_settings_name_output,
+        "dns-settings_zones": dns_settings_zones_output,
       },
     },
     annotations: {

@@ -49,6 +49,14 @@ export const tools: readonly Tool[] = [
         "cws_RegoMetadataBody": cws_RegoMetadataBody,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_RegoMetadata",
+      $defs: {
+        "cws_JSONDocument": cws_JSONDocument_output,
+        "cws_JSONValue": cws_JSONValue_output,
+        "cws_RegoMetadata": cws_RegoMetadata_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -109,6 +117,12 @@ export const tools: readonly Tool[] = [
         "rego_metadata_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_DeletedResult",
+      $defs: {
+        "cws_DeletedResult": cws_DeletedResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -165,6 +179,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "rego_metadata_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_RegoMetadata",
+      $defs: {
+        "cws_JSONDocument": cws_JSONDocument_output,
+        "cws_JSONValue": cws_JSONValue_output,
+        "cws_RegoMetadata": cws_RegoMetadata_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -254,6 +276,36 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/cws_RegoMetadata"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/cws_ResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cws_JSONDocument": cws_JSONDocument_output,
+        "cws_JSONValue": cws_JSONValue_output,
+        "cws_RegoMetadata": cws_RegoMetadata_output,
+        "cws_ResultInfo": cws_ResultInfo_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -351,6 +403,14 @@ export const tools: readonly Tool[] = [
         "cws_JSONDocument": cws_JSONDocument,
         "cws_JSONValue": cws_JSONValue,
         "cws_RegoMetadataBody": cws_RegoMetadataBody,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_RegoMetadata",
+      $defs: {
+        "cws_JSONDocument": cws_JSONDocument_output,
+        "cws_JSONValue": cws_JSONValue_output,
+        "cws_RegoMetadata": cws_RegoMetadata_output,
       },
     },
     annotations: {

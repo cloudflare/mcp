@@ -31,6 +31,20 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "hold": {
+          "type": "boolean"
+        },
+        "hold_after": {
+          "type": "string"
+        },
+        "include_subdomains": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -96,6 +110,20 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "hold": {
+          "type": "boolean"
+        },
+        "hold_after": {
+          "type": "string"
+        },
+        "include_subdomains": {
+          "type": "string"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -182,6 +210,20 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "hold": {
+          "type": "boolean"
+        },
+        "hold_after": {
+          "type": "string"
+        },
+        "include_subdomains": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -249,6 +291,20 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "hold": {
+          "type": "boolean"
+        },
+        "hold_after": {
+          "type": "string"
+        },
+        "include_subdomains": {
+          "type": "string"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

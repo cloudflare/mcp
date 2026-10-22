@@ -59,6 +59,75 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_on": {
+                "$ref": "#/$defs/workers_created_on"
+              },
+              "environment_is_default": {
+                "type": "boolean"
+              },
+              "environment_name": {
+                "type": "string"
+              },
+              "id": {
+                "$ref": "#/$defs/workers_identifier"
+              },
+              "modified_on": {
+                "$ref": "#/$defs/workers_modified_on"
+              },
+              "script_name": {
+                "$ref": "#/$defs/workers_script_name"
+              },
+              "service_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "created_on",
+              "id",
+              "modified_on",
+              "script_name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_created_on": workers_created_on_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_script_name": workers_script_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

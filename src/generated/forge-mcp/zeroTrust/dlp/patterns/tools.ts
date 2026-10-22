@@ -37,6 +37,12 @@ export const tools: readonly Tool[] = [
         "dlp_RegexValidationQuery": dlp_RegexValidationQuery,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_RegexValidationResult",
+      $defs: {
+        "dlp_RegexValidationResult": dlp_RegexValidationResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

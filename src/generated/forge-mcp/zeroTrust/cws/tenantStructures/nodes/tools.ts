@@ -56,6 +56,14 @@ export const tools: readonly Tool[] = [
         "cws_TenantNodeBody": cws_TenantNodeBody,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_TenantNodeBatchResult",
+      $defs: {
+        "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_TenantNodeBatchResult": cws_TenantNodeBatchResult_output,
+        "cws_TenantStructureNode": cws_TenantStructureNode_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -126,6 +134,12 @@ export const tools: readonly Tool[] = [
         "cws_TenantNodeBody": cws_TenantNodeBody,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_TenantStructureNode",
+      $defs: {
+        "cws_TenantStructureNode": cws_TenantStructureNode_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -190,6 +204,12 @@ export const tools: readonly Tool[] = [
         "node_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_DeletedResult",
+      $defs: {
+        "cws_DeletedResult": cws_DeletedResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -252,6 +272,12 @@ export const tools: readonly Tool[] = [
         "structure_id",
         "node_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_TenantStructureNode",
+      $defs: {
+        "cws_TenantStructureNode": cws_TenantStructureNode_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -354,6 +380,34 @@ export const tools: readonly Tool[] = [
         "structure_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/cws_TenantStructureNode"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/cws_ResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cws_ResultInfo": cws_ResultInfo_output,
+        "cws_TenantStructureNode": cws_TenantStructureNode_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -454,6 +508,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cws_TenantNodeBody": cws_TenantNodeBody,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_TenantStructureNode",
+      $defs: {
+        "cws_TenantStructureNode": cws_TenantStructureNode_output,
       },
     },
     annotations: {

@@ -36,6 +36,37 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_cache_reserve_clear"
+        },
+        {
+          "properties": {
+            "end_ts": {
+              "$ref": "#/$defs/cache-settings_cache_reserve_clear_end_ts"
+            },
+            "start_ts": {
+              "$ref": "#/$defs/cache-settings_cache_reserve_clear_start_ts"
+            },
+            "state": {
+              "$ref": "#/$defs/cache-settings_cache_reserve_clear_state"
+            }
+          },
+          "required": [
+            "start_ts",
+            "state"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_cache_reserve_clear": cache_settings_cache_reserve_clear_output,
+        "cache-settings_cache_reserve_clear_end_ts": cache_settings_cache_reserve_clear_end_ts_output,
+        "cache-settings_cache_reserve_clear_start_ts": cache_settings_cache_reserve_clear_start_ts_output,
+        "cache-settings_cache_reserve_clear_state": cache_settings_cache_reserve_clear_state_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -144,6 +175,28 @@ export const tools: readonly Tool[] = [
         "cache-settings_cache_reserve_value": cache_settings_cache_reserve_value,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_cache_reserve"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_cache_reserve_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_cache_reserve": cache_settings_cache_reserve_output,
+        "cache-settings_cache_reserve_value": cache_settings_cache_reserve_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -226,6 +279,28 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_cache_reserve"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_cache_reserve_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_cache_reserve": cache_settings_cache_reserve_output,
+        "cache-settings_cache_reserve_value": cache_settings_cache_reserve_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -310,6 +385,37 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_cache_reserve_clear"
+        },
+        {
+          "properties": {
+            "end_ts": {
+              "$ref": "#/$defs/cache-settings_cache_reserve_clear_end_ts"
+            },
+            "start_ts": {
+              "$ref": "#/$defs/cache-settings_cache_reserve_clear_start_ts"
+            },
+            "state": {
+              "$ref": "#/$defs/cache-settings_cache_reserve_clear_state"
+            }
+          },
+          "required": [
+            "start_ts",
+            "state"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_cache_reserve_clear": cache_settings_cache_reserve_clear_output,
+        "cache-settings_cache_reserve_clear_end_ts": cache_settings_cache_reserve_clear_end_ts_output,
+        "cache-settings_cache_reserve_clear_start_ts": cache_settings_cache_reserve_clear_start_ts_output,
+        "cache-settings_cache_reserve_clear_state": cache_settings_cache_reserve_clear_state_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

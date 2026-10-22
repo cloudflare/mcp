@@ -41,6 +41,15 @@ export const tools: readonly Tool[] = [
         "rum_toggle-rum-request": rum_toggle_rum_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/rum_rum_site",
+      $defs: {
+        "rum_editable": rum_editable_output,
+        "rum_id": rum_id_output,
+        "rum_rum_site": rum_rum_site_output,
+        "rum_value": rum_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -99,6 +108,15 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/rum_rum_site",
+      $defs: {
+        "rum_editable": rum_editable_output,
+        "rum_id": rum_id_output,
+        "rum_rum_site": rum_rum_site_output,
+        "rum_value": rum_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

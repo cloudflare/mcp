@@ -27,6 +27,37 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "load_balancers": {
+          "type": "integer"
+        },
+        "max_origins_per_pool": {
+          "type": "integer"
+        },
+        "minimum_monitor_interval": {
+          "type": "integer"
+        },
+        "monitors": {
+          "type": "integer"
+        },
+        "origins": {
+          "type": "integer"
+        },
+        "pools": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "load_balancers",
+        "max_origins_per_pool",
+        "minimum_monitor_interval",
+        "monitors",
+        "origins",
+        "pools"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

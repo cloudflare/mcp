@@ -36,6 +36,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "name",
+        "updated_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -194,6 +219,56 @@ export const tools: readonly Tool[] = [
         "profile_name",
         "memory_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "sessionId": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "fact",
+            "event",
+            "instruction",
+            "task"
+          ],
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content",
+        "createdAt",
+        "id",
+        "sessionId",
+        "summary",
+        "type",
+        "updatedAt"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -368,6 +443,16 @@ export const tools: readonly Tool[] = [
         "namespace_name"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -504,6 +589,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "namespace_name",
         "profile_name"
+      ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -649,6 +744,16 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -791,6 +896,56 @@ export const tools: readonly Tool[] = [
         "profile_name",
         "memory_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "sessionId": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "fact",
+            "event",
+            "instruction",
+            "task"
+          ],
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content",
+        "createdAt",
+        "id",
+        "sessionId",
+        "summary",
+        "type",
+        "updatedAt"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -964,6 +1119,31 @@ export const tools: readonly Tool[] = [
         "account_id",
         "namespace_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "name",
+        "updated_at"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1169,6 +1349,16 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1329,6 +1519,77 @@ export const tools: readonly Tool[] = [
         "namespace_name",
         "profile_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "createdAt": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "sessionId": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "summary": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "fact",
+                  "event",
+                  "instruction",
+                  "task"
+                ],
+                "type": "string"
+              },
+              "updatedAt": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "createdAt",
+              "id",
+              "sessionId",
+              "summary",
+              "type",
+              "updatedAt"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1549,6 +1810,56 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "updated_at": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "created_at",
+              "id",
+              "name",
+              "updated_at"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1735,6 +2046,47 @@ export const tools: readonly Tool[] = [
         "account_id",
         "namespace_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "createdAt": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "createdAt",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1944,6 +2296,54 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "candidates": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "score": {
+                "type": "number"
+              },
+              "sessionId": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "summary": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "score",
+              "sessionId",
+              "summary"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "count": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "candidates",
+        "count"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -2145,6 +2545,56 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "sessionId": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "fact",
+            "event",
+            "instruction",
+            "task"
+          ],
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content",
+        "createdAt",
+        "id",
+        "sessionId",
+        "summary",
+        "type",
+        "updatedAt"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -2340,6 +2790,17 @@ export const tools: readonly Tool[] = [
         "profile_name",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "summary"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

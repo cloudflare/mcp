@@ -31,6 +31,20 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_address_validation_request": bill_subs_api_address_validation_request,
       },
     },
+    outputSchema: {
+      "properties": {
+        "validated_addresses": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_validated_address"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "bill-subs-api_validated_address": bill_subs_api_validated_address_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

@@ -96,6 +96,45 @@ export const tools: readonly Tool[] = [
         "access_previous_client_secret_expires_at": access_previous_client_secret_expires_at,
       },
     },
+    outputSchema: {
+      "properties": {
+        "client_id": {
+          "$ref": "#/$defs/access_client_id"
+        },
+        "client_secret": {
+          "$ref": "#/$defs/access_client_secret"
+        },
+        "created_at": {
+          "$ref": "#/$defs/access_created_at"
+        },
+        "duration": {
+          "$ref": "#/$defs/access_duration"
+        },
+        "enabled": {
+          "$ref": "#/$defs/access_enabled"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "$ref": "#/$defs/access_name-2"
+        },
+        "updated_at": {
+          "$ref": "#/$defs/access_updated_at"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_client_id": access_client_id_output,
+        "access_client_secret": access_client_secret_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_name-2": access_name_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -193,6 +232,23 @@ export const tools: readonly Tool[] = [
         "service_token_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_service-tokens",
+      $defs: {
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -266,6 +322,23 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "service_token_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_service-tokens",
+      $defs: {
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -354,6 +427,54 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_service-tokens"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -458,6 +579,23 @@ export const tools: readonly Tool[] = [
         "service_token_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_service-tokens",
+      $defs: {
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -532,6 +670,45 @@ export const tools: readonly Tool[] = [
         "account_id",
         "service_token_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "client_id": {
+          "$ref": "#/$defs/access_client_id"
+        },
+        "client_secret": {
+          "$ref": "#/$defs/access_client_secret"
+        },
+        "created_at": {
+          "$ref": "#/$defs/access_created_at"
+        },
+        "duration": {
+          "$ref": "#/$defs/access_duration"
+        },
+        "enabled": {
+          "$ref": "#/$defs/access_enabled"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "$ref": "#/$defs/access_name-2"
+        },
+        "updated_at": {
+          "$ref": "#/$defs/access_updated_at"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_client_id": access_client_id_output,
+        "access_client_secret": access_client_secret_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_name-2": access_name_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -658,6 +835,23 @@ export const tools: readonly Tool[] = [
         "access_enabled": access_enabled,
         "access_name-2": access_name_2,
         "access_previous_client_secret_expires_at": access_previous_client_secret_expires_at,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_service-tokens",
+      $defs: {
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
       },
     },
     annotations: {

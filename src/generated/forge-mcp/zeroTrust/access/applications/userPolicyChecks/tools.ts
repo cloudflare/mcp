@@ -41,6 +41,83 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "app_state": {
+          "properties": {
+            "app_uid": {
+              "$ref": "#/$defs/access_uuid"
+            },
+            "aud": {
+              "type": "string"
+            },
+            "hostname": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "policies": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "user_identity": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "device_sessions": {
+              "type": "object"
+            },
+            "email": {
+              "type": "string"
+            },
+            "geo": {
+              "properties": {
+                "country": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "iat": {
+              "type": "integer"
+            },
+            "id": {
+              "type": "string"
+            },
+            "is_gateway": {
+              "type": "boolean"
+            },
+            "is_warp": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "user_uuid": {
+              "$ref": "#/$defs/access_uuid"
+            },
+            "version": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

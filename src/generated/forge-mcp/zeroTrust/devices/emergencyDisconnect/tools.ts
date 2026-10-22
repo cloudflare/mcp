@@ -36,6 +36,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_global_warp_override",
+      $defs: {
+        "teams-devices_disconnect": teams_devices_disconnect_output,
+        "teams-devices_global_warp_override": teams_devices_global_warp_override_output,
+        "teams-devices_timestamp": teams_devices_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -96,6 +104,14 @@ export const tools: readonly Tool[] = [
         "teams-devices_disconnect": teams_devices_disconnect,
         "teams-devices_global_warp_override_request": teams_devices_global_warp_override_request,
         "teams-devices_justification": teams_devices_justification,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_global_warp_override",
+      $defs: {
+        "teams-devices_disconnect": teams_devices_disconnect_output,
+        "teams-devices_global_warp_override": teams_devices_global_warp_override_output,
+        "teams-devices_timestamp": teams_devices_timestamp_output,
       },
     },
     annotations: {

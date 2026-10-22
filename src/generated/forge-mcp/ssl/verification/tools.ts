@@ -60,6 +60,21 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_validation_method_definition": tls_certificates_and_hostnames_validation_method_definition,
       },
     },
+    outputSchema: {
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_status-6"
+        },
+        "validation_method": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method_definition"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_status-6": tls_certificates_and_hostnames_status_6_output,
+        "tls-certificates-and-hostnames_validation_method_definition": tls_certificates_and_hostnames_validation_method_definition_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -157,6 +172,21 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_verification_response_collection",
+      $defs: {
+        "tls-certificates-and-hostnames_brand_check": tls_certificates_and_hostnames_brand_check_output,
+        "tls-certificates-and-hostnames_cert_pack_uuid": tls_certificates_and_hostnames_cert_pack_uuid_output,
+        "tls-certificates-and-hostnames_certificate_status": tls_certificates_and_hostnames_certificate_status_output,
+        "tls-certificates-and-hostnames_signature-2": tls_certificates_and_hostnames_signature_2_output,
+        "tls-certificates-and-hostnames_ssl_verification_response_collection": tls_certificates_and_hostnames_ssl_verification_response_collection_output,
+        "tls-certificates-and-hostnames_validation_method-2": tls_certificates_and_hostnames_validation_method_2_output,
+        "tls-certificates-and-hostnames_verification": tls_certificates_and_hostnames_verification_output,
+        "tls-certificates-and-hostnames_verification_info": tls_certificates_and_hostnames_verification_info_output,
+        "tls-certificates-and-hostnames_verification_status": tls_certificates_and_hostnames_verification_status_output,
+        "tls-certificates-and-hostnames_verification_type": tls_certificates_and_hostnames_verification_type_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "speed_image_resizing_value": speed_image_resizing_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_image_resizing_response",
+      $defs: {
+        "speed_image_resizing_response": speed_image_resizing_response_output,
+        "speed_image_resizing_value": speed_image_resizing_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -114,6 +121,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_image_resizing_response",
+      $defs: {
+        "speed_image_resizing_response": speed_image_resizing_response_output,
+        "speed_image_resizing_value": speed_image_resizing_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

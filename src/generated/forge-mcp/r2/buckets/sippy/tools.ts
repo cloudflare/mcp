@@ -63,6 +63,17 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "enabled": {
+          "enum": [
+            false
+          ],
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -138,6 +149,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_sippy",
+      $defs: {
+        "r2_sippy": r2_sippy_output,
+        "r2_sippy_destination": r2_sippy_destination_output,
+        "r2_sippy_source": r2_sippy_source_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -246,6 +265,14 @@ export const tools: readonly Tool[] = [
         "r2_enable_sippy_s3": r2_enable_sippy_s3,
         "r2_enable_sippy_s3_destination": r2_enable_sippy_s3_destination,
         "r2_enable_sippy_s3_source": r2_enable_sippy_s3_source,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_sippy",
+      $defs: {
+        "r2_sippy": r2_sippy_output,
+        "r2_sippy_destination": r2_sippy_destination_output,
+        "r2_sippy_source": r2_sippy_source_output,
       },
     },
     annotations: {

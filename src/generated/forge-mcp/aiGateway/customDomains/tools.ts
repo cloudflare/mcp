@@ -53,6 +53,44 @@ export const tools: readonly Tool[] = [
         "gateway_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "cname_target": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "modified_at": {
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "initializing",
+            "pending_dcv",
+            "active",
+            "blocked",
+            "error"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "cname_target",
+        "created_at",
+        "gateway_id",
+        "hostname",
+        "modified_at",
+        "status"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -184,6 +222,51 @@ export const tools: readonly Tool[] = [
         "gateway_id",
         "hostname"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "type": "integer"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "modified_at": {
+          "type": "integer"
+        },
+        "ssl_hostname_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "initializing",
+            "pending_dcv",
+            "active",
+            "blocked",
+            "error"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "gateway_id",
+        "hostname",
+        "modified_at",
+        "ssl_hostname_id",
+        "status"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -322,6 +405,51 @@ export const tools: readonly Tool[] = [
         "gateway_id",
         "hostname"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "type": "integer"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "modified_at": {
+          "type": "integer"
+        },
+        "ssl_hostname_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "initializing",
+            "pending_dcv",
+            "active",
+            "blocked",
+            "error"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "gateway_id",
+        "hostname",
+        "modified_at",
+        "ssl_hostname_id",
+        "status"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -478,6 +606,65 @@ export const tools: readonly Tool[] = [
         "account_id",
         "gateway_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "type": "integer"
+              },
+              "gateway_id": {
+                "type": "string"
+              },
+              "hostname": {
+                "type": "string"
+              },
+              "modified_at": {
+                "type": "integer"
+              },
+              "ssl_hostname_id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "status": {
+                "enum": [
+                  "initializing",
+                  "pending_dcv",
+                  "active",
+                  "blocked",
+                  "error"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "created_at",
+              "gateway_id",
+              "hostname",
+              "modified_at",
+              "ssl_hostname_id",
+              "status"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

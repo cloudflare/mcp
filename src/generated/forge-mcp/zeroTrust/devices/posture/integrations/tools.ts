@@ -91,6 +91,18 @@ export const tools: readonly Tool[] = [
         "teams-devices_workspace_one_config_request": teams_devices_workspace_one_config_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_device-posture-integrations",
+      $defs: {
+        "teams-devices_components-schemas-name": teams_devices_components_schemas_name_output,
+        "teams-devices_config_response": teams_devices_config_response_output,
+        "teams-devices_device-posture-integrations": teams_devices_device_posture_integrations_output,
+        "teams-devices_interval": teams_devices_interval_output,
+        "teams-devices_schemas-type": teams_devices_schemas_type_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+        "teams-devices_workspace_one_config_response": teams_devices_workspace_one_config_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -149,6 +161,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id",
         "integration_id"
+      ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -210,6 +232,18 @@ export const tools: readonly Tool[] = [
         "integration_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_device-posture-integrations",
+      $defs: {
+        "teams-devices_components-schemas-name": teams_devices_components_schemas_name_output,
+        "teams-devices_config_response": teams_devices_config_response_output,
+        "teams-devices_device-posture-integrations": teams_devices_device_posture_integrations_output,
+        "teams-devices_interval": teams_devices_interval_output,
+        "teams-devices_schemas-type": teams_devices_schemas_type_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+        "teams-devices_workspace_one_config_response": teams_devices_workspace_one_config_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -258,6 +292,33 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_device-posture-integrations"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/teams-devices_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "teams-devices_components-schemas-name": teams_devices_components_schemas_name_output,
+        "teams-devices_config_response": teams_devices_config_response_output,
+        "teams-devices_device-posture-integrations": teams_devices_device_posture_integrations_output,
+        "teams-devices_interval": teams_devices_interval_output,
+        "teams-devices_result_info": teams_devices_result_info_output,
+        "teams-devices_schemas-type": teams_devices_schemas_type_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+        "teams-devices_workspace_one_config_response": teams_devices_workspace_one_config_response_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -361,6 +422,18 @@ export const tools: readonly Tool[] = [
         "teams-devices_tanium_config_request": teams_devices_tanium_config_request,
         "teams-devices_uptycs_config_request": teams_devices_uptycs_config_request,
         "teams-devices_workspace_one_config_request": teams_devices_workspace_one_config_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_device-posture-integrations",
+      $defs: {
+        "teams-devices_components-schemas-name": teams_devices_components_schemas_name_output,
+        "teams-devices_config_response": teams_devices_config_response_output,
+        "teams-devices_device-posture-integrations": teams_devices_device_posture_integrations_output,
+        "teams-devices_interval": teams_devices_interval_output,
+        "teams-devices_schemas-type": teams_devices_schemas_type_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+        "teams-devices_workspace_one_config_response": teams_devices_workspace_one_config_response_output,
       },
     },
     annotations: {

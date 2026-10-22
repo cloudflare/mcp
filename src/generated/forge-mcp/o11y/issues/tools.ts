@@ -53,6 +53,86 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "created": {
+          "type": "number"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "firstObserved": {
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastObserved": {
+          "type": "number"
+        },
+        "members": {
+          "items": {
+            "properties": {
+              "fingerprint": {
+                "type": "string"
+              },
+              "issueId": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fingerprint",
+              "issueId",
+              "title"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "service": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "resolved",
+            "ignored"
+          ],
+          "type": "string"
+        },
+        "statusUpdated": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count",
+        "created",
+        "firstObserved",
+        "id",
+        "lastObserved",
+        "service",
+        "status",
+        "statusUpdated",
+        "title",
+        "updated"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -470,6 +550,216 @@ export const tools: readonly Tool[] = [
         "account_id",
         "issue_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "issue": {
+          "properties": {
+            "activity": {
+              "items": {
+                "properties": {
+                  "automationId": {
+                    "type": "string"
+                  },
+                  "automationName": {
+                    "type": "string"
+                  },
+                  "automationRevision": {
+                    "type": "number"
+                  },
+                  "created": {
+                    "type": "number"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "inactivitySeconds": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "initiatedBy": {
+                    "enum": [
+                      "automatic",
+                      "manual"
+                    ],
+                    "type": "string"
+                  },
+                  "issueCount": {
+                    "type": "number"
+                  },
+                  "issueId": {
+                    "type": "string"
+                  },
+                  "lastError": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "policyId": {
+                    "type": "string"
+                  },
+                  "scope": {
+                    "enum": [
+                      "account",
+                      "service"
+                    ],
+                    "type": "string"
+                  },
+                  "status": {
+                    "enum": [
+                      "pending",
+                      "succeeded",
+                      "failed"
+                    ],
+                    "type": "string"
+                  },
+                  "terminalAt": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "threshold": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "triggerType": {
+                    "enum": [
+                      "occurrence_threshold",
+                      "recurrence_after_inactivity"
+                    ],
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "notification"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "created",
+                  "id",
+                  "inactivitySeconds",
+                  "initiatedBy",
+                  "issueCount",
+                  "issueId",
+                  "lastError",
+                  "policyId",
+                  "status",
+                  "terminalAt",
+                  "threshold",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "count": {
+              "type": "number"
+            },
+            "created": {
+              "type": "number"
+            },
+            "fingerprint": {
+              "type": "string"
+            },
+            "firstObserved": {
+              "type": "number"
+            },
+            "id": {
+              "type": "string"
+            },
+            "lastObserved": {
+              "type": "number"
+            },
+            "members": {
+              "items": {
+                "properties": {
+                  "fingerprint": {
+                    "type": "string"
+                  },
+                  "issueId": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fingerprint",
+                  "issueId",
+                  "title"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "service": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "active",
+                "resolved",
+                "ignored"
+              ],
+              "type": "string"
+            },
+            "statusUpdated": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "updated": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "activity",
+            "count",
+            "created",
+            "firstObserved",
+            "id",
+            "lastObserved",
+            "service",
+            "status",
+            "statusUpdated",
+            "title",
+            "updated"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "issue"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -935,6 +1225,86 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "created": {
+          "type": "number"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "firstObserved": {
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastObserved": {
+          "type": "number"
+        },
+        "members": {
+          "items": {
+            "properties": {
+              "fingerprint": {
+                "type": "string"
+              },
+              "issueId": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fingerprint",
+              "issueId",
+              "title"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "service": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "resolved",
+            "ignored"
+          ],
+          "type": "string"
+        },
+        "statusUpdated": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count",
+        "created",
+        "firstObserved",
+        "id",
+        "lastObserved",
+        "service",
+        "status",
+        "statusUpdated",
+        "title",
+        "updated"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1394,6 +1764,246 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "activity": {
+                "items": {
+                  "properties": {
+                    "automationId": {
+                      "type": "string"
+                    },
+                    "automationName": {
+                      "type": "string"
+                    },
+                    "automationRevision": {
+                      "type": "number"
+                    },
+                    "created": {
+                      "type": "number"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "inactivitySeconds": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "initiatedBy": {
+                      "enum": [
+                        "automatic",
+                        "manual"
+                      ],
+                      "type": "string"
+                    },
+                    "issueCount": {
+                      "type": "number"
+                    },
+                    "issueId": {
+                      "type": "string"
+                    },
+                    "lastError": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "policyId": {
+                      "type": "string"
+                    },
+                    "scope": {
+                      "enum": [
+                        "account",
+                        "service"
+                      ],
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "pending",
+                        "succeeded",
+                        "failed"
+                      ],
+                      "type": "string"
+                    },
+                    "terminalAt": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "threshold": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "triggerType": {
+                      "enum": [
+                        "occurrence_threshold",
+                        "recurrence_after_inactivity"
+                      ],
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "notification"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "id",
+                    "inactivitySeconds",
+                    "initiatedBy",
+                    "issueCount",
+                    "issueId",
+                    "lastError",
+                    "policyId",
+                    "status",
+                    "terminalAt",
+                    "threshold",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "count": {
+                "type": "number"
+              },
+              "created": {
+                "type": "number"
+              },
+              "fingerprint": {
+                "type": "string"
+              },
+              "firstObserved": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "lastObserved": {
+                "type": "number"
+              },
+              "members": {
+                "items": {
+                  "properties": {
+                    "fingerprint": {
+                      "type": "string"
+                    },
+                    "issueId": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "fingerprint",
+                    "issueId",
+                    "title"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "service": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "resolved",
+                  "ignored"
+                ],
+                "type": "string"
+              },
+              "statusUpdated": {
+                "type": "number"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "activity",
+              "count",
+              "created",
+              "firstObserved",
+              "id",
+              "lastObserved",
+              "service",
+              "status",
+              "statusUpdated",
+              "title",
+              "updated"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count",
+            "total_pages"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1891,6 +2501,125 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "run": {
+          "properties": {
+            "automationId": {
+              "type": "string"
+            },
+            "automationName": {
+              "type": "string"
+            },
+            "automationRevision": {
+              "type": "number"
+            },
+            "created": {
+              "type": "number"
+            },
+            "id": {
+              "type": "string"
+            },
+            "inactivitySeconds": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "initiatedBy": {
+              "enum": [
+                "automatic",
+                "manual"
+              ],
+              "type": "string"
+            },
+            "issueCount": {
+              "type": "number"
+            },
+            "issueId": {
+              "type": "string"
+            },
+            "lastError": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "policyId": {
+              "type": "string"
+            },
+            "scope": {
+              "enum": [
+                "account",
+                "service"
+              ],
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "pending",
+                "succeeded",
+                "failed"
+              ],
+              "type": "string"
+            },
+            "terminalAt": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "threshold": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "triggerType": {
+              "enum": [
+                "occurrence_threshold",
+                "recurrence_after_inactivity"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "created",
+            "id",
+            "inactivitySeconds",
+            "initiatedBy",
+            "issueCount",
+            "issueId",
+            "lastError",
+            "policyId",
+            "status",
+            "terminalAt",
+            "threshold"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "run"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -2305,6 +3034,63 @@ export const tools: readonly Tool[] = [
         "account_id",
         "issue_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers-observability_issue_occurrence"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursors": {
+              "properties": {
+                "after": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "after"
+              ],
+              "type": "object"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "cursors",
+            "per_page"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers-observability_issue_occurrence": workers_observability_issue_occurrence_output,
+        "workers-observability_issue_occurrence_context": workers_observability_issue_occurrence_context_output,
+        "workers-observability_issue_occurrence_error": workers_observability_issue_occurrence_error_output,
+        "workers-observability_issue_occurrence_invocation": workers_observability_issue_occurrence_invocation_output,
+        "workers-observability_issue_occurrence_request": workers_observability_issue_occurrence_request_output,
+        "workers-observability_issue_occurrence_worker": workers_observability_issue_occurrence_worker_output,
+        "workers-observability_issue_occurrence_worker_scriptVersion": workers_observability_issue_occurrence_worker_scriptVersion_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -2758,6 +3544,93 @@ export const tools: readonly Tool[] = [
         "issue_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "created": {
+              "type": "number"
+            },
+            "fingerprint": {
+              "type": "string"
+            },
+            "firstObserved": {
+              "type": "number"
+            },
+            "id": {
+              "type": "string"
+            },
+            "lastObserved": {
+              "type": "number"
+            },
+            "members": {
+              "items": {
+                "properties": {
+                  "fingerprint": {
+                    "type": "string"
+                  },
+                  "issueId": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fingerprint",
+                  "issueId",
+                  "title"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "service": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "active",
+                "resolved",
+                "ignored"
+              ],
+              "type": "string"
+            },
+            "statusUpdated": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "updated": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "created",
+            "firstObserved",
+            "id",
+            "lastObserved",
+            "service",
+            "status",
+            "statusUpdated",
+            "title",
+            "updated"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -3181,6 +4054,36 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "activeIssues": {
+          "type": "number"
+        },
+        "activeOccurrences": {
+          "type": "number"
+        },
+        "lastIssue": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resolvedIssues": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "activeIssues",
+        "activeOccurrences",
+        "lastIssue",
+        "resolvedIssues"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -3451,6 +4354,20 @@ export const tools: readonly Tool[] = [
         "group_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "deleted": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "deleted"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -3719,6 +4636,86 @@ export const tools: readonly Tool[] = [
         "issue_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "created": {
+          "type": "number"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "firstObserved": {
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastObserved": {
+          "type": "number"
+        },
+        "members": {
+          "items": {
+            "properties": {
+              "fingerprint": {
+                "type": "string"
+              },
+              "issueId": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fingerprint",
+              "issueId",
+              "title"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "service": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "resolved",
+            "ignored"
+          ],
+          "type": "string"
+        },
+        "statusUpdated": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count",
+        "created",
+        "firstObserved",
+        "id",
+        "lastObserved",
+        "service",
+        "status",
+        "statusUpdated",
+        "title",
+        "updated"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

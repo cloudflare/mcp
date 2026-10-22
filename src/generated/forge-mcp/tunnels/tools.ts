@@ -91,6 +91,32 @@ export const tools: readonly Tool[] = [
         "tunnel_tunnel_secret": tunnel_tunnel_secret,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_cfd_tunnel",
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -175,6 +201,32 @@ export const tools: readonly Tool[] = [
         "account_id",
         "tunnel_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_cfd_tunnel",
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -278,6 +330,32 @@ export const tools: readonly Tool[] = [
         "tunnel_tunnel_secret": tunnel_tunnel_secret,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_cfd_tunnel",
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -362,6 +440,32 @@ export const tools: readonly Tool[] = [
         "account_id",
         "tunnel_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_cfd_tunnel",
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -499,6 +603,55 @@ export const tools: readonly Tool[] = [
         "tunnel_tunnel_id": tunnel_tunnel_id,
         "tunnel_tunnel_type": tunnel_tunnel_type,
         "tunnel_tunnel_types": tunnel_tunnel_types,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/tunnel_cfd_tunnel"
+              },
+              {
+                "$ref": "#/$defs/tunnel_warp_connector_tunnel"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/tunnel_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_config_src": tunnel_config_src_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_connections_deprecated": tunnel_connections_deprecated_output,
+        "tunnel_conns_active_at": tunnel_conns_active_at_output,
+        "tunnel_conns_inactive_at": tunnel_conns_inactive_at_output,
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_metadata": tunnel_metadata_output,
+        "tunnel_remote_config": tunnel_remote_config_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_schemas-connection": tunnel_schemas_connection_output,
+        "tunnel_status": tunnel_status_output,
+        "tunnel_tunnel_id": tunnel_tunnel_id_output,
+        "tunnel_tunnel_name": tunnel_tunnel_name_output,
+        "tunnel_tunnel_type": tunnel_tunnel_type_output,
+        "tunnel_version": tunnel_version_output,
+        "tunnel_warp_connector_tunnel": tunnel_warp_connector_tunnel_output,
       },
     },
     annotations: {

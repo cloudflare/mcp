@@ -83,6 +83,19 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_proxy-endpoint-ip-create": zero_trust_gateway_proxy_endpoint_ip_create,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_proxy-endpoints",
+      $defs: {
+        "zero-trust-gateway_ips": zero_trust_gateway_ips_output,
+        "zero-trust-gateway_name-6": zero_trust_gateway_name_6_output,
+        "zero-trust-gateway_proxy-endpoint-identity": zero_trust_gateway_proxy_endpoint_identity_output,
+        "zero-trust-gateway_proxy-endpoint-ip": zero_trust_gateway_proxy_endpoint_ip_output,
+        "zero-trust-gateway_proxy-endpoints": zero_trust_gateway_proxy_endpoints_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_subdomain-2": zero_trust_gateway_subdomain_2_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -146,6 +159,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "proxy_endpoint_id"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -220,6 +236,19 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_name-6": zero_trust_gateway_name_6,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_proxy-endpoints",
+      $defs: {
+        "zero-trust-gateway_ips": zero_trust_gateway_ips_output,
+        "zero-trust-gateway_name-6": zero_trust_gateway_name_6_output,
+        "zero-trust-gateway_proxy-endpoint-identity": zero_trust_gateway_proxy_endpoint_identity_output,
+        "zero-trust-gateway_proxy-endpoint-ip": zero_trust_gateway_proxy_endpoint_ip_output,
+        "zero-trust-gateway_proxy-endpoints": zero_trust_gateway_proxy_endpoints_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_subdomain-2": zero_trust_gateway_subdomain_2_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -283,6 +312,19 @@ export const tools: readonly Tool[] = [
         "account_id",
         "proxy_endpoint_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_proxy-endpoints",
+      $defs: {
+        "zero-trust-gateway_ips": zero_trust_gateway_ips_output,
+        "zero-trust-gateway_name-6": zero_trust_gateway_name_6_output,
+        "zero-trust-gateway_proxy-endpoint-identity": zero_trust_gateway_proxy_endpoint_identity_output,
+        "zero-trust-gateway_proxy-endpoint-ip": zero_trust_gateway_proxy_endpoint_ip_output,
+        "zero-trust-gateway_proxy-endpoints": zero_trust_gateway_proxy_endpoints_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_subdomain-2": zero_trust_gateway_subdomain_2_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -370,6 +412,34 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_proxy-endpoints"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/zero-trust-gateway_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_ips": zero_trust_gateway_ips_output,
+        "zero-trust-gateway_name-6": zero_trust_gateway_name_6_output,
+        "zero-trust-gateway_proxy-endpoint-identity": zero_trust_gateway_proxy_endpoint_identity_output,
+        "zero-trust-gateway_proxy-endpoint-ip": zero_trust_gateway_proxy_endpoint_ip_output,
+        "zero-trust-gateway_proxy-endpoints": zero_trust_gateway_proxy_endpoints_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_subdomain-2": zero_trust_gateway_subdomain_2_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

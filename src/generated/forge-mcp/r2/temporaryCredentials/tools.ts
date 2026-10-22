@@ -37,6 +37,12 @@ export const tools: readonly Tool[] = [
         "r2_temp_access_creds_request": r2_temp_access_creds_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_temp_access_creds_response",
+      $defs: {
+        "r2_temp_access_creds_response": r2_temp_access_creds_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

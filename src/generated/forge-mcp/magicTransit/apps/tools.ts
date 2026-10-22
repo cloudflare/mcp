@@ -63,6 +63,19 @@ export const tools: readonly Tool[] = [
         "magic_cidr": magic_cidr,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_account_app",
+      $defs: {
+        "magic_account_app": magic_account_app_output,
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_app_hostnames": magic_app_hostnames_output,
+        "magic_app_name": magic_app_name_output,
+        "magic_app_source_subnets": magic_app_source_subnets_output,
+        "magic_app_subnets": magic_app_subnets_output,
+        "magic_app_type": magic_app_type_output,
+        "magic_cidr": magic_cidr_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -132,6 +145,19 @@ export const tools: readonly Tool[] = [
         "account_app_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_account_app",
+      $defs: {
+        "magic_account_app": magic_account_app_output,
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_app_hostnames": magic_app_hostnames_output,
+        "magic_app_name": magic_app_name_output,
+        "magic_app_source_subnets": magic_app_source_subnets_output,
+        "magic_app_subnets": magic_app_subnets_output,
+        "magic_app_type": magic_app_type_output,
+        "magic_cidr": magic_cidr_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -194,6 +220,36 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_app"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_account_app": magic_account_app_output,
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_app": magic_app_output,
+        "magic_app_hostnames": magic_app_hostnames_output,
+        "magic_app_name": magic_app_name_output,
+        "magic_app_source_subnets": magic_app_source_subnets_output,
+        "magic_app_subnets": magic_app_subnets_output,
+        "magic_app_type": magic_app_type_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_managed_app": magic_managed_app_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -293,6 +349,19 @@ export const tools: readonly Tool[] = [
         "magic_app_type": magic_app_type,
         "magic_app_update_request": magic_app_update_request,
         "magic_cidr": magic_cidr,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_account_app",
+      $defs: {
+        "magic_account_app": magic_account_app_output,
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_app_hostnames": magic_app_hostnames_output,
+        "magic_app_name": magic_app_name_output,
+        "magic_app_source_subnets": magic_app_source_subnets_output,
+        "magic_app_subnets": magic_app_subnets_output,
+        "magic_app_type": magic_app_type_output,
+        "magic_cidr": magic_cidr_output,
       },
     },
     annotations: {

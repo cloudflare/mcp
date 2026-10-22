@@ -42,6 +42,29 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier-2": api_shield_identifier_2,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/api-shield_global_settings"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_global_settings": api_shield_global_settings_output,
+        "api-shield_messages": api_shield_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -110,6 +133,29 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/api-shield_global_settings"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_global_settings": api_shield_global_settings_output,
+        "api-shield_messages": api_shield_messages_output,
       },
     },
     annotations: {
@@ -213,6 +259,29 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/api-shield_global_settings"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_global_settings": api_shield_global_settings_output,
+        "api-shield_messages": api_shield_messages_output,
       },
     },
     annotations: {

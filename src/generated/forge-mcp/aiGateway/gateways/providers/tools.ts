@@ -60,6 +60,52 @@ export const tools: readonly Tool[] = [
         "gateway_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "default_config": {
+          "type": "boolean"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "provider_slug": {
+          "type": "string"
+        },
+        "rate_limit": {
+          "type": "number"
+        },
+        "rate_limit_period": {
+          "type": "number"
+        },
+        "secret_id": {
+          "type": "string"
+        },
+        "secret_preview": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "alias",
+        "default_config",
+        "gateway_id",
+        "id",
+        "modified_at",
+        "provider_slug",
+        "secret_id",
+        "secret_preview"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -206,6 +252,52 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "default_config": {
+          "type": "boolean"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "provider_slug": {
+          "type": "string"
+        },
+        "rate_limit": {
+          "type": "number"
+        },
+        "rate_limit_period": {
+          "type": "number"
+        },
+        "secret_id": {
+          "type": "string"
+        },
+        "secret_preview": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "alias",
+        "default_config",
+        "gateway_id",
+        "id",
+        "modified_at",
+        "provider_slug",
+        "secret_id",
+        "secret_preview"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -343,6 +435,52 @@ export const tools: readonly Tool[] = [
         "gateway_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "default_config": {
+          "type": "boolean"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "provider_slug": {
+          "type": "string"
+        },
+        "rate_limit": {
+          "type": "number"
+        },
+        "rate_limit_period": {
+          "type": "number"
+        },
+        "secret_id": {
+          "type": "string"
+        },
+        "secret_preview": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "alias",
+        "default_config",
+        "gateway_id",
+        "id",
+        "modified_at",
+        "provider_slug",
+        "secret_id",
+        "secret_preview"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -482,6 +620,66 @@ export const tools: readonly Tool[] = [
         "account_id",
         "gateway_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "default_config": {
+                "type": "boolean"
+              },
+              "gateway_id": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "provider_slug": {
+                "type": "string"
+              },
+              "rate_limit": {
+                "type": "number"
+              },
+              "rate_limit_period": {
+                "type": "number"
+              },
+              "secret_id": {
+                "type": "string"
+              },
+              "secret_preview": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "alias",
+              "default_config",
+              "gateway_id",
+              "id",
+              "modified_at",
+              "provider_slug",
+              "secret_id",
+              "secret_preview"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -647,6 +845,52 @@ export const tools: readonly Tool[] = [
         "gateway_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "default_config": {
+          "type": "boolean"
+        },
+        "gateway_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "provider_slug": {
+          "type": "string"
+        },
+        "rate_limit": {
+          "type": "number"
+        },
+        "rate_limit_period": {
+          "type": "number"
+        },
+        "secret_id": {
+          "type": "string"
+        },
+        "secret_preview": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "alias",
+        "default_config",
+        "gateway_id",
+        "id",
+        "modified_at",
+        "provider_slug",
+        "secret_id",
+        "secret_preview"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

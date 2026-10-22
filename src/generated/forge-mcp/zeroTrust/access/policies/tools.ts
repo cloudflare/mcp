@@ -198,6 +198,27 @@ export const tools: readonly Tool[] = [
         "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_reusable_policy_resp",
+      $defs: {
+        "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
+        "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
+        "access_app_count": access_app_count_output,
+        "access_approval_group": access_approval_group_output,
+        "access_approval_groups": access_approval_groups_output,
+        "access_approval_required": access_approval_required_output,
+        "access_connection_rules": access_connection_rules_output,
+        "access_connection_rules_rdp": access_connection_rules_rdp_output,
+        "access_identifier": access_identifier_output,
+        "access_isolation_required": access_isolation_required_output,
+        "access_mfa_config": access_mfa_config_output,
+        "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
+        "access_purpose_justification_required": access_purpose_justification_required_output,
+        "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
+        "access_reusable_policy_resp": access_reusable_policy_resp_output,
+        "access_session_duration-3": access_session_duration_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -268,6 +289,17 @@ export const tools: readonly Tool[] = [
         "policy_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_uuid-2"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_uuid-2": access_uuid_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -326,6 +358,27 @@ export const tools: readonly Tool[] = [
         "account_id",
         "policy_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_reusable_policy_resp",
+      $defs: {
+        "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
+        "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
+        "access_app_count": access_app_count_output,
+        "access_approval_group": access_approval_group_output,
+        "access_approval_groups": access_approval_groups_output,
+        "access_approval_required": access_approval_required_output,
+        "access_connection_rules": access_connection_rules_output,
+        "access_connection_rules_rdp": access_connection_rules_rdp_output,
+        "access_identifier": access_identifier_output,
+        "access_isolation_required": access_isolation_required_output,
+        "access_mfa_config": access_mfa_config_output,
+        "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
+        "access_purpose_justification_required": access_purpose_justification_required_output,
+        "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
+        "access_reusable_policy_resp": access_reusable_policy_resp_output,
+        "access_session_duration-3": access_session_duration_3_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -401,6 +454,58 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_reusable_policy_resp"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
+        "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
+        "access_app_count": access_app_count_output,
+        "access_approval_group": access_approval_group_output,
+        "access_approval_groups": access_approval_groups_output,
+        "access_approval_required": access_approval_required_output,
+        "access_connection_rules": access_connection_rules_output,
+        "access_connection_rules_rdp": access_connection_rules_rdp_output,
+        "access_identifier": access_identifier_output,
+        "access_isolation_required": access_isolation_required_output,
+        "access_mfa_config": access_mfa_config_output,
+        "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
+        "access_purpose_justification_required": access_purpose_justification_required_output,
+        "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
+        "access_reusable_policy_resp": access_reusable_policy_resp_output,
+        "access_session_duration-3": access_session_duration_3_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -582,6 +687,27 @@ export const tools: readonly Tool[] = [
         "access_session_duration-3": access_session_duration_3,
         "access_user_risk_score_rule": access_user_risk_score_rule,
         "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_reusable_policy_resp",
+      $defs: {
+        "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
+        "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
+        "access_app_count": access_app_count_output,
+        "access_approval_group": access_approval_group_output,
+        "access_approval_groups": access_approval_groups_output,
+        "access_approval_required": access_approval_required_output,
+        "access_connection_rules": access_connection_rules_output,
+        "access_connection_rules_rdp": access_connection_rules_rdp_output,
+        "access_identifier": access_identifier_output,
+        "access_isolation_required": access_isolation_required_output,
+        "access_mfa_config": access_mfa_config_output,
+        "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
+        "access_purpose_justification_required": access_purpose_justification_required_output,
+        "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
+        "access_reusable_policy_resp": access_reusable_policy_resp_output,
+        "access_session_duration-3": access_session_duration_3_output,
       },
     },
     annotations: {

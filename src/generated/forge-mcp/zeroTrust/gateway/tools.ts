@@ -34,6 +34,25 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "gateway_tag": {
+          "$ref": "#/$defs/zero-trust-gateway_gateway_tag"
+        },
+        "id": {
+          "$ref": "#/$defs/zero-trust-gateway_cf_account_id"
+        },
+        "provider_name": {
+          "$ref": "#/$defs/zero-trust-gateway_provider_name"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_cf_account_id": zero_trust_gateway_cf_account_id_output,
+        "zero-trust-gateway_gateway_tag": zero_trust_gateway_gateway_tag_output,
+        "zero-trust-gateway_provider_name": zero_trust_gateway_provider_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -104,6 +123,25 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "gateway_tag": {
+          "$ref": "#/$defs/zero-trust-gateway_gateway_tag"
+        },
+        "id": {
+          "$ref": "#/$defs/zero-trust-gateway_cf_account_id"
+        },
+        "provider_name": {
+          "$ref": "#/$defs/zero-trust-gateway_provider_name"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_cf_account_id": zero_trust_gateway_cf_account_id_output,
+        "zero-trust-gateway_gateway_tag": zero_trust_gateway_gateway_tag_output,
+        "zero-trust-gateway_provider_name": zero_trust_gateway_provider_name_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

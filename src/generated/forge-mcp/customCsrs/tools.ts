@@ -53,6 +53,13 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_custom_csr_create_request-2": tls_certificates_and_hostnames_custom_csr_create_request_2,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2",
+      $defs: {
+        "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
+        "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -141,6 +148,17 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "custom_csr_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -234,6 +252,13 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "custom_csr_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2",
+      $defs: {
+        "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
+        "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -347,6 +372,44 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
+        "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

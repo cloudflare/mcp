@@ -49,6 +49,12 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_MessagePreview",
+      $defs: {
+        "email-security_MessagePreview": email_security_MessagePreview_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -107,6 +113,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_InvestigateId": email_security_InvestigateId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_MessagePreview",
+      $defs: {
+        "email-security_MessagePreview": email_security_MessagePreview_output,
       },
     },
     annotations: {

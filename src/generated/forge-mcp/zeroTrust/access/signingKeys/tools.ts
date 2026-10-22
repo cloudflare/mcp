@@ -34,6 +34,15 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_key_config",
+      $defs: {
+        "access_days_until_next_rotation": access_days_until_next_rotation_output,
+        "access_key_config": access_key_config_output,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
+        "access_last_key_rotation_at": access_last_key_rotation_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -86,6 +95,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_key_config",
+      $defs: {
+        "access_days_until_next_rotation": access_days_until_next_rotation_output,
+        "access_key_config": access_key_config_output,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
+        "access_last_key_rotation_at": access_last_key_rotation_at_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -153,6 +171,15 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_key_rotation_interval_days": access_key_rotation_interval_days,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_key_config",
+      $defs: {
+        "access_days_until_next_rotation": access_days_until_next_rotation_output,
+        "access_key_config": access_key_config_output,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
+        "access_last_key_rotation_at": access_last_key_rotation_at_output,
       },
     },
     annotations: {

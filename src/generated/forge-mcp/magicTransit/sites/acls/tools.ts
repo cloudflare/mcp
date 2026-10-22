@@ -69,6 +69,21 @@ export const tools: readonly Tool[] = [
         "magic_unidirectional": magic_unidirectional,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_acl",
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -144,6 +159,21 @@ export const tools: readonly Tool[] = [
         "site_id",
         "acl_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_acl",
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -245,6 +275,21 @@ export const tools: readonly Tool[] = [
         "magic_unidirectional": magic_unidirectional,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_acl",
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -331,6 +376,21 @@ export const tools: readonly Tool[] = [
         "acl_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_acl",
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -412,6 +472,35 @@ export const tools: readonly Tool[] = [
         "account_id",
         "site_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_acl"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -517,6 +606,21 @@ export const tools: readonly Tool[] = [
         "magic_lan-acl-configuration": magic_lan_acl_configuration,
         "magic_port": magic_port,
         "magic_unidirectional": magic_unidirectional,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_acl",
+      $defs: {
+        "magic_acl": magic_acl_output,
+        "magic_acl-port-range": magic_acl_port_range_output,
+        "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_forward_locally": magic_forward_locally_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_port": magic_port_output,
+        "magic_unidirectional": magic_unidirectional_output,
       },
     },
     annotations: {

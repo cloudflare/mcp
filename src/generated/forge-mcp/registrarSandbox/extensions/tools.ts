@@ -36,6 +36,13 @@ export const tools: readonly Tool[] = [
         "extension"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api-sandbox_extension-item",
+      $defs: {
+        "registrar-api-sandbox_extension-item": registrar_api_sandbox_extension_item_output,
+        "registrar-api-sandbox_extension-item_metadata": registrar_api_sandbox_extension_item_metadata_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -113,6 +120,38 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/registrar-api-sandbox_extension-item"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "registrar-api-sandbox_extension-item": registrar_api_sandbox_extension_item_output,
+        "registrar-api-sandbox_extension-item_metadata": registrar_api_sandbox_extension_item_metadata_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

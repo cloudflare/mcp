@@ -31,6 +31,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "client_secret": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -87,6 +95,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_bad_debt_info",
+      $defs: {
+        "bill-subs-api_account_billing_history": bill_subs_api_account_billing_history_output,
+        "bill-subs-api_bad_debt_info": bill_subs_api_bad_debt_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -139,6 +154,44 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "confirmed_balance_cents": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "days_remaining": {
+          "type": "integer"
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "has_record": {
+          "type": "boolean"
+        },
+        "original_amount_cents": {
+          "type": "integer"
+        },
+        "percent_consumed": {
+          "type": "number"
+        },
+        "projected_depletion_date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "valid_from": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "valid_to": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -301,6 +354,20 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "invoices": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_account_billing_history"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "bill-subs-api_account_billing_history": bill_subs_api_account_billing_history_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -370,6 +437,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "client_secret": {
+          "type": "string"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -446,6 +521,14 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "client_secret": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -514,6 +597,19 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id",
         "body"
+      ],
+    },
+    outputSchema: {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {

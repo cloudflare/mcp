@@ -28,6 +28,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache_result",
+      $defs: {
+        "cache_result": cache_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -101,6 +107,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache_schemas_patch": cache_schemas_patch,
         "cache_schemas_value": cache_schemas_value,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache_result",
+      $defs: {
+        "cache_result": cache_result_output,
       },
     },
     annotations: {

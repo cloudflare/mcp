@@ -31,6 +31,15 @@ export interface ServerOptions {
    */
   readonly experimentalForge?: boolean
   /**
+   * With `codemode: false` and `experimentalForge: true`, give 2026-07-28
+   * requests each tool's generated output schema in `tools/list` and a
+   * successful call's whole response body as `structuredContent`. 2025-era
+   * requests are served as without it: their clients expect an object output
+   * schema, and most generated ones aren't. Ignored otherwise.
+   * Defaults to `false`.
+   */
+  readonly experimentalOutputSchema?: boolean
+  /**
    * Cap each tool result at ~6,000 tokens. When `false`, results are returned
    * whole. Defaults to `true` in Code Mode and `false` for the direct tools.
    */
@@ -62,7 +71,12 @@ export function directRequestContext(): RequestContext {
  */
 export async function createServer(
   props: AuthProps,
-  { codemode = true, experimentalForge = false, truncateToolResult = codemode }: ServerOptions = {},
+  {
+    codemode = true,
+    experimentalForge = false,
+    experimentalOutputSchema = false,
+    truncateToolResult = codemode
+  }: ServerOptions = {},
   { connection, scopeChallenge, events }: RequestContext = directRequestContext()
 ): Promise<McpServer> {
   const server = new McpServer(SERVER_INFO)
@@ -77,7 +91,9 @@ export async function createServer(
 
   if (!codemode) {
     if (experimentalForge) {
-      registerForgeTools(server, props, formatResult, connection, scopeChallenge)
+      registerForgeTools(server, props, formatResult, connection, scopeChallenge, {
+        outputSchema: experimentalOutputSchema
+      })
     } else {
       await registerNonCodemodeTools(server, props, formatResult, connection, scopeChallenge)
     }

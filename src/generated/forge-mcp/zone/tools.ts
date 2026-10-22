@@ -28,6 +28,17 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/zone-activation_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "zone-activation_identifier": zone_activation_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,

@@ -60,6 +60,67 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "additional_information": {
+                "$ref": "#/$defs/intel_additional_information"
+              },
+              "application": {
+                "$ref": "#/$defs/intel_application"
+              },
+              "content_categories": {
+                "$ref": "#/$defs/intel_content_categories"
+              },
+              "domain": {
+                "$ref": "#/$defs/intel_domain_name"
+              },
+              "inherited_content_categories": {
+                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
+              },
+              "inherited_from": {
+                "$ref": "#/$defs/intel_inherited_from"
+              },
+              "inherited_risk_types": {
+                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
+              },
+              "popularity_rank": {
+                "$ref": "#/$defs/intel_popularity_rank"
+              },
+              "risk_score": {
+                "$ref": "#/$defs/intel_risk_score"
+              },
+              "risk_types": {
+                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/intel_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "intel_additional_information": intel_additional_information_output,
+        "intel_application": intel_application_output,
+        "intel_categories_with_super_category_ids_example_empty": intel_categories_with_super_category_ids_example_empty_output,
+        "intel_category_with_super_category_id": intel_category_with_super_category_id_output,
+        "intel_content_categories": intel_content_categories_output,
+        "intel_domain_name": intel_domain_name_output,
+        "intel_inherited_from": intel_inherited_from_output,
+        "intel_popularity_rank": intel_popularity_rank_output,
+        "intel_result_info": intel_result_info_output,
+        "intel_risk_score": intel_risk_score_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -57,6 +57,32 @@ export const tools: readonly Tool[] = [
         "profile_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Profile",
+      $defs: {
+        "dlp_Confidence": dlp_Confidence_output,
+        "dlp_ContextAwareness": dlp_ContextAwareness_output,
+        "dlp_CustomEntry": dlp_CustomEntry_output,
+        "dlp_CustomProfile": dlp_CustomProfile_output,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_Entry": dlp_Entry_output,
+        "dlp_EntryConfidence": dlp_EntryConfidence_output,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
+        "dlp_IntegrationProfile": dlp_IntegrationProfile_output,
+        "dlp_Pattern": dlp_Pattern_output,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
+        "dlp_PredefinedProfile": dlp_PredefinedProfile_output,
+        "dlp_Profile": dlp_Profile_output,
+        "dlp_PromptTopicType": dlp_PromptTopicType_output,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+        "dlp_SkipConfig": dlp_SkipConfig_output,
+        "dlp_Validation": dlp_Validation_output,
+        "dlp_WordListEntry": dlp_WordListEntry_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -129,6 +155,44 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_ProfileArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_Confidence": dlp_Confidence_output,
+        "dlp_ContextAwareness": dlp_ContextAwareness_output,
+        "dlp_CustomEntry": dlp_CustomEntry_output,
+        "dlp_CustomProfile": dlp_CustomProfile_output,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_Entry": dlp_Entry_output,
+        "dlp_EntryConfidence": dlp_EntryConfidence_output,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
+        "dlp_IntegrationProfile": dlp_IntegrationProfile_output,
+        "dlp_Pattern": dlp_Pattern_output,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
+        "dlp_PredefinedProfile": dlp_PredefinedProfile_output,
+        "dlp_Profile": dlp_Profile_output,
+        "dlp_ProfileArray": dlp_ProfileArray_output,
+        "dlp_PromptTopicType": dlp_PromptTopicType_output,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+        "dlp_SkipConfig": dlp_SkipConfig_output,
+        "dlp_Validation": dlp_Validation_output,
+        "dlp_WordListEntry": dlp_WordListEntry_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

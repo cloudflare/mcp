@@ -69,6 +69,17 @@ export const tools: readonly Tool[] = [
         "teams-devices_tls_config_request": teams_devices_tls_config_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_device-managed-networks",
+      $defs: {
+        "teams-devices_components-schemas-type": teams_devices_components_schemas_type_output,
+        "teams-devices_device-managed-networks": teams_devices_device_managed_networks_output,
+        "teams-devices_device-managed-networks_components-schemas-name": teams_devices_device_managed_networks_components_schemas_name_output,
+        "teams-devices_schemas-config_response": teams_devices_schemas_config_response_output,
+        "teams-devices_tls_config_response": teams_devices_tls_config_response_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -127,6 +138,32 @@ export const tools: readonly Tool[] = [
         "account_id",
         "network_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_device-managed-networks"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/teams-devices_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "teams-devices_components-schemas-type": teams_devices_components_schemas_type_output,
+        "teams-devices_device-managed-networks": teams_devices_device_managed_networks_output,
+        "teams-devices_device-managed-networks_components-schemas-name": teams_devices_device_managed_networks_components_schemas_name_output,
+        "teams-devices_result_info": teams_devices_result_info_output,
+        "teams-devices_schemas-config_response": teams_devices_schemas_config_response_output,
+        "teams-devices_tls_config_response": teams_devices_tls_config_response_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -201,6 +238,17 @@ export const tools: readonly Tool[] = [
         "network_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_device-managed-networks",
+      $defs: {
+        "teams-devices_components-schemas-type": teams_devices_components_schemas_type_output,
+        "teams-devices_device-managed-networks": teams_devices_device_managed_networks_output,
+        "teams-devices_device-managed-networks_components-schemas-name": teams_devices_device_managed_networks_components_schemas_name_output,
+        "teams-devices_schemas-config_response": teams_devices_schemas_config_response_output,
+        "teams-devices_tls_config_response": teams_devices_tls_config_response_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -248,6 +296,32 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_device-managed-networks"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/teams-devices_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "teams-devices_components-schemas-type": teams_devices_components_schemas_type_output,
+        "teams-devices_device-managed-networks": teams_devices_device_managed_networks_output,
+        "teams-devices_device-managed-networks_components-schemas-name": teams_devices_device_managed_networks_components_schemas_name_output,
+        "teams-devices_result_info": teams_devices_result_info_output,
+        "teams-devices_schemas-config_response": teams_devices_schemas_config_response_output,
+        "teams-devices_tls_config_response": teams_devices_tls_config_response_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -338,6 +412,17 @@ export const tools: readonly Tool[] = [
         "teams-devices_device-managed-networks_components-schemas-name": teams_devices_device_managed_networks_components_schemas_name,
         "teams-devices_schemas-config_request": teams_devices_schemas_config_request,
         "teams-devices_tls_config_request": teams_devices_tls_config_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_device-managed-networks",
+      $defs: {
+        "teams-devices_components-schemas-type": teams_devices_components_schemas_type_output,
+        "teams-devices_device-managed-networks": teams_devices_device_managed_networks_output,
+        "teams-devices_device-managed-networks_components-schemas-name": teams_devices_device_managed_networks_components_schemas_name_output,
+        "teams-devices_schemas-config_response": teams_devices_schemas_config_response_output,
+        "teams-devices_tls_config_response": teams_devices_tls_config_response_output,
+        "teams-devices_uuid": teams_devices_uuid_output,
       },
     },
     annotations: {

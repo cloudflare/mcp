@@ -41,6 +41,29 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier-2": api_shield_identifier_2,
       },
     },
+    outputSchema: {
+      "properties": {
+        "schemas": {
+          "items": {
+            "$ref": "#/$defs/api-shield_openapi"
+          },
+          "type": "array"
+        },
+        "timestamp": {
+          "$ref": "#/$defs/api-shield_timestamp-2"
+        }
+      },
+      "required": [
+        "schemas",
+        "timestamp"
+      ],
+      "type": "object",
+      $defs: {
+        "api-shield_openapi": api_shield_openapi_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

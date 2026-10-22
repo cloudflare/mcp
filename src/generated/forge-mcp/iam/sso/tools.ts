@@ -43,6 +43,13 @@ export const tools: readonly Tool[] = [
         "sso_connector_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_api-response-common",
+      $defs: {
+        "iam_api-response-common": iam_api_response_common_output,
+        "iam_messages-2": iam_messages_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -123,6 +130,17 @@ export const tools: readonly Tool[] = [
         "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_sso_connector",
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_dns_verification_code": iam_dns_verification_code_output,
+        "iam_sso_connector": iam_sso_connector_output,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
+        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -188,6 +206,27 @@ export const tools: readonly Tool[] = [
         "account_id",
         "sso_connector_id"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/iam_common_components-schemas-identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -264,6 +303,17 @@ export const tools: readonly Tool[] = [
         "sso_connector_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_sso_connector",
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_dns_verification_code": iam_dns_verification_code_output,
+        "iam_sso_connector": iam_sso_connector_output,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
+        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -323,6 +373,32 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_sso_connector"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_dns_verification_code": iam_dns_verification_code_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_sso_connector": iam_sso_connector_output,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
+        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -419,6 +495,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_use_fedramp_language": iam_use_fedramp_language,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_sso_connector",
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_dns_verification_code": iam_dns_verification_code_output,
+        "iam_sso_connector": iam_sso_connector_output,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
+        "iam_use_fedramp_language": iam_use_fedramp_language_output,
       },
     },
     annotations: {

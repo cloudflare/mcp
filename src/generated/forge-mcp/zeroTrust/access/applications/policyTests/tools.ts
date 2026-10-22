@@ -192,6 +192,21 @@ export const tools: readonly Tool[] = [
         "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score,
       },
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_policy_test_id"
+        },
+        "status": {
+          "$ref": "#/$defs/access_status"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_policy_test_id": access_policy_test_id_output,
+        "access_status": access_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -255,6 +270,53 @@ export const tools: readonly Tool[] = [
         "account_id",
         "policy_test_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_policy_test_id"
+        },
+        "percent_approved": {
+          "$ref": "#/$defs/access_percent_approved"
+        },
+        "percent_blocked": {
+          "$ref": "#/$defs/access_percent_blocked"
+        },
+        "percent_errored": {
+          "$ref": "#/$defs/access_percent_errored"
+        },
+        "percent_users_processed": {
+          "$ref": "#/$defs/access_percent_users_processed"
+        },
+        "status": {
+          "$ref": "#/$defs/access_update_status"
+        },
+        "total_users": {
+          "$ref": "#/$defs/access_total_users"
+        },
+        "users_approved": {
+          "$ref": "#/$defs/access_users_approved"
+        },
+        "users_blocked": {
+          "$ref": "#/$defs/access_users_blocked"
+        },
+        "users_errored": {
+          "$ref": "#/$defs/access_users_errored"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_percent_approved": access_percent_approved_output,
+        "access_percent_blocked": access_percent_blocked_output,
+        "access_percent_errored": access_percent_errored_output,
+        "access_percent_users_processed": access_percent_users_processed_output,
+        "access_policy_test_id": access_policy_test_id_output,
+        "access_total_users": access_total_users_output,
+        "access_update_status": access_update_status_output,
+        "access_users_approved": access_users_approved_output,
+        "access_users_blocked": access_users_blocked_output,
+        "access_users_errored": access_users_errored_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

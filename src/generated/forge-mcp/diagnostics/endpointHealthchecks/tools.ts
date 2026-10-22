@@ -45,6 +45,14 @@ export const tools: readonly Tool[] = [
         "magic-transit_endpoint_health_check": magic_transit_endpoint_health_check,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic-transit_endpoint_health_check_response",
+      $defs: {
+        "magic-transit_check_type": magic_transit_check_type_output,
+        "magic-transit_endpoint_health_check_response": magic_transit_endpoint_health_check_response_output,
+        "magic-transit_uuid": magic_transit_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -108,6 +116,13 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic-transit_api-response-common",
+      $defs: {
+        "magic-transit_api-response-common": magic_transit_api_response_common_output,
+        "magic-transit_messages": magic_transit_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -165,6 +180,14 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic-transit_endpoint_health_check_response",
+      $defs: {
+        "magic-transit_check_type": magic_transit_check_type_output,
+        "magic-transit_endpoint_health_check_response": magic_transit_endpoint_health_check_response_output,
+        "magic-transit_uuid": magic_transit_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -221,6 +244,28 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic-transit_endpoint_health_check_response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic-transit_check_type": magic_transit_check_type_output,
+        "magic-transit_endpoint_health_check_response": magic_transit_endpoint_health_check_response_output,
+        "magic-transit_uuid": magic_transit_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -304,6 +349,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic-transit_check_type": magic_transit_check_type,
         "magic-transit_endpoint_health_check": magic_transit_endpoint_health_check,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic-transit_endpoint_health_check_response",
+      $defs: {
+        "magic-transit_check_type": magic_transit_check_type_output,
+        "magic-transit_endpoint_health_check_response": magic_transit_endpoint_health_check_response_output,
+        "magic-transit_uuid": magic_transit_uuid_output,
       },
     },
     annotations: {

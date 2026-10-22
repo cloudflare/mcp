@@ -61,6 +61,22 @@ export const tools: readonly Tool[] = [
         "access_name-10": access_name_10,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_users-2",
+      $defs: {
+        "access_access_seat-2": access_access_seat_2_output,
+        "access_active_device_count": access_active_device_count_output,
+        "access_email-2": access_email_2_output,
+        "access_gateway_seat-2": access_gateway_seat_2_output,
+        "access_last_successful_login": access_last_successful_login_output,
+        "access_name-10": access_name_10_output,
+        "access_seat_uid-2": access_seat_uid_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_uid": access_uid_output,
+        "access_users-2": access_users_2_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -124,6 +140,16 @@ export const tools: readonly Tool[] = [
         "user_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -181,6 +207,22 @@ export const tools: readonly Tool[] = [
         "account_id",
         "user_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_users-2",
+      $defs: {
+        "access_access_seat-2": access_access_seat_2_output,
+        "access_active_device_count": access_active_device_count_output,
+        "access_email-2": access_email_2_output,
+        "access_gateway_seat-2": access_gateway_seat_2_output,
+        "access_last_successful_login": access_last_successful_login_output,
+        "access_name-10": access_name_10_output,
+        "access_seat_uid-2": access_seat_uid_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_uid": access_uid_output,
+        "access_users-2": access_users_2_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -262,6 +304,50 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_users-2"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_access_seat-2": access_access_seat_2_output,
+        "access_active_device_count": access_active_device_count_output,
+        "access_email-2": access_email_2_output,
+        "access_gateway_seat-2": access_gateway_seat_2_output,
+        "access_last_successful_login": access_last_successful_login_output,
+        "access_name-10": access_name_10_output,
+        "access_seat_uid-2": access_seat_uid_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_uid": access_uid_output,
+        "access_users-2": access_users_2_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -391,6 +477,13 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -469,6 +562,22 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_email-2": access_email_2,
         "access_name-10": access_name_10,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_users-2",
+      $defs: {
+        "access_access_seat-2": access_access_seat_2_output,
+        "access_active_device_count": access_active_device_count_output,
+        "access_email-2": access_email_2_output,
+        "access_gateway_seat-2": access_gateway_seat_2_output,
+        "access_last_successful_login": access_last_successful_login_output,
+        "access_name-10": access_name_10_output,
+        "access_seat_uid-2": access_seat_uid_2_output,
+        "access_timestamp": access_timestamp_output,
+        "access_uid": access_uid_output,
+        "access_users-2": access_users_2_output,
+        "access_uuid": access_uuid_output,
       },
     },
     annotations: {

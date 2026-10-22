@@ -39,6 +39,14 @@ export const tools: readonly Tool[] = [
         "resource_type_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_resource_type",
+      $defs: {
+        "iam_scim_resource_type": iam_scim_resource_type_output,
+        "iam_scim_resource_type_meta": iam_scim_resource_type_meta_output,
+        "iam_scim_schema_extension": iam_scim_schema_extension_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -106,6 +114,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_resource_type_list_response",
+      $defs: {
+        "iam_scim_resource_type": iam_scim_resource_type_output,
+        "iam_scim_resource_type_list_response": iam_scim_resource_type_list_response_output,
+        "iam_scim_resource_type_meta": iam_scim_resource_type_meta_output,
+        "iam_scim_schema_extension": iam_scim_schema_extension_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -58,6 +58,16 @@ export const tools: readonly Tool[] = [
         "iam_create-account_unit": iam_create_account_unit,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_account",
+      $defs: {
+        "iam_account": iam_account_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -117,6 +127,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/iam_common_components-schemas-identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -197,6 +228,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_account",
+      $defs: {
+        "iam_account": iam_account_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -310,6 +351,31 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_account"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_account": iam_account_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_result_info": iam_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -401,6 +467,12 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_MoveAccountResult",
+      $defs: {
+        "organizations-api_MoveAccountResult": organizations_api_MoveAccountResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -458,6 +530,16 @@ export const tools: readonly Tool[] = [
         "iam_account_managed_by": iam_account_managed_by,
         "iam_account_settings": iam_account_settings,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_account",
+      $defs: {
+        "iam_account": iam_account_output,
+        "iam_account-type": iam_account_type_output,
+        "iam_account_managed_by": iam_account_managed_by_output,
+        "iam_account_settings": iam_account_settings_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
       },
     },
     annotations: {

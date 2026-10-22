@@ -37,6 +37,48 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_lease"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "addressing_cidr-2": addressing_cidr_2_output,
+        "addressing_created_at": addressing_created_at_output,
+        "addressing_lease": addressing_lease_output,
+        "addressing_lease_id": addressing_lease_id_output,
+        "addressing_lease_owner_id": addressing_lease_owner_id_output,
+        "addressing_modified_at": addressing_modified_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

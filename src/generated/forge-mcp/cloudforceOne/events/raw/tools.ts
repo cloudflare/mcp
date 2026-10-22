@@ -47,6 +47,21 @@ export const tools: readonly Tool[] = [
         "raw_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

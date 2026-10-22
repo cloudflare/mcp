@@ -40,6 +40,13 @@ export const tools: readonly Tool[] = [
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataClass",
+      $defs: {
+        "dlp_DataClass": dlp_DataClass_output,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -95,6 +102,12 @@ export const tools: readonly Tool[] = [
         "data_class_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -148,6 +161,13 @@ export const tools: readonly Tool[] = [
         "data_class_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataClass",
+      $defs: {
+        "dlp_DataClass": dlp_DataClass_output,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -197,6 +217,25 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_DataClassArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_DataClass": dlp_DataClass_output,
+        "dlp_DataClassArray": dlp_DataClassArray_output,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -272,6 +311,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_DataClassUpdate": dlp_DataClassUpdate,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataClass",
+      $defs: {
+        "dlp_DataClass": dlp_DataClass_output,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
       },
     },
     annotations: {

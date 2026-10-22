@@ -46,6 +46,14 @@ export const tools: readonly Tool[] = [
         "logcontrol_regions": logcontrol_regions,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/logcontrol_cmb_config",
+      $defs: {
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
+        "logcontrol_cmb_config": logcontrol_cmb_config_output,
+        "logcontrol_regions": logcontrol_regions_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -108,6 +116,9 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "type": "null",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -165,6 +176,14 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/logcontrol_cmb_config",
+      $defs: {
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
+        "logcontrol_cmb_config": logcontrol_cmb_config_output,
+        "logcontrol_regions": logcontrol_regions_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -77,6 +77,61 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "meta": {
+          "properties": {
+            "dateRange": {
+              "items": {
+                "properties": {
+                  "endTime": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "startTime": {
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "endTime",
+                  "startTime"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "dateRange"
+          ],
+          "type": "object"
+        },
+        "top_0": {
+          "items": {
+            "properties": {
+              "prefix": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "prefix",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "meta",
+        "top_0"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -35,6 +35,15 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_settings",
+      $defs: {
+        "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -89,6 +98,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_settings",
+      $defs: {
+        "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -159,6 +177,15 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zero-trust-gateway_public_key": zero_trust_gateway_public_key,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_settings",
+      $defs: {
+        "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
       },
     },
     annotations: {

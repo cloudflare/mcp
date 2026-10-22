@@ -36,6 +36,34 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "internal_record_quota": {
+          "type": "integer"
+        },
+        "internal_record_usage": {
+          "type": "integer"
+        },
+        "record_quota": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_usage": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "record_quota",
+        "record_usage"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

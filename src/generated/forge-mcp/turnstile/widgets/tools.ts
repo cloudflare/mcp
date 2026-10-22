@@ -143,6 +143,26 @@ export const tools: readonly Tool[] = [
         "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/turnstile_widget_detail",
+      $defs: {
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -229,6 +249,26 @@ export const tools: readonly Tool[] = [
         "turnstile_sitekey": turnstile_sitekey,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/turnstile_widget_detail",
+      $defs: {
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -300,6 +340,26 @@ export const tools: readonly Tool[] = [
       $defs: {
         "turnstile_identifier": turnstile_identifier,
         "turnstile_sitekey": turnstile_sitekey,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/turnstile_widget_detail",
+      $defs: {
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
       },
     },
     annotations: {
@@ -402,6 +462,40 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "turnstile_identifier": turnstile_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/turnstile_widget_list"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/turnstile_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_result_info": turnstile_result_info_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_list": turnstile_widget_list_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
       },
     },
     annotations: {
@@ -510,6 +604,26 @@ export const tools: readonly Tool[] = [
         "turnstile_identifier": turnstile_identifier,
         "turnstile_invalidate_immediately": turnstile_invalidate_immediately,
         "turnstile_sitekey": turnstile_sitekey,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/turnstile_widget_detail",
+      $defs: {
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
       },
     },
     annotations: {
@@ -634,6 +748,26 @@ export const tools: readonly Tool[] = [
         "turnstile_region": turnstile_region,
         "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_mode": turnstile_widget_mode,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/turnstile_widget_detail",
+      $defs: {
+        "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
+        "turnstile_clearance_level": turnstile_clearance_level_output,
+        "turnstile_created_on": turnstile_created_on_output,
+        "turnstile_deployed_via": turnstile_deployed_via_output,
+        "turnstile_domains": turnstile_domains_output,
+        "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
+        "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_modified_on": turnstile_modified_on_output,
+        "turnstile_name": turnstile_name_output,
+        "turnstile_offlabel": turnstile_offlabel_output,
+        "turnstile_region": turnstile_region_output,
+        "turnstile_secret": turnstile_secret_output,
+        "turnstile_sitekey": turnstile_sitekey_output,
+        "turnstile_widget_detail": turnstile_widget_detail_output,
+        "turnstile_widget_mode": turnstile_widget_mode_output,
       },
     },
     annotations: {

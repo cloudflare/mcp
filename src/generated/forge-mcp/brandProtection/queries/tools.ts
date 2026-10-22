@@ -30,6 +30,25 @@ export const tools: readonly Tool[] = [
         "domain_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "dismissed": {
+          "type": "boolean"
+        },
+        "domain_id": {
+          "type": "integer"
+        },
+        "query_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dismissed",
+        "domain_id",
+        "query_id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -97,6 +116,170 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "items": {
+                "properties": {
+                  "created": {
+                    "type": "string"
+                  },
+                  "parameters": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "max_time": {
+                            "type": "string"
+                          },
+                          "min_time": {
+                            "type": "string"
+                          },
+                          "string_matches": {
+                            "items": {
+                              "properties": {
+                                "pattern": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "pattern"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "string_matches"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "query_id": {
+                    "type": "integer"
+                  },
+                  "query_tag": {
+                    "type": "string"
+                  },
+                  "scan": {
+                    "type": "boolean"
+                  },
+                  "updated": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "created",
+                  "parameters",
+                  "query_id",
+                  "query_tag",
+                  "scan",
+                  "updated"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "properties": {
+                "created": {
+                  "type": "string"
+                },
+                "parameters": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "max_time": {
+                          "type": "string"
+                        },
+                        "min_time": {
+                          "type": "string"
+                        },
+                        "string_matches": {
+                          "items": {
+                            "properties": {
+                              "pattern": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "pattern"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "string_matches"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "query_id": {
+                  "type": "integer"
+                },
+                "query_tag": {
+                  "type": "string"
+                },
+                "scan": {
+                  "type": "boolean"
+                },
+                "updated": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created",
+                "parameters",
+                "query_id",
+                "query_tag",
+                "scan",
+                "updated"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -313,6 +496,25 @@ export const tools: readonly Tool[] = [
         "query_id",
         "domain_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "dismissed": {
+          "type": "boolean"
+        },
+        "domain_id": {
+          "type": "integer"
+        },
+        "query_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dismissed",
+        "domain_id",
+        "query_id"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

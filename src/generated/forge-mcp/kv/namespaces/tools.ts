@@ -50,6 +50,16 @@ export const tools: readonly Tool[] = [
         "workers-kv_namespace_title": workers_kv_namespace_title,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers-kv_namespace",
+      $defs: {
+        "workers-kv_jurisdiction": workers_kv_jurisdiction_output,
+        "workers-kv_namespace": workers_kv_namespace_output,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier_output,
+        "workers-kv_namespace_mode": workers_kv_namespace_mode_output,
+        "workers-kv_namespace_title": workers_kv_namespace_title_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -107,6 +117,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id",
         "namespace_id"
+      ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -168,6 +188,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "namespace_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers-kv_namespace",
+      $defs: {
+        "workers-kv_jurisdiction": workers_kv_jurisdiction_output,
+        "workers-kv_namespace": workers_kv_namespace_output,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier_output,
+        "workers-kv_namespace_mode": workers_kv_namespace_mode_output,
+        "workers-kv_namespace_title": workers_kv_namespace_title_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -248,6 +278,31 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers-kv_namespace"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/workers-kv_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers-kv_jurisdiction": workers_kv_jurisdiction_output,
+        "workers-kv_namespace": workers_kv_namespace_output,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier_output,
+        "workers-kv_namespace_mode": workers_kv_namespace_mode_output,
+        "workers-kv_namespace_title": workers_kv_namespace_title_output,
+        "workers-kv_result_info": workers_kv_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -335,6 +390,16 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers-kv_create_rename_namespace_body": workers_kv_create_rename_namespace_body,
         "workers-kv_namespace_title": workers_kv_namespace_title,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers-kv_namespace",
+      $defs: {
+        "workers-kv_jurisdiction": workers_kv_jurisdiction_output,
+        "workers-kv_namespace": workers_kv_namespace_output,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier_output,
+        "workers-kv_namespace_mode": workers_kv_namespace_mode_output,
+        "workers-kv_namespace_title": workers_kv_namespace_title_output,
       },
     },
     annotations: {

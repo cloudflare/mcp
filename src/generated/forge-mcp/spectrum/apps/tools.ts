@@ -104,6 +104,43 @@ export const tools: readonly Tool[] = [
         "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/spectrum-config_app_config"
+        },
+        {
+          "$ref": "#/$defs/spectrum-config_paygo_app_config"
+        }
+      ],
+      $defs: {
+        "spectrum-config_app_config": spectrum_config_app_config_output,
+        "spectrum-config_app_identifier": spectrum_config_app_identifier_output,
+        "spectrum-config_argo_smart_routing": spectrum_config_argo_smart_routing_output,
+        "spectrum-config_created": spectrum_config_created_output,
+        "spectrum-config_dns": spectrum_config_dns_output,
+        "spectrum-config_dns_name": spectrum_config_dns_name_output,
+        "spectrum-config_dns_ttl": spectrum_config_dns_ttl_output,
+        "spectrum-config_dns_type": spectrum_config_dns_type_output,
+        "spectrum-config_edge_ips": spectrum_config_edge_ips_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_ip_firewall": spectrum_config_ip_firewall_output,
+        "spectrum-config_modified": spectrum_config_modified_output,
+        "spectrum-config_origin_direct": spectrum_config_origin_direct_output,
+        "spectrum-config_origin_dns": spectrum_config_origin_dns_output,
+        "spectrum-config_origin_dns_name": spectrum_config_origin_dns_name_output,
+        "spectrum-config_origin_dns_type": spectrum_config_origin_dns_type_output,
+        "spectrum-config_origin_port": spectrum_config_origin_port_output,
+        "spectrum-config_origin_worker_id": spectrum_config_origin_worker_id_output,
+        "spectrum-config_paygo_app_config": spectrum_config_paygo_app_config_output,
+        "spectrum-config_protocol": spectrum_config_protocol_output,
+        "spectrum-config_proxy_protocol": spectrum_config_proxy_protocol_output,
+        "spectrum-config_timestamp": spectrum_config_timestamp_output,
+        "spectrum-config_tls": spectrum_config_tls_output,
+        "spectrum-config_traffic_type": spectrum_config_traffic_type_output,
+        "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -190,6 +227,27 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/spectrum-config_identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -258,6 +316,43 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/spectrum-config_app_config"
+        },
+        {
+          "$ref": "#/$defs/spectrum-config_paygo_app_config"
+        }
+      ],
+      $defs: {
+        "spectrum-config_app_config": spectrum_config_app_config_output,
+        "spectrum-config_app_identifier": spectrum_config_app_identifier_output,
+        "spectrum-config_argo_smart_routing": spectrum_config_argo_smart_routing_output,
+        "spectrum-config_created": spectrum_config_created_output,
+        "spectrum-config_dns": spectrum_config_dns_output,
+        "spectrum-config_dns_name": spectrum_config_dns_name_output,
+        "spectrum-config_dns_ttl": spectrum_config_dns_ttl_output,
+        "spectrum-config_dns_type": spectrum_config_dns_type_output,
+        "spectrum-config_edge_ips": spectrum_config_edge_ips_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_ip_firewall": spectrum_config_ip_firewall_output,
+        "spectrum-config_modified": spectrum_config_modified_output,
+        "spectrum-config_origin_direct": spectrum_config_origin_direct_output,
+        "spectrum-config_origin_dns": spectrum_config_origin_dns_output,
+        "spectrum-config_origin_dns_name": spectrum_config_origin_dns_name_output,
+        "spectrum-config_origin_dns_type": spectrum_config_origin_dns_type_output,
+        "spectrum-config_origin_port": spectrum_config_origin_port_output,
+        "spectrum-config_origin_worker_id": spectrum_config_origin_worker_id_output,
+        "spectrum-config_paygo_app_config": spectrum_config_paygo_app_config_output,
+        "spectrum-config_protocol": spectrum_config_protocol_output,
+        "spectrum-config_proxy_protocol": spectrum_config_proxy_protocol_output,
+        "spectrum-config_timestamp": spectrum_config_timestamp_output,
+        "spectrum-config_tls": spectrum_config_tls_output,
+        "spectrum-config_traffic_type": spectrum_config_traffic_type_output,
+        "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -369,6 +464,77 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/spectrum-config_app_config"
+              },
+              "type": "array"
+            },
+            {
+              "items": {
+                "$ref": "#/$defs/spectrum-config_paygo_app_config"
+              },
+              "type": "array"
+            }
+          ]
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "spectrum-config_app_config": spectrum_config_app_config_output,
+        "spectrum-config_app_identifier": spectrum_config_app_identifier_output,
+        "spectrum-config_argo_smart_routing": spectrum_config_argo_smart_routing_output,
+        "spectrum-config_created": spectrum_config_created_output,
+        "spectrum-config_dns": spectrum_config_dns_output,
+        "spectrum-config_dns_name": spectrum_config_dns_name_output,
+        "spectrum-config_dns_ttl": spectrum_config_dns_ttl_output,
+        "spectrum-config_dns_type": spectrum_config_dns_type_output,
+        "spectrum-config_edge_ips": spectrum_config_edge_ips_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_ip_firewall": spectrum_config_ip_firewall_output,
+        "spectrum-config_modified": spectrum_config_modified_output,
+        "spectrum-config_origin_direct": spectrum_config_origin_direct_output,
+        "spectrum-config_origin_dns": spectrum_config_origin_dns_output,
+        "spectrum-config_origin_dns_name": spectrum_config_origin_dns_name_output,
+        "spectrum-config_origin_dns_type": spectrum_config_origin_dns_type_output,
+        "spectrum-config_origin_port": spectrum_config_origin_port_output,
+        "spectrum-config_origin_worker_id": spectrum_config_origin_worker_id_output,
+        "spectrum-config_paygo_app_config": spectrum_config_paygo_app_config_output,
+        "spectrum-config_protocol": spectrum_config_protocol_output,
+        "spectrum-config_proxy_protocol": spectrum_config_proxy_protocol_output,
+        "spectrum-config_timestamp": spectrum_config_timestamp_output,
+        "spectrum-config_tls": spectrum_config_tls_output,
+        "spectrum-config_traffic_type": spectrum_config_traffic_type_output,
+        "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -521,6 +687,43 @@ export const tools: readonly Tool[] = [
         "spectrum-config_traffic_type": spectrum_config_traffic_type,
         "spectrum-config_update_app_config": spectrum_config_update_app_config,
         "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id,
+      },
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/spectrum-config_app_config"
+        },
+        {
+          "$ref": "#/$defs/spectrum-config_paygo_app_config"
+        }
+      ],
+      $defs: {
+        "spectrum-config_app_config": spectrum_config_app_config_output,
+        "spectrum-config_app_identifier": spectrum_config_app_identifier_output,
+        "spectrum-config_argo_smart_routing": spectrum_config_argo_smart_routing_output,
+        "spectrum-config_created": spectrum_config_created_output,
+        "spectrum-config_dns": spectrum_config_dns_output,
+        "spectrum-config_dns_name": spectrum_config_dns_name_output,
+        "spectrum-config_dns_ttl": spectrum_config_dns_ttl_output,
+        "spectrum-config_dns_type": spectrum_config_dns_type_output,
+        "spectrum-config_edge_ips": spectrum_config_edge_ips_output,
+        "spectrum-config_identifier": spectrum_config_identifier_output,
+        "spectrum-config_ip_firewall": spectrum_config_ip_firewall_output,
+        "spectrum-config_modified": spectrum_config_modified_output,
+        "spectrum-config_origin_direct": spectrum_config_origin_direct_output,
+        "spectrum-config_origin_dns": spectrum_config_origin_dns_output,
+        "spectrum-config_origin_dns_name": spectrum_config_origin_dns_name_output,
+        "spectrum-config_origin_dns_type": spectrum_config_origin_dns_type_output,
+        "spectrum-config_origin_port": spectrum_config_origin_port_output,
+        "spectrum-config_origin_worker_id": spectrum_config_origin_worker_id_output,
+        "spectrum-config_paygo_app_config": spectrum_config_paygo_app_config_output,
+        "spectrum-config_protocol": spectrum_config_protocol_output,
+        "spectrum-config_proxy_protocol": spectrum_config_proxy_protocol_output,
+        "spectrum-config_timestamp": spectrum_config_timestamp_output,
+        "spectrum-config_tls": spectrum_config_tls_output,
+        "spectrum-config_traffic_type": spectrum_config_traffic_type_output,
+        "spectrum-config_virtual_network_id": spectrum_config_virtual_network_id_output,
       },
     },
     annotations: {

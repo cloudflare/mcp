@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "cache-settings_aegis_value": cache_settings_aegis_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_aegis",
+      $defs: {
+        "cache-settings_aegis": cache_settings_aegis_output,
+        "cache-settings_aegis_value": cache_settings_aegis_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -115,6 +122,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_aegis",
+      $defs: {
+        "cache-settings_aegis": cache_settings_aegis_output,
+        "cache-settings_aegis_value": cache_settings_aegis_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

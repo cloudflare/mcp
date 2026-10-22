@@ -53,6 +53,17 @@ export const tools: readonly Tool[] = [
         "logpush_transformer_name": logpush_transformer_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/logpush_transformer",
+      $defs: {
+        "logpush_transformer": logpush_transformer_output,
+        "logpush_transformer_dataset": logpush_transformer_dataset_output,
+        "logpush_transformer_description": logpush_transformer_description_output,
+        "logpush_transformer_identifier": logpush_transformer_identifier_output,
+        "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
+        "logpush_transformer_name": logpush_transformer_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -128,6 +139,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "transformer_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -206,6 +225,17 @@ export const tools: readonly Tool[] = [
         "transformer_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/logpush_transformer",
+      $defs: {
+        "logpush_transformer": logpush_transformer_output,
+        "logpush_transformer_dataset": logpush_transformer_dataset_output,
+        "logpush_transformer_description": logpush_transformer_description_output,
+        "logpush_transformer_identifier": logpush_transformer_identifier_output,
+        "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
+        "logpush_transformer_name": logpush_transformer_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -275,6 +305,31 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/logpush_transformer"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "logpush_transformer": logpush_transformer_output,
+        "logpush_transformer_dataset": logpush_transformer_dataset_output,
+        "logpush_transformer_description": logpush_transformer_description_output,
+        "logpush_transformer_identifier": logpush_transformer_identifier_output,
+        "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
+        "logpush_transformer_name": logpush_transformer_name_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -367,6 +422,30 @@ export const tools: readonly Tool[] = [
         "logpush_transformer_code": logpush_transformer_code,
         "logpush_transformer_preview_request": logpush_transformer_preview_request,
       },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -467,6 +546,17 @@ export const tools: readonly Tool[] = [
         "logpush_transformer_description": logpush_transformer_description,
         "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_update_request": logpush_transformer_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/logpush_transformer",
+      $defs: {
+        "logpush_transformer": logpush_transformer_output,
+        "logpush_transformer_dataset": logpush_transformer_dataset_output,
+        "logpush_transformer_description": logpush_transformer_description_output,
+        "logpush_transformer_identifier": logpush_transformer_identifier_output,
+        "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
+        "logpush_transformer_name": logpush_transformer_name_output,
       },
     },
     annotations: {

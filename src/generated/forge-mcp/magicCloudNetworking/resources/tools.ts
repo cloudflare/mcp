@@ -172,6 +172,30 @@ export const tools: readonly Tool[] = [
         "resource_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_resource_details",
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -309,6 +333,45 @@ export const tools: readonly Tool[] = [
         "mcn_resource_type": mcn_resource_type,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mcn_resource_details"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/mcn_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "mcn_account_id": mcn_account_id_output,
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_cost": mcn_cost_output,
+        "mcn_list_item": mcn_list_item_output,
+        "mcn_observation": mcn_observation_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_resource_details": mcn_resource_details_output,
+        "mcn_resource_details_section": mcn_resource_details_section_output,
+        "mcn_resource_details_section_item": mcn_resource_details_section_item_output,
+        "mcn_resource_id": mcn_resource_id_output,
+        "mcn_resource_preview": mcn_resource_preview_output,
+        "mcn_resource_preview_item": mcn_resource_preview_item_output,
+        "mcn_resource_type": mcn_resource_type_output,
+        "mcn_result_info": mcn_result_info_output,
+        "mcn_string_item": mcn_string_item_output,
+        "mcn_yaml_diff": mcn_yaml_diff_output,
+        "mcn_yaml_diff_item": mcn_yaml_diff_item_output,
+        "mcn_yaml_item": mcn_yaml_item_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -425,6 +488,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "mcn_resources_catalog_policy_preview_request": mcn_resources_catalog_policy_preview_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_resources_catalog_policy_preview",
+      $defs: {
+        "mcn_resources_catalog_policy_preview": mcn_resources_catalog_policy_preview_output,
       },
     },
     annotations: {

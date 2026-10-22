@@ -24,6 +24,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/brand-protection-api_URLSubmit",
+      $defs: {
+        "brand-protection-api_URLSubmit": brand_protection_api_URLSubmit_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

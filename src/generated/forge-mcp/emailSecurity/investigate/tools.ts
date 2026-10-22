@@ -66,6 +66,24 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_MessageDetails",
+      $defs: {
+        "email-security_ActionLogEntry": email_security_ActionLogEntry_output,
+        "email-security_ActionLogEntry_properties": email_security_ActionLogEntry_properties_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_InvestigateId": email_security_InvestigateId_output,
+        "email-security_MessageDeliveryMode": email_security_MessageDeliveryMode_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_MessageDetails": email_security_MessageDetails_output,
+        "email-security_MessageDetails_findingsItem": email_security_MessageDetails_findingsItem_output,
+        "email-security_MessageDetails_properties": email_security_MessageDetails_properties_output,
+        "email-security_MessageDetails_validation": email_security_MessageDetails_validation_output,
+        "email-security_PostfixId": email_security_PostfixId_output,
+        "email-security_Validation": email_security_Validation_output,
+        "email-security_ValidationStatus": email_security_ValidationStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -234,6 +252,61 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "anyOf": [
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_MessageDetails"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/email-security_CursorResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/email-security_CursorResultInfo"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "email-security_ActionLogEntry": email_security_ActionLogEntry_output,
+        "email-security_ActionLogEntry_properties": email_security_ActionLogEntry_properties_output,
+        "email-security_CursorResultInfo": email_security_CursorResultInfo_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_InvestigateId": email_security_InvestigateId_output,
+        "email-security_MessageDeliveryMode": email_security_MessageDeliveryMode_output,
+        "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_MessageDetails": email_security_MessageDetails_output,
+        "email-security_MessageDetails_findingsItem": email_security_MessageDetails_findingsItem_output,
+        "email-security_MessageDetails_properties": email_security_MessageDetails_properties_output,
+        "email-security_MessageDetails_validation": email_security_MessageDetails_validation_output,
+        "email-security_PostfixId": email_security_PostfixId_output,
+        "email-security_Validation": email_security_Validation_output,
+        "email-security_ValidationStatus": email_security_ValidationStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -400,6 +473,26 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email-security_MoveResponseItem"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_MoveResponseItem": email_security_MoveResponseItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -485,6 +578,28 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_InvestigateId": email_security_InvestigateId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email-security_ReleaseResponse"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_InvestigateId": email_security_InvestigateId_output,
+        "email-security_PostfixId": email_security_PostfixId_output,
+        "email-security_ReleaseResponse": email_security_ReleaseResponse_output,
       },
     },
     annotations: {

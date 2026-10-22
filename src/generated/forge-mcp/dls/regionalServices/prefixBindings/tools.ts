@@ -44,6 +44,12 @@ export const tools: readonly Tool[] = [
         "dls_CreatePrefixBindingInput": dls_CreatePrefixBindingInput,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dls_PrefixBinding",
+      $defs: {
+        "dls_PrefixBinding": dls_PrefixBinding_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -106,6 +112,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "binding_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dls_good_response",
+      $defs: {
+        "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -173,6 +186,12 @@ export const tools: readonly Tool[] = [
         "dls_UpdatePrefixBindingInput": dls_UpdatePrefixBindingInput,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dls_PrefixBinding",
+      $defs: {
+        "dls_PrefixBinding": dls_PrefixBinding_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -236,6 +255,12 @@ export const tools: readonly Tool[] = [
         "binding_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dls_PrefixBinding",
+      $defs: {
+        "dls_PrefixBinding": dls_PrefixBinding_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -297,6 +322,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dls_PrefixBinding"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/dls_PrefixBindingPaginatedListResponse_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_PrefixBindingPaginatedListResponse_result_info": dls_PrefixBindingPaginatedListResponse_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

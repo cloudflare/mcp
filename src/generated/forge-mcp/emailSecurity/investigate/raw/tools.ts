@@ -41,6 +41,12 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_MessageRaw",
+      $defs: {
+        "email-security_MessageRaw": email_security_MessageRaw_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

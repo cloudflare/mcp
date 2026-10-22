@@ -38,6 +38,14 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription",
+      $defs: {
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails_output,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled_output,
+        "tls-certificates-and-hostnames_ct_alerting_subscription": tls_certificates_and_hostnames_ct_alerting_subscription_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -111,6 +119,14 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails,
         "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled,
         "tls-certificates-and-hostnames_ct_alerting_subscription_update": tls_certificates_and_hostnames_ct_alerting_subscription_update,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription",
+      $defs: {
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails_output,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled_output,
+        "tls-certificates-and-hostnames_ct_alerting_subscription": tls_certificates_and_hostnames_ct_alerting_subscription_output,
       },
     },
     annotations: {

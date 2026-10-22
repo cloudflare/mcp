@@ -154,6 +154,36 @@ export const tools: readonly Tool[] = [
         "workers_placement_target": workers_placement_target,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Worker",
+      $defs: {
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -289,6 +319,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "worker_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_api-response-common",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -439,6 +476,36 @@ export const tools: readonly Tool[] = [
         "workers_observability_traces": workers_observability_traces,
         "workers_placement_info_no_status": workers_placement_info_no_status,
         "workers_placement_target": workers_placement_target,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Worker",
+      $defs: {
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
       },
     },
     annotations: {
@@ -599,6 +666,36 @@ export const tools: readonly Tool[] = [
         "worker_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Worker",
+      $defs: {
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -755,6 +852,67 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_Worker"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -993,6 +1151,36 @@ export const tools: readonly Tool[] = [
         "workers_observability_traces": workers_observability_traces,
         "workers_placement_info_no_status": workers_placement_info_no_status,
         "workers_placement_target": workers_placement_target,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Worker",
+      $defs: {
+        "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig_output,
+        "workers_PreviewsBaseConfig_tail_consumersItem": workers_PreviewsBaseConfig_tail_consumersItem_output,
+        "workers_Worker": workers_Worker_output,
+        "workers_Worker_observability": workers_Worker_observability_output,
+        "workers_Worker_observability_issues": workers_Worker_observability_issues_output,
+        "workers_Worker_observability_logs": workers_Worker_observability_logs_output,
+        "workers_Worker_observability_traces": workers_Worker_observability_traces_output,
+        "workers_Worker_references": workers_Worker_references_output,
+        "workers_Worker_references_dispatch_namespace_outboundsItem": workers_Worker_references_dispatch_namespace_outboundsItem_output,
+        "workers_Worker_references_domainsItem": workers_Worker_references_domainsItem_output,
+        "workers_Worker_references_durable_objectsItem": workers_Worker_references_durable_objectsItem_output,
+        "workers_Worker_references_queuesItem": workers_Worker_references_queuesItem_output,
+        "workers_Worker_references_workersItem": workers_Worker_references_workersItem_output,
+        "workers_Worker_subdomain": workers_Worker_subdomain_output,
+        "workers_Worker_tail_consumersItem": workers_Worker_tail_consumersItem_output,
+        "workers_cache_options": workers_cache_options_output,
+        "workers_env": workers_env_output,
+        "workers_env_binding_item": workers_env_binding_item_output,
+        "workers_limits": workers_limits_output,
+        "workers_observability": workers_observability_output,
+        "workers_observability_issues": workers_observability_issues_output,
+        "workers_observability_logs": workers_observability_logs_output,
+        "workers_observability_traces": workers_observability_traces_output,
+        "workers_placement_info_no_status": workers_placement_info_no_status_output,
+        "workers_placement_target": workers_placement_target_output,
       },
     },
     annotations: {

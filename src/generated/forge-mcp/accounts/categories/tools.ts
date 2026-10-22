@@ -40,6 +40,16 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/alexandria_category",
+      $defs: {
+        "alexandria_category": alexandria_category_output,
+        "alexandria_category_created_at": alexandria_category_created_at_output,
+        "alexandria_category_description": alexandria_category_description_output,
+        "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_category_name": alexandria_category_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -101,6 +111,48 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/alexandria_categories"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "alexandria_categories": alexandria_categories_output,
+        "alexandria_category": alexandria_category_output,
+        "alexandria_category_created_at": alexandria_category_created_at_output,
+        "alexandria_category_description": alexandria_category_description_output,
+        "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_category_name": alexandria_category_name_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

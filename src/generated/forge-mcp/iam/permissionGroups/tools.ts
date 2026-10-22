@@ -36,6 +36,13 @@ export const tools: readonly Tool[] = [
         "permission_group_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_permission_group",
+      $defs: {
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -151,6 +158,26 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_permission_groups"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_result_info": iam_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

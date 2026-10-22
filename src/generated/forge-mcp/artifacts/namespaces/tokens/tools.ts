@@ -50,6 +50,34 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "expires_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "plaintext": {
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "read",
+            "write"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "expires_at",
+        "id",
+        "plaintext",
+        "scope"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -643,6 +671,17 @@ export const tools: readonly Tool[] = [
         "namespace",
         "id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

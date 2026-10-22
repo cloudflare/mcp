@@ -38,6 +38,26 @@ export const tools: readonly Tool[] = [
         "transformer_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/logpush_transformer_version"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "logpush_transformer_version": logpush_transformer_version_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

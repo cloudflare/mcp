@@ -33,6 +33,15 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/secrets-store_secretsUsageObject",
+      $defs: {
+        "secrets-store_quota": secrets_store_quota_output,
+        "secrets-store_secretsUsageObject": secrets_store_secretsUsageObject_output,
+        "secrets-store_usage": secrets_store_usage_output,
+        "secrets-store_usageQuotaObject": secrets_store_usageQuotaObject_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

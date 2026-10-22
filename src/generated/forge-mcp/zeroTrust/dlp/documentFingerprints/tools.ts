@@ -43,6 +43,13 @@ export const tools: readonly Tool[] = [
         "dlp_NewDocumentFingerprint": dlp_NewDocumentFingerprint,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DocumentFingerprint",
+      $defs: {
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -148,6 +155,13 @@ export const tools: readonly Tool[] = [
         "document_fingerprint_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DocumentFingerprint",
+      $defs: {
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -197,6 +211,25 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_DocumentFingerprintArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
+        "dlp_DocumentFingerprintArray": dlp_DocumentFingerprintArray_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -271,6 +304,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_UpdateDocumentFingerprint": dlp_UpdateDocumentFingerprint,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DocumentFingerprint",
+      $defs: {
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
       },
     },
     annotations: {

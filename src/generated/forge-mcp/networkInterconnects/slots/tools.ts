@@ -30,6 +30,14 @@ export const tools: readonly Tool[] = [
         "slot"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_SlotInfo",
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_SlotInfo": nsc_SlotInfo_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -145,6 +153,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_SlotList",
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_SlotInfo": nsc_SlotInfo_output,
+        "nsc_SlotList": nsc_SlotList_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

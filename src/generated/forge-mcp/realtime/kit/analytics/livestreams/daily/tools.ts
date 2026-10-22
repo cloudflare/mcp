@@ -40,6 +40,41 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "items": {
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "date": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "total_ingest_seconds": {
+                "type": "integer"
+              },
+              "total_viewer_seconds": {
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -23,6 +23,17 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "allowed"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

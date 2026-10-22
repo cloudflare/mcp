@@ -38,6 +38,33 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_categories"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/zero-trust-gateway_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_beta": zero_trust_gateway_beta_output,
+        "zero-trust-gateway_categories": zero_trust_gateway_categories_output,
+        "zero-trust-gateway_class": zero_trust_gateway_class_output,
+        "zero-trust-gateway_description-3": zero_trust_gateway_description_3_output,
+        "zero-trust-gateway_id": zero_trust_gateway_id_output,
+        "zero-trust-gateway_name-5": zero_trust_gateway_name_5_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_subcategory": zero_trust_gateway_subcategory_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

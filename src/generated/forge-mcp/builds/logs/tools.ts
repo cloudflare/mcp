@@ -47,6 +47,13 @@ export const tools: readonly Tool[] = [
         "builds_cursor": builds_cursor,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_BuildLogsResponse",
+      $defs: {
+        "builds_BuildLogsResponse": builds_BuildLogsResponse_output,
+        "builds_cursor": builds_cursor_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

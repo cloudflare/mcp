@@ -47,6 +47,20 @@ export const tools: readonly Tool[] = [
         "realtimekit_app_id": realtimekit_app_id,
       },
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/realtimekit_ActiveSession"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -137,6 +151,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "action": {
+              "type": "string"
+            },
+            "participants": {
+              "items": {
+                "$ref": "#/$defs/realtimekit_SessionParticipant"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_SessionParticipant": realtimekit_SessionParticipant_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -216,6 +255,25 @@ export const tools: readonly Tool[] = [
         "app_id",
         "meeting_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "action": {
+              "type": "string"
+            },
+            "kicked_participants_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -306,6 +364,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "action": {
+              "type": "string"
+            },
+            "participants": {
+              "items": {
+                "$ref": "#/$defs/realtimekit_SessionParticipant"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_SessionParticipant": realtimekit_SessionParticipant_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -392,6 +475,25 @@ export const tools: readonly Tool[] = [
         "meeting_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "action": {
+              "type": "string"
+            },
+            "muted_participants_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

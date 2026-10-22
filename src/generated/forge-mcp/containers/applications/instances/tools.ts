@@ -54,6 +54,22 @@ export const tools: readonly Tool[] = [
         "instance_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cc_ContainerInstance",
+      $defs: {
+        "cc_ApplicationID": cc_ApplicationID_output,
+        "cc_ContainerInstance": cc_ContainerInstance_output,
+        "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration_output,
+        "cc_ContainerInstanceID": cc_ContainerInstanceID_output,
+        "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation_output,
+        "cc_ContainerInstanceStatus": cc_ContainerInstanceStatus_output,
+        "cc_ContainerInstanceStatusState": cc_ContainerInstanceStatusState_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_LocationID": cc_LocationID_output,
+        "cc_Region": cc_Region_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -147,6 +163,35 @@ export const tools: readonly Tool[] = [
         "account_id",
         "application_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cc_ContainersListContainerInstancesV2"
+        },
+        "result_info": {
+          "$ref": "#/$defs/cc_V4PaginatedResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cc_ApplicationID": cc_ApplicationID_output,
+        "cc_ContainerInstance": cc_ContainerInstance_output,
+        "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration_output,
+        "cc_ContainerInstanceID": cc_ContainerInstanceID_output,
+        "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation_output,
+        "cc_ContainerInstanceStatus": cc_ContainerInstanceStatus_output,
+        "cc_ContainerInstanceStatusState": cc_ContainerInstanceStatusState_output,
+        "cc_ContainersListContainerInstancesV2": cc_ContainersListContainerInstancesV2_output,
+        "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Image": cc_Image_output,
+        "cc_LocationID": cc_LocationID_output,
+        "cc_Region": cc_Region_output,
+        "cc_V4PaginatedResultInfo": cc_V4PaginatedResultInfo_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

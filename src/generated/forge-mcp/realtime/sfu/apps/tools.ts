@@ -46,6 +46,17 @@ export const tools: readonly Tool[] = [
         "calls_name": calls_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/calls_app_with_secret",
+      $defs: {
+        "calls_app_with_secret": calls_app_with_secret_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_secret": calls_secret_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -106,6 +117,16 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/calls_app",
+      $defs: {
+        "calls_app": calls_app_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -160,6 +181,16 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/calls_app",
+      $defs: {
+        "calls_app": calls_app_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -213,6 +244,30 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/calls_app"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "calls_app": calls_app_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -293,6 +348,16 @@ export const tools: readonly Tool[] = [
       $defs: {
         "calls_app_editable_fields": calls_app_editable_fields,
         "calls_name": calls_name,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/calls_app",
+      $defs: {
+        "calls_app": calls_app_output,
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
       },
     },
     annotations: {

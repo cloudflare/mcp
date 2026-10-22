@@ -71,6 +71,13 @@ export const tools: readonly Tool[] = [
         "cache-purge_SingleFileWithUrlAndHeaders_filesItem": cache_purge_SingleFileWithUrlAndHeaders_filesItem,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-purge_api-response-single-id_result",
+      $defs: {
+        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_identifier": cache_purge_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -162,6 +169,13 @@ export const tools: readonly Tool[] = [
         "cache-purge_SingleFileWithUrlAndHeaders_filesItem": cache_purge_SingleFileWithUrlAndHeaders_filesItem,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-purge_api-response-single-id_result",
+      $defs: {
+        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_identifier": cache_purge_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -251,6 +265,13 @@ export const tools: readonly Tool[] = [
         "cache-purge_SingleFile": cache_purge_SingleFile,
         "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
         "cache-purge_SingleFileWithUrlAndHeaders_filesItem": cache_purge_SingleFileWithUrlAndHeaders_filesItem,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache-purge_api-response-single-id_result",
+      $defs: {
+        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_identifier": cache_purge_identifier_output,
       },
     },
     annotations: {
@@ -357,6 +378,13 @@ export const tools: readonly Tool[] = [
         "cache-purge_SingleFile": cache_purge_SingleFile,
         "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
         "cache-purge_SingleFileWithUrlAndHeaders_filesItem": cache_purge_SingleFileWithUrlAndHeaders_filesItem,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache-purge_api-response-single-id_result",
+      $defs: {
+        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_identifier": cache_purge_identifier_output,
       },
     },
     annotations: {

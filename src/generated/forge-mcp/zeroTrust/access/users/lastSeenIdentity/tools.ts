@@ -42,6 +42,50 @@ export const tools: readonly Tool[] = [
         "user_id"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_identity"
+        },
+        {
+          "properties": {
+            "passkeys": {
+              "items": {
+                "properties": {
+                  "created_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "last_used_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "access_device_posture_check": access_device_posture_check_output,
+        "access_device_posture_rule-2": access_device_posture_rule_2_output,
+        "access_device_session": access_device_session_output,
+        "access_geo": access_geo_output,
+        "access_identity": access_identity_output,
+        "access_identity_idp": access_identity_idp_output,
+        "access_identity_mtls_auth": access_identity_mtls_auth_output,
+        "access_string_key_map_device_session": access_string_key_map_device_session_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

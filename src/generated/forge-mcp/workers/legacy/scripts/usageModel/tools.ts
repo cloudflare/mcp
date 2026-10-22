@@ -36,6 +36,21 @@ export const tools: readonly Tool[] = [
         "script_name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "usage_model": {
+          "$ref": "#/$defs/workers_usage_model"
+        },
+        "user_limits": {
+          "$ref": "#/$defs/workers_user_limits"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "workers_usage_model": workers_usage_model_output,
+        "workers_user_limits": workers_user_limits_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -129,6 +144,21 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_usage_model": workers_usage_model,
         "workers_user_limits": workers_user_limits,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "usage_model": {
+          "$ref": "#/$defs/workers_usage_model"
+        },
+        "user_limits": {
+          "$ref": "#/$defs/workers_user_limits"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "workers_usage_model": workers_usage_model_output,
+        "workers_user_limits": workers_user_limits_output,
       },
     },
     annotations: {

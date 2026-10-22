@@ -62,6 +62,16 @@ export const tools: readonly Tool[] = [
         "dns-custom-nameservers_ns_set": dns_custom_nameservers_ns_set,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dns-custom-nameservers_CustomNS",
+      $defs: {
+        "dns-custom-nameservers_CustomNS": dns_custom_nameservers_CustomNS_output,
+        "dns-custom-nameservers_CustomNS_dns_recordsItem": dns_custom_nameservers_CustomNS_dns_recordsItem_output,
+        "dns-custom-nameservers_identifier-2": dns_custom_nameservers_identifier_2_output,
+        "dns-custom-nameservers_ns_name": dns_custom_nameservers_ns_name_output,
+        "dns-custom-nameservers_ns_set": dns_custom_nameservers_ns_set_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -144,6 +154,41 @@ export const tools: readonly Tool[] = [
         "account_id",
         "custom_ns_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -245,6 +290,47 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-custom-nameservers_CustomNS"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dns-custom-nameservers_CustomNS": dns_custom_nameservers_CustomNS_output,
+        "dns-custom-nameservers_CustomNS_dns_recordsItem": dns_custom_nameservers_CustomNS_dns_recordsItem_output,
+        "dns-custom-nameservers_identifier-2": dns_custom_nameservers_identifier_2_output,
+        "dns-custom-nameservers_ns_name": dns_custom_nameservers_ns_name_output,
+        "dns-custom-nameservers_ns_set": dns_custom_nameservers_ns_set_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -124,6 +124,12 @@ export const tools: readonly Tool[] = [
         "email-sending_EmailInlineAttachment": email_sending_EmailInlineAttachment,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-sending_EmailSendResponse",
+      $defs: {
+        "email-sending_EmailSendResponse": email_sending_EmailSendResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -462,6 +468,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-sending_SendRawRequest": email_sending_SendRawRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-sending_EmailSendResponse",
+      $defs: {
+        "email-sending_EmailSendResponse": email_sending_EmailSendResponse_output,
       },
     },
     annotations: {

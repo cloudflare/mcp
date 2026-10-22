@@ -107,6 +107,17 @@ export const tools: readonly Tool[] = [
         "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Preview",
+      $defs: {
+        "workers_Preview": workers_Preview_output,
+        "workers_Preview_observability": workers_Preview_observability_output,
+        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
+        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
+        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
+        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -189,6 +200,17 @@ export const tools: readonly Tool[] = [
         "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Preview",
+      $defs: {
+        "workers_Preview": workers_Preview_output,
+        "workers_Preview_observability": workers_Preview_observability_output,
+        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
+        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
+        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
+        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -253,6 +275,17 @@ export const tools: readonly Tool[] = [
         "worker_id",
         "preview_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Preview",
+      $defs: {
+        "workers_Preview": workers_Preview_output,
+        "workers_Preview_observability": workers_Preview_observability_output,
+        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
+        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
+        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
+        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -356,6 +389,48 @@ export const tools: readonly Tool[] = [
         "account_id",
         "worker_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_Preview"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_Preview": workers_Preview_output,
+        "workers_Preview_observability": workers_Preview_observability_output,
+        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
+        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
+        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
+        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -522,6 +597,17 @@ export const tools: readonly Tool[] = [
         "workers_Preview_observability_logs": workers_Preview_observability_logs,
         "workers_Preview_observability_traces": workers_Preview_observability_traces,
         "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Preview",
+      $defs: {
+        "workers_Preview": workers_Preview_output,
+        "workers_Preview_observability": workers_Preview_observability_output,
+        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
+        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
+        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
+        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
       },
     },
     annotations: {

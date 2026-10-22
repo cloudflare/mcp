@@ -48,6 +48,15 @@ export const tools: readonly Tool[] = [
         "identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-pages_custom_page",
+      $defs: {
+        "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_state": custom_pages_state_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+        "custom-pages_url": custom_pages_url_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -118,6 +127,46 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/custom-pages_custom_page"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_state": custom_pages_state_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+        "custom-pages_url": custom_pages_url_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -257,6 +306,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "custom-pages_state": custom_pages_state,
         "custom-pages_url": custom_pages_url,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/custom-pages_custom_page",
+      $defs: {
+        "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_state": custom_pages_state_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+        "custom-pages_url": custom_pages_url_output,
       },
     },
     annotations: {

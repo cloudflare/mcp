@@ -61,6 +61,24 @@ export const tools: readonly Tool[] = [
         "logpush_sample": logpush_sample,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/logpush_instant_logs_job"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "logpush_destination_conf-2": logpush_destination_conf_2_output,
+        "logpush_fields": logpush_fields_output,
+        "logpush_filter-2": logpush_filter_2_output,
+        "logpush_instant_logs_job": logpush_instant_logs_job_output,
+        "logpush_sample": logpush_sample_output,
+        "logpush_session_id": logpush_session_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -146,6 +164,38 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/logpush_instant_logs_job"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "logpush_destination_conf-2": logpush_destination_conf_2_output,
+        "logpush_fields": logpush_fields_output,
+        "logpush_filter-2": logpush_filter_2_output,
+        "logpush_instant_logs_job": logpush_instant_logs_job_output,
+        "logpush_sample": logpush_sample_output,
+        "logpush_session_id": logpush_session_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

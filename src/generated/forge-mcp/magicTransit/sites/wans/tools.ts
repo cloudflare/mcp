@@ -63,6 +63,32 @@ export const tools: readonly Tool[] = [
         "magic_wans_add_single_request": magic_wans_add_single_request,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_wan"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_cidr": magic_cidr_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_port": magic_port_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+        "magic_wan": magic_wan_output,
+        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -149,6 +175,18 @@ export const tools: readonly Tool[] = [
         "site_id",
         "wan_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_wan",
+      $defs: {
+        "magic_cidr": magic_cidr_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_port": magic_port_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+        "magic_wan": magic_wan_output,
+        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -244,6 +282,18 @@ export const tools: readonly Tool[] = [
         "magic_wan_update_request": magic_wan_update_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_wan",
+      $defs: {
+        "magic_cidr": magic_cidr_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_port": magic_port_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+        "magic_wan": magic_wan_output,
+        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -327,6 +377,18 @@ export const tools: readonly Tool[] = [
         "wan_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_wan",
+      $defs: {
+        "magic_cidr": magic_cidr_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_port": magic_port_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+        "magic_wan": magic_wan_output,
+        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -405,6 +467,32 @@ export const tools: readonly Tool[] = [
         "account_id",
         "site_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_wan"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_cidr": magic_cidr_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_port": magic_port_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+        "magic_wan": magic_wan_output,
+        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -504,6 +592,18 @@ export const tools: readonly Tool[] = [
         "magic_vlan_tag": magic_vlan_tag,
         "magic_wan_static_addressing_update": magic_wan_static_addressing_update,
         "magic_wan_update_request": magic_wan_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_wan",
+      $defs: {
+        "magic_cidr": magic_cidr_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_port": magic_port_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+        "magic_wan": magic_wan_output,
+        "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },
     annotations: {

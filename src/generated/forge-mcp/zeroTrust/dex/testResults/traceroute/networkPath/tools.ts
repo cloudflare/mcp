@@ -40,6 +40,17 @@ export const tools: readonly Tool[] = [
         "test_result_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_traceroute_test_result_network_path_response",
+      $defs: {
+        "digital-experience-monitoring_colo": digital_experience_monitoring_colo_output,
+        "digital-experience-monitoring_execution_context": digital_experience_monitoring_execution_context_output,
+        "digital-experience-monitoring_traceroute_test_result_network_path_response": digital_experience_monitoring_traceroute_test_result_network_path_response_output,
+        "digital-experience-monitoring_traceroute_test_result_network_path_response_hopsItem": digital_experience_monitoring_traceroute_test_result_network_path_response_hopsItem_output,
+        "digital-experience-monitoring_traceroute_test_result_network_path_response_hopsItem_location": digital_experience_monitoring_traceroute_test_result_network_path_response_hopsItem_location_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

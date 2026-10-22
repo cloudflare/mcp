@@ -32,6 +32,9 @@ export const tools: readonly Tool[] = [
         "load-balancing_subdivision_code_a2": load_balancing_subdivision_code_a2,
       },
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

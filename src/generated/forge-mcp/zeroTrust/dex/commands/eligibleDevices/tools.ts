@@ -50,6 +50,17 @@ export const tools: readonly Tool[] = [
         "per_page"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_commands_devices_response",
+      $defs: {
+        "digital-experience-monitoring_commands_devices_response": digital_experience_monitoring_commands_devices_response_output,
+        "digital-experience-monitoring_commands_devices_response_devicesItem": digital_experience_monitoring_commands_devices_response_devicesItem_output,
+        "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
+        "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
+        "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
+        "digital-experience-monitoring_version": digital_experience_monitoring_version_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -49,6 +49,16 @@ export const tools: readonly Tool[] = [
         "cloudflare_version"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/precursor_precursor_config",
+      $defs: {
+        "precursor_precursor_config": precursor_precursor_config_output,
+        "precursor_precursor_mode": precursor_precursor_mode_output,
+        "precursor_precursor_rule": precursor_precursor_rule_output,
+        "precursor_precursor_rules": precursor_precursor_rules_output,
+        "precursor_show_interstitial": precursor_show_interstitial_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -148,6 +158,16 @@ export const tools: readonly Tool[] = [
         "precursor_precursor_rule": precursor_precursor_rule,
         "precursor_precursor_rules": precursor_precursor_rules,
         "precursor_show_interstitial": precursor_show_interstitial,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/precursor_precursor_config",
+      $defs: {
+        "precursor_precursor_config": precursor_precursor_config_output,
+        "precursor_precursor_mode": precursor_precursor_mode_output,
+        "precursor_precursor_rule": precursor_precursor_rule_output,
+        "precursor_precursor_rules": precursor_precursor_rules_output,
+        "precursor_show_interstitial": precursor_show_interstitial_output,
       },
     },
     annotations: {

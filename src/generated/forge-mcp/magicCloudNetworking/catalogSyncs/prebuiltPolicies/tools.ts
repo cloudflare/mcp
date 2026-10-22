@@ -38,6 +38,27 @@ export const tools: readonly Tool[] = [
         "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mcn_catalog_syncs_prebuilt_policy"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "mcn_catalog_sync_destination_type": mcn_catalog_sync_destination_type_output,
+        "mcn_catalog_syncs_prebuilt_policy": mcn_catalog_syncs_prebuilt_policy_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

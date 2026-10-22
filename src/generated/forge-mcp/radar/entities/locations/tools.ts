@@ -31,6 +31,53 @@ export const tools: readonly Tool[] = [
         "location"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "location": {
+          "properties": {
+            "alpha2": {
+              "type": "string"
+            },
+            "confidenceLevel": {
+              "type": "integer"
+            },
+            "continent": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": "string"
+            },
+            "longitude": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "subregion": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "alpha2",
+            "confidenceLevel",
+            "continent",
+            "latitude",
+            "longitude",
+            "name",
+            "region",
+            "subregion"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "location"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -170,6 +217,52 @@ export const tools: readonly Tool[] = [
           "type": "string"
         }
       },
+    },
+    outputSchema: {
+      "properties": {
+        "locations": {
+          "items": {
+            "properties": {
+              "alpha2": {
+                "type": "string"
+              },
+              "continent": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "subregion": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "alpha2",
+              "continent",
+              "latitude",
+              "longitude",
+              "name",
+              "region",
+              "subregion"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "locations"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

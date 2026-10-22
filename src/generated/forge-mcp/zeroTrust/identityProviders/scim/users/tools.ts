@@ -105,6 +105,15 @@ export const tools: readonly Tool[] = [
         "user_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_users",
+      $defs: {
+        "access_id": access_id_output,
+        "access_meta": access_meta_output,
+        "access_users": access_users_output,
+        "access_users_emailsItem": access_users_emailsItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -198,6 +207,46 @@ export const tools: readonly Tool[] = [
         "access_idp_resource_id-2": access_idp_resource_id_2,
         "access_name-5": access_name_5,
         "access_username": access_username,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_users"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_id": access_id_output,
+        "access_meta": access_meta_output,
+        "access_users": access_users_output,
+        "access_users_emailsItem": access_users_emailsItem_output,
       },
     },
     annotations: {

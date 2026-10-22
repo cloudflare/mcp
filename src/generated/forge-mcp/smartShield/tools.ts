@@ -40,6 +40,15 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/smartshield_smart_shield_settings_get_response",
+      $defs: {
+        "smartshield_smart_shield_settings_get_response": smartshield_smart_shield_settings_get_response_output,
+        "smartshield_smart_shield_settings_regional_tiered_cache": smartshield_smart_shield_settings_regional_tiered_cache_output,
+        "smartshield_smart_shield_settings_smart_routing": smartshield_smart_shield_settings_smart_routing_output,
+        "smartshield_smart_shield_settings_smart_tiered_cache": smartshield_smart_shield_settings_smart_tiered_cache_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -126,6 +135,13 @@ export const tools: readonly Tool[] = [
         "smartshield_smart_shield_settings_patch_body_regional_tiered_cache": smartshield_smart_shield_settings_patch_body_regional_tiered_cache,
         "smartshield_smart_shield_settings_patch_body_smart_routing": smartshield_smart_shield_settings_patch_body_smart_routing,
         "smartshield_smart_shield_settings_patch_body_smart_tiered_cache": smartshield_smart_shield_settings_patch_body_smart_tiered_cache,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response",
+      $defs: {
+        "smartshield_smart_shield_settings_patch_response": smartshield_smart_shield_settings_patch_response_output,
+        "smartshield_smart_shield_settings_patch_response_smart_tiered_cache": smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
       },
     },
     annotations: {

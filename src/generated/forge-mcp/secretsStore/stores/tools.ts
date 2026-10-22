@@ -40,6 +40,17 @@ export const tools: readonly Tool[] = [
         "store_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/secrets-store_storeObject",
+      $defs: {
+        "secrets-store_account_identifier": secrets_store_account_identifier_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_storeObject": secrets_store_storeObject_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
+        "secrets-store_store_name": secrets_store_store_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -128,6 +139,48 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/secrets-store_storeObject"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "secrets-store_account_identifier": secrets_store_account_identifier_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_storeObject": secrets_store_storeObject_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
+        "secrets-store_store_name": secrets_store_store_name_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -77,6 +77,22 @@ export const tools: readonly Tool[] = [
         "interval"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_http_details_response",
+      $defs: {
+        "digital-experience-monitoring_http_details_response": digital_experience_monitoring_http_details_response_output,
+        "digital-experience-monitoring_http_details_response_httpStats": digital_experience_monitoring_http_details_response_httpStats_output,
+        "digital-experience-monitoring_http_details_response_httpStatsByColoItem": digital_experience_monitoring_http_details_response_httpStatsByColoItem_output,
+        "digital-experience-monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem": digital_experience_monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem_output,
+        "digital-experience-monitoring_http_details_response_httpStats_httpStatusCodeItem": digital_experience_monitoring_http_details_response_httpStats_httpStatusCodeItem_output,
+        "digital-experience-monitoring_http_details_response_target_policiesItem": digital_experience_monitoring_http_details_response_target_policiesItem_output,
+        "digital-experience-monitoring_test_stat_over_time": digital_experience_monitoring_test_stat_over_time_output,
+        "digital-experience-monitoring_test_stat_over_time_slotsItem": digital_experience_monitoring_test_stat_over_time_slotsItem_output,
+        "digital-experience-monitoring_test_stat_pct_over_time": digital_experience_monitoring_test_stat_pct_over_time_output,
+        "digital-experience-monitoring_test_stat_pct_over_time_slotsItem": digital_experience_monitoring_test_stat_pct_over_time_slotsItem_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

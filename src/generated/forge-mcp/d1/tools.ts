@@ -87,6 +87,20 @@ export const tools: readonly Tool[] = [
         "d1_read-replication-details-for-request": d1_read_replication_details_for_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/d1_database-details-response",
+      $defs: {
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -151,6 +165,9 @@ export const tools: readonly Tool[] = [
         "database_id"
       ],
     },
+    outputSchema: {
+      "type": "null",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -211,6 +228,20 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_database-update-partial-request-body": d1_database_update_partial_request_body,
         "d1_read-replication-details-for-request": d1_read_replication_details_for_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/d1_database-details-response",
+      $defs: {
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
       },
     },
     annotations: {
@@ -293,6 +324,20 @@ export const tools: readonly Tool[] = [
         "database_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/d1_database-details-response",
+      $defs: {
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -368,6 +413,45 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/d1_database-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "d1_created-at": d1_created_at_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-response": d1_database_response_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -473,6 +557,30 @@ export const tools: readonly Tool[] = [
         "d1_sql": d1_sql,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/d1_query-result-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "d1_query-meta": d1_query_meta_output,
+        "d1_query-meta_timings": d1_query_meta_timings_output,
+        "d1_query-result-response": d1_query_result_response_output,
+        "d1_served-by-colo": d1_served_by_colo_output,
+        "d1_served-by-region": d1_served_by_region_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -556,6 +664,31 @@ export const tools: readonly Tool[] = [
         "d1_params": d1_params,
         "d1_single-query": d1_single_query,
         "d1_sql": d1_sql,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/d1_raw-result-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "d1_query-meta": d1_query_meta_output,
+        "d1_query-meta_timings": d1_query_meta_timings_output,
+        "d1_raw-result-response": d1_raw_result_response_output,
+        "d1_raw-result-response_results": d1_raw_result_response_results_output,
+        "d1_served-by-colo": d1_served_by_colo_output,
+        "d1_served-by-region": d1_served_by_region_output,
       },
     },
     annotations: {
@@ -646,6 +779,20 @@ export const tools: readonly Tool[] = [
         "d1_database-name": d1_database_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/d1_database-details-response",
+      $defs: {
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -713,6 +860,20 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_database-update-request-body": d1_database_update_request_body,
         "d1_read-replication-details-for-request": d1_read_replication_details_for_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/d1_database-details-response",
+      $defs: {
+        "d1_created-at": d1_created_at_output,
+        "d1_database-details-response": d1_database_details_response_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_file-size": d1_file_size_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
+        "d1_table-count": d1_table_count_output,
       },
     },
     annotations: {

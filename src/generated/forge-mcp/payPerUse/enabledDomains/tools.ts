@@ -41,6 +41,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_EnabledDomainsResult",
+      $defs: {
+        "pay-per-crawl_EnabledDomain": pay_per_crawl_EnabledDomain_output,
+        "pay-per-crawl_EnabledDomainsResult": pay_per_crawl_EnabledDomainsResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

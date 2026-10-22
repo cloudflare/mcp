@@ -36,6 +36,26 @@ export const tools: readonly Tool[] = [
         "stream_creator": stream_creator,
       },
     },
+    outputSchema: {
+      "properties": {
+        "creator": {
+          "$ref": "#/$defs/stream_creator"
+        },
+        "totalStorageMinutes": {
+          "type": "number"
+        },
+        "totalStorageMinutesLimit": {
+          "type": "integer"
+        },
+        "videoCount": {
+          "type": "integer"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "stream_creator": stream_creator_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

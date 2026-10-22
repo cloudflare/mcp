@@ -88,6 +88,26 @@ export const tools: readonly Tool[] = [
         "usage-analytics_identifier": usage_analytics_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/usage-analytics_billing_usage_data_point"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "usage-analytics_billing_usage_data_point": usage_analytics_billing_usage_data_point_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -179,6 +199,28 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_identifier": billable_usage_api_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_v2_account_billable_metric"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "billable-usage-api_v2_account_billable_metric": billable_usage_api_v2_account_billable_metric_output,
+        "billable-usage-api_v2_product_category": billable_usage_api_v2_product_category_output,
+        "billable-usage-api_v2_product_family": billable_usage_api_v2_product_family_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -264,6 +306,26 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_identifier": billable_usage_api_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -337,6 +399,13 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_identifier": billable_usage_api_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/billable-usage-api_usage_info_response_result",
+      $defs: {
+        "billable-usage-api_usage_info_response_result": billable_usage_api_usage_info_response_result_output,
+        "billable-usage-api_usage_info_response_result_subscriptionsItem": billable_usage_api_usage_info_response_result_subscriptionsItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -401,6 +470,26 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "billable-usage-api_identifier": billable_usage_api_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_usage_record"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "billable-usage-api_usage_record": billable_usage_api_usage_record_output,
       },
     },
     annotations: {
@@ -482,6 +571,26 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_v2_tag_filter": billable_usage_api_v2_tag_filter,
         "billable-usage-api_v2_time_period": billable_usage_api_v2_time_period,
         "billable-usage-api_v2_usage_query": billable_usage_api_v2_usage_query,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
       },
     },
     annotations: {

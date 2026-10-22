@@ -45,6 +45,15 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_create_rule_body": digital_experience_monitoring_create_rule_body,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_dex-rule",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
+        "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -101,6 +110,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id",
         "rule_id"
+      ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -162,6 +181,15 @@ export const tools: readonly Tool[] = [
         "account_id",
         "rule_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_dex-rule",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
+        "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -252,6 +280,16 @@ export const tools: readonly Tool[] = [
         "per_page"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_list_rules_response",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
+        "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_list_rules_response": digital_experience_monitoring_list_rules_response_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -325,6 +363,15 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "digital-experience-monitoring_patch_rule_body": digital_experience_monitoring_patch_rule_body,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_dex-rule",
+      $defs: {
+        "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
+        "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
+        "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
       },
     },
     annotations: {

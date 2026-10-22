@@ -46,6 +46,20 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/realtimekit_Transcript"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_Transcript": realtimekit_Transcript_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

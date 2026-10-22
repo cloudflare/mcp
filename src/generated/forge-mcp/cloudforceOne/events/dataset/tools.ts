@@ -46,6 +46,29 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "isAnalytics": {
+          "type": "boolean"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "isAnalytics",
+        "isPublic",
+        "name",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -143,6 +166,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "dataset_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "uuid"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

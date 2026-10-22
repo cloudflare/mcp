@@ -84,6 +84,67 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_priority": tls_certificates_and_hostnames_priority,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tls-certificates-and-hostnames_custom-certificate"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_base": tls_certificates_and_hostnames_base_output,
+        "tls-certificates-and-hostnames_bundle_method": tls_certificates_and_hostnames_bundle_method_output,
+        "tls-certificates-and-hostnames_custom-certificate": tls_certificates_and_hostnames_custom_certificate_output,
+        "tls-certificates-and-hostnames_custom_certificate_identifier": tls_certificates_and_hostnames_custom_certificate_identifier_output,
+        "tls-certificates-and-hostnames_custom_csr_id": tls_certificates_and_hostnames_custom_csr_id_output,
+        "tls-certificates-and-hostnames_enabled": tls_certificates_and_hostnames_enabled_output,
+        "tls-certificates-and-hostnames_expires_on": tls_certificates_and_hostnames_expires_on_output,
+        "tls-certificates-and-hostnames_geo_restrictions": tls_certificates_and_hostnames_geo_restrictions_output,
+        "tls-certificates-and-hostnames_host": tls_certificates_and_hostnames_host_output,
+        "tls-certificates-and-hostnames_hosts": tls_certificates_and_hostnames_hosts_output,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier_output,
+        "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
+        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls_certificates_and_hostnames_keyless_certificate_identifier_output,
+        "tls-certificates-and-hostnames_keyless_private_ip": tls_certificates_and_hostnames_keyless_private_ip_output,
+        "tls-certificates-and-hostnames_keyless_tunnel": tls_certificates_and_hostnames_keyless_tunnel_output,
+        "tls-certificates-and-hostnames_keyless_vnet_id": tls_certificates_and_hostnames_keyless_vnet_id_output,
+        "tls-certificates-and-hostnames_modified_on": tls_certificates_and_hostnames_modified_on_output,
+        "tls-certificates-and-hostnames_name": tls_certificates_and_hostnames_name_output,
+        "tls-certificates-and-hostnames_policy_restrictions": tls_certificates_and_hostnames_policy_restrictions_output,
+        "tls-certificates-and-hostnames_port": tls_certificates_and_hostnames_port_output,
+        "tls-certificates-and-hostnames_priority": tls_certificates_and_hostnames_priority_output,
+        "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
+        "tls-certificates-and-hostnames_status": tls_certificates_and_hostnames_status_output,
+        "tls-certificates-and-hostnames_status-2": tls_certificates_and_hostnames_status_2_output,
+        "tls-certificates-and-hostnames_uploaded_on": tls_certificates_and_hostnames_uploaded_on_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,

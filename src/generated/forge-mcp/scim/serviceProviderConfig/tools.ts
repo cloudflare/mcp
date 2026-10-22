@@ -31,6 +31,16 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_service_provider_config",
+      $defs: {
+        "iam_scim_authentication_scheme": iam_scim_authentication_scheme_output,
+        "iam_scim_bulk_feature": iam_scim_bulk_feature_output,
+        "iam_scim_feature": iam_scim_feature_output,
+        "iam_scim_filter_feature": iam_scim_filter_feature_output,
+        "iam_scim_service_provider_config": iam_scim_service_provider_config_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

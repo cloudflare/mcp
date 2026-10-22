@@ -68,6 +68,14 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier-2": api_shield_identifier_2,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/api-shield_api_discovery_patch_multiple_request",
+      $defs: {
+        "api-shield_api_discovery_patch_multiple_request": api_shield_api_discovery_patch_multiple_request_output,
+        "api-shield_api_discovery_patch_multiple_request_entry": api_shield_api_discovery_patch_multiple_request_entry_output,
+        "api-shield_api_discovery_state_patch": api_shield_api_discovery_state_patch_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -142,6 +150,17 @@ export const tools: readonly Tool[] = [
         "api-shield_uuid-2": api_shield_uuid_2,
       },
     },
+    outputSchema: {
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/api-shield_api_discovery_state"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "api-shield_api_discovery_state": api_shield_api_discovery_state_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -206,6 +225,55 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier-2": api_shield_identifier_2,
         "api-shield_uuid": api_shield_uuid,
         "api-shield_uuid-2": api_shield_uuid_2,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/api-shield_discovery_operation"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "api-shield_api_discovery_origin": api_shield_api_discovery_origin_output,
+        "api-shield_api_discovery_state": api_shield_api_discovery_state_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
+        "api-shield_discovery_operation": api_shield_discovery_operation_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_traffic_stats": api_shield_traffic_stats_output,
+        "api-shield_traffic_stats_traffic_stats": api_shield_traffic_stats_traffic_stats_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
       },
     },
     annotations: {
@@ -365,6 +433,55 @@ export const tools: readonly Tool[] = [
         "api-shield_api_discovery_state": api_shield_api_discovery_state,
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/api-shield_discovery_operation"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "api-shield_api_discovery_origin": api_shield_api_discovery_origin_output,
+        "api-shield_api_discovery_state": api_shield_api_discovery_state_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
+        "api-shield_discovery_operation": api_shield_discovery_operation_output,
+        "api-shield_endpoint": api_shield_endpoint_output,
+        "api-shield_host": api_shield_host_output,
+        "api-shield_method": api_shield_method_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_traffic_stats": api_shield_traffic_stats_output,
+        "api-shield_traffic_stats_traffic_stats": api_shield_traffic_stats_traffic_stats_output,
+        "api-shield_uuid": api_shield_uuid_output,
+        "api-shield_uuid-2": api_shield_uuid_2_output,
       },
     },
     annotations: {

@@ -30,6 +30,13 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_api-response-common",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -78,6 +85,12 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_securityTxt",
+      $defs: {
+        "security-center_securityTxt": security_center_securityTxt_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -134,6 +147,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "security-center_securityTxt": security_center_securityTxt,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_api-response-common",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
       },
     },
     annotations: {

@@ -38,6 +38,15 @@ export const tools: readonly Tool[] = [
         "signing_key_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_keys_response",
+      $defs: {
+        "images_image_key_name": images_image_key_name_output,
+        "images_image_key_value": images_image_key_value_output,
+        "images_image_keys": images_image_keys_output,
+        "images_image_keys_response": images_image_keys_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -97,6 +106,15 @@ export const tools: readonly Tool[] = [
         "signing_key_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_keys_response",
+      $defs: {
+        "images_image_key_name": images_image_key_name_output,
+        "images_image_key_value": images_image_key_value_output,
+        "images_image_keys": images_image_keys_output,
+        "images_image_keys_response": images_image_keys_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -151,6 +169,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_keys_response",
+      $defs: {
+        "images_image_key_name": images_image_key_name_output,
+        "images_image_key_value": images_image_key_value_output,
+        "images_image_keys": images_image_keys_output,
+        "images_image_keys_response": images_image_keys_response_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

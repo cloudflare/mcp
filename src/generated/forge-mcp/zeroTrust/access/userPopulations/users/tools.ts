@@ -60,6 +60,15 @@ export const tools: readonly Tool[] = [
         "access_uuid": access_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_scim_user",
+      $defs: {
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -185,6 +194,15 @@ export const tools: readonly Tool[] = [
         "access_uuid": access_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_scim_user",
+      $defs: {
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -266,6 +284,16 @@ export const tools: readonly Tool[] = [
         "access_uuid": access_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_scim_user_list_response",
+      $defs: {
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+        "access_scim_user_list_response": access_scim_user_list_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -343,6 +371,15 @@ export const tools: readonly Tool[] = [
         "access_uuid": access_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_scim_user",
+      $defs: {
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -409,6 +446,15 @@ export const tools: readonly Tool[] = [
         "access_scim_patch_request": access_scim_patch_request,
         "access_scim_patch_request_OperationsItem": access_scim_patch_request_OperationsItem,
         "access_uuid": access_uuid,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_scim_user",
+      $defs: {
+        "access_scim_email": access_scim_email_output,
+        "access_scim_meta": access_scim_meta_output,
+        "access_scim_name": access_scim_name_output,
+        "access_scim_user": access_scim_user_output,
       },
     },
     annotations: {

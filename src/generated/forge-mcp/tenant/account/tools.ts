@@ -29,6 +29,27 @@ export const tools: readonly Tool[] = [
         "tenant_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_Account"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "organizations-api_Account": organizations_api_Account_output,
+        "organizations-api_Account_settings": organizations_api_Account_settings_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

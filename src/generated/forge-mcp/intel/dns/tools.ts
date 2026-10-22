@@ -52,6 +52,13 @@ export const tools: readonly Tool[] = [
         "intel_start_end_params": intel_start_end_params,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/intel_passive-dns-by-ip",
+      $defs: {
+        "intel_passive-dns-by-ip": intel_passive_dns_by_ip_output,
+        "intel_passive-dns-by-ip_reverse_recordsItem": intel_passive_dns_by_ip_reverse_recordsItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

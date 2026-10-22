@@ -76,6 +76,23 @@ export const tools: readonly Tool[] = [
         "load-balancing_type": load_balancing_type,
       },
     },
+    outputSchema: {
+      "properties": {
+        "pools": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "preview_id": {
+          "$ref": "#/$defs/load-balancing_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "load-balancing_identifier": load_balancing_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -135,6 +152,32 @@ export const tools: readonly Tool[] = [
         "account_id",
         "pool_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "pool_id": {
+          "type": "string"
+        },
+        "pop_health": {
+          "properties": {
+            "healthy": {
+              "type": "boolean"
+            },
+            "origins": {
+              "items": {
+                "$ref": "#/$defs/load-balancing_origin-health"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "load-balancing_origin-health": load_balancing_origin_health_output,
+        "load-balancing_origin-health_ip": load_balancing_origin_health_ip_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

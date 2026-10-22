@@ -49,6 +49,24 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "query_id": {
+          "type": "integer"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "message",
+        "success"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -110,6 +128,21 @@ export const tools: readonly Tool[] = [
         "query_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "message",
+        "success"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -170,6 +203,49 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "content_type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "image_data": {
+            "type": "string"
+          },
+          "r2_path": {
+            "type": "string"
+          },
+          "similarity_threshold": {
+            "type": "number"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "uploaded_at": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "r2_path",
+          "similarity_threshold",
+          "tag",
+          "uploaded_at"
+        ],
+        "type": "object"
+      },
+      "type": "array",
     },
     annotations: {
       "destructiveHint": false,

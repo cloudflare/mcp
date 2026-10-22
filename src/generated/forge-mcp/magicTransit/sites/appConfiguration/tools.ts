@@ -66,6 +66,18 @@ export const tools: readonly Tool[] = [
         "magic_managed_app_id": magic_managed_app_id,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_app_config",
+      $defs: {
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_app_breakout": magic_app_breakout_output,
+        "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
+        "magic_app_config": magic_app_config_output,
+        "magic_app_priority": magic_app_priority_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -139,6 +151,18 @@ export const tools: readonly Tool[] = [
         "app_config_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_app_config",
+      $defs: {
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_app_breakout": magic_app_breakout_output,
+        "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
+        "magic_app_config": magic_app_config_output,
+        "magic_app_priority": magic_app_priority_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -205,6 +229,32 @@ export const tools: readonly Tool[] = [
         "account_id",
         "site_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_app_config"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_app_breakout": magic_app_breakout_output,
+        "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
+        "magic_app_config": magic_app_config_output,
+        "magic_app_priority": magic_app_priority_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -305,6 +355,18 @@ export const tools: readonly Tool[] = [
         "magic_app_priority": magic_app_priority,
         "magic_identifier": magic_identifier,
         "magic_managed_app_id": magic_managed_app_id,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_app_config",
+      $defs: {
+        "magic_account_app_id": magic_account_app_id_output,
+        "magic_app_breakout": magic_app_breakout_output,
+        "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
+        "magic_app_config": magic_app_config_output,
+        "magic_app_priority": magic_app_priority_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_managed_app_id": magic_managed_app_id_output,
       },
     },
     annotations: {

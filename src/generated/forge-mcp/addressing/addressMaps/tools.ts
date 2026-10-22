@@ -95,6 +95,42 @@ export const tools: readonly Tool[] = [
         "addressing_membership_requests": addressing_membership_requests,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/addressing_address-maps"
+        },
+        {
+          "properties": {
+            "ips": {
+              "$ref": "#/$defs/addressing_ips"
+            },
+            "memberships": {
+              "$ref": "#/$defs/addressing_memberships"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "addressing_address-maps": addressing_address_maps_output,
+        "addressing_address-maps-ip": addressing_address_maps_ip_output,
+        "addressing_address-maps-membership": addressing_address_maps_membership_output,
+        "addressing_address_map_identifier": addressing_address_map_identifier_output,
+        "addressing_can_delete": addressing_can_delete_output,
+        "addressing_can_delete-2": addressing_can_delete_2_output,
+        "addressing_can_modify_ips": addressing_can_modify_ips_output,
+        "addressing_default_sni": addressing_default_sni_output,
+        "addressing_description-2": addressing_description_2_output,
+        "addressing_enabled": addressing_enabled_output,
+        "addressing_identifier": addressing_identifier_output,
+        "addressing_ip": addressing_ip_output,
+        "addressing_ips": addressing_ips_output,
+        "addressing_kind": addressing_kind_output,
+        "addressing_memberships": addressing_memberships_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -188,6 +224,14 @@ export const tools: readonly Tool[] = [
         "address_map_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-collection",
+      $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-collection_result_info": addressing_api_response_collection_result_info_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -274,6 +318,19 @@ export const tools: readonly Tool[] = [
         "addressing_enabled": addressing_enabled,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_address-maps",
+      $defs: {
+        "addressing_address-maps": addressing_address_maps_output,
+        "addressing_address_map_identifier": addressing_address_map_identifier_output,
+        "addressing_can_delete": addressing_can_delete_output,
+        "addressing_can_modify_ips": addressing_can_modify_ips_output,
+        "addressing_default_sni": addressing_default_sni_output,
+        "addressing_description-2": addressing_description_2_output,
+        "addressing_enabled": addressing_enabled_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -343,6 +400,42 @@ export const tools: readonly Tool[] = [
         "account_id",
         "address_map_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/addressing_address-maps"
+        },
+        {
+          "properties": {
+            "ips": {
+              "$ref": "#/$defs/addressing_ips"
+            },
+            "memberships": {
+              "$ref": "#/$defs/addressing_memberships"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "addressing_address-maps": addressing_address_maps_output,
+        "addressing_address-maps-ip": addressing_address_maps_ip_output,
+        "addressing_address-maps-membership": addressing_address_maps_membership_output,
+        "addressing_address_map_identifier": addressing_address_map_identifier_output,
+        "addressing_can_delete": addressing_can_delete_output,
+        "addressing_can_delete-2": addressing_can_delete_2_output,
+        "addressing_can_modify_ips": addressing_can_modify_ips_output,
+        "addressing_default_sni": addressing_default_sni_output,
+        "addressing_description-2": addressing_description_2_output,
+        "addressing_enabled": addressing_enabled_output,
+        "addressing_identifier": addressing_identifier_output,
+        "addressing_ip": addressing_ip_output,
+        "addressing_ips": addressing_ips_output,
+        "addressing_kind": addressing_kind_output,
+        "addressing_memberships": addressing_memberships_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -431,6 +524,50 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_address-maps"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "addressing_address-maps": addressing_address_maps_output,
+        "addressing_address_map_identifier": addressing_address_map_identifier_output,
+        "addressing_can_delete": addressing_can_delete_output,
+        "addressing_can_modify_ips": addressing_can_modify_ips_output,
+        "addressing_default_sni": addressing_default_sni_output,
+        "addressing_description-2": addressing_description_2_output,
+        "addressing_enabled": addressing_enabled_output,
+        "addressing_timestamp": addressing_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -88,6 +88,91 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "queued",
+                  "running",
+                  "paused",
+                  "errored",
+                  "terminated",
+                  "complete",
+                  "waitingForPause",
+                  "waiting",
+                  "rollingBack"
+                ],
+                "type": "string"
+              },
+              "trigger_source": {
+                "enum": [
+                  "unknown",
+                  "api",
+                  "binding",
+                  "event",
+                  "cron"
+                ],
+                "type": "string"
+              },
+              "version_id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "workflow_id": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "status",
+              "version_id",
+              "workflow_id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

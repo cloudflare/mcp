@@ -37,6 +37,12 @@ export const tools: readonly Tool[] = [
         "asset_class"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_AssetSchemaDetail",
+      $defs: {
+        "posture-api_AssetSchemaDetail": posture_api_AssetSchemaDetail_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -115,6 +121,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_AssetSchemaVendorGroup"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "posture-api_AssetSchemaSummary": posture_api_AssetSchemaSummary_output,
+        "posture-api_AssetSchemaVendorGroup": posture_api_AssetSchemaVendorGroup_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -44,6 +44,20 @@ export const tools: readonly Tool[] = [
         "validator_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Validator",
+      $defs: {
+        "dlp_AttachedEntry": dlp_AttachedEntry_output,
+        "dlp_EntryType": dlp_EntryType_output,
+        "dlp_ProximityWeight": dlp_ProximityWeight_output,
+        "dlp_ProximityWord": dlp_ProximityWord_output,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
+        "dlp_Validator": dlp_Validator_output,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
+        "dlp_WorkerDefault": dlp_WorkerDefault_output,
+        "dlp_WorkerValidator": dlp_WorkerValidator_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -113,6 +127,32 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_ValidatorKind": dlp_ValidatorKind,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_ValidatorArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_AttachedEntry": dlp_AttachedEntry_output,
+        "dlp_EntryType": dlp_EntryType_output,
+        "dlp_ProximityWeight": dlp_ProximityWeight_output,
+        "dlp_ProximityWord": dlp_ProximityWord_output,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
+        "dlp_Validator": dlp_Validator_output,
+        "dlp_ValidatorArray": dlp_ValidatorArray_output,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
+        "dlp_WorkerDefault": dlp_WorkerDefault_output,
+        "dlp_WorkerValidator": dlp_WorkerValidator_output,
       },
     },
     annotations: {

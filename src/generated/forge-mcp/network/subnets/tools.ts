@@ -115,6 +115,36 @@ export const tools: readonly Tool[] = [
         "tunnel_subnet_query_name": tunnel_subnet_query_name,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tunnel_subnet"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/tunnel_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_subnet": tunnel_subnet_output,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
+        "tunnel_subnet_comment": tunnel_subnet_comment_output,
+        "tunnel_subnet_id": tunnel_subnet_id_output,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
+        "tunnel_subnet_name": tunnel_subnet_name_output,
+        "tunnel_subnet_type": tunnel_subnet_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

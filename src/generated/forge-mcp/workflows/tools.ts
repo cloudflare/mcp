@@ -26,6 +26,31 @@ export const tools: readonly Tool[] = [
         "workflow_name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "status": {
+          "enum": [
+            "ok"
+          ],
+          "type": "string"
+        },
+        "success": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "success"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -199,6 +224,80 @@ export const tools: readonly Tool[] = [
         "account_id",
         "workflow_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "class_name": {
+          "type": "string"
+        },
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "instances": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "type": "object"
+        },
+        "modified_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "schedules": {
+          "items": {
+            "properties": {
+              "cron": {
+                "type": "string"
+              },
+              "next_instance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "cron",
+              "next_instance"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "script_deleted": {
+          "type": "boolean"
+        },
+        "script_name": {
+          "type": "string"
+        },
+        "triggered_on": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "class_name",
+        "created_on",
+        "id",
+        "instances",
+        "modified_on",
+        "name",
+        "script_name",
+        "triggered_on"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -432,6 +531,119 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "class_name": {
+                "type": "string"
+              },
+              "created_on": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "instances": {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              "modified_on": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "schedules": {
+                "items": {
+                  "properties": {
+                    "cron": {
+                      "type": "string"
+                    },
+                    "next_instance": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "cron",
+                    "next_instance"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "script_deleted": {
+                "type": "boolean"
+              },
+              "script_name": {
+                "type": "string"
+              },
+              "triggered_on": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "class_name",
+              "created_on",
+              "id",
+              "instances",
+              "modified_on",
+              "name",
+              "script_name",
+              "triggered_on"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

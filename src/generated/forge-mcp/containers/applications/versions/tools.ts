@@ -48,6 +48,39 @@ export const tools: readonly Tool[] = [
         "application_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/cc_ApplicationVersion"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cc_ApplicationVersion": cc_ApplicationVersion_output,
+        "cc_Command": cc_Command_output,
+        "cc_DeploymentObservability": cc_DeploymentObservability_output,
+        "cc_Entrypoint": cc_Entrypoint_output,
+        "cc_EnvironmentVariable": cc_EnvironmentVariable_output,
+        "cc_EnvironmentVariableName": cc_EnvironmentVariableName_output,
+        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue_output,
+        "cc_ExecFormParam": cc_ExecFormParam_output,
+        "cc_Image": cc_Image_output,
+        "cc_InstanceType": cc_InstanceType_output,
+        "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration_output,
+        "cc_ObservabilityLogs": cc_ObservabilityLogs_output,
+        "cc_SSHPublicKey": cc_SSHPublicKey_output,
+        "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

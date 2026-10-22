@@ -43,6 +43,13 @@ export const tools: readonly Tool[] = [
         "csam-config-service_zone_identifier": csam_config_service_zone_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/csam-config-service_csam_scanner_setting",
+      $defs: {
+        "csam-config-service_csam_scanner_setting": csam_config_service_csam_scanner_setting_output,
+        "csam-config-service_csam_scanner_value": csam_config_service_csam_scanner_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -107,6 +114,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "csam-config-service_zone_identifier": csam_config_service_zone_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/csam-config-service_csam_scanner_setting",
+      $defs: {
+        "csam-config-service_csam_scanner_setting": csam_config_service_csam_scanner_setting_output,
+        "csam-config-service_csam_scanner_value": csam_config_service_csam_scanner_value_output,
       },
     },
     annotations: {

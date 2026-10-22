@@ -45,6 +45,12 @@ export const tools: readonly Tool[] = [
         "monetization_monetization-account-eligibility-check-input": monetization_monetization_account_eligibility_check_input,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/monetization_monetization-eligibility-result",
+      $defs: {
+        "monetization_monetization-eligibility-result": monetization_monetization_eligibility_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -104,6 +110,12 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/monetization_monetization-eligibility-result",
+      $defs: {
+        "monetization_monetization-eligibility-result": monetization_monetization_eligibility_result_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

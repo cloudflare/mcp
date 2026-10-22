@@ -81,6 +81,21 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      $defs: {
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -167,6 +182,16 @@ export const tools: readonly Tool[] = [
         "hyperdrive_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -236,6 +261,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "hyperdrive_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      $defs: {
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -315,6 +355,36 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/hyperdrive_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_result_info": hyperdrive_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -424,6 +494,21 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      $defs: {
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -510,6 +595,21 @@ export const tools: readonly Tool[] = [
         "hyperdrive_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      $defs: {
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -588,6 +688,21 @@ export const tools: readonly Tool[] = [
         "hyperdrive_internet-origin": hyperdrive_internet_origin,
         "hyperdrive_over-access-origin": hyperdrive_over_access_origin,
         "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      $defs: {
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
+        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
+        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit_output,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full_output,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
+        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
+        "hyperdrive_identifier": hyperdrive_identifier_output,
       },
     },
     annotations: {

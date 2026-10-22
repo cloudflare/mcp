@@ -49,6 +49,16 @@ export const tools: readonly Tool[] = [
         "nsc_MagicSettings": nsc_MagicSettings,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_Cni",
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_BgpControl": nsc_BgpControl_output,
+        "nsc_BgpMode": nsc_BgpMode_output,
+        "nsc_Cni": nsc_Cni_output,
+        "nsc_MagicSettings": nsc_MagicSettings_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -157,6 +167,16 @@ export const tools: readonly Tool[] = [
         "cni"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_Cni",
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_BgpControl": nsc_BgpControl_output,
+        "nsc_BgpMode": nsc_BgpMode_output,
+        "nsc_Cni": nsc_Cni_output,
+        "nsc_MagicSettings": nsc_MagicSettings_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -253,6 +273,17 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_CniList",
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_BgpControl": nsc_BgpControl_output,
+        "nsc_BgpMode": nsc_BgpMode_output,
+        "nsc_Cni": nsc_Cni_output,
+        "nsc_CniList": nsc_CniList_output,
+        "nsc_MagicSettings": nsc_MagicSettings_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -329,6 +360,16 @@ export const tools: readonly Tool[] = [
         "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_MagicSettings": nsc_MagicSettings,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_Cni",
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag_output,
+        "nsc_BgpControl": nsc_BgpControl_output,
+        "nsc_BgpMode": nsc_BgpMode_output,
+        "nsc_Cni": nsc_Cni_output,
+        "nsc_MagicSettings": nsc_MagicSettings_output,
       },
     },
     annotations: {
