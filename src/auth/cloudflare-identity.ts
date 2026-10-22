@@ -14,6 +14,16 @@ import { OAuthError } from './workers-oauth-utils'
 const env = cloudflareEnv as Env
 const API_TOKEN_IDENTITY_CALLER = 'api_token_identity_probe'
 const OAUTH_IDENTITY_CALLER = 'oauth_callback_identity_probe'
+/**
+ * Retries per probe request by caller. A direct credential is probed whenever a request
+ * carries it uncached, and its client retries on our 429 anyway: retrying here spent up
+ * to four calls per probe on a token Cloudflare had already rate-limited, which kept it
+ * limited. The OAuth callback probes once while a person waits to sign in, so a short
+ * retry there still helps.
+ */
+const PROBE_RETRY_OPTIONS: Record<string, { maxRetries: number }> = {
+  [API_TOKEN_IDENTITY_CALLER]: { maxRetries: 0 }
+}
 // /accounts enforces a minimum page size of five. That is still enough to
 // prove the account-token invariant without fetching the 31-record user page.
 const ACCOUNT_TOKEN_PROBE_PAGE_SIZE = 5
@@ -141,7 +151,7 @@ async function fetchProbe(url: string, accessToken: string, caller: string): Pro
     return await fetchWithRetry(
       url,
       { headers: { Authorization: `Bearer ${accessToken}` } },
-      { caller }
+      { caller, ...PROBE_RETRY_OPTIONS[caller] }
     )
   } catch (error) {
     console.error('Cloudflare API request failed', error)
