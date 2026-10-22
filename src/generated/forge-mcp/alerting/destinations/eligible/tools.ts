@@ -33,6 +33,21 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "additionalProperties": {
+        "items": {
+          "$ref": "#/$defs/aaa_eligibility"
+        },
+        "type": "array"
+      },
+      "type": "object",
+      $defs: {
+        "aaa_eligibility": aaa_eligibility_output,
+        "aaa_eligible": aaa_eligible_output,
+        "aaa_ready": aaa_ready_output,
+        "aaa_schemas-type": aaa_schemas_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

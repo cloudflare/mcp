@@ -46,6 +46,13 @@ export const tools: readonly Tool[] = [
         "realtimekit_WebhookRequest": realtimekit_WebhookRequest,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
+      $defs: {
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -109,6 +116,13 @@ export const tools: readonly Tool[] = [
         "app_id",
         "webhook_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
+      $defs: {
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -174,6 +188,13 @@ export const tools: readonly Tool[] = [
         "webhook_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
+      $defs: {
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -231,6 +252,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/realtimekit_WebhooksListSuccessResponse",
+      $defs: {
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhooksListSuccessResponse": realtimekit_WebhooksListSuccessResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -295,6 +323,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "realtimekit_WebhookRequest": realtimekit_WebhookRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
+      $defs: {
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
       },
     },
     annotations: {
@@ -367,6 +402,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "realtimekit_PatchWebhookRequest": realtimekit_PatchWebhookRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
+      $defs: {
+        "realtimekit_Webhook": realtimekit_Webhook_output,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
       },
     },
     annotations: {

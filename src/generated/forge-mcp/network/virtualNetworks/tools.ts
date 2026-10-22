@@ -83,6 +83,18 @@ export const tools: readonly Tool[] = [
         "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_virtual-network",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_virtual-network": tunnel_virtual_network_output,
+        "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+        "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -152,6 +164,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "virtual_network_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_virtual-network",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_virtual-network": tunnel_virtual_network_output,
+        "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+        "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -245,6 +269,18 @@ export const tools: readonly Tool[] = [
         "tunnel_is_default_network_optional": tunnel_is_default_network_optional,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment,
         "tunnel_virtual_network_name": tunnel_virtual_network_name,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_virtual-network",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_virtual-network": tunnel_virtual_network_output,
+        "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+        "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
       },
     },
     annotations: {
@@ -341,6 +377,18 @@ export const tools: readonly Tool[] = [
         "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_virtual-network",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_virtual-network": tunnel_virtual_network_output,
+        "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+        "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -423,6 +471,33 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_virtual_network_id": tunnel_virtual_network_id,
         "tunnel_virtual_network_name": tunnel_virtual_network_name,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tunnel_virtual-network"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/tunnel_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_result_info": tunnel_result_info_output,
+        "tunnel_virtual-network": tunnel_virtual_network_output,
+        "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
+        "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
       },
     },
     annotations: {

@@ -42,6 +42,13 @@ export const tools: readonly Tool[] = [
         "one_IntegrationV2CreateRequest": one_IntegrationV2CreateRequest,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/one_IntegrationV2Detail",
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -134,6 +141,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/one_IntegrationV2Detail",
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -231,6 +245,29 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/one_IntegrationV2ListItem"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/one_PaginatedIntegrationV2ListItemList_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "one_IntegrationV2ListItem": one_IntegrationV2ListItem_output,
+        "one_IntegrationV2ListItem_auth_method": one_IntegrationV2ListItem_auth_method_output,
+        "one_IntegrationV2ListItem_use_casesItem": one_IntegrationV2ListItem_use_casesItem_output,
+        "one_PaginatedIntegrationV2ListItemList_result_info": one_PaginatedIntegrationV2ListItemList_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -307,6 +344,13 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/one_IntegrationV2Detail",
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -355,6 +399,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/one_IntegrationV2Detail",
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -409,6 +460,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "one_PatchedUpdateIntegrationV2Request": one_PatchedUpdateIntegrationV2Request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/one_IntegrationV2Detail",
+      $defs: {
+        "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
+        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     annotations: {

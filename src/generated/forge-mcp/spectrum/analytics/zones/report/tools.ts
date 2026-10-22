@@ -47,6 +47,46 @@ export const tools: readonly Tool[] = [
         "spectrum-analytics_until": spectrum_analytics_until,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/spectrum-analytics_zone_report"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "spectrum-analytics_identifier": spectrum_analytics_identifier_output,
+        "spectrum-analytics_zone_report": spectrum_analytics_zone_report_output,
+        "spectrum-analytics_zone_report_totals": spectrum_analytics_zone_report_totals_output,
+        "spectrum-analytics_zone_report_totals_bandwidth": spectrum_analytics_zone_report_totals_bandwidth_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

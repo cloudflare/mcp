@@ -97,6 +97,23 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "results": {
+          "items": {
+            "$ref": "#/$defs/email-security_SubmissionResult"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "results"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_SubmissionResult": email_security_SubmissionResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -242,6 +259,43 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_SubmissionDisposition": email_security_SubmissionDisposition,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email-security_Submission"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_CustomerStatus": email_security_CustomerStatus_output,
+        "email-security_OptionalSubmissionDisposition": email_security_OptionalSubmissionDisposition_output,
+        "email-security_Submission": email_security_Submission_output,
+        "email-security_SubmissionDisposition": email_security_SubmissionDisposition_output,
       },
     },
     annotations: {

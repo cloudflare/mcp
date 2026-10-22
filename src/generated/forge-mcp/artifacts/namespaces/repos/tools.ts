@@ -50,6 +50,44 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "default_branch": {
+          "type": "string"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "remote": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "default_branch",
+        "description",
+        "id",
+        "name",
+        "remote",
+        "token"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -568,6 +606,17 @@ export const tools: readonly Tool[] = [
         "name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -1072,6 +1121,48 @@ export const tools: readonly Tool[] = [
         "name",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "default_branch": {
+          "type": "string"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "objects": {
+          "type": "integer"
+        },
+        "remote": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "default_branch",
+        "description",
+        "id",
+        "name",
+        "objects",
+        "remote",
+        "token"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1767,6 +1858,77 @@ export const tools: readonly Tool[] = [
         "name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "default_branch": {
+          "type": "string"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "last_push_at": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "read_only": {
+          "type": "boolean"
+        },
+        "remote": {
+          "type": "string"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updated_at": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "default_branch",
+        "description",
+        "id",
+        "last_push_at",
+        "name",
+        "read_only",
+        "remote",
+        "source",
+        "updated_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -2424,6 +2586,44 @@ export const tools: readonly Tool[] = [
         "name",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "default_branch": {
+          "type": "string"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "remote": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "default_branch",
+        "description",
+        "id",
+        "name",
+        "remote",
+        "token"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -3481,6 +3681,138 @@ export const tools: readonly Tool[] = [
         "account_id",
         "namespace"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "default_branch": {
+                "type": "string"
+              },
+              "description": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "last_push_at": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "name": {
+                "type": "string"
+              },
+              "read_only": {
+                "type": "boolean"
+              },
+              "remote": {
+                "type": "string"
+              },
+              "source": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "updated_at": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "created_at",
+              "default_branch",
+              "description",
+              "id",
+              "last_push_at",
+              "name",
+              "read_only",
+              "remote",
+              "source",
+              "updated_at"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

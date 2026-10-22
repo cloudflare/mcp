@@ -35,6 +35,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Behaviors",
+      $defs: {
+        "dlp_Behavior": dlp_Behavior_output,
+        "dlp_Behaviors": dlp_Behaviors_output,
+        "dlp_RiskLevel": dlp_RiskLevel_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -95,6 +103,14 @@ export const tools: readonly Tool[] = [
         "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_UpdateBehavior": dlp_UpdateBehavior,
         "dlp_UpdateBehaviors": dlp_UpdateBehaviors,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_UpdateBehaviors",
+      $defs: {
+        "dlp_RiskLevel": dlp_RiskLevel_output,
+        "dlp_UpdateBehavior": dlp_UpdateBehavior_output,
+        "dlp_UpdateBehaviors": dlp_UpdateBehaviors_output,
       },
     },
     annotations: {

@@ -109,6 +109,9 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "type": "number",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

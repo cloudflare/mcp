@@ -40,6 +40,43 @@ export const tools: readonly Tool[] = [
         "dos_NewPrefix": dos_NewPrefix,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dos_Prefix"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dos_Prefix": dos_Prefix_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

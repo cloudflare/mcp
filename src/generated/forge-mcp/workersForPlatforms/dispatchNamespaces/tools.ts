@@ -48,6 +48,19 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_namespace-response",
+      $defs: {
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -109,6 +122,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "dispatch_namespace"
       ],
+    },
+    outputSchema: {
+      "type": "null",
     },
     annotations: {
       "destructiveHint": true,
@@ -181,6 +197,19 @@ export const tools: readonly Tool[] = [
         "workers_trusted_workers": workers_trusted_workers,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_namespace-response",
+      $defs: {
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -246,6 +275,19 @@ export const tools: readonly Tool[] = [
         "dispatch_namespace"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_namespace-response",
+      $defs: {
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -303,6 +345,33 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_namespace-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -397,6 +466,19 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_trusted_workers": workers_trusted_workers,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_namespace-response",
+      $defs: {
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-response": workers_namespace_response_output,
+        "workers_script_count": workers_script_count_output,
+        "workers_trusted_workers": workers_trusted_workers_output,
+        "workers_uuid": workers_uuid_output,
       },
     },
     annotations: {

@@ -48,6 +48,15 @@ export const tools: readonly Tool[] = [
         "table_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_get-table-response",
+      $defs: {
+        "r2-data-catalog_get-table-response": r2_data_catalog_get_table_response_output,
+        "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
+        "r2-data-catalog_table-identifier": r2_data_catalog_table_identifier_output,
+        "r2-data-catalog_table-metadata": r2_data_catalog_table_metadata_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -141,6 +150,15 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "namespace"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_table-list-response",
+      $defs: {
+        "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
+        "r2-data-catalog_table-details": r2_data_catalog_table_details_output,
+        "r2-data-catalog_table-identifier": r2_data_catalog_table_identifier_output,
+        "r2-data-catalog_table-list-response": r2_data_catalog_table_list_response_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

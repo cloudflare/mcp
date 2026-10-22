@@ -22,6 +22,37 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "categories": {
+          "items": {
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "description",
+              "id",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "categories"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

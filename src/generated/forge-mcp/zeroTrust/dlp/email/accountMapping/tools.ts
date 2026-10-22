@@ -40,6 +40,13 @@ export const tools: readonly Tool[] = [
         "dlp_UpdateAddinAccountMapping": dlp_UpdateAddinAccountMapping,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_AddinAccountMapping",
+      $defs: {
+        "dlp_AddinAccountMapping": dlp_AddinAccountMapping_output,
+        "dlp_AddinAuth": dlp_AddinAuth_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -89,6 +96,13 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_AddinAccountMapping",
+      $defs: {
+        "dlp_AddinAccountMapping": dlp_AddinAccountMapping_output,
+        "dlp_AddinAuth": dlp_AddinAuth_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

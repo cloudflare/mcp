@@ -51,6 +51,47 @@ export const tools: readonly Tool[] = [
         "access_seats_definition": access_seats_definition,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_seats"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_access_seat": access_access_seat_output,
+        "access_gateway_seat": access_gateway_seat_output,
+        "access_seat_uid": access_seat_uid_output,
+        "access_seats": access_seats_output,
+        "access_timestamp": access_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

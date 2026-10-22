@@ -40,6 +40,9 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
  *   `/mcp?codemode=false`.
  * - `experimentalForge` is off unless it is exactly `true`, e.g.
  *   `/mcp?codemode=false&experimentalForge=true`.
+ * - `experimentalOutputSchema` is off unless it is exactly `true`. It applies
+ *   only with the two above, e.g.
+ *   `/mcp?codemode=false&experimentalForge=true&experimentalOutputSchema=true`.
  * - Without `truncateToolResult`, `createServer` picks the default for the tool
  *   mode. With it, truncation is on unless the value is exactly `false`.
  */
@@ -49,6 +52,7 @@ function serverOptionsFromUrl(url: string): ServerOptions {
   return {
     codemode: params.get('codemode') !== 'false',
     experimentalForge: params.get('experimentalForge') === 'true',
+    experimentalOutputSchema: params.get('experimentalOutputSchema') === 'true',
     ...(truncate === null ? {} : { truncateToolResult: truncate !== 'false' })
   }
 }

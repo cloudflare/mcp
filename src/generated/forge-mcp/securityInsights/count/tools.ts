@@ -98,6 +98,31 @@ export const tools: readonly Tool[] = [
         "security-center_subjects": security_center_subjects,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -192,6 +217,17 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "source"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "count": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -304,6 +340,31 @@ export const tools: readonly Tool[] = [
         "security-center_subject": security_center_subject,
         "security-center_subjects": security_center_subjects,
       },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -441,6 +502,31 @@ export const tools: readonly Tool[] = [
         "security-center_subject": security_center_subject,
         "security-center_subjects": security_center_subjects,
       },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

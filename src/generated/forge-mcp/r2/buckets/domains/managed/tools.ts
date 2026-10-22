@@ -46,6 +46,12 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_managed_domain_response",
+      $defs: {
+        "r2_managed_domain_response": r2_managed_domain_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -127,6 +133,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_edit_managed_domain_request": r2_edit_managed_domain_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_managed_domain_response",
+      $defs: {
+        "r2_managed_domain_response": r2_managed_domain_response_output,
       },
     },
     annotations: {

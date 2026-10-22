@@ -35,6 +35,31 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dnssec_dnssec_zsk"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dnssec_dnskey_record": dnssec_dnskey_record_output,
+        "dnssec_dnskey_record_header": dnssec_dnskey_record_header_output,
+        "dnssec_dnskey_signing_key": dnssec_dnskey_signing_key_output,
+        "dnssec_dnssec_key_state": dnssec_dnssec_key_state_output,
+        "dnssec_dnssec_zsk": dnssec_dnssec_zsk_output,
+        "dnssec_key_storage_location": dnssec_key_storage_location_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

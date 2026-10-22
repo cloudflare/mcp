@@ -44,6 +44,20 @@ export const tools: readonly Tool[] = [
         "waitingroom_zone_settings": waitingroom_zone_settings,
       },
     },
+    outputSchema: {
+      "properties": {
+        "search_engine_crawler_bypass": {
+          "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
+        }
+      },
+      "required": [
+        "search_engine_crawler_bypass"
+      ],
+      "type": "object",
+      $defs: {
+        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -116,6 +130,20 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "search_engine_crawler_bypass": {
+          "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
+        }
+      },
+      "required": [
+        "search_engine_crawler_bypass"
+      ],
+      "type": "object",
+      $defs: {
+        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -196,6 +224,20 @@ export const tools: readonly Tool[] = [
       $defs: {
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass,
         "waitingroom_zone_settings": waitingroom_zone_settings,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "search_engine_crawler_bypass": {
+          "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
+        }
+      },
+      "required": [
+        "search_engine_crawler_bypass"
+      ],
+      "type": "object",
+      $defs: {
+        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
       },
     },
     annotations: {

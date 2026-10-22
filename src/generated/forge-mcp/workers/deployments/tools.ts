@@ -56,6 +56,14 @@ export const tools: readonly Tool[] = [
         "workers_deployment_versionsItem": workers_deployment_versionsItem,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_deployment",
+      $defs: {
+        "workers_deployment": workers_deployment_output,
+        "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -125,6 +133,13 @@ export const tools: readonly Tool[] = [
         "deployment_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_api-response-common",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -186,6 +201,14 @@ export const tools: readonly Tool[] = [
         "script_name",
         "deployment_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_deployment",
+      $defs: {
+        "workers_deployment": workers_deployment_output,
+        "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -272,6 +295,25 @@ export const tools: readonly Tool[] = [
         "account_id",
         "script_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "deployments": {
+          "items": {
+            "$ref": "#/$defs/workers_deployment"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "deployments"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_deployment": workers_deployment_output,
+        "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

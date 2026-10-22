@@ -37,6 +37,9 @@ export const tools: readonly Tool[] = [
         "event_ids"
       ],
     },
+    outputSchema: {
+      "type": "number",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,

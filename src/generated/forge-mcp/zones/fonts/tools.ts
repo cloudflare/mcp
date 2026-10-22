@@ -49,6 +49,13 @@ export const tools: readonly Tool[] = [
         "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_cloudflare_fonts",
+      $defs: {
+        "speed_cloudflare_fonts": speed_cloudflare_fonts_output,
+        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -115,6 +122,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_cloudflare_fonts",
+      $defs: {
+        "speed_cloudflare_fonts": speed_cloudflare_fonts_output,
+        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

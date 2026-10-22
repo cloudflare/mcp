@@ -54,6 +54,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_search",
+      $defs: {
+        "load-balancing_resource_reference": load_balancing_resource_reference_output,
+        "load-balancing_search": load_balancing_search_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

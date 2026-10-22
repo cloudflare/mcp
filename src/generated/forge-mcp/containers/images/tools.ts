@@ -42,6 +42,14 @@ export const tools: readonly Tool[] = [
         "cc_PrepareContainerImageRequestBody": cc_PrepareContainerImageRequestBody,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cc_ContainerImagePreparation",
+      $defs: {
+        "cc_ContainerImagePreparation": cc_ContainerImagePreparation_output,
+        "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus_output,
+        "cc_Image": cc_Image_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

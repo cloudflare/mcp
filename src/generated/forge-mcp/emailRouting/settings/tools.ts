@@ -43,6 +43,21 @@ export const tools: readonly Tool[] = [
         "email_update_email_routing_settings_properties": email_update_email_routing_settings_properties,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_email_settings_properties",
+      $defs: {
+        "email_email_setting_created": email_email_setting_created_output,
+        "email_email_setting_enabled": email_email_setting_enabled_output,
+        "email_email_setting_identifier": email_email_setting_identifier_output,
+        "email_email_setting_modified": email_email_setting_modified_output,
+        "email_email_setting_name": email_email_setting_name_output,
+        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
+        "email_email_setting_status": email_email_setting_status_output,
+        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
+        "email_email_setting_tag": email_email_setting_tag_output,
+        "email_email_settings_properties": email_email_settings_properties_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -113,6 +128,21 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_email_settings_properties",
+      $defs: {
+        "email_email_setting_created": email_email_setting_created_output,
+        "email_email_setting_enabled": email_email_setting_enabled_output,
+        "email_email_setting_identifier": email_email_setting_identifier_output,
+        "email_email_setting_modified": email_email_setting_modified_output,
+        "email_email_setting_name": email_email_setting_name_output,
+        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
+        "email_email_setting_status": email_email_setting_status_output,
+        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
+        "email_email_setting_tag": email_email_setting_tag_output,
+        "email_email_settings_properties": email_email_settings_properties_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -190,6 +220,21 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email_update_email_routing_settings_properties": email_update_email_routing_settings_properties,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_email_settings_properties",
+      $defs: {
+        "email_email_setting_created": email_email_setting_created_output,
+        "email_email_setting_enabled": email_email_setting_enabled_output,
+        "email_email_setting_identifier": email_email_setting_identifier_output,
+        "email_email_setting_modified": email_email_setting_modified_output,
+        "email_email_setting_name": email_email_setting_name_output,
+        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
+        "email_email_setting_status": email_email_setting_status_output,
+        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
+        "email_email_setting_tag": email_email_setting_tag_output,
+        "email_email_settings_properties": email_email_settings_properties_output,
       },
     },
     annotations: {

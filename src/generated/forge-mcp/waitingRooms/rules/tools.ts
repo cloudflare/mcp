@@ -64,6 +64,50 @@ export const tools: readonly Tool[] = [
         "waitingroom_rule_expression": waitingroom_rule_expression,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waitingroom_rule_result"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "waitingroom_rule_action": waitingroom_rule_action_output,
+        "waitingroom_rule_description": waitingroom_rule_description_output,
+        "waitingroom_rule_enabled": waitingroom_rule_enabled_output,
+        "waitingroom_rule_expression": waitingroom_rule_expression_output,
+        "waitingroom_rule_id": waitingroom_rule_id_output,
+        "waitingroom_rule_result": waitingroom_rule_result_output,
+        "waitingroom_rule_version": waitingroom_rule_version_output,
+        "waitingroom_timestamp": waitingroom_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -172,6 +216,50 @@ export const tools: readonly Tool[] = [
         "waiting_room_id",
         "rule_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waitingroom_rule_result"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "waitingroom_rule_action": waitingroom_rule_action_output,
+        "waitingroom_rule_description": waitingroom_rule_description_output,
+        "waitingroom_rule_enabled": waitingroom_rule_enabled_output,
+        "waitingroom_rule_expression": waitingroom_rule_expression_output,
+        "waitingroom_rule_id": waitingroom_rule_id_output,
+        "waitingroom_rule_result": waitingroom_rule_result_output,
+        "waitingroom_rule_version": waitingroom_rule_version_output,
+        "waitingroom_timestamp": waitingroom_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -296,6 +384,50 @@ export const tools: readonly Tool[] = [
         "waitingroom_rule_position": waitingroom_rule_position,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waitingroom_rule_result"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "waitingroom_rule_action": waitingroom_rule_action_output,
+        "waitingroom_rule_description": waitingroom_rule_description_output,
+        "waitingroom_rule_enabled": waitingroom_rule_enabled_output,
+        "waitingroom_rule_expression": waitingroom_rule_expression_output,
+        "waitingroom_rule_id": waitingroom_rule_id_output,
+        "waitingroom_rule_result": waitingroom_rule_result_output,
+        "waitingroom_rule_version": waitingroom_rule_version_output,
+        "waitingroom_timestamp": waitingroom_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -402,6 +534,50 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "waiting_room_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waitingroom_rule_result"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "waitingroom_rule_action": waitingroom_rule_action_output,
+        "waitingroom_rule_description": waitingroom_rule_description_output,
+        "waitingroom_rule_enabled": waitingroom_rule_enabled_output,
+        "waitingroom_rule_expression": waitingroom_rule_expression_output,
+        "waitingroom_rule_id": waitingroom_rule_id_output,
+        "waitingroom_rule_result": waitingroom_rule_result_output,
+        "waitingroom_rule_version": waitingroom_rule_version_output,
+        "waitingroom_timestamp": waitingroom_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -520,6 +696,50 @@ export const tools: readonly Tool[] = [
         "waitingroom_rule_enabled": waitingroom_rule_enabled,
         "waitingroom_rule_expression": waitingroom_rule_expression,
         "waitingroom_update_rules": waitingroom_update_rules,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waitingroom_rule_result"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "waitingroom_rule_action": waitingroom_rule_action_output,
+        "waitingroom_rule_description": waitingroom_rule_description_output,
+        "waitingroom_rule_enabled": waitingroom_rule_enabled_output,
+        "waitingroom_rule_expression": waitingroom_rule_expression_output,
+        "waitingroom_rule_id": waitingroom_rule_id_output,
+        "waitingroom_rule_result": waitingroom_rule_result_output,
+        "waitingroom_rule_version": waitingroom_rule_version_output,
+        "waitingroom_timestamp": waitingroom_timestamp_output,
       },
     },
     annotations: {

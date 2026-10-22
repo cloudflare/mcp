@@ -139,6 +139,243 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "auth_config_summary": {
+          "properties": {
+            "auth_mode": {
+              "enum": [
+                "dcr",
+                "manual"
+              ],
+              "type": "string"
+            },
+            "client_secret_version": {
+              "type": "number"
+            },
+            "config": {
+              "properties": {
+                "authorization_endpoint": {
+                  "type": "string"
+                },
+                "issuer": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "revocation_endpoint": {
+                  "type": "string"
+                },
+                "token_endpoint": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "has_client_secret": {
+              "type": "boolean"
+            },
+            "registration_info": {
+              "properties": {
+                "client_id": {
+                  "type": "string"
+                },
+                "redirect_uris": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "scope": {
+                  "type": "string"
+                },
+                "token_endpoint_auth_method": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "auth_type": {
+          "enum": [
+            "oauth",
+            "bearer",
+            "unauthenticated"
+          ],
+          "type": "string"
+        },
+        "authentication_status": {
+          "enum": [
+            "not_required",
+            "required",
+            "connected",
+            "stale",
+            "manual"
+          ],
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "error": {
+          "type": "string"
+        },
+        "error_details": {
+          "properties": {
+            "cause": {
+              "type": "string"
+            },
+            "is_upstream": {
+              "type": "boolean"
+            },
+            "mcp_code": {
+              "type": "number"
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "status_code": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_shared_oauth_callback_enabled": {
+          "type": "boolean"
+        },
+        "last_successful_sync": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "last_synced": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "prompts": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "registered_at": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "secure_web_gateway": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "waiting",
+            "ready",
+            "stale",
+            "error"
+          ],
+          "type": "string"
+        },
+        "tools": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updated_prompts": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updated_tools": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "auth_type",
+        "hostname",
+        "id",
+        "name",
+        "prompts",
+        "tools"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -475,6 +712,243 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "auth_config_summary": {
+          "properties": {
+            "auth_mode": {
+              "enum": [
+                "dcr",
+                "manual"
+              ],
+              "type": "string"
+            },
+            "client_secret_version": {
+              "type": "number"
+            },
+            "config": {
+              "properties": {
+                "authorization_endpoint": {
+                  "type": "string"
+                },
+                "issuer": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "revocation_endpoint": {
+                  "type": "string"
+                },
+                "token_endpoint": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "has_client_secret": {
+              "type": "boolean"
+            },
+            "registration_info": {
+              "properties": {
+                "client_id": {
+                  "type": "string"
+                },
+                "redirect_uris": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "scope": {
+                  "type": "string"
+                },
+                "token_endpoint_auth_method": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "auth_type": {
+          "enum": [
+            "oauth",
+            "bearer",
+            "unauthenticated"
+          ],
+          "type": "string"
+        },
+        "authentication_status": {
+          "enum": [
+            "not_required",
+            "required",
+            "connected",
+            "stale",
+            "manual"
+          ],
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "error": {
+          "type": "string"
+        },
+        "error_details": {
+          "properties": {
+            "cause": {
+              "type": "string"
+            },
+            "is_upstream": {
+              "type": "boolean"
+            },
+            "mcp_code": {
+              "type": "number"
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "status_code": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_shared_oauth_callback_enabled": {
+          "type": "boolean"
+        },
+        "last_successful_sync": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "last_synced": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "prompts": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "registered_at": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "secure_web_gateway": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "waiting",
+            "ready",
+            "stale",
+            "error"
+          ],
+          "type": "string"
+        },
+        "tools": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updated_prompts": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updated_tools": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "auth_type",
+        "hostname",
+        "id",
+        "name",
+        "prompts",
+        "tools"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -809,6 +1283,257 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "auth_config_summary": {
+                "properties": {
+                  "auth_mode": {
+                    "enum": [
+                      "dcr",
+                      "manual"
+                    ],
+                    "type": "string"
+                  },
+                  "client_secret_version": {
+                    "type": "number"
+                  },
+                  "config": {
+                    "properties": {
+                      "authorization_endpoint": {
+                        "type": "string"
+                      },
+                      "issuer": {
+                        "type": "string"
+                      },
+                      "resource": {
+                        "type": "string"
+                      },
+                      "revocation_endpoint": {
+                        "type": "string"
+                      },
+                      "token_endpoint": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "has_client_secret": {
+                    "type": "boolean"
+                  },
+                  "registration_info": {
+                    "properties": {
+                      "client_id": {
+                        "type": "string"
+                      },
+                      "redirect_uris": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "scope": {
+                        "type": "string"
+                      },
+                      "token_endpoint_auth_method": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "auth_type": {
+                "enum": [
+                  "oauth",
+                  "bearer",
+                  "unauthenticated"
+                ],
+                "type": "string"
+              },
+              "authentication_status": {
+                "enum": [
+                  "not_required",
+                  "required",
+                  "connected",
+                  "stale",
+                  "manual"
+                ],
+                "type": "string"
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "description": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "error": {
+                "type": "string"
+              },
+              "error_details": {
+                "properties": {
+                  "cause": {
+                    "type": "string"
+                  },
+                  "is_upstream": {
+                    "type": "boolean"
+                  },
+                  "mcp_code": {
+                    "type": "number"
+                  },
+                  "retryable": {
+                    "type": "boolean"
+                  },
+                  "status_code": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "hostname": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "is_shared_oauth_callback_enabled": {
+                "type": "boolean"
+              },
+              "last_successful_sync": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "last_synced": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "modified_by": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "prompts": {
+                "items": {
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "registered_at": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "secure_web_gateway": {
+                "type": "boolean"
+              },
+              "status": {
+                "enum": [
+                  "waiting",
+                  "ready",
+                  "stale",
+                  "error"
+                ],
+                "type": "string"
+              },
+              "tools": {
+                "items": {
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "updated_prompts": {
+                "items": {
+                  "properties": {
+                    "alias": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "updated_tools": {
+                "items": {
+                  "properties": {
+                    "alias": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "auth_type",
+              "hostname",
+              "id",
+              "name",
+              "prompts",
+              "tools"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1155,6 +1880,243 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "auth_config_summary": {
+          "properties": {
+            "auth_mode": {
+              "enum": [
+                "dcr",
+                "manual"
+              ],
+              "type": "string"
+            },
+            "client_secret_version": {
+              "type": "number"
+            },
+            "config": {
+              "properties": {
+                "authorization_endpoint": {
+                  "type": "string"
+                },
+                "issuer": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "revocation_endpoint": {
+                  "type": "string"
+                },
+                "token_endpoint": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "has_client_secret": {
+              "type": "boolean"
+            },
+            "registration_info": {
+              "properties": {
+                "client_id": {
+                  "type": "string"
+                },
+                "redirect_uris": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "scope": {
+                  "type": "string"
+                },
+                "token_endpoint_auth_method": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "auth_type": {
+          "enum": [
+            "oauth",
+            "bearer",
+            "unauthenticated"
+          ],
+          "type": "string"
+        },
+        "authentication_status": {
+          "enum": [
+            "not_required",
+            "required",
+            "connected",
+            "stale",
+            "manual"
+          ],
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "error": {
+          "type": "string"
+        },
+        "error_details": {
+          "properties": {
+            "cause": {
+              "type": "string"
+            },
+            "is_upstream": {
+              "type": "boolean"
+            },
+            "mcp_code": {
+              "type": "number"
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "status_code": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_shared_oauth_callback_enabled": {
+          "type": "boolean"
+        },
+        "last_successful_sync": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "last_synced": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "prompts": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "registered_at": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "secure_web_gateway": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "waiting",
+            "ready",
+            "stale",
+            "error"
+          ],
+          "type": "string"
+        },
+        "tools": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updated_prompts": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updated_tools": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "auth_type",
+        "hostname",
+        "id",
+        "name",
+        "prompts",
+        "tools"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1484,6 +2446,43 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "error_details": {
+          "properties": {
+            "cause": {
+              "type": "string"
+            },
+            "is_upstream": {
+              "type": "boolean"
+            },
+            "mcp_code": {
+              "type": "number"
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "status_code": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "status": {
+          "enum": [
+            "waiting",
+            "ready",
+            "stale",
+            "error"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1644,6 +2643,70 @@ export const tools: readonly Tool[] = [
         "account_id",
         "server_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "aggregate": {
+          "type": "boolean"
+        },
+        "end": {
+          "type": "integer"
+        },
+        "granularity": {
+          "enum": [
+            "daily",
+            "monthly"
+          ],
+          "type": "string"
+        },
+        "response_status": {
+          "enum": [
+            "success",
+            "error",
+            "cached",
+            "all"
+          ],
+          "type": "string"
+        },
+        "series": {
+          "items": {
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "day": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "count",
+              "day"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "start": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "tz": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "aggregate",
+        "end",
+        "granularity",
+        "response_status",
+        "series",
+        "start",
+        "total",
+        "tz"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1898,6 +2961,243 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "auth_config_summary": {
+          "properties": {
+            "auth_mode": {
+              "enum": [
+                "dcr",
+                "manual"
+              ],
+              "type": "string"
+            },
+            "client_secret_version": {
+              "type": "number"
+            },
+            "config": {
+              "properties": {
+                "authorization_endpoint": {
+                  "type": "string"
+                },
+                "issuer": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "revocation_endpoint": {
+                  "type": "string"
+                },
+                "token_endpoint": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "has_client_secret": {
+              "type": "boolean"
+            },
+            "registration_info": {
+              "properties": {
+                "client_id": {
+                  "type": "string"
+                },
+                "redirect_uris": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "scope": {
+                  "type": "string"
+                },
+                "token_endpoint_auth_method": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "auth_type": {
+          "enum": [
+            "oauth",
+            "bearer",
+            "unauthenticated"
+          ],
+          "type": "string"
+        },
+        "authentication_status": {
+          "enum": [
+            "not_required",
+            "required",
+            "connected",
+            "stale",
+            "manual"
+          ],
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "description": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "error": {
+          "type": "string"
+        },
+        "error_details": {
+          "properties": {
+            "cause": {
+              "type": "string"
+            },
+            "is_upstream": {
+              "type": "boolean"
+            },
+            "mcp_code": {
+              "type": "number"
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "status_code": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_shared_oauth_callback_enabled": {
+          "type": "boolean"
+        },
+        "last_successful_sync": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "last_synced": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "prompts": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "registered_at": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "secure_web_gateway": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "waiting",
+            "ready",
+            "stale",
+            "error"
+          ],
+          "type": "string"
+        },
+        "tools": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updated_prompts": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updated_tools": {
+          "items": {
+            "properties": {
+              "alias": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "auth_type",
+        "hostname",
+        "id",
+        "name",
+        "prompts",
+        "tools"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

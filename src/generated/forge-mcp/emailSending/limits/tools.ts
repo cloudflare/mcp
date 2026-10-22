@@ -28,6 +28,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_sending_limits_properties",
+      $defs: {
+        "email_sending_limits_properties": email_sending_limits_properties_output,
+        "email_sending_limits_properties_quota": email_sending_limits_properties_quota_output,
+        "email_sending_limits_properties_usage": email_sending_limits_properties_usage_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

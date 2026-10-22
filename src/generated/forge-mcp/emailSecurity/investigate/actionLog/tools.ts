@@ -54,6 +54,41 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email-security_ActionEntry"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_ActionEntry": email_security_ActionEntry_output,
+        "email-security_ActionEntryProperties": email_security_ActionEntryProperties_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

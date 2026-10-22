@@ -68,6 +68,13 @@ export interface Tool {
   readonly title?: string;
   readonly description: string;
   readonly inputSchema: InputSchema;
+  /**
+   * The JSON Schema of the tool's structured result, the JSON body of a
+   * successful response, with the models it refers to in `$defs`. A tool
+   * without one has a successful response with no JSON body. `listTools`
+   * sends it only when asked.
+   */
+  readonly outputSchema?: JsonSchema;
   readonly annotations: ToolAnnotations;
   /** The HTTP method of the API method, such as `GET`. */
   readonly method: string;
@@ -170,22 +177,38 @@ function scalar(name: string, value: unknown): string {
   throw new InvalidArguments(`${name} must be a string, number or boolean`);
 }
 
+/** How {@link listTools} lists the tools. */
+export interface ListOptions {
+  /** Send each tool's output schema. Defaults to `false`. */
+  readonly outputSchema?: boolean;
+}
+
 const listings = new WeakMap<readonly Tool[], readonly McpTool[]>();
+const listingsWithOutput = new WeakMap<readonly Tool[], readonly McpTool[]>();
 const indexes = new WeakMap<readonly Tool[], ReadonlyMap<string, Tool>>();
 
 /**
  * Returns `tools` as `tools/list` sends them, without their request code,
- * method, path, extensions and response schemas. It is built once for each array of tools, and
- * the same array every time after.
+ * method, path, extensions and response schemas, and without their output
+ * schemas unless `options.outputSchema`. Each listing is built once for each
+ * array of tools, and the same array every time after.
  */
-export function listTools(tools: readonly Tool[]): readonly McpTool[] {
-  let listing = listings.get(tools);
+export function listTools(tools: readonly Tool[], { outputSchema = false }: ListOptions = {}): readonly McpTool[] {
+  const cache = outputSchema ? listingsWithOutput : listings;
+  let listing = cache.get(tools);
   if (!listing) {
     listing = tools.map(
-      ({ request: _request, method: _method, path: _path, extensions: _extensions, responses: _responses, ...tool }) =>
-        tool as McpTool,
+      ({
+        request: _request,
+        method: _method,
+        path: _path,
+        extensions: _extensions,
+        responses: _responses,
+        outputSchema: output,
+        ...tool
+      }) => (outputSchema && output ? { ...tool, outputSchema: output } : tool) as McpTool,
     );
-    listings.set(tools, listing);
+    cache.set(tools, listing);
   }
   return listing;
 }

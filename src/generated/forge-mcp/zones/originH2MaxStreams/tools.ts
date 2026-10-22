@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_h2_max_streams",
+      $defs: {
+        "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
+        "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -115,6 +122,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_h2_max_streams",
+      $defs: {
+        "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
+        "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

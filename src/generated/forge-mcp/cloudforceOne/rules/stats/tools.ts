@@ -25,6 +25,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_StatsResponse",
+      $defs: {
+        "cloudforce-one_StatsResponse": cloudforce_one_StatsResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

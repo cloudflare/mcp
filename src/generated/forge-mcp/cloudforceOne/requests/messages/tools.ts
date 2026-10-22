@@ -80,6 +80,111 @@ export const tools: readonly Tool[] = [
         "request_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "attachments": {
+          "items": {
+            "properties": {
+              "contentType": {
+                "type": "string"
+              },
+              "downloadable": {
+                "type": "boolean"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "fileSize": {
+                "type": "integer"
+              },
+              "id": {
+                "type": "string"
+              },
+              "is_cloudflare_team": {
+                "type": "boolean"
+              },
+              "origin": {
+                "enum": [
+                  "cloudflare",
+                  "self"
+                ],
+                "type": "string"
+              },
+              "state": {
+                "enum": [
+                  "active",
+                  "expired",
+                  "revoked"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "contentType",
+              "downloadable",
+              "fileName",
+              "fileSize",
+              "id",
+              "is_cloudflare_team",
+              "origin",
+              "state"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "content": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_cloudflare_team": {
+          "type": "boolean"
+        },
+        "is_published": {
+          "type": "boolean"
+        },
+        "published": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tlp": {
+          "enum": [
+            "clear",
+            "green",
+            "amber",
+            "amber-strict",
+            "red"
+          ],
+          "type": "string"
+        },
+        "updated": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "attachments",
+        "content",
+        "created",
+        "id",
+        "is_cloudflare_team",
+        "is_published",
+        "published",
+        "tlp",
+        "updated"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -242,6 +347,111 @@ export const tools: readonly Tool[] = [
         "message_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "attachments": {
+          "items": {
+            "properties": {
+              "contentType": {
+                "type": "string"
+              },
+              "downloadable": {
+                "type": "boolean"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "fileSize": {
+                "type": "integer"
+              },
+              "id": {
+                "type": "string"
+              },
+              "is_cloudflare_team": {
+                "type": "boolean"
+              },
+              "origin": {
+                "enum": [
+                  "cloudflare",
+                  "self"
+                ],
+                "type": "string"
+              },
+              "state": {
+                "enum": [
+                  "active",
+                  "expired",
+                  "revoked"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "contentType",
+              "downloadable",
+              "fileName",
+              "fileSize",
+              "id",
+              "is_cloudflare_team",
+              "origin",
+              "state"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "content": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_cloudflare_team": {
+          "type": "boolean"
+        },
+        "is_published": {
+          "type": "boolean"
+        },
+        "published": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tlp": {
+          "enum": [
+            "clear",
+            "green",
+            "amber",
+            "amber-strict",
+            "red"
+          ],
+          "type": "string"
+        },
+        "updated": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "attachments",
+        "content",
+        "created",
+        "id",
+        "is_cloudflare_team",
+        "is_published",
+        "published",
+        "tlp",
+        "updated"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -402,6 +612,146 @@ export const tools: readonly Tool[] = [
         "project_type",
         "request_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "messages": {
+          "items": {
+            "properties": {
+              "attachments": {
+                "items": {
+                  "properties": {
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "downloadable": {
+                      "type": "boolean"
+                    },
+                    "fileName": {
+                      "type": "string"
+                    },
+                    "fileSize": {
+                      "type": "integer"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "is_cloudflare_team": {
+                      "type": "boolean"
+                    },
+                    "origin": {
+                      "enum": [
+                        "cloudflare",
+                        "self"
+                      ],
+                      "type": "string"
+                    },
+                    "state": {
+                      "enum": [
+                        "active",
+                        "expired",
+                        "revoked"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contentType",
+                    "downloadable",
+                    "fileName",
+                    "fileSize",
+                    "id",
+                    "is_cloudflare_team",
+                    "origin",
+                    "state"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "content": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "is_cloudflare_team": {
+                "type": "boolean"
+              },
+              "is_published": {
+                "type": "boolean"
+              },
+              "published": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "tlp": {
+                "enum": [
+                  "clear",
+                  "green",
+                  "amber",
+                  "amber-strict",
+                  "red"
+                ],
+                "type": "string"
+              },
+              "updated": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "attachments",
+              "content",
+              "created",
+              "id",
+              "is_cloudflare_team",
+              "is_published",
+              "published",
+              "tlp",
+              "updated"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "has_more": {
+              "type": "boolean"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "has_more",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "messages",
+        "result_info"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -642,6 +992,119 @@ export const tools: readonly Tool[] = [
         "request_id",
         "message_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "properties": {
+            "attachments": {
+              "items": {
+                "properties": {
+                  "contentType": {
+                    "type": "string"
+                  },
+                  "downloadable": {
+                    "type": "boolean"
+                  },
+                  "fileName": {
+                    "type": "string"
+                  },
+                  "fileSize": {
+                    "type": "integer"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "is_cloudflare_team": {
+                    "type": "boolean"
+                  },
+                  "origin": {
+                    "enum": [
+                      "cloudflare",
+                      "self"
+                    ],
+                    "type": "string"
+                  },
+                  "state": {
+                    "enum": [
+                      "active",
+                      "expired",
+                      "revoked"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contentType",
+                  "downloadable",
+                  "fileName",
+                  "fileSize",
+                  "id",
+                  "is_cloudflare_team",
+                  "origin",
+                  "state"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "content": {
+              "type": "string"
+            },
+            "created": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "is_cloudflare_team": {
+              "type": "boolean"
+            },
+            "is_published": {
+              "type": "boolean"
+            },
+            "published": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tlp": {
+              "enum": [
+                "clear",
+                "green",
+                "amber",
+                "amber-strict",
+                "red"
+              ],
+              "type": "string"
+            },
+            "updated": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attachments",
+            "content",
+            "created",
+            "id",
+            "is_cloudflare_team",
+            "is_published",
+            "published",
+            "tlp",
+            "updated"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "message"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

@@ -46,6 +46,14 @@ export const tools: readonly Tool[] = [
         "stream_signed_token_request_flags": stream_signed_token_request_flags,
       },
     },
+    outputSchema: {
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,

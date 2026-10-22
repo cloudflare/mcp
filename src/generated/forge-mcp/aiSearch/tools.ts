@@ -307,6 +307,234 @@ export const tools: readonly Tool[] = [
         "instance_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "choices": {
+          "items": {
+            "properties": {
+              "index": {
+                "type": "integer"
+              },
+              "message": {
+                "properties": {
+                  "content": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "items": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "text": {
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "enum": [
+                                    "text"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "text",
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "image_url": {
+                                  "properties": {
+                                    "url": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "url"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": {
+                                  "enum": [
+                                    "image_url"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "image_url",
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "file": {
+                                  "properties": {
+                                    "file_data": {
+                                      "type": "string"
+                                    },
+                                    "file_id": {
+                                      "type": "string"
+                                    },
+                                    "filename": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "filename"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": {
+                                  "enum": [
+                                    "file"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "file",
+                                "type"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "minItems": 1,
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "role": {
+                    "enum": [
+                      "system",
+                      "developer",
+                      "user",
+                      "assistant",
+                      "tool"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "content",
+                  "role"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "chunks": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "item": {
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "type": "object"
+                  },
+                  "timestamp": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "type": "object"
+              },
+              "media_end_ms": {
+                "type": "integer"
+              },
+              "media_start_ms": {
+                "type": "integer"
+              },
+              "score": {
+                "type": "number"
+              },
+              "scoring_details": {
+                "properties": {
+                  "fusion_method": {
+                    "enum": [
+                      "rrf",
+                      "max"
+                    ],
+                    "type": "string"
+                  },
+                  "keyword_rank": {
+                    "type": "number"
+                  },
+                  "keyword_score": {
+                    "type": "number"
+                  },
+                  "reranking_score": {
+                    "type": "number"
+                  },
+                  "vector_rank": {
+                    "type": "number"
+                  },
+                  "vector_score": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "source_media_type": {
+                "enum": [
+                  "audio",
+                  "video"
+                ],
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "score",
+              "text",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "choices",
+        "chunks"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1368,6 +1596,563 @@ export const tools: readonly Tool[] = [
         "namespace"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "ai_gateway_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ai_search_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cache": {
+          "type": "boolean"
+        },
+        "cache_threshold": {
+          "enum": [
+            "super_strict_match",
+            "close_enough",
+            "flexible_friend",
+            "anything_goes"
+          ],
+          "type": "string"
+        },
+        "cache_ttl": {
+          "enum": [
+            600,
+            1800,
+            3600,
+            7200,
+            21600,
+            43200,
+            86400,
+            172800,
+            259200,
+            518400
+          ],
+          "type": "integer"
+        },
+        "chunk_overlap": {
+          "type": "integer"
+        },
+        "chunk_size": {
+          "type": "integer"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "custom_metadata": {
+          "items": {
+            "properties": {
+              "data_type": {
+                "enum": [
+                  "text",
+                  "number",
+                  "boolean",
+                  "datetime"
+                ],
+                "type": "string"
+              },
+              "field_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "data_type",
+              "field_name"
+            ],
+            "type": "object"
+          },
+          "maxItems": 5,
+          "type": "array"
+        },
+        "embedding_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "engine_version": {
+          "type": "number"
+        },
+        "fusion_method": {
+          "enum": [
+            "max",
+            "rrf"
+          ],
+          "type": "string"
+        },
+        "hybrid_search_enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "index_method": {
+          "properties": {
+            "keyword": {
+              "type": "boolean"
+            },
+            "vector": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "keyword",
+            "vector"
+          ],
+          "type": "object"
+        },
+        "indexing_options": {
+          "oneOf": [
+            {
+              "properties": {
+                "keyword_tokenizer": {
+                  "enum": [
+                    "porter",
+                    "trigram"
+                  ],
+                  "type": "string"
+                },
+                "use_ocr": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_activity": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_num_results": {
+          "type": "integer"
+        },
+        "metadata": {
+          "properties": {
+            "created_from_aisearch_wizard": {
+              "type": "boolean"
+            },
+            "created_from_emdash_plugin": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "native",
+                    "rest"
+                  ],
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "version"
+              ],
+              "type": "object"
+            },
+            "worker_domain": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "public_endpoint_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "public_endpoint_params": {
+          "properties": {
+            "authorized_hosts": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "chat_completions_endpoint": {
+              "properties": {
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "custom_domains": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 1,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "default_domain_enabled": {
+              "type": "boolean"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "mcp": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "rate_limit": {
+              "properties": {
+                "period_ms": {
+                  "type": "integer"
+                },
+                "requests": {
+                  "type": "integer"
+                },
+                "technique": {
+                  "enum": [
+                    "fixed",
+                    "sliding"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "search_endpoint": {
+              "properties": {
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "reranking": {
+          "type": "boolean"
+        },
+        "reranking_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieval_options": {
+          "oneOf": [
+            {
+              "properties": {
+                "boost_by": {
+                  "items": {
+                    "properties": {
+                      "direction": {
+                        "enum": [
+                          "asc",
+                          "desc",
+                          "exists",
+                          "not_exists"
+                        ],
+                        "type": "string"
+                      },
+                      "field": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "field"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "type": "array"
+                },
+                "keyword_match_mode": {
+                  "enum": [
+                    "and",
+                    "or"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rewrite_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rewrite_query": {
+          "type": "boolean"
+        },
+        "score_threshold": {
+          "type": "number"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_params": {
+          "oneOf": [
+            {
+              "properties": {
+                "exclude_items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                },
+                "include_items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                },
+                "prefix": {
+                  "type": "string"
+                },
+                "r2_jurisdiction": {
+                  "type": "string"
+                },
+                "web_crawler": {
+                  "properties": {
+                    "discover_options": {
+                      "properties": {
+                        "depth": {
+                          "type": "number"
+                        },
+                        "include_external_links": {
+                          "type": "boolean"
+                        },
+                        "include_subdomains": {
+                          "type": "boolean"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "max_age": {
+                          "type": "number"
+                        },
+                        "source": {
+                          "enum": [
+                            "all",
+                            "sitemaps",
+                            "links"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "parse_options": {
+                      "properties": {
+                        "content_selector": {
+                          "items": {
+                            "properties": {
+                              "path": {
+                                "type": "string"
+                              },
+                              "selector": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "path",
+                              "selector"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 10,
+                          "minItems": 1,
+                          "type": "array"
+                        },
+                        "include_headers": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object"
+                        },
+                        "include_images": {
+                          "type": "boolean"
+                        },
+                        "specific_sitemaps": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "use_browser_rendering": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "parse_type": {
+                      "enum": [
+                        "sitemap",
+                        "discover"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "sync_interval": {
+          "enum": [
+            900,
+            1800,
+            3600,
+            7200,
+            14400,
+            21600,
+            43200,
+            86400
+          ],
+          "type": "integer"
+        },
+        "token_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "type": {
+          "oneOf": [
+            {
+              "enum": [
+                "r2",
+                "web-crawler"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "modified_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -2178,6 +2963,563 @@ export const tools: readonly Tool[] = [
         "instance_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "ai_gateway_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ai_search_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cache": {
+          "type": "boolean"
+        },
+        "cache_threshold": {
+          "enum": [
+            "super_strict_match",
+            "close_enough",
+            "flexible_friend",
+            "anything_goes"
+          ],
+          "type": "string"
+        },
+        "cache_ttl": {
+          "enum": [
+            600,
+            1800,
+            3600,
+            7200,
+            21600,
+            43200,
+            86400,
+            172800,
+            259200,
+            518400
+          ],
+          "type": "integer"
+        },
+        "chunk_overlap": {
+          "type": "integer"
+        },
+        "chunk_size": {
+          "type": "integer"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "custom_metadata": {
+          "items": {
+            "properties": {
+              "data_type": {
+                "enum": [
+                  "text",
+                  "number",
+                  "boolean",
+                  "datetime"
+                ],
+                "type": "string"
+              },
+              "field_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "data_type",
+              "field_name"
+            ],
+            "type": "object"
+          },
+          "maxItems": 5,
+          "type": "array"
+        },
+        "embedding_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "engine_version": {
+          "type": "number"
+        },
+        "fusion_method": {
+          "enum": [
+            "max",
+            "rrf"
+          ],
+          "type": "string"
+        },
+        "hybrid_search_enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "index_method": {
+          "properties": {
+            "keyword": {
+              "type": "boolean"
+            },
+            "vector": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "keyword",
+            "vector"
+          ],
+          "type": "object"
+        },
+        "indexing_options": {
+          "oneOf": [
+            {
+              "properties": {
+                "keyword_tokenizer": {
+                  "enum": [
+                    "porter",
+                    "trigram"
+                  ],
+                  "type": "string"
+                },
+                "use_ocr": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_activity": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_num_results": {
+          "type": "integer"
+        },
+        "metadata": {
+          "properties": {
+            "created_from_aisearch_wizard": {
+              "type": "boolean"
+            },
+            "created_from_emdash_plugin": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "native",
+                    "rest"
+                  ],
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "version"
+              ],
+              "type": "object"
+            },
+            "worker_domain": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "public_endpoint_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "public_endpoint_params": {
+          "properties": {
+            "authorized_hosts": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "chat_completions_endpoint": {
+              "properties": {
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "custom_domains": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 1,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "default_domain_enabled": {
+              "type": "boolean"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "mcp": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "rate_limit": {
+              "properties": {
+                "period_ms": {
+                  "type": "integer"
+                },
+                "requests": {
+                  "type": "integer"
+                },
+                "technique": {
+                  "enum": [
+                    "fixed",
+                    "sliding"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "search_endpoint": {
+              "properties": {
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "reranking": {
+          "type": "boolean"
+        },
+        "reranking_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieval_options": {
+          "oneOf": [
+            {
+              "properties": {
+                "boost_by": {
+                  "items": {
+                    "properties": {
+                      "direction": {
+                        "enum": [
+                          "asc",
+                          "desc",
+                          "exists",
+                          "not_exists"
+                        ],
+                        "type": "string"
+                      },
+                      "field": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "field"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "type": "array"
+                },
+                "keyword_match_mode": {
+                  "enum": [
+                    "and",
+                    "or"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rewrite_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rewrite_query": {
+          "type": "boolean"
+        },
+        "score_threshold": {
+          "type": "number"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_params": {
+          "oneOf": [
+            {
+              "properties": {
+                "exclude_items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                },
+                "include_items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                },
+                "prefix": {
+                  "type": "string"
+                },
+                "r2_jurisdiction": {
+                  "type": "string"
+                },
+                "web_crawler": {
+                  "properties": {
+                    "discover_options": {
+                      "properties": {
+                        "depth": {
+                          "type": "number"
+                        },
+                        "include_external_links": {
+                          "type": "boolean"
+                        },
+                        "include_subdomains": {
+                          "type": "boolean"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "max_age": {
+                          "type": "number"
+                        },
+                        "source": {
+                          "enum": [
+                            "all",
+                            "sitemaps",
+                            "links"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "parse_options": {
+                      "properties": {
+                        "content_selector": {
+                          "items": {
+                            "properties": {
+                              "path": {
+                                "type": "string"
+                              },
+                              "selector": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "path",
+                              "selector"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 10,
+                          "minItems": 1,
+                          "type": "array"
+                        },
+                        "include_headers": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object"
+                        },
+                        "include_images": {
+                          "type": "boolean"
+                        },
+                        "specific_sitemaps": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "use_browser_rendering": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "parse_type": {
+                      "enum": [
+                        "sitemap",
+                        "discover"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "sync_interval": {
+          "enum": [
+            900,
+            1800,
+            3600,
+            7200,
+            14400,
+            21600,
+            43200,
+            86400
+          ],
+          "type": "integer"
+        },
+        "token_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "type": {
+          "oneOf": [
+            {
+              "enum": [
+                "r2",
+                "web-crawler"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "modified_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -2868,6 +4210,563 @@ export const tools: readonly Tool[] = [
         "instance_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "ai_gateway_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ai_search_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cache": {
+          "type": "boolean"
+        },
+        "cache_threshold": {
+          "enum": [
+            "super_strict_match",
+            "close_enough",
+            "flexible_friend",
+            "anything_goes"
+          ],
+          "type": "string"
+        },
+        "cache_ttl": {
+          "enum": [
+            600,
+            1800,
+            3600,
+            7200,
+            21600,
+            43200,
+            86400,
+            172800,
+            259200,
+            518400
+          ],
+          "type": "integer"
+        },
+        "chunk_overlap": {
+          "type": "integer"
+        },
+        "chunk_size": {
+          "type": "integer"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "custom_metadata": {
+          "items": {
+            "properties": {
+              "data_type": {
+                "enum": [
+                  "text",
+                  "number",
+                  "boolean",
+                  "datetime"
+                ],
+                "type": "string"
+              },
+              "field_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "data_type",
+              "field_name"
+            ],
+            "type": "object"
+          },
+          "maxItems": 5,
+          "type": "array"
+        },
+        "embedding_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "engine_version": {
+          "type": "number"
+        },
+        "fusion_method": {
+          "enum": [
+            "max",
+            "rrf"
+          ],
+          "type": "string"
+        },
+        "hybrid_search_enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "index_method": {
+          "properties": {
+            "keyword": {
+              "type": "boolean"
+            },
+            "vector": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "keyword",
+            "vector"
+          ],
+          "type": "object"
+        },
+        "indexing_options": {
+          "oneOf": [
+            {
+              "properties": {
+                "keyword_tokenizer": {
+                  "enum": [
+                    "porter",
+                    "trigram"
+                  ],
+                  "type": "string"
+                },
+                "use_ocr": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_activity": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_num_results": {
+          "type": "integer"
+        },
+        "metadata": {
+          "properties": {
+            "created_from_aisearch_wizard": {
+              "type": "boolean"
+            },
+            "created_from_emdash_plugin": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "native",
+                    "rest"
+                  ],
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "version"
+              ],
+              "type": "object"
+            },
+            "worker_domain": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "public_endpoint_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "public_endpoint_params": {
+          "properties": {
+            "authorized_hosts": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "chat_completions_endpoint": {
+              "properties": {
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "custom_domains": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 1,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "default_domain_enabled": {
+              "type": "boolean"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "mcp": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "rate_limit": {
+              "properties": {
+                "period_ms": {
+                  "type": "integer"
+                },
+                "requests": {
+                  "type": "integer"
+                },
+                "technique": {
+                  "enum": [
+                    "fixed",
+                    "sliding"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "search_endpoint": {
+              "properties": {
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "reranking": {
+          "type": "boolean"
+        },
+        "reranking_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieval_options": {
+          "oneOf": [
+            {
+              "properties": {
+                "boost_by": {
+                  "items": {
+                    "properties": {
+                      "direction": {
+                        "enum": [
+                          "asc",
+                          "desc",
+                          "exists",
+                          "not_exists"
+                        ],
+                        "type": "string"
+                      },
+                      "field": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "field"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "type": "array"
+                },
+                "keyword_match_mode": {
+                  "enum": [
+                    "and",
+                    "or"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rewrite_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rewrite_query": {
+          "type": "boolean"
+        },
+        "score_threshold": {
+          "type": "number"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_params": {
+          "oneOf": [
+            {
+              "properties": {
+                "exclude_items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                },
+                "include_items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                },
+                "prefix": {
+                  "type": "string"
+                },
+                "r2_jurisdiction": {
+                  "type": "string"
+                },
+                "web_crawler": {
+                  "properties": {
+                    "discover_options": {
+                      "properties": {
+                        "depth": {
+                          "type": "number"
+                        },
+                        "include_external_links": {
+                          "type": "boolean"
+                        },
+                        "include_subdomains": {
+                          "type": "boolean"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "max_age": {
+                          "type": "number"
+                        },
+                        "source": {
+                          "enum": [
+                            "all",
+                            "sitemaps",
+                            "links"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "parse_options": {
+                      "properties": {
+                        "content_selector": {
+                          "items": {
+                            "properties": {
+                              "path": {
+                                "type": "string"
+                              },
+                              "selector": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "path",
+                              "selector"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 10,
+                          "minItems": 1,
+                          "type": "array"
+                        },
+                        "include_headers": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object"
+                        },
+                        "include_images": {
+                          "type": "boolean"
+                        },
+                        "specific_sitemaps": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "use_browser_rendering": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "parse_type": {
+                      "enum": [
+                        "sitemap",
+                        "discover"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "sync_interval": {
+          "enum": [
+            900,
+            1800,
+            3600,
+            7200,
+            14400,
+            21600,
+            43200,
+            86400
+          ],
+          "type": "integer"
+        },
+        "token_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "type": {
+          "oneOf": [
+            {
+              "enum": [
+                "r2",
+                "web-crawler"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "modified_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -3555,6 +5454,745 @@ export const tools: readonly Tool[] = [
         "account_id",
         "namespace"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "ai_gateway_id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ai_search_model": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "cache": {
+                "type": "boolean"
+              },
+              "cache_threshold": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "super_strict_match",
+                      "close_enough",
+                      "flexible_friend",
+                      "anything_goes"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "cache_ttl": {
+                "enum": [
+                  600,
+                  1800,
+                  3600,
+                  7200,
+                  21600,
+                  43200,
+                  86400,
+                  172800,
+                  259200,
+                  518400
+                ],
+                "type": "integer"
+              },
+              "chunk": {
+                "type": "boolean"
+              },
+              "chunk_overlap": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "chunk_size": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "created_by": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "custom_metadata": {
+                "oneOf": [
+                  {
+                    "items": {
+                      "properties": {
+                        "data_type": {
+                          "enum": [
+                            "text",
+                            "number",
+                            "boolean",
+                            "datetime"
+                          ],
+                          "type": "string"
+                        },
+                        "field_name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "data_type",
+                        "field_name"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "embedding_model": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "enable": {
+                "type": "boolean"
+              },
+              "engine_version": {
+                "type": "number"
+              },
+              "fusion_method": {
+                "enum": [
+                  "max",
+                  "rrf"
+                ],
+                "type": "string"
+              },
+              "hybrid_search_enabled": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "string"
+              },
+              "index_method": {
+                "properties": {
+                  "keyword": {
+                    "type": "boolean"
+                  },
+                  "vector": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "keyword",
+                  "vector"
+                ],
+                "type": "object"
+              },
+              "indexing_options": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "keyword_tokenizer": {
+                        "enum": [
+                          "porter",
+                          "trigram"
+                        ],
+                        "type": "string"
+                      },
+                      "use_ocr": {
+                        "type": "boolean"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "last_activity": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "max_num_results": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "metadata": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "created_from_aisearch_wizard": {
+                        "type": "boolean"
+                      },
+                      "created_from_emdash_plugin": {
+                        "properties": {
+                          "type": {
+                            "enum": [
+                              "native",
+                              "rest"
+                            ],
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "version"
+                        ],
+                        "type": "object"
+                      },
+                      "worker_domain": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "modified_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "modified_by": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "namespace": {
+                "type": "string"
+              },
+              "paused": {
+                "type": "boolean"
+              },
+              "public_endpoint_id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "public_endpoint_params": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "authorized_hosts": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "chat_completions_endpoint": {
+                        "properties": {
+                          "disabled": {
+                            "type": "boolean"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "custom_domains": {
+                        "oneOf": [
+                          {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 1,
+                            "type": "array"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "default_domain_enabled": {
+                        "type": "boolean"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "mcp": {
+                        "properties": {
+                          "description": {
+                            "type": "string"
+                          },
+                          "disabled": {
+                            "type": "boolean"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "rate_limit": {
+                        "properties": {
+                          "period_ms": {
+                            "type": "integer"
+                          },
+                          "requests": {
+                            "type": "integer"
+                          },
+                          "technique": {
+                            "enum": [
+                              "fixed",
+                              "sliding"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "search_endpoint": {
+                        "properties": {
+                          "disabled": {
+                            "type": "boolean"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "reranking": {
+                "type": "boolean"
+              },
+              "reranking_model": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "retrieval_options": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "boost_by": {
+                        "items": {
+                          "properties": {
+                            "dataType": {
+                              "enum": [
+                                "number",
+                                "datetime",
+                                "text",
+                                "boolean"
+                              ],
+                              "type": "string"
+                            },
+                            "direction": {
+                              "enum": [
+                                "asc",
+                                "desc",
+                                "exists",
+                                "not_exists"
+                              ],
+                              "type": "string"
+                            },
+                            "field": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "field"
+                          ],
+                          "type": "object"
+                        },
+                        "maxItems": 3,
+                        "type": "array"
+                      },
+                      "keyword_match_mode": {
+                        "enum": [
+                          "and",
+                          "or"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "rewrite_model": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "rewrite_query": {
+                "type": "boolean"
+              },
+              "score_threshold": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source_params": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "exclude_items": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "include_items": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "prefix": {
+                        "type": "string"
+                      },
+                      "r2_jurisdiction": {
+                        "type": "string"
+                      },
+                      "web_crawler": {
+                        "properties": {
+                          "discover_options": {
+                            "properties": {
+                              "depth": {
+                                "type": "number"
+                              },
+                              "include_external_links": {
+                                "type": "boolean"
+                              },
+                              "include_subdomains": {
+                                "type": "boolean"
+                              },
+                              "limit": {
+                                "type": "number"
+                              },
+                              "max_age": {
+                                "type": "number"
+                              },
+                              "source": {
+                                "enum": [
+                                  "all",
+                                  "sitemaps",
+                                  "links"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "parse_options": {
+                            "properties": {
+                              "content_selector": {
+                                "items": {
+                                  "properties": {
+                                    "path": {
+                                      "type": "string"
+                                    },
+                                    "selector": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "path",
+                                    "selector"
+                                  ],
+                                  "type": "object"
+                                },
+                                "maxItems": 10,
+                                "type": "array"
+                              },
+                              "include_headers": {
+                                "additionalProperties": {
+                                  "type": "string"
+                                },
+                                "type": "object"
+                              },
+                              "include_images": {
+                                "type": "boolean"
+                              },
+                              "specific_sitemaps": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "maxItems": 10,
+                                "type": "array"
+                              },
+                              "use_browser_rendering": {
+                                "type": "boolean"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "parse_type": {
+                            "enum": [
+                              "sitemap",
+                              "discover"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "status": {
+                "type": "string"
+              },
+              "summarization": {
+                "type": "boolean"
+              },
+              "summarization_model": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sync_interval": {
+                "enum": [
+                  900,
+                  1800,
+                  3600,
+                  7200,
+                  14400,
+                  21600,
+                  43200,
+                  86400
+                ],
+                "type": "integer"
+              },
+              "system_prompt_ai_search": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "system_prompt_index_summarization": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "system_prompt_rewrite_query": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "token_id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "r2",
+                      "web-crawler"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "ai_gateway_id",
+              "ai_search_model",
+              "cache",
+              "cache_threshold",
+              "cache_ttl",
+              "chunk",
+              "chunk_overlap",
+              "chunk_size",
+              "created_at",
+              "created_by",
+              "custom_metadata",
+              "embedding_model",
+              "enable",
+              "engine_version",
+              "fusion_method",
+              "hybrid_search_enabled",
+              "id",
+              "index_method",
+              "indexing_options",
+              "last_activity",
+              "max_num_results",
+              "metadata",
+              "modified_at",
+              "modified_by",
+              "namespace",
+              "paused",
+              "public_endpoint_id",
+              "public_endpoint_params",
+              "reranking",
+              "reranking_model",
+              "retrieval_options",
+              "rewrite_model",
+              "rewrite_query",
+              "score_threshold",
+              "source",
+              "source_params",
+              "status",
+              "summarization",
+              "summarization_model",
+              "sync_interval",
+              "system_prompt_ai_search",
+              "system_prompt_index_summarization",
+              "system_prompt_rewrite_query",
+              "token_id",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -4420,6 +7058,9 @@ export const tools: readonly Tool[] = [
         "instance_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -4899,6 +7540,256 @@ export const tools: readonly Tool[] = [
         "account_id",
         "namespace"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "choices": {
+          "items": {
+            "properties": {
+              "index": {
+                "type": "integer"
+              },
+              "message": {
+                "properties": {
+                  "content": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "items": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "text": {
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "enum": [
+                                    "text"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "text",
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "image_url": {
+                                  "properties": {
+                                    "url": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "url"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": {
+                                  "enum": [
+                                    "image_url"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "image_url",
+                                "type"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "file": {
+                                  "properties": {
+                                    "file_data": {
+                                      "type": "string"
+                                    },
+                                    "file_id": {
+                                      "type": "string"
+                                    },
+                                    "filename": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "filename"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": {
+                                  "enum": [
+                                    "file"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "file",
+                                "type"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        "minItems": 1,
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "role": {
+                    "enum": [
+                      "system",
+                      "developer",
+                      "user",
+                      "assistant",
+                      "tool"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "content",
+                  "role"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "chunks": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "instance_id": {
+                "type": "string"
+              },
+              "item": {
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "type": "object"
+                  },
+                  "timestamp": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "type": "object"
+              },
+              "media_end_ms": {
+                "type": "integer"
+              },
+              "media_start_ms": {
+                "type": "integer"
+              },
+              "score": {
+                "type": "number"
+              },
+              "scoring_details": {
+                "properties": {
+                  "fusion_method": {
+                    "enum": [
+                      "rrf",
+                      "max"
+                    ],
+                    "type": "string"
+                  },
+                  "keyword_rank": {
+                    "type": "number"
+                  },
+                  "keyword_score": {
+                    "type": "number"
+                  },
+                  "reranking_score": {
+                    "type": "number"
+                  },
+                  "vector_rank": {
+                    "type": "number"
+                  },
+                  "vector_score": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "source_media_type": {
+                "enum": [
+                  "audio",
+                  "video"
+                ],
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "instance_id",
+              "score",
+              "text",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "errors": {
+          "items": {
+            "properties": {
+              "instance_id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "instance_id",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "choices",
+        "chunks"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -5709,6 +8600,131 @@ export const tools: readonly Tool[] = [
         "namespace"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "chunks": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "instance_id": {
+                "type": "string"
+              },
+              "item": {
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "type": "object"
+                  },
+                  "timestamp": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "type": "object"
+              },
+              "media_end_ms": {
+                "type": "integer"
+              },
+              "media_start_ms": {
+                "type": "integer"
+              },
+              "score": {
+                "type": "number"
+              },
+              "scoring_details": {
+                "properties": {
+                  "fusion_method": {
+                    "enum": [
+                      "rrf",
+                      "max"
+                    ],
+                    "type": "string"
+                  },
+                  "keyword_rank": {
+                    "type": "number"
+                  },
+                  "keyword_score": {
+                    "type": "number"
+                  },
+                  "reranking_score": {
+                    "type": "number"
+                  },
+                  "vector_rank": {
+                    "type": "number"
+                  },
+                  "vector_score": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "source_media_type": {
+                "enum": [
+                  "audio",
+                  "video"
+                ],
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "instance_id",
+              "score",
+              "text",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "errors": {
+          "items": {
+            "properties": {
+              "instance_id": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "instance_id",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "query_kind": {
+          "enum": [
+            "text",
+            "image",
+            "multimodal"
+          ],
+          "type": "string"
+        },
+        "search_query": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "chunks",
+        "query_kind"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -6085,6 +9101,17 @@ export const tools: readonly Tool[] = [
         "namespace",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -6501,6 +9528,109 @@ export const tools: readonly Tool[] = [
         "instance_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "chunks": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "item": {
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "type": "object"
+                  },
+                  "timestamp": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "type": "object"
+              },
+              "media_end_ms": {
+                "type": "integer"
+              },
+              "media_start_ms": {
+                "type": "integer"
+              },
+              "score": {
+                "type": "number"
+              },
+              "scoring_details": {
+                "properties": {
+                  "fusion_method": {
+                    "enum": [
+                      "rrf",
+                      "max"
+                    ],
+                    "type": "string"
+                  },
+                  "keyword_rank": {
+                    "type": "number"
+                  },
+                  "keyword_score": {
+                    "type": "number"
+                  },
+                  "reranking_score": {
+                    "type": "number"
+                  },
+                  "vector_rank": {
+                    "type": "number"
+                  },
+                  "vector_score": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "source_media_type": {
+                "enum": [
+                  "audio",
+                  "video"
+                ],
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "score",
+              "text",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "query_kind": {
+          "enum": [
+            "text",
+            "image",
+            "multimodal"
+          ],
+          "type": "string"
+        },
+        "search_query": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "chunks",
+        "query_kind"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -6858,6 +9988,81 @@ export const tools: readonly Tool[] = [
         "namespace",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "completed": {
+          "type": "integer"
+        },
+        "degraded": {
+          "type": "boolean"
+        },
+        "engine": {
+          "properties": {
+            "r2": {
+              "properties": {
+                "metadataSizeBytes": {
+                  "type": "integer"
+                },
+                "objectCount": {
+                  "type": "integer"
+                },
+                "payloadSizeBytes": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "metadataSizeBytes",
+                "objectCount",
+                "payloadSizeBytes"
+              ],
+              "type": "object"
+            },
+            "vectorize": {
+              "properties": {
+                "dimensions": {
+                  "type": "integer"
+                },
+                "vectorsCount": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "dimensions",
+                "vectorsCount"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "error": {
+          "type": "integer"
+        },
+        "file_embed_errors": {
+          "type": "object"
+        },
+        "index_source_errors": {
+          "type": "object"
+        },
+        "last_activity": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "outdated": {
+          "type": "integer"
+        },
+        "queued": {
+          "type": "integer"
+        },
+        "running": {
+          "type": "integer"
+        },
+        "skipped": {
+          "type": "integer"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -7607,6 +10812,563 @@ export const tools: readonly Tool[] = [
         "namespace",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "ai_gateway_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ai_search_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cache": {
+          "type": "boolean"
+        },
+        "cache_threshold": {
+          "enum": [
+            "super_strict_match",
+            "close_enough",
+            "flexible_friend",
+            "anything_goes"
+          ],
+          "type": "string"
+        },
+        "cache_ttl": {
+          "enum": [
+            600,
+            1800,
+            3600,
+            7200,
+            21600,
+            43200,
+            86400,
+            172800,
+            259200,
+            518400
+          ],
+          "type": "integer"
+        },
+        "chunk_overlap": {
+          "type": "integer"
+        },
+        "chunk_size": {
+          "type": "integer"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "created_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "custom_metadata": {
+          "items": {
+            "properties": {
+              "data_type": {
+                "enum": [
+                  "text",
+                  "number",
+                  "boolean",
+                  "datetime"
+                ],
+                "type": "string"
+              },
+              "field_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "data_type",
+              "field_name"
+            ],
+            "type": "object"
+          },
+          "maxItems": 5,
+          "type": "array"
+        },
+        "embedding_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "engine_version": {
+          "type": "number"
+        },
+        "fusion_method": {
+          "enum": [
+            "max",
+            "rrf"
+          ],
+          "type": "string"
+        },
+        "hybrid_search_enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "index_method": {
+          "properties": {
+            "keyword": {
+              "type": "boolean"
+            },
+            "vector": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "keyword",
+            "vector"
+          ],
+          "type": "object"
+        },
+        "indexing_options": {
+          "oneOf": [
+            {
+              "properties": {
+                "keyword_tokenizer": {
+                  "enum": [
+                    "porter",
+                    "trigram"
+                  ],
+                  "type": "string"
+                },
+                "use_ocr": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_activity": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_num_results": {
+          "type": "integer"
+        },
+        "metadata": {
+          "properties": {
+            "created_from_aisearch_wizard": {
+              "type": "boolean"
+            },
+            "created_from_emdash_plugin": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "native",
+                    "rest"
+                  ],
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "version"
+              ],
+              "type": "object"
+            },
+            "worker_domain": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "modified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modified_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "namespace": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "public_endpoint_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "public_endpoint_params": {
+          "properties": {
+            "authorized_hosts": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "chat_completions_endpoint": {
+              "properties": {
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "custom_domains": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 1,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "default_domain_enabled": {
+              "type": "boolean"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "mcp": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "rate_limit": {
+              "properties": {
+                "period_ms": {
+                  "type": "integer"
+                },
+                "requests": {
+                  "type": "integer"
+                },
+                "technique": {
+                  "enum": [
+                    "fixed",
+                    "sliding"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "search_endpoint": {
+              "properties": {
+                "disabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "reranking": {
+          "type": "boolean"
+        },
+        "reranking_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieval_options": {
+          "oneOf": [
+            {
+              "properties": {
+                "boost_by": {
+                  "items": {
+                    "properties": {
+                      "direction": {
+                        "enum": [
+                          "asc",
+                          "desc",
+                          "exists",
+                          "not_exists"
+                        ],
+                        "type": "string"
+                      },
+                      "field": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "field"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 3,
+                  "type": "array"
+                },
+                "keyword_match_mode": {
+                  "enum": [
+                    "and",
+                    "or"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rewrite_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rewrite_query": {
+          "type": "boolean"
+        },
+        "score_threshold": {
+          "type": "number"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_params": {
+          "oneOf": [
+            {
+              "properties": {
+                "exclude_items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                },
+                "include_items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                },
+                "prefix": {
+                  "type": "string"
+                },
+                "r2_jurisdiction": {
+                  "type": "string"
+                },
+                "web_crawler": {
+                  "properties": {
+                    "discover_options": {
+                      "properties": {
+                        "depth": {
+                          "type": "number"
+                        },
+                        "include_external_links": {
+                          "type": "boolean"
+                        },
+                        "include_subdomains": {
+                          "type": "boolean"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "max_age": {
+                          "type": "number"
+                        },
+                        "source": {
+                          "enum": [
+                            "all",
+                            "sitemaps",
+                            "links"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "parse_options": {
+                      "properties": {
+                        "content_selector": {
+                          "items": {
+                            "properties": {
+                              "path": {
+                                "type": "string"
+                              },
+                              "selector": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "path",
+                              "selector"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 10,
+                          "minItems": 1,
+                          "type": "array"
+                        },
+                        "include_headers": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object"
+                        },
+                        "include_images": {
+                          "type": "boolean"
+                        },
+                        "specific_sitemaps": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "use_browser_rendering": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "parse_type": {
+                      "enum": [
+                        "sitemap",
+                        "discover"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "sync_interval": {
+          "enum": [
+            900,
+            1800,
+            3600,
+            7200,
+            14400,
+            21600,
+            43200,
+            86400
+          ],
+          "type": "integer"
+        },
+        "token_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "type": {
+          "oneOf": [
+            {
+              "enum": [
+                "r2",
+                "web-crawler"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "modified_at"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

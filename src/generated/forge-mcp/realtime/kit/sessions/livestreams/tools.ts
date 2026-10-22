@@ -41,6 +41,76 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "err_message": {
+              "enum": [
+                "LIVE",
+                "IDLE",
+                "ERRORED",
+                "INVOKED"
+              ],
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "ingest_seconds": {
+              "type": "number"
+            },
+            "invoked_time": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "livestream_id": {
+              "type": "string"
+            },
+            "paging": {
+              "properties": {
+                "end_offset": {
+                  "type": "number"
+                },
+                "start_offset": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "stopped_time": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "updated_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "viewer_seconds": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

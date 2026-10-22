@@ -31,6 +31,9 @@ export const tools: readonly Tool[] = [
         "issue_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

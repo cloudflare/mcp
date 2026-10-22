@@ -40,6 +40,34 @@ export const tools: readonly Tool[] = [
         "snippet_name"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/snippets_Response"
+        },
+        {
+          "properties": {
+            "errors": {},
+            "result": {
+              "type": "null"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "snippets_Errors": snippets_Errors_output,
+        "snippets_Message": snippets_Message_output,
+        "snippets_Messages": snippets_Messages_output,
+        "snippets_Response": snippets_Response_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -158,6 +186,36 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "snippet_name"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/snippets_Response"
+        },
+        {
+          "properties": {
+            "errors": {},
+            "result": {
+              "$ref": "#/$defs/snippets_Snippet"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "snippets_Errors": snippets_Errors_output,
+        "snippets_Message": snippets_Message_output,
+        "snippets_Messages": snippets_Messages_output,
+        "snippets_Response": snippets_Response_output,
+        "snippets_Snippet": snippets_Snippet_output,
+        "snippets_SnippetName": snippets_SnippetName_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -288,6 +346,45 @@ export const tools: readonly Tool[] = [
       $defs: {
         "snippets_Page": snippets_Page,
         "snippets_PerPage": snippets_PerPage,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/snippets_Response"
+        },
+        {
+          "properties": {
+            "errors": {},
+            "result": {
+              "items": {
+                "$ref": "#/$defs/snippets_Snippet"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/snippets_ResultInfo"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "snippets_Errors": snippets_Errors_output,
+        "snippets_Message": snippets_Message_output,
+        "snippets_Messages": snippets_Messages_output,
+        "snippets_Page": snippets_Page_output,
+        "snippets_PerPage": snippets_PerPage_output,
+        "snippets_Response": snippets_Response_output,
+        "snippets_ResultInfo": snippets_ResultInfo_output,
+        "snippets_Snippet": snippets_Snippet_output,
+        "snippets_SnippetName": snippets_SnippetName_output,
       },
     },
     annotations: {

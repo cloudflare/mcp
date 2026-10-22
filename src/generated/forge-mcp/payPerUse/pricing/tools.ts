@@ -54,6 +54,14 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUOperatorPrices",
+      $defs: {
+        "pay-per-crawl_PPUOperatorPrice": pay_per_crawl_PPUOperatorPrice_output,
+        "pay-per-crawl_PPUOperatorPrices": pay_per_crawl_PPUOperatorPrices_output,
+        "pay-per-crawl_PPUPrice": pay_per_crawl_PPUPrice_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -115,6 +123,15 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "operator_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",
+      $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -185,6 +202,12 @@ export const tools: readonly Tool[] = [
         "pay-per-crawl_PPUPublisherPriceProposeRequest": pay_per_crawl_PPUPublisherPriceProposeRequest,
         "pay-per-crawl_PPUPublisherPriceResumeRequest": pay_per_crawl_PPUPublisherPriceResumeRequest,
         "pay-per-crawl_PPUPublisherPriceWithdrawRequest": pay_per_crawl_PPUPublisherPriceWithdrawRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUPrice",
+      $defs: {
+        "pay-per-crawl_PPUPrice": pay_per_crawl_PPUPrice_output,
       },
     },
     annotations: {

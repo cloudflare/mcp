@@ -28,6 +28,17 @@ export const tools: readonly Tool[] = [
         "tag_uuid"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -215,6 +226,579 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "pagination": {
+          "properties": {
+            "page": {
+              "type": "number"
+            },
+            "pageSize": {
+              "type": "number"
+            },
+            "totalCount": {
+              "type": "number"
+            },
+            "totalPages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "page",
+            "pageSize",
+            "totalCount",
+            "totalPages"
+          ],
+          "type": "object"
+        },
+        "tags": {
+          "items": {
+            "properties": {
+              "activeDuration": {
+                "type": "string"
+              },
+              "activeDuration_annotated": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "tlp": {
+                        "enum": [
+                          "red",
+                          "amber",
+                          "amber-strict",
+                          "green",
+                          "clear",
+                          "purple",
+                          "amber+strict"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "actorCategory": {
+                "type": "string"
+              },
+              "actorCategory_annotated": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "confidence": {
+                        "type": "number"
+                      },
+                      "tlp": {
+                        "enum": [
+                          "red",
+                          "amber",
+                          "amber-strict",
+                          "green",
+                          "clear",
+                          "purple",
+                          "amber+strict"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "aliasGroupNames": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "aliasGroupNamesInternal": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "aliases": {
+                "items": {
+                  "properties": {
+                    "confidence": {
+                      "oneOf": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "tlp": {
+                      "oneOf": [
+                        {
+                          "enum": [
+                            "red",
+                            "amber",
+                            "amber-strict",
+                            "green",
+                            "clear",
+                            "purple",
+                            "amber+strict"
+                          ],
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "attributionOrganization": {
+                "type": "string"
+              },
+              "attributionOrganization_annotated": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "confidence": {
+                        "type": "number"
+                      },
+                      "tlp": {
+                        "enum": [
+                          "red",
+                          "amber",
+                          "amber-strict",
+                          "green",
+                          "clear",
+                          "purple",
+                          "amber+strict"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "categoryName": {
+                "type": "string"
+              },
+              "categoryUuid": {
+                "type": "string"
+              },
+              "confidence": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "dateOfDiscovery": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "externalReferenceLinks": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "externalReferences": {
+                "items": {
+                  "properties": {
+                    "description": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "url"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "externalReferences_annotated": {
+                "oneOf": [
+                  {
+                    "items": {
+                      "properties": {
+                        "tlp": {
+                          "enum": [
+                            "red",
+                            "amber",
+                            "amber-strict",
+                            "green",
+                            "clear",
+                            "purple",
+                            "amber+strict"
+                          ],
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "internalAliases": {
+                "items": {
+                  "properties": {
+                    "confidence": {
+                      "oneOf": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "tlp": {
+                      "oneOf": [
+                        {
+                          "enum": [
+                            "red",
+                            "amber",
+                            "amber-strict",
+                            "green",
+                            "clear",
+                            "purple",
+                            "amber+strict"
+                          ],
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "internalDescription": {
+                "type": "string"
+              },
+              "lastSeen": {
+                "type": "string"
+              },
+              "motive": {
+                "type": "string"
+              },
+              "motive_annotated": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "confidence": {
+                        "type": "number"
+                      },
+                      "tlp": {
+                        "enum": [
+                          "red",
+                          "amber",
+                          "amber-strict",
+                          "green",
+                          "clear",
+                          "purple",
+                          "amber+strict"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "opsecLevel": {
+                "type": "string"
+              },
+              "opsecLevel_annotated": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "confidence": {
+                        "type": "number"
+                      },
+                      "tlp": {
+                        "enum": [
+                          "red",
+                          "amber",
+                          "amber-strict",
+                          "green",
+                          "clear",
+                          "purple",
+                          "amber+strict"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "originCountryISO": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "originCountryISO_annotated": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "confidence": {
+                        "type": "number"
+                      },
+                      "tlp": {
+                        "enum": [
+                          "red",
+                          "amber",
+                          "amber-strict",
+                          "green",
+                          "clear",
+                          "purple",
+                          "amber+strict"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "priority": {
+                "type": "number"
+              },
+              "priority_annotated": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "tlp": {
+                        "enum": [
+                          "red",
+                          "amber",
+                          "amber-strict",
+                          "green",
+                          "clear",
+                          "purple",
+                          "amber+strict"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "properties": {
+                "oneOf": [
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sophisticationLevel": {
+                "type": "string"
+              },
+              "sophisticationLevel_annotated": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "confidence": {
+                        "type": "number"
+                      },
+                      "tlp": {
+                        "enum": [
+                          "red",
+                          "amber",
+                          "amber-strict",
+                          "green",
+                          "clear",
+                          "purple",
+                          "amber+strict"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "tlp": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "red",
+                      "amber",
+                      "amber-strict",
+                      "green",
+                      "clear",
+                      "purple",
+                      "amber+strict"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "version": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "uuid",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "pagination",
+        "tags"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -870,6 +1454,544 @@ export const tools: readonly Tool[] = [
         "account_id",
         "tag_uuid"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "activeDuration": {
+          "type": "string"
+        },
+        "activeDuration_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "actorCategory": {
+          "type": "string"
+        },
+        "actorCategory_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "aliasGroupNames": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "aliasGroupNamesInternal": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "aliases": {
+          "items": {
+            "properties": {
+              "confidence": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "tlp": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "red",
+                      "amber",
+                      "amber-strict",
+                      "green",
+                      "clear",
+                      "purple",
+                      "amber+strict"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "attributionOrganization": {
+          "type": "string"
+        },
+        "attributionOrganization_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "categoryName": {
+          "type": "string"
+        },
+        "categoryUuid": {
+          "type": "string"
+        },
+        "confidence": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "dateOfDiscovery": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "externalReferenceLinks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "externalReferences": {
+          "items": {
+            "properties": {
+              "description": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "externalReferences_annotated": {
+          "oneOf": [
+            {
+              "items": {
+                "properties": {
+                  "tlp": {
+                    "enum": [
+                      "red",
+                      "amber",
+                      "amber-strict",
+                      "green",
+                      "clear",
+                      "purple",
+                      "amber+strict"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "internalAliases": {
+          "items": {
+            "properties": {
+              "confidence": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "tlp": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "red",
+                      "amber",
+                      "amber-strict",
+                      "green",
+                      "clear",
+                      "purple",
+                      "amber+strict"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "internalDescription": {
+          "type": "string"
+        },
+        "lastSeen": {
+          "type": "string"
+        },
+        "motive": {
+          "type": "string"
+        },
+        "motive_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "opsecLevel": {
+          "type": "string"
+        },
+        "opsecLevel_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "originCountryISO": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "originCountryISO_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "priority": {
+          "type": "number"
+        },
+        "priority_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sophisticationLevel": {
+          "type": "string"
+        },
+        "sophisticationLevel_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tlp": {
+          "oneOf": [
+            {
+              "enum": [
+                "red",
+                "amber",
+                "amber-strict",
+                "green",
+                "clear",
+                "purple",
+                "amber+strict"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "version": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "uuid",
+        "value"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1923,6 +3045,544 @@ export const tools: readonly Tool[] = [
         "account_id",
         "tag_uuid"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "activeDuration": {
+          "type": "string"
+        },
+        "activeDuration_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "actorCategory": {
+          "type": "string"
+        },
+        "actorCategory_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "aliasGroupNames": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "aliasGroupNamesInternal": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "aliases": {
+          "items": {
+            "properties": {
+              "confidence": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "tlp": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "red",
+                      "amber",
+                      "amber-strict",
+                      "green",
+                      "clear",
+                      "purple",
+                      "amber+strict"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "attributionOrganization": {
+          "type": "string"
+        },
+        "attributionOrganization_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "categoryName": {
+          "type": "string"
+        },
+        "categoryUuid": {
+          "type": "string"
+        },
+        "confidence": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "dateOfDiscovery": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "externalReferenceLinks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "externalReferences": {
+          "items": {
+            "properties": {
+              "description": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "externalReferences_annotated": {
+          "oneOf": [
+            {
+              "items": {
+                "properties": {
+                  "tlp": {
+                    "enum": [
+                      "red",
+                      "amber",
+                      "amber-strict",
+                      "green",
+                      "clear",
+                      "purple",
+                      "amber+strict"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "internalAliases": {
+          "items": {
+            "properties": {
+              "confidence": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "tlp": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "red",
+                      "amber",
+                      "amber-strict",
+                      "green",
+                      "clear",
+                      "purple",
+                      "amber+strict"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "internalDescription": {
+          "type": "string"
+        },
+        "lastSeen": {
+          "type": "string"
+        },
+        "motive": {
+          "type": "string"
+        },
+        "motive_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "opsecLevel": {
+          "type": "string"
+        },
+        "opsecLevel_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "originCountryISO": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "originCountryISO_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "priority": {
+          "type": "number"
+        },
+        "priority_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sophisticationLevel": {
+          "type": "string"
+        },
+        "sophisticationLevel_annotated": {
+          "oneOf": [
+            {
+              "properties": {
+                "confidence": {
+                  "type": "number"
+                },
+                "tlp": {
+                  "enum": [
+                    "red",
+                    "amber",
+                    "amber-strict",
+                    "green",
+                    "clear",
+                    "purple",
+                    "amber+strict"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tlp": {
+          "oneOf": [
+            {
+              "enum": [
+                "red",
+                "amber",
+                "amber-strict",
+                "green",
+                "clear",
+                "purple",
+                "amber+strict"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "version": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "uuid",
+        "value"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

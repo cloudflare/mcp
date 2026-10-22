@@ -59,6 +59,18 @@ export const tools: readonly Tool[] = [
         "moq_account_identifier": moq_account_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/moq_relay_create_response",
+      $defs: {
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
+        "moq_issuer": moq_issuer_output,
+        "moq_relay_config": moq_relay_config_output,
+        "moq_relay_create_response": moq_relay_create_response_output,
+        "moq_upstream": moq_upstream_output,
+        "moq_upstreams": moq_upstreams_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -130,6 +142,16 @@ export const tools: readonly Tool[] = [
         "moq_account_identifier": moq_account_identifier,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -195,6 +217,15 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "moq_account_identifier": moq_account_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/moq_relay",
+      $defs: {
+        "moq_relay": moq_relay_output,
+        "moq_relay_config": moq_relay_config_output,
+        "moq_upstream": moq_upstream_output,
+        "moq_upstreams": moq_upstreams_output,
       },
     },
     annotations: {
@@ -274,6 +305,27 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "moq_account_identifier": moq_account_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/moq_relay_list_item"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/moq_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "moq_relay_list_item": moq_relay_list_item_output,
+        "moq_result_info": moq_result_info_output,
       },
     },
     annotations: {
@@ -368,6 +420,15 @@ export const tools: readonly Tool[] = [
         "moq_relay_config": moq_relay_config,
         "moq_upstream": moq_upstream,
         "moq_upstreams": moq_upstreams,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/moq_relay",
+      $defs: {
+        "moq_relay": moq_relay_output,
+        "moq_relay_config": moq_relay_config_output,
+        "moq_upstream": moq_upstream_output,
+        "moq_upstreams": moq_upstreams_output,
       },
     },
     annotations: {

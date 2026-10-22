@@ -55,6 +55,15 @@ export const tools: readonly Tool[] = [
         "pages_domain_name": pages_domain_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/pages_domain",
+      $defs: {
+        "pages_domain": pages_domain_output,
+        "pages_domain_name": pages_domain_name_output,
+        "pages_domain_validation_data": pages_domain_validation_data_output,
+        "pages_domain_verification_data": pages_domain_verification_data_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -116,6 +125,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "project_name",
         "domain_name"
+      ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -183,6 +202,15 @@ export const tools: readonly Tool[] = [
         "domain_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pages_domain",
+      $defs: {
+        "pages_domain": pages_domain_output,
+        "pages_domain_name": pages_domain_name_output,
+        "pages_domain_validation_data": pages_domain_validation_data_output,
+        "pages_domain_verification_data": pages_domain_verification_data_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -240,6 +268,46 @@ export const tools: readonly Tool[] = [
         "account_id",
         "project_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/pages_domain"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "pages_domain": pages_domain_output,
+        "pages_domain_name": pages_domain_name_output,
+        "pages_domain_validation_data": pages_domain_validation_data_output,
+        "pages_domain_verification_data": pages_domain_verification_data_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

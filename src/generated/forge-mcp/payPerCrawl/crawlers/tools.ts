@@ -32,6 +32,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_listCrawlersResponse_result",
+      $defs: {
+        "pay-per-crawl_CrawlerEntry": pay_per_crawl_CrawlerEntry_output,
+        "pay-per-crawl_listCrawlersResponse_result": pay_per_crawl_listCrawlersResponse_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

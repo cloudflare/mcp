@@ -56,6 +56,27 @@ export const tools: readonly Tool[] = [
         "event_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/waitingroom_event_details_result",
+      $defs: {
+        "waitingroom_event_description": waitingroom_event_description_output,
+        "waitingroom_event_details_custom_page_html": waitingroom_event_details_custom_page_html_output,
+        "waitingroom_event_details_disable_session_renewal": waitingroom_event_details_disable_session_renewal_output,
+        "waitingroom_event_details_new_users_per_minute": waitingroom_event_details_new_users_per_minute_output,
+        "waitingroom_event_details_queueing_method": waitingroom_event_details_queueing_method_output,
+        "waitingroom_event_details_result": waitingroom_event_details_result_output,
+        "waitingroom_event_details_session_duration": waitingroom_event_details_session_duration_output,
+        "waitingroom_event_details_total_active_users": waitingroom_event_details_total_active_users_output,
+        "waitingroom_event_end_time": waitingroom_event_end_time_output,
+        "waitingroom_event_id": waitingroom_event_id_output,
+        "waitingroom_event_name": waitingroom_event_name_output,
+        "waitingroom_event_prequeue_start_time": waitingroom_event_prequeue_start_time_output,
+        "waitingroom_event_shuffle_at_event_start": waitingroom_event_shuffle_at_event_start_output,
+        "waitingroom_event_start_time": waitingroom_event_start_time_output,
+        "waitingroom_event_suspended": waitingroom_event_suspended_output,
+        "waitingroom_timestamp": waitingroom_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

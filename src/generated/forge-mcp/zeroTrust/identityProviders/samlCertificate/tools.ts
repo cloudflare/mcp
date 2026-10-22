@@ -36,6 +36,13 @@ export const tools: readonly Tool[] = [
         "identity_provider_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_saml_certificate_set",
+      $defs: {
+        "access_saml_certificate": access_saml_certificate_output,
+        "access_saml_certificate_set": access_saml_certificate_set_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

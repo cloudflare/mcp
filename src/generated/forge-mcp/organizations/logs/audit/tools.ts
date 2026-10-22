@@ -376,6 +376,33 @@ export const tools: readonly Tool[] = [
         "before"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_audit-logs-v2-org"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/aaa_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_audit-log-action": aaa_audit_log_action_output,
+        "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
+        "aaa_audit-log-raw": aaa_audit_log_raw_output,
+        "aaa_audit-logs-v2-org": aaa_audit_logs_v2_org_output,
+        "aaa_audit-logs-v2-org_organization": aaa_audit_logs_v2_org_organization_output,
+        "aaa_audit-logs-v2-org_resource": aaa_audit_logs_v2_org_resource_output,
+        "aaa_identifier-2": aaa_identifier_2_output,
+        "aaa_result_info": aaa_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -534,6 +561,34 @@ export const tools: readonly Tool[] = [
         "since",
         "before"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_audit-logs-v2-org"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/aaa_audit-logs-v2-history-result-info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_audit-log-action": aaa_audit_log_action_output,
+        "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
+        "aaa_audit-log-raw": aaa_audit_log_raw_output,
+        "aaa_audit-logs-v2-history-result-info": aaa_audit_logs_v2_history_result_info_output,
+        "aaa_audit-logs-v2-org": aaa_audit_logs_v2_org_output,
+        "aaa_audit-logs-v2-org_organization": aaa_audit_logs_v2_org_organization_output,
+        "aaa_audit-logs-v2-org_resource": aaa_audit_logs_v2_org_resource_output,
+        "aaa_history-status": aaa_history_status_output,
+        "aaa_identifier-2": aaa_identifier_2_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -37,6 +37,14 @@ export const tools: readonly Tool[] = [
         "user_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_RiskEvents",
+      $defs: {
+        "dlp_RiskEvent": dlp_RiskEvent_output,
+        "dlp_RiskEvents": dlp_RiskEvents_output,
+        "dlp_RiskLevel": dlp_RiskLevel_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -91,6 +99,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "user_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
     },
     annotations: {
       "destructiveHint": true,

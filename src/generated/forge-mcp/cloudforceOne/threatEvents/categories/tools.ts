@@ -53,6 +53,40 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "killChain": {
+          "type": "number"
+        },
+        "mitreAttack": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "mitreCapec": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "shortname": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "killChain",
+        "name",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -162,6 +196,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "category_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -274,6 +319,40 @@ export const tools: readonly Tool[] = [
         "category_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "killChain": {
+          "type": "number"
+        },
+        "mitreAttack": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "mitreCapec": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "shortname": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "killChain",
+        "name",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -382,6 +461,40 @@ export const tools: readonly Tool[] = [
         "account_id",
         "category_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "killChain": {
+          "type": "number"
+        },
+        "mitreAttack": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "mitreCapec": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "shortname": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "killChain",
+        "name",
+        "uuid"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -492,6 +605,43 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "killChain": {
+            "type": "number"
+          },
+          "mitreAttack": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "mitreCapec": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "type": "string"
+          },
+          "shortname": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "killChain",
+          "name",
+          "uuid"
+        ],
+        "type": "object"
+      },
+      "type": "array",
     },
     annotations: {
       "destructiveHint": false,

@@ -28,6 +28,9 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

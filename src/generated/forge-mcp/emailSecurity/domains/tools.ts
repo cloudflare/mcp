@@ -153,6 +153,48 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "deletes": {
+          "items": {
+            "$ref": "#/$defs/email-security_DeletedDomain"
+          },
+          "type": "array"
+        },
+        "patches": {
+          "$ref": "#/$defs/email-security_DomainList"
+        },
+        "posts": {
+          "$ref": "#/$defs/email-security_DomainList"
+        },
+        "puts": {
+          "$ref": "#/$defs/email-security_DomainList"
+        }
+      },
+      "required": [
+        "deletes",
+        "patches",
+        "posts",
+        "puts"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_DeletedDomain": email_security_DeletedDomain_output,
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainList": email_security_DomainList_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -252,6 +294,23 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_Domain",
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -323,6 +382,13 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_DeletedDomain",
+      $defs: {
+        "email-security_DeletedDomain": email_security_DeletedDomain_output,
+        "email-security_DomainId": email_security_DomainId_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -390,6 +456,23 @@ export const tools: readonly Tool[] = [
         "email-security_ScannableFolder": email_security_ScannableFolder,
         "email-security_UpdateDomain": email_security_UpdateDomain,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_Domain",
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {
@@ -461,6 +544,23 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_DomainId": email_security_DomainId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_Domain",
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {
@@ -584,6 +684,49 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email-security_DomainList"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainList": email_security_DomainList_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_timestamp": email_security_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -700,6 +843,23 @@ export const tools: readonly Tool[] = [
         "email-security_ReplaceDomain": email_security_ReplaceDomain,
         "email-security_ScannableFolder": email_security_ScannableFolder,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_Domain",
+      $defs: {
+        "email-security_DeliveryMode": email_security_DeliveryMode_output,
+        "email-security_DispositionLabel": email_security_DispositionLabel_output,
+        "email-security_DmarcStatus": email_security_DmarcStatus_output,
+        "email-security_Domain": email_security_Domain_output,
+        "email-security_DomainAuthorization": email_security_DomainAuthorization_output,
+        "email-security_DomainId": email_security_DomainId_output,
+        "email-security_DomainStatus": email_security_DomainStatus_output,
+        "email-security_EmailsProcessed": email_security_EmailsProcessed_output,
+        "email-security_Region": email_security_Region_output,
+        "email-security_ScannableFolder": email_security_ScannableFolder_output,
+        "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_timestamp": email_security_timestamp_output,
       },
     },
     annotations: {

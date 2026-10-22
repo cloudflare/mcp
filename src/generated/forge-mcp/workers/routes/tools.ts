@@ -37,6 +37,13 @@ export const tools: readonly Tool[] = [
         "workers_route": workers_route,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_route",
+      $defs: {
+        "workers_identifier": workers_identifier_output,
+        "workers_route": workers_route_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -95,6 +102,17 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "route_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/workers_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "workers_identifier": workers_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -158,6 +176,13 @@ export const tools: readonly Tool[] = [
         "route_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_route",
+      $defs: {
+        "workers_identifier": workers_identifier_output,
+        "workers_route": workers_route_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -211,6 +236,27 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_route"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_identifier": workers_identifier_output,
+        "workers_route": workers_route_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -290,6 +336,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_route": workers_route,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_route",
+      $defs: {
+        "workers_identifier": workers_identifier_output,
+        "workers_route": workers_route_output,
       },
     },
     annotations: {

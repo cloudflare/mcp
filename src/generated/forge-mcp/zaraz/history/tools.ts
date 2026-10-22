@@ -83,6 +83,41 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/zaraz_zaraz-config-row-base"
+              },
+              {
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "description"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zaraz_zaraz-config-row-base": zaraz_zaraz_config_row_base_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -172,6 +207,39 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zaraz_zaraz-config-return",
+      $defs: {
+        "zaraz_click-listener-rule": zaraz_click_listener_rule_output,
+        "zaraz_click-listener-rule_settings": zaraz_click_listener_rule_settings_output,
+        "zaraz_custom-managed-component": zaraz_custom_managed_component_output,
+        "zaraz_custom-managed-component_neoEventsItem": zaraz_custom_managed_component_neoEventsItem_output,
+        "zaraz_custom-managed-component_worker": zaraz_custom_managed_component_worker_output,
+        "zaraz_element-visibility-rule": zaraz_element_visibility_rule_output,
+        "zaraz_element-visibility-rule_settings": zaraz_element_visibility_rule_settings_output,
+        "zaraz_form-submission-rule": zaraz_form_submission_rule_output,
+        "zaraz_form-submission-rule_settings": zaraz_form_submission_rule_settings_output,
+        "zaraz_load-rule": zaraz_load_rule_output,
+        "zaraz_managed-component": zaraz_managed_component_output,
+        "zaraz_managed-component_neoEventsItem": zaraz_managed_component_neoEventsItem_output,
+        "zaraz_scroll-depth-rule": zaraz_scroll_depth_rule_output,
+        "zaraz_scroll-depth-rule_settings": zaraz_scroll_depth_rule_settings_output,
+        "zaraz_secret_variable": zaraz_secret_variable_output,
+        "zaraz_string_variable": zaraz_string_variable_output,
+        "zaraz_timer-rule": zaraz_timer_rule_output,
+        "zaraz_timer-rule_settings": zaraz_timer_rule_settings_output,
+        "zaraz_variable-match-rule": zaraz_variable_match_rule_output,
+        "zaraz_variable-match-rule_settings": zaraz_variable_match_rule_settings_output,
+        "zaraz_worker_variable": zaraz_worker_variable_output,
+        "zaraz_worker_variable_value": zaraz_worker_variable_value_output,
+        "zaraz_zaraz-config-base_analytics": zaraz_zaraz_config_base_analytics_output,
+        "zaraz_zaraz-config-base_consent": zaraz_zaraz_config_base_consent_output,
+        "zaraz_zaraz-config-base_consent_buttonTextTranslations": zaraz_zaraz_config_base_consent_buttonTextTranslations_output,
+        "zaraz_zaraz-config-base_settings": zaraz_zaraz_config_base_settings_output,
+        "zaraz_zaraz-config-base_settings_contextEnricher": zaraz_zaraz_config_base_settings_contextEnricher_output,
+        "zaraz_zaraz-config-return": zaraz_zaraz_config_return_output,
+      },
     },
     annotations: {
       "destructiveHint": true,

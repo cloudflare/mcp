@@ -45,6 +45,17 @@ export const tools: readonly Tool[] = [
         "email-auth_identifier": email_auth_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-auth_DmarcReportResponse",
+      $defs: {
+        "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
+        "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
+        "email-auth_DmarcStatus": email_auth_DmarcStatus_output,
+        "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
+        "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
+        "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -96,6 +107,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-auth_identifier": email_auth_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-auth_DmarcReportResponse",
+      $defs: {
+        "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
+        "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
+        "email-auth_DmarcStatus": email_auth_DmarcStatus_output,
+        "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
+        "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
+        "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
       },
     },
     annotations: {

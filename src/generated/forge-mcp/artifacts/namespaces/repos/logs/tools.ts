@@ -43,6 +43,133 @@ export const tools: readonly Tool[] = [
         "name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "author": {
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "authoredAt": {
+                "type": "integer"
+              },
+              "committedAt": {
+                "type": "integer"
+              },
+              "committer": {
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "parents": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "treeHash": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "author",
+              "authoredAt",
+              "committedAt",
+              "committer",
+              "hash",
+              "message",
+              "parents",
+              "treeHash"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -86,6 +86,26 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_time_now": digital_experience_monitoring_time_now,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_device",
+      $defs: {
+        "digital-experience-monitoring_colo": digital_experience_monitoring_colo_output,
+        "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
+        "digital-experience-monitoring_device": digital_experience_monitoring_device_output,
+        "digital-experience-monitoring_directional_stat": digital_experience_monitoring_directional_stat_output,
+        "digital-experience-monitoring_mode": digital_experience_monitoring_mode_output,
+        "digital-experience-monitoring_personEmail": digital_experience_monitoring_personEmail_output,
+        "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
+        "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
+        "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
+        "digital-experience-monitoring_schemas-ip_info": digital_experience_monitoring_schemas_ip_info_output,
+        "digital-experience-monitoring_schemas-ip_info_location": digital_experience_monitoring_schemas_ip_info_location_output,
+        "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
+        "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
+        "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,
+        "digital-experience-monitoring_version": digital_experience_monitoring_version_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -223,6 +243,57 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_status": digital_experience_monitoring_status,
         "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp,
         "digital-experience-monitoring_version": digital_experience_monitoring_version,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/digital-experience-monitoring_device"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "digital-experience-monitoring_colo": digital_experience_monitoring_colo_output,
+        "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
+        "digital-experience-monitoring_device": digital_experience_monitoring_device_output,
+        "digital-experience-monitoring_directional_stat": digital_experience_monitoring_directional_stat_output,
+        "digital-experience-monitoring_mode": digital_experience_monitoring_mode_output,
+        "digital-experience-monitoring_personEmail": digital_experience_monitoring_personEmail_output,
+        "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
+        "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
+        "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
+        "digital-experience-monitoring_schemas-ip_info": digital_experience_monitoring_schemas_ip_info_output,
+        "digital-experience-monitoring_schemas-ip_info_location": digital_experience_monitoring_schemas_ip_info_location_output,
+        "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
+        "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
+        "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,
+        "digital-experience-monitoring_version": digital_experience_monitoring_version_output,
       },
     },
     annotations: {

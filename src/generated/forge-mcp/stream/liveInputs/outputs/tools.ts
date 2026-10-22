@@ -56,6 +56,16 @@ export const tools: readonly Tool[] = [
         "stream_output_url": stream_output_url,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/stream_output",
+      $defs: {
+        "stream_output": stream_output_output,
+        "stream_output_enabled": stream_output_enabled_output,
+        "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_streamKey": stream_output_streamKey_output,
+        "stream_output_url": stream_output_url_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -115,6 +125,8 @@ export const tools: readonly Tool[] = [
         "output_identifier"
       ],
     },
+    outputSchema: {
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -159,6 +171,30 @@ export const tools: readonly Tool[] = [
         "account_id",
         "live_input_identifier"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/stream_output"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "stream_output": stream_output_output,
+        "stream_output_enabled": stream_output_enabled_output,
+        "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_streamKey": stream_output_streamKey_output,
+        "stream_output_url": stream_output_url_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -244,6 +280,16 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_output_enabled": stream_output_enabled,
         "stream_update_output_request": stream_update_output_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/stream_output",
+      $defs: {
+        "stream_output": stream_output_output,
+        "stream_output_enabled": stream_output_enabled_output,
+        "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_streamKey": stream_output_streamKey_output,
+        "stream_output_url": stream_output_url_output,
       },
     },
     annotations: {

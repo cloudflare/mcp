@@ -63,6 +63,49 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_assoc_object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_cert_id": tls_certificates_and_hostnames_cert_id_output,
+        "tls-certificates-and-hostnames_created_at-3": tls_certificates_and_hostnames_created_at_3_output,
+        "tls-certificates-and-hostnames_enabled-5": tls_certificates_and_hostnames_enabled_5_output,
+        "tls-certificates-and-hostnames_hostname-2": tls_certificates_and_hostnames_hostname_2_output,
+        "tls-certificates-and-hostnames_hostname_assoc_object": tls_certificates_and_hostnames_hostname_assoc_object_output,
+        "tls-certificates-and-hostnames_status-9": tls_certificates_and_hostnames_status_9_output,
+        "tls-certificates-and-hostnames_updated_at-3": tls_certificates_and_hostnames_updated_at_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

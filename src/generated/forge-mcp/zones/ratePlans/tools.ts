@@ -43,6 +43,37 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_plan_rate_plan"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/bill-subs-api_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "bill-subs-api_components-schemas-name": bill_subs_api_components_schemas_name_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_default": bill_subs_api_default_output,
+        "bill-subs-api_duration": bill_subs_api_duration_output,
+        "bill-subs-api_plan_component_value": bill_subs_api_plan_component_value_output,
+        "bill-subs-api_plan_rate_plan": bill_subs_api_plan_rate_plan_output,
+        "bill-subs-api_rate-plan_components-schemas-identifier": bill_subs_api_rate_plan_components_schemas_identifier_output,
+        "bill-subs-api_result_info": bill_subs_api_result_info_output,
+        "bill-subs-api_schemas-component_values": bill_subs_api_schemas_component_values_output,
+        "bill-subs-api_schemas-frequency": bill_subs_api_schemas_frequency_output,
+        "bill-subs-api_schemas-name": bill_subs_api_schemas_name_output,
+        "bill-subs-api_unit_price": bill_subs_api_unit_price_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

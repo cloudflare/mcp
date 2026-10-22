@@ -63,6 +63,17 @@ export const tools: readonly Tool[] = [
         "certificate_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_custom_hostname_identifier": tls_certificates_and_hostnames_custom_hostname_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -155,6 +166,27 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "tls-certificates-and-hostnames_custom_cert_and_key": tls_certificates_and_hostnames_custom_cert_and_key,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom-hostname",
+      $defs: {
+        "tls-certificates-and-hostnames_certificate_authority": tls_certificates_and_hostnames_certificate_authority_output,
+        "tls-certificates-and-hostnames_created_at": tls_certificates_and_hostnames_created_at_output,
+        "tls-certificates-and-hostnames_custom-hostname": tls_certificates_and_hostnames_custom_hostname_output,
+        "tls-certificates-and-hostnames_custom_hostname_identifier": tls_certificates_and_hostnames_custom_hostname_identifier_output,
+        "tls-certificates-and-hostnames_custom_metadata": tls_certificates_and_hostnames_custom_metadata_output,
+        "tls-certificates-and-hostnames_custom_origin_server": tls_certificates_and_hostnames_custom_origin_server_output,
+        "tls-certificates-and-hostnames_custom_origin_sni": tls_certificates_and_hostnames_custom_origin_sni_output,
+        "tls-certificates-and-hostnames_customhostname": tls_certificates_and_hostnames_customhostname_output,
+        "tls-certificates-and-hostnames_hostname": tls_certificates_and_hostnames_hostname_output,
+        "tls-certificates-and-hostnames_ownership_verification": tls_certificates_and_hostnames_ownership_verification_output,
+        "tls-certificates-and-hostnames_ownership_verification_http": tls_certificates_and_hostnames_ownership_verification_http_output,
+        "tls-certificates-and-hostnames_ssl": tls_certificates_and_hostnames_ssl_output,
+        "tls-certificates-and-hostnames_sslsettings": tls_certificates_and_hostnames_sslsettings_output,
+        "tls-certificates-and-hostnames_status-3": tls_certificates_and_hostnames_status_3_output,
+        "tls-certificates-and-hostnames_validation_record": tls_certificates_and_hostnames_validation_record_output,
+        "tls-certificates-and-hostnames_verification_errors": tls_certificates_and_hostnames_verification_errors_output,
       },
     },
     annotations: {

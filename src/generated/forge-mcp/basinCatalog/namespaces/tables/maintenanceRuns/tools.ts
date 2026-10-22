@@ -49,6 +49,14 @@ export const tools: readonly Tool[] = [
         "table_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_maintenance-runs-response",
+      $defs: {
+        "r2-data-catalog_maintenance-run-operation": r2_data_catalog_maintenance_run_operation_output,
+        "r2-data-catalog_maintenance-run-record": r2_data_catalog_maintenance_run_record_output,
+        "r2-data-catalog_maintenance-runs-response": r2_data_catalog_maintenance_runs_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

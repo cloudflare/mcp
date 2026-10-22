@@ -40,6 +40,13 @@ export const tools: readonly Tool[] = [
         "logcontrol_retention_flag": logcontrol_retention_flag,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/logcontrol_retention_flag",
+      $defs: {
+        "logcontrol_flag": logcontrol_flag_output,
+        "logcontrol_retention_flag": logcontrol_retention_flag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -106,6 +113,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/logcontrol_retention_flag",
+      $defs: {
+        "logcontrol_flag": logcontrol_flag_output,
+        "logcontrol_retention_flag": logcontrol_retention_flag_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

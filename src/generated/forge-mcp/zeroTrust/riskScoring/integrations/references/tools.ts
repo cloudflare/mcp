@@ -34,6 +34,13 @@ export const tools: readonly Tool[] = [
         "reference_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_RiskScoreIntegration",
+      $defs: {
+        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration_output,
+        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

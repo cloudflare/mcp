@@ -58,6 +58,18 @@ export const tools: readonly Tool[] = [
         "table_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_table-maintenance-config-response",
+      $defs: {
+        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
+        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
+        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
+        "r2-data-catalog_table-compaction-config": r2_data_catalog_table_compaction_config_output,
+        "r2-data-catalog_table-maintenance-config": r2_data_catalog_table_maintenance_config_output,
+        "r2-data-catalog_table-maintenance-config-response": r2_data_catalog_table_maintenance_config_response_output,
+        "r2-data-catalog_table-snapshot-expiration-config": r2_data_catalog_table_snapshot_expiration_config_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -154,6 +166,12 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_queue-maintenance-request": r2_data_catalog_queue_maintenance_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_queue-maintenance-response",
+      $defs: {
+        "r2-data-catalog_queue-maintenance-response": r2_data_catalog_queue_maintenance_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -235,6 +253,17 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_snapshot-expiration-update-params": r2_data_catalog_snapshot_expiration_update_params,
         "r2-data-catalog_table-compaction-update-params": r2_data_catalog_table_compaction_update_params,
         "r2-data-catalog_table-maintenance-update-request": r2_data_catalog_table_maintenance_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2-data-catalog_table-maintenance-config",
+      $defs: {
+        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
+        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
+        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
+        "r2-data-catalog_table-compaction-config": r2_data_catalog_table_compaction_config_output,
+        "r2-data-catalog_table-maintenance-config": r2_data_catalog_table_maintenance_config_output,
+        "r2-data-catalog_table-snapshot-expiration-config": r2_data_catalog_table_snapshot_expiration_config_output,
       },
     },
     annotations: {

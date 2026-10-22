@@ -47,6 +47,26 @@ export const tools: readonly Tool[] = [
         "participant_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "participant": {
+              "$ref": "#/$defs/realtimekit_ParticipantsList"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_ParticipantsList": realtimekit_ParticipantsList_output,
+        "realtimekit_PeerEvent": realtimekit_PeerEvent_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -160,6 +180,29 @@ export const tools: readonly Tool[] = [
         "app_id",
         "session_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "participants": {
+              "items": {
+                "$ref": "#/$defs/realtimekit_ParticipantsList"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_ParticipantsList": realtimekit_ParticipantsList_output,
+        "realtimekit_PeerEvent": realtimekit_PeerEvent_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -45,6 +45,13 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result",
+      $defs: {
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -110,6 +117,13 @@ export const tools: readonly Tool[] = [
         "cache-settings_origin_cloud_region_v2_request": cache_settings_origin_cloud_region_v2_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result",
+      $defs: {
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -169,6 +183,12 @@ export const tools: readonly Tool[] = [
         "origin_ip"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_delete_result",
+      $defs: {
+        "cache-settings_origin_cloud_region_v2_delete_result": cache_settings_origin_cloud_region_v2_delete_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -225,6 +245,12 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "origin_ip"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_entry",
+      $defs: {
+        "cache-settings_origin_cloud_region_v2_entry": cache_settings_origin_cloud_region_v2_entry_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -287,6 +313,27 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_entry"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cache-settings_origin_cloud_region_v2_entry": cache_settings_origin_cloud_region_v2_entry_output,
+        "cache-settings_origin_cloud_region_v2_result_info": cache_settings_origin_cloud_region_v2_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -359,6 +406,13 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_supported_cloud_regions_result",
+      $defs: {
+        "cache-settings_supported_cloud_region": cache_settings_supported_cloud_region_output,
+        "cache-settings_supported_cloud_regions_result": cache_settings_supported_cloud_regions_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -422,6 +476,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cache-settings_origin_cloud_region_v2_request": cache_settings_origin_cloud_region_v2_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_entry",
+      $defs: {
+        "cache-settings_origin_cloud_region_v2_entry": cache_settings_origin_cloud_region_v2_entry_output,
       },
     },
     annotations: {

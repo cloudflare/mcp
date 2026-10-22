@@ -24,6 +24,214 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "arrays": {
+          "items": {
+            "properties": {
+              "counter": {
+                "type": "string"
+              },
+              "fields": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "string",
+                        "integer",
+                        "float",
+                        "boolean"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "path": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "counter",
+              "fields",
+              "path"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "headers": {
+          "properties": {
+            "fields": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "string",
+                      "integer",
+                      "float",
+                      "boolean"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "fields",
+            "path"
+          ],
+          "type": "object"
+        },
+        "operators": {
+          "properties": {
+            "boolean": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "float": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "integer": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "string": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "boolean",
+            "float",
+            "integer",
+            "string"
+          ],
+          "type": "object"
+        },
+        "scalars": {
+          "items": {
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "string",
+                  "integer",
+                  "float",
+                  "boolean"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "string_arrays": {
+          "items": {
+            "properties": {
+              "counter": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "counter",
+              "path"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "structs": {
+          "items": {
+            "properties": {
+              "fields": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "string",
+                        "integer",
+                        "float",
+                        "boolean"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "path": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "fields",
+              "path"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "arrays",
+        "headers",
+        "operators",
+        "scalars",
+        "string_arrays",
+        "structs"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

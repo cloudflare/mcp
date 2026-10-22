@@ -29,6 +29,12 @@ export const tools: readonly Tool[] = [
         "organization_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_Profile",
+      $defs: {
+        "organizations-api_Profile": organizations_api_Profile_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

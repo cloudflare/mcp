@@ -59,6 +59,39 @@ export const tools: readonly Tool[] = [
         "secondary-dns_single_request_outgoing": secondary_dns_single_request_outgoing,
       },
     },
+    outputSchema: {
+      "properties": {
+        "checked_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "created_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "id": {
+          "$ref": "#/$defs/secondary-dns_identifier"
+        },
+        "last_transferred_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "name": {
+          "$ref": "#/$defs/secondary-dns_name"
+        },
+        "peers": {
+          "$ref": "#/$defs/secondary-dns_peers"
+        },
+        "soa_serial": {
+          "$ref": "#/$defs/secondary-dns_soa_serial"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_name": secondary_dns_name_output,
+        "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
+        "secondary-dns_time": secondary_dns_time_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -152,6 +185,17 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/secondary-dns_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "secondary-dns_identifier": secondary_dns_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -222,6 +266,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_disable_transfer_result",
+      $defs: {
+        "secondary-dns_disable_transfer_result": secondary_dns_disable_transfer_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -285,6 +335,12 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_enable_transfer_result",
+      $defs: {
+        "secondary-dns_enable_transfer_result": secondary_dns_enable_transfer_result_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -350,6 +406,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_force_result-2",
+      $defs: {
+        "secondary-dns_force_result-2": secondary_dns_force_result_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -413,6 +475,39 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "checked_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "created_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "id": {
+          "$ref": "#/$defs/secondary-dns_identifier"
+        },
+        "last_transferred_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "name": {
+          "$ref": "#/$defs/secondary-dns_name"
+        },
+        "peers": {
+          "$ref": "#/$defs/secondary-dns_peers"
+        },
+        "soa_serial": {
+          "$ref": "#/$defs/secondary-dns_soa_serial"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_name": secondary_dns_name_output,
+        "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
+        "secondary-dns_time": secondary_dns_time_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -516,6 +611,39 @@ export const tools: readonly Tool[] = [
         "secondary-dns_name": secondary_dns_name,
         "secondary-dns_peers": secondary_dns_peers,
         "secondary-dns_single_request_outgoing": secondary_dns_single_request_outgoing,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "checked_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "created_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "id": {
+          "$ref": "#/$defs/secondary-dns_identifier"
+        },
+        "last_transferred_time": {
+          "$ref": "#/$defs/secondary-dns_time"
+        },
+        "name": {
+          "$ref": "#/$defs/secondary-dns_name"
+        },
+        "peers": {
+          "$ref": "#/$defs/secondary-dns_peers"
+        },
+        "soa_serial": {
+          "$ref": "#/$defs/secondary-dns_soa_serial"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_name": secondary_dns_name_output,
+        "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
+        "secondary-dns_time": secondary_dns_time_output,
       },
     },
     annotations: {

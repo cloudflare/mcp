@@ -31,6 +31,26 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/resource-tagging_cursor_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "resource-tagging_cursor_result_info": resource_tagging_cursor_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -34,6 +34,12 @@ export const tools: readonly Tool[] = [
         "queue_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mq_queue-metrics",
+      $defs: {
+        "mq_queue-metrics": mq_queue_metrics_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

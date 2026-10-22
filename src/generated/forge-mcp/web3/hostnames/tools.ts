@@ -59,6 +59,19 @@ export const tools: readonly Tool[] = [
         "web3_target": web3_target,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/web3_web3-hostname",
+      $defs: {
+        "web3_description": web3_description_output,
+        "web3_dnslink": web3_dnslink_output,
+        "web3_identifier": web3_identifier_output,
+        "web3_name": web3_name_output,
+        "web3_status": web3_status_output,
+        "web3_target": web3_target_output,
+        "web3_timestamp": web3_timestamp_output,
+        "web3_web3-hostname": web3_web3_hostname_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -146,6 +159,27 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "identifier"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/web3_identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "web3_identifier": web3_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -259,6 +293,19 @@ export const tools: readonly Tool[] = [
         "web3_modify_request": web3_modify_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/web3_web3-hostname",
+      $defs: {
+        "web3_description": web3_description_output,
+        "web3_dnslink": web3_dnslink_output,
+        "web3_identifier": web3_identifier_output,
+        "web3_name": web3_name_output,
+        "web3_status": web3_status_output,
+        "web3_target": web3_target_output,
+        "web3_timestamp": web3_timestamp_output,
+        "web3_web3-hostname": web3_web3_hostname_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -347,6 +394,19 @@ export const tools: readonly Tool[] = [
         "identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/web3_web3-hostname",
+      $defs: {
+        "web3_description": web3_description_output,
+        "web3_dnslink": web3_dnslink_output,
+        "web3_identifier": web3_identifier_output,
+        "web3_name": web3_name_output,
+        "web3_status": web3_status_output,
+        "web3_target": web3_target_output,
+        "web3_timestamp": web3_timestamp_output,
+        "web3_web3-hostname": web3_web3_hostname_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -429,6 +489,34 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/web3_web3-hostname"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/web3_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "web3_description": web3_description_output,
+        "web3_dnslink": web3_dnslink_output,
+        "web3_identifier": web3_identifier_output,
+        "web3_name": web3_name_output,
+        "web3_result_info": web3_result_info_output,
+        "web3_status": web3_status_output,
+        "web3_target": web3_target_output,
+        "web3_timestamp": web3_timestamp_output,
+        "web3_web3-hostname": web3_web3_hostname_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -74,6 +74,21 @@ export const tools: readonly Tool[] = [
         "firewall_schemas-mode": firewall_schemas_mode,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/firewall_rule",
+      $defs: {
+        "firewall_asn_configuration": firewall_asn_configuration_output,
+        "firewall_cidr_configuration": firewall_cidr_configuration_output,
+        "firewall_configuration": firewall_configuration_output,
+        "firewall_country_configuration": firewall_country_configuration_output,
+        "firewall_ip_configuration": firewall_ip_configuration_output,
+        "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_notes": firewall_notes_output,
+        "firewall_rule": firewall_rule_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+        "firewall_schemas-mode": firewall_schemas_mode_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -138,6 +153,17 @@ export const tools: readonly Tool[] = [
       required: [
         "rule_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/firewall_schemas-identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -216,6 +242,21 @@ export const tools: readonly Tool[] = [
         "firewall_schemas-mode": firewall_schemas_mode,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/firewall_rule",
+      $defs: {
+        "firewall_asn_configuration": firewall_asn_configuration_output,
+        "firewall_cidr_configuration": firewall_cidr_configuration_output,
+        "firewall_configuration": firewall_configuration_output,
+        "firewall_country_configuration": firewall_country_configuration_output,
+        "firewall_ip_configuration": firewall_ip_configuration_output,
+        "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_notes": firewall_notes_output,
+        "firewall_rule": firewall_rule_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+        "firewall_schemas-mode": firewall_schemas_mode_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -280,6 +321,21 @@ export const tools: readonly Tool[] = [
       required: [
         "rule_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/firewall_rule",
+      $defs: {
+        "firewall_asn_configuration": firewall_asn_configuration_output,
+        "firewall_cidr_configuration": firewall_cidr_configuration_output,
+        "firewall_configuration": firewall_configuration_output,
+        "firewall_country_configuration": firewall_country_configuration_output,
+        "firewall_ip_configuration": firewall_ip_configuration_output,
+        "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_notes": firewall_notes_output,
+        "firewall_rule": firewall_rule_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+        "firewall_schemas-mode": firewall_schemas_mode_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -396,6 +452,36 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "firewall_schemas-mode": firewall_schemas_mode,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/firewall_rule"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/firewall_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "firewall_asn_configuration": firewall_asn_configuration_output,
+        "firewall_cidr_configuration": firewall_cidr_configuration_output,
+        "firewall_configuration": firewall_configuration_output,
+        "firewall_country_configuration": firewall_country_configuration_output,
+        "firewall_ip_configuration": firewall_ip_configuration_output,
+        "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_notes": firewall_notes_output,
+        "firewall_result_info": firewall_result_info_output,
+        "firewall_rule": firewall_rule_output,
+        "firewall_schemas-identifier": firewall_schemas_identifier_output,
+        "firewall_schemas-mode": firewall_schemas_mode_output,
       },
     },
     annotations: {

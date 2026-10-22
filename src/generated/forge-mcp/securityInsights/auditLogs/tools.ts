@@ -81,6 +81,37 @@ export const tools: readonly Tool[] = [
         "issue_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/security-center_auditLog"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "security-center_auditLog": security_center_auditLog_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -207,6 +238,37 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/security-center_auditLog"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "security-center_auditLog": security_center_auditLog_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

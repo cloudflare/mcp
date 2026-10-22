@@ -50,6 +50,131 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "automation": {
+          "properties": {
+            "ansPolicyId": {
+              "type": "string"
+            },
+            "created": {
+              "type": "number"
+            },
+            "createdByUserId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "id": {
+              "type": "string"
+            },
+            "inactivitySeconds": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "number"
+            },
+            "scope": {
+              "enum": [
+                "account",
+                "service"
+              ],
+              "type": "string"
+            },
+            "service": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "serviceType": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "threshold": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "triggerType": {
+              "enum": [
+                "occurrence_threshold",
+                "recurrence_after_inactivity"
+              ],
+              "type": "string"
+            },
+            "updated": {
+              "type": "number"
+            },
+            "updatedByUserId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "ansPolicyId",
+            "created",
+            "createdByUserId",
+            "enabled",
+            "id",
+            "inactivitySeconds",
+            "name",
+            "revision",
+            "scope",
+            "service",
+            "serviceType",
+            "threshold",
+            "triggerType",
+            "updated",
+            "updatedByUserId"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "automation"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -413,6 +538,131 @@ export const tools: readonly Tool[] = [
         "automation_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "automation": {
+          "properties": {
+            "ansPolicyId": {
+              "type": "string"
+            },
+            "created": {
+              "type": "number"
+            },
+            "createdByUserId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "id": {
+              "type": "string"
+            },
+            "inactivitySeconds": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "number"
+            },
+            "scope": {
+              "enum": [
+                "account",
+                "service"
+              ],
+              "type": "string"
+            },
+            "service": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "serviceType": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "threshold": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "triggerType": {
+              "enum": [
+                "occurrence_threshold",
+                "recurrence_after_inactivity"
+              ],
+              "type": "string"
+            },
+            "updated": {
+              "type": "number"
+            },
+            "updatedByUserId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "ansPolicyId",
+            "created",
+            "createdByUserId",
+            "enabled",
+            "id",
+            "inactivitySeconds",
+            "name",
+            "revision",
+            "scope",
+            "service",
+            "serviceType",
+            "threshold",
+            "triggerType",
+            "updated",
+            "updatedByUserId"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "automation"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -775,6 +1025,131 @@ export const tools: readonly Tool[] = [
         "automation_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "automation": {
+          "properties": {
+            "ansPolicyId": {
+              "type": "string"
+            },
+            "created": {
+              "type": "number"
+            },
+            "createdByUserId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "id": {
+              "type": "string"
+            },
+            "inactivitySeconds": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "number"
+            },
+            "scope": {
+              "enum": [
+                "account",
+                "service"
+              ],
+              "type": "string"
+            },
+            "service": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "serviceType": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "threshold": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "triggerType": {
+              "enum": [
+                "occurrence_threshold",
+                "recurrence_after_inactivity"
+              ],
+              "type": "string"
+            },
+            "updated": {
+              "type": "number"
+            },
+            "updatedByUserId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "ansPolicyId",
+            "created",
+            "createdByUserId",
+            "enabled",
+            "id",
+            "inactivitySeconds",
+            "name",
+            "revision",
+            "scope",
+            "service",
+            "serviceType",
+            "threshold",
+            "triggerType",
+            "updated",
+            "updatedByUserId"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "automation"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1135,6 +1510,134 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "automations": {
+          "items": {
+            "properties": {
+              "ansPolicyId": {
+                "type": "string"
+              },
+              "created": {
+                "type": "number"
+              },
+              "createdByUserId": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "string"
+              },
+              "inactivitySeconds": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "name": {
+                "type": "string"
+              },
+              "revision": {
+                "type": "number"
+              },
+              "scope": {
+                "enum": [
+                  "account",
+                  "service"
+                ],
+                "type": "string"
+              },
+              "service": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "serviceType": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "threshold": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "triggerType": {
+                "enum": [
+                  "occurrence_threshold",
+                  "recurrence_after_inactivity"
+                ],
+                "type": "string"
+              },
+              "updated": {
+                "type": "number"
+              },
+              "updatedByUserId": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "ansPolicyId",
+              "created",
+              "createdByUserId",
+              "enabled",
+              "id",
+              "inactivitySeconds",
+              "name",
+              "revision",
+              "scope",
+              "service",
+              "serviceType",
+              "threshold",
+              "triggerType",
+              "updated",
+              "updatedByUserId"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "automations"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1530,6 +2033,131 @@ export const tools: readonly Tool[] = [
         "automation_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "automation": {
+          "properties": {
+            "ansPolicyId": {
+              "type": "string"
+            },
+            "created": {
+              "type": "number"
+            },
+            "createdByUserId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "id": {
+              "type": "string"
+            },
+            "inactivitySeconds": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "number"
+            },
+            "scope": {
+              "enum": [
+                "account",
+                "service"
+              ],
+              "type": "string"
+            },
+            "service": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "serviceType": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "threshold": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "triggerType": {
+              "enum": [
+                "occurrence_threshold",
+                "recurrence_after_inactivity"
+              ],
+              "type": "string"
+            },
+            "updated": {
+              "type": "number"
+            },
+            "updatedByUserId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "ansPolicyId",
+            "created",
+            "createdByUserId",
+            "enabled",
+            "id",
+            "inactivitySeconds",
+            "name",
+            "revision",
+            "scope",
+            "service",
+            "serviceType",
+            "threshold",
+            "triggerType",
+            "updated",
+            "updatedByUserId"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "automation"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

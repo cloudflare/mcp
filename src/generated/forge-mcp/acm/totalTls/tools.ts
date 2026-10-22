@@ -59,6 +59,25 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_enabled-3": tls_certificates_and_hostnames_enabled_3,
       },
     },
+    outputSchema: {
+      "properties": {
+        "certificate_authority": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority-3"
+        },
+        "enabled": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-3"
+        },
+        "validity_period": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_validity_period"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_certificate_authority-3": tls_certificates_and_hostnames_certificate_authority_3_output,
+        "tls-certificates-and-hostnames_enabled-3": tls_certificates_and_hostnames_enabled_3_output,
+        "tls-certificates-and-hostnames_validity_period": tls_certificates_and_hostnames_validity_period_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -150,6 +169,25 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "certificate_authority": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority-3"
+        },
+        "enabled": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-3"
+        },
+        "validity_period": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_validity_period"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_certificate_authority-3": tls_certificates_and_hostnames_certificate_authority_3_output,
+        "tls-certificates-and-hostnames_enabled-3": tls_certificates_and_hostnames_enabled_3_output,
+        "tls-certificates-and-hostnames_validity_period": tls_certificates_and_hostnames_validity_period_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

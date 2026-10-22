@@ -40,6 +40,16 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/fraud_fraud_settings",
+      $defs: {
+        "fraud_auth_criteria": fraud_auth_criteria_output,
+        "fraud_authentication_settings": fraud_authentication_settings_output,
+        "fraud_fraud_settings": fraud_fraud_settings_output,
+        "fraud_user_profiles_status": fraud_user_profiles_status_output,
+        "fraud_username_expressions": fraud_username_expressions_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -111,6 +121,16 @@ export const tools: readonly Tool[] = [
         "fraud_fraud_settings": fraud_fraud_settings,
         "fraud_user_profiles_status": fraud_user_profiles_status,
         "fraud_username_expressions": fraud_username_expressions,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/fraud_fraud_settings",
+      $defs: {
+        "fraud_auth_criteria": fraud_auth_criteria_output,
+        "fraud_authentication_settings": fraud_authentication_settings_output,
+        "fraud_fraud_settings": fraud_fraud_settings_output,
+        "fraud_user_profiles_status": fraud_user_profiles_status_output,
+        "fraud_username_expressions": fraud_username_expressions_output,
       },
     },
     annotations: {

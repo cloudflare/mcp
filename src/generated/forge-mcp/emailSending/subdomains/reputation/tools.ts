@@ -39,6 +39,12 @@ export const tools: readonly Tool[] = [
         "end_at"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_sending_subdomain_reputation_complaints",
+      $defs: {
+        "email_sending_subdomain_reputation_complaints": email_sending_subdomain_reputation_complaints_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

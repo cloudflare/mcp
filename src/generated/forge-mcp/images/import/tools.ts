@@ -54,6 +54,15 @@ export const tools: readonly Tool[] = [
         "migration_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/images_sourcingkit_migration",
+      $defs: {
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -113,6 +122,15 @@ export const tools: readonly Tool[] = [
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration_create_request": images_sourcingkit_migration_create_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_sourcingkit_migration",
+      $defs: {
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
     annotations: {
@@ -181,6 +199,9 @@ export const tools: readonly Tool[] = [
         "migration_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -241,6 +262,15 @@ export const tools: readonly Tool[] = [
         "account_id",
         "migration_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_sourcingkit_migration",
+      $defs: {
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -312,6 +342,23 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "migrations": {
+          "items": {
+            "$ref": "#/$defs/images_sourcingkit_migration"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -402,6 +449,21 @@ export const tools: readonly Tool[] = [
         "migration_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "logs": {
+          "items": {
+            "$ref": "#/$defs/images_sourcingkit_migration_log"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "images_sourcingkit_migration_log": images_sourcingkit_migration_log_output,
+        "images_sourcingkit_migration_log_type": images_sourcingkit_migration_log_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -478,6 +540,72 @@ export const tools: readonly Tool[] = [
         "account_id",
         "migration_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "endedAt": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "importErrorsCount": {
+          "type": "integer"
+        },
+        "importSuccessCount": {
+          "type": "integer"
+        },
+        "isAccurate": {
+          "type": "boolean"
+        },
+        "scannedCount": {
+          "type": "integer"
+        },
+        "skippedConflictCount": {
+          "type": "integer"
+        },
+        "skippedExcludedContentTypeCount": {
+          "type": "integer"
+        },
+        "skippedInvalidMediaCount": {
+          "type": "integer"
+        },
+        "skippedInvalidNameCount": {
+          "type": "integer"
+        },
+        "skippedOversizeCount": {
+          "type": "integer"
+        },
+        "skippedStorageClassCount": {
+          "type": "integer"
+        },
+        "skippedUnsupportedContentTypeCount": {
+          "type": "integer"
+        },
+        "startedAt": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/images_sourcingkit_migration_status"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -602,6 +730,15 @@ export const tools: readonly Tool[] = [
         "account_id",
         "migration_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_sourcingkit_migration",
+      $defs: {
+        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
+        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
+        "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

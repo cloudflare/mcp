@@ -42,6 +42,12 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_App",
+      $defs: {
+        "flagship_App": flagship_App_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -127,6 +133,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_DeleteAppResult",
+      $defs: {
+        "flagship_DeleteAppResult": flagship_DeleteAppResult_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -216,6 +228,12 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_App",
+      $defs: {
+        "flagship_App": flagship_App_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -296,6 +314,26 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/flagship_App"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "flagship_App": flagship_App_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -406,6 +444,12 @@ export const tools: readonly Tool[] = [
         "app_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_App",
+      $defs: {
+        "flagship_App": flagship_App_output,
+      },
     },
     annotations: {
       "destructiveHint": true,

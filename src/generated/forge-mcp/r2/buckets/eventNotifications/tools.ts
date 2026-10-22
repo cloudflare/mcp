@@ -68,6 +68,9 @@ export const tools: readonly Tool[] = [
         "queue_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -141,6 +144,14 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "queue_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_queues-config",
+      $defs: {
+        "r2_queues-config": r2_queues_config_output,
+        "r2_r2-action": r2_r2_action_output,
+        "r2_rule": r2_rule_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -216,6 +227,15 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_bucket-config",
+      $defs: {
+        "r2_bucket-config": r2_bucket_config_output,
+        "r2_queues-config": r2_queues_config_output,
+        "r2_r2-action": r2_r2_action_output,
+        "r2_rule": r2_rule_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -318,6 +338,9 @@ export const tools: readonly Tool[] = [
         "r2_r2-action": r2_r2_action,
         "r2_rule": r2_rule,
       },
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

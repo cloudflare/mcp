@@ -40,6 +40,12 @@ export const tools: readonly Tool[] = [
         "intel-sinkholes_sinkhole_create_params": intel_sinkholes_sinkhole_create_params,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/intel-sinkholes_sinkhole_item",
+      $defs: {
+        "intel-sinkholes_sinkhole_item": intel_sinkholes_sinkhole_item_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -97,6 +103,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "intel-sinkholes_identifier": intel_sinkholes_identifier,
       },
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -157,6 +166,12 @@ export const tools: readonly Tool[] = [
         "intel-sinkholes_identifier": intel_sinkholes_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/intel-sinkholes_sinkhole_item",
+      $defs: {
+        "intel-sinkholes_sinkhole_item": intel_sinkholes_sinkhole_item_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -208,6 +223,26 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "intel-sinkholes_identifier": intel_sinkholes_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel-sinkholes_sinkhole_item"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "intel-sinkholes_sinkhole_item": intel_sinkholes_sinkhole_item_output,
       },
     },
     annotations: {
@@ -286,6 +321,9 @@ export const tools: readonly Tool[] = [
         "intel-sinkholes_identifier": intel_sinkholes_identifier,
         "intel-sinkholes_sinkhole_create_params": intel_sinkholes_sinkhole_create_params,
       },
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

@@ -155,6 +155,64 @@ export const tools: readonly Tool[] = [
         "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_Meeting"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "recording_config": {
+                  "$ref": "#/$defs/realtimekit_RecordingConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "ai_config": {
+                  "$ref": "#/$defs/realtimekit_AIConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_AIConfig": realtimekit_AIConfig_output,
+        "realtimekit_AudioConfig": realtimekit_AudioConfig_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig_output,
+        "realtimekit_Meeting": realtimekit_Meeting_output,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig_output,
+        "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig_output,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig_output,
+        "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark_output,
+        "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size_output,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -269,6 +327,64 @@ export const tools: readonly Tool[] = [
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
         "realtimekit_app_id": realtimekit_app_id,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_Meeting"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "recording_config": {
+                  "$ref": "#/$defs/realtimekit_RecordingConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "ai_config": {
+                  "$ref": "#/$defs/realtimekit_AIConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_AIConfig": realtimekit_AIConfig_output,
+        "realtimekit_AudioConfig": realtimekit_AudioConfig_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig_output,
+        "realtimekit_Meeting": realtimekit_Meeting_output,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig_output,
+        "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig_output,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig_output,
+        "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark_output,
+        "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size_output,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig_output,
       },
     },
     annotations: {
@@ -410,6 +526,39 @@ export const tools: readonly Tool[] = [
         "account_id",
         "app_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_PagingResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/$defs/realtimekit_Meeting"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_AudioConfig": realtimekit_AudioConfig_output,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig_output,
+        "realtimekit_Meeting": realtimekit_Meeting_output,
+        "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
+        "realtimekit_PagingResponse": realtimekit_PagingResponse_output,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig_output,
+        "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark_output,
+        "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size_output,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -589,6 +738,64 @@ export const tools: readonly Tool[] = [
         "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_Meeting"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "recording_config": {
+                  "$ref": "#/$defs/realtimekit_RecordingConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "ai_config": {
+                  "$ref": "#/$defs/realtimekit_AIConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_AIConfig": realtimekit_AIConfig_output,
+        "realtimekit_AudioConfig": realtimekit_AudioConfig_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig_output,
+        "realtimekit_Meeting": realtimekit_Meeting_output,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig_output,
+        "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig_output,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig_output,
+        "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark_output,
+        "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size_output,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -764,6 +971,64 @@ export const tools: readonly Tool[] = [
         "realtimekit_account_identifier": realtimekit_account_identifier,
         "realtimekit_app_id": realtimekit_app_id,
         "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_Meeting"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "recording_config": {
+                  "$ref": "#/$defs/realtimekit_RecordingConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "ai_config": {
+                  "$ref": "#/$defs/realtimekit_AIConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_AIConfig": realtimekit_AIConfig_output,
+        "realtimekit_AudioConfig": realtimekit_AudioConfig_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig_output,
+        "realtimekit_Meeting": realtimekit_Meeting_output,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig_output,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
+        "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
+        "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig_output,
+        "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig_output,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig_output,
+        "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark_output,
+        "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size_output,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig_output,
       },
     },
     annotations: {

@@ -21,6 +21,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {},
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_oauth_scope"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_oauth_scope": iam_oauth_scope_output,
+        "iam_result_info": iam_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

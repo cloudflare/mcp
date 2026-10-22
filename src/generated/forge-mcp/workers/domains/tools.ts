@@ -34,6 +34,13 @@ export const tools: readonly Tool[] = [
         "domain_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_api-response-common",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -90,6 +97,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "domain_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Domain",
+      $defs: {
+        "workers_Domain": workers_Domain_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -172,6 +185,43 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_Domain"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_Domain": workers_Domain_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -305,6 +355,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_Domain",
+      $defs: {
+        "workers_Domain": workers_Domain_output,
+      },
     },
     annotations: {
       "destructiveHint": true,

@@ -59,6 +59,9 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -121,6 +124,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_bucket-lock-rule-config",
+      $defs: {
+        "r2_bucket-lock-rule": r2_bucket_lock_rule_output,
+        "r2_bucket-lock-rule-config": r2_bucket_lock_rule_config_output,
+        "r2_bucket-lock-rule_condition": r2_bucket_lock_rule_condition_output,
+        "r2_lock-rule-age-condition": r2_lock_rule_age_condition_output,
+        "r2_lock-rule-date-condition": r2_lock_rule_date_condition_output,
+        "r2_lock-rule-indefinite-condition": r2_lock_rule_indefinite_condition_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -209,6 +223,9 @@ export const tools: readonly Tool[] = [
         "r2_lock-rule-date-condition": r2_lock_rule_date_condition,
         "r2_lock-rule-indefinite-condition": r2_lock_rule_indefinite_condition,
       },
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

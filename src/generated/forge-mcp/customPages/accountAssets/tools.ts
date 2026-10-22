@@ -76,6 +76,16 @@ export const tools: readonly Tool[] = [
         "custom-pages_asset_url": custom_pages_asset_url,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-pages_custom_asset",
+      $defs: {
+        "custom-pages_asset_description": custom_pages_asset_description_output,
+        "custom-pages_asset_name": custom_pages_asset_name_output,
+        "custom-pages_asset_url": custom_pages_asset_url_output,
+        "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -212,6 +222,16 @@ export const tools: readonly Tool[] = [
         "asset_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-pages_custom_asset",
+      $defs: {
+        "custom-pages_asset_description": custom_pages_asset_description_output,
+        "custom-pages_asset_name": custom_pages_asset_name_output,
+        "custom-pages_asset_url": custom_pages_asset_url_output,
+        "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -287,6 +307,47 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/custom-pages_custom_asset"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "custom-pages_asset_description": custom_pages_asset_description_output,
+        "custom-pages_asset_name": custom_pages_asset_name_output,
+        "custom-pages_asset_url": custom_pages_asset_url_output,
+        "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -414,6 +475,16 @@ export const tools: readonly Tool[] = [
       $defs: {
         "custom-pages_asset_description": custom_pages_asset_description,
         "custom-pages_asset_url": custom_pages_asset_url,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/custom-pages_custom_asset",
+      $defs: {
+        "custom-pages_asset_description": custom_pages_asset_description_output,
+        "custom-pages_asset_name": custom_pages_asset_name_output,
+        "custom-pages_asset_url": custom_pages_asset_url_output,
+        "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_timestamp": custom_pages_timestamp_output,
       },
     },
     annotations: {

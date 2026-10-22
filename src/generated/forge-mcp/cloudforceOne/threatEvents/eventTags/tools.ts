@@ -42,6 +42,17 @@ export const tools: readonly Tool[] = [
         "event_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -141,6 +152,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "event_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

@@ -74,6 +74,23 @@ export const tools: readonly Tool[] = [
         "load-balancing_type": load_balancing_type,
       },
     },
+    outputSchema: {
+      "properties": {
+        "pools": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "preview_id": {
+          "$ref": "#/$defs/load-balancing_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "load-balancing_identifier": load_balancing_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

@@ -43,6 +43,15 @@ export const tools: readonly Tool[] = [
         "domain_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pages_domain",
+      $defs: {
+        "pages_domain": pages_domain_output,
+        "pages_domain_name": pages_domain_name_output,
+        "pages_domain_validation_data": pages_domain_validation_data_output,
+        "pages_domain_verification_data": pages_domain_verification_data_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

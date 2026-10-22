@@ -80,6 +80,38 @@ export const tools: readonly Tool[] = [
         "magic_vlan_tag": magic_vlan_tag,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_lan"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -172,6 +204,24 @@ export const tools: readonly Tool[] = [
         "site_id",
         "lan_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_lan",
+      $defs: {
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -279,6 +329,24 @@ export const tools: readonly Tool[] = [
         "magic_vlan_tag": magic_vlan_tag,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_lan",
+      $defs: {
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -368,6 +436,24 @@ export const tools: readonly Tool[] = [
         "lan_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_lan",
+      $defs: {
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -452,6 +538,38 @@ export const tools: readonly Tool[] = [
         "account_id",
         "site_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_lan"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -563,6 +681,24 @@ export const tools: readonly Tool[] = [
         "magic_port": magic_port,
         "magic_routed_subnet": magic_routed_subnet,
         "magic_vlan_tag": magic_vlan_tag,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_lan",
+      $defs: {
+        "magic_bond_id": magic_bond_id_output,
+        "magic_cidr": magic_cidr_output,
+        "magic_dhcp_option": magic_dhcp_option_output,
+        "magic_identifier": magic_identifier_output,
+        "magic_ip-address": magic_ip_address_output,
+        "magic_lan": magic_lan_output,
+        "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
+        "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_nat": magic_nat_output,
+        "magic_port": magic_port_output,
+        "magic_routed_subnet": magic_routed_subnet_output,
+        "magic_vlan_tag": magic_vlan_tag_output,
       },
     },
     annotations: {

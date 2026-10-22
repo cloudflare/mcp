@@ -34,6 +34,16 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/stream_keys",
+      $defs: {
+        "stream_identifier-2": stream_identifier_2_output,
+        "stream_jwk": stream_jwk_output,
+        "stream_keys": stream_keys_output,
+        "stream_pem": stream_pem_output,
+        "stream_signing_key_created": stream_signing_key_created_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -92,6 +102,9 @@ export const tools: readonly Tool[] = [
         "identifier"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -139,6 +152,38 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created": {
+                "$ref": "#/$defs/stream_signing_key_created"
+              },
+              "id": {
+                "$ref": "#/$defs/stream_identifier-2"
+              },
+              "key_id": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "stream_identifier-2": stream_identifier_2_output,
+        "stream_signing_key_created": stream_signing_key_created_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

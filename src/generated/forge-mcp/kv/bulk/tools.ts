@@ -59,6 +59,12 @@ export const tools: readonly Tool[] = [
         "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers-kv_bulk-result",
+      $defs: {
+        "workers-kv_bulk-result": workers_kv_bulk_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -160,6 +166,22 @@ export const tools: readonly Tool[] = [
         "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers-kv_bulk-get-result"
+        },
+        {
+          "$ref": "#/$defs/workers-kv_bulk-get-result-with-metadata"
+        }
+      ],
+      $defs: {
+        "workers-kv_any": workers_kv_any_output,
+        "workers-kv_bulk-get-result": workers_kv_bulk_get_result_output,
+        "workers-kv_bulk-get-result-with-metadata": workers_kv_bulk_get_result_with_metadata_output,
+        "workers-kv_expiration": workers_kv_expiration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -236,6 +258,12 @@ export const tools: readonly Tool[] = [
         "workers-kv_expiration_ttl": workers_kv_expiration_ttl,
         "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
         "workers-kv_list_metadata": workers_kv_list_metadata,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers-kv_bulk-result",
+      $defs: {
+        "workers-kv_bulk-result": workers_kv_bulk_result_output,
       },
     },
     annotations: {

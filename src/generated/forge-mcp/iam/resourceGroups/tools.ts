@@ -55,6 +55,17 @@ export const tools: readonly Tool[] = [
         "iam_request_create_resource_group": iam_request_create_resource_group,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_resource_group",
+      $defs: {
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -131,6 +142,27 @@ export const tools: readonly Tool[] = [
         "account_id",
         "resource_group_id"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/iam_common_components-schemas-identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -218,6 +250,17 @@ export const tools: readonly Tool[] = [
         "resource_group_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_resource_group",
+      $defs: {
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -300,6 +343,31 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
         "iam_resource_group_identifier": iam_resource_group_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_resource_group"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
       },
     },
     annotations: {
@@ -406,6 +474,17 @@ export const tools: readonly Tool[] = [
         "iam_create_resource_group_scope_scope_object": iam_create_resource_group_scope_scope_object,
         "iam_create_resource_group_scope_scope_object_key": iam_create_resource_group_scope_scope_object_key,
         "iam_request_update_resource_group": iam_request_update_resource_group,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_resource_group",
+      $defs: {
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
       },
     },
     annotations: {

@@ -77,6 +77,17 @@ export const tools: readonly Tool[] = [
         "r2_create_storage_class_migration_job_request": r2_create_storage_class_migration_job_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_r2_bucket_job",
+      $defs: {
+        "r2_prefix_delete_job": r2_prefix_delete_job_output,
+        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
+        "r2_r2_bucket_job": r2_r2_bucket_job_output,
+        "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
+        "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
+        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -163,6 +174,17 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "job_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_r2_bucket_job",
+      $defs: {
+        "r2_prefix_delete_job": r2_prefix_delete_job_output,
+        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
+        "r2_r2_bucket_job": r2_r2_bucket_job_output,
+        "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
+        "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
+        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -266,6 +288,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_r2_bucket_jobs_result",
+      $defs: {
+        "r2_prefix_delete_job": r2_prefix_delete_job_output,
+        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
+        "r2_r2_bucket_job": r2_r2_bucket_job_output,
+        "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
+        "r2_r2_bucket_jobs_result": r2_r2_bucket_jobs_result_output,
+        "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
+        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
       },
     },
     annotations: {

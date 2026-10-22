@@ -36,6 +36,67 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "category": {
+                "enum": [
+                  "developer_platform",
+                  "ai_and_machine_learning",
+                  "dns_and_zones",
+                  "app_security",
+                  "rules_and_configuration",
+                  "cloudflare_one_and_zero_trust",
+                  "analytics_and_logs",
+                  "network_services",
+                  "media",
+                  "email_and_messaging",
+                  "cache_and_performance",
+                  "account_and_billing",
+                  "other"
+                ],
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "is_selectable": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "scopes": {
+                "items": {
+                  "enum": [
+                    "com.cloudflare.api.account",
+                    "com.cloudflare.api.account.zone",
+                    "com.cloudflare.api.user",
+                    "com.cloudflare.edge.r2.bucket"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_result_info": iam_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

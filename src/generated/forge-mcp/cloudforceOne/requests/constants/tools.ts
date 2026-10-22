@@ -42,6 +42,153 @@ export const tools: readonly Tool[] = [
         "project_type"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "properties": {
+          "properties": {
+            "result": {
+              "properties": {
+                "properties": {
+                  "properties": {
+                    "priority": {
+                      "properties": {
+                        "items": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "priority_token_surcharge": {
+                      "properties": {
+                        "additionalProperties": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "additionalProperties",
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "status": {
+                      "properties": {
+                        "items": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "tlp": {
+                      "properties": {
+                        "items": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "type"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "priority",
+                    "priority_token_surcharge",
+                    "status",
+                    "tlp"
+                  ],
+                  "type": "object"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "properties",
+                "type"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "properties",
+        "type"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

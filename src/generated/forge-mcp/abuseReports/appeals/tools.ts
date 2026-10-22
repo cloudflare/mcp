@@ -37,6 +37,12 @@ export const tools: readonly Tool[] = [
         "report_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/abuse-reports_AppealEligibility",
+      $defs: {
+        "abuse-reports_AppealEligibility": abuse_reports_AppealEligibility_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

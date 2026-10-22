@@ -122,6 +122,28 @@ export const tools: readonly Tool[] = [
         "infra_TargetId": infra_TargetId,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/infra_TargetArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "infra_IPInfo": infra_IPInfo_output,
+        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
+        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
+        "infra_Target": infra_Target_output,
+        "infra_TargetArray": infra_TargetArray_output,
+        "infra_TargetId": infra_TargetId_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -226,6 +248,28 @@ export const tools: readonly Tool[] = [
         "infra_IPInfo": infra_IPInfo,
         "infra_IPInfo_ipv4": infra_IPInfo_ipv4,
         "infra_IPInfo_ipv6": infra_IPInfo_ipv6,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/infra_TargetArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "infra_IPInfo": infra_IPInfo_output,
+        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
+        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
+        "infra_Target": infra_Target_output,
+        "infra_TargetArray": infra_TargetArray_output,
+        "infra_TargetId": infra_TargetId_output,
       },
     },
     annotations: {

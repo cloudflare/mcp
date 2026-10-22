@@ -84,6 +84,21 @@ export const tools: readonly Tool[] = [
         "tunnel_subnet_name": tunnel_subnet_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_subnet",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_subnet": tunnel_subnet_output,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
+        "tunnel_subnet_comment": tunnel_subnet_comment_output,
+        "tunnel_subnet_id": tunnel_subnet_id_output,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
+        "tunnel_subnet_name": tunnel_subnet_name_output,
+        "tunnel_subnet_type": tunnel_subnet_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -155,6 +170,56 @@ export const tools: readonly Tool[] = [
         "account_id",
         "subnet_id"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "capacity": {
+              "$ref": "#/$defs/tunnel_subnet_capacity"
+            },
+            "comment": {
+              "$ref": "#/$defs/tunnel_subnet_comment"
+            },
+            "created_at": {
+              "$ref": "#/$defs/tunnel_created_at"
+            },
+            "deleted_at": {
+              "$ref": "#/$defs/tunnel_deleted_at"
+            },
+            "id": {
+              "$ref": "#/$defs/tunnel_subnet_id"
+            },
+            "is_default_network": {
+              "$ref": "#/$defs/tunnel_subnet_is_default_network"
+            },
+            "name": {
+              "$ref": "#/$defs/tunnel_subnet_name"
+            },
+            "network": {
+              "$ref": "#/$defs/tunnel_subnet_ip_network"
+            },
+            "subnet_type": {
+              "$ref": "#/$defs/tunnel_subnet_type"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
+        "tunnel_subnet_comment": tunnel_subnet_comment_output,
+        "tunnel_subnet_id": tunnel_subnet_id_output,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
+        "tunnel_subnet_name": tunnel_subnet_name_output,
+        "tunnel_subnet_type": tunnel_subnet_type_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -293,6 +358,21 @@ export const tools: readonly Tool[] = [
         "tunnel_subnet_name": tunnel_subnet_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_subnet",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_subnet": tunnel_subnet_output,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
+        "tunnel_subnet_comment": tunnel_subnet_comment_output,
+        "tunnel_subnet_id": tunnel_subnet_id_output,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
+        "tunnel_subnet_name": tunnel_subnet_name_output,
+        "tunnel_subnet_type": tunnel_subnet_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -364,6 +444,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "subnet_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_subnet",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_deleted_at": tunnel_deleted_at_output,
+        "tunnel_subnet": tunnel_subnet_output,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
+        "tunnel_subnet_comment": tunnel_subnet_comment_output,
+        "tunnel_subnet_id": tunnel_subnet_id_output,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
+        "tunnel_subnet_name": tunnel_subnet_name_output,
+        "tunnel_subnet_type": tunnel_subnet_type_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -34,6 +34,13 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_FlagDefinitions",
+      $defs: {
+        "flagship_FlagDefinitions": flagship_FlagDefinitions_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

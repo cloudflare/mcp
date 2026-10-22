@@ -35,6 +35,14 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_ExportJob",
+      $defs: {
+        "posture-api_ExportJob": posture_api_ExportJob_output,
+        "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
+        "posture-api_StatusEnum": posture_api_StatusEnum_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -97,6 +105,29 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "posture-api_StatusEnum": posture_api_StatusEnum,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_ExportJob"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/posture-api_result-info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "posture-api_ExportJob": posture_api_ExportJob_output,
+        "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
+        "posture-api_StatusEnum": posture_api_StatusEnum_output,
+        "posture-api_result-info": posture_api_result_info_output,
       },
     },
     annotations: {

@@ -44,6 +44,13 @@ export const tools: readonly Tool[] = [
         "mcn_update_magic_wan_address_space_request": mcn_update_magic_wan_address_space_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_magic_wan_address_space",
+      $defs: {
+        "mcn_cidr_prefix": mcn_cidr_prefix_output,
+        "mcn_magic_wan_address_space": mcn_magic_wan_address_space_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -110,6 +117,13 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_magic_wan_address_space",
+      $defs: {
+        "mcn_cidr_prefix": mcn_cidr_prefix_output,
+        "mcn_magic_wan_address_space": mcn_magic_wan_address_space_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -181,6 +195,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "mcn_cidr_prefix": mcn_cidr_prefix,
         "mcn_update_magic_wan_address_space_request": mcn_update_magic_wan_address_space_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_magic_wan_address_space",
+      $defs: {
+        "mcn_cidr_prefix": mcn_cidr_prefix_output,
+        "mcn_magic_wan_address_space": mcn_magic_wan_address_space_output,
       },
     },
     annotations: {

@@ -47,6 +47,21 @@ export const tools: readonly Tool[] = [
         "raw_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -140,6 +155,37 @@ export const tools: readonly Tool[] = [
         "event_id",
         "raw_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "accountId": {
+          "type": "number"
+        },
+        "created": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "tlp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accountId",
+        "created",
+        "data",
+        "id",
+        "source",
+        "tlp"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

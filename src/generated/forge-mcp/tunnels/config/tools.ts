@@ -51,6 +51,22 @@ export const tools: readonly Tool[] = [
         "tunnel_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_configuration",
+      $defs: {
+        "tunnel_config": tunnel_config_output,
+        "tunnel_config_src-2": tunnel_config_src_2_output,
+        "tunnel_config_version-2": tunnel_config_version_2_output,
+        "tunnel_config_warp-routing": tunnel_config_warp_routing_output,
+        "tunnel_configuration": tunnel_configuration_output,
+        "tunnel_identifier": tunnel_identifier_output,
+        "tunnel_ingressRule": tunnel_ingressRule_output,
+        "tunnel_originRequest": tunnel_originRequest_output,
+        "tunnel_originRequest_access": tunnel_originRequest_access_output,
+        "tunnel_timestamp": tunnel_timestamp_output,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -133,6 +149,22 @@ export const tools: readonly Tool[] = [
         "tunnel_ingressRule": tunnel_ingressRule,
         "tunnel_originRequest": tunnel_originRequest,
         "tunnel_originRequest_access": tunnel_originRequest_access,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_configuration",
+      $defs: {
+        "tunnel_config": tunnel_config_output,
+        "tunnel_config_src-2": tunnel_config_src_2_output,
+        "tunnel_config_version-2": tunnel_config_version_2_output,
+        "tunnel_config_warp-routing": tunnel_config_warp_routing_output,
+        "tunnel_configuration": tunnel_configuration_output,
+        "tunnel_identifier": tunnel_identifier_output,
+        "tunnel_ingressRule": tunnel_ingressRule_output,
+        "tunnel_originRequest": tunnel_originRequest_output,
+        "tunnel_originRequest_access": tunnel_originRequest_access_output,
+        "tunnel_timestamp": tunnel_timestamp_output,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
       },
     },
     annotations: {

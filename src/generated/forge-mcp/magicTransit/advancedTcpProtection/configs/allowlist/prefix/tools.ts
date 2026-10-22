@@ -36,6 +36,13 @@ export const tools: readonly Tool[] = [
         "prefix_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dos_api-response-common",
+      $defs: {
+        "dos_api-response-common": dos_api_response_common_output,
+        "dos_messages": dos_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -89,6 +96,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "prefix_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dos_InfraPrefix",
+      $defs: {
+        "dos_InfraPrefix": dos_InfraPrefix_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -151,6 +164,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dos_InfraPrefixUpdate": dos_InfraPrefixUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dos_InfraPrefix",
+      $defs: {
+        "dos_InfraPrefix": dos_InfraPrefix_output,
       },
     },
     annotations: {

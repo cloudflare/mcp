@@ -25,6 +25,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_Settings",
+      $defs: {
+        "nsc_Settings": nsc_Settings_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -80,6 +86,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "nsc_SettingsRequest": nsc_SettingsRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_Settings",
+      $defs: {
+        "nsc_Settings": nsc_Settings_output,
       },
     },
     annotations: {

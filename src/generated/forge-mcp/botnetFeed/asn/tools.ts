@@ -38,6 +38,21 @@ export const tools: readonly Tool[] = [
         "dos_timestamp": dos_timestamp,
       },
     },
+    outputSchema: {
+      "properties": {
+        "cidr": {
+          "type": "string"
+        },
+        "date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "offense_count": {
+          "type": "integer"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -105,6 +120,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "asn_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "cidr": {
+          "type": "string"
+        },
+        "date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "offense_count": {
+          "type": "integer"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

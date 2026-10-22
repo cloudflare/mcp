@@ -29,6 +29,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_certificates-2",
+      $defs: {
+        "access_certificates-2": access_certificates_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -83,6 +89,17 @@ export const tools: readonly Tool[] = [
         "certificate_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -136,6 +153,43 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_certificates-2"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_certificates-2": access_certificates_2_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -52,6 +52,23 @@ export const tools: readonly Tool[] = [
         "connector_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_tunnel_warp_connector_client",
+      $defs: {
+        "tunnel_arch": tunnel_arch_output,
+        "tunnel_client_id": tunnel_client_id_output,
+        "tunnel_colo_name": tunnel_colo_name_output,
+        "tunnel_connection_id": tunnel_connection_id_output,
+        "tunnel_features": tunnel_features_output,
+        "tunnel_ha_status": tunnel_ha_status_output,
+        "tunnel_ip": tunnel_ip_output,
+        "tunnel_run_at": tunnel_run_at_output,
+        "tunnel_schemas-warp-connector-connection": tunnel_schemas_warp_connector_connection_output,
+        "tunnel_tunnel_warp_connector_client": tunnel_tunnel_warp_connector_client_output,
+        "tunnel_version": tunnel_version_output,
+        "tunnel_warp_connector_connections": tunnel_warp_connector_connections_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

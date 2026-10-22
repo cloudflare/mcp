@@ -28,6 +28,12 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "items": {
+        "type": "object"
+      },
+      "type": "array",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -45,6 +45,13 @@ export const tools: readonly Tool[] = [
         "event_n"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mconn-telemetry_recorded_event",
+      $defs: {
+        "mconn-telemetry_event": mconn_telemetry_event_output,
+        "mconn-telemetry_recorded_event": mconn_telemetry_recorded_event_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -138,6 +145,13 @@ export const tools: readonly Tool[] = [
         "from",
         "to"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mconn-telemetry_customer_events_list_result",
+      $defs: {
+        "mconn-telemetry_customer_events_list_result": mconn_telemetry_customer_events_list_result_output,
+        "mconn-telemetry_event_metadata": mconn_telemetry_event_metadata_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

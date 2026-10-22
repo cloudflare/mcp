@@ -80,6 +80,25 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_tests_response",
+      $defs: {
+        "digital-experience-monitoring_aggregate_stat": digital_experience_monitoring_aggregate_stat_output,
+        "digital-experience-monitoring_aggregate_time_period": digital_experience_monitoring_aggregate_time_period_output,
+        "digital-experience-monitoring_aggregate_time_slot": digital_experience_monitoring_aggregate_time_slot_output,
+        "digital-experience-monitoring_tests_response": digital_experience_monitoring_tests_response_output,
+        "digital-experience-monitoring_tests_response_overviewMetrics": digital_experience_monitoring_tests_response_overviewMetrics_output,
+        "digital-experience-monitoring_tests_response_testsItem": digital_experience_monitoring_tests_response_testsItem_output,
+        "digital-experience-monitoring_tests_response_testsItem_httpResults": digital_experience_monitoring_tests_response_testsItem_httpResults_output,
+        "digital-experience-monitoring_tests_response_testsItem_httpResultsByColoItem": digital_experience_monitoring_tests_response_testsItem_httpResultsByColoItem_output,
+        "digital-experience-monitoring_tests_response_testsItem_target_policiesItem": digital_experience_monitoring_tests_response_testsItem_target_policiesItem_output,
+        "digital-experience-monitoring_tests_response_testsItem_tracerouteResults": digital_experience_monitoring_tests_response_testsItem_tracerouteResults_output,
+        "digital-experience-monitoring_tests_response_testsItem_tracerouteResultsByColoItem": digital_experience_monitoring_tests_response_testsItem_tracerouteResultsByColoItem_output,
+        "digital-experience-monitoring_timing_aggregates": digital_experience_monitoring_timing_aggregates_output,
+        "digital-experience-monitoring_timing_aggregates_overTime": digital_experience_monitoring_timing_aggregates_overTime_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

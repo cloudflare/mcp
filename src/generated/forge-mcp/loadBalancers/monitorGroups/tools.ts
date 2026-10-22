@@ -48,6 +48,15 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor_id": load_balancing_monitor_id,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor-group",
+      $defs: {
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -102,6 +111,15 @@ export const tools: readonly Tool[] = [
         "account_id",
         "monitor_group_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor-group",
+      $defs: {
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -166,6 +184,15 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor_id": load_balancing_monitor_id,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor-group",
+      $defs: {
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -221,6 +248,15 @@ export const tools: readonly Tool[] = [
         "monitor_group_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor-group",
+      $defs: {
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -267,6 +303,30 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/load-balancing_monitor-group"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/load-balancing_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_result_info": load_balancing_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -341,6 +401,15 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load_balancing_monitor_group,
         "load-balancing_monitor-group-member": load_balancing_monitor_group_member,
         "load-balancing_monitor_id": load_balancing_monitor_id,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor-group",
+      $defs: {
+        "load-balancing_monitor-group": load_balancing_monitor_group_output,
+        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
       },
     },
     annotations: {

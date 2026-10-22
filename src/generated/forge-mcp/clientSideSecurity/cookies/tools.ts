@@ -35,6 +35,13 @@ export const tools: readonly Tool[] = [
         "cookie_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/client-side-security_cookie",
+      $defs: {
+        "client-side-security_cookie": client_side_security_cookie_output,
+        "client-side-security_id": client_side_security_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -171,6 +178,28 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/client-side-security_cookie"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/client-side-security_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "client-side-security_cookie": client_side_security_cookie_output,
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_result_info": client_side_security_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

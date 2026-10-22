@@ -62,6 +62,16 @@ export const tools: readonly Tool[] = [
         "secrets-store_identifier": secrets_store_identifier,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -142,6 +152,51 @@ export const tools: readonly Tool[] = [
         "secrets-store_scopes": secrets_store_scopes,
         "secrets-store_secret_name": secrets_store_secret_name,
         "secrets-store_value": secrets_store_value,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/secrets-store_secretObject"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "secrets-store_SecretStatus": secrets_store_SecretStatus_output,
+        "secrets-store_comment": secrets_store_comment_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_identifier": secrets_store_identifier_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_scopes": secrets_store_scopes_output,
+        "secrets-store_secretObject": secrets_store_secretObject_output,
+        "secrets-store_secret_name": secrets_store_secret_name_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
       },
     },
     annotations: {
@@ -250,6 +305,16 @@ export const tools: readonly Tool[] = [
         "secret_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -330,6 +395,20 @@ export const tools: readonly Tool[] = [
         "secrets-store_duplicateSecretObject": secrets_store_duplicateSecretObject,
         "secrets-store_scopes": secrets_store_scopes,
         "secrets-store_secret_name": secrets_store_secret_name,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/secrets-store_secretObject",
+      $defs: {
+        "secrets-store_SecretStatus": secrets_store_SecretStatus_output,
+        "secrets-store_comment": secrets_store_comment_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_identifier": secrets_store_identifier_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_scopes": secrets_store_scopes_output,
+        "secrets-store_secretObject": secrets_store_secretObject_output,
+        "secrets-store_secret_name": secrets_store_secret_name_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
       },
     },
     annotations: {
@@ -417,6 +496,20 @@ export const tools: readonly Tool[] = [
         "secrets-store_value": secrets_store_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/secrets-store_secretObject",
+      $defs: {
+        "secrets-store_SecretStatus": secrets_store_SecretStatus_output,
+        "secrets-store_comment": secrets_store_comment_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_identifier": secrets_store_identifier_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_scopes": secrets_store_scopes_output,
+        "secrets-store_secretObject": secrets_store_secretObject_output,
+        "secrets-store_secret_name": secrets_store_secret_name_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -491,6 +584,20 @@ export const tools: readonly Tool[] = [
         "store_id",
         "secret_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/secrets-store_secretObject",
+      $defs: {
+        "secrets-store_SecretStatus": secrets_store_SecretStatus_output,
+        "secrets-store_comment": secrets_store_comment_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_identifier": secrets_store_identifier_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_scopes": secrets_store_scopes_output,
+        "secrets-store_secretObject": secrets_store_secretObject_output,
+        "secrets-store_secret_name": secrets_store_secret_name_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -609,6 +716,51 @@ export const tools: readonly Tool[] = [
         "account_id",
         "store_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/secrets-store_secretObject"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "secrets-store_SecretStatus": secrets_store_SecretStatus_output,
+        "secrets-store_comment": secrets_store_comment_output,
+        "secrets-store_created": secrets_store_created_output,
+        "secrets-store_identifier": secrets_store_identifier_output,
+        "secrets-store_modified": secrets_store_modified_output,
+        "secrets-store_scopes": secrets_store_scopes_output,
+        "secrets-store_secretObject": secrets_store_secretObject_output,
+        "secrets-store_secret_name": secrets_store_secret_name_output,
+        "secrets-store_store_identifier": secrets_store_store_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

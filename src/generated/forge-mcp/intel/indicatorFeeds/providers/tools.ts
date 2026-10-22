@@ -40,6 +40,12 @@ export const tools: readonly Tool[] = [
         "custom-indicator-feeds_create_provider_request": custom_indicator_feeds_create_provider_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-indicator-feeds_create_provider_result",
+      $defs: {
+        "custom-indicator-feeds_create_provider_result": custom_indicator_feeds_create_provider_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,

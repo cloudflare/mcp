@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "cache-settings_origin_max_http_version_value": cache_settings_origin_max_http_version_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_max_http_version",
+      $defs: {
+        "cache-settings_origin_max_http_version": cache_settings_origin_max_http_version_output,
+        "cache-settings_origin_max_http_version_value": cache_settings_origin_max_http_version_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -115,6 +122,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_max_http_version",
+      $defs: {
+        "cache-settings_origin_max_http_version": cache_settings_origin_max_http_version_output,
+        "cache-settings_origin_max_http_version_value": cache_settings_origin_max_http_version_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

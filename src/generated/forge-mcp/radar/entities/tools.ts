@@ -31,6 +31,53 @@ export const tools: readonly Tool[] = [
         "ip"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "ip": {
+          "properties": {
+            "asn": {
+              "type": "string"
+            },
+            "asnLocation": {
+              "type": "string"
+            },
+            "asnName": {
+              "type": "string"
+            },
+            "asnOrgName": {
+              "type": "string"
+            },
+            "ip": {
+              "type": "string"
+            },
+            "ipVersion": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "locationName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "asn",
+            "asnLocation",
+            "asnName",
+            "asnOrgName",
+            "ip",
+            "ipVersion",
+            "location",
+            "locationName"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "ip"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

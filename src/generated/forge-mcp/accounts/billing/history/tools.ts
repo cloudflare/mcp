@@ -43,6 +43,27 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_account_billing_history"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/bill-subs-api_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "bill-subs-api_account_billing_history": bill_subs_api_account_billing_history_output,
+        "bill-subs-api_result_info": bill_subs_api_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

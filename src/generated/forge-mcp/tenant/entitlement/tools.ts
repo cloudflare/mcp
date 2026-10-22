@@ -36,6 +36,18 @@ export const tools: readonly Tool[] = [
         "tenant_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_InnateEntitlements",
+      $defs: {
+        "organizations-api_BoolAllocation": organizations_api_BoolAllocation_output,
+        "organizations-api_Entitlement": organizations_api_Entitlement_output,
+        "organizations-api_Entitlement_allocation": organizations_api_Entitlement_allocation_output,
+        "organizations-api_Feature": organizations_api_Feature_output,
+        "organizations-api_InnateEntitlements": organizations_api_InnateEntitlements_output,
+        "organizations-api_MaxCountAllocation": organizations_api_MaxCountAllocation_output,
+        "organizations-api_NullAllocation": organizations_api_NullAllocation_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

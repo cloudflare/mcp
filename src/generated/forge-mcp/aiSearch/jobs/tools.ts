@@ -50,6 +50,40 @@ export const tools: readonly Tool[] = [
         "job_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "end_reason": {
+          "type": "string"
+        },
+        "ended_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "last_seen_at": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "user",
+            "schedule"
+          ],
+          "type": "string"
+        },
+        "started_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -266,6 +300,40 @@ export const tools: readonly Tool[] = [
         "namespace",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "end_reason": {
+          "type": "string"
+        },
+        "ended_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "last_seen_at": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "user",
+            "schedule"
+          ],
+          "type": "string"
+        },
+        "started_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -541,6 +609,40 @@ export const tools: readonly Tool[] = [
         "job_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "end_reason": {
+          "type": "string"
+        },
+        "ended_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "last_seen_at": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "user",
+            "schedule"
+          ],
+          "type": "string"
+        },
+        "started_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -719,6 +821,74 @@ export const tools: readonly Tool[] = [
         "namespace",
         "instance_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "end_reason": {
+                "type": "string"
+              },
+              "ended_at": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "last_seen_at": {
+                "type": "string"
+              },
+              "source": {
+                "enum": [
+                  "user",
+                  "schedule"
+                ],
+                "type": "string"
+              },
+              "started_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "source"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -977,6 +1147,63 @@ export const tools: readonly Tool[] = [
         "instance_id",
         "job_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "type": "number"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "message": {
+                "type": "string"
+              },
+              "message_type": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "created_at",
+              "id",
+              "message",
+              "message_type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

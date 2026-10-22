@@ -34,6 +34,23 @@ export const tools: readonly Tool[] = [
         "script_name"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "schedules": {
+          "items": {
+            "$ref": "#/$defs/workers_schedule"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "schedules"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_schedule": workers_schedule_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -119,6 +136,23 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_schedule": workers_schedule,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "schedules": {
+          "items": {
+            "$ref": "#/$defs/workers_schedule"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "schedules"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_schedule": workers_schedule_output,
       },
     },
     annotations: {

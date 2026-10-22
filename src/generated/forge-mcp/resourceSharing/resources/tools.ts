@@ -64,6 +64,21 @@ export const tools: readonly Tool[] = [
         "resource-sharing_resource_type": resource_sharing_resource_type,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_resource_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -141,6 +156,21 @@ export const tools: readonly Tool[] = [
         "share_resource_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_resource_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -216,6 +246,21 @@ export const tools: readonly Tool[] = [
         "share_id",
         "share_resource_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_resource_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -308,6 +353,36 @@ export const tools: readonly Tool[] = [
       $defs: {
         "resource-sharing_resource_status": resource_sharing_resource_status,
         "resource-sharing_resource_type": resource_sharing_resource_type,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/resource-sharing_share_resource_object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/resource-sharing_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_result_info": resource_sharing_result_info_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
       },
     },
     annotations: {
@@ -413,6 +488,21 @@ export const tools: readonly Tool[] = [
       $defs: {
         "resource-sharing_resource_meta": resource_sharing_resource_meta,
         "resource-sharing_update_share_resource_request": resource_sharing_update_share_resource_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/resource-sharing_share_resource_object",
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_created": resource_sharing_created_output,
+        "resource-sharing_modified": resource_sharing_modified_output,
+        "resource-sharing_resource_id": resource_sharing_resource_id_output,
+        "resource-sharing_resource_meta": resource_sharing_resource_meta_output,
+        "resource-sharing_resource_resource_id": resource_sharing_resource_resource_id_output,
+        "resource-sharing_resource_status": resource_sharing_resource_status_output,
+        "resource-sharing_resource_type": resource_sharing_resource_type_output,
+        "resource-sharing_resource_version": resource_sharing_resource_version_output,
+        "resource-sharing_share_resource_object": resource_sharing_share_resource_object_output,
       },
     },
     annotations: {

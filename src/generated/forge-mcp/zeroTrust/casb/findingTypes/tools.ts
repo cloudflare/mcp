@@ -60,6 +60,18 @@ export const tools: readonly Tool[] = [
         "posture-api_create-finding-type-request": posture_api_create_finding_type_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_custom-finding-type-response",
+      $defs: {
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -201,6 +213,18 @@ export const tools: readonly Tool[] = [
         "finding_type_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_BaseFindingType",
+      $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -336,6 +360,33 @@ export const tools: readonly Tool[] = [
         "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_BaseFindingType"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/posture-api_result-info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -436,6 +487,18 @@ export const tools: readonly Tool[] = [
         "posture-api_update-finding-type-request": posture_api_update_finding_type_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_custom-finding-type-response",
+      $defs: {
+        "posture-api_FindingCategory": posture_api_FindingCategory_output,
+        "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
+        "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum_output,
+        "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
+        "posture-api_ProductEnum": posture_api_ProductEnum_output,
+        "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -517,6 +580,13 @@ export const tools: readonly Tool[] = [
         "posture-api_FindingTypeVendorsEnum": posture_api_FindingTypeVendorsEnum,
         "posture-api_SeverityEnum": posture_api_SeverityEnum,
         "posture-api_create-finding-type-request": posture_api_create_finding_type_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_ValidateFindingTypeResult",
+      $defs: {
+        "posture-api_FindingTypeValidationError": posture_api_FindingTypeValidationError_output,
+        "posture-api_ValidateFindingTypeResult": posture_api_ValidateFindingTypeResult_output,
       },
     },
     annotations: {

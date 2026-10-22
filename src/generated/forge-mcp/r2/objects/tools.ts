@@ -72,6 +72,77 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "errors": {
+              "$ref": "#/$defs/r2_errors"
+            },
+            "messages": {
+              "$ref": "#/$defs/r2_messages"
+            },
+            "result": {
+              "items": {
+                "$ref": "#/$defs/r2_r2_delete_object_result"
+              },
+              "type": "array"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        },
+        {
+          "properties": {
+            "errors": {
+              "$ref": "#/$defs/r2_errors"
+            },
+            "messages": {
+              "$ref": "#/$defs/r2_messages"
+            },
+            "result": {
+              "$ref": "#/$defs/r2_prefix_delete_job"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_prefix_delete_job": r2_prefix_delete_job_output,
+        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
+        "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
+        "r2_r2_delete_object_result": r2_r2_delete_object_result_output,
+        "r2_v4_response_failure": r2_v4_response_failure_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -212,6 +283,12 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "object_key"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_r2_delete_object_result",
+      $defs: {
+        "r2_r2_delete_object_result": r2_r2_delete_object_result_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -391,6 +468,29 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/r2_r2_object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/r2_r2_list_objects_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "r2_r2_list_objects_result_info": r2_r2_list_objects_result_info_output,
+        "r2_r2_object": r2_r2_object_output,
+        "r2_r2_object_http_metadata": r2_r2_object_http_metadata_output,
+        "r2_storage_class": r2_storage_class_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -50,6 +50,12 @@ export const tools: readonly Tool[] = [
         "id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_SuccessResponse",
+      $defs: {
+        "cloudforce-one_SuccessResponse": cloudforce_one_SuccessResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -103,6 +109,23 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_RuleApprovalDetailResponse",
+      $defs: {
+        "cloudforce-one_ApprovalProposedChanges": cloudforce_one_ApprovalProposedChanges_output,
+        "cloudforce-one_CompilerWarning": cloudforce_one_CompilerWarning_output,
+        "cloudforce-one_CompilerWarning_footersItem": cloudforce_one_CompilerWarning_footersItem_output,
+        "cloudforce-one_CompilerWarning_labelsItem": cloudforce_one_CompilerWarning_labelsItem_output,
+        "cloudforce-one_CompilerWarning_labelsItem_span": cloudforce_one_CompilerWarning_labelsItem_span_output,
+        "cloudforce-one_PendingRuleChange": cloudforce_one_PendingRuleChange_output,
+        "cloudforce-one_RuleApprovalDetailResponse": cloudforce_one_RuleApprovalDetailResponse_output,
+        "cloudforce-one_RuleApprovalDetailResponse_approval": cloudforce_one_RuleApprovalDetailResponse_approval_output,
+        "cloudforce-one_RuleApprovalDetailResponse_approval_current_rule": cloudforce_one_RuleApprovalDetailResponse_approval_current_rule_output,
+        "cloudforce-one_RuleMetaEntry": cloudforce_one_RuleMetaEntry_output,
+        "cloudforce-one_RuleMetaEntry_value": cloudforce_one_RuleMetaEntry_value_output,
+        "cloudforce-one_RulePreview": cloudforce_one_RulePreview_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -241,6 +264,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_RuleApprovalsListResponse",
+      $defs: {
+        "cloudforce-one_ApprovalProposedChanges": cloudforce_one_ApprovalProposedChanges_output,
+        "cloudforce-one_RuleApprovalsListResponse": cloudforce_one_RuleApprovalsListResponse_output,
+        "cloudforce-one_RuleApprovalsListResponse_approvalsItem": cloudforce_one_RuleApprovalsListResponse_approvalsItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -307,6 +338,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cloudforce-one_ResubmitApprovalRequest": cloudforce_one_ResubmitApprovalRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_ResubmitApprovalResponse",
+      $defs: {
+        "cloudforce-one_ResubmitApprovalResponse": cloudforce_one_ResubmitApprovalResponse_output,
       },
     },
     annotations: {

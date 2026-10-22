@@ -63,6 +63,16 @@ export const tools: readonly Tool[] = [
         "interval"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_traceroute_test_network_path_response",
+      $defs: {
+        "digital-experience-monitoring_traceroute_test_network_path_response": digital_experience_monitoring_traceroute_test_network_path_response_output,
+        "digital-experience-monitoring_traceroute_test_network_path_response_networkPath": digital_experience_monitoring_traceroute_test_network_path_response_networkPath_output,
+        "digital-experience-monitoring_traceroute_test_network_path_response_networkPath_sampling": digital_experience_monitoring_traceroute_test_network_path_response_networkPath_sampling_output,
+        "digital-experience-monitoring_traceroute_test_network_path_response_networkPath_slotsItem": digital_experience_monitoring_traceroute_test_network_path_response_networkPath_slotsItem_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

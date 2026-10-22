@@ -32,6 +32,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes",
+      $defs: {
+        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -98,6 +104,28 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
+        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
       },
     },
     annotations: {
@@ -168,6 +196,28 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
+        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -251,6 +301,28 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_origin_tls_compliance_modes_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
+        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
       },
     },
     annotations: {

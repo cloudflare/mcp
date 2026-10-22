@@ -44,6 +44,16 @@ export const tools: readonly Tool[] = [
         "dlp_NewDataset": dlp_NewDataset,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DatasetCreation",
+      $defs: {
+        "dlp_Dataset": dlp_Dataset_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetCreation": dlp_DatasetCreation_output,
+        "dlp_DatasetUpload": dlp_DatasetUpload_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -152,6 +162,15 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Dataset",
+      $defs: {
+        "dlp_Dataset": dlp_Dataset_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetUpload": dlp_DatasetUpload_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -203,6 +222,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_DatasetArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_Dataset": dlp_Dataset_output,
+        "dlp_DatasetArray": dlp_DatasetArray_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetUpload": dlp_DatasetUpload_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -273,6 +313,14 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DatasetNewVersion",
+      $defs: {
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetNewVersion": dlp_DatasetNewVersion_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -334,6 +382,15 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_DatasetUpdate": dlp_DatasetUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Dataset",
+      $defs: {
+        "dlp_Dataset": dlp_Dataset_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn_output,
+        "dlp_DatasetUpload": dlp_DatasetUpload_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
       },
     },
     annotations: {

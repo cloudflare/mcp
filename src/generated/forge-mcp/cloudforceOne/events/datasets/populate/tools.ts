@@ -23,6 +23,529 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "properties": {
+          "properties": {
+            "accountId": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "type": "object"
+            },
+            "datasets": {
+              "properties": {
+                "items": {
+                  "properties": {
+                    "properties": {
+                      "properties": {
+                        "attackers": {
+                          "properties": {
+                            "properties": {
+                              "properties": {
+                                "created": {
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "errors": {
+                                  "properties": {
+                                    "items": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "items",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "found": {
+                                  "properties": {
+                                    "items": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "items",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                }
+                              },
+                              "required": [
+                                "created",
+                                "errors",
+                                "found"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "properties",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "categories": {
+                          "properties": {
+                            "properties": {
+                              "properties": {
+                                "created": {
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "errors": {
+                                  "properties": {
+                                    "items": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "items",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "found": {
+                                  "properties": {
+                                    "items": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "items",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                }
+                              },
+                              "required": [
+                                "created",
+                                "errors",
+                                "found"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "properties",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "datasetId": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "indicatorTypes": {
+                          "properties": {
+                            "properties": {
+                              "properties": {
+                                "created": {
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "errors": {
+                                  "properties": {
+                                    "items": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "items",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "found": {
+                                  "properties": {
+                                    "items": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "items",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                }
+                              },
+                              "required": [
+                                "created",
+                                "errors",
+                                "found"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "properties",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "processingTimeMs": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "targetIndustries": {
+                          "properties": {
+                            "properties": {
+                              "properties": {
+                                "created": {
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "errors": {
+                                  "properties": {
+                                    "items": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "items",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                },
+                                "found": {
+                                  "properties": {
+                                    "items": {
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "items",
+                                    "type"
+                                  ],
+                                  "type": "object"
+                                }
+                              },
+                              "required": [
+                                "created",
+                                "errors",
+                                "found"
+                              ],
+                              "type": "object"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "properties",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "totalProcessed": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "attackers",
+                        "categories",
+                        "datasetId",
+                        "indicatorTypes",
+                        "processingTimeMs",
+                        "targetIndustries",
+                        "totalProcessed"
+                      ],
+                      "type": "object"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "properties",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "items",
+                "type"
+              ],
+              "type": "object"
+            },
+            "errors": {
+              "properties": {
+                "items": {
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "items",
+                "type"
+              ],
+              "type": "object"
+            },
+            "summary": {
+              "properties": {
+                "properties": {
+                  "properties": {
+                    "failedDatasets": {
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "successfulDatasets": {
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "totalDatasets": {
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "totalIndicatorTypes": {
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "totalProcessingTimeMs": {
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "failedDatasets",
+                    "successfulDatasets",
+                    "totalDatasets",
+                    "totalIndicatorTypes",
+                    "totalProcessingTimeMs"
+                  ],
+                  "type": "object"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "properties",
+                "type"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "accountId",
+            "datasets",
+            "errors",
+            "summary"
+          ],
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "properties",
+        "type"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

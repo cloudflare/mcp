@@ -44,6 +44,9 @@ export const tools: readonly Tool[] = [
         "language"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -102,6 +105,16 @@ export const tools: readonly Tool[] = [
         "language"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/stream_captions",
+      $defs: {
+        "stream_caption_status": stream_caption_status_output,
+        "stream_captions": stream_captions_output,
+        "stream_generated_caption": stream_generated_caption_output,
+        "stream_label": stream_label_output,
+        "stream_language": stream_language_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -159,6 +172,16 @@ export const tools: readonly Tool[] = [
         "identifier",
         "language"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/stream_captions",
+      $defs: {
+        "stream_caption_status": stream_caption_status_output,
+        "stream_captions": stream_captions_output,
+        "stream_generated_caption": stream_generated_caption_output,
+        "stream_label": stream_label_output,
+        "stream_language": stream_language_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

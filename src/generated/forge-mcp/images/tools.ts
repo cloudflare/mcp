@@ -55,6 +55,9 @@ export const tools: readonly Tool[] = [
         "image_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -121,6 +124,22 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "images_image_patch_request": images_image_patch_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_image",
+      $defs: {
+        "images_image": images_image_output,
+        "images_image_creator": images_image_creator_output,
+        "images_image_filename": images_image_filename_output,
+        "images_image_hero_url": images_image_hero_url_output,
+        "images_image_identifier": images_image_identifier_output,
+        "images_image_metadata": images_image_metadata_output,
+        "images_image_original_url": images_image_original_url_output,
+        "images_image_requireSignedURLs": images_image_requireSignedURLs_output,
+        "images_image_thumbnail_url": images_image_thumbnail_url_output,
+        "images_image_uploaded": images_image_uploaded_output,
+        "images_image_variants": images_image_variants_output,
       },
     },
     annotations: {
@@ -195,6 +214,22 @@ export const tools: readonly Tool[] = [
         "account_id",
         "image_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_image",
+      $defs: {
+        "images_image": images_image_output,
+        "images_image_creator": images_image_creator_output,
+        "images_image_filename": images_image_filename_output,
+        "images_image_hero_url": images_image_hero_url_output,
+        "images_image_identifier": images_image_identifier_output,
+        "images_image_metadata": images_image_metadata_output,
+        "images_image_original_url": images_image_original_url_output,
+        "images_image_requireSignedURLs": images_image_requireSignedURLs_output,
+        "images_image_thumbnail_url": images_image_thumbnail_url_output,
+        "images_image_uploaded": images_image_uploaded_output,
+        "images_image_variants": images_image_variants_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -360,6 +395,30 @@ export const tools: readonly Tool[] = [
         "images_images_list_continuation_token": images_images_list_continuation_token,
       },
     },
+    outputSchema: {
+      "properties": {
+        "images": {
+          "items": {
+            "$ref": "#/$defs/images_image"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "images_image": images_image_output,
+        "images_image_creator": images_image_creator_output,
+        "images_image_filename": images_image_filename_output,
+        "images_image_hero_url": images_image_hero_url_output,
+        "images_image_identifier": images_image_identifier_output,
+        "images_image_metadata": images_image_metadata_output,
+        "images_image_original_url": images_image_original_url_output,
+        "images_image_requireSignedURLs": images_image_requireSignedURLs_output,
+        "images_image_thumbnail_url": images_image_thumbnail_url_output,
+        "images_image_uploaded": images_image_uploaded_output,
+        "images_image_variants": images_image_variants_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -437,6 +496,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_images_stats",
+      $defs: {
+        "images_images_stats": images_images_stats_output,
+        "images_images_stats_allowed": images_images_stats_allowed_output,
+        "images_images_stats_count": images_images_stats_count_output,
+        "images_images_stats_current": images_images_stats_current_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -98,6 +98,23 @@ export const tools: readonly Tool[] = [
         "lists_list_item_redirect_object": lists_list_item_redirect_object,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/lists_api-response-common_result"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "lists_api-response-common_result": lists_api_response_common_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -204,6 +221,23 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/lists_api-response-common_result"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "lists_api-response-common_result": lists_api_response_common_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -291,6 +325,23 @@ export const tools: readonly Tool[] = [
         "list_id",
         "item_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/lists_api-response-common_result"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "lists_api-response-common_result": lists_api_response_common_result_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -402,6 +453,36 @@ export const tools: readonly Tool[] = [
         "account_id",
         "list_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/lists_api-response-common_result"
+        },
+        "result_info": {
+          "properties": {
+            "cursors": {
+              "properties": {
+                "after": {
+                  "type": "string"
+                },
+                "before": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "lists_api-response-common_result": lists_api_response_common_result_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -541,6 +622,23 @@ export const tools: readonly Tool[] = [
         "lists_list_item_ip_object": lists_list_item_ip_object,
         "lists_list_item_redirect_comment": lists_list_item_redirect_comment,
         "lists_list_item_redirect_object": lists_list_item_redirect_object,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/lists_api-response-common_result"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "lists_api-response-common_result": lists_api_response_common_result_output,
       },
     },
     annotations: {

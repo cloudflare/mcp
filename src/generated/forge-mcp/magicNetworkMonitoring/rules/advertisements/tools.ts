@@ -36,6 +36,13 @@ export const tools: readonly Tool[] = [
         "rule_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_advertisable_response",
+      $defs: {
+        "magic-visibility-mnm_mnm_rule_advertisable_response": magic_visibility_mnm_mnm_rule_advertisable_response_output,
+        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

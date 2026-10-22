@@ -41,6 +41,12 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

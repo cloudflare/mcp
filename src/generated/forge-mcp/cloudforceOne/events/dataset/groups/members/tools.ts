@@ -38,6 +38,32 @@ export const tools: readonly Tool[] = [
         "group_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "accountTag": {
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accountId",
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -142,6 +168,17 @@ export const tools: readonly Tool[] = [
         "member_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -224,6 +261,35 @@ export const tools: readonly Tool[] = [
         "account_id",
         "group_id"
       ],
+    },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "accountId": {
+            "type": "string"
+          },
+          "accountTag": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "accountId",
+          "uuid"
+        ],
+        "type": "object"
+      },
+      "type": "array",
     },
     annotations: {
       "destructiveHint": false,

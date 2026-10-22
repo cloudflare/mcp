@@ -38,6 +38,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings",
+      $defs: {
+        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options_output,
+        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings_output,
+        "zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type": zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -99,6 +107,14 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options,
         "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings,
         "zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type": zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings",
+      $defs: {
+        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options_output,
+        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings_output,
+        "zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type": zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type_output,
       },
     },
     annotations: {

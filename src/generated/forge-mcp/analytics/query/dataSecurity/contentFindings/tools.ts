@@ -39,6 +39,26 @@ export const tools: readonly Tool[] = [
         "art_Filter": art_Filter,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/art_ResultValues"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "art_ResultValues": art_ResultValues_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

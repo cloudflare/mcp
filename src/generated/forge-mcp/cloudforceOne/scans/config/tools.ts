@@ -63,6 +63,15 @@ export const tools: readonly Tool[] = [
         "cloudforce-one-port-scan-api_ports": cloudforce_one_port_scan_api_ports,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config",
+      $defs: {
+        "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
+        "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,
+        "cloudforce-one-port-scan-api_ports": cloudforce_one_port_scan_api_ports_output,
+        "cloudforce-one-port-scan-api_scan-config": cloudforce_one_port_scan_api_scan_config_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -120,6 +129,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "config_id"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -196,6 +208,15 @@ export const tools: readonly Tool[] = [
         "cloudforce-one-port-scan-api_ports": cloudforce_one_port_scan_api_ports,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config",
+      $defs: {
+        "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
+        "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,
+        "cloudforce-one-port-scan-api_ports": cloudforce_one_port_scan_api_ports_output,
+        "cloudforce-one-port-scan-api_scan-config": cloudforce_one_port_scan_api_scan_config_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -248,6 +269,29 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
+        "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,
+        "cloudforce-one-port-scan-api_ports": cloudforce_one_port_scan_api_ports_output,
+        "cloudforce-one-port-scan-api_scan-config": cloudforce_one_port_scan_api_scan_config_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

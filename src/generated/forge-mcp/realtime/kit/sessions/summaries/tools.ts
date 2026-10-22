@@ -34,6 +34,20 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/realtimekit_TranscriptSummary"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_TranscriptSummary": realtimekit_TranscriptSummary_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -96,6 +110,26 @@ export const tools: readonly Tool[] = [
         "app_id",
         "session_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "session_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

@@ -37,6 +37,12 @@ export const tools: readonly Tool[] = [
         "region_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dls_RegionPublic",
+      $defs: {
+        "dls_RegionPublic": dls_RegionPublic_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -106,6 +112,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dls_RegionPublic"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/dls_RegionPublicPaginatedListResponse_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dls_RegionPublic": dls_RegionPublic_output,
+        "dls_RegionPublicPaginatedListResponse_result_info": dls_RegionPublicPaginatedListResponse_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

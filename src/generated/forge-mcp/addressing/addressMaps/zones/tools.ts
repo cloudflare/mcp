@@ -40,6 +40,14 @@ export const tools: readonly Tool[] = [
         "member_zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-collection",
+      $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-collection_result_info": addressing_api_response_collection_result_info_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -120,6 +128,14 @@ export const tools: readonly Tool[] = [
         "addressing_zone_identifier": addressing_zone_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-collection",
+      $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-collection_result_info": addressing_api_response_collection_result_info_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -187,6 +203,14 @@ export const tools: readonly Tool[] = [
         "address_map_id",
         "member_zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-collection",
+      $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-collection_result_info": addressing_api_response_collection_result_info_output,
+        "addressing_messages": addressing_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -261,6 +285,14 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "addressing_zone_identifier": addressing_zone_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-collection",
+      $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-collection_result_info": addressing_api_response_collection_result_info_output,
+        "addressing_messages": addressing_messages_output,
       },
     },
     annotations: {

@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_automatic_platform_optimization_response",
+      $defs: {
+        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response_output,
+        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -114,6 +121,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_automatic_platform_optimization_response",
+      $defs: {
+        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response_output,
+        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

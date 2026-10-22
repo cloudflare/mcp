@@ -33,6 +33,12 @@ export const tools: readonly Tool[] = [
         "feed_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-indicator-feeds_update_feed",
+      $defs: {
+        "custom-indicator-feeds_update_feed": custom_indicator_feeds_update_feed_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

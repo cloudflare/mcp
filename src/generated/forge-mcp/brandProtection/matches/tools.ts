@@ -65,6 +65,96 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "anyOf": [
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "results": {
+                  "items": {
+                    "properties": {
+                      "domain_id": {
+                        "type": "integer"
+                      },
+                      "error": {
+                        "type": "string"
+                      },
+                      "query_id": {
+                        "type": "integer"
+                      },
+                      "success": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "domain_id",
+                      "query_id",
+                      "success"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "results"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "results": {
+                  "items": {
+                    "properties": {
+                      "error": {
+                        "type": "string"
+                      },
+                      "match_id": {
+                        "type": "integer"
+                      },
+                      "success": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "match_id",
+                      "success"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "results"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -236,6 +326,128 @@ export const tools: readonly Tool[] = [
         "account_id",
         "query_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "matches": {
+          "items": {
+            "properties": {
+              "dismissed": {
+                "type": "boolean"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "first_seen": {
+                "type": "string"
+              },
+              "match_details": {
+                "items": {
+                  "properties": {
+                    "dismissed": {
+                      "type": "boolean"
+                    },
+                    "match_id": {
+                      "type": "integer"
+                    },
+                    "query_id": {
+                      "type": "integer"
+                    },
+                    "query_tag": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "dismissed",
+                    "match_id",
+                    "query_id",
+                    "query_tag"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "public_scans": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "submission_id": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "submission_id"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "registrar": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "scan_status": {
+                "type": "string"
+              },
+              "scan_submission_id": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "domain",
+              "first_seen",
+              "public_scans",
+              "registrar",
+              "scan_status",
+              "scan_submission_id",
+              "source"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "total": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "matches",
+        "total"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

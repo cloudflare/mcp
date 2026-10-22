@@ -38,6 +38,97 @@ export const tools: readonly Tool[] = [
         "hash"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "hash": {
+                "type": "string"
+              },
+              "mode": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "tree",
+                  "blob",
+                  "symlink",
+                  "gitlink",
+                  "exec"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "hash",
+              "mode",
+              "name",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

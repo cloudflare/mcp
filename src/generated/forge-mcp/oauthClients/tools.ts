@@ -55,6 +55,17 @@ export const tools: readonly Tool[] = [
         "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_oauth_client_with_secret",
+      $defs: {
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
+        "iam_oauth_client_with_secret": iam_oauth_client_with_secret_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -130,6 +141,27 @@ export const tools: readonly Tool[] = [
         "account_id",
         "oauth_client_id"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/iam_common_components-schemas-identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -216,6 +248,27 @@ export const tools: readonly Tool[] = [
         "oauth_client_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/iam_common_components-schemas-identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -301,6 +354,17 @@ export const tools: readonly Tool[] = [
         "oauth_client_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_oauth_client",
+      $defs: {
+        "iam_oauth_client": iam_oauth_client_output,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -370,6 +434,32 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_oauth_client"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_oauth_client": iam_oauth_client_output,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
+        "iam_result_info": iam_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -461,6 +551,14 @@ export const tools: readonly Tool[] = [
         "oauth_client_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "client_secret": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -543,6 +641,17 @@ export const tools: readonly Tool[] = [
         "iam_oauth_client_response_types": iam_oauth_client_response_types,
         "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
         "iam_oauth_client_update_request": iam_oauth_client_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_oauth_client",
+      $defs: {
+        "iam_oauth_client": iam_oauth_client_output,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
       },
     },
     annotations: {

@@ -51,6 +51,61 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "deletionFailures": {
+          "items": {
+            "properties": {
+              "datasetId": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "datasetId",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "indicatorsCopied": {
+          "type": "number"
+        },
+        "insertFailures": {
+          "items": {
+            "properties": {
+              "index": {
+                "type": "number"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "index",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "moved": {
+          "type": "number"
+        },
+        "relationshipsCopied": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "indicatorsCopied",
+        "moved",
+        "relationshipsCopied"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

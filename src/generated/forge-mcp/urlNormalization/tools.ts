@@ -127,6 +127,37 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/rulesets_Response"
+        },
+        {
+          "properties": {
+            "errors": {},
+            "result": {
+              "$ref": "#/$defs/rulesets_UrlNormalization"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "rulesets_Errors": rulesets_Errors_output,
+        "rulesets_Message": rulesets_Message_output,
+        "rulesets_Message_source": rulesets_Message_source_output,
+        "rulesets_Messages": rulesets_Messages_output,
+        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Response_result": rulesets_Response_result_output,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -269,6 +300,37 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "rulesets_UrlNormalization": rulesets_UrlNormalization,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/rulesets_Response"
+        },
+        {
+          "properties": {
+            "errors": {},
+            "result": {
+              "$ref": "#/$defs/rulesets_UrlNormalization"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "rulesets_Errors": rulesets_Errors_output,
+        "rulesets_Message": rulesets_Message_output,
+        "rulesets_Message_source": rulesets_Message_source_output,
+        "rulesets_Messages": rulesets_Messages_output,
+        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Response_result": rulesets_Response_result_output,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization_output,
       },
     },
     annotations: {

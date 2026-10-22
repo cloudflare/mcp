@@ -50,6 +50,12 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_subdomain",
+      $defs: {
+        "workers_subdomain": workers_subdomain_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -112,6 +118,12 @@ export const tools: readonly Tool[] = [
         "script_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_subdomain",
+      $defs: {
+        "workers_subdomain": workers_subdomain_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -172,6 +184,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "script_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_subdomain",
+      $defs: {
+        "workers_subdomain": workers_subdomain_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -66,6 +66,8 @@ export const tools: readonly Tool[] = [
         "logpull_TimestampRFC3339": logpull_TimestampRFC3339,
       },
     },
+    outputSchema: {
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

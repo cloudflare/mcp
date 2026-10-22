@@ -32,6 +32,13 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_uuidObject",
+      $defs: {
+        "tls-certificates-and-hostnames_uuid": tls_certificates_and_hostnames_uuid_output,
+        "tls-certificates-and-hostnames_uuidObject": tls_certificates_and_hostnames_uuidObject_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

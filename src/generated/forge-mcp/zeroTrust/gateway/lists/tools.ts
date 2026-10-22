@@ -89,6 +89,42 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_value": zero_trust_gateway_value,
       },
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+        },
+        "description": {
+          "$ref": "#/$defs/zero-trust-gateway_description"
+        },
+        "id": {
+          "$ref": "#/$defs/zero-trust-gateway_uuid-2"
+        },
+        "items": {
+          "$ref": "#/$defs/zero-trust-gateway_items"
+        },
+        "name": {
+          "$ref": "#/$defs/zero-trust-gateway_name"
+        },
+        "type": {
+          "$ref": "#/$defs/zero-trust-gateway_type-2"
+        },
+        "updated_at": {
+          "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -178,6 +214,9 @@ export const tools: readonly Tool[] = [
         "list_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -256,6 +295,21 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_value": zero_trust_gateway_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_lists",
+      $defs: {
+        "zero-trust-gateway_count": zero_trust_gateway_count_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_lists": zero_trust_gateway_lists_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -322,6 +376,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "list_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_lists",
+      $defs: {
+        "zero-trust-gateway_count": zero_trust_gateway_count_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_lists": zero_trust_gateway_lists_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -419,6 +488,36 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zero-trust-gateway_type-2": zero_trust_gateway_type_2,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_lists"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/zero-trust-gateway_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_count": zero_trust_gateway_count_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_lists": zero_trust_gateway_lists_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
       },
     },
     annotations: {
@@ -535,6 +634,21 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_items-input": zero_trust_gateway_items_input,
         "zero-trust-gateway_name": zero_trust_gateway_name,
         "zero-trust-gateway_value": zero_trust_gateway_value,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_lists",
+      $defs: {
+        "zero-trust-gateway_count": zero_trust_gateway_count_output,
+        "zero-trust-gateway_description": zero_trust_gateway_description_output,
+        "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
+        "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_lists": zero_trust_gateway_lists_output,
+        "zero-trust-gateway_name": zero_trust_gateway_name_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_type-2": zero_trust_gateway_type_2_output,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2_output,
+        "zero-trust-gateway_value": zero_trust_gateway_value_output,
       },
     },
     annotations: {

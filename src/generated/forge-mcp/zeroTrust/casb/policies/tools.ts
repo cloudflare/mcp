@@ -52,6 +52,15 @@ export const tools: readonly Tool[] = [
         "posture-api_PolicyWebhookActionInput": posture_api_PolicyWebhookActionInput,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_PolicyResponse",
+      $defs: {
+        "posture-api_PolicyActionsResponse": posture_api_PolicyActionsResponse_output,
+        "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
+        "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
+        "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -120,6 +129,12 @@ export const tools: readonly Tool[] = [
         "policy_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_DeletePolicyResponse",
+      $defs: {
+        "posture-api_DeletePolicyResponse": posture_api_DeletePolicyResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -183,6 +198,15 @@ export const tools: readonly Tool[] = [
         "account_id",
         "policy_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_PolicyResponse",
+      $defs: {
+        "posture-api_PolicyActionsResponse": posture_api_PolicyActionsResponse_output,
+        "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
+        "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
+        "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -249,6 +273,30 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_PolicyResponse"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/posture-api_result-info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "posture-api_PolicyActionsResponse": posture_api_PolicyActionsResponse_output,
+        "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
+        "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
+        "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_result-info": posture_api_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -341,6 +389,15 @@ export const tools: readonly Tool[] = [
         "posture-api_PolicyRemediationActionInput": posture_api_PolicyRemediationActionInput,
         "posture-api_PolicyWebhookActionInput": posture_api_PolicyWebhookActionInput,
         "posture-api_UpdatePolicyRequest": posture_api_UpdatePolicyRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_PolicyResponse",
+      $defs: {
+        "posture-api_PolicyActionsResponse": posture_api_PolicyActionsResponse_output,
+        "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
+        "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
+        "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
       },
     },
     annotations: {

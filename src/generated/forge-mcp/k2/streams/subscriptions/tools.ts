@@ -33,6 +33,28 @@ export const tools: readonly Tool[] = [
         "stream_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscription"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudflare-k2_K2ConsumerLag": cloudflare_k2_K2ConsumerLag_output,
+        "cloudflare-k2_K2MonitoredSubscription": cloudflare_k2_K2MonitoredSubscription_output,
+        "cloudflare-k2_K2MonitoredSubscription_start_at": cloudflare_k2_K2MonitoredSubscription_start_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

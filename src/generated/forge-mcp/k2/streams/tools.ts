@@ -48,6 +48,16 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudflare-k2_K2Stream",
+      $defs: {
+        "cloudflare-k2_K2Stream": cloudflare_k2_K2Stream_output,
+        "cloudflare-k2_K2StreamCorsOptions": cloudflare_k2_K2StreamCorsOptions_output,
+        "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput_output,
+        "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput_output,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -107,6 +117,9 @@ export const tools: readonly Tool[] = [
         "stream_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -157,6 +170,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "stream_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudflare-k2_K2Stream",
+      $defs: {
+        "cloudflare-k2_K2Stream": cloudflare_k2_K2Stream_output,
+        "cloudflare-k2_K2StreamCorsOptions": cloudflare_k2_K2StreamCorsOptions_output,
+        "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput_output,
+        "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput_output,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -222,6 +245,31 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/cloudflare-k2_K2Stream"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/cloudflare-k2_K2StreamListResponse_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudflare-k2_K2Stream": cloudflare_k2_K2Stream_output,
+        "cloudflare-k2_K2StreamCorsOptions": cloudflare_k2_K2StreamCorsOptions_output,
+        "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput_output,
+        "cloudflare-k2_K2StreamListResponse_result_info": cloudflare_k2_K2StreamListResponse_result_info_output,
+        "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput_output,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -309,6 +357,16 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput,
         "cloudflare-k2_UpdateK2StreamRequest": cloudflare_k2_UpdateK2StreamRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudflare-k2_K2Stream",
+      $defs: {
+        "cloudflare-k2_K2Stream": cloudflare_k2_K2Stream_output,
+        "cloudflare-k2_K2StreamCorsOptions": cloudflare_k2_K2StreamCorsOptions_output,
+        "cloudflare-k2_K2StreamHttpInput": cloudflare_k2_K2StreamHttpInput_output,
+        "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare_k2_K2StreamWorkerBindingInput_output,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id_output,
       },
     },
     annotations: {

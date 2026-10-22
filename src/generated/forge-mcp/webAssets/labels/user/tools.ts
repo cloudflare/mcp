@@ -68,6 +68,49 @@ export const tools: readonly Tool[] = [
         "api-shield_label_request": api_shield_label_request,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/api-shield_label"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -167,6 +210,49 @@ export const tools: readonly Tool[] = [
         "api-shield_label_name": api_shield_label_name,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/api-shield_label"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -264,6 +350,18 @@ export const tools: readonly Tool[] = [
         "api-shield_label_name": api_shield_label_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/api-shield_label",
+      $defs: {
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -336,6 +434,18 @@ export const tools: readonly Tool[] = [
         "api-shield_patch_label_request": api_shield_patch_label_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/api-shield_label",
+      $defs: {
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -405,6 +515,19 @@ export const tools: readonly Tool[] = [
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
         "api-shield_label_name": api_shield_label_name,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/api-shield_full_label",
+      $defs: {
+        "api-shield_full_label": api_shield_full_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_mapped_resources": api_shield_label_mapped_resources_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
       },
     },
     annotations: {
@@ -483,6 +606,18 @@ export const tools: readonly Tool[] = [
         "api-shield_label_metadata": api_shield_label_metadata,
         "api-shield_label_name": api_shield_label_name,
         "api-shield_put_label_request": api_shield_put_label_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/api-shield_label",
+      $defs: {
+        "api-shield_label": api_shield_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
       },
     },
     annotations: {

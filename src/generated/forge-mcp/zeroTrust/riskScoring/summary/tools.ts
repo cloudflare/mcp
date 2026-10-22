@@ -28,6 +28,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_RiskSummary",
+      $defs: {
+        "dlp_RiskLevel": dlp_RiskLevel_output,
+        "dlp_RiskSummary": dlp_RiskSummary_output,
+        "dlp_UserRiskInfo": dlp_UserRiskInfo_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -45,6 +45,13 @@ export const tools: readonly Tool[] = [
         "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_RiskScoreIntegration",
+      $defs: {
+        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration_output,
+        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -100,6 +107,12 @@ export const tools: readonly Tool[] = [
         "integration_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -153,6 +166,13 @@ export const tools: readonly Tool[] = [
         "integration_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_RiskScoreIntegration",
+      $defs: {
+        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration_output,
+        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -202,6 +222,25 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_RiskScoreIntegrationArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration_output,
+        "dlp_RiskScoreIntegrationArray": dlp_RiskScoreIntegrationArray_output,
+        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -275,6 +314,13 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_UpdateIntegrationBody": dlp_UpdateIntegrationBody,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_RiskScoreIntegration",
+      $defs: {
+        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration_output,
+        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType_output,
       },
     },
     annotations: {

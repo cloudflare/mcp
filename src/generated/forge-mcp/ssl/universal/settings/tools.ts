@@ -44,6 +44,13 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_universal",
+      $defs: {
+        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
+        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -122,6 +129,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_universal",
+      $defs: {
+        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
+        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -35,6 +35,33 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "properties": {
+            "dataset": {
+              "properties": {
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "dataset"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -240,6 +267,51 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         }
       },
+    },
+    outputSchema: {
+      "properties": {
+        "datasets": {
+          "items": {
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "meta": {
+                "type": "object"
+              },
+              "tags": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "description",
+              "id",
+              "meta",
+              "tags",
+              "title",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "datasets"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

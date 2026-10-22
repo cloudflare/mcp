@@ -91,6 +91,48 @@ export const tools: readonly Tool[] = [
         "magic-transit_wait_time": magic_transit_wait_time,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic-transit_target_result"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic-transit_asn": magic_transit_asn_output,
+        "magic-transit_colo": magic_transit_colo_output,
+        "magic-transit_colo_city": magic_transit_colo_city_output,
+        "magic-transit_colo_name": magic_transit_colo_name_output,
+        "magic-transit_colo_result": magic_transit_colo_result_output,
+        "magic-transit_error": magic_transit_error_output,
+        "magic-transit_hop_result": magic_transit_hop_result_output,
+        "magic-transit_ip": magic_transit_ip_output,
+        "magic-transit_labels": magic_transit_labels_output,
+        "magic-transit_max_rtt_ms": magic_transit_max_rtt_ms_output,
+        "magic-transit_mean_rtt_ms": magic_transit_mean_rtt_ms_output,
+        "magic-transit_min_rtt_ms": magic_transit_min_rtt_ms_output,
+        "magic-transit_name": magic_transit_name_output,
+        "magic-transit_node_result": magic_transit_node_result_output,
+        "magic-transit_packet_count": magic_transit_packet_count_output,
+        "magic-transit_packets_lost": magic_transit_packets_lost_output,
+        "magic-transit_packets_sent": magic_transit_packets_sent_output,
+        "magic-transit_packets_ttl": magic_transit_packets_ttl_output,
+        "magic-transit_std_dev_rtt_ms": magic_transit_std_dev_rtt_ms_output,
+        "magic-transit_target": magic_transit_target_output,
+        "magic-transit_target_result": magic_transit_target_result_output,
+        "magic-transit_target_summary": magic_transit_target_summary_output,
+        "magic-transit_traceroute_time_ms": magic_transit_traceroute_time_ms_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

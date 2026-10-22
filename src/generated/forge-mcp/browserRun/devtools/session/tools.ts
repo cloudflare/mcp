@@ -29,6 +29,55 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "closeReason": {
+              "type": "number"
+            },
+            "closeReasonText": {
+              "type": "string"
+            },
+            "connectionEndTime": {
+              "type": "number"
+            },
+            "connectionId": {
+              "type": "string"
+            },
+            "connectionStartTime": {
+              "type": "number"
+            },
+            "devtoolsFrontendUrl": {
+              "type": "string"
+            },
+            "endTime": {
+              "type": "number"
+            },
+            "lastUpdated": {
+              "type": "number"
+            },
+            "sessionId": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "startTime": {
+              "type": "number"
+            },
+            "webSocketDebuggerUrl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "sessionId"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -142,6 +191,51 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "closeReason": {
+            "type": "number"
+          },
+          "closeReasonText": {
+            "type": "string"
+          },
+          "connectionEndTime": {
+            "type": "number"
+          },
+          "connectionId": {
+            "type": "string"
+          },
+          "connectionStartTime": {
+            "type": "number"
+          },
+          "devtoolsFrontendUrl": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "number"
+          },
+          "lastUpdated": {
+            "type": "number"
+          },
+          "sessionId": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "startTime": {
+            "type": "number"
+          },
+          "webSocketDebuggerUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionId"
+        ],
+        "type": "object"
+      },
+      "type": "array",
     },
     annotations: {
       "destructiveHint": false,

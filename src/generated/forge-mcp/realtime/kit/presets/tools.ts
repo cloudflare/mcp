@@ -139,6 +139,77 @@ export const tools: readonly Tool[] = [
         "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "updated_at"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "$ref": "#/$defs/realtimekit_Preset"
+                }
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Preset": realtimekit_Preset_output,
+        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
+        "realtimekit_Preset_config": realtimekit_Preset_config_output,
+        "realtimekit_Preset_config_max_video_streams": realtimekit_Preset_config_max_video_streams_output,
+        "realtimekit_Preset_config_media": realtimekit_Preset_config_media_output,
+        "realtimekit_Preset_config_media_audio": realtimekit_Preset_config_media_audio_output,
+        "realtimekit_Preset_config_media_screenshare": realtimekit_Preset_config_media_screenshare_output,
+        "realtimekit_Preset_config_media_video": realtimekit_Preset_config_media_video_output,
+        "realtimekit_Preset_permissions": realtimekit_Preset_permissions_output,
+        "realtimekit_Preset_permissions_chat": realtimekit_Preset_permissions_chat_output,
+        "realtimekit_Preset_permissions_chat_private": realtimekit_Preset_permissions_chat_private_output,
+        "realtimekit_Preset_permissions_chat_public": realtimekit_Preset_permissions_chat_public_output,
+        "realtimekit_Preset_permissions_connected_meetings": realtimekit_Preset_permissions_connected_meetings_output,
+        "realtimekit_Preset_permissions_media": realtimekit_Preset_permissions_media_output,
+        "realtimekit_Preset_permissions_media_audio": realtimekit_Preset_permissions_media_audio_output,
+        "realtimekit_Preset_permissions_media_screenshare": realtimekit_Preset_permissions_media_screenshare_output,
+        "realtimekit_Preset_permissions_media_video": realtimekit_Preset_permissions_media_video_output,
+        "realtimekit_Preset_permissions_plugins": realtimekit_Preset_permissions_plugins_output,
+        "realtimekit_Preset_permissions_polls": realtimekit_Preset_permissions_polls_output,
+        "realtimekit_Preset_ui": realtimekit_Preset_ui_output,
+        "realtimekit_Preset_ui_design_tokens": realtimekit_Preset_ui_design_tokens_output,
+        "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
+        "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
+        "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -261,6 +332,77 @@ export const tools: readonly Tool[] = [
         "preset_id"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "updated_at"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "$ref": "#/$defs/realtimekit_Preset"
+                }
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Preset": realtimekit_Preset_output,
+        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
+        "realtimekit_Preset_config": realtimekit_Preset_config_output,
+        "realtimekit_Preset_config_max_video_streams": realtimekit_Preset_config_max_video_streams_output,
+        "realtimekit_Preset_config_media": realtimekit_Preset_config_media_output,
+        "realtimekit_Preset_config_media_audio": realtimekit_Preset_config_media_audio_output,
+        "realtimekit_Preset_config_media_screenshare": realtimekit_Preset_config_media_screenshare_output,
+        "realtimekit_Preset_config_media_video": realtimekit_Preset_config_media_video_output,
+        "realtimekit_Preset_permissions": realtimekit_Preset_permissions_output,
+        "realtimekit_Preset_permissions_chat": realtimekit_Preset_permissions_chat_output,
+        "realtimekit_Preset_permissions_chat_private": realtimekit_Preset_permissions_chat_private_output,
+        "realtimekit_Preset_permissions_chat_public": realtimekit_Preset_permissions_chat_public_output,
+        "realtimekit_Preset_permissions_connected_meetings": realtimekit_Preset_permissions_connected_meetings_output,
+        "realtimekit_Preset_permissions_media": realtimekit_Preset_permissions_media_output,
+        "realtimekit_Preset_permissions_media_audio": realtimekit_Preset_permissions_media_audio_output,
+        "realtimekit_Preset_permissions_media_screenshare": realtimekit_Preset_permissions_media_screenshare_output,
+        "realtimekit_Preset_permissions_media_video": realtimekit_Preset_permissions_media_video_output,
+        "realtimekit_Preset_permissions_plugins": realtimekit_Preset_permissions_plugins_output,
+        "realtimekit_Preset_permissions_polls": realtimekit_Preset_permissions_polls_output,
+        "realtimekit_Preset_ui": realtimekit_Preset_ui_output,
+        "realtimekit_Preset_ui_design_tokens": realtimekit_Preset_ui_design_tokens_output,
+        "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
+        "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
+        "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -381,6 +523,77 @@ export const tools: readonly Tool[] = [
         "app_id",
         "preset_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "updated_at"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "$ref": "#/$defs/realtimekit_Preset"
+                }
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Preset": realtimekit_Preset_output,
+        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
+        "realtimekit_Preset_config": realtimekit_Preset_config_output,
+        "realtimekit_Preset_config_max_video_streams": realtimekit_Preset_config_max_video_streams_output,
+        "realtimekit_Preset_config_media": realtimekit_Preset_config_media_output,
+        "realtimekit_Preset_config_media_audio": realtimekit_Preset_config_media_audio_output,
+        "realtimekit_Preset_config_media_screenshare": realtimekit_Preset_config_media_screenshare_output,
+        "realtimekit_Preset_config_media_video": realtimekit_Preset_config_media_video_output,
+        "realtimekit_Preset_permissions": realtimekit_Preset_permissions_output,
+        "realtimekit_Preset_permissions_chat": realtimekit_Preset_permissions_chat_output,
+        "realtimekit_Preset_permissions_chat_private": realtimekit_Preset_permissions_chat_private_output,
+        "realtimekit_Preset_permissions_chat_public": realtimekit_Preset_permissions_chat_public_output,
+        "realtimekit_Preset_permissions_connected_meetings": realtimekit_Preset_permissions_connected_meetings_output,
+        "realtimekit_Preset_permissions_media": realtimekit_Preset_permissions_media_output,
+        "realtimekit_Preset_permissions_media_audio": realtimekit_Preset_permissions_media_audio_output,
+        "realtimekit_Preset_permissions_media_screenshare": realtimekit_Preset_permissions_media_screenshare_output,
+        "realtimekit_Preset_permissions_media_video": realtimekit_Preset_permissions_media_video_output,
+        "realtimekit_Preset_permissions_plugins": realtimekit_Preset_permissions_plugins_output,
+        "realtimekit_Preset_permissions_polls": realtimekit_Preset_permissions_polls_output,
+        "realtimekit_Preset_ui": realtimekit_Preset_ui_output,
+        "realtimekit_Preset_ui_design_tokens": realtimekit_Preset_ui_design_tokens_output,
+        "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
+        "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
+        "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -509,6 +722,29 @@ export const tools: readonly Tool[] = [
         "app_id"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_PagingResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/$defs/realtimekit_PresetListItem"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
+        "realtimekit_PagingResponse": realtimekit_PagingResponse_output,
+        "realtimekit_PresetListItem": realtimekit_PresetListItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -615,6 +851,77 @@ export const tools: readonly Tool[] = [
         "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors,
         "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background,
         "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "updated_at"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "$ref": "#/$defs/realtimekit_Preset"
+                }
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Preset": realtimekit_Preset_output,
+        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
+        "realtimekit_Preset_config": realtimekit_Preset_config_output,
+        "realtimekit_Preset_config_max_video_streams": realtimekit_Preset_config_max_video_streams_output,
+        "realtimekit_Preset_config_media": realtimekit_Preset_config_media_output,
+        "realtimekit_Preset_config_media_audio": realtimekit_Preset_config_media_audio_output,
+        "realtimekit_Preset_config_media_screenshare": realtimekit_Preset_config_media_screenshare_output,
+        "realtimekit_Preset_config_media_video": realtimekit_Preset_config_media_video_output,
+        "realtimekit_Preset_permissions": realtimekit_Preset_permissions_output,
+        "realtimekit_Preset_permissions_chat": realtimekit_Preset_permissions_chat_output,
+        "realtimekit_Preset_permissions_chat_private": realtimekit_Preset_permissions_chat_private_output,
+        "realtimekit_Preset_permissions_chat_public": realtimekit_Preset_permissions_chat_public_output,
+        "realtimekit_Preset_permissions_connected_meetings": realtimekit_Preset_permissions_connected_meetings_output,
+        "realtimekit_Preset_permissions_media": realtimekit_Preset_permissions_media_output,
+        "realtimekit_Preset_permissions_media_audio": realtimekit_Preset_permissions_media_audio_output,
+        "realtimekit_Preset_permissions_media_screenshare": realtimekit_Preset_permissions_media_screenshare_output,
+        "realtimekit_Preset_permissions_media_video": realtimekit_Preset_permissions_media_video_output,
+        "realtimekit_Preset_permissions_plugins": realtimekit_Preset_permissions_plugins_output,
+        "realtimekit_Preset_permissions_polls": realtimekit_Preset_permissions_polls_output,
+        "realtimekit_Preset_ui": realtimekit_Preset_ui_output,
+        "realtimekit_Preset_ui_design_tokens": realtimekit_Preset_ui_design_tokens_output,
+        "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
+        "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
+        "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
       },
     },
     annotations: {
@@ -767,6 +1074,77 @@ export const tools: readonly Tool[] = [
         "realtimekit_UpdatePreset_ui_design_tokens_colors": realtimekit_UpdatePreset_ui_design_tokens_colors,
         "realtimekit_UpdatePreset_ui_design_tokens_colors_background": realtimekit_UpdatePreset_ui_design_tokens_colors_background,
         "realtimekit_UpdatePreset_ui_design_tokens_colors_brand": realtimekit_UpdatePreset_ui_design_tokens_colors_brand,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "updated_at"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "$ref": "#/$defs/realtimekit_Preset"
+                }
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Preset": realtimekit_Preset_output,
+        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
+        "realtimekit_Preset_config": realtimekit_Preset_config_output,
+        "realtimekit_Preset_config_max_video_streams": realtimekit_Preset_config_max_video_streams_output,
+        "realtimekit_Preset_config_media": realtimekit_Preset_config_media_output,
+        "realtimekit_Preset_config_media_audio": realtimekit_Preset_config_media_audio_output,
+        "realtimekit_Preset_config_media_screenshare": realtimekit_Preset_config_media_screenshare_output,
+        "realtimekit_Preset_config_media_video": realtimekit_Preset_config_media_video_output,
+        "realtimekit_Preset_permissions": realtimekit_Preset_permissions_output,
+        "realtimekit_Preset_permissions_chat": realtimekit_Preset_permissions_chat_output,
+        "realtimekit_Preset_permissions_chat_private": realtimekit_Preset_permissions_chat_private_output,
+        "realtimekit_Preset_permissions_chat_public": realtimekit_Preset_permissions_chat_public_output,
+        "realtimekit_Preset_permissions_connected_meetings": realtimekit_Preset_permissions_connected_meetings_output,
+        "realtimekit_Preset_permissions_media": realtimekit_Preset_permissions_media_output,
+        "realtimekit_Preset_permissions_media_audio": realtimekit_Preset_permissions_media_audio_output,
+        "realtimekit_Preset_permissions_media_screenshare": realtimekit_Preset_permissions_media_screenshare_output,
+        "realtimekit_Preset_permissions_media_video": realtimekit_Preset_permissions_media_video_output,
+        "realtimekit_Preset_permissions_plugins": realtimekit_Preset_permissions_plugins_output,
+        "realtimekit_Preset_permissions_polls": realtimekit_Preset_permissions_polls_output,
+        "realtimekit_Preset_ui": realtimekit_Preset_ui_output,
+        "realtimekit_Preset_ui_design_tokens": realtimekit_Preset_ui_design_tokens_output,
+        "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
+        "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
+        "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
       },
     },
     annotations: {

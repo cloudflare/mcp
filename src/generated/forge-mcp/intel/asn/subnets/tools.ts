@@ -37,6 +37,38 @@ export const tools: readonly Tool[] = [
         "asn"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "asn": {
+          "$ref": "#/$defs/intel_asn"
+        },
+        "count": {
+          "$ref": "#/$defs/intel_count"
+        },
+        "ip_count_total": {
+          "type": "integer"
+        },
+        "page": {
+          "$ref": "#/$defs/intel_page"
+        },
+        "per_page": {
+          "$ref": "#/$defs/intel_per_page"
+        },
+        "subnets": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "intel_asn": intel_asn_output,
+        "intel_count": intel_count_output,
+        "intel_page": intel_page_output,
+        "intel_per_page": intel_per_page_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

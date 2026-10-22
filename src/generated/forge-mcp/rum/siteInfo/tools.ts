@@ -66,6 +66,23 @@ export const tools: readonly Tool[] = [
         "rum_zone_tag": rum_zone_tag,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/rum_site",
+      $defs: {
+        "rum_auto_install": rum_auto_install_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_site": rum_site_output,
+        "rum_site_tag": rum_site_tag_output,
+        "rum_site_token": rum_site_token_output,
+        "rum_snippet": rum_snippet_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -138,6 +155,17 @@ export const tools: readonly Tool[] = [
         "site_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "site_tag": {
+          "$ref": "#/$defs/rum_site_tag"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "rum_site_tag": rum_site_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -202,6 +230,23 @@ export const tools: readonly Tool[] = [
         "account_id",
         "site_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/rum_site",
+      $defs: {
+        "rum_auto_install": rum_auto_install_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_site": rum_site_output,
+        "rum_site_tag": rum_site_tag_output,
+        "rum_site_token": rum_site_token_output,
+        "rum_snippet": rum_snippet_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -284,6 +329,38 @@ export const tools: readonly Tool[] = [
         "rum_order_by": rum_order_by,
         "rum_page": rum_page,
         "rum_per_page": rum_per_page,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/rum_site"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/rum_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "rum_auto_install": rum_auto_install_output,
+        "rum_result_info": rum_result_info_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_site": rum_site_output,
+        "rum_site_tag": rum_site_tag_output,
+        "rum_site_token": rum_site_token_output,
+        "rum_snippet": rum_snippet_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
       },
     },
     annotations: {
@@ -376,6 +453,26 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/rum_site_tag"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "rum_site_tag": rum_site_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -447,6 +544,26 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/rum_zone_tag"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "rum_zone_tag": rum_zone_tag_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -534,6 +651,23 @@ export const tools: readonly Tool[] = [
         "rum_zone_tag": rum_zone_tag,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/rum_site",
+      $defs: {
+        "rum_auto_install": rum_auto_install_output,
+        "rum_rule": rum_rule_output,
+        "rum_rule_identifier": rum_rule_identifier_output,
+        "rum_rules": rum_rules_output,
+        "rum_ruleset": rum_ruleset_output,
+        "rum_ruleset_identifier": rum_ruleset_identifier_output,
+        "rum_site": rum_site_output,
+        "rum_site_tag": rum_site_tag_output,
+        "rum_site_token": rum_site_token_output,
+        "rum_snippet": rum_snippet_output,
+        "rum_timestamp": rum_timestamp_output,
+        "rum_zone_tag": rum_zone_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -605,6 +739,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "hostname"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

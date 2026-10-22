@@ -39,6 +39,45 @@ export const tools: readonly Tool[] = [
         "mtls_certificate_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tls-certificates-and-hostnames_associationObject"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_associationObject": tls_certificates_and_hostnames_associationObject_output,
+        "tls-certificates-and-hostnames_service": tls_certificates_and_hostnames_service_output,
+        "tls-certificates-and-hostnames_status-10": tls_certificates_and_hostnames_status_10_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

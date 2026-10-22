@@ -94,6 +94,73 @@ export const tools: readonly Tool[] = [
         "project_type"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "accountId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "createdBy": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "priority_id": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "projectType": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "accountId",
+              "createdAt",
+              "createdBy",
+              "description",
+              "id",
+              "projectType",
+              "status",
+              "title",
+              "updatedAt"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -242,6 +309,194 @@ export const tools: readonly Tool[] = [
         "project_type",
         "request_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "account": {
+          "properties": {
+            "anniversary": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "anniversary",
+            "id",
+            "name"
+          ],
+          "type": "object"
+        },
+        "assignee": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "investigation_id": {
+          "type": "string"
+        },
+        "is_free_request": {
+          "type": "boolean"
+        },
+        "message_tokens": {
+          "type": "number"
+        },
+        "priority": {
+          "enum": [
+            "unknown",
+            "low",
+            "routine",
+            "medium",
+            "high",
+            "urgent",
+            "critical"
+          ],
+          "type": "string"
+        },
+        "priority_id": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "readable_id": {
+          "type": "string"
+        },
+        "release_entitlements": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "report_id": {
+          "type": "string"
+        },
+        "request": {
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "message_tokens": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "request_tokens": {
+              "type": "number"
+            },
+            "response_tokens": {
+              "type": "number"
+            },
+            "result": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "category",
+            "message_tokens",
+            "name",
+            "request_tokens",
+            "response_tokens",
+            "result",
+            "source"
+          ],
+          "type": "object"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "submitted",
+            "accepted",
+            "in_progress",
+            "awaiting_customer",
+            "awaiting_external",
+            "response_needed",
+            "completed",
+            "closed"
+          ],
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "tlp": {
+          "enum": [
+            "clear",
+            "green",
+            "amber",
+            "red"
+          ],
+          "type": "string"
+        },
+        "tokens": {
+          "type": "number"
+        },
+        "updated": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account",
+        "assignee",
+        "completed",
+        "created",
+        "id",
+        "investigation_id",
+        "is_free_request",
+        "message_tokens",
+        "priority",
+        "readable_id",
+        "release_entitlements",
+        "report_id",
+        "request",
+        "status",
+        "summary",
+        "tlp",
+        "tokens",
+        "updated"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -626,6 +881,194 @@ export const tools: readonly Tool[] = [
         "project_type"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "account": {
+          "properties": {
+            "anniversary": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "anniversary",
+            "id",
+            "name"
+          ],
+          "type": "object"
+        },
+        "assignee": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "investigation_id": {
+          "type": "string"
+        },
+        "is_free_request": {
+          "type": "boolean"
+        },
+        "message_tokens": {
+          "type": "number"
+        },
+        "priority": {
+          "enum": [
+            "unknown",
+            "low",
+            "routine",
+            "medium",
+            "high",
+            "urgent",
+            "critical"
+          ],
+          "type": "string"
+        },
+        "priority_id": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "readable_id": {
+          "type": "string"
+        },
+        "release_entitlements": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "report_id": {
+          "type": "string"
+        },
+        "request": {
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "message_tokens": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "request_tokens": {
+              "type": "number"
+            },
+            "response_tokens": {
+              "type": "number"
+            },
+            "result": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "category",
+            "message_tokens",
+            "name",
+            "request_tokens",
+            "response_tokens",
+            "result",
+            "source"
+          ],
+          "type": "object"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "submitted",
+            "accepted",
+            "in_progress",
+            "awaiting_customer",
+            "awaiting_external",
+            "response_needed",
+            "completed",
+            "closed"
+          ],
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "tlp": {
+          "enum": [
+            "clear",
+            "green",
+            "amber",
+            "red"
+          ],
+          "type": "string"
+        },
+        "tokens": {
+          "type": "number"
+        },
+        "updated": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account",
+        "assignee",
+        "completed",
+        "created",
+        "id",
+        "investigation_id",
+        "is_free_request",
+        "message_tokens",
+        "priority",
+        "readable_id",
+        "release_entitlements",
+        "report_id",
+        "request",
+        "status",
+        "summary",
+        "tlp",
+        "tokens",
+        "updated"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -992,6 +1435,194 @@ export const tools: readonly Tool[] = [
         "project_type",
         "request_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "account": {
+          "properties": {
+            "anniversary": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "anniversary",
+            "id",
+            "name"
+          ],
+          "type": "object"
+        },
+        "assignee": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "investigation_id": {
+          "type": "string"
+        },
+        "is_free_request": {
+          "type": "boolean"
+        },
+        "message_tokens": {
+          "type": "number"
+        },
+        "priority": {
+          "enum": [
+            "unknown",
+            "low",
+            "routine",
+            "medium",
+            "high",
+            "urgent",
+            "critical"
+          ],
+          "type": "string"
+        },
+        "priority_id": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "readable_id": {
+          "type": "string"
+        },
+        "release_entitlements": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "report_id": {
+          "type": "string"
+        },
+        "request": {
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "message_tokens": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "request_tokens": {
+              "type": "number"
+            },
+            "response_tokens": {
+              "type": "number"
+            },
+            "result": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "category",
+            "message_tokens",
+            "name",
+            "request_tokens",
+            "response_tokens",
+            "result",
+            "source"
+          ],
+          "type": "object"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "submitted",
+            "accepted",
+            "in_progress",
+            "awaiting_customer",
+            "awaiting_external",
+            "response_needed",
+            "completed",
+            "closed"
+          ],
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "tlp": {
+          "enum": [
+            "clear",
+            "green",
+            "amber",
+            "red"
+          ],
+          "type": "string"
+        },
+        "tokens": {
+          "type": "number"
+        },
+        "updated": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account",
+        "assignee",
+        "completed",
+        "created",
+        "id",
+        "investigation_id",
+        "is_free_request",
+        "message_tokens",
+        "priority",
+        "readable_id",
+        "release_entitlements",
+        "report_id",
+        "request",
+        "status",
+        "summary",
+        "tlp",
+        "tokens",
+        "updated"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

@@ -36,6 +36,17 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/aaa_token"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "aaa_token": aaa_token_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -101,6 +112,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_api-response-common-2",
+      $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
+        "aaa_messages-3": aaa_messages_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -150,6 +168,28 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_pagerduty"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_name": aaa_name_output,
+        "aaa_pagerduty": aaa_pagerduty_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -230,6 +270,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "token_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/aaa_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "aaa_uuid": aaa_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

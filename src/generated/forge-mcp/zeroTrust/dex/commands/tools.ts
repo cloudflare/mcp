@@ -129,6 +129,13 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_post_commands_response",
+      $defs: {
+        "digital-experience-monitoring_post_commands_response": digital_experience_monitoring_post_commands_response_output,
+        "digital-experience-monitoring_post_commands_response_commandsItem": digital_experience_monitoring_post_commands_response_commandsItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -227,6 +234,13 @@ export const tools: readonly Tool[] = [
         "page",
         "per_page"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_get_commands_response",
+      $defs: {
+        "digital-experience-monitoring_get_commands_response": digital_experience_monitoring_get_commands_response_output,
+        "digital-experience-monitoring_get_commands_response_commandsItem": digital_experience_monitoring_get_commands_response_commandsItem_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

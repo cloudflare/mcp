@@ -31,6 +31,172 @@ export const tools: readonly Tool[] = [
         "ca_slug"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "certificateAuthority": {
+          "properties": {
+            "appleStatus": {
+              "enum": [
+                "INCLUDED",
+                "NOT_YET_INCLUDED",
+                "NOT_INCLUDED",
+                "NOT_BEFORE",
+                "REMOVED",
+                "DISABLED",
+                "BLOCKED"
+              ],
+              "type": "string"
+            },
+            "authorityKeyIdentifier": {
+              "type": "string"
+            },
+            "certificateRecordType": {
+              "enum": [
+                "ROOT_CERTIFICATE",
+                "INTERMEDIATE_CERTIFICATE"
+              ],
+              "type": "string"
+            },
+            "chromeStatus": {
+              "enum": [
+                "INCLUDED",
+                "NOT_YET_INCLUDED",
+                "NOT_INCLUDED",
+                "NOT_BEFORE",
+                "REMOVED",
+                "DISABLED",
+                "BLOCKED"
+              ],
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "countryName": {
+              "type": "string"
+            },
+            "microsoftStatus": {
+              "enum": [
+                "INCLUDED",
+                "NOT_YET_INCLUDED",
+                "NOT_INCLUDED",
+                "NOT_BEFORE",
+                "REMOVED",
+                "DISABLED",
+                "BLOCKED"
+              ],
+              "type": "string"
+            },
+            "mozillaStatus": {
+              "enum": [
+                "INCLUDED",
+                "NOT_YET_INCLUDED",
+                "NOT_INCLUDED",
+                "NOT_BEFORE",
+                "REMOVED",
+                "DISABLED",
+                "BLOCKED"
+              ],
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "owner": {
+              "type": "string"
+            },
+            "parentName": {
+              "type": "string"
+            },
+            "parentSha256Fingerprint": {
+              "type": "string"
+            },
+            "related": {
+              "items": {
+                "properties": {
+                  "certificateRecordType": {
+                    "enum": [
+                      "ROOT_CERTIFICATE",
+                      "INTERMEDIATE_CERTIFICATE"
+                    ],
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "revocationStatus": {
+                    "enum": [
+                      "NOT_REVOKED",
+                      "REVOKED",
+                      "PARENT_CERT_REVOKED"
+                    ],
+                    "type": "string"
+                  },
+                  "sha256Fingerprint": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "certificateRecordType",
+                  "name",
+                  "revocationStatus",
+                  "sha256Fingerprint"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "revocationStatus": {
+              "enum": [
+                "NOT_REVOKED",
+                "REVOKED",
+                "PARENT_CERT_REVOKED"
+              ],
+              "type": "string"
+            },
+            "sha256Fingerprint": {
+              "type": "string"
+            },
+            "subjectKeyIdentifier": {
+              "type": "string"
+            },
+            "validFrom": {
+              "format": "date",
+              "type": "string"
+            },
+            "validTo": {
+              "format": "date",
+              "type": "string"
+            }
+          },
+          "required": [
+            "appleStatus",
+            "authorityKeyIdentifier",
+            "certificateRecordType",
+            "chromeStatus",
+            "country",
+            "countryName",
+            "microsoftStatus",
+            "mozillaStatus",
+            "name",
+            "owner",
+            "parentName",
+            "parentSha256Fingerprint",
+            "related",
+            "revocationStatus",
+            "sha256Fingerprint",
+            "subjectKeyIdentifier",
+            "validFrom",
+            "validTo"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "certificateAuthority"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -265,6 +431,69 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         }
       },
+    },
+    outputSchema: {
+      "properties": {
+        "certificateAuthorities": {
+          "items": {
+            "properties": {
+              "certificateRecordType": {
+                "enum": [
+                  "ROOT_CERTIFICATE",
+                  "INTERMEDIATE_CERTIFICATE"
+                ],
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "countryName": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "parentName": {
+                "type": "string"
+              },
+              "parentSha256Fingerprint": {
+                "type": "string"
+              },
+              "revocationStatus": {
+                "enum": [
+                  "NOT_REVOKED",
+                  "REVOKED",
+                  "PARENT_CERT_REVOKED"
+                ],
+                "type": "string"
+              },
+              "sha256Fingerprint": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "certificateRecordType",
+              "country",
+              "countryName",
+              "name",
+              "owner",
+              "parentName",
+              "parentSha256Fingerprint",
+              "revocationStatus",
+              "sha256Fingerprint"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "certificateAuthorities"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

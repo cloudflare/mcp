@@ -88,6 +88,23 @@ export const tools: readonly Tool[] = [
         "stream_scale": stream_scale,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/stream_watermarks",
+      $defs: {
+        "stream_downloadedFrom": stream_downloadedFrom_output,
+        "stream_height": stream_height_output,
+        "stream_name": stream_name_output,
+        "stream_opacity": stream_opacity_output,
+        "stream_padding": stream_padding_output,
+        "stream_position": stream_position_output,
+        "stream_scale": stream_scale_output,
+        "stream_watermark_created": stream_watermark_created_output,
+        "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_size": stream_watermark_size_output,
+        "stream_watermarks": stream_watermarks_output,
+        "stream_width": stream_width_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -154,6 +171,9 @@ export const tools: readonly Tool[] = [
         "identifier"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -206,6 +226,23 @@ export const tools: readonly Tool[] = [
         "account_id",
         "identifier"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/stream_watermarks",
+      $defs: {
+        "stream_downloadedFrom": stream_downloadedFrom_output,
+        "stream_height": stream_height_output,
+        "stream_name": stream_name_output,
+        "stream_opacity": stream_opacity_output,
+        "stream_padding": stream_padding_output,
+        "stream_position": stream_position_output,
+        "stream_scale": stream_scale_output,
+        "stream_watermark_created": stream_watermark_created_output,
+        "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_size": stream_watermark_size_output,
+        "stream_watermarks": stream_watermarks_output,
+        "stream_width": stream_width_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -267,6 +304,37 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/stream_watermarks"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "stream_downloadedFrom": stream_downloadedFrom_output,
+        "stream_height": stream_height_output,
+        "stream_name": stream_name_output,
+        "stream_opacity": stream_opacity_output,
+        "stream_padding": stream_padding_output,
+        "stream_position": stream_position_output,
+        "stream_scale": stream_scale_output,
+        "stream_watermark_created": stream_watermark_created_output,
+        "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_size": stream_watermark_size_output,
+        "stream_watermarks": stream_watermarks_output,
+        "stream_width": stream_width_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

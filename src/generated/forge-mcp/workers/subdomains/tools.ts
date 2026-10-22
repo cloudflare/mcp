@@ -78,6 +78,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_subdomain-2",
+      $defs: {
+        "workers_subdomain-2": workers_subdomain_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -136,6 +142,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_subdomain-2": workers_subdomain_2,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_subdomain-2",
+      $defs: {
+        "workers_subdomain-2": workers_subdomain_2_output,
       },
     },
     annotations: {

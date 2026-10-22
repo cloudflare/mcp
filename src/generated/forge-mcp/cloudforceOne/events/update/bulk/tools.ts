@@ -114,6 +114,39 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "failedCount": {
+          "type": "number"
+        },
+        "failures": {
+          "items": {
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "eventId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "error",
+              "eventId"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "updatedCount": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "failedCount",
+        "updatedCount"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

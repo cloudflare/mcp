@@ -73,6 +73,18 @@ export const tools: readonly Tool[] = [
         "vectorize_index-preset-configuration": vectorize_index_preset_configuration,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_create-index-response",
+      $defs: {
+        "vectorize_create-index-response": vectorize_create_index_response_output,
+        "vectorize_index-description": vectorize_index_description_output,
+        "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
+        "vectorize_index-dimensions": vectorize_index_dimensions_output,
+        "vectorize_index-metric": vectorize_index_metric_output,
+        "vectorize_index-name": vectorize_index_name_output,
+        "vectorize_index-preset": vectorize_index_preset_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -141,6 +153,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id",
         "index_name"
+      ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
       ],
     },
     annotations: {
@@ -220,6 +242,13 @@ export const tools: readonly Tool[] = [
         "vectorize_vector-identifier": vectorize_vector_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-v2-response",
+      $defs: {
+        "vectorize_index-delete-vectors-by-id-v2-response": vectorize_index_delete_vectors_by_id_v2_response_output,
+        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -284,6 +313,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "index_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_create-index-response",
+      $defs: {
+        "vectorize_create-index-response": vectorize_create_index_response_output,
+        "vectorize_index-description": vectorize_index_description_output,
+        "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
+        "vectorize_index-dimensions": vectorize_index_dimensions_output,
+        "vectorize_index-metric": vectorize_index_metric_output,
+        "vectorize_index-name": vectorize_index_name_output,
+        "vectorize_index-preset": vectorize_index_preset_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -363,6 +404,24 @@ export const tools: readonly Tool[] = [
         "vectorize_vector-identifier": vectorize_vector_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/vectorize_index-get-vectors-by-id-response"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "vectorize_index-get-vectors-by-id-response": vectorize_index_get_vectors_by_id_response_output,
+        "vectorize_vector-identifier": vectorize_vector_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -430,6 +489,14 @@ export const tools: readonly Tool[] = [
         "index_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_index-info-response",
+      $defs: {
+        "vectorize_index-dimensions": vectorize_index_dimensions_output,
+        "vectorize_index-info-response": vectorize_index_info_response_output,
+        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -491,6 +558,32 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/vectorize_create-index-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "vectorize_create-index-response": vectorize_create_index_response_output,
+        "vectorize_index-description": vectorize_index_description_output,
+        "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
+        "vectorize_index-dimensions": vectorize_index_dimensions_output,
+        "vectorize_index-metric": vectorize_index_metric_output,
+        "vectorize_index-name": vectorize_index_name_output,
+        "vectorize_index-preset": vectorize_index_preset_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -585,6 +678,14 @@ export const tools: readonly Tool[] = [
         "index_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_index-list-vectors-response",
+      $defs: {
+        "vectorize_index-list-vectors-response": vectorize_index_list_vectors_response_output,
+        "vectorize_vector-identifier": vectorize_vector_identifier_output,
+        "vectorize_vector-list-item": vectorize_vector_list_item_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -660,6 +761,14 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "vectorize_index-query-v2-request": vectorize_index_query_v2_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/vectorize_index-query-v2-response",
+      $defs: {
+        "vectorize_index-query-v2-response": vectorize_index_query_v2_response_output,
+        "vectorize_index-query-v2-response_matchesItem": vectorize_index_query_v2_response_matchesItem_output,
+        "vectorize_vector-identifier": vectorize_vector_identifier_output,
       },
     },
     annotations: {

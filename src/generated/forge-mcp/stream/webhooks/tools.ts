@@ -28,6 +28,9 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -75,6 +78,21 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "modified": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "notificationUrl": {
+          "type": "string"
+        },
+        "secret": {
+          "type": "string"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -143,6 +161,21 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_webhook_request": stream_webhook_request,
       },
+    },
+    outputSchema: {
+      "properties": {
+        "modified": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "notificationUrl": {
+          "type": "string"
+        },
+        "secret": {
+          "type": "string"
+        }
+      },
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

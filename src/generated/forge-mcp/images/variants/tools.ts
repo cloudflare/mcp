@@ -69,6 +69,20 @@ export const tools: readonly Tool[] = [
         "images_image_variant_width": images_image_variant_width,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_variant_response",
+      $defs: {
+        "images_image_variant_definition": images_image_variant_definition_output,
+        "images_image_variant_fit": images_image_variant_fit_output,
+        "images_image_variant_height": images_image_variant_height_output,
+        "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
+        "images_image_variant_options": images_image_variant_options_output,
+        "images_image_variant_response": images_image_variant_response_output,
+        "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_width": images_image_variant_width_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -138,6 +152,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "variant_id"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -212,6 +229,20 @@ export const tools: readonly Tool[] = [
         "images_image_variant_width": images_image_variant_width,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_variant_response",
+      $defs: {
+        "images_image_variant_definition": images_image_variant_definition_output,
+        "images_image_variant_fit": images_image_variant_fit_output,
+        "images_image_variant_height": images_image_variant_height_output,
+        "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
+        "images_image_variant_options": images_image_variant_options_output,
+        "images_image_variant_response": images_image_variant_response_output,
+        "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_width": images_image_variant_width_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -282,6 +313,20 @@ export const tools: readonly Tool[] = [
         "variant_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_variant_response",
+      $defs: {
+        "images_image_variant_definition": images_image_variant_definition_output,
+        "images_image_variant_fit": images_image_variant_fit_output,
+        "images_image_variant_height": images_image_variant_height_output,
+        "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
+        "images_image_variant_options": images_image_variant_options_output,
+        "images_image_variant_response": images_image_variant_response_output,
+        "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_width": images_image_variant_width_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -347,6 +392,21 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_variants_response",
+      $defs: {
+        "images_image_variant_fit": images_image_variant_fit_output,
+        "images_image_variant_height": images_image_variant_height_output,
+        "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
+        "images_image_variant_options": images_image_variant_options_output,
+        "images_image_variant_public_request": images_image_variant_public_request_output,
+        "images_image_variant_public_request_hero": images_image_variant_public_request_hero_output,
+        "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_width": images_image_variant_width_output,
+        "images_image_variants_response": images_image_variants_response_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

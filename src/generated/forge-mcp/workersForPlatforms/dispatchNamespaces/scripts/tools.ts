@@ -86,6 +86,14 @@ export const tools: readonly Tool[] = [
         "tags"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_namespace-script-delete-bulk-response",
+      $defs: {
+        "workers_namespace-script-delete-bulk-response": workers_namespace_script_delete_bulk_response_output,
+        "workers_namespace-script-delete-bulk-response_deletedItem": workers_namespace_script_delete_bulk_response_deletedItem_output,
+        "workers_uuid": workers_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -158,6 +166,9 @@ export const tools: readonly Tool[] = [
         "script_name"
       ],
     },
+    outputSchema: {
+      "type": "null",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -218,6 +229,49 @@ export const tools: readonly Tool[] = [
         "dispatch_namespace",
         "script_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_namespace-script-response",
+      $defs: {
+        "workers_cache_options": workers_cache_options_output,
+        "workers_compatibility_date": workers_compatibility_date_output,
+        "workers_compatibility_flag": workers_compatibility_flag_output,
+        "workers_compatibility_flags": workers_compatibility_flags_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_durable_object_deleted_export": workers_durable_object_deleted_export_output,
+        "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export_output,
+        "workers_durable_object_export": workers_durable_object_export_output,
+        "workers_durable_object_export_variants": workers_durable_object_export_variants_output,
+        "workers_durable_object_renamed_export": workers_durable_object_renamed_export_output,
+        "workers_durable_object_transferred_export": workers_durable_object_transferred_export_output,
+        "workers_entrypoint_cache_options": workers_entrypoint_cache_options_output,
+        "workers_etag": workers_etag_output,
+        "workers_export_config": workers_export_config_output,
+        "workers_export_storage": workers_export_storage_output,
+        "workers_exports_config_map": workers_exports_config_map_output,
+        "workers_has_assets": workers_has_assets_output,
+        "workers_has_modules": workers_has_modules_output,
+        "workers_logpush": workers_logpush_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-script-response": workers_namespace_script_response_output,
+        "workers_observability-2": workers_observability_2_output,
+        "workers_observability-2_issues": workers_observability_2_issues_output,
+        "workers_observability-2_logs": workers_observability_2_logs_output,
+        "workers_observability-2_traces": workers_observability_2_traces_output,
+        "workers_placement_info": workers_placement_info_output,
+        "workers_placement_mode": workers_placement_mode_output,
+        "workers_placement_status": workers_placement_status_output,
+        "workers_placement_target": workers_placement_target_output,
+        "workers_script-response": workers_script_response_output,
+        "workers_script-response_named_handlersItem": workers_script_response_named_handlersItem_output,
+        "workers_tag": workers_tag_output,
+        "workers_tags": workers_tags_output,
+        "workers_tail_consumers": workers_tail_consumers_output,
+        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+        "workers_usage_model": workers_usage_model_output,
+        "workers_worker_export": workers_worker_export_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -315,6 +369,63 @@ export const tools: readonly Tool[] = [
         "account_id",
         "dispatch_namespace"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_namespace-script-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_cache_options": workers_cache_options_output,
+        "workers_compatibility_date": workers_compatibility_date_output,
+        "workers_compatibility_flag": workers_compatibility_flag_output,
+        "workers_compatibility_flags": workers_compatibility_flags_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
+        "workers_durable_object_deleted_export": workers_durable_object_deleted_export_output,
+        "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export_output,
+        "workers_durable_object_export": workers_durable_object_export_output,
+        "workers_durable_object_export_variants": workers_durable_object_export_variants_output,
+        "workers_durable_object_renamed_export": workers_durable_object_renamed_export_output,
+        "workers_durable_object_transferred_export": workers_durable_object_transferred_export_output,
+        "workers_entrypoint_cache_options": workers_entrypoint_cache_options_output,
+        "workers_etag": workers_etag_output,
+        "workers_export_config": workers_export_config_output,
+        "workers_export_storage": workers_export_storage_output,
+        "workers_exports_config_map": workers_exports_config_map_output,
+        "workers_has_assets": workers_has_assets_output,
+        "workers_has_modules": workers_has_modules_output,
+        "workers_logpush": workers_logpush_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_namespace-script-response": workers_namespace_script_response_output,
+        "workers_observability-2": workers_observability_2_output,
+        "workers_observability-2_issues": workers_observability_2_issues_output,
+        "workers_observability-2_logs": workers_observability_2_logs_output,
+        "workers_observability-2_traces": workers_observability_2_traces_output,
+        "workers_placement_info": workers_placement_info_output,
+        "workers_placement_mode": workers_placement_mode_output,
+        "workers_placement_status": workers_placement_status_output,
+        "workers_placement_target": workers_placement_target_output,
+        "workers_script-response": workers_script_response_output,
+        "workers_script-response_named_handlersItem": workers_script_response_named_handlersItem_output,
+        "workers_tag": workers_tag_output,
+        "workers_tags": workers_tags_output,
+        "workers_tail_consumers": workers_tail_consumers_output,
+        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+        "workers_usage_model": workers_usage_model_output,
+        "workers_worker_export": workers_worker_export_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

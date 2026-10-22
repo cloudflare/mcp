@@ -30,6 +30,28 @@ export const tools: readonly Tool[] = [
         "skill_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "category_uuids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "skill_id": {
+          "enum": [
+            "default-tagging-skill"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "category_uuids",
+        "skill_id"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -115,6 +137,28 @@ export const tools: readonly Tool[] = [
         "account_id",
         "skill_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "category_uuids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "skill_id": {
+          "enum": [
+            "default-tagging-skill"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "category_uuids",
+        "skill_id"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

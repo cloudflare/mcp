@@ -65,6 +65,33 @@ export const tools: readonly Tool[] = [
         "realtimekit_TrackConfigLayer": realtimekit_TrackConfigLayer,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "recording": {
+                  "$ref": "#/$defs/realtimekit_Recording"
+                }
+              },
+              "required": [
+                "recording"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

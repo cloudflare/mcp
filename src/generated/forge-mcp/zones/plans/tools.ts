@@ -47,6 +47,21 @@ export const tools: readonly Tool[] = [
         "plan_identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/bill-subs-api_available-rate-plan",
+      $defs: {
+        "bill-subs-api_available-rate-plan": bill_subs_api_available_rate_plan_output,
+        "bill-subs-api_can_subscribe": bill_subs_api_can_subscribe_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_externally_managed": bill_subs_api_externally_managed_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_is_subscribed": bill_subs_api_is_subscribed_output,
+        "bill-subs-api_legacy_id": bill_subs_api_legacy_id_output,
+        "bill-subs-api_schemas-frequency": bill_subs_api_schemas_frequency_output,
+        "bill-subs-api_schemas-name": bill_subs_api_schemas_name_output,
+        "bill-subs-api_schemas-price": bill_subs_api_schemas_price_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -121,6 +136,36 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/bill-subs-api_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "bill-subs-api_available-rate-plan": bill_subs_api_available_rate_plan_output,
+        "bill-subs-api_can_subscribe": bill_subs_api_can_subscribe_output,
+        "bill-subs-api_currency": bill_subs_api_currency_output,
+        "bill-subs-api_externally_managed": bill_subs_api_externally_managed_output,
+        "bill-subs-api_identifier": bill_subs_api_identifier_output,
+        "bill-subs-api_is_subscribed": bill_subs_api_is_subscribed_output,
+        "bill-subs-api_legacy_id": bill_subs_api_legacy_id_output,
+        "bill-subs-api_result_info": bill_subs_api_result_info_output,
+        "bill-subs-api_schemas-frequency": bill_subs_api_schemas_frequency_output,
+        "bill-subs-api_schemas-name": bill_subs_api_schemas_name_output,
+        "bill-subs-api_schemas-price": bill_subs_api_schemas_price_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

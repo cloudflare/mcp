@@ -54,6 +54,16 @@ export const tools: readonly Tool[] = [
         "stream_copyAudioTrack": stream_copyAudioTrack,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/stream_additionalAudio",
+      $defs: {
+        "stream_additionalAudio": stream_additionalAudio_output,
+        "stream_audio_default": stream_audio_default_output,
+        "stream_audio_label": stream_audio_label_output,
+        "stream_audio_state": stream_audio_state_output,
+        "stream_identifier": stream_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -112,6 +122,9 @@ export const tools: readonly Tool[] = [
         "identifier",
         "audio_identifier"
       ],
+    },
+    outputSchema: {
+      "type": "string",
     },
     annotations: {
       "destructiveHint": true,
@@ -180,6 +193,16 @@ export const tools: readonly Tool[] = [
         "stream_editAudioTrack": stream_editAudioTrack,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/stream_additionalAudio",
+      $defs: {
+        "stream_additionalAudio": stream_additionalAudio_output,
+        "stream_audio_default": stream_audio_default_output,
+        "stream_audio_label": stream_audio_label_output,
+        "stream_audio_state": stream_audio_state_output,
+        "stream_identifier": stream_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -238,6 +261,24 @@ export const tools: readonly Tool[] = [
         "account_id",
         "identifier"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "audio": {
+          "items": {
+            "$ref": "#/$defs/stream_additionalAudio"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "stream_additionalAudio": stream_additionalAudio_output,
+        "stream_audio_default": stream_audio_default_output,
+        "stream_audio_label": stream_audio_label_output,
+        "stream_audio_state": stream_audio_state_output,
+        "stream_identifier": stream_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

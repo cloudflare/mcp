@@ -37,6 +37,48 @@ export const tools: readonly Tool[] = [
         "to"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "breakdown": {
+          "items": {
+            "properties": {
+              "bin": {
+                "type": "string"
+              },
+              "count": {
+                "type": "number"
+              },
+              "dataset": {
+                "type": "string"
+              },
+              "eventSize": {
+                "type": "number"
+              },
+              "service": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "bin",
+              "count",
+              "dataset",
+              "eventSize",
+              "service"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "events": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "breakdown",
+        "events"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

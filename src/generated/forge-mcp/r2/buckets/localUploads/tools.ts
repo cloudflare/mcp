@@ -34,6 +34,12 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_local_uploads_configuration",
+      $defs: {
+        "r2_local_uploads_configuration": r2_local_uploads_configuration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -108,6 +114,9 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "body"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

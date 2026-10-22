@@ -89,6 +89,173 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "meta": {
+          "properties": {
+            "aggInterval": {
+              "enum": [
+                "15m",
+                "1h",
+                "1d",
+                "1w"
+              ],
+              "type": "string"
+            },
+            "confidenceInfo": {
+              "properties": {
+                "annotations": {
+                  "items": {
+                    "properties": {
+                      "dataSource": {
+                        "enum": [
+                          "ALL",
+                          "AI_BOTS",
+                          "AI_GATEWAY",
+                          "BGP",
+                          "BOTS",
+                          "CONNECTION_ANOMALY",
+                          "CT",
+                          "DNS",
+                          "DNS_MAGNITUDE",
+                          "DNS_AS112",
+                          "DOS",
+                          "EMAIL_ROUTING",
+                          "EMAIL_SECURITY",
+                          "FW",
+                          "FW_PG",
+                          "HTTP",
+                          "HTTP_CONTROL",
+                          "HTTP_CRAWLER_REFERER",
+                          "HTTP_ORIGINS",
+                          "IQI",
+                          "LEAKED_CREDENTIALS",
+                          "NET",
+                          "ROBOTS_TXT",
+                          "SPEED",
+                          "WORKERS_AI"
+                        ],
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "endDate": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "eventType": {
+                        "enum": [
+                          "GENERAL",
+                          "OUTAGE",
+                          "PARTIAL_PROJECTION",
+                          "PIPELINE",
+                          "TRAFFIC_ANOMALY"
+                        ],
+                        "type": "string"
+                      },
+                      "isInstantaneous": {
+                        "type": "boolean"
+                      },
+                      "linkedUrl": {
+                        "type": "string"
+                      },
+                      "startDate": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "tags": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "dataSource",
+                      "description",
+                      "endDate",
+                      "eventType",
+                      "isInstantaneous",
+                      "linkedUrl",
+                      "startDate"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "level": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "annotations",
+                "level"
+              ],
+              "type": "object"
+            },
+            "dateRange": {
+              "items": {
+                "properties": {
+                  "endTime": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "startTime": {
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "endTime",
+                  "startTime"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "lastUpdated": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "aggInterval",
+            "confidenceInfo",
+            "dateRange",
+            "lastUpdated"
+          ],
+          "type": "object"
+        },
+        "serie_0": {
+          "properties": {
+            "timestamps": {
+              "items": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "values": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "timestamps",
+            "values"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "meta",
+        "serie_0"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

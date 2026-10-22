@@ -156,6 +156,12 @@ export const tools: readonly Tool[] = [
         "cloudforce-one_MetaInputEntry_value": cloudforce_one_MetaInputEntry_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_ResubmitApprovalResponse",
+      $defs: {
+        "cloudforce-one_ResubmitApprovalResponse": cloudforce_one_ResubmitApprovalResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

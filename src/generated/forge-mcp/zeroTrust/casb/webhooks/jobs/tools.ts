@@ -43,6 +43,35 @@ export const tools: readonly Tool[] = [
         "posture-api_CreateWebhookJobsRequest": posture_api_CreateWebhookJobsRequest,
       },
     },
+    outputSchema: {
+      "properties": {
+        "created": {
+          "items": {
+            "$ref": "#/$defs/posture-api_WebhookJob"
+          },
+          "type": "array"
+        },
+        "failed": {
+          "items": {
+            "$ref": "#/$defs/posture-api_WebhookJobFailure"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "created",
+        "failed"
+      ],
+      "type": "object",
+      $defs: {
+        "posture-api_WebhookJob": posture_api_WebhookJob_output,
+        "posture-api_WebhookJobActorTypeEnum": posture_api_WebhookJobActorTypeEnum_output,
+        "posture-api_WebhookJobFailure": posture_api_WebhookJobFailure_output,
+        "posture-api_WebhookJobFailureReasonEnum": posture_api_WebhookJobFailureReasonEnum_output,
+        "posture-api_WebhookJobParameters": posture_api_WebhookJobParameters_output,
+        "posture-api_WebhookJobStatusEnum": posture_api_WebhookJobStatusEnum_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

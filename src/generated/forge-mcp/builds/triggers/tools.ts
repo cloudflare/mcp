@@ -93,6 +93,35 @@ export const tools: readonly Tool[] = [
         "builds_trigger_name": builds_trigger_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_TriggerResponse",
+      $defs: {
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_TriggerResponse": builds_TriggerResponse_output,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
+        "builds_branch_excludes": builds_branch_excludes_output,
+        "builds_branch_includes": builds_branch_includes_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deleted_on": builds_deleted_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
+        "builds_root_directory": builds_root_directory_output,
+        "builds_trigger_name": builds_trigger_name_output,
+        "builds_trigger_uuid": builds_trigger_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -175,6 +204,14 @@ export const tools: readonly Tool[] = [
         "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_APIResponse",
+      $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -234,6 +271,50 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "builds_account_id": builds_account_id,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/builds_TriggerResponse"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/builds_PaginationInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_TriggerResponse": builds_TriggerResponse_output,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
+        "builds_branch_excludes": builds_branch_excludes_output,
+        "builds_branch_includes": builds_branch_includes_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deleted_on": builds_deleted_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
+        "builds_root_directory": builds_root_directory_output,
+        "builds_trigger_name": builds_trigger_name_output,
+        "builds_trigger_uuid": builds_trigger_uuid_output,
       },
     },
     annotations: {
@@ -346,6 +427,35 @@ export const tools: readonly Tool[] = [
         "builds_root_directory": builds_root_directory,
         "builds_trigger_name": builds_trigger_name,
         "builds_trigger_uuid": builds_trigger_uuid,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/builds_TriggerResponse",
+      $defs: {
+        "builds_SCMProviderType": builds_SCMProviderType_output,
+        "builds_TriggerResponse": builds_TriggerResponse_output,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
+        "builds_branch_excludes": builds_branch_excludes_output,
+        "builds_branch_includes": builds_branch_includes_output,
+        "builds_build_caching_enabled": builds_build_caching_enabled_output,
+        "builds_build_command": builds_build_command_output,
+        "builds_build_token_name": builds_build_token_name_output,
+        "builds_build_token_uuid": builds_build_token_uuid_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deleted_on": builds_deleted_on_output,
+        "builds_deploy_command": builds_deploy_command_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+        "builds_path_excludes": builds_path_excludes_output,
+        "builds_path_includes": builds_path_includes_output,
+        "builds_provider_account_id": builds_provider_account_id_output,
+        "builds_provider_account_name": builds_provider_account_name_output,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid_output,
+        "builds_repo_id": builds_repo_id_output,
+        "builds_repo_name": builds_repo_name_output,
+        "builds_root_directory": builds_root_directory_output,
+        "builds_trigger_name": builds_trigger_name_output,
+        "builds_trigger_uuid": builds_trigger_uuid_output,
       },
     },
     annotations: {

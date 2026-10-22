@@ -58,6 +58,44 @@ export const tools: readonly Tool[] = [
         "security-center_identifier": security_center_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "collection_truncated": {
+          "type": "boolean"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "entitlement": {
+          "$ref": "#/$defs/security-center_partnerEntitlement"
+        },
+        "has_more": {
+          "type": "boolean"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/security-center_shadowHost"
+          },
+          "type": "array"
+        },
+        "total_count": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "collection_truncated",
+        "domain",
+        "entitlement",
+        "has_more",
+        "items",
+        "total_count"
+      ],
+      "type": "object",
+      $defs: {
+        "security-center_partnerEntitlement": security_center_partnerEntitlement_output,
+        "security-center_shadowHost": security_center_shadowHost_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

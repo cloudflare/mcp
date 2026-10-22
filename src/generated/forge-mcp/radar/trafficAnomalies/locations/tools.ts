@@ -50,6 +50,36 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "trafficAnomalies": {
+          "items": {
+            "properties": {
+              "clientCountryAlpha2": {
+                "type": "string"
+              },
+              "clientCountryName": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "clientCountryAlpha2",
+              "clientCountryName",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "trafficAnomalies"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

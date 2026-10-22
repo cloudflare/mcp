@@ -60,6 +60,14 @@ export const tools: readonly Tool[] = [
         "dlp_Validation": dlp_Validation,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_CustomEntry",
+      $defs: {
+        "dlp_CustomEntry": dlp_CustomEntry_output,
+        "dlp_Pattern": dlp_Pattern_output,
+        "dlp_Validation": dlp_Validation_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -116,6 +124,12 @@ export const tools: readonly Tool[] = [
         "entry_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -168,6 +182,26 @@ export const tools: readonly Tool[] = [
         "account_id",
         "entry_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_EntryWithSharedProfiles",
+      $defs: {
+        "dlp_CustomEntry": dlp_CustomEntry_output,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_EntryConfidence": dlp_EntryConfidence_output,
+        "dlp_EntryProfile": dlp_EntryProfile_output,
+        "dlp_EntryWithSharedProfiles": dlp_EntryWithSharedProfiles_output,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
+        "dlp_Pattern": dlp_Pattern_output,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
+        "dlp_PromptTopicType": dlp_PromptTopicType_output,
+        "dlp_Validation": dlp_Validation_output,
+        "dlp_WordListEntry": dlp_WordListEntry_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -231,6 +265,39 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dlp_EntryWithUploadStatus"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_CustomEntry": dlp_CustomEntry_output,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_EntryConfidence": dlp_EntryConfidence_output,
+        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
+        "dlp_Pattern": dlp_Pattern_output,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
+        "dlp_PromptTopicType": dlp_PromptTopicType_output,
+        "dlp_Validation": dlp_Validation_output,
+        "dlp_WordListEntry": dlp_WordListEntry_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -321,6 +388,24 @@ export const tools: readonly Tool[] = [
         "dlp_EntryUpdate": dlp_EntryUpdate,
         "dlp_Pattern": dlp_Pattern,
         "dlp_Validation": dlp_Validation,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Entry",
+      $defs: {
+        "dlp_CustomEntry": dlp_CustomEntry_output,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_Entry": dlp_Entry_output,
+        "dlp_EntryConfidence": dlp_EntryConfidence_output,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
+        "dlp_Pattern": dlp_Pattern_output,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
+        "dlp_PromptTopicType": dlp_PromptTopicType_output,
+        "dlp_Validation": dlp_Validation_output,
+        "dlp_WordListEntry": dlp_WordListEntry_output,
       },
     },
     annotations: {

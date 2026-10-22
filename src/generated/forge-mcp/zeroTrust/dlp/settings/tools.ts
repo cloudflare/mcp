@@ -36,6 +36,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DlpSettings",
+      $defs: {
+        "dlp_DlpSettings": dlp_DlpSettings_output,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -96,6 +104,14 @@ export const tools: readonly Tool[] = [
         "dlp_PayloadLogSettingUpdate": dlp_PayloadLogSettingUpdate,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DlpSettings",
+      $defs: {
+        "dlp_DlpSettings": dlp_DlpSettings_output,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -146,6 +162,14 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DlpSettings",
+      $defs: {
+        "dlp_DlpSettings": dlp_DlpSettings_output,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -206,6 +230,14 @@ export const tools: readonly Tool[] = [
         "dlp_DlpSettingsUpdate": dlp_DlpSettingsUpdate,
         "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
         "dlp_PayloadLogSettingUpdate": dlp_PayloadLogSettingUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DlpSettings",
+      $defs: {
+        "dlp_DlpSettings": dlp_DlpSettings_output,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
       },
     },
     annotations: {

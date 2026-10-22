@@ -40,6 +40,12 @@ export const tools: readonly Tool[] = [
         "dlp_NewCustomPromptTopic": dlp_NewCustomPromptTopic,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_CustomPromptTopic",
+      $defs: {
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -97,6 +103,12 @@ export const tools: readonly Tool[] = [
         "entry_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -153,6 +165,12 @@ export const tools: readonly Tool[] = [
         "entry_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_CustomPromptTopic",
+      $defs: {
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -201,6 +219,26 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dlp_CustomPromptTopic"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -276,6 +314,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_CustomPromptTopicUpdate": dlp_CustomPromptTopicUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_CustomPromptTopic",
+      $defs: {
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
       },
     },
     annotations: {

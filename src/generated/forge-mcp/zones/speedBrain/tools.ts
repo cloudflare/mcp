@@ -45,6 +45,12 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_cloudflare_speed_brain_response",
+      $defs: {
+        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -110,6 +116,12 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_cloudflare_speed_brain_response",
+      $defs: {
+        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -29,6 +29,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_account-settings",
+      $defs: {
+        "workers_account-settings": workers_account_settings_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -114,6 +120,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_account-settings": workers_account_settings,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_account-settings",
+      $defs: {
+        "workers_account-settings": workers_account_settings_output,
       },
     },
     annotations: {

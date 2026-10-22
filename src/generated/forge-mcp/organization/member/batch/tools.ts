@@ -45,6 +45,28 @@ export const tools: readonly Tool[] = [
         "organizations-api_CreateSingleMember_user": organizations_api_CreateSingleMember_user,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_Member"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "organizations-api_Member": organizations_api_Member_output,
+        "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

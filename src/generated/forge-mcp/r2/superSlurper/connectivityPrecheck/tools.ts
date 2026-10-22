@@ -51,6 +51,12 @@ export const tools: readonly Tool[] = [
         "r2-slurper_SourceJobSchema": r2_slurper_SourceJobSchema,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2-slurper_ConnectivityResponse",
+      $defs: {
+        "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -103,6 +109,12 @@ export const tools: readonly Tool[] = [
         "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction,
         "r2-slurper_R2TargetSchema": r2_slurper_R2TargetSchema,
         "r2-slurper_S3LikeCredsSchema": r2_slurper_S3LikeCredsSchema,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2-slurper_ConnectivityResponse",
+      $defs: {
+        "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
       },
     },
     annotations: {

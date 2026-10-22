@@ -90,6 +90,23 @@ export const tools: readonly Tool[] = [
         "mq_retry-delay": mq_retry_delay,
       },
     },
+    outputSchema: {
+      "properties": {
+        "ackCount": {
+          "type": "number"
+        },
+        "retryCount": {
+          "type": "number"
+        },
+        "warnings": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -178,6 +195,22 @@ export const tools: readonly Tool[] = [
         "mq_queue-message": mq_queue_message,
         "mq_queue-message-json": mq_queue_message_json,
         "mq_queue-message-text": mq_queue_message_text,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "metadata": {
+          "properties": {
+            "metrics": {
+              "$ref": "#/$defs/mq_queue-metrics"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "mq_queue-metrics": mq_queue_metrics_output,
       },
     },
     annotations: {
@@ -283,6 +316,20 @@ export const tools: readonly Tool[] = [
         "mq_visibility-timeout": mq_visibility_timeout,
       },
     },
+    outputSchema: {
+      "properties": {
+        "extendCount": {
+          "type": "number"
+        },
+        "warnings": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -371,6 +418,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "mq_batch-size": mq_batch_size,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "messages": {
+          "$ref": "#/$defs/mq_queue-peek-batch"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "mq_queue-peek-batch": mq_queue_peek_batch_output,
+        "mq_ref": mq_ref_output,
       },
     },
     annotations: {
@@ -462,6 +521,30 @@ export const tools: readonly Tool[] = [
       $defs: {
         "mq_batch-size": mq_batch_size,
         "mq_visibility-timeout": mq_visibility_timeout,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "message_backlog_count": {
+          "type": "number"
+        },
+        "messages": {
+          "$ref": "#/$defs/mq_queue-pull-batch"
+        },
+        "metadata": {
+          "properties": {
+            "metrics": {
+              "$ref": "#/$defs/mq_queue-metrics"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "mq_lease-id": mq_lease_id_output,
+        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_queue-pull-batch": mq_queue_pull_batch_output,
       },
     },
     annotations: {
@@ -577,6 +660,28 @@ export const tools: readonly Tool[] = [
         "mq_ref": mq_ref,
       },
     },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "warnings": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -669,6 +774,22 @@ export const tools: readonly Tool[] = [
         "mq_queue-message": mq_queue_message,
         "mq_queue-message-json": mq_queue_message_json,
         "mq_queue-message-text": mq_queue_message_text,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "metadata": {
+          "properties": {
+            "metrics": {
+              "$ref": "#/$defs/mq_queue-metrics"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "mq_queue-metrics": mq_queue_metrics_output,
       },
     },
     annotations: {

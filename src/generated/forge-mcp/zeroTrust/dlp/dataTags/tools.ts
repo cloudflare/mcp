@@ -44,6 +44,12 @@ export const tools: readonly Tool[] = [
         "dlp_NewDataTag": dlp_NewDataTag,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataTag",
+      $defs: {
+        "dlp_DataTag": dlp_DataTag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -103,6 +109,12 @@ export const tools: readonly Tool[] = [
         "tag_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -161,6 +173,12 @@ export const tools: readonly Tool[] = [
         "tag_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataTag",
+      $defs: {
+        "dlp_DataTag": dlp_DataTag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -214,6 +232,24 @@ export const tools: readonly Tool[] = [
         "account_id",
         "category_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_DataTagArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_DataTag": dlp_DataTag_output,
+        "dlp_DataTagArray": dlp_DataTagArray_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -292,6 +328,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_DataTagUpdate": dlp_DataTagUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_DataTag",
+      $defs: {
+        "dlp_DataTag": dlp_DataTag_output,
       },
     },
     annotations: {

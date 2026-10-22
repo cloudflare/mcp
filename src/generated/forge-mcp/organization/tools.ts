@@ -48,6 +48,17 @@ export const tools: readonly Tool[] = [
         "organizations-api_Profile": organizations_api_Profile,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_Organization",
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -103,6 +114,12 @@ export const tools: readonly Tool[] = [
         "organization_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_DeleteOrganizationResult",
+      $defs: {
+        "organizations-api_DeleteOrganizationResult": organizations_api_DeleteOrganizationResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -146,6 +163,17 @@ export const tools: readonly Tool[] = [
       required: [
         "organization_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_Organization",
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -249,6 +277,32 @@ export const tools: readonly Tool[] = [
         "organizations-api_OrganizationID": organizations_api_OrganizationID,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_Organization"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -341,6 +395,17 @@ export const tools: readonly Tool[] = [
         "organizations-api_OrganizationID": organizations_api_OrganizationID,
         "organizations-api_Organization_parent": organizations_api_Organization_parent,
         "organizations-api_Profile": organizations_api_Profile,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/organizations-api_Organization",
+      $defs: {
+        "organizations-api_Organization": organizations_api_Organization_output,
+        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
+        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
+        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
+        "organizations-api_Profile": organizations_api_Profile_output,
       },
     },
     annotations: {

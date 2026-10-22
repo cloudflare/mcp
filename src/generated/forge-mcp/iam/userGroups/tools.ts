@@ -74,6 +74,26 @@ export const tools: readonly Tool[] = [
         "iam_user_group_policy_write_body": iam_user_group_policy_write_body,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_user_group",
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_user_group": iam_user_group_output,
+        "iam_user_group_identifier": iam_user_group_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -160,6 +180,27 @@ export const tools: readonly Tool[] = [
         "user_group_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/iam_common_components-schemas-identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      $defs: {
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -245,6 +286,26 @@ export const tools: readonly Tool[] = [
         "account_id",
         "user_group_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_user_group",
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_user_group": iam_user_group_output,
+        "iam_user_group_identifier": iam_user_group_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -360,6 +421,39 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
         "iam_user_group_identifier": iam_user_group_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_user_groups"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_user_group": iam_user_group_output,
+        "iam_user_group_identifier": iam_user_group_identifier_output,
+        "iam_user_groups": iam_user_groups_output,
       },
     },
     annotations: {
@@ -481,6 +575,26 @@ export const tools: readonly Tool[] = [
         "iam_resource_group_ids": iam_resource_group_ids,
         "iam_update_user_group_body": iam_update_user_group_body,
         "iam_user_group_policy_write_body": iam_user_group_policy_write_body,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_user_group",
+      $defs: {
+        "iam_access": iam_access_output,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_permission_group": iam_permission_group_output,
+        "iam_permission_group_meta": iam_permission_group_meta_output,
+        "iam_permission_groups": iam_permission_groups_output,
+        "iam_policy_identifier": iam_policy_identifier_output,
+        "iam_resource_group": iam_resource_group_output,
+        "iam_resource_group_meta": iam_resource_group_meta_output,
+        "iam_resource_groups": iam_resource_groups_output,
+        "iam_scope": iam_scope_output,
+        "iam_scope_key": iam_scope_key_output,
+        "iam_scope_object": iam_scope_object_output,
+        "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_user_group": iam_user_group_output,
+        "iam_user_group_identifier": iam_user_group_identifier_output,
       },
     },
     annotations: {

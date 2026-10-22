@@ -34,6 +34,17 @@ export const tools: readonly Tool[] = [
         "target_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -198,6 +209,17 @@ export const tools: readonly Tool[] = [
         "session_id",
         "target_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -367,6 +389,37 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "devtoolsFrontendUrl": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "webSocketDebuggerUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "url"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -522,6 +575,37 @@ export const tools: readonly Tool[] = [
         "session_id",
         "target_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "devtoolsFrontendUrl": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "webSocketDebuggerUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "url"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -707,6 +791,40 @@ export const tools: readonly Tool[] = [
         "account_id",
         "session_id"
       ],
+    },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "devtoolsFrontendUrl": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "webSocketDebuggerUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "url"
+        ],
+        "type": "object"
+      },
+      "type": "array",
     },
     annotations: {
       "destructiveHint": false,

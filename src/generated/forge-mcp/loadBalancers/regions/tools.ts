@@ -33,6 +33,9 @@ export const tools: readonly Tool[] = [
         "region_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -96,6 +99,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "load-balancing_subdivision_code_a2": load_balancing_subdivision_code_a2,
       },
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

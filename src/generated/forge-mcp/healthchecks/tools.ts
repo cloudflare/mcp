@@ -86,6 +86,29 @@ export const tools: readonly Tool[] = [
         "healthchecks_type": healthchecks_type,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/healthchecks_healthchecks",
+      $defs: {
+        "healthchecks_address": healthchecks_address_output,
+        "healthchecks_check_regions": healthchecks_check_regions_output,
+        "healthchecks_consecutive_fails": healthchecks_consecutive_fails_output,
+        "healthchecks_consecutive_successes": healthchecks_consecutive_successes_output,
+        "healthchecks_description": healthchecks_description_output,
+        "healthchecks_failure_reason": healthchecks_failure_reason_output,
+        "healthchecks_healthchecks": healthchecks_healthchecks_output,
+        "healthchecks_http_config": healthchecks_http_config_output,
+        "healthchecks_identifier": healthchecks_identifier_output,
+        "healthchecks_interval": healthchecks_interval_output,
+        "healthchecks_name": healthchecks_name_output,
+        "healthchecks_retries": healthchecks_retries_output,
+        "healthchecks_status": healthchecks_status_output,
+        "healthchecks_suspended": healthchecks_suspended_output,
+        "healthchecks_tcp_config": healthchecks_tcp_config_output,
+        "healthchecks_timeout": healthchecks_timeout_output,
+        "healthchecks_timestamp": healthchecks_timestamp_output,
+        "healthchecks_type": healthchecks_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -171,6 +194,17 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "healthcheck_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/healthchecks_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "healthchecks_identifier": healthchecks_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -266,6 +300,29 @@ export const tools: readonly Tool[] = [
         "healthchecks_type": healthchecks_type,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/healthchecks_healthchecks",
+      $defs: {
+        "healthchecks_address": healthchecks_address_output,
+        "healthchecks_check_regions": healthchecks_check_regions_output,
+        "healthchecks_consecutive_fails": healthchecks_consecutive_fails_output,
+        "healthchecks_consecutive_successes": healthchecks_consecutive_successes_output,
+        "healthchecks_description": healthchecks_description_output,
+        "healthchecks_failure_reason": healthchecks_failure_reason_output,
+        "healthchecks_healthchecks": healthchecks_healthchecks_output,
+        "healthchecks_http_config": healthchecks_http_config_output,
+        "healthchecks_identifier": healthchecks_identifier_output,
+        "healthchecks_interval": healthchecks_interval_output,
+        "healthchecks_name": healthchecks_name_output,
+        "healthchecks_retries": healthchecks_retries_output,
+        "healthchecks_status": healthchecks_status_output,
+        "healthchecks_suspended": healthchecks_suspended_output,
+        "healthchecks_tcp_config": healthchecks_tcp_config_output,
+        "healthchecks_timeout": healthchecks_timeout_output,
+        "healthchecks_timestamp": healthchecks_timestamp_output,
+        "healthchecks_type": healthchecks_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -351,6 +408,29 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "healthcheck_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/healthchecks_healthchecks",
+      $defs: {
+        "healthchecks_address": healthchecks_address_output,
+        "healthchecks_check_regions": healthchecks_check_regions_output,
+        "healthchecks_consecutive_fails": healthchecks_consecutive_fails_output,
+        "healthchecks_consecutive_successes": healthchecks_consecutive_successes_output,
+        "healthchecks_description": healthchecks_description_output,
+        "healthchecks_failure_reason": healthchecks_failure_reason_output,
+        "healthchecks_healthchecks": healthchecks_healthchecks_output,
+        "healthchecks_http_config": healthchecks_http_config_output,
+        "healthchecks_identifier": healthchecks_identifier_output,
+        "healthchecks_interval": healthchecks_interval_output,
+        "healthchecks_name": healthchecks_name_output,
+        "healthchecks_retries": healthchecks_retries_output,
+        "healthchecks_status": healthchecks_status_output,
+        "healthchecks_suspended": healthchecks_suspended_output,
+        "healthchecks_tcp_config": healthchecks_tcp_config_output,
+        "healthchecks_timeout": healthchecks_timeout_output,
+        "healthchecks_timestamp": healthchecks_timestamp_output,
+        "healthchecks_type": healthchecks_type_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -442,6 +522,44 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/healthchecks_healthchecks"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/healthchecks_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "healthchecks_address": healthchecks_address_output,
+        "healthchecks_check_regions": healthchecks_check_regions_output,
+        "healthchecks_consecutive_fails": healthchecks_consecutive_fails_output,
+        "healthchecks_consecutive_successes": healthchecks_consecutive_successes_output,
+        "healthchecks_description": healthchecks_description_output,
+        "healthchecks_failure_reason": healthchecks_failure_reason_output,
+        "healthchecks_healthchecks": healthchecks_healthchecks_output,
+        "healthchecks_http_config": healthchecks_http_config_output,
+        "healthchecks_identifier": healthchecks_identifier_output,
+        "healthchecks_interval": healthchecks_interval_output,
+        "healthchecks_name": healthchecks_name_output,
+        "healthchecks_result_info": healthchecks_result_info_output,
+        "healthchecks_retries": healthchecks_retries_output,
+        "healthchecks_status": healthchecks_status_output,
+        "healthchecks_suspended": healthchecks_suspended_output,
+        "healthchecks_tcp_config": healthchecks_tcp_config_output,
+        "healthchecks_timeout": healthchecks_timeout_output,
+        "healthchecks_timestamp": healthchecks_timestamp_output,
+        "healthchecks_type": healthchecks_type_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -566,6 +684,29 @@ export const tools: readonly Tool[] = [
         "healthchecks_tcp_config": healthchecks_tcp_config,
         "healthchecks_timeout": healthchecks_timeout,
         "healthchecks_type": healthchecks_type,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/healthchecks_healthchecks",
+      $defs: {
+        "healthchecks_address": healthchecks_address_output,
+        "healthchecks_check_regions": healthchecks_check_regions_output,
+        "healthchecks_consecutive_fails": healthchecks_consecutive_fails_output,
+        "healthchecks_consecutive_successes": healthchecks_consecutive_successes_output,
+        "healthchecks_description": healthchecks_description_output,
+        "healthchecks_failure_reason": healthchecks_failure_reason_output,
+        "healthchecks_healthchecks": healthchecks_healthchecks_output,
+        "healthchecks_http_config": healthchecks_http_config_output,
+        "healthchecks_identifier": healthchecks_identifier_output,
+        "healthchecks_interval": healthchecks_interval_output,
+        "healthchecks_name": healthchecks_name_output,
+        "healthchecks_retries": healthchecks_retries_output,
+        "healthchecks_status": healthchecks_status_output,
+        "healthchecks_suspended": healthchecks_suspended_output,
+        "healthchecks_tcp_config": healthchecks_tcp_config_output,
+        "healthchecks_timeout": healthchecks_timeout_output,
+        "healthchecks_timestamp": healthchecks_timestamp_output,
+        "healthchecks_type": healthchecks_type_output,
       },
     },
     annotations: {

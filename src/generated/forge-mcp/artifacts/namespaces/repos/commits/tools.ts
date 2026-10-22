@@ -38,6 +38,72 @@ export const tools: readonly Tool[] = [
         "hash"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "author": {
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name"
+          ],
+          "type": "object"
+        },
+        "authoredAt": {
+          "type": "integer"
+        },
+        "committedAt": {
+          "type": "integer"
+        },
+        "committer": {
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name"
+          ],
+          "type": "object"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "parents": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "treeHash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "author",
+        "authoredAt",
+        "committedAt",
+        "committer",
+        "hash",
+        "message",
+        "parents",
+        "treeHash"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

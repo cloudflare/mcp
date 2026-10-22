@@ -52,6 +52,61 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "matches": {
+          "items": {
+            "properties": {
+              "account_id": {
+                "type": "string"
+              },
+              "content_type": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "image_data": {
+                "type": "string"
+              },
+              "query_id": {
+                "type": "integer"
+              },
+              "r2_path": {
+                "type": "string"
+              },
+              "similarity_score": {
+                "type": "number"
+              },
+              "similarity_threshold": {
+                "type": "number"
+              },
+              "tag": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "number"
+              },
+              "url_scan_id": {
+                "type": "string"
+              },
+              "vector_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "similarity_score"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "matches"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -149,6 +204,20 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "total_queries": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total_queries"
+        ],
+        "type": "object"
+      },
+      "type": "array",
     },
     annotations: {
       "destructiveHint": false,

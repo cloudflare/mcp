@@ -52,6 +52,14 @@ export const tools: readonly Tool[] = [
         "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_APIResponse",
+      $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -112,6 +120,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "builds_account_id": builds_account_id,
         "builds_trigger_uuid": builds_trigger_uuid,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/builds_EnvironmentVariablesResponse",
+      $defs: {
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_is_secret": builds_is_secret_output,
       },
     },
     annotations: {
@@ -179,6 +195,14 @@ export const tools: readonly Tool[] = [
         "builds_account_id": builds_account_id,
         "builds_is_secret": builds_is_secret,
         "builds_trigger_uuid": builds_trigger_uuid,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/builds_EnvironmentVariablesResponse",
+      $defs: {
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_is_secret": builds_is_secret_output,
       },
     },
     annotations: {

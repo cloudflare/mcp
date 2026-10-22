@@ -39,6 +39,28 @@ export const tools: readonly Tool[] = [
         "meeting_id"
       ],
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_Recording"
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_Recording": realtimekit_Recording_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -46,6 +46,13 @@ export const tools: readonly Tool[] = [
         "pay-per-crawl_DaricConfigCreate": pay_per_crawl_DaricConfigCreate,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_DaricConfig",
+      $defs: {
+        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
+        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -107,6 +114,13 @@ export const tools: readonly Tool[] = [
         "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_DaricConfig",
+      $defs: {
+        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
+        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -158,6 +172,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_DaricConfig",
+      $defs: {
+        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
+        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

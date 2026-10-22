@@ -31,6 +31,33 @@ export const tools: readonly Tool[] = [
         "tld"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "tld": {
+          "properties": {
+            "manager": {
+              "type": "string"
+            },
+            "tld": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "manager",
+            "tld",
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "tld"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -145,6 +172,36 @@ export const tools: readonly Tool[] = [
           "type": "string"
         }
       },
+    },
+    outputSchema: {
+      "properties": {
+        "tlds": {
+          "items": {
+            "properties": {
+              "manager": {
+                "type": "string"
+              },
+              "tld": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "manager",
+              "tld",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "tlds"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

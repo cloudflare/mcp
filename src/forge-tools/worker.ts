@@ -3,8 +3,8 @@
  * (`src/generated/forge-mcp`) and serves them to the main Worker over RPC, so
  * isolates serving Code Mode never compile them.
  *
- * It holds no credentials and makes no requests. `list` returns the tools as
- * `tools/list` sends them; `plan` builds the request a call makes, which the
+ * It holds no credentials and makes no requests. `listJson` returns the tools
+ * as `tools/list` sends them, optionally with their output schemas; `plan` builds the request a call makes, which the
  * main Worker sends with the session's token; `checkResponse` checks a
  * response against the generated response schemas. It has no public route:
  * the main Worker reaches it through its `FORGE_TOOLS` service binding.
@@ -27,6 +27,7 @@ import { concretePaths } from '../spec-processor'
 const tools = generatedTools.map(cloudflareTool)
 
 let listing: string | undefined
+let listingWithOutput: string | undefined
 let byOperation: Map<string, (typeof tools)[number]> | undefined
 
 /**
@@ -65,9 +66,14 @@ export default class ForgeTools extends WorkerEntrypoint {
   /**
    * The generated tools as `tools/list` sends them, as one JSON string built
    * once per isolate. A string crosses RPC as bytes; ~3,000 nested objects
-   * cost the caller hundreds of milliseconds of CPU to decode.
+   * cost the caller hundreds of milliseconds of CPU to decode. With
+   * `outputSchema`, each tool carries its generated output schema.
    */
-  listJson(): string {
+  listJson({ outputSchema = false }: { outputSchema?: boolean } = {}): string {
+    if (outputSchema) {
+      listingWithOutput ??= JSON.stringify(listTools(tools, { outputSchema: true }))
+      return listingWithOutput
+    }
     listing ??= JSON.stringify(listTools(tools))
     return listing
   }

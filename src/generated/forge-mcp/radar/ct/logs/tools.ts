@@ -31,6 +31,199 @@ export const tools: readonly Tool[] = [
         "log_slug"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "certificateLog": {
+          "properties": {
+            "api": {
+              "enum": [
+                "RFC6962",
+                "STATIC"
+              ],
+              "type": "string"
+            },
+            "avgThroughput": {
+              "type": "number"
+            },
+            "description": {
+              "type": "string"
+            },
+            "endExclusive": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastUpdate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "operator": {
+              "type": "string"
+            },
+            "performance": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "endpoints": {
+                      "items": {
+                        "properties": {
+                          "endpoint": {
+                            "enum": [
+                              "add-chain (new)",
+                              "add-chain (old)",
+                              "add-pre-chain (new)",
+                              "add-pre-chain (old)",
+                              "get-entries",
+                              "get-roots",
+                              "get-sth"
+                            ],
+                            "type": "string"
+                          },
+                          "responseTime": {
+                            "type": "number"
+                          },
+                          "uptime": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "endpoint",
+                          "responseTime",
+                          "uptime"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "responseTime": {
+                      "type": "number"
+                    },
+                    "uptime": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "endpoints",
+                    "responseTime",
+                    "uptime"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "related": {
+              "items": {
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "endExclusive": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "startInclusive": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "state": {
+                    "enum": [
+                      "USABLE",
+                      "PENDING",
+                      "QUALIFIED",
+                      "READ_ONLY",
+                      "RETIRED",
+                      "REJECTED"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "description",
+                  "endExclusive",
+                  "slug",
+                  "startInclusive",
+                  "state"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "slug": {
+              "type": "string"
+            },
+            "startInclusive": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "state": {
+              "enum": [
+                "USABLE",
+                "PENDING",
+                "QUALIFIED",
+                "READ_ONLY",
+                "RETIRED",
+                "REJECTED"
+              ],
+              "type": "string"
+            },
+            "stateTimestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "submittableCertCount": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "submittedCertCount": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "api",
+            "avgThroughput",
+            "description",
+            "endExclusive",
+            "lastUpdate",
+            "operator",
+            "performance",
+            "related",
+            "slug",
+            "startInclusive",
+            "state",
+            "stateTimestamp",
+            "submittableCertCount",
+            "submittedCertCount",
+            "url"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "certificateLog"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -292,6 +485,75 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         }
       },
+    },
+    outputSchema: {
+      "properties": {
+        "certificateLogs": {
+          "items": {
+            "properties": {
+              "api": {
+                "enum": [
+                  "RFC6962",
+                  "STATIC"
+                ],
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "endExclusive": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "operator": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "startInclusive": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "state": {
+                "enum": [
+                  "USABLE",
+                  "PENDING",
+                  "QUALIFIED",
+                  "READ_ONLY",
+                  "RETIRED",
+                  "REJECTED"
+                ],
+                "type": "string"
+              },
+              "stateTimestamp": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "api",
+              "description",
+              "endExclusive",
+              "operator",
+              "slug",
+              "startInclusive",
+              "state",
+              "stateTimestamp",
+              "url"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "certificateLogs"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

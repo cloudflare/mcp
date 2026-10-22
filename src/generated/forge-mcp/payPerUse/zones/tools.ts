@@ -42,6 +42,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUZoneCanBeEnabled",
+      $defs: {
+        "pay-per-crawl_PPUZoneCanBeEnabled": pay_per_crawl_PPUZoneCanBeEnabled_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -86,6 +92,12 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUZoneConfigurationResult",
+      $defs: {
+        "pay-per-crawl_PPUZoneConfigurationResult": pay_per_crawl_PPUZoneConfigurationResult_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -139,6 +151,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "pay-per-crawl_PPUZoneCanBeEnabledUpdate": pay_per_crawl_PPUZoneCanBeEnabledUpdate,
         "pay-per-crawl_PPUZonesCanBeEnabledPayload": pay_per_crawl_PPUZonesCanBeEnabledPayload,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",
+      $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
       },
     },
     annotations: {
@@ -199,6 +220,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "pay-per-crawl_PPUZoneConfigurationUpdate": pay_per_crawl_PPUZoneConfigurationUpdate,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUZoneConfiguration",
+      $defs: {
+        "pay-per-crawl_PPUZoneConfiguration": pay_per_crawl_PPUZoneConfiguration_output,
       },
     },
     annotations: {

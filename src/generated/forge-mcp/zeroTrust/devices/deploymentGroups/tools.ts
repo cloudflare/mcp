@@ -51,6 +51,18 @@ export const tools: readonly Tool[] = [
         "teams-devices_version_config": teams_devices_version_config,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_deployment_group",
+      $defs: {
+        "teams-devices_deployment_group": teams_devices_deployment_group_output,
+        "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
+        "teams-devices_deployment_group_id": teams_devices_deployment_group_id_output,
+        "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
+        "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
+        "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_version_config": teams_devices_version_config_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -108,6 +120,14 @@ export const tools: readonly Tool[] = [
         "group_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -161,6 +181,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "group_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_deployment_group",
+      $defs: {
+        "teams-devices_deployment_group": teams_devices_deployment_group_output,
+        "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
+        "teams-devices_deployment_group_id": teams_devices_deployment_group_id_output,
+        "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
+        "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
+        "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_version_config": teams_devices_version_config_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -220,6 +252,33 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_deployment_group"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/teams-devices_pagination_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "teams-devices_deployment_group": teams_devices_deployment_group_output,
+        "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
+        "teams-devices_deployment_group_id": teams_devices_deployment_group_id_output,
+        "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
+        "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
+        "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_pagination_info": teams_devices_pagination_info_output,
+        "teams-devices_version_config": teams_devices_version_config_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -300,6 +359,18 @@ export const tools: readonly Tool[] = [
         "teams-devices_deployment_group_name": teams_devices_deployment_group_name,
         "teams-devices_deployment_group_update_request": teams_devices_deployment_group_update_request,
         "teams-devices_version_config": teams_devices_version_config,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_deployment_group",
+      $defs: {
+        "teams-devices_deployment_group": teams_devices_deployment_group_output,
+        "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
+        "teams-devices_deployment_group_id": teams_devices_deployment_group_id_output,
+        "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
+        "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
+        "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_version_config": teams_devices_version_config_output,
       },
     },
     annotations: {

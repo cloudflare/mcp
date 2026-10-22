@@ -114,6 +114,14 @@ export const tools: readonly Tool[] = [
         "abuse-reports_TrademarkReport": abuse_reports_TrademarkReport,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/abuse-reports_SubmitReportResponse",
+      $defs: {
+        "abuse-reports_SubmissionReportType": abuse_reports_SubmissionReportType_output,
+        "abuse-reports_SubmitReportResponse": abuse_reports_SubmitReportResponse_output,
+        "abuse-reports_SubmitReportResponse_request": abuse_reports_SubmitReportResponse_request_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -215,6 +223,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "report_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/abuse-reports_AbuseReport",
+      $defs: {
+        "abuse-reports_AbuseReport": abuse_reports_AbuseReport_output,
+        "abuse-reports_MitigationSummary": abuse_reports_MitigationSummary_output,
+        "abuse-reports_ReportStatus": abuse_reports_ReportStatus_output,
+        "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -336,6 +354,17 @@ export const tools: readonly Tool[] = [
         "report_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDetail",
+      $defs: {
+        "abuse-reports_RegistrarWhoIsFields": abuse_reports_RegistrarWhoIsFields_output,
+        "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_SubmittedAbuseReportDenialReason": abuse_reports_SubmittedAbuseReportDenialReason_output,
+        "abuse-reports_SubmittedAbuseReportDetail": abuse_reports_SubmittedAbuseReportDetail_output,
+        "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus_output,
+        "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -444,6 +473,27 @@ export const tools: readonly Tool[] = [
         "abuse-reports_MitigationStatus": abuse_reports_MitigationStatus,
         "abuse-reports_ReportStatus": abuse_reports_ReportStatus,
         "abuse-reports_ReportType": abuse_reports_ReportType,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "reports": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_AbuseReport"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "reports"
+      ],
+      "type": "object",
+      $defs: {
+        "abuse-reports_AbuseReport": abuse_reports_AbuseReport_output,
+        "abuse-reports_MitigationSummary": abuse_reports_MitigationSummary_output,
+        "abuse-reports_ReportStatus": abuse_reports_ReportStatus_output,
+        "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
       },
     },
     annotations: {
@@ -605,6 +655,17 @@ export const tools: readonly Tool[] = [
       $defs: {
         "abuse-reports_ReportType": abuse_reports_ReportType,
         "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListResponse_result",
+      $defs: {
+        "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_SubmittedAbuseReportDenialReason": abuse_reports_SubmittedAbuseReportDenialReason_output,
+        "abuse-reports_SubmittedAbuseReportListItem": abuse_reports_SubmittedAbuseReportListItem_output,
+        "abuse-reports_SubmittedAbuseReportListResponse_result": abuse_reports_SubmittedAbuseReportListResponse_result_output,
+        "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus_output,
+        "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
       },
     },
     annotations: {

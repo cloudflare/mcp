@@ -38,6 +38,13 @@ export const tools: readonly Tool[] = [
         "url"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/intel_url_intelligence",
+      $defs: {
+        "intel_url_intelligence": intel_url_intelligence_output,
+        "intel_url_intelligence_category_with_source": intel_url_intelligence_category_with_source_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

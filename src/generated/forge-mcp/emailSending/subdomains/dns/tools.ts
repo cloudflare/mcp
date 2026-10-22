@@ -33,6 +33,37 @@ export const tools: readonly Tool[] = [
         "subdomain_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/email_sending_subdomain_config_error"
+          },
+          "type": "array"
+        },
+        "records": {
+          "items": {
+            "$ref": "#/$defs/email_dns_record"
+          },
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "unconfigured",
+            "unlocked",
+            "misconfigured"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "email_dns_record": email_dns_record_output,
+        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -123,6 +154,44 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "subdomain_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_dns_record"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email_dns_record": email_dns_record_output,
+        "email_dns_record_ttl": email_dns_record_ttl_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -218,6 +287,37 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "subdomain_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/email_sending_subdomain_config_error"
+          },
+          "type": "array"
+        },
+        "records": {
+          "items": {
+            "$ref": "#/$defs/email_dns_record"
+          },
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "unconfigured",
+            "unlocked",
+            "misconfigured"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "email_dns_record": email_dns_record_output,
+        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

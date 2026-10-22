@@ -59,6 +59,48 @@ export const tools: readonly Tool[] = [
         "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint,
       },
     },
+    outputSchema: {
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-events_FieldDefinition"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "uuid"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
+        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
+        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

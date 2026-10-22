@@ -54,6 +54,17 @@ export const tools: readonly Tool[] = [
         "addressing_service_identifier": addressing_service_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_service_binding",
+      $defs: {
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_provisioning": addressing_provisioning_output,
+        "addressing_service_binding": addressing_service_binding_output,
+        "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
+        "addressing_service_identifier": addressing_service_identifier_output,
+        "addressing_service_name": addressing_service_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -119,6 +130,13 @@ export const tools: readonly Tool[] = [
         "binding_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-common",
+      $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
+        "addressing_messages": addressing_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -177,6 +195,17 @@ export const tools: readonly Tool[] = [
         "prefix_id",
         "binding_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_service_binding",
+      $defs: {
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_provisioning": addressing_provisioning_output,
+        "addressing_service_binding": addressing_service_binding_output,
+        "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
+        "addressing_service_identifier": addressing_service_identifier_output,
+        "addressing_service_name": addressing_service_name_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -237,6 +266,31 @@ export const tools: readonly Tool[] = [
         "account_id",
         "prefix_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_service_binding"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "addressing_cidr": addressing_cidr_output,
+        "addressing_provisioning": addressing_provisioning_output,
+        "addressing_service_binding": addressing_service_binding_output,
+        "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
+        "addressing_service_identifier": addressing_service_identifier_output,
+        "addressing_service_name": addressing_service_name_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

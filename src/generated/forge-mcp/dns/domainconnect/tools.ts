@@ -29,6 +29,9 @@ export const tools: readonly Tool[] = [
         "domain"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -114,6 +117,13 @@ export const tools: readonly Tool[] = [
         "account"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/domain-connect_neededByStratus",
+      $defs: {
+        "domain-connect_neededByStratus": domain_connect_neededByStratus_output,
+        "domain-connect_templateSpec": domain_connect_templateSpec_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -175,6 +185,9 @@ export const tools: readonly Tool[] = [
         "provider",
         "service"
       ],
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

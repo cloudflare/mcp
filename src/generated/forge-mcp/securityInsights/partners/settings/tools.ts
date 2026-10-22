@@ -41,6 +41,26 @@ export const tools: readonly Tool[] = [
         "security-center_identifier": security_center_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "resolution_status": {
+          "enum": [
+            "resolved",
+            "not_found",
+            "no_zones",
+            "pending"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -115,6 +135,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "security-center_identifier": security_center_identifier,
         "security-center_partnerSettings": security_center_partnerSettings,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_partnerSettings",
+      $defs: {
+        "security-center_partnerSettings": security_center_partnerSettings_output,
       },
     },
     annotations: {

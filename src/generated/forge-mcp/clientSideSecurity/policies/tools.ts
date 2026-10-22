@@ -57,6 +57,18 @@ export const tools: readonly Tool[] = [
         "client-side-security_policy-value": client_side_security_policy_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/client-side-security_policy-with-id",
+      $defs: {
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_policy-action": client_side_security_policy_action_output,
+        "client-side-security_policy-description": client_side_security_policy_description_output,
+        "client-side-security_policy-enabled": client_side_security_policy_enabled_output,
+        "client-side-security_policy-expression": client_side_security_policy_expression_output,
+        "client-side-security_policy-value": client_side_security_policy_value_output,
+        "client-side-security_policy-with-id": client_side_security_policy_with_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -185,6 +197,18 @@ export const tools: readonly Tool[] = [
         "policy_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/client-side-security_policy-with-id",
+      $defs: {
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_policy-action": client_side_security_policy_action_output,
+        "client-side-security_policy-description": client_side_security_policy_description_output,
+        "client-side-security_policy-enabled": client_side_security_policy_enabled_output,
+        "client-side-security_policy-expression": client_side_security_policy_expression_output,
+        "client-side-security_policy-value": client_side_security_policy_value_output,
+        "client-side-security_policy-with-id": client_side_security_policy_with_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -250,6 +274,33 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/client-side-security_policy-with-id"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/client-side-security_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_policy-action": client_side_security_policy_action_output,
+        "client-side-security_policy-description": client_side_security_policy_description_output,
+        "client-side-security_policy-enabled": client_side_security_policy_enabled_output,
+        "client-side-security_policy-expression": client_side_security_policy_expression_output,
+        "client-side-security_policy-value": client_side_security_policy_value_output,
+        "client-side-security_policy-with-id": client_side_security_policy_with_id_output,
+        "client-side-security_result_info": client_side_security_result_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -368,6 +419,18 @@ export const tools: readonly Tool[] = [
         "client-side-security_policy-enabled": client_side_security_policy_enabled,
         "client-side-security_policy-expression": client_side_security_policy_expression,
         "client-side-security_policy-value": client_side_security_policy_value,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/client-side-security_policy-with-id",
+      $defs: {
+        "client-side-security_id": client_side_security_id_output,
+        "client-side-security_policy-action": client_side_security_policy_action_output,
+        "client-side-security_policy-description": client_side_security_policy_description_output,
+        "client-side-security_policy-enabled": client_side_security_policy_enabled_output,
+        "client-side-security_policy-expression": client_side_security_policy_expression_output,
+        "client-side-security_policy-value": client_side_security_policy_value_output,
+        "client-side-security_policy-with-id": client_side_security_policy_with_id_output,
       },
     },
     annotations: {

@@ -35,6 +35,20 @@ export const tools: readonly Tool[] = [
         "session_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/realtimekit_ChatMessage"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_ChatMessage": realtimekit_ChatMessage_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

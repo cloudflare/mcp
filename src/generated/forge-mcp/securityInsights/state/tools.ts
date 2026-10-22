@@ -29,6 +29,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_accountStateResponse",
+      $defs: {
+        "security-center_accountStateResponse": security_center_accountStateResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -78,6 +84,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "security-center_updateAccountStateRequest": security_center_updateAccountStateRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/security-center_accountStateResponse",
+      $defs: {
+        "security-center_accountStateResponse": security_center_accountStateResponse_output,
       },
     },
     annotations: {

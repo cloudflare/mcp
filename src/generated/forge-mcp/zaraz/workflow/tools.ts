@@ -29,6 +29,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/zaraz_zaraz-workflow",
+      $defs: {
+        "zaraz_zaraz-workflow": zaraz_zaraz_workflow_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -85,6 +91,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zaraz_zaraz-workflow": zaraz_zaraz_workflow,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zaraz_zaraz-workflow",
+      $defs: {
+        "zaraz_zaraz-workflow": zaraz_zaraz_workflow_output,
       },
     },
     annotations: {

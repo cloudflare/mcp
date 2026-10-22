@@ -70,6 +70,21 @@ export const tools: readonly Tool[] = [
         "access_uuid": access_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_custom_page_without_html",
+      $defs: {
+        "access_app_count-2": access_app_count_2_output,
+        "access_contract_version": access_contract_version_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_name-11": access_name_11_output,
+        "access_template_violation": access_template_violation_output,
+        "access_timestamp": access_timestamp_output,
+        "access_type-2": access_type_2_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -139,6 +154,17 @@ export const tools: readonly Tool[] = [
         "custom_page_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -197,6 +223,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "custom_page_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_custom_page",
+      $defs: {
+        "access_app_count-2": access_app_count_2_output,
+        "access_contract_version": access_contract_version_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_page": access_custom_page_output,
+        "access_name-11": access_name_11_output,
+        "access_timestamp": access_timestamp_output,
+        "access_type-2": access_type_2_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -265,6 +305,52 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_custom_page_without_html"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_app_count-2": access_app_count_2_output,
+        "access_contract_version": access_contract_version_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_name-11": access_name_11_output,
+        "access_template_violation": access_template_violation_output,
+        "access_timestamp": access_timestamp_output,
+        "access_type-2": access_type_2_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -379,6 +465,21 @@ export const tools: readonly Tool[] = [
         "access_uuid": access_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_custom_page_without_html",
+      $defs: {
+        "access_app_count-2": access_app_count_2_output,
+        "access_contract_version": access_contract_version_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_name-11": access_name_11_output,
+        "access_template_violation": access_template_violation_output,
+        "access_timestamp": access_timestamp_output,
+        "access_type-2": access_type_2_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -448,6 +549,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_custom_page_validate": access_custom_page_validate,
         "access_type-2": access_type_2,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_validation_result",
+      $defs: {
+        "access_template_violation": access_template_violation_output,
+        "access_type-2": access_type_2_output,
+        "access_validation_result": access_validation_result_output,
       },
     },
     annotations: {

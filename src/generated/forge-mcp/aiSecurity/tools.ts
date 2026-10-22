@@ -30,6 +30,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_settings",
+      $defs: {
+        "waf-product-api-bundle_settings": waf_product_api_bundle_settings_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -87,6 +93,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "waf-product-api-bundle_settings": waf_product_api_bundle_settings,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_settings",
+      $defs: {
+        "waf-product-api-bundle_settings": waf_product_api_bundle_settings_output,
       },
     },
     annotations: {

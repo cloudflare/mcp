@@ -68,6 +68,18 @@ export const tools: readonly Tool[] = [
         "builds_script_name": builds_script_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_DeployHookResponse",
+      $defs: {
+        "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -148,6 +160,18 @@ export const tools: readonly Tool[] = [
         "builds_script_name": builds_script_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_DeployHookResponse",
+      $defs: {
+        "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -221,6 +245,18 @@ export const tools: readonly Tool[] = [
         "builds_script_name": builds_script_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_DeployHookResponse",
+      $defs: {
+        "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -287,6 +323,34 @@ export const tools: readonly Tool[] = [
       $defs: {
         "builds_account_id": builds_account_id,
         "builds_script_name": builds_script_name,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/builds_DetailedDeployHookResponse"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/builds_PaginationInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "builds_DetailedDeployHookResponse": builds_DetailedDeployHookResponse_output,
+        "builds_DetailedDeployHookResponse_latest_build": builds_DetailedDeployHookResponse_latest_build_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
       },
     },
     annotations: {
@@ -364,6 +428,15 @@ export const tools: readonly Tool[] = [
         "builds_deploy_hook_uuid": builds_deploy_hook_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_TriggerDeployHookResponse",
+      $defs: {
+        "builds_BuildStatus": builds_BuildStatus_output,
+        "builds_TriggerDeployHookResponse": builds_TriggerDeployHookResponse_output,
+        "builds_build_uuid": builds_build_uuid_output,
+        "builds_created_on": builds_created_on_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -434,6 +507,18 @@ export const tools: readonly Tool[] = [
         "builds_deploy_hook_name": builds_deploy_hook_name,
         "builds_deploy_hook_uuid": builds_deploy_hook_uuid,
         "builds_script_name": builds_script_name,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/builds_DeployHookResponse",
+      $defs: {
+        "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_branch": builds_branch_output,
+        "builds_created_on": builds_created_on_output,
+        "builds_deploy_hook_name": builds_deploy_hook_name_output,
+        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
+        "builds_external_script_id": builds_external_script_id_output,
+        "builds_modified_on": builds_modified_on_output,
       },
     },
     annotations: {

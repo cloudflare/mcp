@@ -43,6 +43,32 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel_schemas-ip"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/intel_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "intel_ip": intel_ip_output,
+        "intel_ipv4": intel_ipv4_output,
+        "intel_ipv6": intel_ipv6_output,
+        "intel_result_info": intel_result_info_output,
+        "intel_schemas-ip": intel_schemas_ip_output,
+        "intel_schemas-ip_belongs_to_ref": intel_schemas_ip_belongs_to_ref_output,
+        "intel_schemas-ip_risk_typesItem": intel_schemas_ip_risk_typesItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

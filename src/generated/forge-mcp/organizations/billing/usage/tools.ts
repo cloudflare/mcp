@@ -42,6 +42,26 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_identifier": billable_usage_api_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

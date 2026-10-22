@@ -67,6 +67,22 @@ export const tools: readonly Tool[] = [
         "account_tag"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/analytics-sql_IntrospectionResponse",
+      $defs: {
+        "analytics-sql_Attribute": analytics_sql_Attribute_output,
+        "analytics-sql_CustomAttribute": analytics_sql_CustomAttribute_output,
+        "analytics-sql_DatasetAvailability": analytics_sql_DatasetAvailability_output,
+        "analytics-sql_IntrospectionColumn": analytics_sql_IntrospectionColumn_output,
+        "analytics-sql_IntrospectionDataset": analytics_sql_IntrospectionDataset_output,
+        "analytics-sql_IntrospectionDatasetKind": analytics_sql_IntrospectionDatasetKind_output,
+        "analytics-sql_IntrospectionDatasetKind_events": analytics_sql_IntrospectionDatasetKind_events_output,
+        "analytics-sql_IntrospectionDatasetKind_logs": analytics_sql_IntrospectionDatasetKind_logs_output,
+        "analytics-sql_IntrospectionDatasetKind_states": analytics_sql_IntrospectionDatasetKind_states_output,
+        "analytics-sql_IntrospectionResponse": analytics_sql_IntrospectionResponse_output,
+        "analytics-sql_IntrospectionSampling": analytics_sql_IntrospectionSampling_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

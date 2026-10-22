@@ -43,6 +43,13 @@ export const tools: readonly Tool[] = [
         "flag_key"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/flagship_EvaluationResult",
+      $defs: {
+        "flagship_EvaluationResult": flagship_EvaluationResult_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

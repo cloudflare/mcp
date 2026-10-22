@@ -105,6 +105,16 @@ export const tools: readonly Tool[] = [
         "group_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_group_details",
+      $defs: {
+        "access_externalId": access_externalId_output,
+        "access_group_details": access_group_details_output,
+        "access_group_details_membersItem": access_group_details_membersItem_output,
+        "access_id": access_id_output,
+        "access_meta": access_meta_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -189,6 +199,46 @@ export const tools: readonly Tool[] = [
         "access_cf_resource_id": access_cf_resource_id,
         "access_idp_resource_id": access_idp_resource_id,
         "access_name-4": access_name_4,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_groups"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_externalId": access_externalId_output,
+        "access_groups": access_groups_output,
+        "access_id": access_id_output,
+        "access_meta": access_meta_output,
       },
     },
     annotations: {

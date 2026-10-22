@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_transformations_allowed_origins_response",
+      $defs: {
+        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
+        "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -104,6 +111,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_transformations_allowed_origins_response",
+      $defs: {
+        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
+        "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

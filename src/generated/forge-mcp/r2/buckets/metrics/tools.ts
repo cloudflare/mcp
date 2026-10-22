@@ -33,6 +33,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_account_level_metrics",
+      $defs: {
+        "r2_account_level_metrics": r2_account_level_metrics_output,
+        "r2_class_based_metrics": r2_class_based_metrics_output,
+        "r2_object_size_metrics": r2_object_size_metrics_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

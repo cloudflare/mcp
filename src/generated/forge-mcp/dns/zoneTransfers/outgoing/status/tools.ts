@@ -30,6 +30,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_enable_transfer_result",
+      $defs: {
+        "secondary-dns_enable_transfer_result": secondary_dns_enable_transfer_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

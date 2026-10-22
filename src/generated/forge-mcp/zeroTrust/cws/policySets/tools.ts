@@ -44,6 +44,13 @@ export const tools: readonly Tool[] = [
         "cws_PolicySetPolicyInput": cws_PolicySetPolicyInput,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_PolicySet",
+      $defs: {
+        "cws_PolicySet": cws_PolicySet_output,
+        "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -103,6 +110,12 @@ export const tools: readonly Tool[] = [
         "policy_set_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cws_DeletedResult",
+      $defs: {
+        "cws_DeletedResult": cws_DeletedResult_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -159,6 +172,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "policy_set_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_PolicySet",
+      $defs: {
+        "cws_PolicySet": cws_PolicySet_output,
+        "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -248,6 +268,35 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/cws_PolicySet"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/cws_ResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cws_PolicySet": cws_PolicySet_output,
+        "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
+        "cws_ResultInfo": cws_ResultInfo_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -343,6 +392,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cws_PolicySetPolicyInput": cws_PolicySetPolicyInput,
         "cws_UpdatePolicySetInputBody": cws_UpdatePolicySetInputBody,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cws_PolicySet",
+      $defs: {
+        "cws_PolicySet": cws_PolicySet_output,
+        "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
       },
     },
     annotations: {

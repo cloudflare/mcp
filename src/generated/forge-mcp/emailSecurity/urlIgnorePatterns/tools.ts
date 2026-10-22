@@ -129,6 +129,46 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "deletes": {
+          "items": {
+            "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
+          },
+          "type": "array"
+        },
+        "patches": {
+          "items": {
+            "$ref": "#/$defs/email-security_UrlIgnorePattern"
+          },
+          "type": "array"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/$defs/email-security_UrlIgnorePattern"
+          },
+          "type": "array"
+        },
+        "puts": {
+          "items": {
+            "$ref": "#/$defs/email-security_UrlIgnorePattern"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "deletes",
+        "patches",
+        "posts",
+        "puts"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_DeletedUrlIgnorePattern": email_security_DeletedUrlIgnorePattern_output,
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,
@@ -222,6 +262,13 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_UrlIgnorePattern",
+      $defs: {
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -281,6 +328,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern",
+      $defs: {
+        "email-security_DeletedUrlIgnorePattern": email_security_DeletedUrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
       },
     },
     annotations: {
@@ -348,6 +402,13 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_UrlIgnorePattern",
+      $defs: {
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -407,6 +468,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId,
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email-security_UrlIgnorePattern",
+      $defs: {
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
       },
     },
     annotations: {
@@ -472,6 +540,41 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_identifier": email_security_identifier,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email-security_UrlIgnorePattern"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
+        "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
       },
     },
     annotations: {

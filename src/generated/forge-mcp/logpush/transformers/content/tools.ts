@@ -36,6 +36,14 @@ export const tools: readonly Tool[] = [
         "transformer_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

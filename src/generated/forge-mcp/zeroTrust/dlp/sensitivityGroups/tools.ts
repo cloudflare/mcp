@@ -49,6 +49,13 @@ export const tools: readonly Tool[] = [
         "dlp_NewSensitivityLevel": dlp_NewSensitivityLevel,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_SensitivityGroup",
+      $defs: {
+        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -104,6 +111,12 @@ export const tools: readonly Tool[] = [
         "sensitivity_group_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_Empty",
+      $defs: {
+        "dlp_Empty": dlp_Empty_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -156,6 +169,13 @@ export const tools: readonly Tool[] = [
         "account_id",
         "sensitivity_group_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_SensitivityGroup",
+      $defs: {
+        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -212,6 +232,12 @@ export const tools: readonly Tool[] = [
         "sensitivity_group_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_SensitivityLevelOrder",
+      $defs: {
+        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -260,6 +286,25 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_SensitivityGroupArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
+        "dlp_SensitivityGroupArray": dlp_SensitivityGroupArray_output,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -337,6 +382,13 @@ export const tools: readonly Tool[] = [
         "dlp_SensitivityGroupUpdate": dlp_SensitivityGroupUpdate,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_SensitivityGroup",
+      $defs: {
+        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -398,6 +450,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_SensitivityLevelOrder",
+      $defs: {
+        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder_output,
       },
     },
     annotations: {

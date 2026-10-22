@@ -45,6 +45,41 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "jurisdiction": {
+          "enum": [
+            "unrestricted",
+            "us",
+            "eu",
+            "fedramp"
+          ],
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "repo_count": {
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "jurisdiction",
+        "namespace",
+        "repo_count",
+        "updated_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -1116,6 +1151,41 @@ export const tools: readonly Tool[] = [
         "namespace"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "jurisdiction": {
+          "enum": [
+            "unrestricted",
+            "us",
+            "eu",
+            "fedramp"
+          ],
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "repo_count": {
+          "type": "integer"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "jurisdiction",
+        "namespace",
+        "repo_count",
+        "updated_at"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1626,6 +1696,102 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "jurisdiction": {
+                "enum": [
+                  "unrestricted",
+                  "us",
+                  "eu",
+                  "fedramp"
+                ],
+                "type": "string"
+              },
+              "namespace": {
+                "type": "string"
+              },
+              "repo_count": {
+                "type": "integer"
+              },
+              "updated_at": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "created_at",
+              "jurisdiction",
+              "namespace",
+              "repo_count",
+              "updated_at"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

@@ -45,6 +45,26 @@ export const tools: readonly Tool[] = [
         "query"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/analytics-sql_SqlQueryResponse"
+        },
+        {
+          "$ref": "#/$defs/analytics-sql_ClickHouseJsonQueryResponse"
+        },
+        {
+          "$ref": "#/$defs/analytics-sql_LogExplorerQueryResponse"
+        }
+      ],
+      $defs: {
+        "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
+        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
+        "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
+        "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,
+        "analytics-sql_SqlQueryStatistics": analytics_sql_SqlQueryStatistics_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -138,6 +158,26 @@ export const tools: readonly Tool[] = [
         "analytics-sql_SqlQueryScope": analytics_sql_SqlQueryScope,
         "analytics-sql_SqlQueryTimeRange": analytics_sql_SqlQueryTimeRange,
         "analytics-sql_SqlQueryZoneScope": analytics_sql_SqlQueryZoneScope,
+      },
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/analytics-sql_SqlQueryResponse"
+        },
+        {
+          "$ref": "#/$defs/analytics-sql_ClickHouseJsonQueryResponse"
+        },
+        {
+          "$ref": "#/$defs/analytics-sql_LogExplorerQueryResponse"
+        }
+      ],
+      $defs: {
+        "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
+        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
+        "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
+        "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,
+        "analytics-sql_SqlQueryStatistics": analytics_sql_SqlQueryStatistics_output,
       },
     },
     annotations: {

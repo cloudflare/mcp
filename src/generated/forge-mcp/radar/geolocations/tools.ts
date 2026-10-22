@@ -31,6 +31,130 @@ export const tools: readonly Tool[] = [
         "geo_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "geolocation": {
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "geoId": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": "string"
+            },
+            "locale": {
+              "type": "string"
+            },
+            "longitude": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "parent": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "geoId": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "string"
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "longitude": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "parent": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "geoId": {
+                      "type": "string"
+                    },
+                    "latitude": {
+                      "type": "string"
+                    },
+                    "locale": {
+                      "type": "string"
+                    },
+                    "longitude": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "CONTINENT",
+                        "COUNTRY",
+                        "ADM1"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "geoId",
+                    "latitude",
+                    "longitude",
+                    "name",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "type": {
+                  "enum": [
+                    "CONTINENT",
+                    "COUNTRY",
+                    "ADM1"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "geoId",
+                "latitude",
+                "longitude",
+                "name",
+                "parent",
+                "type"
+              ],
+              "type": "object"
+            },
+            "type": {
+              "enum": [
+                "CONTINENT",
+                "COUNTRY",
+                "ADM1"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "geoId",
+            "latitude",
+            "longitude",
+            "name",
+            "parent",
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "geolocation"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -231,6 +355,133 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         }
       },
+    },
+    outputSchema: {
+      "properties": {
+        "geolocations": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "geoId": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "string"
+              },
+              "locale": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "parent": {
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "geoId": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "string"
+                  },
+                  "locale": {
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "parent": {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "geoId": {
+                        "type": "string"
+                      },
+                      "latitude": {
+                        "type": "string"
+                      },
+                      "locale": {
+                        "type": "string"
+                      },
+                      "longitude": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "enum": [
+                          "CONTINENT",
+                          "COUNTRY",
+                          "ADM1"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "geoId",
+                      "latitude",
+                      "longitude",
+                      "name",
+                      "type"
+                    ],
+                    "type": "object"
+                  },
+                  "type": {
+                    "enum": [
+                      "CONTINENT",
+                      "COUNTRY",
+                      "ADM1"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "geoId",
+                  "latitude",
+                  "longitude",
+                  "name",
+                  "parent",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": {
+                "enum": [
+                  "CONTINENT",
+                  "COUNTRY",
+                  "ADM1"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "geoId",
+              "latitude",
+              "longitude",
+              "name",
+              "parent",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "geolocations"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

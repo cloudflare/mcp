@@ -61,6 +61,18 @@ export const tools: readonly Tool[] = [
         "custom-indicator-feeds_name": custom_indicator_feeds_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item",
+      $defs: {
+        "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
+        "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
+        "custom-indicator-feeds_indicator_feed_item": custom_indicator_feeds_indicator_feed_item_output,
+        "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
+        "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
+        "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -178,6 +190,24 @@ export const tools: readonly Tool[] = [
         "feed_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata",
+      $defs: {
+        "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
+        "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
+        "custom-indicator-feeds_indicator_feed_metadata": custom_indicator_feeds_indicator_feed_metadata_output,
+        "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
+        "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
+        "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_last_upload_summary": custom_indicator_feeds_last_upload_summary_output,
+        "custom-indicator-feeds_last_upload_summary_persisted": custom_indicator_feeds_last_upload_summary_persisted_output,
+        "custom-indicator-feeds_last_upload_summary_skipped": custom_indicator_feeds_last_upload_summary_skipped_output,
+        "custom-indicator-feeds_last_upload_summary_uploaded": custom_indicator_feeds_last_upload_summary_uploaded_output,
+        "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
+        "custom-indicator-feeds_provider_id": custom_indicator_feeds_provider_id_output,
+        "custom-indicator-feeds_provider_name": custom_indicator_feeds_provider_name_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -248,6 +278,32 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
+        "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
+        "custom-indicator-feeds_indicator_feed_item": custom_indicator_feeds_indicator_feed_item_output,
+        "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
+        "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
+        "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -338,6 +394,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "custom-indicator-feeds_update_public_field_request": custom_indicator_feeds_update_public_field_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item",
+      $defs: {
+        "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
+        "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
+        "custom-indicator-feeds_indicator_feed_item": custom_indicator_feeds_indicator_feed_item_output,
+        "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
+        "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
+        "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
       },
     },
     annotations: {

@@ -56,6 +56,29 @@ export const tools: readonly Tool[] = [
         "flag_key"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/flagship_ChangelogPage"
+        },
+        "result_info": {
+          "$ref": "#/$defs/flagship_ResultInfo"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "flagship_ChangelogEntry": flagship_ChangelogEntry_output,
+        "flagship_ChangelogPage": flagship_ChangelogPage_output,
+        "flagship_Flag": flagship_Flag_output,
+        "flagship_Flag_rulesItem": flagship_Flag_rulesItem_output,
+        "flagship_Flag_rulesItem_rollout": flagship_Flag_rulesItem_rollout_output,
+        "flagship_JsonValue": flagship_JsonValue_output,
+        "flagship_ResultInfo": flagship_ResultInfo_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -36,6 +36,12 @@ export const tools: readonly Tool[] = [
         "cloudforce-one_PartialAccountExemptions": cloudforce_one_PartialAccountExemptions,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_AccountExemptions",
+      $defs: {
+        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -92,6 +98,12 @@ export const tools: readonly Tool[] = [
         "cloudforce-one_PartialAccountExemptions": cloudforce_one_PartialAccountExemptions,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_AccountExemptions",
+      $defs: {
+        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -141,6 +153,12 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_AccountExemptions",
+      $defs: {
+        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -196,6 +214,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudforce-one_ExemptionUpdateEntry": cloudforce_one_ExemptionUpdateEntry,
         "cloudforce-one_UpdateAccountExemptionsBody": cloudforce_one_UpdateAccountExemptionsBody,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one_AccountExemptions",
+      $defs: {
+        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
       },
     },
     annotations: {

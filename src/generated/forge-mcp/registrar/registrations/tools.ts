@@ -63,6 +63,24 @@ export const tools: readonly Tool[] = [
         "registrar-api_domain_check_request": registrar_api_domain_check_request,
       },
     },
+    outputSchema: {
+      "properties": {
+        "domains": {
+          "items": {
+            "$ref": "#/$defs/registrar-api_domain_check_result"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "domains"
+      ],
+      "type": "object",
+      $defs: {
+        "registrar-api_domain_check_result": registrar_api_domain_check_result_output,
+        "registrar-api_pricing_registration": registrar_api_pricing_registration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -143,6 +161,14 @@ export const tools: readonly Tool[] = [
         "registrar-api_registration_create_request": registrar_api_registration_create_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api_workflow_status",
+      $defs: {
+        "registrar-api_workflow_error": registrar_api_workflow_error_output,
+        "registrar-api_workflow_links": registrar_api_workflow_links_output,
+        "registrar-api_workflow_status": registrar_api_workflow_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -201,6 +227,13 @@ export const tools: readonly Tool[] = [
         "domain_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api_registration",
+      $defs: {
+        "registrar-api_domain_name": registrar_api_domain_name_output,
+        "registrar-api_registration": registrar_api_registration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -250,6 +283,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "domain_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api_workflow_status",
+      $defs: {
+        "registrar-api_workflow_error": registrar_api_workflow_error_output,
+        "registrar-api_workflow_links": registrar_api_workflow_links_output,
+        "registrar-api_workflow_status": registrar_api_workflow_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -302,6 +343,14 @@ export const tools: readonly Tool[] = [
         "domain_name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api_workflow_status",
+      $defs: {
+        "registrar-api_workflow_error": registrar_api_workflow_error_output,
+        "registrar-api_workflow_links": registrar_api_workflow_links_output,
+        "registrar-api_workflow_status": registrar_api_workflow_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -352,6 +401,14 @@ export const tools: readonly Tool[] = [
         "account_id",
         "domain_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api_workflow_status",
+      $defs: {
+        "registrar-api_workflow_error": registrar_api_workflow_error_output,
+        "registrar-api_workflow_links": registrar_api_workflow_links_output,
+        "registrar-api_workflow_status": registrar_api_workflow_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -426,6 +483,28 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/registrar-api_registration"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/registrar-api_cursor_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "registrar-api_cursor_result_info": registrar_api_cursor_result_info_output,
+        "registrar-api_domain_name": registrar_api_domain_name_output,
+        "registrar-api_registration": registrar_api_registration_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -511,6 +590,24 @@ export const tools: readonly Tool[] = [
         "query"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "domains": {
+          "items": {
+            "$ref": "#/$defs/registrar-api_domain_search_result"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "domains"
+      ],
+      "type": "object",
+      $defs: {
+        "registrar-api_domain_search_result": registrar_api_domain_search_result_output,
+        "registrar-api_pricing_registration": registrar_api_pricing_registration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -579,6 +676,26 @@ export const tools: readonly Tool[] = [
       $defs: {
         "registrar-api_domain_transfer_check_request": registrar_api_domain_transfer_check_request,
         "registrar-api_domain_transfer_check_request_domainsItem": registrar_api_domain_transfer_check_request_domainsItem,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "domains": {
+          "additionalProperties": {
+            "$ref": "#/$defs/registrar-api_domain_transfer_check_result"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "domains"
+      ],
+      "type": "object",
+      $defs: {
+        "registrar-api_domain_transfer_check_reason": registrar_api_domain_transfer_check_reason_output,
+        "registrar-api_domain_transfer_check_result": registrar_api_domain_transfer_check_result_output,
+        "registrar-api_domain_transfer_check_result_reasonsItem": registrar_api_domain_transfer_check_result_reasonsItem_output,
+        "registrar-api_pricing_transfer": registrar_api_pricing_transfer_output,
       },
     },
     annotations: {
@@ -663,6 +780,14 @@ export const tools: readonly Tool[] = [
         "registrar-api_transfer_in_create_request": registrar_api_transfer_in_create_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api_workflow_status",
+      $defs: {
+        "registrar-api_workflow_error": registrar_api_workflow_error_output,
+        "registrar-api_workflow_links": registrar_api_workflow_links_output,
+        "registrar-api_workflow_status": registrar_api_workflow_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -730,6 +855,14 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "registrar-api_registration_update_request": registrar_api_registration_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/registrar-api_workflow_status",
+      $defs: {
+        "registrar-api_workflow_error": registrar_api_workflow_error_output,
+        "registrar-api_workflow_links": registrar_api_workflow_links_output,
+        "registrar-api_workflow_status": registrar_api_workflow_status_output,
       },
     },
     annotations: {

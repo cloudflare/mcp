@@ -52,6 +52,43 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_namespace"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_namespace": workers_namespace_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -185,6 +222,15 @@ export const tools: readonly Tool[] = [
         "workers_query-by-id": workers_query_by_id,
         "workers_query-by-name": workers_query_by_name,
         "workers_query-param": workers_query_param,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_query-result",
+      $defs: {
+        "workers_query-result": workers_query_result_output,
+        "workers_query-result_resultsItem": workers_query_result_resultsItem_output,
+        "workers_query-result_resultsItem_meta": workers_query_result_resultsItem_meta_output,
+        "workers_query-value": workers_query_value_output,
       },
     },
     annotations: {

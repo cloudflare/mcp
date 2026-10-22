@@ -49,6 +49,19 @@ export const tools: readonly Tool[] = [
         "tunnel_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_mesh_configuration_response",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_mesh_aws_config": tunnel_mesh_aws_config_output,
+        "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response_output,
+        "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode_output,
+        "tunnel_mesh_local_config": tunnel_mesh_local_config_output,
+        "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry_output,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+        "tunnel_updated_at": tunnel_updated_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -122,6 +135,19 @@ export const tools: readonly Tool[] = [
         "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode,
         "tunnel_mesh_local_config": tunnel_mesh_local_config,
         "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_mesh_configuration_response",
+      $defs: {
+        "tunnel_created_at": tunnel_created_at_output,
+        "tunnel_mesh_aws_config": tunnel_mesh_aws_config_output,
+        "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response_output,
+        "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode_output,
+        "tunnel_mesh_local_config": tunnel_mesh_local_config_output,
+        "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry_output,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+        "tunnel_updated_at": tunnel_updated_at_output,
       },
     },
     annotations: {

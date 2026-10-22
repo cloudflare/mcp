@@ -135,6 +135,42 @@ export const tools: readonly Tool[] = [
         "access_yandex": access_yandex,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_identity-providers",
+      $defs: {
+        "access_azureAD": access_azureAD_output,
+        "access_centrify": access_centrify_output,
+        "access_cloudflare": access_cloudflare_output,
+        "access_cloudflare_config": access_cloudflare_config_output,
+        "access_custom-claims-support": access_custom_claims_support_output,
+        "access_duo": access_duo_output,
+        "access_duo_config": access_duo_config_output,
+        "access_facebook": access_facebook_output,
+        "access_generic-oauth-config": access_generic_oauth_config_output,
+        "access_github": access_github_output,
+        "access_google": access_google_output,
+        "access_google-apps": access_google_apps_output,
+        "access_identity-provider_scim_config": access_identity_provider_scim_config_output,
+        "access_identity-providers": access_identity_providers_output,
+        "access_linkedin": access_linkedin_output,
+        "access_name-3": access_name_3_output,
+        "access_oidc": access_oidc_output,
+        "access_okta": access_okta_output,
+        "access_onelogin": access_onelogin_output,
+        "access_onetimepin": access_onetimepin_output,
+        "access_onetimepin_config": access_onetimepin_config_output,
+        "access_passkeys": access_passkeys_output,
+        "access_passkeys_config": access_passkeys_config_output,
+        "access_pingone": access_pingone_output,
+        "access_saml": access_saml_output,
+        "access_saml_certificate": access_saml_certificate_output,
+        "access_saml_certificate_set": access_saml_certificate_set_output,
+        "access_saml_config": access_saml_config_output,
+        "access_saml_config_header_attributesItem": access_saml_config_header_attributesItem_output,
+        "access_uuid": access_uuid_output,
+        "access_yandex": access_yandex_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -229,6 +265,17 @@ export const tools: readonly Tool[] = [
         "identity_provider_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -296,6 +343,42 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "identity_provider_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_identity-providers",
+      $defs: {
+        "access_azureAD": access_azureAD_output,
+        "access_centrify": access_centrify_output,
+        "access_cloudflare": access_cloudflare_output,
+        "access_cloudflare_config": access_cloudflare_config_output,
+        "access_custom-claims-support": access_custom_claims_support_output,
+        "access_duo": access_duo_output,
+        "access_duo_config": access_duo_config_output,
+        "access_facebook": access_facebook_output,
+        "access_generic-oauth-config": access_generic_oauth_config_output,
+        "access_github": access_github_output,
+        "access_google": access_google_output,
+        "access_google-apps": access_google_apps_output,
+        "access_identity-provider_scim_config": access_identity_provider_scim_config_output,
+        "access_identity-providers": access_identity_providers_output,
+        "access_linkedin": access_linkedin_output,
+        "access_name-3": access_name_3_output,
+        "access_oidc": access_oidc_output,
+        "access_okta": access_okta_output,
+        "access_onelogin": access_onelogin_output,
+        "access_onetimepin": access_onetimepin_output,
+        "access_onetimepin_config": access_onetimepin_config_output,
+        "access_passkeys": access_passkeys_output,
+        "access_passkeys_config": access_passkeys_config_output,
+        "access_pingone": access_pingone_output,
+        "access_saml": access_saml_output,
+        "access_saml_certificate": access_saml_certificate_output,
+        "access_saml_certificate_set": access_saml_certificate_set_output,
+        "access_saml_config": access_saml_config_output,
+        "access_saml_config_header_attributesItem": access_saml_config_header_attributesItem_output,
+        "access_uuid": access_uuid_output,
+        "access_yandex": access_yandex_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -399,6 +482,124 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/access_azureAD"
+              },
+              {
+                "$ref": "#/$defs/access_centrify"
+              },
+              {
+                "$ref": "#/$defs/access_facebook"
+              },
+              {
+                "$ref": "#/$defs/access_github"
+              },
+              {
+                "$ref": "#/$defs/access_google"
+              },
+              {
+                "$ref": "#/$defs/access_google-apps"
+              },
+              {
+                "$ref": "#/$defs/access_linkedin"
+              },
+              {
+                "$ref": "#/$defs/access_oidc"
+              },
+              {
+                "$ref": "#/$defs/access_duo"
+              },
+              {
+                "$ref": "#/$defs/access_okta"
+              },
+              {
+                "$ref": "#/$defs/access_onelogin"
+              },
+              {
+                "$ref": "#/$defs/access_pingone"
+              },
+              {
+                "$ref": "#/$defs/access_saml"
+              },
+              {
+                "$ref": "#/$defs/access_yandex"
+              },
+              {
+                "$ref": "#/$defs/access_onetimepin"
+              },
+              {
+                "$ref": "#/$defs/access_cloudflare"
+              },
+              {
+                "$ref": "#/$defs/access_passkeys"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_azureAD": access_azureAD_output,
+        "access_centrify": access_centrify_output,
+        "access_cloudflare": access_cloudflare_output,
+        "access_cloudflare_config": access_cloudflare_config_output,
+        "access_custom-claims-support": access_custom_claims_support_output,
+        "access_duo": access_duo_output,
+        "access_duo_config": access_duo_config_output,
+        "access_facebook": access_facebook_output,
+        "access_generic-oauth-config": access_generic_oauth_config_output,
+        "access_github": access_github_output,
+        "access_google": access_google_output,
+        "access_google-apps": access_google_apps_output,
+        "access_identity-provider_scim_config": access_identity_provider_scim_config_output,
+        "access_linkedin": access_linkedin_output,
+        "access_name-3": access_name_3_output,
+        "access_oidc": access_oidc_output,
+        "access_okta": access_okta_output,
+        "access_onelogin": access_onelogin_output,
+        "access_onetimepin": access_onetimepin_output,
+        "access_onetimepin_config": access_onetimepin_config_output,
+        "access_passkeys": access_passkeys_output,
+        "access_passkeys_config": access_passkeys_config_output,
+        "access_pingone": access_pingone_output,
+        "access_saml": access_saml_output,
+        "access_saml_certificate": access_saml_certificate_output,
+        "access_saml_certificate_set": access_saml_certificate_set_output,
+        "access_saml_config": access_saml_config_output,
+        "access_saml_config_header_attributesItem": access_saml_config_header_attributesItem_output,
+        "access_uuid": access_uuid_output,
+        "access_yandex": access_yandex_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -614,6 +815,42 @@ export const tools: readonly Tool[] = [
         "access_saml_config_header_attributesItem": access_saml_config_header_attributesItem,
         "access_uuid": access_uuid,
         "access_yandex": access_yandex,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_identity-providers",
+      $defs: {
+        "access_azureAD": access_azureAD_output,
+        "access_centrify": access_centrify_output,
+        "access_cloudflare": access_cloudflare_output,
+        "access_cloudflare_config": access_cloudflare_config_output,
+        "access_custom-claims-support": access_custom_claims_support_output,
+        "access_duo": access_duo_output,
+        "access_duo_config": access_duo_config_output,
+        "access_facebook": access_facebook_output,
+        "access_generic-oauth-config": access_generic_oauth_config_output,
+        "access_github": access_github_output,
+        "access_google": access_google_output,
+        "access_google-apps": access_google_apps_output,
+        "access_identity-provider_scim_config": access_identity_provider_scim_config_output,
+        "access_identity-providers": access_identity_providers_output,
+        "access_linkedin": access_linkedin_output,
+        "access_name-3": access_name_3_output,
+        "access_oidc": access_oidc_output,
+        "access_okta": access_okta_output,
+        "access_onelogin": access_onelogin_output,
+        "access_onetimepin": access_onetimepin_output,
+        "access_onetimepin_config": access_onetimepin_config_output,
+        "access_passkeys": access_passkeys_output,
+        "access_passkeys_config": access_passkeys_config_output,
+        "access_pingone": access_pingone_output,
+        "access_saml": access_saml_output,
+        "access_saml_certificate": access_saml_certificate_output,
+        "access_saml_certificate_set": access_saml_certificate_set_output,
+        "access_saml_config": access_saml_config_output,
+        "access_saml_config_header_attributesItem": access_saml_config_header_attributesItem_output,
+        "access_uuid": access_uuid_output,
+        "access_yandex": access_yandex_output,
       },
     },
     annotations: {

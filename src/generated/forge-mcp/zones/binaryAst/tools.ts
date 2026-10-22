@@ -48,6 +48,13 @@ export const tools: readonly Tool[] = [
         "speed_binary_ast_value": speed_binary_ast_value,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/speed_binary_ast_response",
+      $defs: {
+        "speed_binary_ast_response": speed_binary_ast_response_output,
+        "speed_binary_ast_value": speed_binary_ast_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -114,6 +121,13 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/speed_binary_ast_response",
+      $defs: {
+        "speed_binary_ast_response": speed_binary_ast_response_output,
+        "speed_binary_ast_value": speed_binary_ast_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -89,6 +89,30 @@ export const tools: readonly Tool[] = [
         "load-balancing_type": load_balancing_type,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor",
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -160,6 +184,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "monitor_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/load-balancing_identifier"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "load-balancing_identifier": load_balancing_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -242,6 +277,30 @@ export const tools: readonly Tool[] = [
         "load-balancing_type": load_balancing_type,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor",
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -314,6 +373,30 @@ export const tools: readonly Tool[] = [
         "monitor_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor",
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -381,6 +464,45 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/load-balancing_monitor"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/load-balancing_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_result_info": load_balancing_result_info_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -490,6 +612,30 @@ export const tools: readonly Tool[] = [
         "load-balancing_retries": load_balancing_retries,
         "load-balancing_timeout": load_balancing_timeout,
         "load-balancing_type": load_balancing_type,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/load-balancing_monitor",
+      $defs: {
+        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
+        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
+        "load-balancing_description": load_balancing_description_output,
+        "load-balancing_expected_body": load_balancing_expected_body_output,
+        "load-balancing_expected_codes": load_balancing_expected_codes_output,
+        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
+        "load-balancing_header": load_balancing_header_output,
+        "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_method": load_balancing_method_output,
+        "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_path": load_balancing_path_output,
+        "load-balancing_port": load_balancing_port_output,
+        "load-balancing_probe_zone": load_balancing_probe_zone_output,
+        "load-balancing_retries": load_balancing_retries_output,
+        "load-balancing_timeout": load_balancing_timeout_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_type": load_balancing_type_output,
       },
     },
     annotations: {

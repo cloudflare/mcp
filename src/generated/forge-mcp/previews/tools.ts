@@ -42,6 +42,13 @@ export const tools: readonly Tool[] = [
         "name"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_api-response-common",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,

@@ -115,6 +115,17 @@ export const tools: readonly Tool[] = [
         "aaa_uuid": aaa_uuid,
       },
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/aaa_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "aaa_uuid": aaa_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -185,6 +196,14 @@ export const tools: readonly Tool[] = [
         "policy_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_api-response-collection",
+      $defs: {
+        "aaa_api-response-collection": aaa_api_response_collection_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_result_info-2": aaa_result_info_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -247,6 +266,25 @@ export const tools: readonly Tool[] = [
         "account_id",
         "policy_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_policies",
+      $defs: {
+        "aaa_alert_interval": aaa_alert_interval_output,
+        "aaa_alert_type": aaa_alert_type_output,
+        "aaa_enabled": aaa_enabled_output,
+        "aaa_filters": aaa_filters_output,
+        "aaa_mechanisms": aaa_mechanisms_output,
+        "aaa_mechanisms_emailItem": aaa_mechanisms_emailItem_output,
+        "aaa_mechanisms_pagerdutyItem": aaa_mechanisms_pagerdutyItem_output,
+        "aaa_mechanisms_webhooksItem": aaa_mechanisms_webhooksItem_output,
+        "aaa_policies": aaa_policies_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_schemas-description": aaa_schemas_description_output,
+        "aaa_schemas-name": aaa_schemas_name_output,
+        "aaa_timestamp": aaa_timestamp_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -321,6 +359,39 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_policies"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "aaa_alert_interval": aaa_alert_interval_output,
+        "aaa_alert_type": aaa_alert_type_output,
+        "aaa_enabled": aaa_enabled_output,
+        "aaa_filters": aaa_filters_output,
+        "aaa_mechanisms": aaa_mechanisms_output,
+        "aaa_mechanisms_emailItem": aaa_mechanisms_emailItem_output,
+        "aaa_mechanisms_pagerdutyItem": aaa_mechanisms_pagerdutyItem_output,
+        "aaa_mechanisms_webhooksItem": aaa_mechanisms_webhooksItem_output,
+        "aaa_policies": aaa_policies_output,
+        "aaa_policy-id": aaa_policy_id_output,
+        "aaa_schemas-description": aaa_schemas_description_output,
+        "aaa_schemas-name": aaa_schemas_name_output,
+        "aaa_timestamp": aaa_timestamp_output,
+        "aaa_uuid": aaa_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -441,6 +512,13 @@ export const tools: readonly Tool[] = [
         "policy_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/aaa_api-response-common-2",
+      $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
+        "aaa_messages-3": aaa_messages_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -543,6 +621,17 @@ export const tools: readonly Tool[] = [
         "aaa_schemas-description": aaa_schemas_description,
         "aaa_schemas-name": aaa_schemas_name,
         "aaa_uuid": aaa_uuid,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/aaa_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "aaa_uuid": aaa_uuid_output,
       },
     },
     annotations: {

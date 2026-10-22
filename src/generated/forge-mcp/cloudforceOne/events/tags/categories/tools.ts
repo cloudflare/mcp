@@ -38,6 +38,17 @@ export const tools: readonly Tool[] = [
         "category_uuid"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -149,6 +160,59 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "categories": {
+          "items": {
+            "properties": {
+              "createdAt": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/cloudforce-one-events_FieldDefinition"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "uuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "uuid"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "categories"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
+        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
+        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -279,6 +343,48 @@ export const tools: readonly Tool[] = [
         "account_id",
         "category_uuid"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-events_FieldDefinition"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "uuid"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
+        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
+        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -417,6 +523,48 @@ export const tools: readonly Tool[] = [
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition,
         "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations,
         "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-events_FieldDefinition"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "uuid"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
+        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
+        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     annotations: {

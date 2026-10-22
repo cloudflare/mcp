@@ -55,6 +55,13 @@ export const tools: readonly Tool[] = [
         "to"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/digital-experience-monitoring_http_details_percentiles_response",
+      $defs: {
+        "digital-experience-monitoring_http_details_percentiles_response": digital_experience_monitoring_http_details_percentiles_response_output,
+        "digital-experience-monitoring_percentiles": digital_experience_monitoring_percentiles_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

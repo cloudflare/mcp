@@ -39,6 +39,14 @@ export const tools: readonly Tool[] = [
         "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/builds_APIResponse",
+      $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,

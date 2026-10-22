@@ -192,6 +192,35 @@ export const tools: readonly Tool[] = [
         "access_warp_auth_session_duration": access_warp_auth_session_duration,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_organizations",
+      $defs: {
+        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
+        "access_auth_domain": access_auth_domain_output,
+        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_pages": access_custom_pages_output,
+        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
+        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
+        "access_is_ui_read_only": access_is_ui_read_only_output,
+        "access_login_design": access_login_design_output,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
+        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
+        "access_name": access_name_output,
+        "access_org_mfa_config": access_org_mfa_config_output,
+        "access_organizations": access_organizations_output,
+        "access_service_token_inactivity": access_service_token_inactivity_output,
+        "access_session_duration": access_session_duration_output,
+        "access_strict_service_token_auth": access_strict_service_token_auth_output,
+        "access_timestamp": access_timestamp_output,
+        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
+        "access_updated_at": access_updated_at_output,
+        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
+        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
+        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -273,6 +302,50 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_organizations"
+        },
+        {
+          "properties": {
+            "trusted_accounts": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
+        "access_auth_domain": access_auth_domain_output,
+        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_pages": access_custom_pages_output,
+        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
+        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
+        "access_is_ui_read_only": access_is_ui_read_only_output,
+        "access_login_design": access_login_design_output,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
+        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
+        "access_name": access_name_output,
+        "access_org_mfa_config": access_org_mfa_config_output,
+        "access_organizations": access_organizations_output,
+        "access_service_token_inactivity": access_service_token_inactivity_output,
+        "access_session_duration": access_session_duration_output,
+        "access_strict_service_token_auth": access_strict_service_token_auth_output,
+        "access_timestamp": access_timestamp_output,
+        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
+        "access_updated_at": access_updated_at_output,
+        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
+        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
+        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -482,6 +555,35 @@ export const tools: readonly Tool[] = [
         "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time,
         "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401,
         "access_warp_auth_session_duration": access_warp_auth_session_duration,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_organizations",
+      $defs: {
+        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
+        "access_auth_domain": access_auth_domain_output,
+        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
+        "access_created_at": access_created_at_output,
+        "access_custom_pages": access_custom_pages_output,
+        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
+        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
+        "access_is_ui_read_only": access_is_ui_read_only_output,
+        "access_login_design": access_login_design_output,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
+        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
+        "access_name": access_name_output,
+        "access_org_mfa_config": access_org_mfa_config_output,
+        "access_organizations": access_organizations_output,
+        "access_service_token_inactivity": access_service_token_inactivity_output,
+        "access_session_duration": access_session_duration_output,
+        "access_strict_service_token_auth": access_strict_service_token_auth_output,
+        "access_timestamp": access_timestamp_output,
+        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
+        "access_updated_at": access_updated_at_output,
+        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
+        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
+        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
       },
     },
     annotations: {

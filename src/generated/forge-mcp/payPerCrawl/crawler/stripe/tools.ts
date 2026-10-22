@@ -36,6 +36,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_StripeConnectResp",
+      $defs: {
+        "pay-per-crawl_StripeConnectResp": pay_per_crawl_StripeConnectResp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -85,6 +91,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",
+      $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -138,6 +153,12 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_StripeConnection",
+      $defs: {
+        "pay-per-crawl_StripeConnection": pay_per_crawl_StripeConnection_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

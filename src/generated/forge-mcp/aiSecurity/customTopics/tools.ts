@@ -34,6 +34,13 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_custom-topics",
+      $defs: {
+        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
+        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -93,6 +100,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic,
         "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/waf-product-api-bundle_custom-topics",
+      $defs: {
+        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
+        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
       },
     },
     annotations: {

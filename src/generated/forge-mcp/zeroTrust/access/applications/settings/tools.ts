@@ -56,6 +56,14 @@ export const tools: readonly Tool[] = [
         "access_skip_interstitial": access_skip_interstitial,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_app_settings_response",
+      $defs: {
+        "access_allow_iframe": access_allow_iframe_output,
+        "access_app_settings_response": access_app_settings_response_output,
+        "access_skip_interstitial": access_skip_interstitial_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,

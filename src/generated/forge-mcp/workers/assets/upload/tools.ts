@@ -48,6 +48,23 @@ export const tools: readonly Tool[] = [
         "workers_manifest-value": workers_manifest_value,
       },
     },
+    outputSchema: {
+      "properties": {
+        "buckets": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "jwt": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

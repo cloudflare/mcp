@@ -36,6 +36,13 @@ export const tools: readonly Tool[] = [
         "template_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_SensitivityGroupTemplate",
+      $defs: {
+        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate_output,
+        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -88,6 +95,25 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dlp_SensitivityGroupTemplateArray"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate_output,
+        "dlp_SensitivityGroupTemplateArray": dlp_SensitivityGroupTemplateArray_output,
+        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

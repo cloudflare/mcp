@@ -32,6 +32,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_placement-regions-response",
+      $defs: {
+        "workers_placement-provider": workers_placement_provider_output,
+        "workers_placement-region": workers_placement_region_output,
+        "workers_placement-regions-response": workers_placement_regions_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -37,6 +37,12 @@ export const tools: readonly Tool[] = [
         "policy_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/reports_PolicySingleResponse_result",
+      $defs: {
+        "reports_PolicySingleResponse_result": reports_PolicySingleResponse_result_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -85,6 +91,33 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/reports_PoliciesListResponse_resultItem"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "reports_PoliciesListResponse_resultItem": reports_PoliciesListResponse_resultItem_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

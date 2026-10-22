@@ -36,6 +36,131 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_billing_profile_request": bill_subs_api_billing_profile_request,
       },
     },
+    outputSchema: {
+      "properties": {
+        "account_type": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "card_expiry_month": {
+          "type": "integer"
+        },
+        "card_expiry_year": {
+          "type": "integer"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "device_data": {
+          "type": "string"
+        },
+        "edited_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "enterprise_billing_email": {
+          "type": "string"
+        },
+        "enterprise_primary_email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+        },
+        "is_partner": {
+          "type": "boolean"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "next_bill_date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "payment_address": {
+          "type": "string"
+        },
+        "payment_address2": {
+          "type": "string"
+        },
+        "payment_city": {
+          "type": "string"
+        },
+        "payment_country": {
+          "type": "string"
+        },
+        "payment_email": {
+          "type": "string"
+        },
+        "payment_first_name": {
+          "type": "string"
+        },
+        "payment_gateway": {
+          "type": "string"
+        },
+        "payment_last_name": {
+          "type": "string"
+        },
+        "payment_nonce": {
+          "type": "string"
+        },
+        "payment_state": {
+          "type": "string"
+        },
+        "payment_zipcode": {
+          "type": "string"
+        },
+        "primary_email": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "tax_id_type": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "validation_code": {
+          "type": "string"
+        },
+        "vat": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -225,6 +350,17 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "client_secret": {
+          "type": "string"
+        },
+        "intent_type": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -348,6 +484,131 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "account_type": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "card_expiry_month": {
+          "type": "integer"
+        },
+        "card_expiry_year": {
+          "type": "integer"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "device_data": {
+          "type": "string"
+        },
+        "edited_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "enterprise_billing_email": {
+          "type": "string"
+        },
+        "enterprise_primary_email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+        },
+        "is_partner": {
+          "type": "boolean"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "next_bill_date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "payment_address": {
+          "type": "string"
+        },
+        "payment_address2": {
+          "type": "string"
+        },
+        "payment_city": {
+          "type": "string"
+        },
+        "payment_country": {
+          "type": "string"
+        },
+        "payment_email": {
+          "type": "string"
+        },
+        "payment_first_name": {
+          "type": "string"
+        },
+        "payment_gateway": {
+          "type": "string"
+        },
+        "payment_last_name": {
+          "type": "string"
+        },
+        "payment_nonce": {
+          "type": "string"
+        },
+        "payment_state": {
+          "type": "string"
+        },
+        "payment_zipcode": {
+          "type": "string"
+        },
+        "primary_email": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "tax_id_type": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "validation_code": {
+          "type": "string"
+        },
+        "vat": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -539,6 +800,131 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "bill-subs-api_billing_profile_request": bill_subs_api_billing_profile_request,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "account_type": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "card_expiry_month": {
+          "type": "integer"
+        },
+        "card_expiry_year": {
+          "type": "integer"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "device_data": {
+          "type": "string"
+        },
+        "edited_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "enterprise_billing_email": {
+          "type": "string"
+        },
+        "enterprise_primary_email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+        },
+        "is_partner": {
+          "type": "boolean"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "next_bill_date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "payment_address": {
+          "type": "string"
+        },
+        "payment_address2": {
+          "type": "string"
+        },
+        "payment_city": {
+          "type": "string"
+        },
+        "payment_country": {
+          "type": "string"
+        },
+        "payment_email": {
+          "type": "string"
+        },
+        "payment_first_name": {
+          "type": "string"
+        },
+        "payment_gateway": {
+          "type": "string"
+        },
+        "payment_last_name": {
+          "type": "string"
+        },
+        "payment_nonce": {
+          "type": "string"
+        },
+        "payment_state": {
+          "type": "string"
+        },
+        "payment_zipcode": {
+          "type": "string"
+        },
+        "primary_email": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "tax_id_type": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "validation_code": {
+          "type": "string"
+        },
+        "vat": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
       },
     },
     annotations: {
@@ -744,6 +1130,131 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "account_type": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "card_expiry_month": {
+          "type": "integer"
+        },
+        "card_expiry_year": {
+          "type": "integer"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "device_data": {
+          "type": "string"
+        },
+        "edited_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "enterprise_billing_email": {
+          "type": "string"
+        },
+        "enterprise_primary_email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+        },
+        "is_partner": {
+          "type": "boolean"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "next_bill_date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "payment_address": {
+          "type": "string"
+        },
+        "payment_address2": {
+          "type": "string"
+        },
+        "payment_city": {
+          "type": "string"
+        },
+        "payment_country": {
+          "type": "string"
+        },
+        "payment_email": {
+          "type": "string"
+        },
+        "payment_first_name": {
+          "type": "string"
+        },
+        "payment_gateway": {
+          "type": "string"
+        },
+        "payment_last_name": {
+          "type": "string"
+        },
+        "payment_nonce": {
+          "type": "string"
+        },
+        "payment_state": {
+          "type": "string"
+        },
+        "payment_zipcode": {
+          "type": "string"
+        },
+        "primary_email": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "tax_id_type": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "validation_code": {
+          "type": "string"
+        },
+        "vat": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

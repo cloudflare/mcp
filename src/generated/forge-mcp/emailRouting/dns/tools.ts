@@ -51,6 +51,44 @@ export const tools: readonly Tool[] = [
         "email_email_setting_name": email_email_setting_name,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_dns_record"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email_dns_record": email_dns_record_output,
+        "email_dns_record_ttl": email_dns_record_ttl_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -153,6 +191,21 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_email_setting_dns_request_body": email_email_setting_dns_request_body,
         "email_email_setting_name": email_email_setting_name,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_email_settings_properties",
+      $defs: {
+        "email_email_setting_created": email_email_setting_created_output,
+        "email_email_setting_enabled": email_email_setting_enabled_output,
+        "email_email_setting_identifier": email_email_setting_identifier_output,
+        "email_email_setting_modified": email_email_setting_modified_output,
+        "email_email_setting_name": email_email_setting_name_output,
+        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
+        "email_email_setting_status": email_email_setting_status_output,
+        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
+        "email_email_setting_tag": email_email_setting_tag_output,
+        "email_email_settings_properties": email_email_settings_properties_output,
       },
     },
     annotations: {

@@ -45,6 +45,37 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sql": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "modified_at",
+        "name",
+        "sql",
+        "status"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -127,6 +158,9 @@ export const tools: readonly Tool[] = [
         "pipeline_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -176,6 +210,75 @@ export const tools: readonly Tool[] = [
         "account_id",
         "pipeline_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "failure_reason": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_at": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sql": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "tables": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "latest": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "stream",
+                  "sink"
+                ],
+                "type": "string"
+              },
+              "version": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "latest",
+              "name",
+              "type",
+              "version"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "modified_at",
+        "name",
+        "sql",
+        "status",
+        "tables"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -302,6 +405,71 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "modified_at": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sql": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "created_at",
+              "id",
+              "modified_at",
+              "name",
+              "sql",
+              "status"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -430,6 +598,48 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "graph": {
+          "$ref": "#/$defs/cloudflare-pipelines_PipelineGraph"
+        },
+        "tables": {
+          "additionalProperties": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "version": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "type",
+              "version"
+            ],
+            "type": "object"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "tables"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudflare-pipelines_PipelineEdge": cloudflare_pipelines_PipelineEdge_output,
+        "cloudflare-pipelines_PipelineGraph": cloudflare_pipelines_PipelineGraph_output,
+        "cloudflare-pipelines_PipelineNode": cloudflare_pipelines_PipelineNode_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

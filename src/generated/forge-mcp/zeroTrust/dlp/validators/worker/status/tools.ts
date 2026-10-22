@@ -35,6 +35,13 @@ export const tools: readonly Tool[] = [
         "validator_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/dlp_WorkerValidatorStatus",
+      $defs: {
+        "dlp_WorkerStatus": dlp_WorkerStatus_output,
+        "dlp_WorkerValidatorStatus": dlp_WorkerValidatorStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

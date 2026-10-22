@@ -53,6 +53,21 @@ export const tools: readonly Tool[] = [
         "logpush_destination_conf": logpush_destination_conf,
       },
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "properties": {
+            "exists": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

@@ -47,6 +47,9 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -142,6 +145,26 @@ export const tools: readonly Tool[] = [
         "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dnssec_dnssec",
+      $defs: {
+        "dnssec_algorithm": dnssec_algorithm_output,
+        "dnssec_digest": dnssec_digest_output,
+        "dnssec_digest_algorithm": dnssec_digest_algorithm_output,
+        "dnssec_digest_type": dnssec_digest_type_output,
+        "dnssec_dnssec": dnssec_dnssec_output,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer_output,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned_output,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3_output,
+        "dnssec_ds": dnssec_ds_output,
+        "dnssec_flags": dnssec_flags_output,
+        "dnssec_key_tag": dnssec_key_tag_output,
+        "dnssec_key_type": dnssec_key_type_output,
+        "dnssec_modified_on": dnssec_modified_on_output,
+        "dnssec_public_key": dnssec_public_key_output,
+        "dnssec_status": dnssec_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -221,6 +244,26 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dnssec_dnssec",
+      $defs: {
+        "dnssec_algorithm": dnssec_algorithm_output,
+        "dnssec_digest": dnssec_digest_output,
+        "dnssec_digest_algorithm": dnssec_digest_algorithm_output,
+        "dnssec_digest_type": dnssec_digest_type_output,
+        "dnssec_dnssec": dnssec_dnssec_output,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer_output,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned_output,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3_output,
+        "dnssec_ds": dnssec_ds_output,
+        "dnssec_flags": dnssec_flags_output,
+        "dnssec_key_tag": dnssec_key_tag_output,
+        "dnssec_key_type": dnssec_key_type_output,
+        "dnssec_modified_on": dnssec_modified_on_output,
+        "dnssec_public_key": dnssec_public_key_output,
+        "dnssec_status": dnssec_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

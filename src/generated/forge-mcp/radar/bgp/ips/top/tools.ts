@@ -46,6 +46,56 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "anchorTs": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "asns": {
+          "items": {
+            "properties": {
+              "asn": {
+                "type": "integer"
+              },
+              "v4_24s": {
+                "type": "integer"
+              },
+              "v6_48s": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "asn",
+              "v4_24s",
+              "v6_48s"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "country": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "metric": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "anchorTs",
+        "asns",
+        "country",
+        "metric"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

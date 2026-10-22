@@ -49,6 +49,28 @@ export const tools: readonly Tool[] = [
         "magic_cf1_site_location": magic_cf1_site_location,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_cf1_site"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -137,6 +159,14 @@ export const tools: readonly Tool[] = [
         "cf1_site_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_cf1_site",
+      $defs: {
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -210,6 +240,14 @@ export const tools: readonly Tool[] = [
         "cf1_site_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_cf1_site",
+      $defs: {
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -279,6 +317,28 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_cf1_site"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -375,6 +435,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_cf1_site_location": magic_cf1_site_location,
         "magic_cf1_site_update": magic_cf1_site_update,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_cf1_site",
+      $defs: {
+        "magic_cf1_site": magic_cf1_site_output,
+        "magic_cf1_site_location": magic_cf1_site_location_output,
+        "magic_identifier": magic_identifier_output,
       },
     },
     annotations: {

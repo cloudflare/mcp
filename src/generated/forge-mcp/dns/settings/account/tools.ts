@@ -81,6 +81,23 @@ export const tools: readonly Tool[] = [
         "dns-settings_zone_mode": dns_settings_zone_mode,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/dns-settings_account_settings",
+      $defs: {
+        "dns-settings_account_settings": dns_settings_account_settings_output,
+        "dns-settings_dns-settings-account-response": dns_settings_dns_settings_account_response_output,
+        "dns-settings_dns-settings-account-response_nameservers": dns_settings_dns_settings_account_response_nameservers_output,
+        "dns-settings_enforce_dns_only": dns_settings_enforce_dns_only_output,
+        "dns-settings_flatten_all_cnames": dns_settings_flatten_all_cnames_output,
+        "dns-settings_foundation_dns": dns_settings_foundation_dns_output,
+        "dns-settings_internal_dns_response": dns_settings_internal_dns_response_output,
+        "dns-settings_multi_provider": dns_settings_multi_provider_output,
+        "dns-settings_ns_ttl": dns_settings_ns_ttl_output,
+        "dns-settings_secondary_overrides": dns_settings_secondary_overrides_output,
+        "dns-settings_soa-response": dns_settings_soa_response_output,
+        "dns-settings_zone_mode": dns_settings_zone_mode_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -174,6 +191,23 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dns-settings_account_settings",
+      $defs: {
+        "dns-settings_account_settings": dns_settings_account_settings_output,
+        "dns-settings_dns-settings-account-response": dns_settings_dns_settings_account_response_output,
+        "dns-settings_dns-settings-account-response_nameservers": dns_settings_dns_settings_account_response_nameservers_output,
+        "dns-settings_enforce_dns_only": dns_settings_enforce_dns_only_output,
+        "dns-settings_flatten_all_cnames": dns_settings_flatten_all_cnames_output,
+        "dns-settings_foundation_dns": dns_settings_foundation_dns_output,
+        "dns-settings_internal_dns_response": dns_settings_internal_dns_response_output,
+        "dns-settings_multi_provider": dns_settings_multi_provider_output,
+        "dns-settings_ns_ttl": dns_settings_ns_ttl_output,
+        "dns-settings_secondary_overrides": dns_settings_secondary_overrides_output,
+        "dns-settings_soa-response": dns_settings_soa_response_output,
+        "dns-settings_zone_mode": dns_settings_zone_mode_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

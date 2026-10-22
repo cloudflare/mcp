@@ -43,6 +43,23 @@ export const tools: readonly Tool[] = [
         "download_type"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "audio": {
+          "$ref": "#/$defs/stream_downloads"
+        },
+        "default": {
+          "$ref": "#/$defs/stream_downloads"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "stream_download_percent_complete": stream_download_percent_complete_output,
+        "stream_download_status": stream_download_status_output,
+        "stream_download_url": stream_download_url_output,
+        "stream_downloads": stream_downloads_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -107,6 +124,9 @@ export const tools: readonly Tool[] = [
         "identifier",
         "download_type"
       ],
+    },
+    outputSchema: {
+      "type": "string",
     },
     annotations: {
       "destructiveHint": true,

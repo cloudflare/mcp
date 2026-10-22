@@ -33,6 +33,17 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "enabled": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-4"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -117,6 +128,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "enabled": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-4"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4_output,
       },
     },
     annotations: {

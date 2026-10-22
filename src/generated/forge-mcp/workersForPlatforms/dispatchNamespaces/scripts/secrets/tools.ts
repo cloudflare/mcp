@@ -61,6 +61,16 @@ export const tools: readonly Tool[] = [
         "workers_secret-patch-request": workers_secret_patch_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_secret-patch-response",
+      $defs: {
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_secret": workers_secret_output,
+        "workers_secret-patch-response": workers_secret_patch_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -135,6 +145,9 @@ export const tools: readonly Tool[] = [
         "workers_secret_name_url_encoded": workers_secret_name_url_encoded,
       },
     },
+    outputSchema: {
+      "type": "null",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -208,6 +221,15 @@ export const tools: readonly Tool[] = [
         "workers_secret_name_url_encoded": workers_secret_name_url_encoded,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_secret",
+      $defs: {
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_secret": workers_secret_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -274,6 +296,29 @@ export const tools: readonly Tool[] = [
         "dispatch_namespace",
         "script_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_secret"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_secret": workers_secret_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -361,6 +406,15 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
         "workers_binding_name": workers_binding_name,
         "workers_secret": workers_secret,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_secret",
+      $defs: {
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
+        "workers_binding_name": workers_binding_name_output,
+        "workers_secret": workers_secret_output,
       },
     },
     annotations: {

@@ -57,6 +57,16 @@ export const tools: readonly Tool[] = [
         "application_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/one_ApplicationDetail",
+      $defs: {
+        "one_ApplicationDetail": one_ApplicationDetail_output,
+        "one_AuthMethod": one_AuthMethod_output,
+        "one_FeatureScope": one_FeatureScope_output,
+        "one_Permission": one_Permission_output,
+        "one_UseCaseDetail": one_UseCaseDetail_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -115,6 +125,30 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/one_ApplicationList"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/one_PaginatedApplicationListList_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "one_ApplicationList": one_ApplicationList_output,
+        "one_AuthMethodSummary": one_AuthMethodSummary_output,
+        "one_PaginatedApplicationListList_result_info": one_PaginatedApplicationListList_result_info_output,
+        "one_Permission": one_Permission_output,
+        "one_UseCaseSummary": one_UseCaseSummary_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -59,6 +59,28 @@ export const tools: readonly Tool[] = [
         "application_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/one_AuthMethodDetail"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/one_PaginatedAuthMethodDetailList_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "one_AuthMethodDetail": one_AuthMethodDetail_output,
+        "one_Instructions": one_Instructions_output,
+        "one_PaginatedAuthMethodDetailList_result_info": one_PaginatedAuthMethodDetailList_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

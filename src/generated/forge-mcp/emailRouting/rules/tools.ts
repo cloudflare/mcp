@@ -80,6 +80,22 @@ export const tools: readonly Tool[] = [
         "email_rule_source": email_rule_source,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_rule_properties",
+      $defs: {
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -158,6 +174,22 @@ export const tools: readonly Tool[] = [
         "rule_identifier"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_rule_properties",
+      $defs: {
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -233,6 +265,22 @@ export const tools: readonly Tool[] = [
         "zone_id",
         "rule_identifier"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_rule_properties",
+      $defs: {
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -332,6 +380,51 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_account_rule"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "email_account_rule": email_account_rule_output,
+        "email_account_rule_zone": email_account_rule_zone_output,
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -446,6 +539,23 @@ export const tools: readonly Tool[] = [
         "email_rule_owner_worker_tag": email_rule_owner_worker_tag,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/email_account_rules_plan",
+      $defs: {
+        "email_account_rules_plan": email_account_rules_plan_output,
+        "email_account_rules_plan_change": email_account_rules_plan_change_output,
+        "email_account_rules_plan_remote_rule": email_account_rules_plan_remote_rule_output,
+        "email_account_rules_plan_zone": email_account_rules_plan_zone_output,
+        "email_identifier": email_identifier_output,
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_source": email_rule_source_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -528,6 +638,22 @@ export const tools: readonly Tool[] = [
         "email_rule_priority": email_rule_priority,
         "email_rule_source": email_rule_source,
         "email_update_rule_properties": email_update_rule_properties,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_rule_properties",
+      $defs: {
+        "email_rule_action": email_rule_action_output,
+        "email_rule_actions": email_rule_actions_output,
+        "email_rule_enabled": email_rule_enabled_output,
+        "email_rule_identifier": email_rule_identifier_output,
+        "email_rule_matcher": email_rule_matcher_output,
+        "email_rule_matchers": email_rule_matchers_output,
+        "email_rule_name": email_rule_name_output,
+        "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
+        "email_rule_source": email_rule_source_output,
+        "email_rule_tag": email_rule_tag_output,
       },
     },
     annotations: {

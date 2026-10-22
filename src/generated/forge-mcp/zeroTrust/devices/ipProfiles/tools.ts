@@ -59,6 +59,21 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_ip_profile",
+      $defs: {
+        "teams-devices_ip_profile": teams_devices_ip_profile_output,
+        "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
+        "teams-devices_ip_profile_description": teams_devices_ip_profile_description_output,
+        "teams-devices_ip_profile_enabled": teams_devices_ip_profile_enabled_output,
+        "teams-devices_ip_profile_id": teams_devices_ip_profile_id_output,
+        "teams-devices_ip_profile_match": teams_devices_ip_profile_match_output,
+        "teams-devices_ip_profile_name": teams_devices_ip_profile_name_output,
+        "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
+        "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
+        "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -121,6 +136,14 @@ export const tools: readonly Tool[] = [
         "profile_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -176,6 +199,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "profile_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_ip_profile",
+      $defs: {
+        "teams-devices_ip_profile": teams_devices_ip_profile_output,
+        "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
+        "teams-devices_ip_profile_description": teams_devices_ip_profile_description_output,
+        "teams-devices_ip_profile_enabled": teams_devices_ip_profile_enabled_output,
+        "teams-devices_ip_profile_id": teams_devices_ip_profile_id_output,
+        "teams-devices_ip_profile_match": teams_devices_ip_profile_match_output,
+        "teams-devices_ip_profile_name": teams_devices_ip_profile_name_output,
+        "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
+        "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
+        "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -244,6 +282,36 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_ip_profile"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/teams-devices_pagination_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "teams-devices_ip_profile": teams_devices_ip_profile_output,
+        "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
+        "teams-devices_ip_profile_description": teams_devices_ip_profile_description_output,
+        "teams-devices_ip_profile_enabled": teams_devices_ip_profile_enabled_output,
+        "teams-devices_ip_profile_id": teams_devices_ip_profile_id_output,
+        "teams-devices_ip_profile_match": teams_devices_ip_profile_match_output,
+        "teams-devices_ip_profile_name": teams_devices_ip_profile_name_output,
+        "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
+        "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
+        "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+        "teams-devices_pagination_info": teams_devices_pagination_info_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -336,6 +404,21 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence,
         "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id,
         "teams-devices_ip_profile_update_request": teams_devices_ip_profile_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_ip_profile",
+      $defs: {
+        "teams-devices_ip_profile": teams_devices_ip_profile_output,
+        "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
+        "teams-devices_ip_profile_description": teams_devices_ip_profile_description_output,
+        "teams-devices_ip_profile_enabled": teams_devices_ip_profile_enabled_output,
+        "teams-devices_ip_profile_id": teams_devices_ip_profile_id_output,
+        "teams-devices_ip_profile_match": teams_devices_ip_profile_match_output,
+        "teams-devices_ip_profile_name": teams_devices_ip_profile_name_output,
+        "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
+        "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
+        "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
       },
     },
     annotations: {

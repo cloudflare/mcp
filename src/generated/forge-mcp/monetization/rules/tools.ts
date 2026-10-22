@@ -55,6 +55,17 @@ export const tools: readonly Tool[] = [
         "monetization_zone-identifier": monetization_zone_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      $defs: {
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -114,6 +125,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "monetization_zone-identifier": monetization_zone_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      $defs: {
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
       },
     },
     annotations: {
@@ -187,6 +209,17 @@ export const tools: readonly Tool[] = [
         "monetization_zone-identifier": monetization_zone_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      $defs: {
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -258,6 +291,16 @@ export const tools: readonly Tool[] = [
         "monetization_zone-identifier": monetization_zone_identifier,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/monetization_monetization-rule",
+      $defs: {
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -316,6 +359,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "monetization_zone-identifier": monetization_zone_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      $defs: {
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
       },
     },
     annotations: {
@@ -387,6 +441,17 @@ export const tools: readonly Tool[] = [
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled,
         "monetization_monetization-ruleset-input": monetization_monetization_ruleset_input,
         "monetization_zone-identifier": monetization_zone_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      $defs: {
+        "monetization_identifier": monetization_identifier_output,
+        "monetization_monetization-price": monetization_monetization_price_output,
+        "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
+        "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
       },
     },
     annotations: {

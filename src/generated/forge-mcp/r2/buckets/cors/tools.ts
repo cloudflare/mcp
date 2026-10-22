@@ -46,6 +46,9 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -108,6 +111,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "rules": {
+          "items": {
+            "$ref": "#/$defs/r2_cors-rule"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "r2_cors-rule": r2_cors_rule_output,
+        "r2_cors-rule_allowed": r2_cors_rule_allowed_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -197,6 +215,9 @@ export const tools: readonly Tool[] = [
         "r2_cors-rule": r2_cors_rule,
         "r2_cors-rule_allowed": r2_cors_rule_allowed,
       },
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

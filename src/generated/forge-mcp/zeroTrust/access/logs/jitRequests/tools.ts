@@ -41,6 +41,16 @@ export const tools: readonly Tool[] = [
         "knock_request_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_jit_request_log_detail",
+      $defs: {
+        "access_jit_request_event": access_jit_request_event_output,
+        "access_jit_request_event_type": access_jit_request_event_type_output,
+        "access_jit_request_log_detail": access_jit_request_log_detail_output,
+        "access_jit_request_status": access_jit_request_status_output,
+        "access_timestamp": access_timestamp_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -121,6 +131,45 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_jit_request_status": access_jit_request_status,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_jit_request_log"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_jit_request_log": access_jit_request_log_output,
+        "access_jit_request_status": access_jit_request_status_output,
+        "access_timestamp": access_timestamp_output,
       },
     },
     annotations: {

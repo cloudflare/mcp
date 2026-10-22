@@ -73,6 +73,18 @@ export const tools: readonly Tool[] = [
         "access_name-7": access_name_7,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/access_certificates",
+      $defs: {
+        "access_associated_hostnames": access_associated_hostnames_output,
+        "access_certificates": access_certificates_output,
+        "access_created_at": access_created_at_output,
+        "access_fingerprint": access_fingerprint_output,
+        "access_name-7": access_name_7_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -143,6 +155,17 @@ export const tools: readonly Tool[] = [
         "certificate_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/access_uuid"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -210,6 +233,18 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "certificate_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_certificates",
+      $defs: {
+        "access_associated_hostnames": access_associated_hostnames_output,
+        "access_certificates": access_certificates_output,
+        "access_created_at": access_created_at_output,
+        "access_fingerprint": access_fingerprint_output,
+        "access_name-7": access_name_7_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -285,6 +320,49 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_certificates"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_associated_hostnames": access_associated_hostnames_output,
+        "access_certificates": access_certificates_output,
+        "access_created_at": access_created_at_output,
+        "access_fingerprint": access_fingerprint_output,
+        "access_name-7": access_name_7_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -410,6 +488,18 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_associated_hostnames": access_associated_hostnames,
         "access_name-7": access_name_7,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_certificates",
+      $defs: {
+        "access_associated_hostnames": access_associated_hostnames_output,
+        "access_certificates": access_certificates_output,
+        "access_created_at": access_created_at_output,
+        "access_fingerprint": access_fingerprint_output,
+        "access_name-7": access_name_7_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
       },
     },
     annotations: {

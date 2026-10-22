@@ -23,6 +23,43 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "killChain": {
+            "type": "number"
+          },
+          "mitreAttack": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "mitreCapec": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "type": "string"
+          },
+          "shortname": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "killChain",
+          "name",
+          "uuid"
+        ],
+        "type": "object"
+      },
+      "type": "array",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

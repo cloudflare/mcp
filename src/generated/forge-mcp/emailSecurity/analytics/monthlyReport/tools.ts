@@ -31,6 +31,28 @@ export const tools: readonly Tool[] = [
         "email-security_identifier": email_security_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "by_month": {
+          "additionalProperties": {
+            "items": {
+              "properties": {
+                "disposition": {
+                  "type": "string"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

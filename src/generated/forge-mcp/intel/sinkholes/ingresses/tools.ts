@@ -43,6 +43,12 @@ export const tools: readonly Tool[] = [
         "intel-sinkholes_ingress_create_params": intel_sinkholes_ingress_create_params,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/intel-sinkholes_ingress_item",
+      $defs: {
+        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -106,6 +112,9 @@ export const tools: readonly Tool[] = [
         "intel-sinkholes_identifier": intel_sinkholes_identifier,
       },
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -165,6 +174,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "intel-sinkholes_identifier": intel_sinkholes_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/intel-sinkholes_ingress_item",
+      $defs: {
+        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
       },
     },
     annotations: {
@@ -230,6 +245,26 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "sinkhole_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel-sinkholes_ingress_item"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -312,6 +347,9 @@ export const tools: readonly Tool[] = [
         "intel-sinkholes_identifier": intel_sinkholes_identifier,
         "intel-sinkholes_ingress_create_params": intel_sinkholes_ingress_create_params,
       },
+    },
+    outputSchema: {
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

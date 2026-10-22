@@ -53,6 +53,15 @@ export const tools: readonly Tool[] = [
         "mconn_interrupt_shutdown": mconn_interrupt_shutdown,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/mconn_connector_interrupts_result",
+      $defs: {
+        "mconn_connector_interrupts_result": mconn_connector_interrupts_result_output,
+        "mconn_interrupt_reboot": mconn_interrupt_reboot_output,
+        "mconn_interrupt_restart": mconn_interrupt_restart_output,
+        "mconn_interrupt_shutdown": mconn_interrupt_shutdown_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -127,6 +136,29 @@ export const tools: readonly Tool[] = [
         "account_id",
         "connector_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mconn_connector_interrupts_result"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "mconn_connector_interrupts_result": mconn_connector_interrupts_result_output,
+        "mconn_interrupt_reboot": mconn_interrupt_reboot_output,
+        "mconn_interrupt_restart": mconn_interrupt_restart_output,
+        "mconn_interrupt_shutdown": mconn_interrupt_shutdown_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

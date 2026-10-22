@@ -42,6 +42,12 @@ export const tools: readonly Tool[] = [
         "device_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_empty_body",
+      $defs: {
+        "teams-devices_empty_body": teams_devices_empty_body_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -97,6 +103,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "device_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_physical_device",
+      $defs: {
+        "teams-devices_components-schemas-uuid": teams_devices_components_schemas_uuid_output,
+        "teams-devices_email": teams_devices_email_output,
+        "teams-devices_physical_device": teams_devices_physical_device_output,
+        "teams-devices_policy_summary": teams_devices_policy_summary_output,
+        "teams-devices_registration_details": teams_devices_registration_details_output,
+        "teams-devices_user": teams_devices_user_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -234,6 +251,32 @@ export const tools: readonly Tool[] = [
         "teams-devices_registration_type": teams_devices_registration_type,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_physical_device"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/teams-devices_cursor_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "teams-devices_components-schemas-uuid": teams_devices_components_schemas_uuid_output,
+        "teams-devices_cursor_result_info": teams_devices_cursor_result_info_output,
+        "teams-devices_email": teams_devices_email_output,
+        "teams-devices_physical_device": teams_devices_physical_device_output,
+        "teams-devices_policy_summary": teams_devices_policy_summary_output,
+        "teams-devices_registration_details": teams_devices_registration_details_output,
+        "teams-devices_user": teams_devices_user_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -322,6 +365,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "teams-devices_physical_device_update_request": teams_devices_physical_device_update_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_physical_device",
+      $defs: {
+        "teams-devices_components-schemas-uuid": teams_devices_components_schemas_uuid_output,
+        "teams-devices_email": teams_devices_email_output,
+        "teams-devices_physical_device": teams_devices_physical_device_output,
+        "teams-devices_policy_summary": teams_devices_policy_summary_output,
+        "teams-devices_registration_details": teams_devices_registration_details_output,
+        "teams-devices_user": teams_devices_user_output,
       },
     },
     annotations: {

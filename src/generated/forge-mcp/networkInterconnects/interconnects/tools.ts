@@ -50,6 +50,17 @@ export const tools: readonly Tool[] = [
         "nsc_InterconnectCreate_Physical_Body": nsc_InterconnectCreate_Physical_Body,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_Interconnect",
+      $defs: {
+        "nsc_ApiBandwidth": nsc_ApiBandwidth_output,
+        "nsc_CloudflareSite": nsc_CloudflareSite_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_Interconnect": nsc_Interconnect_output,
+        "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body_output,
+        "nsc_Interconnect_Physical_Body": nsc_Interconnect_Physical_Body_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -156,6 +167,17 @@ export const tools: readonly Tool[] = [
         "icon"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_Interconnect",
+      $defs: {
+        "nsc_ApiBandwidth": nsc_ApiBandwidth_output,
+        "nsc_CloudflareSite": nsc_CloudflareSite_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_Interconnect": nsc_Interconnect_output,
+        "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body_output,
+        "nsc_Interconnect_Physical_Body": nsc_Interconnect_Physical_Body_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -252,6 +274,18 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_InterconnectList",
+      $defs: {
+        "nsc_ApiBandwidth": nsc_ApiBandwidth_output,
+        "nsc_CloudflareSite": nsc_CloudflareSite_output,
+        "nsc_FacilityInfo": nsc_FacilityInfo_output,
+        "nsc_Interconnect": nsc_Interconnect_output,
+        "nsc_InterconnectList": nsc_InterconnectList_output,
+        "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body_output,
+        "nsc_Interconnect_Physical_Body": nsc_Interconnect_Physical_Body_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -383,6 +417,12 @@ export const tools: readonly Tool[] = [
         "icon"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_DefaultNameResponse",
+      $defs: {
+        "nsc_DefaultNameResponse": nsc_DefaultNameResponse_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -437,6 +477,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "icon"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/nsc_StatusInfo",
+      $defs: {
+        "nsc_StatusInfo": nsc_StatusInfo_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

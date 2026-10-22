@@ -51,6 +51,43 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "copied": {
+          "type": "number"
+        },
+        "indicatorsCopied": {
+          "type": "number"
+        },
+        "insertFailures": {
+          "items": {
+            "properties": {
+              "index": {
+                "type": "number"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "index",
+              "reason"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "relationshipsCopied": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "copied",
+        "indicatorsCopied",
+        "relationshipsCopied"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

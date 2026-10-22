@@ -64,6 +64,18 @@ export const tools: readonly Tool[] = [
         "secondary-dns_name-3": secondary_dns_name_3,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_peer",
+      $defs: {
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip": secondary_dns_ip_output,
+        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
+        "secondary-dns_name-3": secondary_dns_name_3_output,
+        "secondary-dns_peer": secondary_dns_peer_output,
+        "secondary-dns_port": secondary_dns_port_output,
+        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -137,6 +149,17 @@ export const tools: readonly Tool[] = [
         "peer_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/secondary-dns_identifier-3"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -209,6 +232,18 @@ export const tools: readonly Tool[] = [
         "peer_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_peer",
+      $defs: {
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip": secondary_dns_ip_output,
+        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
+        "secondary-dns_name-3": secondary_dns_name_3_output,
+        "secondary-dns_peer": secondary_dns_peer_output,
+        "secondary-dns_port": secondary_dns_port_output,
+        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -277,6 +312,49 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/secondary-dns_peer"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip": secondary_dns_ip_output,
+        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
+        "secondary-dns_name-3": secondary_dns_name_3_output,
+        "secondary-dns_peer": secondary_dns_peer_output,
+        "secondary-dns_port": secondary_dns_port_output,
+        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -393,6 +471,18 @@ export const tools: readonly Tool[] = [
         "secondary-dns_peer": secondary_dns_peer,
         "secondary-dns_port": secondary_dns_port,
         "secondary-dns_tsig_id": secondary_dns_tsig_id,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_peer",
+      $defs: {
+        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
+        "secondary-dns_ip": secondary_dns_ip_output,
+        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
+        "secondary-dns_name-3": secondary_dns_name_3_output,
+        "secondary-dns_peer": secondary_dns_peer_output,
+        "secondary-dns_port": secondary_dns_port_output,
+        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
       },
     },
     annotations: {

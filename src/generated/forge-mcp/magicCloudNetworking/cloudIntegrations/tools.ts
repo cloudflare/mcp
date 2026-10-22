@@ -60,6 +60,20 @@ export const tools: readonly Tool[] = [
         "mcn_create_provider_request": mcn_create_provider_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_provider",
+      $defs: {
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -141,6 +155,13 @@ export const tools: readonly Tool[] = [
         "provider_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_deleted_provider",
+      $defs: {
+        "mcn_deleted_provider": mcn_deleted_provider_output,
+        "mcn_provider_id": mcn_provider_id_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -211,6 +232,15 @@ export const tools: readonly Tool[] = [
         "provider_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_good_response",
+      $defs: {
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_good_response": mcn_good_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -273,6 +303,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_good_response",
+      $defs: {
+        "mcn_error": mcn_error_output,
+        "mcn_error_meta": mcn_error_meta_output,
+        "mcn_error_source": mcn_error_source_output,
+        "mcn_good_response": mcn_good_response_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -345,6 +384,20 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "mcn_update_provider_request": mcn_update_provider_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_provider",
+      $defs: {
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
       },
     },
     annotations: {
@@ -431,6 +484,20 @@ export const tools: readonly Tool[] = [
         "provider_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_provider",
+      $defs: {
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -508,6 +575,24 @@ export const tools: readonly Tool[] = [
         "account_id",
         "provider_id"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/mcn_aws_trust_policy"
+        },
+        {
+          "$ref": "#/$defs/mcn_azure_setup"
+        },
+        {
+          "$ref": "#/$defs/mcn_gcp_setup"
+        }
+      ],
+      $defs: {
+        "mcn_aws_trust_policy": mcn_aws_trust_policy_output,
+        "mcn_azure_setup": mcn_azure_setup_output,
+        "mcn_gcp_setup": mcn_gcp_setup_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -596,6 +681,34 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mcn_provider"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -694,6 +807,20 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "mcn_update_provider_request": mcn_update_provider_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mcn_provider",
+      $defs: {
+        "mcn_cloud_platform_client": mcn_cloud_platform_client_output,
+        "mcn_cloud_type": mcn_cloud_type_output,
+        "mcn_platform_client_id": mcn_platform_client_id_output,
+        "mcn_provider": mcn_provider_output,
+        "mcn_provider_discovery_progress": mcn_provider_discovery_progress_output,
+        "mcn_provider_discovery_status": mcn_provider_discovery_status_output,
+        "mcn_provider_id": mcn_provider_id_output,
+        "mcn_provider_lifecycle_state": mcn_provider_lifecycle_state_output,
+        "mcn_provider_status": mcn_provider_status_output,
       },
     },
     annotations: {

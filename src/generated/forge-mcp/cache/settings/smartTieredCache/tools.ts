@@ -39,6 +39,28 @@ export const tools: readonly Tool[] = [
         "cache-settings_smart_tiered_cache_patch": cache_settings_smart_tiered_cache_patch,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -126,6 +148,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_smart_tiered_cache",
+      $defs: {
+        "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -197,6 +225,28 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cache-settings_smart_tiered_cache_patch": cache_settings_smart_tiered_cache_patch,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
       },
     },
     annotations: {
@@ -285,6 +335,28 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

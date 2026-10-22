@@ -47,6 +47,13 @@ export const tools: readonly Tool[] = [
         "posture-api_WebhookHeaderInput": posture_api_WebhookHeaderInput,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_Webhook",
+      $defs: {
+        "posture-api_Webhook": posture_api_Webhook_output,
+        "posture-api_Webhook_headersItem": posture_api_Webhook_headersItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -113,6 +120,13 @@ export const tools: readonly Tool[] = [
         "webhook_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_api-response-common",
+      $defs: {
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -169,6 +183,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_EvaluateNewWebhookRequest": posture_api_EvaluateNewWebhookRequest,
         "posture-api_WebhookHeaderInput": posture_api_WebhookHeaderInput,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_EvaluateNewWebhookResponse",
+      $defs: {
+        "posture-api_EvaluateNewWebhookResponse": posture_api_EvaluateNewWebhookResponse_output,
       },
     },
     annotations: {
@@ -232,6 +252,12 @@ export const tools: readonly Tool[] = [
         "account_id",
         "webhook_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_EvaluateNewWebhookResponse",
+      $defs: {
+        "posture-api_EvaluateNewWebhookResponse": posture_api_EvaluateNewWebhookResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -297,6 +323,13 @@ export const tools: readonly Tool[] = [
         "webhook_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_Webhook",
+      $defs: {
+        "posture-api_Webhook": posture_api_Webhook_output,
+        "posture-api_Webhook_headersItem": posture_api_Webhook_headersItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -356,6 +389,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_Webhook"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "posture-api_Webhook": posture_api_Webhook_output,
+        "posture-api_Webhook_headersItem": posture_api_Webhook_headersItem_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -437,6 +491,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_UpdateWebhookRequest": posture_api_UpdateWebhookRequest,
         "posture-api_WebhookHeaderInput": posture_api_WebhookHeaderInput,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/posture-api_Webhook",
+      $defs: {
+        "posture-api_Webhook": posture_api_Webhook_output,
+        "posture-api_Webhook_headersItem": posture_api_Webhook_headersItem_output,
       },
     },
     annotations: {

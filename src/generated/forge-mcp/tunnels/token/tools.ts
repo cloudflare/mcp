@@ -34,6 +34,12 @@ export const tools: readonly Tool[] = [
         "tunnel_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_tunnel_token",
+      $defs: {
+        "tunnel_tunnel_token": tunnel_tunnel_token_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

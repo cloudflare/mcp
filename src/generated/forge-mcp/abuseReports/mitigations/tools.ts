@@ -101,6 +101,26 @@ export const tools: readonly Tool[] = [
         "abuse-reports_MitigationType": abuse_reports_MitigationType,
       },
     },
+    outputSchema: {
+      "properties": {
+        "mitigations": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_MitigationListItem"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "mitigations"
+      ],
+      "type": "object",
+      $defs: {
+        "abuse-reports_MitigatedEntityType": abuse_reports_MitigatedEntityType_output,
+        "abuse-reports_MitigationListItem": abuse_reports_MitigationListItem_output,
+        "abuse-reports_MitigationStatus": abuse_reports_MitigationStatus_output,
+        "abuse-reports_MitigationType": abuse_reports_MitigationType_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -219,6 +239,39 @@ export const tools: readonly Tool[] = [
         "abuse-reports_DMCACounterNotice": abuse_reports_DMCACounterNotice,
         "abuse-reports_MitigationAppeal": abuse_reports_MitigationAppeal,
         "abuse-reports_MitigationAppealRequest": abuse_reports_MitigationAppealRequest,
+      },
+    },
+    outputSchema: {
+      "anyOf": [
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_MitigationListItem"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/abuse-reports_MitigationAppealResult_result_info"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        },
+        {
+          "$ref": "#/$defs/abuse-reports_MitigationAppealResult"
+        }
+      ],
+      $defs: {
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_MitigatedEntityType": abuse_reports_MitigatedEntityType_output,
+        "abuse-reports_MitigationAppealResult": abuse_reports_MitigationAppealResult_output,
+        "abuse-reports_MitigationAppealResult_result_info": abuse_reports_MitigationAppealResult_result_info_output,
+        "abuse-reports_MitigationListItem": abuse_reports_MitigationListItem_output,
+        "abuse-reports_MitigationStatus": abuse_reports_MitigationStatus_output,
+        "abuse-reports_MitigationType": abuse_reports_MitigationType_output,
       },
     },
     annotations: {

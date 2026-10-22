@@ -47,6 +47,14 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_pcaps_ownership_request": magic_visibility_pcaps_pcaps_ownership_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response",
+      $defs: {
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -168,6 +176,36 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/magic-visibility-pcaps_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+        "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -258,6 +296,14 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf,
         "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge,
         "magic-visibility-pcaps_pcaps_ownership_validate_request": magic_visibility_pcaps_pcaps_ownership_validate_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response",
+      $defs: {
+        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
       },
     },
     annotations: {

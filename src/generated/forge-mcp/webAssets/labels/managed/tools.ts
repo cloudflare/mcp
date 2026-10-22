@@ -55,6 +55,18 @@ export const tools: readonly Tool[] = [
         "api-shield_label_name": api_shield_label_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/api-shield_full_managed_label",
+      $defs: {
+        "api-shield_full_managed_label": api_shield_full_managed_label_output,
+        "api-shield_label_description": api_shield_label_description_output,
+        "api-shield_label_mapped_resources": api_shield_label_mapped_resources_output,
+        "api-shield_label_metadata": api_shield_label_metadata_output,
+        "api-shield_label_name": api_shield_label_name_output,
+        "api-shield_timestamp": api_shield_timestamp_output,
+        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

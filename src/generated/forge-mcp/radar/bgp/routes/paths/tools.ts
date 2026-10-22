@@ -44,6 +44,144 @@ export const tools: readonly Tool[] = [
         "asn"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "asnInfo": {
+          "oneOf": [
+            {
+              "additionalProperties": {
+                "properties": {
+                  "asn": {
+                    "type": "integer"
+                  },
+                  "country": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "name": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "asn",
+                  "country",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "collectors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "dataTime": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "effectiveCollector": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "queryTime": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "stale": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "dataTime",
+            "effectiveCollector",
+            "queryTime",
+            "stale"
+          ],
+          "type": "object"
+        },
+        "paths": {
+          "items": {
+            "properties": {
+              "collectors": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "pathsCount": {
+                "type": "integer"
+              },
+              "peersCount": {
+                "type": "integer"
+              },
+              "segment": {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "collectors",
+              "pathsCount",
+              "peersCount",
+              "segment"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "asnInfo",
+        "collectors",
+        "meta",
+        "paths"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

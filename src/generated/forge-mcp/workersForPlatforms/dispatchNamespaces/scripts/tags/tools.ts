@@ -49,6 +49,9 @@ export const tools: readonly Tool[] = [
         "tag"
       ],
     },
+    outputSchema: {
+      "type": "null",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -117,6 +120,22 @@ export const tools: readonly Tool[] = [
         "script_name",
         "tag"
       ],
+    },
+    outputSchema: {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_tags-kv-response"
+        },
+        {
+          "$ref": "#/$defs/workers_api-response-null-result"
+        }
+      ],
+      $defs: {
+        "workers_api-response-null-result": workers_api_response_null_result_output,
+        "workers_messages": workers_messages_output,
+        "workers_tags-kv-response": workers_tags_kv_response_output,
+        "workers_tags_kv": workers_tags_kv_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -205,6 +224,12 @@ export const tools: readonly Tool[] = [
         "workers_tag_patch": workers_tag_patch,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_tags_kv",
+      $defs: {
+        "workers_tags_kv": workers_tags_kv_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -267,6 +292,26 @@ export const tools: readonly Tool[] = [
         "dispatch_namespace",
         "script_name"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_tag"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_tag": workers_tag_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -349,6 +394,26 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_tag": workers_tag,
         "workers_tags": workers_tags,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_tag"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "workers_tag": workers_tag_output,
       },
     },
     annotations: {

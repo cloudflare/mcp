@@ -68,6 +68,54 @@ export const tools: readonly Tool[] = [
         }
       },
     },
+    outputSchema: {
+      "properties": {
+        "meta": {
+          "properties": {
+            "dataTime": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "queryTime": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "dataTime",
+            "queryTime"
+          ],
+          "type": "object"
+        },
+        "serie_0": {
+          "properties": {
+            "timestamps": {
+              "items": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "values": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "timestamps",
+            "values"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "meta",
+        "serie_0"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

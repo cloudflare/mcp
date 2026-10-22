@@ -80,6 +80,19 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_name-7": zero_trust_gateway_name_7,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_pacfile",
+      $defs: {
+        "zero-trust-gateway_contents": zero_trust_gateway_contents_output,
+        "zero-trust-gateway_description-4": zero_trust_gateway_description_4_output,
+        "zero-trust-gateway_name-7": zero_trust_gateway_name_7_output,
+        "zero-trust-gateway_pacfile": zero_trust_gateway_pacfile_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_slug": zero_trust_gateway_slug_output,
+        "zero-trust-gateway_url": zero_trust_gateway_url_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -149,6 +162,9 @@ export const tools: readonly Tool[] = [
         "pacfile_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -208,6 +224,19 @@ export const tools: readonly Tool[] = [
         "account_id",
         "pacfile_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_pacfile",
+      $defs: {
+        "zero-trust-gateway_contents": zero_trust_gateway_contents_output,
+        "zero-trust-gateway_description-4": zero_trust_gateway_description_4_output,
+        "zero-trust-gateway_name-7": zero_trust_gateway_name_7_output,
+        "zero-trust-gateway_pacfile": zero_trust_gateway_pacfile_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_slug": zero_trust_gateway_slug_output,
+        "zero-trust-gateway_url": zero_trust_gateway_url_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -283,6 +312,59 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created_at": {
+                "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+              },
+              "description": {
+                "$ref": "#/$defs/zero-trust-gateway_description-4"
+              },
+              "id": {
+                "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              },
+              "name": {
+                "$ref": "#/$defs/zero-trust-gateway_name-7"
+              },
+              "slug": {
+                "$ref": "#/$defs/zero-trust-gateway_slug"
+              },
+              "updated_at": {
+                "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+              },
+              "url": {
+                "$ref": "#/$defs/zero-trust-gateway_url"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_description-4": zero_trust_gateway_description_4_output,
+        "zero-trust-gateway_name-7": zero_trust_gateway_name_7_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_slug": zero_trust_gateway_slug_output,
+        "zero-trust-gateway_url": zero_trust_gateway_url_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -425,6 +507,19 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_contents": zero_trust_gateway_contents,
         "zero-trust-gateway_description-4": zero_trust_gateway_description_4,
         "zero-trust-gateway_name-7": zero_trust_gateway_name_7,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_pacfile",
+      $defs: {
+        "zero-trust-gateway_contents": zero_trust_gateway_contents_output,
+        "zero-trust-gateway_description-4": zero_trust_gateway_description_4_output,
+        "zero-trust-gateway_name-7": zero_trust_gateway_name_7_output,
+        "zero-trust-gateway_pacfile": zero_trust_gateway_pacfile_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_slug": zero_trust_gateway_slug_output,
+        "zero-trust-gateway_url": zero_trust_gateway_url_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
       },
     },
     annotations: {

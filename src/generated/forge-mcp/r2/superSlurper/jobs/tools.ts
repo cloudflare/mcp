@@ -50,6 +50,9 @@ export const tools: readonly Tool[] = [
         "job_id"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -92,6 +95,9 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "type": "string",
     },
     annotations: {
       "destructiveHint": true,
@@ -151,6 +157,14 @@ export const tools: readonly Tool[] = [
         "r2-slurper_SourceJobSchema": r2_slurper_SourceJobSchema,
       },
     },
+    outputSchema: {
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -207,6 +221,9 @@ export const tools: readonly Tool[] = [
         "job_id"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -256,6 +273,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "job_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2-slurper_JobResponse",
+      $defs: {
+        "r2-slurper_JobResponse": r2_slurper_JobResponse_output,
+        "r2-slurper_JobResponse_source": r2_slurper_JobResponse_source_output,
+        "r2-slurper_JobResponse_target": r2_slurper_JobResponse_target_output,
+        "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
+        "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -310,6 +337,30 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/r2-slurper_JobResponse"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "r2-slurper_JobResponse": r2_slurper_JobResponse_output,
+        "r2-slurper_JobResponse_source": r2_slurper_JobResponse_source_output,
+        "r2-slurper_JobResponse_target": r2_slurper_JobResponse_target_output,
+        "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
+        "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -381,6 +432,9 @@ export const tools: readonly Tool[] = [
         "job_id"
       ],
     },
+    outputSchema: {
+      "type": "string",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -431,6 +485,13 @@ export const tools: readonly Tool[] = [
         "job_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2-slurper_JobProgressResponse",
+      $defs: {
+        "r2-slurper_JobProgressResponse": r2_slurper_JobProgressResponse_output,
+        "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -479,6 +540,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "job_id"
       ],
+    },
+    outputSchema: {
+      "type": "string",
     },
     annotations: {
       "destructiveHint": true,

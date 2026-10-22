@@ -28,6 +28,12 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-database-signature-response",
+      $defs: {
+        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive_database_signature_response_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

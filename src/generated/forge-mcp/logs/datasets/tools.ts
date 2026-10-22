@@ -46,6 +46,34 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/lex_AvailableDestination"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "lex_AvailableDestination": lex_AvailableDestination_output,
+        "lex_AvailableDestination_schema": lex_AvailableDestination_schema_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -141,6 +169,13 @@ export const tools: readonly Tool[] = [
         "lex_LogField": lex_LogField,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/lex_DatasetResponse",
+      $defs: {
+        "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_LogField": lex_LogField_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -215,6 +250,13 @@ export const tools: readonly Tool[] = [
         "dataset_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/lex_DatasetResponse",
+      $defs: {
+        "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_LogField": lex_LogField_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -282,6 +324,13 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "dataset_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/lex_DatasetResponse",
+      $defs: {
+        "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_LogField": lex_LogField_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -351,6 +400,33 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/lex_DatasetSummary"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "lex_DatasetSummary": lex_DatasetSummary_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -452,6 +528,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "lex_LogField": lex_LogField,
         "lex_UpdateDatasetRequest": lex_UpdateDatasetRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/lex_DatasetResponse",
+      $defs: {
+        "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_LogField": lex_LogField_output,
       },
     },
     annotations: {

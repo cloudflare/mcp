@@ -45,6 +45,14 @@ export const tools: readonly Tool[] = [
         "magic_create_bgp_filter_profile_request": magic_create_bgp_filter_profile_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_bgp_filter_profile",
+      $defs: {
+        "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
+        "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -106,6 +114,14 @@ export const tools: readonly Tool[] = [
         "profile_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_bgp_filter_profile",
+      $defs: {
+        "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
+        "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -166,6 +182,14 @@ export const tools: readonly Tool[] = [
         "profile_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/magic_bgp_filter_profile",
+      $defs: {
+        "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
+        "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -220,6 +244,28 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_bgp_filter_profile"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
+        "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -301,6 +347,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action,
         "magic_update_bgp_filter_profile_request": magic_update_bgp_filter_profile_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/magic_bgp_filter_profile",
+      $defs: {
+        "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
+        "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_schemas-identifier": magic_schemas_identifier_output,
       },
     },
     annotations: {

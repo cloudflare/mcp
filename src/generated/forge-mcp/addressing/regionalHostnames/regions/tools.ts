@@ -32,6 +32,51 @@ export const tools: readonly Tool[] = [
         "dls_identifier": dls_identifier,
       },
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "key": {
+                "$ref": "#/$defs/dls_region_key"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "dls_region_key": dls_region_key_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

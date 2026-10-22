@@ -36,6 +36,26 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cloud-connector_rules"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cloud-connector_provider": cloud_connector_provider_output,
+        "cloud-connector_rule": cloud_connector_rule_output,
+        "cloud-connector_rule_parameters": cloud_connector_rule_parameters_output,
+        "cloud-connector_rules": cloud_connector_rules_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -119,6 +139,26 @@ export const tools: readonly Tool[] = [
         "cloud-connector_provider": cloud_connector_provider,
         "cloud-connector_rule": cloud_connector_rule,
         "cloud-connector_rule_parameters": cloud_connector_rule_parameters,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cloud-connector_rules"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "cloud-connector_provider": cloud_connector_provider_output,
+        "cloud-connector_rule": cloud_connector_rule_output,
+        "cloud-connector_rule_parameters": cloud_connector_rule_parameters_output,
+        "cloud-connector_rules": cloud_connector_rules_output,
       },
     },
     annotations: {

@@ -41,6 +41,43 @@ export const tools: readonly Tool[] = [
         "article_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "applied_by": {
+          "enum": [
+            "ai",
+            "analyst",
+            "system"
+          ],
+          "type": "string"
+        },
+        "categoryId": {
+          "oneOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "uuid": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "applied_by",
+        "categoryId",
+        "uuid",
+        "value"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -122,6 +159,58 @@ export const tools: readonly Tool[] = [
         "account_id",
         "article_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "tag_skill_version": {
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "properties": {
+              "applied_by": {
+                "enum": [
+                  "ai",
+                  "analyst",
+                  "system"
+                ],
+                "type": "string"
+              },
+              "categoryId": {
+                "oneOf": [
+                  {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "uuid": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "applied_by",
+              "categoryId",
+              "uuid",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "tag_skill_version",
+        "tags"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -224,6 +313,43 @@ export const tools: readonly Tool[] = [
         "article_id",
         "tag_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "applied_by": {
+          "enum": [
+            "ai",
+            "analyst",
+            "system"
+          ],
+          "type": "string"
+        },
+        "categoryId": {
+          "oneOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "uuid": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "applied_by",
+        "categoryId",
+        "uuid",
+        "value"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,

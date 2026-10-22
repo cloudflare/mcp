@@ -41,6 +41,63 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "domain": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "matched_at": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "domain",
+              "id",
+              "matched_at",
+              "username"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

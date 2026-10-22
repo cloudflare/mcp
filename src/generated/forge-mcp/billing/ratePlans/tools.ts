@@ -27,6 +27,26 @@ export const tools: readonly Tool[] = [
         "public_key"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "components": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "public_name": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

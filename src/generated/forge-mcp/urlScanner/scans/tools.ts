@@ -78,6 +78,49 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "items": {
+        "properties": {
+          "api": {
+            "type": "string"
+          },
+          "options": {
+            "properties": {
+              "useragent": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "result": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "uuid": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "visibility": {
+            "enum": [
+              "public",
+              "unlisted"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "api",
+          "result",
+          "url",
+          "uuid",
+          "visibility"
+        ],
+        "type": "object"
+      },
+      "type": "array",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -499,6 +542,50 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "api": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "options": {
+          "properties": {
+            "useragent": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "result": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "uuid": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "visibility": {
+          "enum": [
+            "public",
+            "unlisted"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "api",
+        "message",
+        "result",
+        "url",
+        "uuid",
+        "visibility"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -870,6 +957,4519 @@ export const tools: readonly Tool[] = [
         "account_id",
         "scan_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "console": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "properties": {
+                      "level": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "level",
+                      "source",
+                      "text",
+                      "url"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "cookies": {
+              "items": {
+                "properties": {
+                  "domain": {
+                    "type": "string"
+                  },
+                  "expires": {
+                    "type": "number"
+                  },
+                  "httpOnly": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "priority": {
+                    "type": "string"
+                  },
+                  "sameParty": {
+                    "type": "boolean"
+                  },
+                  "secure": {
+                    "type": "boolean"
+                  },
+                  "session": {
+                    "type": "boolean"
+                  },
+                  "size": {
+                    "type": "number"
+                  },
+                  "sourcePort": {
+                    "type": "number"
+                  },
+                  "sourceScheme": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "domain",
+                  "expires",
+                  "httpOnly",
+                  "name",
+                  "path",
+                  "priority",
+                  "sameParty",
+                  "secure",
+                  "session",
+                  "size",
+                  "sourcePort",
+                  "sourceScheme",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "globals": {
+              "items": {
+                "properties": {
+                  "prop": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "prop",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "links": {
+              "items": {
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "href",
+                  "text"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "performance": {
+              "items": {
+                "properties": {
+                  "duration": {
+                    "type": "number"
+                  },
+                  "entryType": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "startTime": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "duration",
+                  "entryType",
+                  "name",
+                  "startTime"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "requests": {
+              "items": {
+                "properties": {
+                  "request": {
+                    "properties": {
+                      "documentURL": {
+                        "type": "string"
+                      },
+                      "frameId": {
+                        "type": "string"
+                      },
+                      "hasUserGesture": {
+                        "type": "boolean"
+                      },
+                      "initiator": {
+                        "properties": {
+                          "host": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "host",
+                          "type",
+                          "url"
+                        ],
+                        "type": "object"
+                      },
+                      "loaderId": {
+                        "type": "string"
+                      },
+                      "primaryRequest": {
+                        "type": "boolean"
+                      },
+                      "redirectHasExtraInfo": {
+                        "type": "boolean"
+                      },
+                      "redirectResponse": {
+                        "properties": {
+                          "charset": {
+                            "type": "string"
+                          },
+                          "headers": {
+                            "type": "object"
+                          },
+                          "mimeType": {
+                            "type": "string"
+                          },
+                          "protocol": {
+                            "type": "string"
+                          },
+                          "remoteIPAddress": {
+                            "type": "string"
+                          },
+                          "remotePort": {
+                            "type": "number"
+                          },
+                          "securityHeaders": {
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "securityState": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "number"
+                          },
+                          "statusText": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "charset",
+                          "mimeType",
+                          "protocol",
+                          "remoteIPAddress",
+                          "remotePort",
+                          "securityHeaders",
+                          "securityState",
+                          "status",
+                          "statusText",
+                          "url"
+                        ],
+                        "type": "object"
+                      },
+                      "request": {
+                        "properties": {
+                          "headers": {
+                            "type": "object"
+                          },
+                          "initialPriority": {
+                            "type": "string"
+                          },
+                          "isSameSite": {
+                            "type": "boolean"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "mixedContentType": {
+                            "type": "string"
+                          },
+                          "referrerPolicy": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "initialPriority",
+                          "isSameSite",
+                          "method",
+                          "mixedContentType",
+                          "referrerPolicy",
+                          "url"
+                        ],
+                        "type": "object"
+                      },
+                      "requestId": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "wallTime": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "documentURL",
+                      "hasUserGesture",
+                      "initiator",
+                      "redirectHasExtraInfo",
+                      "request",
+                      "requestId",
+                      "type",
+                      "wallTime"
+                    ],
+                    "type": "object"
+                  },
+                  "requests": {
+                    "items": {
+                      "properties": {
+                        "documentURL": {
+                          "type": "string"
+                        },
+                        "frameId": {
+                          "type": "string"
+                        },
+                        "hasUserGesture": {
+                          "type": "boolean"
+                        },
+                        "initiator": {
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "loaderId": {
+                          "type": "string"
+                        },
+                        "redirectHasExtraInfo": {
+                          "type": "boolean"
+                        },
+                        "request": {
+                          "properties": {
+                            "headers": {
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name"
+                              ],
+                              "type": "object"
+                            },
+                            "initialPriority": {
+                              "type": "string"
+                            },
+                            "isSameSite": {
+                              "type": "boolean"
+                            },
+                            "method": {
+                              "type": "string"
+                            },
+                            "mixedContentType": {
+                              "type": "string"
+                            },
+                            "referrerPolicy": {
+                              "type": "string"
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "headers",
+                            "initialPriority",
+                            "isSameSite",
+                            "method",
+                            "mixedContentType",
+                            "referrerPolicy",
+                            "url"
+                          ],
+                          "type": "object"
+                        },
+                        "requestId": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "wallTime": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "documentURL",
+                        "frameId",
+                        "hasUserGesture",
+                        "initiator",
+                        "loaderId",
+                        "redirectHasExtraInfo",
+                        "request",
+                        "requestId",
+                        "type",
+                        "wallTime"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "response": {
+                    "properties": {
+                      "asn": {
+                        "properties": {
+                          "asn": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "ip": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "org": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "asn",
+                          "country",
+                          "description",
+                          "ip",
+                          "name",
+                          "org"
+                        ],
+                        "type": "object"
+                      },
+                      "contentAvailable": {
+                        "type": "boolean"
+                      },
+                      "dataLength": {
+                        "type": "number"
+                      },
+                      "encodedDataLength": {
+                        "type": "number"
+                      },
+                      "geoip": {
+                        "properties": {
+                          "city": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "type": "string"
+                          },
+                          "country_name": {
+                            "type": "string"
+                          },
+                          "geonameId": {
+                            "type": "string"
+                          },
+                          "ll": {
+                            "items": {
+                              "type": "number"
+                            },
+                            "type": "array"
+                          },
+                          "region": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "city",
+                          "country",
+                          "country_name",
+                          "geonameId",
+                          "ll",
+                          "region"
+                        ],
+                        "type": "object"
+                      },
+                      "hasExtraInfo": {
+                        "type": "boolean"
+                      },
+                      "hash": {
+                        "type": "string"
+                      },
+                      "requestId": {
+                        "type": "string"
+                      },
+                      "response": {
+                        "properties": {
+                          "charset": {
+                            "type": "string"
+                          },
+                          "headers": {
+                            "type": "object"
+                          },
+                          "mimeType": {
+                            "type": "string"
+                          },
+                          "protocol": {
+                            "type": "string"
+                          },
+                          "remoteIPAddress": {
+                            "type": "string"
+                          },
+                          "remotePort": {
+                            "type": "number"
+                          },
+                          "securityDetails": {
+                            "properties": {
+                              "certificateId": {
+                                "type": "number"
+                              },
+                              "certificateTransparencyCompliance": {
+                                "type": "string"
+                              },
+                              "cipher": {
+                                "type": "string"
+                              },
+                              "encryptedClientHello": {
+                                "type": "boolean"
+                              },
+                              "issuer": {
+                                "type": "string"
+                              },
+                              "keyExchange": {
+                                "type": "string"
+                              },
+                              "keyExchangeGroup": {
+                                "type": "string"
+                              },
+                              "protocol": {
+                                "type": "string"
+                              },
+                              "sanList": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "serverSignatureAlgorithm": {
+                                "type": "number"
+                              },
+                              "subjectName": {
+                                "type": "string"
+                              },
+                              "validFrom": {
+                                "type": "number"
+                              },
+                              "validTo": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "certificateId",
+                              "certificateTransparencyCompliance",
+                              "cipher",
+                              "encryptedClientHello",
+                              "issuer",
+                              "keyExchange",
+                              "keyExchangeGroup",
+                              "protocol",
+                              "sanList",
+                              "serverSignatureAlgorithm",
+                              "subjectName",
+                              "validFrom",
+                              "validTo"
+                            ],
+                            "type": "object"
+                          },
+                          "securityHeaders": {
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "value"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "securityState": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "number"
+                          },
+                          "statusText": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "charset",
+                          "mimeType",
+                          "protocol",
+                          "remoteIPAddress",
+                          "remotePort",
+                          "securityDetails",
+                          "securityHeaders",
+                          "securityState",
+                          "status",
+                          "statusText",
+                          "url"
+                        ],
+                        "type": "object"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "dataLength",
+                      "encodedDataLength",
+                      "geoip",
+                      "hasExtraInfo",
+                      "requestId",
+                      "response",
+                      "size",
+                      "type"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "request",
+                  "response"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "console",
+            "cookies",
+            "globals",
+            "links",
+            "performance",
+            "requests"
+          ],
+          "type": "object"
+        },
+        "lists": {
+          "properties": {
+            "asns": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "certificates": {
+              "items": {
+                "properties": {
+                  "issuer": {
+                    "type": "string"
+                  },
+                  "subjectName": {
+                    "type": "string"
+                  },
+                  "validFrom": {
+                    "type": "number"
+                  },
+                  "validTo": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "issuer",
+                  "subjectName",
+                  "validFrom",
+                  "validTo"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "continents": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "countries": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "domains": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "hashes": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "ips": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "linkDomains": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "servers": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "urls": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "asns",
+            "certificates",
+            "continents",
+            "countries",
+            "domains",
+            "hashes",
+            "ips",
+            "linkDomains",
+            "servers",
+            "urls"
+          ],
+          "type": "object"
+        },
+        "meta": {
+          "properties": {
+            "processors": {
+              "properties": {
+                "agentReadiness": {
+                  "properties": {
+                    "checks": {
+                      "properties": {
+                        "botAccessControl": {
+                          "properties": {
+                            "contentSignals": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "robotsTxtAiRules": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "webBotAuth": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "contentSignals",
+                            "robotsTxtAiRules",
+                            "webBotAuth"
+                          ],
+                          "type": "object"
+                        },
+                        "commerce": {
+                          "properties": {
+                            "acp": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "ap2": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "mpp": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "ucp": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "x402": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "acp",
+                            "ap2",
+                            "mpp",
+                            "ucp",
+                            "x402"
+                          ],
+                          "type": "object"
+                        },
+                        "contentAccessibility": {
+                          "properties": {
+                            "markdownNegotiation": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "markdownNegotiation"
+                          ],
+                          "type": "object"
+                        },
+                        "discoverability": {
+                          "properties": {
+                            "dnsAid": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "linkHeaders": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "robotsTxt": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "sitemap": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "dnsAid",
+                            "linkHeaders",
+                            "robotsTxt",
+                            "sitemap"
+                          ],
+                          "type": "object"
+                        },
+                        "discovery": {
+                          "properties": {
+                            "a2aAgentCard": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "agentSkills": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "apiCatalog": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "ard": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "authMd": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "mcpServerCard": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "oauthDiscovery": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "oauthProtectedResource": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
+                            "webMcp": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "a2aAgentCard",
+                            "agentSkills",
+                            "apiCatalog",
+                            "ard",
+                            "authMd",
+                            "mcpServerCard",
+                            "oauthDiscovery",
+                            "oauthProtectedResource",
+                            "webMcp"
+                          ],
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "botAccessControl",
+                        "commerce",
+                        "contentAccessibility",
+                        "discoverability",
+                        "discovery"
+                      ],
+                      "type": "object"
+                    },
+                    "commerceSignals": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "isCommerce": {
+                      "type": "boolean"
+                    },
+                    "level": {
+                      "type": "integer"
+                    },
+                    "levelName": {
+                      "type": "string"
+                    },
+                    "nextLevel": {
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "requirements": {
+                          "items": {
+                            "properties": {
+                              "check": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "prompt": {
+                                "type": "string"
+                              },
+                              "skillUrl": {
+                                "type": "string"
+                              },
+                              "specUrls": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "check",
+                              "description",
+                              "prompt",
+                              "skillUrl",
+                              "specUrls"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "target": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "requirements",
+                        "target"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "checks",
+                    "level",
+                    "levelName"
+                  ],
+                  "type": "object"
+                },
+                "asn": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "asn": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "ip": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "asn",
+                          "country",
+                          "description",
+                          "ip",
+                          "name"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "dns": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "address": {
+                            "type": "string"
+                          },
+                          "dnssec_valid": {
+                            "type": "boolean"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "address",
+                          "dnssec_valid",
+                          "name",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "domainCategories": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "inherited": {
+                            "type": "object"
+                          },
+                          "isPrimary": {
+                            "type": "boolean"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "inherited",
+                          "isPrimary",
+                          "name"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "geoip": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "geoip": {
+                            "properties": {
+                              "city": {
+                                "type": "string"
+                              },
+                              "country": {
+                                "type": "string"
+                              },
+                              "country_name": {
+                                "type": "string"
+                              },
+                              "ll": {
+                                "items": {
+                                  "type": "number"
+                                },
+                                "type": "array"
+                              },
+                              "region": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "city",
+                              "country",
+                              "country_name",
+                              "ll",
+                              "region"
+                            ],
+                            "type": "object"
+                          },
+                          "ip": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "geoip",
+                          "ip"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "phishing": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "phishing_v2": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "radarRank": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "bucket": {
+                            "type": "string"
+                          },
+                          "hostname": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "bucket",
+                          "hostname"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "robotsTxt": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "hash": {
+                            "type": "string"
+                          },
+                          "rules": {
+                            "additionalProperties": {
+                              "properties": {
+                                "allow": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "contentSignal": {
+                                  "properties": {
+                                    "ai-input": {
+                                      "type": "string"
+                                    },
+                                    "ai-train": {
+                                      "type": "string"
+                                    },
+                                    "search": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "crawlDelay": {
+                                  "type": "number"
+                                },
+                                "disallow": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "allow",
+                                "disallow"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "object"
+                          },
+                          "sitemaps": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "rules",
+                          "sitemaps"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "urlCategories": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "content": {
+                            "items": {
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "super_category_id": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "super_category_id"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "inherited": {
+                            "properties": {
+                              "content": {
+                                "items": {
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "super_category_id": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "super_category_id"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "from": {
+                                "type": "string"
+                              },
+                              "risks": {
+                                "items": {
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "super_category_id": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name",
+                                    "super_category_id"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "content",
+                              "from",
+                              "risks"
+                            ],
+                            "type": "object"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "risks": {
+                            "items": {
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "super_category_id": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "super_category_id"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "content",
+                          "inherited",
+                          "name",
+                          "risks"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                },
+                "wappa": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "properties": {
+                          "app": {
+                            "type": "string"
+                          },
+                          "categories": {
+                            "items": {
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "priority": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "priority"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "confidence": {
+                            "items": {
+                              "properties": {
+                                "confidence": {
+                                  "type": "number"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "pattern": {
+                                  "type": "string"
+                                },
+                                "patternType": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "confidence",
+                                "name",
+                                "pattern",
+                                "patternType"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "confidenceTotal": {
+                            "type": "number"
+                          },
+                          "icon": {
+                            "type": "string"
+                          },
+                          "website": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "app",
+                          "categories",
+                          "confidence",
+                          "confidenceTotal",
+                          "icon",
+                          "website"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "asn",
+                "dns",
+                "domainCategories",
+                "geoip",
+                "phishing",
+                "radarRank",
+                "wappa"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "processors"
+          ],
+          "type": "object"
+        },
+        "page": {
+          "properties": {
+            "apexDomain": {
+              "type": "string"
+            },
+            "asn": {
+              "type": "string"
+            },
+            "asnname": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "ip": {
+              "type": "string"
+            },
+            "mimeType": {
+              "type": "string"
+            },
+            "screenshot": {
+              "properties": {
+                "dhash": {
+                  "type": "string"
+                },
+                "mm3Hash": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "phash": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "dhash",
+                "mm3Hash",
+                "name",
+                "phash"
+              ],
+              "type": "object"
+            },
+            "server": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "tlsAgeDays": {
+              "type": "number"
+            },
+            "tlsIssuer": {
+              "type": "string"
+            },
+            "tlsValidDays": {
+              "type": "number"
+            },
+            "tlsValidFrom": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apexDomain",
+            "asn",
+            "asnname",
+            "city",
+            "country",
+            "domain",
+            "ip",
+            "mimeType",
+            "server",
+            "status",
+            "title",
+            "tlsAgeDays",
+            "tlsIssuer",
+            "tlsValidDays",
+            "tlsValidFrom",
+            "url"
+          ],
+          "type": "object"
+        },
+        "scanner": {
+          "properties": {
+            "colo": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "colo",
+            "country"
+          ],
+          "type": "object"
+        },
+        "stats": {
+          "properties": {
+            "IPv6Percentage": {
+              "type": "number"
+            },
+            "domainStats": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "type": "number"
+                  },
+                  "countries": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "domain": {
+                    "type": "string"
+                  },
+                  "encodedSize": {
+                    "type": "number"
+                  },
+                  "index": {
+                    "type": "number"
+                  },
+                  "initiators": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "ips": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "redirects": {
+                    "type": "number"
+                  },
+                  "size": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "count",
+                  "countries",
+                  "domain",
+                  "encodedSize",
+                  "index",
+                  "initiators",
+                  "ips",
+                  "redirects",
+                  "size"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "ipStats": {
+              "items": {
+                "properties": {
+                  "asn": {
+                    "properties": {
+                      "asn": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "ip": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "org": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "country",
+                      "description",
+                      "ip",
+                      "name",
+                      "org"
+                    ],
+                    "type": "object"
+                  },
+                  "count": {
+                    "type": "number"
+                  },
+                  "countries": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "domains": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "encodedSize": {
+                    "type": "number"
+                  },
+                  "geoip": {
+                    "properties": {
+                      "city": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "country_name": {
+                        "type": "string"
+                      },
+                      "ll": {
+                        "items": {
+                          "type": "number"
+                        },
+                        "type": "array"
+                      },
+                      "region": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "city",
+                      "country",
+                      "country_name",
+                      "ll",
+                      "region"
+                    ],
+                    "type": "object"
+                  },
+                  "index": {
+                    "type": "number"
+                  },
+                  "ip": {
+                    "type": "string"
+                  },
+                  "ipv6": {
+                    "type": "boolean"
+                  },
+                  "redirects": {
+                    "type": "number"
+                  },
+                  "requests": {
+                    "type": "number"
+                  },
+                  "size": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "asn",
+                  "countries",
+                  "domains",
+                  "encodedSize",
+                  "geoip",
+                  "index",
+                  "ip",
+                  "ipv6",
+                  "redirects",
+                  "requests",
+                  "size"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "malicious": {
+              "type": "number"
+            },
+            "protocolStats": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "type": "number"
+                  },
+                  "countries": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "encodedSize": {
+                    "type": "number"
+                  },
+                  "ips": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "protocol": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "count",
+                  "countries",
+                  "encodedSize",
+                  "ips",
+                  "protocol",
+                  "size"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "resourceStats": {
+              "items": {
+                "properties": {
+                  "compression": {
+                    "type": "number"
+                  },
+                  "count": {
+                    "type": "number"
+                  },
+                  "countries": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "encodedSize": {
+                    "type": "number"
+                  },
+                  "ips": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "percentage": {
+                    "type": "number"
+                  },
+                  "size": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "compression",
+                  "count",
+                  "countries",
+                  "encodedSize",
+                  "ips",
+                  "percentage",
+                  "size",
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "securePercentage": {
+              "type": "number"
+            },
+            "secureRequests": {
+              "type": "number"
+            },
+            "serverStats": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "type": "number"
+                  },
+                  "countries": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "encodedSize": {
+                    "type": "number"
+                  },
+                  "ips": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "server": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "count",
+                  "countries",
+                  "encodedSize",
+                  "ips",
+                  "server",
+                  "size"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "tlsStats": {
+              "items": {
+                "properties": {
+                  "count": {
+                    "type": "number"
+                  },
+                  "countries": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "encodedSize": {
+                    "type": "number"
+                  },
+                  "ips": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "protocols": {
+                    "properties": {
+                      "TLS 1.3 / AES_128_GCM": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "TLS 1.3 / AES_128_GCM"
+                    ],
+                    "type": "object"
+                  },
+                  "securityState": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "count",
+                  "countries",
+                  "encodedSize",
+                  "ips",
+                  "protocols",
+                  "securityState",
+                  "size"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "totalLinks": {
+              "type": "number"
+            },
+            "uniqASNs": {
+              "type": "number"
+            },
+            "uniqCountries": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "IPv6Percentage",
+            "domainStats",
+            "ipStats",
+            "malicious",
+            "protocolStats",
+            "resourceStats",
+            "securePercentage",
+            "secureRequests",
+            "serverStats",
+            "tlsStats",
+            "totalLinks",
+            "uniqASNs",
+            "uniqCountries"
+          ],
+          "type": "object"
+        },
+        "task": {
+          "properties": {
+            "apexDomain": {
+              "type": "string"
+            },
+            "domURL": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string"
+            },
+            "options": {
+              "properties": {
+                "customHeaders": {
+                  "type": "object"
+                },
+                "screenshotsResolutions": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "reportURL": {
+              "type": "string"
+            },
+            "screenshotURL": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean"
+            },
+            "time": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            },
+            "visibility": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apexDomain",
+            "domURL",
+            "domain",
+            "method",
+            "options",
+            "reportURL",
+            "screenshotURL",
+            "source",
+            "success",
+            "time",
+            "url",
+            "uuid",
+            "visibility"
+          ],
+          "type": "object"
+        },
+        "verdicts": {
+          "properties": {
+            "overall": {
+              "properties": {
+                "categories": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "hasVerdicts": {
+                  "type": "boolean"
+                },
+                "malicious": {
+                  "type": "boolean"
+                },
+                "tags": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "categories",
+                "hasVerdicts",
+                "malicious",
+                "tags"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "overall"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "data",
+        "lists",
+        "meta",
+        "page",
+        "scanner",
+        "stats",
+        "task",
+        "verdicts"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -5539,6 +10139,264 @@ export const tools: readonly Tool[] = [
         "scan_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "log": {
+          "properties": {
+            "creator": {
+              "properties": {
+                "comment": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "comment",
+                "name",
+                "version"
+              ],
+              "type": "object"
+            },
+            "entries": {
+              "items": {
+                "properties": {
+                  "_initialPriority": {
+                    "type": "string"
+                  },
+                  "_initiator_type": {
+                    "type": "string"
+                  },
+                  "_priority": {
+                    "type": "string"
+                  },
+                  "_requestId": {
+                    "type": "string"
+                  },
+                  "_requestTime": {
+                    "type": "number"
+                  },
+                  "_resourceType": {
+                    "type": "string"
+                  },
+                  "cache": {
+                    "type": "object"
+                  },
+                  "connection": {
+                    "type": "string"
+                  },
+                  "pageref": {
+                    "type": "string"
+                  },
+                  "request": {
+                    "properties": {
+                      "bodySize": {
+                        "type": "number"
+                      },
+                      "headers": {
+                        "items": {
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "headersSize": {
+                        "type": "number"
+                      },
+                      "httpVersion": {
+                        "type": "string"
+                      },
+                      "method": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "bodySize",
+                      "headers",
+                      "headersSize",
+                      "httpVersion",
+                      "method",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "response": {
+                    "properties": {
+                      "_transferSize": {
+                        "type": "number"
+                      },
+                      "bodySize": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "properties": {
+                          "compression": {
+                            "type": "integer"
+                          },
+                          "mimeType": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "mimeType",
+                          "size"
+                        ],
+                        "type": "object"
+                      },
+                      "headers": {
+                        "items": {
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "headersSize": {
+                        "type": "number"
+                      },
+                      "httpVersion": {
+                        "type": "string"
+                      },
+                      "redirectURL": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "number"
+                      },
+                      "statusText": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "_transferSize",
+                      "bodySize",
+                      "content",
+                      "headers",
+                      "headersSize",
+                      "httpVersion",
+                      "redirectURL",
+                      "status",
+                      "statusText"
+                    ],
+                    "type": "object"
+                  },
+                  "serverIPAddress": {
+                    "type": "string"
+                  },
+                  "startedDateTime": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "_initialPriority",
+                  "_initiator_type",
+                  "_priority",
+                  "_requestId",
+                  "_requestTime",
+                  "_resourceType",
+                  "cache",
+                  "connection",
+                  "pageref",
+                  "request",
+                  "response",
+                  "serverIPAddress",
+                  "startedDateTime",
+                  "time"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "pages": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "pageTimings": {
+                    "properties": {
+                      "onContentLoad": {
+                        "type": "number"
+                      },
+                      "onLoad": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "onContentLoad",
+                      "onLoad"
+                    ],
+                    "type": "object"
+                  },
+                  "startedDateTime": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "pageTimings",
+                  "startedDateTime",
+                  "title"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "creator",
+            "entries",
+            "pages",
+            "version"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "log"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -5953,6 +10811,116 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "results": {
+          "items": {
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "page": {
+                "properties": {
+                  "asn": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "ip": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "asn",
+                  "country",
+                  "ip",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "result": {
+                "type": "string"
+              },
+              "stats": {
+                "properties": {
+                  "dataLength": {
+                    "type": "number"
+                  },
+                  "requests": {
+                    "type": "number"
+                  },
+                  "uniqCountries": {
+                    "type": "number"
+                  },
+                  "uniqIPs": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "dataLength",
+                  "requests",
+                  "uniqCountries",
+                  "uniqIPs"
+                ],
+                "type": "object"
+              },
+              "task": {
+                "properties": {
+                  "time": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "uuid": {
+                    "type": "string"
+                  },
+                  "visibility": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "time",
+                  "url",
+                  "uuid",
+                  "visibility"
+                ],
+                "type": "object"
+              },
+              "verdicts": {
+                "properties": {
+                  "malicious": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "malicious"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "_id",
+              "page",
+              "result",
+              "stats",
+              "task",
+              "verdicts"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "results"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,

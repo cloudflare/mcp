@@ -89,6 +89,45 @@ export const tools: readonly Tool[] = [
         "to"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/digital-experience-monitoring_warp_events_response"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "digital-experience-monitoring_timestamp_datetime": digital_experience_monitoring_timestamp_datetime_output,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
+        "digital-experience-monitoring_warp_config_change_event": digital_experience_monitoring_warp_config_change_event_output,
+        "digital-experience-monitoring_warp_config_details": digital_experience_monitoring_warp_config_details_output,
+        "digital-experience-monitoring_warp_events_response": digital_experience_monitoring_warp_events_response_output,
+        "digital-experience-monitoring_warp_toggle_change_event": digital_experience_monitoring_warp_toggle_change_event_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

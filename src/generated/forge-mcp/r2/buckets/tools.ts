@@ -75,6 +75,16 @@ export const tools: readonly Tool[] = [
         "r2_storage_class": r2_storage_class,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_bucket",
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_storage_class": r2_storage_class_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -155,6 +165,16 @@ export const tools: readonly Tool[] = [
         "r2_storage_class": r2_storage_class,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/r2_bucket",
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_storage_class": r2_storage_class_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -229,6 +249,9 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -302,6 +325,16 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_storage_class": r2_storage_class,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_bucket",
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_storage_class": r2_storage_class_output,
       },
     },
     annotations: {
@@ -384,6 +417,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/r2_bucket",
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_storage_class": r2_storage_class_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -491,6 +534,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "buckets": {
+          "items": {
+            "$ref": "#/$defs/r2_bucket"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "buckets"
+      ],
+      "type": "object",
+      $defs: {
+        "r2_bucket": r2_bucket_output,
+        "r2_bucket_location": r2_bucket_location_output,
+        "r2_bucket_name": r2_bucket_name_output,
+        "r2_jurisdiction": r2_jurisdiction_output,
+        "r2_storage_class": r2_storage_class_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

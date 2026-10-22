@@ -42,6 +42,17 @@ export const tools: readonly Tool[] = [
         "waitingroom_query_preview": waitingroom_query_preview,
       },
     },
+    outputSchema: {
+      "properties": {
+        "preview_url": {
+          "$ref": "#/$defs/waitingroom_preview_url"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "waitingroom_preview_url": waitingroom_preview_url_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

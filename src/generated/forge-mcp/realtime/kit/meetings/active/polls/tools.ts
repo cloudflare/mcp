@@ -68,6 +68,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "action": {
+              "type": "string"
+            },
+            "poll": {
+              "$ref": "#/$defs/realtimekit_Poll"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "realtimekit_Poll": realtimekit_Poll_output,
+        "realtimekit_Poll_optionsItem": realtimekit_Poll_optionsItem_output,
+        "realtimekit_Poll_optionsItem_votesItem": realtimekit_Poll_optionsItem_votesItem_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

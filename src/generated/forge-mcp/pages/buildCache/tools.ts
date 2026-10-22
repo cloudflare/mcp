@@ -32,6 +32,16 @@ export const tools: readonly Tool[] = [
         "project_name"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": false,

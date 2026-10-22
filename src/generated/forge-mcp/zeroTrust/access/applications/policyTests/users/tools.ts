@@ -59,6 +59,30 @@ export const tools: readonly Tool[] = [
         "policy_test_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_policy_users"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "access_email-2": access_email_2_output,
+        "access_name-10": access_name_10_output,
+        "access_policy_users": access_policy_users_output,
+        "access_user_result": access_user_result_output,
+        "access_uuid": access_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

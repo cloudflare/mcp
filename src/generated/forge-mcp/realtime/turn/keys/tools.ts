@@ -49,6 +49,17 @@ export const tools: readonly Tool[] = [
         "calls_turn_key_name": calls_turn_key_name,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/calls_turn_key_with_key",
+      $defs: {
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_turn_key": calls_turn_key_output,
+        "calls_turn_key_name": calls_turn_key_name_output,
+        "calls_turn_key_with_key": calls_turn_key_with_key_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -109,6 +120,16 @@ export const tools: readonly Tool[] = [
         "key_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/calls_turn_key_object",
+      $defs: {
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_turn_key_object": calls_turn_key_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -163,6 +184,16 @@ export const tools: readonly Tool[] = [
         "key_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/calls_turn_key_object",
+      $defs: {
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_turn_key_object": calls_turn_key_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -216,6 +247,30 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/calls_turn_key_object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_turn_key_object": calls_turn_key_object_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -296,6 +351,16 @@ export const tools: readonly Tool[] = [
       $defs: {
         "calls_turn_key_editable_fields": calls_turn_key_editable_fields,
         "calls_turn_key_name": calls_turn_key_name,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/calls_turn_key_object",
+      $defs: {
+        "calls_created": calls_created_output,
+        "calls_identifier": calls_identifier_output,
+        "calls_modified": calls_modified_output,
+        "calls_name": calls_name_output,
+        "calls_turn_key_object": calls_turn_key_object_output,
       },
     },
     annotations: {

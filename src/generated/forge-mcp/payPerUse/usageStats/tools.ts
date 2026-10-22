@@ -65,6 +65,15 @@ export const tools: readonly Tool[] = [
         "until"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/pay-per-crawl_PPUUsageStats",
+      $defs: {
+        "pay-per-crawl_PPUUsageStats": pay_per_crawl_PPUUsageStats_output,
+        "pay-per-crawl_PPUUsageStatsBuyer": pay_per_crawl_PPUUsageStatsBuyer_output,
+        "pay-per-crawl_PPUUsageStatsDataPoint": pay_per_crawl_PPUUsageStatsDataPoint_output,
+        "pay-per-crawl_PPUUsageStatsTotals": pay_per_crawl_PPUUsageStatsTotals_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

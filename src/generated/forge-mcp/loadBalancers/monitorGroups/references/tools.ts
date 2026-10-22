@@ -31,6 +31,42 @@ export const tools: readonly Tool[] = [
         "monitor_group_id"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "reference_type": {
+                "enum": [
+                  "*",
+                  "referral",
+                  "referrer"
+                ],
+                "type": "string"
+              },
+              "resource_id": {
+                "type": "string"
+              },
+              "resource_name": {
+                "type": "string"
+              },
+              "resource_type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

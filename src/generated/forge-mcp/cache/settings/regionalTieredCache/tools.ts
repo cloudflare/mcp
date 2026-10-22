@@ -49,6 +49,28 @@ export const tools: readonly Tool[] = [
         "cache-settings_regional_tiered_cache_value": cache_settings_regional_tiered_cache_value,
       },
     },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_regional_tiered_cache"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_regional_tiered_cache_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_regional_tiered_cache": cache_settings_regional_tiered_cache_output,
+        "cache-settings_regional_tiered_cache_value": cache_settings_regional_tiered_cache_value_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -131,6 +153,28 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_regional_tiered_cache"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_regional_tiered_cache_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_regional_tiered_cache": cache_settings_regional_tiered_cache_output,
+        "cache-settings_regional_tiered_cache_value": cache_settings_regional_tiered_cache_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

@@ -35,6 +35,12 @@ export const tools: readonly Tool[] = [
         "teams-devices_override_code_create_request": teams_devices_override_code_create_request,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/teams-devices_override_code",
+      $defs: {
+        "teams-devices_override_code": teams_devices_override_code_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

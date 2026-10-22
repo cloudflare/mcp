@@ -52,6 +52,67 @@ export const tools: readonly Tool[] = [
         "aggregate_by"
       ],
     },
+    outputSchema: {
+      "properties": {
+        "aggregateBy": {
+          "type": "string"
+        },
+        "aggregations": {
+          "items": {
+            "allOf": [
+              {
+                "additionalProperties": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "properties": {
+                  "count": {
+                    "type": "number"
+                  },
+                  "date": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "count"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "dateRange": {
+          "properties": {
+            "endDate": {
+              "type": "string"
+            },
+            "startDate": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "total": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "aggregateBy",
+        "aggregations",
+        "total"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

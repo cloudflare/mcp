@@ -73,6 +73,39 @@ export const tools: readonly Tool[] = [
         "stream_watermark_at_upload_alt": stream_watermark_at_upload_alt,
       },
     },
+    outputSchema: {
+      "properties": {
+        "scheduledDeletion": {
+          "$ref": "#/$defs/stream_scheduledDeletion"
+        },
+        "uid": {
+          "$ref": "#/$defs/stream_identifier"
+        },
+        "uploadURL": {
+          "type": "string"
+        },
+        "watermark": {
+          "$ref": "#/$defs/stream_watermarks"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "stream_downloadedFrom": stream_downloadedFrom_output,
+        "stream_height": stream_height_output,
+        "stream_identifier": stream_identifier_output,
+        "stream_name": stream_name_output,
+        "stream_opacity": stream_opacity_output,
+        "stream_padding": stream_padding_output,
+        "stream_position": stream_position_output,
+        "stream_scale": stream_scale_output,
+        "stream_scheduledDeletion": stream_scheduledDeletion_output,
+        "stream_watermark_created": stream_watermark_created_output,
+        "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_size": stream_watermark_size_output,
+        "stream_watermarks": stream_watermarks_output,
+        "stream_width": stream_width_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,

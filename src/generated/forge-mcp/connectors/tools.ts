@@ -54,6 +54,16 @@ export const tools: readonly Tool[] = [
         "mconn_embargo_date": mconn_embargo_date,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/mconn_customer_connector",
+      $defs: {
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -132,6 +142,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "connector_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mconn_customer_connector",
+      $defs: {
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -217,6 +237,16 @@ export const tools: readonly Tool[] = [
         "mconn_embargo_date": mconn_embargo_date,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/mconn_customer_connector",
+      $defs: {
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -292,6 +322,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "connector_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mconn_customer_connector",
+      $defs: {
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -372,6 +412,30 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mconn_customer_connector"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_uuid": mconn_uuid_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -470,6 +534,16 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connectors_update_request": mconn_customer_connectors_update_request,
         "mconn_day_of_week": mconn_day_of_week,
         "mconn_embargo_date": mconn_embargo_date,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/mconn_customer_connector",
+      $defs: {
+        "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_device": mconn_customer_device_output,
+        "mconn_day_of_week": mconn_day_of_week_output,
+        "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_uuid": mconn_uuid_output,
       },
     },
     annotations: {

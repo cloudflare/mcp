@@ -143,6 +143,34 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_name-2": zero_trust_gateway_name_2,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_locations",
+      $defs: {
+        "zero-trust-gateway_client-default": zero_trust_gateway_client_default_output,
+        "zero-trust-gateway_dns-destination-ips-id-read": zero_trust_gateway_dns_destination_ips_id_read_output,
+        "zero-trust-gateway_dns64-enabled": zero_trust_gateway_dns64_enabled_output,
+        "zero-trust-gateway_dns_destination_ipv6_block_id": zero_trust_gateway_dns_destination_ipv6_block_id_output,
+        "zero-trust-gateway_doh_endpoint": zero_trust_gateway_doh_endpoint_output,
+        "zero-trust-gateway_dot_endpoint": zero_trust_gateway_dot_endpoint_output,
+        "zero-trust-gateway_ecs-support": zero_trust_gateway_ecs_support_output,
+        "zero-trust-gateway_endpoints": zero_trust_gateway_endpoints_output,
+        "zero-trust-gateway_ip": zero_trust_gateway_ip_output,
+        "zero-trust-gateway_ip_network": zero_trust_gateway_ip_network_output,
+        "zero-trust-gateway_ip_networks": zero_trust_gateway_ip_networks_output,
+        "zero-trust-gateway_ipv4_endpoint": zero_trust_gateway_ipv4_endpoint_output,
+        "zero-trust-gateway_ipv4_network": zero_trust_gateway_ipv4_network_output,
+        "zero-trust-gateway_ipv4_networks": zero_trust_gateway_ipv4_networks_output,
+        "zero-trust-gateway_ipv6_endpoint": zero_trust_gateway_ipv6_endpoint_output,
+        "zero-trust-gateway_ipv6_network": zero_trust_gateway_ipv6_network_output,
+        "zero-trust-gateway_ipv6_networks": zero_trust_gateway_ipv6_networks_output,
+        "zero-trust-gateway_locations": zero_trust_gateway_locations_output,
+        "zero-trust-gateway_max-ttl": zero_trust_gateway_max_ttl_output,
+        "zero-trust-gateway_name-2": zero_trust_gateway_name_2_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_subdomain": zero_trust_gateway_subdomain_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -228,6 +256,9 @@ export const tools: readonly Tool[] = [
         "location_id"
       ],
     },
+    outputSchema: {
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -288,6 +319,34 @@ export const tools: readonly Tool[] = [
         "account_id",
         "location_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_locations",
+      $defs: {
+        "zero-trust-gateway_client-default": zero_trust_gateway_client_default_output,
+        "zero-trust-gateway_dns-destination-ips-id-read": zero_trust_gateway_dns_destination_ips_id_read_output,
+        "zero-trust-gateway_dns64-enabled": zero_trust_gateway_dns64_enabled_output,
+        "zero-trust-gateway_dns_destination_ipv6_block_id": zero_trust_gateway_dns_destination_ipv6_block_id_output,
+        "zero-trust-gateway_doh_endpoint": zero_trust_gateway_doh_endpoint_output,
+        "zero-trust-gateway_dot_endpoint": zero_trust_gateway_dot_endpoint_output,
+        "zero-trust-gateway_ecs-support": zero_trust_gateway_ecs_support_output,
+        "zero-trust-gateway_endpoints": zero_trust_gateway_endpoints_output,
+        "zero-trust-gateway_ip": zero_trust_gateway_ip_output,
+        "zero-trust-gateway_ip_network": zero_trust_gateway_ip_network_output,
+        "zero-trust-gateway_ip_networks": zero_trust_gateway_ip_networks_output,
+        "zero-trust-gateway_ipv4_endpoint": zero_trust_gateway_ipv4_endpoint_output,
+        "zero-trust-gateway_ipv4_network": zero_trust_gateway_ipv4_network_output,
+        "zero-trust-gateway_ipv4_networks": zero_trust_gateway_ipv4_networks_output,
+        "zero-trust-gateway_ipv6_endpoint": zero_trust_gateway_ipv6_endpoint_output,
+        "zero-trust-gateway_ipv6_network": zero_trust_gateway_ipv6_network_output,
+        "zero-trust-gateway_ipv6_networks": zero_trust_gateway_ipv6_networks_output,
+        "zero-trust-gateway_locations": zero_trust_gateway_locations_output,
+        "zero-trust-gateway_max-ttl": zero_trust_gateway_max_ttl_output,
+        "zero-trust-gateway_name-2": zero_trust_gateway_name_2_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_subdomain": zero_trust_gateway_subdomain_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -397,6 +456,49 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_locations"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/zero-trust-gateway_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "zero-trust-gateway_client-default": zero_trust_gateway_client_default_output,
+        "zero-trust-gateway_dns-destination-ips-id-read": zero_trust_gateway_dns_destination_ips_id_read_output,
+        "zero-trust-gateway_dns64-enabled": zero_trust_gateway_dns64_enabled_output,
+        "zero-trust-gateway_dns_destination_ipv6_block_id": zero_trust_gateway_dns_destination_ipv6_block_id_output,
+        "zero-trust-gateway_doh_endpoint": zero_trust_gateway_doh_endpoint_output,
+        "zero-trust-gateway_dot_endpoint": zero_trust_gateway_dot_endpoint_output,
+        "zero-trust-gateway_ecs-support": zero_trust_gateway_ecs_support_output,
+        "zero-trust-gateway_endpoints": zero_trust_gateway_endpoints_output,
+        "zero-trust-gateway_ip": zero_trust_gateway_ip_output,
+        "zero-trust-gateway_ip_network": zero_trust_gateway_ip_network_output,
+        "zero-trust-gateway_ip_networks": zero_trust_gateway_ip_networks_output,
+        "zero-trust-gateway_ipv4_endpoint": zero_trust_gateway_ipv4_endpoint_output,
+        "zero-trust-gateway_ipv4_network": zero_trust_gateway_ipv4_network_output,
+        "zero-trust-gateway_ipv4_networks": zero_trust_gateway_ipv4_networks_output,
+        "zero-trust-gateway_ipv6_endpoint": zero_trust_gateway_ipv6_endpoint_output,
+        "zero-trust-gateway_ipv6_network": zero_trust_gateway_ipv6_network_output,
+        "zero-trust-gateway_ipv6_networks": zero_trust_gateway_ipv6_networks_output,
+        "zero-trust-gateway_locations": zero_trust_gateway_locations_output,
+        "zero-trust-gateway_max-ttl": zero_trust_gateway_max_ttl_output,
+        "zero-trust-gateway_name-2": zero_trust_gateway_name_2_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_subdomain": zero_trust_gateway_subdomain_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -568,6 +670,34 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_ipv6_networks": zero_trust_gateway_ipv6_networks,
         "zero-trust-gateway_max-ttl": zero_trust_gateway_max_ttl,
         "zero-trust-gateway_name-2": zero_trust_gateway_name_2,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/zero-trust-gateway_locations",
+      $defs: {
+        "zero-trust-gateway_client-default": zero_trust_gateway_client_default_output,
+        "zero-trust-gateway_dns-destination-ips-id-read": zero_trust_gateway_dns_destination_ips_id_read_output,
+        "zero-trust-gateway_dns64-enabled": zero_trust_gateway_dns64_enabled_output,
+        "zero-trust-gateway_dns_destination_ipv6_block_id": zero_trust_gateway_dns_destination_ipv6_block_id_output,
+        "zero-trust-gateway_doh_endpoint": zero_trust_gateway_doh_endpoint_output,
+        "zero-trust-gateway_dot_endpoint": zero_trust_gateway_dot_endpoint_output,
+        "zero-trust-gateway_ecs-support": zero_trust_gateway_ecs_support_output,
+        "zero-trust-gateway_endpoints": zero_trust_gateway_endpoints_output,
+        "zero-trust-gateway_ip": zero_trust_gateway_ip_output,
+        "zero-trust-gateway_ip_network": zero_trust_gateway_ip_network_output,
+        "zero-trust-gateway_ip_networks": zero_trust_gateway_ip_networks_output,
+        "zero-trust-gateway_ipv4_endpoint": zero_trust_gateway_ipv4_endpoint_output,
+        "zero-trust-gateway_ipv4_network": zero_trust_gateway_ipv4_network_output,
+        "zero-trust-gateway_ipv4_networks": zero_trust_gateway_ipv4_networks_output,
+        "zero-trust-gateway_ipv6_endpoint": zero_trust_gateway_ipv6_endpoint_output,
+        "zero-trust-gateway_ipv6_network": zero_trust_gateway_ipv6_network_output,
+        "zero-trust-gateway_ipv6_networks": zero_trust_gateway_ipv6_networks_output,
+        "zero-trust-gateway_locations": zero_trust_gateway_locations_output,
+        "zero-trust-gateway_max-ttl": zero_trust_gateway_max_ttl_output,
+        "zero-trust-gateway_name-2": zero_trust_gateway_name_2_output,
+        "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_subdomain": zero_trust_gateway_subdomain_output,
+        "zero-trust-gateway_uuid-3": zero_trust_gateway_uuid_3_output,
       },
     },
     annotations: {

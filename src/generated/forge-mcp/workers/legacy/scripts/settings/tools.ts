@@ -72,6 +72,20 @@ export const tools: readonly Tool[] = [
         "workers_tail_consumers_script": workers_tail_consumers_script,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/workers_script-settings-item",
+      $defs: {
+        "workers_logpush": workers_logpush_output,
+        "workers_observability-2": workers_observability_2_output,
+        "workers_observability-2_issues": workers_observability_2_issues_output,
+        "workers_observability-2_logs": workers_observability_2_logs_output,
+        "workers_observability-2_traces": workers_observability_2_traces_output,
+        "workers_script-settings-item": workers_script_settings_item_output,
+        "workers_tag": workers_tag_output,
+        "workers_tags": workers_tags_output,
+        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -153,6 +167,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "script_name"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_script-settings-item",
+      $defs: {
+        "workers_logpush": workers_logpush_output,
+        "workers_observability-2": workers_observability_2_output,
+        "workers_observability-2_issues": workers_observability_2_issues_output,
+        "workers_observability-2_logs": workers_observability_2_logs_output,
+        "workers_observability-2_traces": workers_observability_2_traces_output,
+        "workers_script-settings-item": workers_script_settings_item_output,
+        "workers_tag": workers_tag_output,
+        "workers_tags": workers_tags_output,
+        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

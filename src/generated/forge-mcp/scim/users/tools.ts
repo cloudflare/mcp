@@ -48,6 +48,15 @@ export const tools: readonly Tool[] = [
         "iam_scim_user_name_object": iam_scim_user_name_object,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_user",
+      $defs: {
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -197,6 +206,15 @@ export const tools: readonly Tool[] = [
         "iam_scim_patch_operation": iam_scim_patch_operation,
       },
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_user",
+      $defs: {
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": false,
@@ -270,6 +288,15 @@ export const tools: readonly Tool[] = [
         "account_id",
         "user_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_user",
+      $defs: {
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -352,6 +379,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_user_list_response",
+      $defs: {
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_list_response": iam_scim_user_list_response_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -440,6 +477,15 @@ export const tools: readonly Tool[] = [
         "iam_scim_user_email_object": iam_scim_user_email_object,
         "iam_scim_user_name_object": iam_scim_user_name_object,
         "iam_scim_user_replace_request": iam_scim_user_replace_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_scim_user",
+      $defs: {
+        "iam_scim_user": iam_scim_user_output,
+        "iam_scim_user_email_object": iam_scim_user_email_object_output,
+        "iam_scim_user_meta": iam_scim_user_meta_output,
+        "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
     annotations: {

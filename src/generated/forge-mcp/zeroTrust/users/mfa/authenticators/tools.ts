@@ -37,6 +37,16 @@ export const tools: readonly Tool[] = [
         "authenticator_id"
       ],
     },
+    outputSchema: {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,

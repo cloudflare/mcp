@@ -37,6 +37,18 @@ export const tools: readonly Tool[] = [
         "invite_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/iam_user_invite",
+      $defs: {
+        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
+        "iam_invited_by": iam_invited_by_output,
+        "iam_invited_member_email": iam_invited_member_email_output,
+        "iam_invited_on": iam_invited_on_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-expires_on": iam_schemas_expires_on_output,
+        "iam_user_invite": iam_user_invite_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -90,6 +102,33 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {},
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_user_invite"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object",
+      $defs: {
+        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
+        "iam_invited_by": iam_invited_by_output,
+        "iam_invited_member_email": iam_invited_member_email_output,
+        "iam_invited_on": iam_invited_on_output,
+        "iam_result_info": iam_result_info_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-expires_on": iam_schemas_expires_on_output,
+        "iam_user_invite": iam_user_invite_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -184,6 +223,18 @@ export const tools: readonly Tool[] = [
         "invite_id",
         "body"
       ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_user_invite",
+      $defs: {
+        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
+        "iam_invited_by": iam_invited_by_output,
+        "iam_invited_member_email": iam_invited_member_email_output,
+        "iam_invited_on": iam_invited_on_output,
+        "iam_role_names": iam_role_names_output,
+        "iam_schemas-expires_on": iam_schemas_expires_on_output,
+        "iam_user_invite": iam_user_invite_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

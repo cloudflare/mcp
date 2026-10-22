@@ -32,6 +32,12 @@ export const tools: readonly Tool[] = [
         "zone_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_variants",
+      $defs: {
+        "cache-settings_variants": cache_settings_variants_output,
+      },
+    },
     annotations: {
       "destructiveHint": true,
       "idempotentHint": true,
@@ -112,6 +118,28 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cache-settings_variants_value": cache_settings_variants_value,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_variants"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_variants_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_variants": cache_settings_variants_output,
+        "cache-settings_variants_value": cache_settings_variants_value_output,
       },
     },
     annotations: {
@@ -196,6 +224,28 @@ export const tools: readonly Tool[] = [
       required: [
         "zone_id"
       ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_variants"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_variants_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_variants": cache_settings_variants_output,
+        "cache-settings_variants_value": cache_settings_variants_value_output,
+      },
     },
     annotations: {
       "destructiveHint": false,

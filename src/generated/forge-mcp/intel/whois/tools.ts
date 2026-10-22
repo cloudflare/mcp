@@ -34,6 +34,13 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
     },
+    outputSchema: {
+      "$ref": "#/$defs/cloudforce-one-whois_whois",
+      $defs: {
+        "cloudforce-one-whois_domain_name": cloudforce_one_whois_domain_name_output,
+        "cloudforce-one-whois_whois": cloudforce_one_whois_whois_output,
+      },
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,

@@ -37,6 +37,19 @@ export const tools: readonly Tool[] = [
         "target"
       ],
     },
+    outputSchema: {
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
