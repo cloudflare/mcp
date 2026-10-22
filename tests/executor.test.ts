@@ -117,6 +117,50 @@ describe('execute: REST responses', () => {
     expect(text).not.toContain('is not a function')
   })
 
+  it('preserves the error code and Ray ID when an error has no message', async () => {
+    const text = await runExecute(
+      `/accounts/${ACCOUNT_ID}/access/apps`,
+      { success: false, errors: [{ code: 1010 }] },
+      { status: 400, headers: { 'cf-ray': 'test-ray-id' } }
+    )
+    expect(text).toContain('1010: Cloudflare returned an error without a message')
+    expect(text).toContain('Cloudflare Ray ID: test-ray-id')
+    expect(text).not.toContain('undefined')
+  })
+
+  it('uses the envelope message when an error message is empty', async () => {
+    const text = await runExecute(
+      `/accounts/${ACCOUNT_ID}/access/apps`,
+      {
+        success: false,
+        errors: [{ code: 1010, message: '' }],
+        messages: [{ message: 'Access application policy was rejected' }]
+      },
+      { status: 400 }
+    )
+    expect(text).toContain('1010: Access application policy was rejected')
+    expect(text).not.toContain('undefined')
+  })
+
+  it('redacts credentials and email addresses from API error details', async () => {
+    const text = await runExecute(
+      `/accounts/${ACCOUNT_ID}/access/apps`,
+      {
+        success: false,
+        errors: [
+          {
+            code: 1010,
+            message: 'Policy rejected for owner@example.com; api_token=secret-value'
+          }
+        ]
+      },
+      { status: 400 }
+    )
+    expect(text).toContain('1010: Policy rejected for [REDACTED_EMAIL]; api_token=[REDACTED]')
+    expect(text).not.toContain('owner@example.com')
+    expect(text).not.toContain('secret-value')
+  })
+
   it('returns non-JSON responses as raw text', async () => {
     const text = await runExecute(`/accounts/${ACCOUNT_ID}/something`, 'raw-value', {
       headers: { 'Content-Type': 'text/plain' }
