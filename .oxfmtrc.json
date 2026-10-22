@@ -1,9 +1,0 @@
-{
-  "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "singleQuote": true,
-  "semi": false,
-  "trailingComma": "none",
-  "ignorePatterns": [
-    "src/generated/**"
-  ]
-}
