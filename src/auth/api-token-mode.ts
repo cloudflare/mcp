@@ -112,11 +112,30 @@ export function buildAuthProps(token: string, identity: CloudflareIdentity): Aut
   }
 }
 
+/**
+ * Whether a token has the shape workers-oauth-provider gives its own tokens,
+ * `userId:grantId:secret`, matching the provider's own check in `unwrapToken`.
+ * Cloudflare credentials never contain `:`.
+ */
+function isProviderTokenShape(token: string): boolean {
+  return token.split(':').length === 3
+}
+
 /** Resolve direct Cloudflare credentials after the provider's internal token lookup misses. */
 export async function resolveExternalToken({
   token,
   env
 }: ResolveExternalTokenInput<Env>): Promise<ResolveExternalTokenResult> {
+  // The provider only calls this after its own lookup missed, so a token of its shape
+  // is one it issued that has expired or been revoked. Asking Cloudflare about it costs
+  // two API calls and always ends in a 400.
+  if (isProviderTokenShape(token)) {
+    throw new ExternalTokenError('invalid_token', {
+      description: 'Access token is invalid or expired',
+      statusCode: 401
+    })
+  }
+
   const tokenOwner = cloudflareTokenOwner(token)
   try {
     const identity = await getCachedIdentity(token, tokenOwner, env.OAUTH_KV)

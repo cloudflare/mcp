@@ -246,6 +246,22 @@ describe('resolveExternalToken', () => {
     expect(error.description).toContain('appears malformed')
   })
 
+  it('refuses an expired MCP access token without asking Cloudflare', async () => {
+    const calls = mockIdentity({
+      user: () => HttpResponse.json(cfError([], null), { status: 400 }),
+      accounts: () => HttpResponse.json(cfError([], null), { status: 400 })
+    })
+
+    const error = await expectExternalTokenError(
+      resolveExternalToken(resolverInput('user-1:grant-1:expired-secret')),
+      'invalid_token',
+      401
+    )
+    expect(error.description).toBe('Access token is invalid or expired')
+    expect(calls.userCalls()).toBe(0)
+    expect(calls.accountCalls()).toBe(0)
+  })
+
   it('preserves rate-limit backoff', async () => {
     mockIdentity({
       user: () =>
@@ -299,6 +315,26 @@ describe('external token resource responses', () => {
       error: 'invalid_token',
       error_description: 'Access token appears malformed; reauthenticate and try again'
     })
+  })
+
+  it('answers an expired MCP access token with 401 invalid_token and no Cloudflare call', async () => {
+    const calls = mockIdentity({
+      user: () => HttpResponse.json(cfError([], null), { status: 400 }),
+      accounts: () => HttpResponse.json(cfError([], null), { status: 400 })
+    })
+
+    const response = await exports.default.fetch(
+      modernMcpRequest('user-1:grant-1:expired-secret', 'server/discover')
+    )
+
+    expect(response.status).toBe(401)
+    expect(response.headers.get('www-authenticate')).toContain('error="invalid_token"')
+    await expect(response.json()).resolves.toEqual({
+      error: 'invalid_token',
+      error_description: 'Access token is invalid or expired'
+    })
+    expect(calls.userCalls()).toBe(0)
+    expect(calls.accountCalls()).toBe(0)
   })
 
   it('answers an expired or unknown Cloudflare token with 401 invalid_token', async () => {
