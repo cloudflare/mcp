@@ -1,5 +1,4 @@
 import type { Args, Tool } from '../generated/forge-mcp'
-import { permissionsOf } from './cloudflare'
 
 const ACCOUNT_OR_ZONE_PREFIX = '/{account_or_zone}/{account_or_zone_id}'
 
@@ -29,8 +28,6 @@ export type CallPlan =
       readonly body?: string
       /** The tool's path template, such as `/accounts/{account_id}/d1/database`. */
       readonly template: string
-      /** The API token permissions the method accepts. */
-      readonly permissions?: readonly string[]
       /** The account the request names, if any, for explaining a refusal. */
       readonly accountId?: string
     }
@@ -62,7 +59,6 @@ export async function planCall(
     throw error
   }
   const body = request.body ? await request.text() : undefined
-  const permissions = permissionsOf(tool)
   const accountId = accountIdOf(args)
   return {
     kind: 'request',
@@ -71,7 +67,6 @@ export async function planCall(
     headers: Object.fromEntries(request.headers),
     ...(body !== undefined && { body }),
     template: tool.path,
-    ...(permissions && { permissions }),
     ...(accountId && { accountId })
   }
 }

@@ -15,11 +15,12 @@ import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import type { AuthProps } from '../auth/types'
-import { acceptedPermissions, type Connection } from '../api-permissions'
+import { isRefusal, type Connection } from '../api-permissions'
+import { findEndpoint, isEmptyList } from '../api-refusals'
 import { apiCallResult } from './api-call-result'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { CallPlan } from '../forge-tools/plan'
-import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
+import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE } from '../forge-tools/policy'
 
 /** The forge tools service, which holds the generated tools (`src/forge-tools/worker.ts`). */
 function forgeTools() {
@@ -142,12 +143,18 @@ async function callForgeTool(
     })
   }
 
+  // What the endpoint accepts only matters when Cloudflare may have refused the call.
+  const path = new URL(plan.url).pathname.slice(new URL(env.CLOUDFLARE_API_BASE).pathname.length)
+  const endpoint =
+    isRefusal(response.status) || isEmptyList(result)
+      ? await findEndpoint(plan.method, path).catch(() => undefined)
+      : undefined
   const toolResult = apiCallResult(
     {
       method: plan.method,
-      path: new URL(plan.url).pathname.slice(new URL(env.CLOUDFLARE_API_BASE).pathname.length),
+      path,
       template: plan.template,
-      permissions: acceptedPermissions({ [PERMISSIONS_EXTENSION]: plan.permissions }),
+      access: endpoint?.access,
       status: response.status,
       body: result
     },

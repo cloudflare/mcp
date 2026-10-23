@@ -1,3 +1,5 @@
+import { OAUTH_SECURITY_SCHEME } from './api-permissions'
+
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const
 
 /**
@@ -26,8 +28,13 @@ export function extractProduct(path: string): string | undefined {
 const ACCOUNT_OR_ZONE_PREFIX = '/{account_or_zone}/{account_or_zone_id}'
 
 const SCOPES = [
-  { segment: 'accounts', idParam: 'account_id' },
-  { segment: 'zones', idParam: 'zone_id' }
+  {
+    segment: 'accounts',
+    idParam: 'account_id',
+    scopePrefix: 'account-',
+    otherScopePrefix: 'zone-'
+  },
+  { segment: 'zones', idParam: 'zone_id', scopePrefix: 'zone-', otherScopePrefix: 'account-' }
 ] as const
 
 type Scope = (typeof SCOPES)[number]
@@ -51,6 +58,29 @@ function scopeParameters(parameters: unknown, scope: Scope | undefined): unknown
     }
     return [parameter]
   })
+}
+
+/**
+ * A split operation's `security` for its scope. The merged operation lists the
+ * OAuth scopes of both routes, so each route drops the other's: scopes with
+ * the other route's prefix (`zone-access.read` on the account route), and
+ * unprefixed scopes whose own prefixed twin is listed (`access.read` on the
+ * zone route, beside `zone-access.read`). Nothing is dropped if that would
+ * leave no scope. Other unprefixed scopes stay on both routes, a guess for the
+ * few that differ in them (Rulesets, Logpush) until cloudflare/forge#59.
+ */
+function scopeSecurity(security: unknown, scope: Scope | undefined): unknown {
+  if (!scope || !Array.isArray(security)) return security
+  const oauthScopes = (requirement: unknown): string[] => {
+    const scopes = (requirement as Record<string, unknown> | null)?.[OAUTH_SECURITY_SCHEME]
+    return Array.isArray(scopes) ? scopes.filter((id) => typeof id === 'string') : []
+  }
+  const listed = new Set(security.flatMap(oauthScopes))
+  const otherRoutes = (id: string) =>
+    id.startsWith(scope.otherScopePrefix) ||
+    (!id.startsWith(scope.scopePrefix) && listed.has(scope.scopePrefix + id))
+  const kept = security.filter((requirement) => !oauthScopes(requirement).some(otherRoutes))
+  return kept.some((requirement) => oauthScopes(requirement).length > 0) ? kept : security
 }
 
 export function resolveRefs(
@@ -91,6 +121,7 @@ interface OperationObject {
   parameters?: unknown
   requestBody?: unknown
   responses?: unknown
+  security?: unknown
   'x-api-token-group'?: unknown
 }
 
@@ -132,6 +163,7 @@ export function processSpec(spec: Record<string, unknown>): {
           paths[path][method] = {
             summary: op.summary,
             'x-api-token-group': permissionLabels(op['x-api-token-group']),
+            security: scopeSecurity(op.security, scope),
             description: op.description,
             tags,
             parameters: scopeParameters(resolveRefs(op.parameters, spec), scope),

@@ -20,7 +20,36 @@ import worker from '../src/index'
  * ScheduledController / ExecutionContext instances.
  */
 
-const SPEC_URL = env.OPENAPI_SPEC_URL
+const RELEASE_URL = `https://api.github.com/repos/${env.OPENAPI_SPEC_REPO}/releases/latest`
+const ASSET_URL = `https://api.github.com/repos/${env.OPENAPI_SPEC_REPO}/releases/assets/1`
+const DOWNLOAD_URL = 'https://release-assets.githubusercontent.com/openapi.forge.json'
+
+/**
+ * Serve `spec` as the latest release's `openapi.forge.json`, the way GitHub
+ * does for a private repository: the asset URL takes the token and redirects
+ * to a signed download URL, which refuses one.
+ */
+function mockSpecRelease(spec: Record<string, unknown>) {
+  server.use(
+    http.get(RELEASE_URL, ({ request }) =>
+      request.headers.get('authorization') === `Bearer ${env.OPENAPI_SPEC_GITHUB_TOKEN}`
+        ? HttpResponse.json({
+            tag_name: 'openapi@test',
+            assets: [{ name: 'openapi.forge.json', url: ASSET_URL }]
+          })
+        : new HttpResponse('Not Found', { status: 404 })
+    ),
+    http.get(
+      ASSET_URL,
+      () => new HttpResponse(null, { status: 302, headers: { Location: DOWNLOAD_URL } })
+    ),
+    http.get(DOWNLOAD_URL, ({ request }) =>
+      request.headers.has('authorization')
+        ? new HttpResponse('Only one auth mechanism allowed', { status: 400 })
+        : HttpResponse.json(spec)
+    )
+  )
+}
 
 const RAW_SPEC = {
   openapi: '3.0.0',
@@ -52,7 +81,7 @@ describe('scheduled handler', () => {
   )
 
   it('fetches the spec from GitHub, processes it, and writes spec, products and mcp-tools.json to real R2', async () => {
-    server.use(http.get(SPEC_URL, () => HttpResponse.json(RAW_SPEC)))
+    mockSpecRelease(RAW_SPEC)
 
     await runScheduled()
 
@@ -91,9 +120,11 @@ describe('scheduled handler', () => {
   })
 
   it('throws and writes no spec artifacts when GitHub returns a non-2xx', async () => {
-    server.use(http.get(SPEC_URL, () => new HttpResponse('Not Found', { status: 404 })))
+    server.use(http.get(RELEASE_URL, () => new HttpResponse('Not Found', { status: 404 })))
 
-    await expect(runScheduled()).rejects.toThrow('Failed to fetch OpenAPI spec: 404')
+    await expect(runScheduled()).rejects.toThrow(
+      `Failed to read the latest ${env.OPENAPI_SPEC_REPO} release: HTTP 404`
+    )
 
     // No spec artifact was written; the independent skills sync still ran.
     for (const key of ['spec.json', 'products.json', 'mcp-tools.json']) {
@@ -103,7 +134,7 @@ describe('scheduled handler', () => {
   })
 
   it('syncs cloudflare/skills into R2 and records the source commit', async () => {
-    server.use(http.get(SPEC_URL, () => HttpResponse.json(RAW_SPEC)))
+    mockSpecRelease(RAW_SPEC)
 
     await runScheduled()
 
@@ -117,10 +148,8 @@ describe('scheduled handler', () => {
   })
 
   it('still updates the spec when the skills download fails, then reports the failure', async () => {
-    server.use(
-      http.get(SPEC_URL, () => HttpResponse.json(RAW_SPEC)),
-      http.get(SKILLS_ARCHIVE_URL, () => new HttpResponse('Bad Gateway', { status: 502 }))
-    )
+    mockSpecRelease(RAW_SPEC)
+    server.use(http.get(SKILLS_ARCHIVE_URL, () => new HttpResponse('Bad Gateway', { status: 502 })))
 
     await expect(runScheduled()).rejects.toThrow('Failed to fetch skills archive: 502')
 

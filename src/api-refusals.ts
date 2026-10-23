@@ -1,12 +1,12 @@
 import {
-  acceptedPermissions,
   authorize,
   emptyListProvesNothing,
   explainRefusal,
   findOperation,
   isRefusal,
   type Authorization,
-  type Connection
+  type Connection,
+  type EndpointAccess
 } from './api-permissions'
 import { getMcpTools, type McpTools } from './isolate-cache'
 
@@ -69,7 +69,7 @@ export function isEmptyList(body: unknown): boolean {
  * @param body - The parsed response body, when there is one.
  * @param method - The request method.
  * @param authorization - The decision for the request, from {@link authorize}.
- * @param permissions - What the endpoint accepts, from {@link acceptedPermissions}.
+ * @param permissions - The API token permissions the endpoint accepts.
  * @returns The refusal, or `undefined` when the answer stands.
  */
 export function refusalFor(
@@ -94,27 +94,42 @@ export function refusalFor(
   return undefined
 }
 
-type PermissionPaths = Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
+type AccessPaths = Record<string, Record<string, EndpointAccess>>
 
-let permissionPaths: { tools: McpTools; paths: PermissionPaths } | undefined
+let accessPaths: { tools: McpTools; paths: AccessPaths } | undefined
 
 /**
- * Every operation's accepted permissions by path template and method, taken
- * from the cached `mcp-tools.json` rather than `spec.json`: the tool catalog is
- * a few MB and already shared per isolate, while parsing the ~25 MB spec in
- * the request path could exhaust the isolate's memory.
+ * What every operation accepts, by path template and method, taken from the
+ * cached `mcp-tools.json` rather than `spec.json`: the tool catalog is a few
+ * MB and already shared per isolate, while parsing the ~25 MB spec in the
+ * request path could exhaust the isolate's memory.
  */
-async function getPermissionPaths(): Promise<PermissionPaths> {
+async function getAccessPaths(): Promise<AccessPaths> {
   const tools = await getMcpTools()
-  if (permissionPaths?.tools !== tools) {
-    const paths: PermissionPaths = {}
-    for (const tool of tools.byName.values()) {
-      paths[tool.path] ??= {}
-      paths[tool.path][tool.method] = { 'x-api-token-group': tool.permissions }
+  if (accessPaths?.tools !== tools) {
+    const paths: AccessPaths = {}
+    for (const { path, method, permissions, scopes } of tools.byName.values()) {
+      paths[path] ??= {}
+      paths[path][method] = { permissions, scopes }
     }
-    permissionPaths = { tools, paths }
+    accessPaths = { tools, paths }
   }
-  return permissionPaths.paths
+  return accessPaths.paths
+}
+
+/**
+ * The endpoint a request goes to, and what it accepts.
+ *
+ * @param method - The request method.
+ * @param path - The request path below the API base.
+ * @returns The endpoint's template and access, or `undefined` when the catalog lacks it.
+ */
+export async function findEndpoint(
+  method: string,
+  path: string
+): Promise<{ template: string; access: EndpointAccess } | undefined> {
+  const match = findOperation(await getAccessPaths(), method, path)
+  return match && { template: match.template, access: match.operation }
 }
 
 /** An empty list with `result_info` is a couple of hundred bytes; longer bodies aren't read. */
@@ -171,15 +186,14 @@ export async function reviewResponse(
   const refused = isRefusal(response.status)
   if (!refused && !mayBeFilteredList(response, connection, method)) return response
 
-  const paths = await getPermissionPaths().catch(() => undefined)
-  const match = paths ? findOperation(paths, method, path) : undefined
+  const match = await findEndpoint(method, path).catch(() => undefined)
   // Without the catalog a refusal is still explained, from the status alone.
   if (!match && !refused) return response
-  const permissions = acceptedPermissions(match?.operation)
+  const permissions = match?.access.permissions
   const authorization = authorize(
     connection,
     { method, path, template: match?.template },
-    permissions
+    match?.access
   )
 
   if (refused) {

@@ -13,7 +13,7 @@ import {
   toolText
 } from './helpers/mcp'
 import { connectWithOAuth } from './helpers/oauth'
-import { clearSpec, seedSpec } from './helpers/spec'
+import { clearSpec, oauthSecurity, seedSpec } from './helpers/spec'
 import { server } from './setup/msw'
 
 /**
@@ -41,19 +41,29 @@ beforeEach(async () => {
         get: {
           summary: 'List DNS Records',
           'x-api-token-group': ['DNS Read', 'DNS Write'],
+          security: oauthSecurity('dns.read', 'dns.write'),
           parameters: [{ name: 'zone_id', in: 'path', required: true }]
         },
         post: {
           summary: 'Create DNS Record',
           'x-api-token-group': ['DNS Write'],
+          security: oauthSecurity('dns.write'),
           parameters: [{ name: 'zone_id', in: 'path', required: true }]
         }
       },
       '/zones/{zone_id}/settings': {
-        get: { summary: 'Zone Settings', 'x-api-token-group': ['Zone Settings Read'] }
+        get: {
+          summary: 'Zone Settings',
+          'x-api-token-group': ['Zone Settings Read'],
+          security: oauthSecurity('zone-settings.read', 'zone-settings.write')
+        }
       },
       '/accounts/{account_id}/storage/kv/namespaces': {
-        post: { summary: 'Create a Namespace', 'x-api-token-group': ['Workers KV Storage Write'] }
+        post: {
+          summary: 'Create a Namespace',
+          'x-api-token-group': ['Workers KV Storage Write'],
+          security: oauthSecurity('workers-kv-storage.write')
+        }
       }
     },
     ['dns']

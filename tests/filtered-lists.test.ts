@@ -5,7 +5,7 @@ import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api
 import { clearKv } from './helpers/kv'
 import { MCP_URL, callTool, modernMcpRequest, parseMcpResult, toolText } from './helpers/mcp'
 import { connectWithOAuth } from './helpers/oauth'
-import { clearSpec, seedSpec } from './helpers/spec'
+import { clearSpec, oauthSecurity, seedProcessedSpec } from './helpers/spec'
 import { server } from './setup/msw'
 
 /**
@@ -27,18 +27,26 @@ const FILTERED = 'Cloudflare answered 200 with an empty list'
 const get = (path: string) => `async () => cloudflare.request({ method: "GET", path: "${path}" })`
 
 beforeEach(async () => {
-  await seedSpec(
+  await seedProcessedSpec(
     {
-      '/zones': { get: { summary: 'List Zones', 'x-api-token-group': ['Zone Zone Read'] } },
+      '/zones': {
+        get: {
+          summary: 'List Zones',
+          'x-api-token-group': ['Zone Zone Read'],
+          security: oauthSecurity('zone.read')
+        }
+      },
       '/zones/{zone_id}/dns_records': {
         get: {
           summary: 'List DNS Records',
           'x-api-token-group': ['DNS Read', 'DNS Write'],
+          security: oauthSecurity('dns.read', 'dns.write'),
           parameters: [{ name: 'zone_id', in: 'path', required: true }]
         },
         post: {
           summary: 'Create DNS Record',
           'x-api-token-group': ['DNS Write'],
+          security: oauthSecurity('dns.write'),
           parameters: [{ name: 'zone_id', in: 'path', required: true }]
         }
       },
@@ -46,7 +54,24 @@ beforeEach(async () => {
       '/{account_or_zone}/{account_or_zone_id}/access/apps': {
         get: {
           summary: 'List Access applications',
-          'x-api-token-group': ['Access: Apps and Policies Read', 'Access: Apps and Policies Write']
+          'x-api-token-group': [
+            'Access: Apps and Policies Read',
+            'Access: Apps and Policies Write'
+          ],
+          security: oauthSecurity(
+            'access.read',
+            'access.write',
+            'zone-access.read',
+            'zone-access.write'
+          )
+        }
+      },
+      '/accounts/{account_id}/d1/database': {
+        get: {
+          summary: 'List D1 Databases',
+          'x-api-token-group': ['D1 Read', 'D1 Write'],
+          security: oauthSecurity('d1.read', 'd1.write'),
+          parameters: [{ name: 'account_id', in: 'path', required: true }]
         }
       },
       '/accounts/{account_id}/members': {
@@ -57,6 +82,11 @@ beforeEach(async () => {
             'Account Settings Write',
             'Account Settings Read'
           ],
+          security: oauthSecurity(
+            'account-settings.read',
+            'scim-provisioning.write',
+            'account-settings.write'
+          ),
           parameters: [{ name: 'account_id', in: 'path', required: true }]
         }
       }

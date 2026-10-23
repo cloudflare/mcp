@@ -1,5 +1,5 @@
 import type { CallToolResult } from '@modelcontextprotocol/server'
-import { authorize, type Connection } from '../api-permissions'
+import { authorize, type Connection, type EndpointAccess } from '../api-permissions'
 import { filteredListBody, refusalFor } from '../api-refusals'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 import type { FormatToolResult } from '../truncate'
@@ -8,12 +8,12 @@ import type { FormatToolResult } from '../truncate'
 export interface ApiCall {
   /** The request method, upper case. */
   readonly method: string
-  /** The request path below the API base. It picks a scope's account or zone variant. */
+  /** The request path below the API base. */
   readonly path: string
   /** The endpoint's path template, such as `/zones/{zone_id}/dns_records`. */
   readonly template: string
-  /** The permissions the endpoint accepts, from its tool entry. */
-  readonly permissions: readonly string[] | undefined
+  /** What the endpoint accepts: API token permissions and OAuth scopes. */
+  readonly access: EndpointAccess | undefined
   /** The HTTP status Cloudflare returned. */
   readonly status: number
   /** The parsed JSON body, or the text of any other body. */
@@ -44,8 +44,14 @@ export function apiCallResult(
     formatResult
   }: { connection: Connection; scopeChallenge: ScopeChallenge; formatResult: FormatToolResult }
 ): CallToolResult {
-  const authorization = authorize(connection, call, call.permissions)
-  const refusal = refusalFor(call.status, call.body, call.method, authorization, call.permissions)
+  const authorization = authorize(connection, call, call.access)
+  const refusal = refusalFor(
+    call.status,
+    call.body,
+    call.method,
+    authorization,
+    call.access?.permissions
+  )
   const ok = call.status >= 200 && call.status < 300
   if (ok && !refusal) return { content: [{ type: 'text', text: formatResult(call.body) }] }
 
