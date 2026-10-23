@@ -2,6 +2,8 @@ import { env } from 'cloudflare:workers'
 import { resetIsolateCache } from '../../src/isolate-cache'
 import { clearR2 } from './r2'
 import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from '../../src/openapi'
+import { OAUTH_SECURITY_SCHEME } from '../../src/api-permissions'
+import { processSpec } from '../../src/spec-processor'
 
 /**
  * Spec-bucket test fixtures. @cloudflare/vitest-plugin gives each test FILE a real,
@@ -17,6 +19,19 @@ export async function seedSpec(paths: SpecPaths, products: string[] = ['workers'
   await env.SPEC_BUCKET.put('products.json', JSON.stringify(products))
   await env.SPEC_BUCKET.put(MCP_TOOLS_KEY, JSON.stringify(buildMcpTools(paths)))
   resetIsolateCache()
+}
+
+/**
+ * Seed a spec as the scheduled handler would after processing it: forge's
+ * merged `/{account_or_zone}/…` paths are split, each with its own scopes.
+ */
+export async function seedProcessedSpec(paths: SpecPaths, products?: string[]): Promise<void> {
+  await seedSpec(processSpec({ paths }).paths as SpecPaths, products)
+}
+
+/** An operation's `security`, accepting any one of `scopes`. */
+export function oauthSecurity(...scopes: string[]): Array<Record<string, string[]>> {
+  return scopes.map((scope) => ({ [OAUTH_SECURITY_SCHEME]: [scope] }))
 }
 
 /** Remove `mcp-tools.json` to exercise an unseeded bucket. */

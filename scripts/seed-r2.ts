@@ -3,12 +3,13 @@ import { writeFileSync, mkdtempSync, mkdirSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { processSpec, extractProducts } from '../src/spec-processor'
+import { fetchLatestSpec } from '../src/spec-source'
 import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from '../src/openapi'
 import { fetchSkills } from '../src/skills/sync'
 import { SKILLS_MANIFEST_KEY, skillFileKey } from '../src/skills/types'
 
-const OPENAPI_SPEC_URL =
-  'https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json'
+/** The repository whose latest release holds the spec, as `OPENAPI_SPEC_REPO` names it in wrangler.jsonc. */
+const OPENAPI_SPEC_REPO = 'cloudflare/forge-internal'
 
 const env = process.argv[2]
 if (!env || !['staging', 'production'].includes(env)) {
@@ -16,14 +17,12 @@ if (!env || !['staging', 'production'].includes(env)) {
   process.exit(1)
 }
 
-console.log(`Fetching OpenAPI spec from ${OPENAPI_SPEC_URL}...`)
-const response = await fetch(OPENAPI_SPEC_URL)
-if (!response.ok) {
-  throw new Error(`Failed to fetch spec: ${response.status}`)
-}
-
-const rawSpec = (await response.json()) as Record<string, unknown>
-console.log('Processing spec, resolving $refs...')
+// The repository is private: use GITHUB_TOKEN, or the GitHub CLI's login.
+const githubToken =
+  process.env.GITHUB_TOKEN ?? execSync('gh auth token', { encoding: 'utf8' }).trim()
+console.log(`Fetching the OpenAPI spec from the latest release of ${OPENAPI_SPEC_REPO}...`)
+const { tag, spec: rawSpec } = await fetchLatestSpec(OPENAPI_SPEC_REPO, githubToken)
+console.log(`Processing spec ${tag}, resolving $refs...`)
 
 const processed = processSpec(rawSpec)
 const specJson = JSON.stringify(processed)

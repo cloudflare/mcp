@@ -19,7 +19,7 @@ function plan(name: string, args: Record<string, unknown>, options: Partial<Plan
 }
 
 describe('planning a generated tool call', () => {
-  it("fills in the session's account and carries the method's permissions", async () => {
+  it("fills in the session's account", async () => {
     const result = await plan('d1_list', { per_page: 5 }, { sessionAccountId: ACCOUNT })
 
     expect(result).toMatchObject({
@@ -29,7 +29,6 @@ describe('planning a generated tool call', () => {
       template: '/accounts/{account_id}/d1/database',
       accountId: ACCOUNT
     })
-    expect(result.kind === 'request' && result.permissions).toContain('D1 Read')
     expect(result.kind === 'request' && result.headers).not.toHaveProperty('authorization')
   })
 

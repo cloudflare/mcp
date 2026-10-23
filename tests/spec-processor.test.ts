@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { extractProduct, resolveRefs, processSpec, extractProducts } from '../src/spec-processor'
+import { acceptedScopes } from '../src/api-permissions'
+import { oauthSecurity } from './helpers/spec'
 
 describe('extractProduct', () => {
   it('should extract product from account paths', () => {
@@ -195,6 +197,15 @@ describe('processSpec', () => {
     expect(item.post['x-api-token-group']).toBeUndefined()
     expect(item.put['x-api-token-group']).toBeUndefined()
   })
+
+  it('keeps the OAuth scopes the security requirements list', () => {
+    const security = [{ api_token: [] }, ...oauthSecurity('dns.read', 'dns.write')]
+    const result = processSpec({
+      paths: { '/zones/{zone_id}/dns_records': { get: { summary: 'List', security } } }
+    })
+    const item = result.paths['/zones/{zone_id}/dns_records'] as Record<string, any>
+    expect(item.get.security).toEqual(security)
+  })
 })
 
 describe('extractProducts', () => {
@@ -279,5 +290,48 @@ describe('Forge account-or-zone paths', () => {
 
   it('counts products for both split paths', () => {
     expect(extractProducts(merged)).toEqual(['access'])
+  })
+})
+
+describe('OAuth scopes on split account-or-zone paths', () => {
+  /** The scopes each route keeps when a merged operation lists `scopes`. */
+  function split(...scopes: string[]): { accounts?: string[]; zones?: string[] } {
+    const { paths } = processSpec({
+      paths: {
+        '/{account_or_zone}/{account_or_zone_id}/things': {
+          get: { summary: 'List', security: [{ api_token: [] }, ...oauthSecurity(...scopes)] }
+        }
+      }
+    })
+    const scopesOf = (path: string) => acceptedScopes((paths[path] as Record<string, any>).get)
+    return {
+      accounts: scopesOf('/accounts/{account_id}/things'),
+      zones: scopesOf('/zones/{zone_id}/things')
+    }
+  }
+
+  it('gives each route its own prefixed variant', () => {
+    expect(split('access.read', 'access.write', 'zone-access.read', 'zone-access.write')).toEqual({
+      accounts: ['access.read', 'access.write'],
+      zones: ['zone-access.read', 'zone-access.write']
+    })
+    expect(split('account-logs.read', 'logs.read')).toEqual({
+      accounts: ['account-logs.read'],
+      zones: ['logs.read']
+    })
+  })
+
+  it('keeps unprefixed scopes without a twin on both routes', () => {
+    expect(split('account-rulesets.read', 'magic-firewall.read')).toEqual({
+      accounts: ['account-rulesets.read', 'magic-firewall.read'],
+      zones: ['magic-firewall.read']
+    })
+  })
+
+  it('keeps every scope rather than leave a route with none', () => {
+    expect(split('account-rulesets.read')).toEqual({
+      accounts: ['account-rulesets.read'],
+      zones: ['account-rulesets.read']
+    })
   })
 })

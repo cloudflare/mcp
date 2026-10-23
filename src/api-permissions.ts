@@ -31,22 +31,6 @@ export function connectionFromAuth(auth: unknown): Connection {
   return issued.success ? { kind: 'oauth', scopes: issued.data.scope } : DIRECT_CONNECTION
 }
 
-const PermissionLabels = z.array(z.string().min(1)).min(1)
-
-/**
- * The API token permissions an operation accepts, from its `x-api-token-group`.
- * Any one of them is enough.
- *
- * @param operation - The operation, or anything carrying its `x-api-token-group`.
- * @returns The permission names, or `undefined` when the spec lists none.
- */
-export function acceptedPermissions(
-  operation: { readonly 'x-api-token-group'?: unknown } | undefined
-): string[] | undefined {
-  const labels = PermissionLabels.safeParse(operation?.['x-api-token-group'])
-  return labels.success ? [...new Set(labels.data)] : undefined
-}
-
 const SCOPE_NAMES: ReadonlyMap<string, string> = new Map(
   Object.entries(DERIVED_OAUTH_SCOPES).map(([scope, { name }]) => [scope, name])
 )
@@ -61,30 +45,35 @@ export function isCatalogScope(scope: string): boolean {
   return SCOPE_NAMES.has(scope)
 }
 
-/** OAuth scope IDs by permission name. OAuth scopes share API token permission names. */
-const SCOPES_BY_PERMISSION: ReadonlyMap<string, readonly string[]> = (() => {
-  const scopes = new Map<string, string[]>()
-  for (const [scope, name] of SCOPE_NAMES) scopes.set(name, [...(scopes.get(name) ?? []), scope])
-  return scopes
-})()
+/** The OpenAPI security scheme the spec lists Cloudflare OAuth scopes under. */
+export const OAUTH_SECURITY_SCHEME = 'cloudflare_oauth'
+
+const SecurityRequirements = z.array(z.record(z.string(), z.array(z.string())))
 
 /**
- * Spec permission names that drifted from the catalog's. `/zones` uses the
- * dashboard's "Zone > Zone > Read" style (`Zone Zone Read`, and `Zone Zone
- * Edit` and `Zone DNS Edit` for the Write permissions), and Browser Rendering
- * was renamed Browser Run, so none would otherwise match the scope that covers it.
+ * The OAuth scopes an operation accepts, from its `security` requirements.
+ * Each requirement names one scope; any one is enough.
+ *
+ * @param operation - The operation, or anything carrying its `security`.
+ * @returns The scope IDs, or `undefined` when the spec lists none.
  */
-const PERMISSION_ALIASES: ReadonlyMap<string, string> = new Map([
-  ['Zone Zone Read', 'Zone Read'],
-  ['Zone Zone Edit', 'Zone Write'],
-  ['Zone DNS Edit', 'DNS Write'],
-  ['Browser Rendering Read', 'Browser Run Read'],
-  ['Browser Rendering Write', 'Browser Run Write']
-])
+export function acceptedScopes(
+  operation: { readonly security?: unknown } | undefined
+): string[] | undefined {
+  const requirements = SecurityRequirements.safeParse(operation?.security)
+  if (!requirements.success) return undefined
+  const scopes = new Set(
+    requirements.data.flatMap((requirement) => requirement[OAUTH_SECURITY_SCHEME] ?? [])
+  )
+  return scopes.size > 0 ? [...scopes] : undefined
+}
 
-/** The catalog scopes named after a spec permission. */
-function scopesForPermission(permission: string): readonly string[] {
-  return SCOPES_BY_PERMISSION.get(PERMISSION_ALIASES.get(permission) ?? permission) ?? []
+/** What an endpoint accepts: any one of its API token permissions, or any one of its OAuth scopes. */
+export interface EndpointAccess {
+  /** From `x-api-token-group`. */
+  readonly permissions?: readonly string[]
+  /** From `security`. */
+  readonly scopes?: readonly string[]
 }
 
 /**
@@ -132,19 +121,24 @@ function scopeLabel(scope: string): string {
 }
 
 /**
- * Whether a connection may use an endpoint, as far as its permissions in the
- * spec and the connection's OAuth scopes tell.
+ * Whether a connection may use an endpoint, as far as the spec and the
+ * connection's OAuth scopes tell.
  *
- * - `unlisted`: the spec lists no permissions for the endpoint.
+ * - `unlisted`: the spec lists neither permissions nor scopes for the endpoint.
  * - `direct`: the credential's permissions are unknown here.
- * - `unreachable`: no OAuth scope covers any permission the endpoint accepts.
+ * - `unreachable`: the spec lists permissions but no OAuth scope, so OAuth
+ *   connections can't use the endpoint.
  * - `granted`: the connection holds a scope the endpoint accepts.
  * - `missing`: it holds none. `options` would each satisfy the endpoint;
  *   `scope` is the one to ask for, unless none stands out.
  */
 export type Authorization =
   | { readonly kind: 'unlisted'; readonly connection: Connection['kind'] }
-  | { readonly kind: 'direct'; readonly permissions: readonly string[] }
+  | {
+      readonly kind: 'direct'
+      readonly permissions: readonly string[]
+      readonly scopes: readonly string[]
+    }
   | { readonly kind: 'unreachable'; readonly permissions: readonly string[] }
   | { readonly kind: 'granted'; readonly held: readonly string[] }
   | {
@@ -162,30 +156,6 @@ function words(text: string): Set<string> {
       .split(/[^a-z0-9]+/)
       .filter((word) => word && !['read', 'write', 'revoke', 'edit'].includes(word))
   )
-}
-
-/**
- * The scopes that satisfy `permissions` for a request to `path`: the account or
- * zone variant matching the path when one permission name is both
- * (`access.read` and `zone-access.read`, `account-logs.read` and `logs.read`).
- *
- * `path` is the request path, which always starts with `/accounts` or `/zones`.
- * Forge merges endpoints that exist for both into one
- * `/{account_or_zone}/{account_or_zone_id}/...` template. `src/spec-processor.ts`
- * and `src/forge-tools/plan.ts` split those back, but reading the request keeps
- * this correct without relying on them.
- */
-function acceptedScopes(path: string, permissions: readonly string[]): string[] {
-  const [own, other] =
-    path.split('/')[1] === 'zones' ? ['zone-', 'account-'] : ['account-', 'zone-']
-  const accepted = new Set<string>()
-  for (const permission of permissions) {
-    const scopes = scopesForPermission(permission)
-    const prefixed = scopes.filter((scope) => scope.startsWith(own))
-    const variant = prefixed.length > 0 ? prefixed : scopes.filter((s) => !s.startsWith(other))
-    for (const scope of variant.length === 1 ? variant : scopes) accepted.add(scope)
-  }
-  return [...accepted].sort()
 }
 
 /**
@@ -218,34 +188,34 @@ export interface EndpointRequest {
   /** The request path below the API base, such as `/zones/abc/access/apps`. */
   readonly path: string
   /**
-   * The endpoint's path template, such as `/{account_or_zone}/{account_or_zone_id}/access/apps`.
+   * The endpoint's path template, such as `/zones/{zone_id}/access/apps`.
    * Defaults to `path` when the endpoint isn't known.
    */
   readonly template?: string
 }
 
 /**
- * Decide whether a connection may use an endpoint.
- *
- * The request path picks the account or zone variant of a scope; the template
- * picks between alternatives by name, without IDs or resource names in the way.
+ * Decide whether a connection may use an endpoint. The template picks the
+ * scope to ask for by name, without IDs or resource names in the way.
  *
  * @param connection - The credential that made the request.
  * @param request - The method, request path and endpoint template.
- * @param permissions - What the endpoint accepts, from {@link acceptedPermissions}.
+ * @param access - What the endpoint accepts.
  * @returns The decision.
  */
 export function authorize(
   connection: Connection,
   { method, path, template = path }: EndpointRequest,
-  permissions: readonly string[] | undefined
+  { permissions, scopes }: EndpointAccess = {}
 ): Authorization {
-  if (!permissions) return { kind: 'unlisted', connection: connection.kind }
-  if (connection.kind === 'direct') return { kind: 'direct', permissions }
-  const options = acceptedScopes(path, permissions)
-  if (options.length === 0) return { kind: 'unreachable', permissions }
-  const held = options.filter((scope) => connection.scopes.includes(scope))
+  if (!permissions && !scopes) return { kind: 'unlisted', connection: connection.kind }
+  if (connection.kind === 'direct') {
+    return { kind: 'direct', permissions: permissions ?? [], scopes: scopes ?? [] }
+  }
+  if (!scopes) return { kind: 'unreachable', permissions: permissions ?? [] }
+  const held = scopes.filter((scope) => connection.scopes.includes(scope))
   if (held.length > 0) return { kind: 'granted', held }
+  const options = [...scopes].sort()
   return { kind: 'missing', options, scope: scopeToAskFor(method, template, options) }
 }
 
@@ -283,11 +253,13 @@ export function explainRefusal(status: 401 | 403, authorization: Authorization):
       return 'The API spec lists no permissions for this endpoint. HTTP 403 means the credential was accepted but is not allowed to do this, so reconnecting with the same permissions will not help. Check the endpoint’s documentation.'
 
     case 'direct': {
-      const named = authorization.permissions.map((name) => {
-        const ids = scopesForPermission(name)
-        return ids.length > 0 ? `${name} (${ids.map((id) => `\`${id}\``).join(' or ')})` : name
-      })
-      const needs = `This endpoint needs one of these permissions: ${list(named)}. Add one to the token.`
+      const { permissions, scopes } = authorization
+      const oauth =
+        scopes.length > 0 ? ` (OAuth scopes: ${list(scopes.map((id) => `\`${id}\``))})` : ''
+      const needs =
+        permissions.length > 0
+          ? `This endpoint needs one of these permissions: ${list(permissions)}${oauth}. Add one to the token.`
+          : `This endpoint needs one of these OAuth scopes: ${list(scopes.map((id) => `\`${id}\``))}.`
       return status === 401
         ? `${needs} If the token already has one, check that it is valid and has not expired.`
         : needs
@@ -337,7 +309,7 @@ const SOMETIMES_BASELINE_PERMISSIONS: ReadonlySet<string> = new Set([
  *
  * @param method - The request method.
  * @param authorization - The decision for the request, from {@link authorize}.
- * @param permissions - What the endpoint accepts, from {@link acceptedPermissions}.
+ * @param permissions - The API token permissions the endpoint accepts.
  * @returns `true` when an empty list proves nothing.
  */
 export function emptyListProvesNothing(

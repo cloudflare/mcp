@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE } from './auth/account-access'
+import { acceptedScopes } from './api-permissions'
 
 /** R2 key of the direct-tool catalogue the scheduled handler writes. */
 export const MCP_TOOLS_KEY = 'mcp-tools.json'
@@ -9,8 +10,10 @@ export const MCP_TOOLS_KEY = 'mcp-tools.json'
  */
 export interface OperationInfo {
   summary?: string
-  /** API token permissions the operation accepts; any one is enough. OAuth scopes share these names. */
+  /** API token permissions the operation accepts; any one is enough. */
   'x-api-token-group'?: string[]
+  /** The OAuth scopes it accepts, one per requirement (`{ cloudflare_oauth: ['d1.read'] }`); any one is enough. */
+  security?: Array<Record<string, string[]>>
   description?: string
   tags?: string[]
   parameters?: Array<{
@@ -34,7 +37,8 @@ export interface OperationInfo {
 export const SPEC_TYPES = `
 interface OperationInfo {
   summary?: string;
-  "x-api-token-group"?: string[]; // API token permissions the endpoint accepts (any one); OAuth scopes have the same names
+  "x-api-token-group"?: string[]; // API token permissions the endpoint accepts (any one)
+  security?: Array<Record<string, string[]>>; // OAuth scopes it accepts (any one), as { cloudflare_oauth: ["d1.read"] }
   description?: string;
   tags?: string[];
   parameters?: Array<{ name: string; in: string; required?: boolean; schema?: unknown; description?: string }>;
@@ -137,6 +141,8 @@ export interface McpTool {
   headerParams: Array<{ name: string; key: string }>
   /** `x-api-token-group`: API token permissions the endpoint accepts; any one is enough. */
   permissions?: string[]
+  /** `security`: OAuth scopes the endpoint accepts; any one is enough. */
+  scopes?: string[]
 }
 
 interface NonCodemodeOperation {
@@ -195,24 +201,28 @@ function listNonCodemodeOperations(
  */
 export function buildMcpTools(paths: Record<string, Record<string, OperationInfo>>): McpTool[] {
   return listNonCodemodeOperations(paths).map(
-    ({ toolName, description, method, path, operation }) => ({
-      name: toolName,
-      title: toolNameToTitle(toolName),
-      description,
-      inputSchema: withOptionalAccountId(buildJsonInputSchema(operation, path)),
-      method,
-      path,
-      queryParams: (operation.parameters ?? [])
-        .filter((parameter) => parameter.in === 'query')
-        .map((parameter) => parameter.name),
-      headerParams: (operation.parameters ?? [])
-        .filter((parameter) => parameter.in === 'header')
-        .map((parameter) => ({
-          name: parameter.name,
-          key: `header_${parameter.name.toLowerCase().replace(/-/g, '_')}`
-        })),
-      ...(operation['x-api-token-group'] ? { permissions: operation['x-api-token-group'] } : {})
-    })
+    ({ toolName, description, method, path, operation }) => {
+      const scopes = acceptedScopes(operation)
+      return {
+        name: toolName,
+        title: toolNameToTitle(toolName),
+        description,
+        inputSchema: withOptionalAccountId(buildJsonInputSchema(operation, path)),
+        method,
+        path,
+        queryParams: (operation.parameters ?? [])
+          .filter((parameter) => parameter.in === 'query')
+          .map((parameter) => parameter.name),
+        headerParams: (operation.parameters ?? [])
+          .filter((parameter) => parameter.in === 'header')
+          .map((parameter) => ({
+            name: parameter.name,
+            key: `header_${parameter.name.toLowerCase().replace(/-/g, '_')}`
+          })),
+        ...(operation['x-api-token-group'] ? { permissions: operation['x-api-token-group'] } : {}),
+        ...(scopes ? { scopes } : {})
+      }
+    }
   )
 }
 

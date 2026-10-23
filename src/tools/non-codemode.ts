@@ -16,7 +16,7 @@ import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { zodInputSchemaFromJson, type McpTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
-import { acceptedPermissions, type Connection } from '../api-permissions'
+import type { Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
 import type { ScopeChallenge } from '../scope-challenge'
 
@@ -141,14 +141,14 @@ async function callNonCodemodeTool(
     })
   }
 
-  // The generated tool already names its endpoint's template and accepted permissions.
+  // The tool entry already names its endpoint's template, permissions and scopes.
   const accountId = params['account_id'] as string | undefined
   return apiCallResult(
     {
       method: tool.method.toUpperCase(),
       path: resolvedPath,
       template: tool.path,
-      permissions: acceptedPermissions({ 'x-api-token-group': tool.permissions }),
+      access: { permissions: tool.permissions, scopes: tool.scopes },
       status: response.status,
       body: result
     },

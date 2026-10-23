@@ -23,7 +23,7 @@
 		"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
 		"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.cloudflare.com",
 		"MCP_RESOURCE": "http://localhost:2529/mcp",
-		"OPENAPI_SPEC_URL": "https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json",
+		"OPENAPI_SPEC_REPO": "cloudflare/forge-internal",
 		"RESPONSE_VALIDATION_SAMPLE_RATE": "1"
 	},
 	"worker_loaders": [
@@ -118,7 +118,7 @@
 				"CLOUDFLARE_API_BASE": "https://api.staging.cloudflare.com/client/v4",
 				"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.staging.cloudflare.com",
 				"MCP_RESOURCE": "https://staging.mcp.cloudflare.com/mcp",
-				"OPENAPI_SPEC_URL": "https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json",
+				"OPENAPI_SPEC_REPO": "cloudflare/forge-internal",
 				"RESPONSE_VALIDATION_SAMPLE_RATE": "1"
 			}
 		},
@@ -174,7 +174,7 @@
 				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
 				"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.cloudflare.com",
 				"MCP_RESOURCE": "https://mcp.cloudflare.com/mcp",
-				"OPENAPI_SPEC_URL": "https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json",
+				"OPENAPI_SPEC_REPO": "cloudflare/forge-internal",
 				"RESPONSE_VALIDATION_SAMPLE_RATE": "1"
 			}
 		}

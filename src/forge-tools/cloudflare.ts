@@ -1,9 +1,5 @@
 import type { InputSchema, JsonSchema, Tool } from '../generated/forge-mcp'
-import {
-  ACCOUNT_OR_ZONE_ID_DESCRIPTION,
-  FORGE_ACCOUNT_ID_DESCRIPTION,
-  PERMISSIONS_EXTENSION
-} from './policy'
+import { ACCOUNT_OR_ZONE_ID_DESCRIPTION, FORGE_ACCOUNT_ID_DESCRIPTION } from './policy'
 
 /**
  * The Cloudflare policy on top of a generated tool:
@@ -41,14 +37,4 @@ export function cloudflareTool(tool: Tool): Tool {
     ...(required.length > 0 && { required })
   }
   return { ...tool, inputSchema }
-}
-
-/** The API token permissions `tool` accepts, if its method lists them. */
-export function permissionsOf(tool: Tool): string[] | undefined {
-  const value = tool.extensions?.[PERMISSIONS_EXTENSION]
-  return Array.isArray(value) &&
-    value.length > 0 &&
-    value.every((item) => typeof item === 'string' && item.length > 0)
-    ? value
-    : undefined
 }

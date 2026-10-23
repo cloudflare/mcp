@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { pathParam, tools, type Tool } from '../src/generated/forge-mcp'
-import { cloudflareTool, permissionsOf } from '../src/forge-tools/cloudflare'
+import { cloudflareTool } from '../src/forge-tools/cloudflare'
 import {
   ACCOUNT_OR_ZONE_ID_DESCRIPTION,
   FORGE_ACCOUNT_ID_DESCRIPTION
@@ -73,14 +73,6 @@ describe('the Cloudflare policy for generated tools', () => {
 
     expect(cloudflareTool(zone)).toBe(zone)
     expect(cloudflareTool(account).request).toBe(account.request)
-  })
-
-  it('reads the permissions a method accepts', () => {
-    expect(permissionsOf(generated('/a', { 'x-api-token-group': ['DNS Read'] }))).toEqual([
-      'DNS Read'
-    ])
-    expect(permissionsOf(generated('/a', { 'x-api-token-group': 'DNS Read' }))).toBeUndefined()
-    expect(permissionsOf(generated('/a'))).toBeUndefined()
   })
 
   it('leaves no generated tool requiring an account', () => {

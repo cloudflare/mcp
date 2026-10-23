@@ -5,7 +5,7 @@ import { API_BASE, cfError, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_URL, callTool, modernMcpRequest, parseMcpResult, toolText } from './helpers/mcp'
 import { connectWithOAuth } from './helpers/oauth'
-import { clearSpec, seedSpec } from './helpers/spec'
+import { clearSpec, oauthSecurity, seedSpec } from './helpers/spec'
 import { server } from './setup/msw'
 
 /**
@@ -28,6 +28,7 @@ beforeEach(async () => {
         get: {
           summary: 'List DNS Records',
           'x-api-token-group': ['DNS Read', 'DNS Write'],
+          security: oauthSecurity('dns.read', 'dns.write'),
           parameters: [{ name: 'zone_id', in: 'path', required: true }]
         }
       },
@@ -129,7 +130,9 @@ describe('execute explains a refused request', () => {
     const text = toolText(await callTool('cfat_refused', 'execute', { code: GET_DNS }))
 
     expect(text).toContain('returned HTTP 403')
-    expect(text).toContain('needs one of these permissions: DNS Read (`dns.read`)')
+    expect(text).toContain(
+      'needs one of these permissions: DNS Read, DNS Write (OAuth scopes: `dns.read`, `dns.write`)'
+    )
   })
 
   it('keeps the explanation in the error when the code catches it', async () => {

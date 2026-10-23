@@ -12,6 +12,7 @@ import {
   rejectInvalidMcpRequest
 } from './mcp-handler'
 import { processSpec, extractProducts } from './spec-processor'
+import { fetchLatestSpec } from './spec-source'
 import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from './openapi'
 import { syncSkills } from './skills/sync'
 
@@ -113,15 +114,12 @@ export default {
 
 /** Fetch the OpenAPI spec and write the spec-derived artifacts to R2. */
 async function syncSpec(env: Env): Promise<void> {
-  console.log('Fetching OpenAPI spec from:', env.OPENAPI_SPEC_URL)
-
-  const response = await fetch(env.OPENAPI_SPEC_URL)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch OpenAPI spec: ${response.status}`)
-  }
-
-  const rawSpec = (await response.json()) as Record<string, unknown>
-  console.log('Processing spec, resolving $refs...')
+  console.log('Fetching the OpenAPI spec from the latest release of', env.OPENAPI_SPEC_REPO)
+  const { tag, spec: rawSpec } = await fetchLatestSpec(
+    env.OPENAPI_SPEC_REPO,
+    env.OPENAPI_SPEC_GITHUB_TOKEN
+  )
+  console.log(`Processing spec ${tag}, resolving $refs...`)
 
   const processed = processSpec(rawSpec)
   const specJson = JSON.stringify(processed)
