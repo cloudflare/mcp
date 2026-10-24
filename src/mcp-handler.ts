@@ -97,11 +97,21 @@ async function serveLegacyAsJson(request: Request, server: McpServer): Promise<R
 }
 
 /** Validate the deployment boundary before authentication or MCP dispatch. */
-export function rejectInvalidMcpRequest(request: Request): Response | undefined {
+export function rejectInvalidMcpRequest(
+  request: Request,
+  mcpResource?: string
+): Response | undefined {
+  const deployedHostname = deployedHostnameOf(mcpResource)
   return (
-    hostHeaderValidationResponse(request, ALLOWED_MCP_HOSTNAMES) ??
-    originValidationResponse(request, ALLOWED_MCP_ORIGIN_HOSTNAMES)
+    hostHeaderValidationResponse(request, [...ALLOWED_MCP_HOSTNAMES, ...deployedHostname]) ??
+    originValidationResponse(request, [...ALLOWED_MCP_ORIGIN_HOSTNAMES, ...deployedHostname])
   )
+}
+
+function deployedHostnameOf(mcpResource: string | undefined): string[] {
+  if (!mcpResource || !URL.canParse(mcpResource)) return []
+  const url = new URL(mcpResource)
+  return url.protocol === 'https:' ? [url.hostname] : []
 }
 
 function corsHeaders(request: Request): Headers | undefined {
@@ -188,7 +198,7 @@ export async function handleAuthenticatedMcpRequest(
     return new Response('Not Found', { status: 404 })
   }
 
-  const rejected = rejectInvalidMcpRequest(request)
+  const rejected = rejectInvalidMcpRequest(request, env?.MCP_RESOURCE)
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)

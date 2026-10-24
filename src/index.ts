@@ -76,7 +76,7 @@ export default {
     if (isMcpRoute) {
       // Validate Host and browser Origin before authentication so an invalid
       // request cannot spend a bearer token on Cloudflare API identity probes.
-      const rejected = rejectInvalidMcpRequest(request)
+      const rejected = rejectInvalidMcpRequest(request, env.MCP_RESOURCE)
       if (rejected) return rejected
       if (request.method === 'OPTIONS') return handleMcpPreflight(request)
     }
