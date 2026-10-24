@@ -71,7 +71,7 @@ export const lists_item_redirect: JsonSchema = {
       "type": "boolean"
     },
     "preserve_path_suffix": {
-      "default": false,
+      "default": true,
       "type": "boolean"
     },
     "preserve_query_string": {

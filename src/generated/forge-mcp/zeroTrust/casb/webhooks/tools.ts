@@ -84,11 +84,15 @@ export const tools: readonly Tool[] = [
         },
         "422": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_Webhook": posture_api_Webhook_output,
         "posture-api_Webhook_headersItem": posture_api_Webhook_headersItem_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -149,6 +153,9 @@ export const tools: readonly Tool[] = [
         "400": null,
         "409": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -218,10 +225,14 @@ export const tools: readonly Tool[] = [
         },
         "403": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_EvaluateNewWebhookResponse": posture_api_EvaluateNewWebhookResponse_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -289,10 +300,14 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_EvaluateNewWebhookResponse": posture_api_EvaluateNewWebhookResponse_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -361,11 +376,15 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_Webhook": posture_api_Webhook_output,
         "posture-api_Webhook_headersItem": posture_api_Webhook_headersItem_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -450,11 +469,15 @@ export const tools: readonly Tool[] = [
         },
         "403": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_Webhook": posture_api_Webhook_output,
         "posture-api_Webhook_headersItem": posture_api_Webhook_headersItem_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -530,11 +553,15 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_Webhook": posture_api_Webhook_output,
         "posture-api_Webhook_headersItem": posture_api_Webhook_headersItem_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },

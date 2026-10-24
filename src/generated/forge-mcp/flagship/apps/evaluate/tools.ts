@@ -5,6 +5,7 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   flagship_ApiMessage_output,
   flagship_Error_output,
+  flagship_EvaluationError_output,
   flagship_EvaluationResult_output,
   flagship_JsonValue_output,
 } from "../outputs.js";
@@ -88,7 +89,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/flagship_EvaluationResult"
         },
         "400": {
-          "$ref": "#/$defs/flagship_Error"
+          "$ref": "#/$defs/flagship_EvaluationError"
         },
         "401": {
           "$ref": "#/$defs/flagship_Error"
@@ -97,18 +98,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/flagship_Error"
         },
         "404": {
-          "$ref": "#/$defs/flagship_Error"
+          "$ref": "#/$defs/flagship_EvaluationError"
         },
         "500": {
-          "$ref": "#/$defs/flagship_Error"
+          "$ref": "#/$defs/flagship_EvaluationError"
         },
         "503": {
-          "$ref": "#/$defs/flagship_Error"
+          "$ref": "#/$defs/flagship_EvaluationError"
         }
       },
       $defs: {
         "flagship_ApiMessage": flagship_ApiMessage_output,
         "flagship_Error": flagship_Error_output,
+        "flagship_EvaluationError": flagship_EvaluationError_output,
         "flagship_EvaluationResult": flagship_EvaluationResult_output,
         "flagship_JsonValue": flagship_JsonValue_output,
       },

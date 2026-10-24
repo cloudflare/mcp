@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { email_identifier_output } from "../../outputs.js";
 import {
   email_account_rule_output,
   email_account_rule_zone_output,
@@ -9,7 +10,6 @@ import {
   email_account_rules_plan_output,
   email_account_rules_plan_remote_rule_output,
   email_account_rules_plan_zone_output,
-  email_identifier_output,
   email_rule_action_output,
   email_rule_actions_output,
   email_rule_enabled_output,

@@ -142,13 +142,6 @@ export const email_account_rules_plan_zone_output: JsonSchema = {
 };
 
 /**
- * The schema of `email_identifier` in responses.
- */
-export const email_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email_rule_action` in responses.
  */
 export const email_rule_action_output: JsonSchema = {

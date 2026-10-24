@@ -2,7 +2,7 @@
 
 # MCP tools
 
-3059 tools in 1075 groups. `index.ts` exports them as `tools`, with the runtime in `_/tool.ts` that builds their requests; `_/server.ts` serves them on an `McpServer`.
+3032 tools in 1033 groups. `index.ts` exports them as `tools`, with the runtime in `_/tool.ts` that builds their requests; `_/server.ts` serves them on an `McpServer`.
 
 ## Methods without a tool
 
@@ -16,7 +16,6 @@
 | `POST` | `/accounts/{account_id}/images/v2/direct_upload` | the request body is not JSON (multipart/form-data) |
 | `PUT` | `/accounts/{account_id}/intel/indicator-feeds/{feed_id}/snapshot` | the request body is not JSON (multipart/form-data) |
 | `PUT` | `/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}` | the request body is not JSON (application/octet-stream, multipart/form-data) |
-| `POST` | `/accounts/{account_id}/brand-protection/logos` | the request body is not JSON (application/x-www-form-urlencoded) |
 | `POST` | `/{account_or_zone}/{account_or_zone_id}/logs/explorer/query/sql` | the request body is not JSON (text/plain) |
 | `POST` | `/accounts/{account_id}/pages/projects/{project_name}/deployments` | the request body is not JSON (multipart/form-data) |
 | `POST` | `/accounts/{account_id}/pay-per-use/usage-reports` | the request body is not JSON (application/jsonl) |

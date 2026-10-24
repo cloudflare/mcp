@@ -2145,6 +2145,9 @@ export const brand_protection_api_Error_output: JsonSchema = {
       "type": "integer"
     },
     "errors": {
+      "additionalProperties": {
+        "type": "object"
+      },
       "type": "object"
     },
     "message": {
@@ -3185,6 +3188,13 @@ export const email_dns_record_ttl_output: JsonSchema = {
       "type": "integer"
     }
   ]
+};
+
+/**
+ * The schema of `email_identifier` in responses.
+ */
+export const email_identifier_output: JsonSchema = {
+  "type": "string"
 };
 
 /**
