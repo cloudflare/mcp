@@ -223,42 +223,6 @@ export const smartshield_name_output: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_response_collection` in responses.
- */
-export const smartshield_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/smartshield_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/smartshield_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/smartshield_healthchecks"
-      },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/smartshield_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `smartshield_result_info` in responses.
  */
 export const smartshield_result_info_output: JsonSchema = {
@@ -284,78 +248,6 @@ export const smartshield_result_info_output: JsonSchema = {
  */
 export const smartshield_retries_output: JsonSchema = {
   "type": "integer"
-};
-
-/**
- * The schema of `smartshield_single_hc_id_response` in responses.
- */
-export const smartshield_single_hc_id_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/smartshield_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/smartshield_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/smartshield_single_hc_id_response_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `smartshield_single_hc_id_response_result` in responses.
- */
-export const smartshield_single_hc_id_response_result_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/smartshield_identifier"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `smartshield_single_hc_response` in responses.
- */
-export const smartshield_single_hc_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/smartshield_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/smartshield_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/smartshield_healthchecks"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
 };
 
 /**

@@ -2,8 +2,25 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
-import { flagship_JsonValue_output } from "../outputs.js";
-import { flagship_FlagDefinitions_output } from "./outputs.js";
+import {
+  flagship_BaseCondition_output,
+  flagship_Condition1_output,
+  flagship_Condition2_output,
+  flagship_Condition3_output,
+  flagship_Condition4_output,
+  flagship_Condition_output,
+  flagship_JsonValue_output,
+  flagship_LogicalCondition1_output,
+  flagship_LogicalCondition2_output,
+  flagship_LogicalCondition3_output,
+  flagship_LogicalCondition4_output,
+  flagship_LogicalCondition_output,
+} from "../outputs.js";
+import {
+  flagship_EvaluationRule_output,
+  flagship_EvaluationRule_rollout_output,
+  flagship_FlagDefinitions_output,
+} from "./outputs.js";
 
 /**
  * The tools of `flagship.apps.definitions`.
@@ -37,8 +54,21 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/flagship_FlagDefinitions",
       $defs: {
+        "flagship_BaseCondition": flagship_BaseCondition_output,
+        "flagship_Condition": flagship_Condition_output,
+        "flagship_Condition1": flagship_Condition1_output,
+        "flagship_Condition2": flagship_Condition2_output,
+        "flagship_Condition3": flagship_Condition3_output,
+        "flagship_Condition4": flagship_Condition4_output,
+        "flagship_EvaluationRule": flagship_EvaluationRule_output,
+        "flagship_EvaluationRule_rollout": flagship_EvaluationRule_rollout_output,
         "flagship_FlagDefinitions": flagship_FlagDefinitions_output,
         "flagship_JsonValue": flagship_JsonValue_output,
+        "flagship_LogicalCondition": flagship_LogicalCondition_output,
+        "flagship_LogicalCondition1": flagship_LogicalCondition1_output,
+        "flagship_LogicalCondition2": flagship_LogicalCondition2_output,
+        "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
+        "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
       },
     },
     annotations: {
@@ -170,8 +200,21 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "flagship_BaseCondition": flagship_BaseCondition_output,
+        "flagship_Condition": flagship_Condition_output,
+        "flagship_Condition1": flagship_Condition1_output,
+        "flagship_Condition2": flagship_Condition2_output,
+        "flagship_Condition3": flagship_Condition3_output,
+        "flagship_Condition4": flagship_Condition4_output,
+        "flagship_EvaluationRule": flagship_EvaluationRule_output,
+        "flagship_EvaluationRule_rollout": flagship_EvaluationRule_rollout_output,
         "flagship_FlagDefinitions": flagship_FlagDefinitions_output,
         "flagship_JsonValue": flagship_JsonValue_output,
+        "flagship_LogicalCondition": flagship_LogicalCondition_output,
+        "flagship_LogicalCondition1": flagship_LogicalCondition1_output,
+        "flagship_LogicalCondition2": flagship_LogicalCondition2_output,
+        "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
+        "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
       },
     },
     request: (args) => ({

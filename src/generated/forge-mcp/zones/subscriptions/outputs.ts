@@ -4,53 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `bill-subs-api_api-response-single` in responses.
- */
-export const bill_subs_api_api_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/bill-subs-api_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/bill-subs-api_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/bill-subs-api_api-response-single_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `bill-subs-api_api-response-single_result` in responses.
- */
-export const bill_subs_api_api_response_single_result_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "object"
-    },
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `bill-subs-api_frequency_response` in responses.
  */
 export const bill_subs_api_frequency_response_output: JsonSchema = {

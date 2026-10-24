@@ -232,48 +232,6 @@ export const healthchecks_http_config_output: JsonSchema = {
 };
 
 /**
- * The schema of `healthchecks_id_response` in responses.
- */
-export const healthchecks_id_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/healthchecks_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/healthchecks_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/healthchecks_id_response_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `healthchecks_id_response_result` in responses.
- */
-export const healthchecks_id_response_result_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/healthchecks_identifier"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `healthchecks_identifier` in responses.
  */
 export const healthchecks_identifier_output: JsonSchema = {
@@ -317,42 +275,6 @@ export const healthchecks_name_output: JsonSchema = {
 };
 
 /**
- * The schema of `healthchecks_response_collection` in responses.
- */
-export const healthchecks_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/healthchecks_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/healthchecks_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/healthchecks_healthchecks"
-      },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/healthchecks_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `healthchecks_result_info` in responses.
  */
 export const healthchecks_result_info_output: JsonSchema = {
@@ -378,36 +300,6 @@ export const healthchecks_result_info_output: JsonSchema = {
  */
 export const healthchecks_retries_output: JsonSchema = {
   "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_single_response` in responses.
- */
-export const healthchecks_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/healthchecks_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/healthchecks_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/healthchecks_healthchecks"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
 };
 
 /**

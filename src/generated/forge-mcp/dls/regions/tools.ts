@@ -19,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regions_get",
     title: "Get a DLS region",
-    description: "Get a DLS region",
+    description: "Retrieve a single DLS region (managed or custom) by ID or region key.",
     inputSchema: {
       type: "object",
       properties: {
@@ -52,6 +52,12 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/dls/regions/{region_id}",
+    extensions: {
+      "x-api-token-group": [
+        "DLS: Read",
+        "DLS: Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -84,7 +90,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regions_list",
     title: "List DLS regions for an account",
-    description: "List DLS regions for an account",
+    description: "List the DLS regions (managed and custom) available to an account.",
     inputSchema: {
       type: "object",
       properties: {
@@ -143,6 +149,12 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/dls/regions",
+    extensions: {
+      "x-api-token-group": [
+        "DLS: Read",
+        "DLS: Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {

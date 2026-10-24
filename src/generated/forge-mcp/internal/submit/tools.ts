@@ -27,7 +27,20 @@ export const tools: readonly Tool[] = [
     path: "/internal/submit",
     responses: {
       schemas: {
-        "default": {
+        "2XX": null,
+        "400": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "429": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "500": {
           "$ref": "#/$defs/brand-protection-api_Error"
         }
       },

@@ -50,6 +50,114 @@ export const flagship_App_output: JsonSchema = {
 };
 
 /**
+ * The schema of `flagship_BaseCondition` in responses.
+ */
+export const flagship_BaseCondition_output: JsonSchema = {
+  "properties": {
+    "attribute": {
+      "type": "string"
+    },
+    "operator": {
+      "enum": [
+        "equals",
+        "not_equals",
+        "greater_than",
+        "less_than",
+        "greater_than_or_equals",
+        "less_than_or_equals",
+        "contains",
+        "starts_with",
+        "ends_with",
+        "in",
+        "not_in",
+        "has",
+        "not_has"
+      ],
+      "type": "string"
+    },
+    "value": {
+      "$ref": "#/$defs/flagship_JsonValue"
+    }
+  },
+  "required": [
+    "attribute",
+    "operator",
+    "value"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `flagship_Condition` in responses.
+ */
+export const flagship_Condition_output: JsonSchema = {
+  "anyOf": [
+    {
+      "$ref": "#/$defs/flagship_BaseCondition"
+    },
+    {
+      "$ref": "#/$defs/flagship_LogicalCondition"
+    }
+  ]
+};
+
+/**
+ * The schema of `flagship_Condition1` in responses.
+ */
+export const flagship_Condition1_output: JsonSchema = {
+  "anyOf": [
+    {
+      "$ref": "#/$defs/flagship_BaseCondition"
+    },
+    {
+      "$ref": "#/$defs/flagship_LogicalCondition1"
+    }
+  ]
+};
+
+/**
+ * The schema of `flagship_Condition2` in responses.
+ */
+export const flagship_Condition2_output: JsonSchema = {
+  "anyOf": [
+    {
+      "$ref": "#/$defs/flagship_BaseCondition"
+    },
+    {
+      "$ref": "#/$defs/flagship_LogicalCondition2"
+    }
+  ]
+};
+
+/**
+ * The schema of `flagship_Condition3` in responses.
+ */
+export const flagship_Condition3_output: JsonSchema = {
+  "anyOf": [
+    {
+      "$ref": "#/$defs/flagship_BaseCondition"
+    },
+    {
+      "$ref": "#/$defs/flagship_LogicalCondition3"
+    }
+  ]
+};
+
+/**
+ * The schema of `flagship_Condition4` in responses.
+ */
+export const flagship_Condition4_output: JsonSchema = {
+  "anyOf": [
+    {
+      "$ref": "#/$defs/flagship_BaseCondition"
+    },
+    {
+      "$ref": "#/$defs/flagship_LogicalCondition4"
+    }
+  ]
+};
+
+/**
  * The schema of `flagship_DeleteAppResult` in responses.
  */
 export const flagship_DeleteAppResult_output: JsonSchema = {
@@ -98,12 +206,74 @@ export const flagship_Error_output: JsonSchema = {
 };
 
 /**
+ * The schema of `flagship_EvaluationError` in responses.
+ */
+export const flagship_EvaluationError_output: JsonSchema = {
+  "properties": {
+    "errorCode": {
+      "enum": [
+        "PROVIDER_NOT_READY",
+        "FLAG_NOT_FOUND",
+        "PARSE_ERROR",
+        "TYPE_MISMATCH",
+        "TARGETING_KEY_MISSING",
+        "INVALID_CONTEXT",
+        "GENERAL"
+      ],
+      "type": "string"
+    },
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/flagship_ApiMessage"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/flagship_ApiMessage"
+      },
+      "type": "array"
+    },
+    "result": {
+      "type": "null"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success",
+    "errorCode"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `flagship_EvaluationResult` in responses.
  */
 export const flagship_EvaluationResult_output: JsonSchema = {
   "properties": {
     "flagKey": {
       "type": "string"
+    },
+    "metadata": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "type": "object"
     },
     "reason": {
       "enum": [
@@ -160,4 +330,139 @@ export const flagship_JsonValue_output: JsonSchema = {
       "type": "null"
     }
   ]
+};
+
+/**
+ * The schema of `flagship_LogicalCondition` in responses.
+ */
+export const flagship_LogicalCondition_output: JsonSchema = {
+  "properties": {
+    "clauses": {
+      "items": {
+        "$ref": "#/$defs/flagship_Condition1"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "logical_operator": {
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "clauses",
+    "logical_operator"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `flagship_LogicalCondition1` in responses.
+ */
+export const flagship_LogicalCondition1_output: JsonSchema = {
+  "properties": {
+    "clauses": {
+      "items": {
+        "$ref": "#/$defs/flagship_Condition2"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "logical_operator": {
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "clauses",
+    "logical_operator"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `flagship_LogicalCondition2` in responses.
+ */
+export const flagship_LogicalCondition2_output: JsonSchema = {
+  "properties": {
+    "clauses": {
+      "items": {
+        "$ref": "#/$defs/flagship_Condition3"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "logical_operator": {
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "clauses",
+    "logical_operator"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `flagship_LogicalCondition3` in responses.
+ */
+export const flagship_LogicalCondition3_output: JsonSchema = {
+  "properties": {
+    "clauses": {
+      "items": {
+        "$ref": "#/$defs/flagship_Condition4"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "logical_operator": {
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "clauses",
+    "logical_operator"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `flagship_LogicalCondition4` in responses.
+ */
+export const flagship_LogicalCondition4_output: JsonSchema = {
+  "properties": {
+    "clauses": {
+      "items": {
+        "$ref": "#/$defs/flagship_BaseCondition"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "logical_operator": {
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "clauses",
+    "logical_operator"
+  ],
+  "type": "object"
 };

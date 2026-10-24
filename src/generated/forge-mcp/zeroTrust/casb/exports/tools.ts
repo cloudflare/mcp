@@ -6,6 +6,8 @@ import {
   posture_api_ExportJobTypeEnum_output,
   posture_api_ExportJob_output,
   posture_api_StatusEnum_output,
+  posture_api_api_response_common_output,
+  posture_api_messages_output,
   posture_api_result_info_output,
 } from "../outputs.js";
 import { posture_api_StatusEnum } from "../schemas.js";
@@ -64,12 +66,17 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_ExportJob"
         },
         "400": null,
-        "404": null
+        "404": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        }
       },
       $defs: {
         "posture-api_ExportJob": posture_api_ExportJob_output,
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     request: (args) => ({
@@ -164,12 +171,17 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "400": null
+        "400": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        }
       },
       $defs: {
         "posture-api_ExportJob": posture_api_ExportJob_output,
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },

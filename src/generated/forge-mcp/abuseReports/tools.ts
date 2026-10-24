@@ -36,6 +36,9 @@ import {
   abuse_reports_NoOriginalWorkError_output,
   abuse_reports_NoSigError_output,
   abuse_reports_PortsProtocolError_output,
+  abuse_reports_RateLimitedErrorResponse_output,
+  abuse_reports_RateLimitedErrorResponse_request_output,
+  abuse_reports_RateLimitedError_output,
   abuse_reports_RegistrarWhoIsFields_output,
   abuse_reports_ReportStatus_output,
   abuse_reports_ReportType_output,
@@ -150,6 +153,9 @@ export const tools: readonly Tool[] = [
         "403": {
           "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
         },
+        "429": {
+          "$ref": "#/$defs/abuse-reports_RateLimitedErrorResponse"
+        },
         "500": {
           "$ref": "#/$defs/abuse-reports_SubmitErrorResponse"
         }
@@ -186,6 +192,9 @@ export const tools: readonly Tool[] = [
         "abuse-reports_NoOriginalWorkError": abuse_reports_NoOriginalWorkError_output,
         "abuse-reports_NoSigError": abuse_reports_NoSigError_output,
         "abuse-reports_PortsProtocolError": abuse_reports_PortsProtocolError_output,
+        "abuse-reports_RateLimitedError": abuse_reports_RateLimitedError_output,
+        "abuse-reports_RateLimitedErrorResponse": abuse_reports_RateLimitedErrorResponse_output,
+        "abuse-reports_RateLimitedErrorResponse_request": abuse_reports_RateLimitedErrorResponse_request_output,
         "abuse-reports_SubmissionReportType": abuse_reports_SubmissionReportType_output,
         "abuse-reports_SubmitErrorResponse": abuse_reports_SubmitErrorResponse_output,
         "abuse-reports_SubmitErrorResponse_request": abuse_reports_SubmitErrorResponse_request_output,

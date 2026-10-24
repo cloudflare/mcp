@@ -4,57 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `cache-settings_origin_cloud_region_v2_batch_item_result` in
- * responses.
- */
-export const cache_settings_origin_cloud_region_v2_batch_item_result_output: JsonSchema = {
-  "properties": {
-    "error": {
-      "type": "string"
-    },
-    "origin_ip": {
-      "type": "string"
-    },
-    "region": {
-      "type": "string"
-    },
-    "vendor": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "origin_ip"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cache-settings_origin_cloud_region_v2_batch_result` in
- * responses.
- */
-export const cache_settings_origin_cloud_region_v2_batch_result_output: JsonSchema = {
-  "properties": {
-    "failed": {
-      "items": {
-        "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_item_result"
-      },
-      "type": "array"
-    },
-    "succeeded": {
-      "items": {
-        "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_item_result"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "failed",
-    "succeeded"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `cache-settings_origin_cloud_region_v2_delete_result` in
  * responses.
  */
@@ -131,53 +80,6 @@ export const cache_settings_origin_cloud_region_v2_result_info_output: JsonSchem
     "per_page",
     "total_count",
     "total_pages"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cache-settings_supported_cloud_region` in responses.
- */
-export const cache_settings_supported_cloud_region_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "upper_tier_colos": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "name",
-    "upper_tier_colos"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cache-settings_supported_cloud_regions_result` in responses.
- */
-export const cache_settings_supported_cloud_regions_result_output: JsonSchema = {
-  "properties": {
-    "obtained_codes": {
-      "type": "boolean"
-    },
-    "vendors": {
-      "additionalProperties": {
-        "items": {
-          "$ref": "#/$defs/cache-settings_supported_cloud_region"
-        },
-        "type": "array"
-      },
-      "type": "object"
-    }
-  },
-  "required": [
-    "obtained_codes",
-    "vendors"
   ],
   "type": "object"
 };

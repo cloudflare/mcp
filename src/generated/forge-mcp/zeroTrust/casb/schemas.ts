@@ -54,18 +54,6 @@ export const posture_api_FindingTypeVendorsEnum: JsonSchema = {
 };
 
 /**
- * The schema of `posture-api_ProductEnum`.
- */
-export const posture_api_ProductEnum: JsonSchema = {
-  "description": "The product category.",
-  "enum": [
-    "SaaS",
-    "Cloud"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `posture-api_RemediationJobStatusEnum`.
  */
 export const posture_api_RemediationJobStatusEnum: JsonSchema = {

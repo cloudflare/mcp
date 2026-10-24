@@ -112,7 +112,17 @@ export const dls_region_key_output: JsonSchema = {
 export const dls_regional_hostname_response_output: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/dls_timestamp"
+      "allOf": [
+        {
+          "$ref": "#/$defs/dls_timestamp"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "hostname": {
       "$ref": "#/$defs/dls_hostname"

@@ -4,14 +4,10 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   dns_firewall_api_response_common_failure_output,
-  dns_firewall_api_response_common_output,
   dns_firewall_attack_mitigation_output,
   dns_firewall_deprecate_any_requests_output,
   dns_firewall_dns_firewall_cluster_response_output,
   dns_firewall_dns_firewall_ips_output,
-  dns_firewall_dns_firewall_response_collection_output,
-  dns_firewall_dns_firewall_response_collection_result_info_output,
-  dns_firewall_dns_firewall_single_response_output,
   dns_firewall_ecs_fallback_output,
   dns_firewall_identifier_output,
   dns_firewall_maximum_cache_ttl_output,
@@ -133,14 +129,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/dns-firewall_dns_firewall_single_response"
-            },
-            {
-              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/dns-firewall_api-response-common-failure"
         }
       },
       $defs: {
@@ -149,7 +138,6 @@ export const tools: readonly Tool[] = [
         "dns-firewall_deprecate_any_requests": dns_firewall_deprecate_any_requests_output,
         "dns-firewall_dns-firewall-cluster-response": dns_firewall_dns_firewall_cluster_response_output,
         "dns-firewall_dns_firewall_ips": dns_firewall_dns_firewall_ips_output,
-        "dns-firewall_dns_firewall_single_response": dns_firewall_dns_firewall_single_response_output,
         "dns-firewall_ecs_fallback": dns_firewall_ecs_fallback_output,
         "dns-firewall_identifier": dns_firewall_identifier_output,
         "dns-firewall_maximum_cache_ttl": dns_firewall_maximum_cache_ttl_output,
@@ -241,31 +229,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/dns-firewall_api-response-common"
-            },
-            {
-              "properties": {
-                "result": {
-                  "properties": {
-                    "id": {
-                      "$ref": "#/$defs/dns-firewall_identifier"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/dns-firewall_api-response-common-failure"
         }
       },
       $defs: {
-        "dns-firewall_api-response-common": dns_firewall_api_response_common_output,
         "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
         "dns-firewall_identifier": dns_firewall_identifier_output,
         "dns-firewall_messages": dns_firewall_messages_output,
@@ -368,14 +335,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/dns-firewall_dns_firewall_single_response"
-            },
-            {
-              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/dns-firewall_api-response-common-failure"
         }
       },
       $defs: {
@@ -384,7 +344,6 @@ export const tools: readonly Tool[] = [
         "dns-firewall_deprecate_any_requests": dns_firewall_deprecate_any_requests_output,
         "dns-firewall_dns-firewall-cluster-response": dns_firewall_dns_firewall_cluster_response_output,
         "dns-firewall_dns_firewall_ips": dns_firewall_dns_firewall_ips_output,
-        "dns-firewall_dns_firewall_single_response": dns_firewall_dns_firewall_single_response_output,
         "dns-firewall_ecs_fallback": dns_firewall_ecs_fallback_output,
         "dns-firewall_identifier": dns_firewall_identifier_output,
         "dns-firewall_maximum_cache_ttl": dns_firewall_maximum_cache_ttl_output,
@@ -480,14 +439,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/dns-firewall_dns_firewall_single_response"
-            },
-            {
-              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/dns-firewall_api-response-common-failure"
         }
       },
       $defs: {
@@ -496,7 +448,6 @@ export const tools: readonly Tool[] = [
         "dns-firewall_deprecate_any_requests": dns_firewall_deprecate_any_requests_output,
         "dns-firewall_dns-firewall-cluster-response": dns_firewall_dns_firewall_cluster_response_output,
         "dns-firewall_dns_firewall_ips": dns_firewall_dns_firewall_ips_output,
-        "dns-firewall_dns_firewall_single_response": dns_firewall_dns_firewall_single_response_output,
         "dns-firewall_ecs_fallback": dns_firewall_ecs_fallback_output,
         "dns-firewall_identifier": dns_firewall_identifier_output,
         "dns-firewall_maximum_cache_ttl": dns_firewall_maximum_cache_ttl_output,
@@ -658,14 +609,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/dns-firewall_dns_firewall_response_collection"
-            },
-            {
-              "$ref": "#/$defs/dns-firewall_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/dns-firewall_api-response-common-failure"
         }
       },
       $defs: {
@@ -674,8 +618,6 @@ export const tools: readonly Tool[] = [
         "dns-firewall_deprecate_any_requests": dns_firewall_deprecate_any_requests_output,
         "dns-firewall_dns-firewall-cluster-response": dns_firewall_dns_firewall_cluster_response_output,
         "dns-firewall_dns_firewall_ips": dns_firewall_dns_firewall_ips_output,
-        "dns-firewall_dns_firewall_response_collection": dns_firewall_dns_firewall_response_collection_output,
-        "dns-firewall_dns_firewall_response_collection_result_info": dns_firewall_dns_firewall_response_collection_result_info_output,
         "dns-firewall_ecs_fallback": dns_firewall_ecs_fallback_output,
         "dns-firewall_identifier": dns_firewall_identifier_output,
         "dns-firewall_maximum_cache_ttl": dns_firewall_maximum_cache_ttl_output,

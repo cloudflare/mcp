@@ -61,8 +61,12 @@ export const posture_api_FindingExportFilterRequest: JsonSchema = {
       "type": "array"
     },
     "product": {
-      "$ref": "#/$defs/posture-api_FindingExportFilterRequest_product",
-      "description": "Filter by finding's category product."
+      "description": "Filter by finding's category product.",
+      "enum": [
+        "SaaS",
+        "Cloud"
+      ],
+      "type": "string"
     },
     "search": {
       "description": "A search term.",
@@ -84,24 +88,6 @@ export const posture_api_FindingExportFilterRequest: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_FindingExportFilterRequest_product`.
- */
-export const posture_api_FindingExportFilterRequest_product: JsonSchema = {
-  "description": "Filter by finding's category product.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/posture-api_ProductEnum"
-    },
-    {
-      "$ref": "#/$defs/posture-api_NullEnum"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -131,13 +117,6 @@ export const posture_api_FindingExportOrderFilterRequest: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_NullEnum`.
- */
-export const posture_api_NullEnum: JsonSchema = {
-  "type": "null"
 };
 
 /**
