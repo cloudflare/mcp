@@ -283,7 +283,8 @@ describe('createServer with codemode=false', () => {
 
     expect(Object.keys((server as any)._registeredTools)).toEqual([])
     const tools = await listTools(server)
-    expect(tools).toHaveLength(3_002) // docs + whoami + 3,000 endpoint tools
+    const fixedTools = ['docs', 'whoami', 'show_attention']
+    expect(tools).toHaveLength(fixedTools.length + 3_000)
   })
 
   it('registers one tool per endpoint when codemode=false', async () => {

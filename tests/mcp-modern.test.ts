@@ -163,7 +163,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      'show_attention'
     ])
   })
 
@@ -283,11 +284,13 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      'show_attention'
     ])
     expect(endpoints.result?.tools?.map((tool) => tool.name)).toEqual([
       'docs',
       'whoami',
+      'show_attention',
       'get_accounts_workers_scripts'
     ])
     expect(codemodeResponse.headers.get('mcp-session-id')).toBeNull()
@@ -325,7 +328,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      'show_attention'
     ])
   })
 
