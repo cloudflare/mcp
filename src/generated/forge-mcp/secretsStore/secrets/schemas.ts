@@ -26,7 +26,7 @@ export const secrets_store_createSecretObject: JsonSchema = {
     },
     "scopes": {
       "$ref": "#/$defs/secrets-store_scopes",
-      "description": "The list of services that can use this secret."
+      "description": "The list of services that can use this secret. Omit it on create or duplicate to inherit the store's scopes. An empty list lets no service use the secret."
     },
     "value": {
       "$ref": "#/$defs/secrets-store_value",
@@ -35,7 +35,6 @@ export const secrets_store_createSecretObject: JsonSchema = {
   },
   "required": [
     "name",
-    "scopes",
     "value"
   ],
   "type": "object"
@@ -76,12 +75,11 @@ export const secrets_store_duplicateSecretObject: JsonSchema = {
     },
     "scopes": {
       "$ref": "#/$defs/secrets-store_scopes",
-      "description": "The list of services that can use this secret."
+      "description": "The list of services that can use this secret. Omit it on create or duplicate to inherit the store's scopes. An empty list lets no service use the secret."
     }
   },
   "required": [
-    "name",
-    "scopes"
+    "name"
   ],
   "type": "object"
 };
@@ -95,6 +93,32 @@ export const secrets_store_identifier: JsonSchema = {
 };
 
 /**
+ * The schema of `secrets-store_inheritable_scopes`.
+ */
+export const secrets_store_inheritable_scopes: JsonSchema = {
+  "description": "The list of services that can use this secret, or null when the secret inherits its store's scopes. Set it to null in a patch to inherit again. An empty list lets no service use the secret.",
+  "oneOf": [
+    {
+      "items": {
+        "enum": [
+          "workers",
+          "ai_gateway",
+          "dex",
+          "access",
+          "containers",
+          "websearch"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    {
+      "type": "null"
+    }
+  ]
+};
+
+/**
  * The schema of `secrets-store_patchSecretObject`.
  */
 export const secrets_store_patchSecretObject: JsonSchema = {
@@ -104,8 +128,8 @@ export const secrets_store_patchSecretObject: JsonSchema = {
       "description": "Freeform text describing the secret."
     },
     "scopes": {
-      "$ref": "#/$defs/secrets-store_scopes",
-      "description": "The list of services that can use this secret."
+      "$ref": "#/$defs/secrets-store_inheritable_scopes",
+      "description": "The list of services that can use this secret, or null when the secret inherits its store's scopes. Set it to null in a patch to inherit again. An empty list lets no service use the secret."
     },
     "value": {
       "$ref": "#/$defs/secrets-store_value",
@@ -119,7 +143,7 @@ export const secrets_store_patchSecretObject: JsonSchema = {
  * The schema of `secrets-store_scopes`.
  */
 export const secrets_store_scopes: JsonSchema = {
-  "description": "The list of services that can use this secret.",
+  "description": "The list of services that can use this secret. Omit it on create or duplicate to inherit the store's scopes. An empty list lets no service use the secret.",
   "items": {
     "enum": [
       "workers",

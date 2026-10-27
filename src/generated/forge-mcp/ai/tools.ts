@@ -688,7 +688,9 @@ export const tools: readonly Tool[] = [
                 },
                 "response_format": {
                   "properties": {
-                    "json_schema": {},
+                    "json_schema": {
+                      "type": "object"
+                    },
                     "type": {
                       "enum": [
                         "json_object",
@@ -811,7 +813,9 @@ export const tools: readonly Tool[] = [
                 },
                 "response_format": {
                   "properties": {
-                    "json_schema": {},
+                    "json_schema": {
+                      "type": "object"
+                    },
                     "type": {
                       "enum": [
                         "json_object",
@@ -2197,10 +2201,21 @@ export const tools: readonly Tool[] = [
                   "type": "array"
                 },
                 "messages": {
-                  "items": {},
+                  "items": {
+                    "type": "object"
+                  },
                   "type": "array"
                 },
-                "result": {},
+                "result": {
+                  "oneOf": [
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
                 "success": {
                   "enum": [
                     false

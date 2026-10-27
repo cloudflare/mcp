@@ -7,13 +7,9 @@ import {
   cache_settings_messages_output,
 } from "../../outputs.js";
 import {
-  cache_settings_origin_cloud_region_v2_batch_item_result_output,
-  cache_settings_origin_cloud_region_v2_batch_result_output,
   cache_settings_origin_cloud_region_v2_delete_result_output,
   cache_settings_origin_cloud_region_v2_entry_output,
   cache_settings_origin_cloud_region_v2_result_info_output,
-  cache_settings_supported_cloud_region_output,
-  cache_settings_supported_cloud_regions_result_output,
 } from "./outputs.js";
 import { cache_settings_origin_cloud_region_v2_request } from "./schemas.js";
 
@@ -21,147 +17,6 @@ import { cache_settings_origin_cloud_region_v2_request } from "./schemas.js";
  * The tools of `cache.origin_cloud_regions`.
  */
 export const tools: readonly Tool[] = [
-  {
-    name: "cache_origin_cloud_regions_bulk_delete",
-    title: "Batch delete origin cloud region mappings",
-    description: "Removes up to 100 IP-to-cloud-region mappings in a single request. Each IP is validated independently — successfully deleted items are returned in the `succeeded` array and IPs that could not be found or are invalid are returned in the `failed` array.\n\nConfirm with the user before calling this tool. Are you sure you want to delete these Origin Cloud Region configurations?",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "items": {
-            "type": "string"
-          },
-          "maxItems": 100,
-          "type": "array"
-        },
-        "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
-        }
-      },
-      required: [
-        "zone_id",
-        "body"
-      ],
-    },
-    outputSchema: {
-      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result",
-      $defs: {
-        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
-        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Batch delete origin cloud region mappings"
-    },
-    method: "DELETE",
-    path: "/zones/{zone_id}/origin/cloud_regions/batch",
-    extensions: {
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
-          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
-        },
-        "4XX": {
-          "$ref": "#/$defs/cache-settings_api-response-common-failure"
-        }
-      },
-      $defs: {
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
-        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
-      },
-    },
-    request: (args) => ({
-      path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/batch`,
-      body: { value: args["body"], mediaType: "application/json" },
-    }),
-  },
-  {
-    name: "cache_origin_cloud_regions_bulk_update",
-    title: "Batch create or replace origin cloud region mappings",
-    description: "Upserts up to 100 IP-to-cloud-region mappings in a single request. Items in the request body are created or replaced; mappings not included in the request body are preserved unchanged (this is a merge operation, not a full collection replacement). Each item is validated independently — valid items are applied and invalid items are returned in the `failed` array. The vendor and region for every item are validated against the list from `GET /zones/{zone_id}/origin/cloud_regions/supported_regions`.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "items": {
-            "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_request"
-          },
-          "maxItems": 100,
-          "type": "array"
-        },
-        "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
-        }
-      },
-      required: [
-        "zone_id",
-        "body"
-      ],
-      $defs: {
-        "cache-settings_origin_cloud_region_v2_request": cache_settings_origin_cloud_region_v2_request,
-      },
-    },
-    outputSchema: {
-      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result",
-      $defs: {
-        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
-        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Batch create or replace origin cloud region mappings"
-    },
-    method: "PUT",
-    path: "/zones/{zone_id}/origin/cloud_regions/batch",
-    extensions: {
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
-          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
-        },
-        "4XX": {
-          "$ref": "#/$defs/cache-settings_api-response-common-failure"
-        }
-      },
-      $defs: {
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
-        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
-      },
-    },
-    request: (args) => ({
-      path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/batch`,
-      body: { value: args["body"], mediaType: "application/json" },
-    }),
-  },
   {
     name: "cache_origin_cloud_regions_delete",
     title: "Delete an origin cloud region mapping",
@@ -388,66 +243,6 @@ export const tools: readonly Tool[] = [
         ["page", args["page"], true],
         ["per_page", args["per_page"], true],
       ],
-    }),
-  },
-  {
-    name: "cache_origin_cloud_regions_supported_regions",
-    title: "List supported cloud vendors and regions",
-    description: "Returns the cloud vendors and regions that are valid values for origin cloud region mappings. Each region includes the Tiered Cache upper-tier colocation codes that will be used for cache routing when a mapping targeting that region is active. Requires the zone to have Tiered Cache enabled.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
-        }
-      },
-      required: [
-        "zone_id"
-      ],
-    },
-    outputSchema: {
-      "$ref": "#/$defs/cache-settings_supported_cloud_regions_result",
-      $defs: {
-        "cache-settings_supported_cloud_region": cache_settings_supported_cloud_region_output,
-        "cache-settings_supported_cloud_regions_result": cache_settings_supported_cloud_regions_result_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List supported cloud vendors and regions"
-    },
-    method: "GET",
-    path: "/zones/{zone_id}/origin/cloud_regions/supported_regions",
-    extensions: {
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
-          "$ref": "#/$defs/cache-settings_supported_cloud_regions_result"
-        },
-        "4XX": {
-          "$ref": "#/$defs/cache-settings_api-response-common-failure"
-        }
-      },
-      $defs: {
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_supported_cloud_region": cache_settings_supported_cloud_region_output,
-        "cache-settings_supported_cloud_regions_result": cache_settings_supported_cloud_regions_result_output,
-      },
-    },
-    request: (args) => ({
-      path: `/zones/${pathParam(args, "zone_id")}/origin/cloud_regions/supported_regions`,
     }),
   },
   {

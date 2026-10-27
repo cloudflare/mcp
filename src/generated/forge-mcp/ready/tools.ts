@@ -11,7 +11,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ready_get",
     title: "Run readiness checks",
-    description: "Return a success message after running readiness checks",
+    description: "Return a success message after running readiness checks.",
     inputSchema: {
       type: "object",
       properties: {},
@@ -27,7 +27,20 @@ export const tools: readonly Tool[] = [
     path: "/ready",
     responses: {
       schemas: {
-        "default": {
+        "2XX": null,
+        "400": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "403": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "404": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "429": {
+          "$ref": "#/$defs/brand-protection-api_Error"
+        },
+        "500": {
           "$ref": "#/$defs/brand-protection-api_Error"
         }
       },

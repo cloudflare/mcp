@@ -42,9 +42,25 @@ export const flagship_Flag_output: JsonSchema = {
     "key": {
       "type": "string"
     },
+    "metadata": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "type": "object"
+    },
     "rules": {
       "items": {
-        "$ref": "#/$defs/flagship_Flag_rulesItem"
+        "$ref": "#/$defs/flagship_Rule"
       },
       "type": "array"
     },
@@ -82,401 +98,6 @@ export const flagship_Flag_output: JsonSchema = {
 };
 
 /**
- * The schema of `flagship_Flag_rulesItem` in responses.
- */
-export const flagship_Flag_rulesItem_output: JsonSchema = {
-  "properties": {
-    "conditions": {
-      "items": {
-        "anyOf": [
-          {
-            "properties": {
-              "attribute": {
-                "type": "string"
-              },
-              "operator": {
-                "enum": [
-                  "equals",
-                  "not_equals",
-                  "greater_than",
-                  "less_than",
-                  "greater_than_or_equals",
-                  "less_than_or_equals",
-                  "contains",
-                  "starts_with",
-                  "ends_with",
-                  "in",
-                  "not_in",
-                  "has",
-                  "not_has"
-                ],
-                "type": "string"
-              },
-              "value": {
-                "$ref": "#/$defs/flagship_JsonValue"
-              }
-            },
-            "required": [
-              "attribute",
-              "operator",
-              "value"
-            ],
-            "type": "object"
-          },
-          {
-            "properties": {
-              "clauses": {
-                "items": {
-                  "anyOf": [
-                    {
-                      "properties": {
-                        "attribute": {
-                          "type": "string"
-                        },
-                        "operator": {
-                          "enum": [
-                            "equals",
-                            "not_equals",
-                            "greater_than",
-                            "less_than",
-                            "greater_than_or_equals",
-                            "less_than_or_equals",
-                            "contains",
-                            "starts_with",
-                            "ends_with",
-                            "in",
-                            "not_in",
-                            "has",
-                            "not_has"
-                          ],
-                          "type": "string"
-                        },
-                        "value": {
-                          "$ref": "#/$defs/flagship_JsonValue"
-                        }
-                      },
-                      "required": [
-                        "attribute",
-                        "operator",
-                        "value"
-                      ],
-                      "type": "object"
-                    },
-                    {
-                      "properties": {
-                        "clauses": {
-                          "items": {
-                            "anyOf": [
-                              {
-                                "properties": {
-                                  "attribute": {
-                                    "type": "string"
-                                  },
-                                  "operator": {
-                                    "enum": [
-                                      "equals",
-                                      "not_equals",
-                                      "greater_than",
-                                      "less_than",
-                                      "greater_than_or_equals",
-                                      "less_than_or_equals",
-                                      "contains",
-                                      "starts_with",
-                                      "ends_with",
-                                      "in",
-                                      "not_in",
-                                      "has",
-                                      "not_has"
-                                    ],
-                                    "type": "string"
-                                  },
-                                  "value": {
-                                    "$ref": "#/$defs/flagship_JsonValue"
-                                  }
-                                },
-                                "required": [
-                                  "attribute",
-                                  "operator",
-                                  "value"
-                                ],
-                                "type": "object"
-                              },
-                              {
-                                "properties": {
-                                  "clauses": {
-                                    "items": {
-                                      "anyOf": [
-                                        {
-                                          "properties": {
-                                            "attribute": {
-                                              "type": "string"
-                                            },
-                                            "operator": {
-                                              "enum": [
-                                                "equals",
-                                                "not_equals",
-                                                "greater_than",
-                                                "less_than",
-                                                "greater_than_or_equals",
-                                                "less_than_or_equals",
-                                                "contains",
-                                                "starts_with",
-                                                "ends_with",
-                                                "in",
-                                                "not_in",
-                                                "has",
-                                                "not_has"
-                                              ],
-                                              "type": "string"
-                                            },
-                                            "value": {
-                                              "$ref": "#/$defs/flagship_JsonValue"
-                                            }
-                                          },
-                                          "required": [
-                                            "attribute",
-                                            "operator",
-                                            "value"
-                                          ],
-                                          "type": "object"
-                                        },
-                                        {
-                                          "properties": {
-                                            "clauses": {
-                                              "items": {
-                                                "anyOf": [
-                                                  {
-                                                    "properties": {
-                                                      "attribute": {
-                                                        "type": "string"
-                                                      },
-                                                      "operator": {
-                                                        "enum": [
-                                                          "equals",
-                                                          "not_equals",
-                                                          "greater_than",
-                                                          "less_than",
-                                                          "greater_than_or_equals",
-                                                          "less_than_or_equals",
-                                                          "contains",
-                                                          "starts_with",
-                                                          "ends_with",
-                                                          "in",
-                                                          "not_in",
-                                                          "has",
-                                                          "not_has"
-                                                        ],
-                                                        "type": "string"
-                                                      },
-                                                      "value": {
-                                                        "$ref": "#/$defs/flagship_JsonValue"
-                                                      }
-                                                    },
-                                                    "required": [
-                                                      "attribute",
-                                                      "operator",
-                                                      "value"
-                                                    ],
-                                                    "type": "object"
-                                                  },
-                                                  {
-                                                    "properties": {
-                                                      "clauses": {
-                                                        "items": {
-                                                          "anyOf": [
-                                                            {
-                                                              "properties": {
-                                                                "attribute": {
-                                                                  "type": "string"
-                                                                },
-                                                                "operator": {
-                                                                  "enum": [
-                                                                    "equals",
-                                                                    "not_equals",
-                                                                    "greater_than",
-                                                                    "less_than",
-                                                                    "greater_than_or_equals",
-                                                                    "less_than_or_equals",
-                                                                    "contains",
-                                                                    "starts_with",
-                                                                    "ends_with",
-                                                                    "in",
-                                                                    "not_in",
-                                                                    "has",
-                                                                    "not_has"
-                                                                  ],
-                                                                  "type": "string"
-                                                                },
-                                                                "value": {
-                                                                  "$ref": "#/$defs/flagship_JsonValue"
-                                                                }
-                                                              },
-                                                              "required": [
-                                                                "attribute",
-                                                                "operator",
-                                                                "value"
-                                                              ],
-                                                              "type": "object"
-                                                            },
-                                                            {
-                                                              "properties": {
-                                                                "clauses": {
-                                                                  "items": {
-                                                                    "$ref": "#/$defs/flagship_JsonValue"
-                                                                  },
-                                                                  "minItems": 1,
-                                                                  "type": "array"
-                                                                },
-                                                                "logical_operator": {
-                                                                  "enum": [
-                                                                    "AND",
-                                                                    "OR"
-                                                                  ],
-                                                                  "type": "string"
-                                                                }
-                                                              },
-                                                              "required": [
-                                                                "clauses",
-                                                                "logical_operator"
-                                                              ],
-                                                              "type": "object"
-                                                            }
-                                                          ]
-                                                        },
-                                                        "minItems": 1,
-                                                        "type": "array"
-                                                      },
-                                                      "logical_operator": {
-                                                        "enum": [
-                                                          "AND",
-                                                          "OR"
-                                                        ],
-                                                        "type": "string"
-                                                      }
-                                                    },
-                                                    "required": [
-                                                      "clauses",
-                                                      "logical_operator"
-                                                    ],
-                                                    "type": "object"
-                                                  }
-                                                ]
-                                              },
-                                              "minItems": 1,
-                                              "type": "array"
-                                            },
-                                            "logical_operator": {
-                                              "enum": [
-                                                "AND",
-                                                "OR"
-                                              ],
-                                              "type": "string"
-                                            }
-                                          },
-                                          "required": [
-                                            "clauses",
-                                            "logical_operator"
-                                          ],
-                                          "type": "object"
-                                        }
-                                      ]
-                                    },
-                                    "minItems": 1,
-                                    "type": "array"
-                                  },
-                                  "logical_operator": {
-                                    "enum": [
-                                      "AND",
-                                      "OR"
-                                    ],
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "clauses",
-                                  "logical_operator"
-                                ],
-                                "type": "object"
-                              }
-                            ]
-                          },
-                          "minItems": 1,
-                          "type": "array"
-                        },
-                        "logical_operator": {
-                          "enum": [
-                            "AND",
-                            "OR"
-                          ],
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "clauses",
-                        "logical_operator"
-                      ],
-                      "type": "object"
-                    }
-                  ]
-                },
-                "minItems": 1,
-                "type": "array"
-              },
-              "logical_operator": {
-                "enum": [
-                  "AND",
-                  "OR"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "clauses",
-              "logical_operator"
-            ],
-            "type": "object"
-          }
-        ]
-      },
-      "type": "array"
-    },
-    "priority": {
-      "type": "integer"
-    },
-    "rollout": {
-      "$ref": "#/$defs/flagship_Flag_rulesItem_rollout"
-    },
-    "serve_variation": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "conditions",
-    "priority",
-    "serve_variation"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `flagship_Flag_rulesItem_rollout` in responses.
- */
-export const flagship_Flag_rulesItem_rollout_output: JsonSchema = {
-  "properties": {
-    "attribute": {
-      "type": "string"
-    },
-    "percentage": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "percentage"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `flagship_FlagsPage` in responses.
  */
 export const flagship_FlagsPage_output: JsonSchema = {
@@ -508,6 +129,53 @@ export const flagship_ResultInfo_output: JsonSchema = {
   "required": [
     "count",
     "cursor"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `flagship_Rule` in responses.
+ */
+export const flagship_Rule_output: JsonSchema = {
+  "properties": {
+    "conditions": {
+      "items": {
+        "$ref": "#/$defs/flagship_Condition"
+      },
+      "type": "array"
+    },
+    "priority": {
+      "type": "integer"
+    },
+    "rollout": {
+      "$ref": "#/$defs/flagship_Rule_rollout"
+    },
+    "serve_variation": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "conditions",
+    "priority",
+    "serve_variation"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `flagship_Rule_rollout` in responses.
+ */
+export const flagship_Rule_rollout_output: JsonSchema = {
+  "properties": {
+    "attribute": {
+      "type": "string"
+    },
+    "percentage": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "percentage"
   ],
   "type": "object"
 };

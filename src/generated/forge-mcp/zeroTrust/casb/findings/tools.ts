@@ -17,13 +17,13 @@ import {
   posture_api_StatusEnum_output,
   posture_api_Vendor_output,
   posture_api_ZeroTrustProduct_output,
+  posture_api_api_response_common_output,
   posture_api_error_response_output,
   posture_api_messages_output,
   posture_api_result_info_output,
 } from "../outputs.js";
 import {
   posture_api_DirectionEnum,
-  posture_api_ProductEnum,
   posture_api_VendorsEnum,
 } from "../schemas.js";
 import {
@@ -35,9 +35,7 @@ import {
 import {
   posture_api_FindingBulkActionRequest,
   posture_api_FindingExportFilterRequest,
-  posture_api_FindingExportFilterRequest_product,
   posture_api_FindingExportOrderFilterRequest,
-  posture_api_NullEnum,
   posture_api_SeveritiesEnum,
   posture_api_TuneFindingSeverityRequest,
 } from "./schemas.js";
@@ -67,10 +65,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_DirectionEnum": posture_api_DirectionEnum,
         "posture-api_FindingExportFilterRequest": posture_api_FindingExportFilterRequest,
-        "posture-api_FindingExportFilterRequest_product": posture_api_FindingExportFilterRequest_product,
         "posture-api_FindingExportOrderFilterRequest": posture_api_FindingExportOrderFilterRequest,
-        "posture-api_NullEnum": posture_api_NullEnum,
-        "posture-api_ProductEnum": posture_api_ProductEnum,
         "posture-api_SeveritiesEnum": posture_api_SeveritiesEnum,
         "posture-api_VendorsEnum": posture_api_VendorsEnum,
       },
@@ -103,12 +98,17 @@ export const tools: readonly Tool[] = [
         "200": {
           "$ref": "#/$defs/posture-api_ExportJob"
         },
-        "400": null
+        "400": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        }
       },
       $defs: {
         "posture-api_ExportJob": posture_api_ExportJob_output,
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     request: (args) => ({
@@ -189,6 +189,9 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -207,6 +210,7 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -277,7 +281,10 @@ export const tools: readonly Tool[] = [
         "200": {
           "$ref": "#/$defs/posture-api_Finding"
         },
-        "400": null
+        "400": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        }
       },
       $defs: {
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
@@ -295,6 +302,8 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     request: (args) => ({
@@ -496,6 +505,9 @@ export const tools: readonly Tool[] = [
         },
         "403": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -514,6 +526,7 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
         "posture-api_result-info": posture_api_result_info_output,
@@ -604,6 +617,9 @@ export const tools: readonly Tool[] = [
         },
         "400": null,
         "404": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        },
         "500": {
           "$ref": "#/$defs/posture-api_error-response"
         }
@@ -624,6 +640,7 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -702,6 +719,9 @@ export const tools: readonly Tool[] = [
         },
         "400": null,
         "404": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        },
         "500": {
           "$ref": "#/$defs/posture-api_error-response"
         }
@@ -722,6 +742,7 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -793,7 +814,10 @@ export const tools: readonly Tool[] = [
         "200": {
           "$ref": "#/$defs/posture-api_Finding"
         },
-        "400": null
+        "400": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        }
       },
       $defs: {
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
@@ -811,6 +835,8 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     request: (args) => ({

@@ -72,10 +72,6 @@ import { tools as alerting_historyTools } from "./alerting/history/tools.js";
 import { tools as alerting_policies_emailTools } from "./alerting/policies/email/tools.js";
 import { tools as alerting_policiesTools } from "./alerting/policies/tools.js";
 import { tools as alerting_silencesTools } from "./alerting/silences/tools.js";
-import { tools as alerts_clearTools } from "./alerts/clear/tools.js";
-import { tools as alerts_refuteTools } from "./alerts/refute/tools.js";
-import { tools as alertsTools } from "./alerts/tools.js";
-import { tools as alerts_verifyTools } from "./alerts/verify/tools.js";
 import { tools as analytics_latency_colosTools } from "./analytics/latency/colos/tools.js";
 import { tools as analytics_latencyTools } from "./analytics/latency/tools.js";
 import { tools as analytics_query_dataSecurity_contentFindingsTools } from "./analytics/query/dataSecurity/contentFindings/tools.js";
@@ -131,8 +127,6 @@ import { tools as brandProtection_matchesTools } from "./brandProtection/matches
 import { tools as brandProtection_queriesTools } from "./brandProtection/queries/tools.js";
 import { tools as brandProtectionTools } from "./brandProtection/tools.js";
 import { tools as brandProtection_trialTools } from "./brandProtection/trial/tools.js";
-import { tools as brands_patternsTools } from "./brands/patterns/tools.js";
-import { tools as brandsTools } from "./brands/tools.js";
 import { tools as browserRun_crawlTools } from "./browserRun/crawl/tools.js";
 import { tools as browserRun_devtools_browser_liveViewTools } from "./browserRun/devtools/browser/liveView/tools.js";
 import { tools as browserRun_devtools_browser_targetsTools } from "./browserRun/devtools/browser/targets/tools.js";
@@ -154,13 +148,14 @@ import { tools as builds_triggers_environmentVariablesTools } from "./builds/tri
 import { tools as builds_triggersTools } from "./builds/triggers/tools.js";
 import { tools as builds_versionsTools } from "./builds/versions/tools.js";
 import { tools as builds_workersTools } from "./builds/workers/tools.js";
+import { tools as cache_originCloudRegions_bulkTools } from "./cache/originCloudRegions/bulk/tools.js";
+import { tools as cache_originCloudRegions_regionsTools } from "./cache/originCloudRegions/regions/tools.js";
 import { tools as cache_originCloudRegionsTools } from "./cache/originCloudRegions/tools.js";
 import { tools as cache_settings_regionalTieredCacheTools } from "./cache/settings/regionalTieredCache/tools.js";
 import { tools as cache_settings_reserveTools } from "./cache/settings/reserve/tools.js";
 import { tools as cache_settings_smartTieredCacheTools } from "./cache/settings/smartTieredCache/tools.js";
 import { tools as cache_settings_variantsTools } from "./cache/settings/variants/tools.js";
 import { tools as cacheTools } from "./cache/tools.js";
-import { tools as clearTools } from "./clear/tools.js";
 import { tools as clientSideSecurity_connectionsTools } from "./clientSideSecurity/connections/tools.js";
 import { tools as clientSideSecurity_cookiesTools } from "./clientSideSecurity/cookies/tools.js";
 import { tools as clientSideSecurity_policiesTools } from "./clientSideSecurity/policies/tools.js";
@@ -170,50 +165,13 @@ import { tools as cloudConnector_rulesTools } from "./cloudConnector/rules/tools
 import { tools as cloudforceOne_binaryStorageTools } from "./cloudforceOne/binaryStorage/tools.js";
 import { tools as cloudforceOne_credentialMonitor_domainsTools } from "./cloudforceOne/credentialMonitor/domains/tools.js";
 import { tools as cloudforceOne_credentialMonitor_matchesTools } from "./cloudforceOne/credentialMonitor/matches/tools.js";
-import { tools as cloudforceOne_events_aggregateTools } from "./cloudforceOne/events/aggregate/tools.js";
-import { tools as cloudforceOne_events_categories_catalogTools } from "./cloudforceOne/events/categories/catalog/tools.js";
-import { tools as cloudforceOne_events_categoriesTools } from "./cloudforceOne/events/categories/tools.js";
-import { tools as cloudforceOne_events_dataset_copyTools } from "./cloudforceOne/events/dataset/copy/tools.js";
-import { tools as cloudforceOne_events_dataset_eventsTools } from "./cloudforceOne/events/dataset/events/tools.js";
-import { tools as cloudforceOne_events_dataset_groups_getTools } from "./cloudforceOne/events/dataset/groups/get/tools.js";
-import { tools as cloudforceOne_events_dataset_groups_membersTools } from "./cloudforceOne/events/dataset/groups/members/tools.js";
-import { tools as cloudforceOne_events_dataset_groupsTools } from "./cloudforceOne/events/dataset/groups/tools.js";
-import { tools as cloudforceOne_events_dataset_indicators_bulkTools } from "./cloudforceOne/events/dataset/indicators/bulk/tools.js";
-import { tools as cloudforceOne_events_dataset_indicators_createTools } from "./cloudforceOne/events/dataset/indicators/create/tools.js";
-import { tools as cloudforceOne_events_dataset_indicators_getTools } from "./cloudforceOne/events/dataset/indicators/get/tools.js";
-import { tools as cloudforceOne_events_dataset_indicators_relationshipsTools } from "./cloudforceOne/events/dataset/indicators/relationships/tools.js";
-import { tools as cloudforceOne_events_dataset_indicators_tagsTools } from "./cloudforceOne/events/dataset/indicators/tags/tools.js";
-import { tools as cloudforceOne_events_dataset_indicatorsTools } from "./cloudforceOne/events/dataset/indicators/tools.js";
-import { tools as cloudforceOne_events_dataset_moveTools } from "./cloudforceOne/events/dataset/move/tools.js";
-import { tools as cloudforceOne_events_dataset_permissionsTools } from "./cloudforceOne/events/dataset/permissions/tools.js";
-import { tools as cloudforceOne_events_dataset_tags_indicatorsTools } from "./cloudforceOne/events/dataset/tags/indicators/tools.js";
-import { tools as cloudforceOne_events_dataset_target_industriesTools } from "./cloudforceOne/events/dataset/target/industries/tools.js";
-import { tools as cloudforceOne_events_datasetTools } from "./cloudforceOne/events/dataset/tools.js";
-import { tools as cloudforceOne_events_datasets_populateTools } from "./cloudforceOne/events/datasets/populate/tools.js";
-import { tools as cloudforceOne_events_deleteTools } from "./cloudforceOne/events/delete/tools.js";
-import { tools as cloudforceOne_events_graphql_create_graphTools } from "./cloudforceOne/events/graphql/create/graph/tools.js";
-import { tools as cloudforceOne_events_indicator_typesTools } from "./cloudforceOne/events/indicator/types/tools.js";
-import { tools as cloudforceOne_events_indicatorsTools } from "./cloudforceOne/events/indicators/tools.js";
-import { tools as cloudforceOne_events_queries_getTools } from "./cloudforceOne/events/queries/get/tools.js";
-import { tools as cloudforceOne_events_queriesTools } from "./cloudforceOne/events/queries/tools.js";
-import { tools as cloudforceOne_events_rawTools } from "./cloudforceOne/events/raw/tools.js";
-import { tools as cloudforceOne_events_relate_createTools } from "./cloudforceOne/events/relate/create/tools.js";
-import { tools as cloudforceOne_events_relationships_createTools } from "./cloudforceOne/events/relationships/create/tools.js";
-import { tools as cloudforceOne_events_relationshipsTools } from "./cloudforceOne/events/relationships/tools.js";
-import { tools as cloudforceOne_events_tags_categories_actorsTools } from "./cloudforceOne/events/tags/categories/actors/tools.js";
-import { tools as cloudforceOne_events_tags_categories_createTools } from "./cloudforceOne/events/tags/categories/create/tools.js";
-import { tools as cloudforceOne_events_tags_categoriesTools } from "./cloudforceOne/events/tags/categories/tools.js";
-import { tools as cloudforceOne_events_tags_relationshipsTools } from "./cloudforceOne/events/tags/relationships/tools.js";
-import { tools as cloudforceOne_events_tagsTools } from "./cloudforceOne/events/tags/tools.js";
-import { tools as cloudforceOne_events_target_industries_catalogTools } from "./cloudforceOne/events/target/industries/catalog/tools.js";
-import { tools as cloudforceOne_eventsTools } from "./cloudforceOne/events/tools.js";
-import { tools as cloudforceOne_events_update_bulkTools } from "./cloudforceOne/events/update/bulk/tools.js";
 import { tools as cloudforceOne_priorityIntelligence_constantsTools } from "./cloudforceOne/priorityIntelligence/constants/tools.js";
 import { tools as cloudforceOne_priorityIntelligence_filtersTools } from "./cloudforceOne/priorityIntelligence/filters/tools.js";
 import { tools as cloudforceOne_priorityIntelligence_interests_backtestsTools } from "./cloudforceOne/priorityIntelligence/interests/backtests/tools.js";
 import { tools as cloudforceOne_priorityIntelligence_interests_evaluationsTools } from "./cloudforceOne/priorityIntelligence/interests/evaluations/tools.js";
 import { tools as cloudforceOne_priorityIntelligence_interestsTools } from "./cloudforceOne/priorityIntelligence/interests/tools.js";
 import { tools as cloudforceOne_priorityIntelligence_matchesTools } from "./cloudforceOne/priorityIntelligence/matches/tools.js";
+import { tools as cloudforceOne_priorityIntelligence_profileTools } from "./cloudforceOne/priorityIntelligence/profile/tools.js";
 import { tools as cloudforceOne_priorityIntelligence_quotaTools } from "./cloudforceOne/priorityIntelligence/quota/tools.js";
 import { tools as cloudforceOne_priorityIntelligenceTools } from "./cloudforceOne/priorityIntelligence/tools.js";
 import { tools as cloudforceOne_requests_assetsTools } from "./cloudforceOne/requests/assets/tools.js";
@@ -236,17 +194,35 @@ import { tools as cloudforceOne_rulesTools } from "./cloudforceOne/rules/tools.j
 import { tools as cloudforceOne_rules_treeTools } from "./cloudforceOne/rules/tree/tools.js";
 import { tools as cloudforceOne_scans_configTools } from "./cloudforceOne/scans/config/tools.js";
 import { tools as cloudforceOne_scans_resultsTools } from "./cloudforceOne/scans/results/tools.js";
-import { tools as cloudforceOne_threatEvents_attackersTools } from "./cloudforceOne/threatEvents/attackers/tools.js";
-import { tools as cloudforceOne_threatEvents_categoriesTools } from "./cloudforceOne/threatEvents/categories/tools.js";
-import { tools as cloudforceOne_threatEvents_countriesTools } from "./cloudforceOne/threatEvents/countries/tools.js";
-import { tools as cloudforceOne_threatEvents_datasetsTools } from "./cloudforceOne/threatEvents/datasets/tools.js";
-import { tools as cloudforceOne_threatEvents_eventTagsTools } from "./cloudforceOne/threatEvents/eventTags/tools.js";
-import { tools as cloudforceOne_threatEvents_indicatorTypesTools } from "./cloudforceOne/threatEvents/indicatorTypes/tools.js";
-import { tools as cloudforceOne_threatEvents_rawTools } from "./cloudforceOne/threatEvents/raw/tools.js";
-import { tools as cloudforceOne_threatEvents_relateTools } from "./cloudforceOne/threatEvents/relate/tools.js";
-import { tools as cloudforceOne_threatEvents_tagsTools } from "./cloudforceOne/threatEvents/tags/tools.js";
-import { tools as cloudforceOne_threatEvents_targetIndustriesTools } from "./cloudforceOne/threatEvents/targetIndustries/tools.js";
-import { tools as cloudforceOne_threatEventsTools } from "./cloudforceOne/threatEvents/tools.js";
+import { tools as cloudforceOne_threatIntel_datasets_access_groups_membersTools } from "./cloudforceOne/threatIntel/datasets/access/groups/members/tools.js";
+import { tools as cloudforceOne_threatIntel_datasets_access_groupsTools } from "./cloudforceOne/threatIntel/datasets/access/groups/tools.js";
+import { tools as cloudforceOne_threatIntel_datasets_access_permissionsTools } from "./cloudforceOne/threatIntel/datasets/access/permissions/tools.js";
+import { tools as cloudforceOne_threatIntel_datasetsTools } from "./cloudforceOne/threatIntel/datasets/tools.js";
+import { tools as cloudforceOne_threatIntel_events_attackersTools } from "./cloudforceOne/threatIntel/events/attackers/tools.js";
+import { tools as cloudforceOne_threatIntel_events_categories_catalogTools } from "./cloudforceOne/threatIntel/events/categories/catalog/tools.js";
+import { tools as cloudforceOne_threatIntel_events_categoriesTools } from "./cloudforceOne/threatIntel/events/categories/tools.js";
+import { tools as cloudforceOne_threatIntel_events_countriesTools } from "./cloudforceOne/threatIntel/events/countries/tools.js";
+import { tools as cloudforceOne_threatIntel_events_legacy_rawTools } from "./cloudforceOne/threatIntel/events/legacy/raw/tools.js";
+import { tools as cloudforceOne_threatIntel_events_legacy_referencesTools } from "./cloudforceOne/threatIntel/events/legacy/references/tools.js";
+import { tools as cloudforceOne_threatIntel_events_legacy_tagsTools } from "./cloudforceOne/threatIntel/events/legacy/tags/tools.js";
+import { tools as cloudforceOne_threatIntel_events_legacyTools } from "./cloudforceOne/threatIntel/events/legacy/tools.js";
+import { tools as cloudforceOne_threatIntel_events_queriesTools } from "./cloudforceOne/threatIntel/events/queries/tools.js";
+import { tools as cloudforceOne_threatIntel_events_rawTools } from "./cloudforceOne/threatIntel/events/raw/tools.js";
+import { tools as cloudforceOne_threatIntel_events_relationshipsTools } from "./cloudforceOne/threatIntel/events/relationships/tools.js";
+import { tools as cloudforceOne_threatIntel_events_targetIndustries_catalogTools } from "./cloudforceOne/threatIntel/events/targetIndustries/catalog/tools.js";
+import { tools as cloudforceOne_threatIntel_events_targetIndustries_legacyTools } from "./cloudforceOne/threatIntel/events/targetIndustries/legacy/tools.js";
+import { tools as cloudforceOne_threatIntel_events_targetIndustriesTools } from "./cloudforceOne/threatIntel/events/targetIndustries/tools.js";
+import { tools as cloudforceOne_threatIntel_eventsTools } from "./cloudforceOne/threatIntel/events/tools.js";
+import { tools as cloudforceOne_threatIntel_indicators_relationshipsTools } from "./cloudforceOne/threatIntel/indicators/relationships/tools.js";
+import { tools as cloudforceOne_threatIntel_indicators_tagsTools } from "./cloudforceOne/threatIntel/indicators/tags/tools.js";
+import { tools as cloudforceOne_threatIntel_indicatorsTools } from "./cloudforceOne/threatIntel/indicators/tools.js";
+import { tools as cloudforceOne_threatIntel_indicators_typesTools } from "./cloudforceOne/threatIntel/indicators/types/tools.js";
+import { tools as cloudforceOne_threatIntel_tags_actorsTools } from "./cloudforceOne/threatIntel/tags/actors/tools.js";
+import { tools as cloudforceOne_threatIntel_tags_categoriesTools } from "./cloudforceOne/threatIntel/tags/categories/tools.js";
+import { tools as cloudforceOne_threatIntel_tags_indicatorsTools } from "./cloudforceOne/threatIntel/tags/indicators/tools.js";
+import { tools as cloudforceOne_threatIntel_tags_relationshipsTools } from "./cloudforceOne/threatIntel/tags/relationships/tools.js";
+import { tools as cloudforceOne_threatIntel_tagsTools } from "./cloudforceOne/threatIntel/tags/tools.js";
+import { tools as cloudforceOne_threatIntelTools } from "./cloudforceOne/threatIntel/tools.js";
 import { tools as cloudforceOne_threatSignals_articles_skillsTools } from "./cloudforceOne/threatSignals/articles/skills/tools.js";
 import { tools as cloudforceOne_threatSignals_articles_tagsTools } from "./cloudforceOne/threatSignals/articles/tags/tools.js";
 import { tools as cloudforceOne_threatSignals_articlesTools } from "./cloudforceOne/threatSignals/articles/tools.js";
@@ -304,11 +280,11 @@ import { tools as dns_zoneTransfers_peersTools } from "./dns/zoneTransfers/peers
 import { tools as dns_zoneTransfers_tsigsTools } from "./dns/zoneTransfers/tsigs/tools.js";
 import { tools as dnsFirewall_reverseDnsTools } from "./dnsFirewall/reverseDns/tools.js";
 import { tools as dnsFirewallTools } from "./dnsFirewall/tools.js";
-import { tools as domainInfoTools } from "./domainInfo/tools.js";
 import { tools as durableObjects_namespaces_objectsTools } from "./durableObjects/namespaces/objects/tools.js";
 import { tools as durableObjects_namespacesTools } from "./durableObjects/namespaces/tools.js";
 import { tools as emailAuth_dmarcReportsTools } from "./emailAuth/dmarcReports/tools.js";
 import { tools as emailAuth_spfTools } from "./emailAuth/spf/tools.js";
+import { tools as emailDomainsTools } from "./emailDomains/tools.js";
 import { tools as emailRouting_addressesTools } from "./emailRouting/addresses/tools.js";
 import { tools as emailRouting_dnsTools } from "./emailRouting/dns/tools.js";
 import { tools as emailRouting_rules_catchAllTools } from "./emailRouting/rules/catchAll/tools.js";
@@ -379,6 +355,7 @@ import { tools as intel_indicatorFeeds_downloadsTools } from "./intel/indicatorF
 import { tools as intel_indicatorFeeds_permissionsTools } from "./intel/indicatorFeeds/permissions/tools.js";
 import { tools as intel_indicatorFeeds_providersTools } from "./intel/indicatorFeeds/providers/tools.js";
 import { tools as intel_indicatorFeedsTools } from "./intel/indicatorFeeds/tools.js";
+import { tools as intel_indicatorFeeds_uploadsTools } from "./intel/indicatorFeeds/uploads/tools.js";
 import { tools as intel_ipListsTools } from "./intel/ipLists/tools.js";
 import { tools as intel_ipsTools } from "./intel/ips/tools.js";
 import { tools as intel_miscategorizationsTools } from "./intel/miscategorizations/tools.js";
@@ -410,9 +387,6 @@ import { tools as loadBalancers_poolsTools } from "./loadBalancers/pools/tools.j
 import { tools as loadBalancers_previewsTools } from "./loadBalancers/previews/tools.js";
 import { tools as loadBalancers_regionsTools } from "./loadBalancers/regions/tools.js";
 import { tools as loadBalancers_searchesTools } from "./loadBalancers/searches/tools.js";
-import { tools as logoMatches_downloadTools } from "./logoMatches/download/tools.js";
-import { tools as logoMatchesTools } from "./logoMatches/tools.js";
-import { tools as logosTools } from "./logos/tools.js";
 import { tools as logpush_accountDatasets_fieldsTools } from "./logpush/accountDatasets/fields/tools.js";
 import { tools as logpush_accountDatasets_jobsTools } from "./logpush/accountDatasets/jobs/tools.js";
 import { tools as logpush_accountJobsTools } from "./logpush/accountJobs/tools.js";
@@ -478,8 +452,6 @@ import { tools as managedDefense_vulnerabilityDiscovery_reportsTools } from "./m
 import { tools as managedDefense_vulnerabilityDiscovery_repositoriesTools } from "./managedDefense/vulnerabilityDiscovery/repositories/tools.js";
 import { tools as managedDefense_vulnerabilityDiscovery_scansTools } from "./managedDefense/vulnerabilityDiscovery/scans/tools.js";
 import { tools as managedTransformsTools } from "./managedTransforms/tools.js";
-import { tools as matches_downloadTools } from "./matches/download/tools.js";
-import { tools as matchesTools } from "./matches/tools.js";
 import { tools as mcp_portalsTools } from "./mcp/portals/tools.js";
 import { tools as mcp_serversTools } from "./mcp/servers/tools.js";
 import { tools as media_usageTools } from "./media/usage/tools.js";
@@ -549,9 +521,6 @@ import { tools as pipelines_streamsTools } from "./pipelines/streams/tools.js";
 import { tools as pipelinesTools } from "./pipelines/tools.js";
 import { tools as precursorTools } from "./precursor/tools.js";
 import { tools as previewsTools } from "./previews/tools.js";
-import { tools as queries_bulkTools } from "./queries/bulk/tools.js";
-import { tools as queries_matchesTools } from "./queries/matches/tools.js";
-import { tools as queriesTools } from "./queries/tools.js";
 import { tools as queues_consumersTools } from "./queues/consumers/tools.js";
 import { tools as queues_messagesTools } from "./queues/messages/tools.js";
 import { tools as queues_metricsTools } from "./queues/metrics/tools.js";
@@ -689,8 +658,6 @@ import { tools as realtime_moq_relays_tokensTools } from "./realtime/moq/relays/
 import { tools as realtime_moq_relaysTools } from "./realtime/moq/relays/tools.js";
 import { tools as realtime_sfu_appsTools } from "./realtime/sfu/apps/tools.js";
 import { tools as realtime_turn_keysTools } from "./realtime/turn/keys/tools.js";
-import { tools as recentSubmissionsTools } from "./recentSubmissions/tools.js";
-import { tools as refuteTools } from "./refute/tools.js";
 import { tools as registrar_extensionsTools } from "./registrar/extensions/tools.js";
 import { tools as registrar_registrationsTools } from "./registrar/registrations/tools.js";
 import { tools as registrarSandbox_extensionsTools } from "./registrarSandbox/extensions/tools.js";
@@ -714,14 +681,11 @@ import { tools as rulesets_versions_byTagTools } from "./rulesets/versions/byTag
 import { tools as rulesets_versionsTools } from "./rulesets/versions/tools.js";
 import { tools as rum_rulesTools } from "./rum/rules/tools.js";
 import { tools as rum_siteInfoTools } from "./rum/siteInfo/tools.js";
-import { tools as scanLogoTools } from "./scanLogo/tools.js";
-import { tools as scanPageTools } from "./scanPage/tools.js";
 import { tools as scim_groupsTools } from "./scim/groups/tools.js";
 import { tools as scim_resourceTypesTools } from "./scim/resourceTypes/tools.js";
 import { tools as scim_schemasTools } from "./scim/schemas/tools.js";
 import { tools as scim_serviceProviderConfigTools } from "./scim/serviceProviderConfig/tools.js";
 import { tools as scim_usersTools } from "./scim/users/tools.js";
-import { tools as searchTools } from "./search/tools.js";
 import { tools as secretsStore_quotaTools } from "./secretsStore/quota/tools.js";
 import { tools as secretsStore_secretsTools } from "./secretsStore/secrets/tools.js";
 import { tools as secretsStore_storesTools } from "./secretsStore/stores/tools.js";
@@ -792,8 +756,6 @@ import { tools as stream_videos_tokenTools } from "./stream/videos/token/tools.j
 import { tools as stream_videosTools } from "./stream/videos/tools.js";
 import { tools as stream_watermarksTools } from "./stream/watermarks/tools.js";
 import { tools as stream_webhooksTools } from "./stream/webhooks/tools.js";
-import { tools as submissionInfoTools } from "./submissionInfo/tools.js";
-import { tools as submitTools } from "./submit/tools.js";
 import { tools as tags_accountResourcesTools } from "./tags/accountResources/tools.js";
 import { tools as tags_keysTools } from "./tags/keys/tools.js";
 import { tools as tags_resourcesTools } from "./tags/resources/tools.js";
@@ -804,8 +766,6 @@ import { tools as tenant_accountTypeTools } from "./tenant/accountType/tools.js"
 import { tools as tenant_entitlementTools } from "./tenant/entitlement/tools.js";
 import { tools as tenantTools } from "./tenant/tools.js";
 import { tools as tenantCustomNameserversTools } from "./tenantCustomNameservers/tools.js";
-import { tools as totalQueriesTools } from "./totalQueries/tools.js";
-import { tools as trackedDomainsTools } from "./trackedDomains/tools.js";
 import { tools as tunnelTools } from "./tunnel/tools.js";
 import { tools as tunnels_configTools } from "./tunnels/config/tools.js";
 import { tools as tunnels_connectionsTools } from "./tunnels/connections/tools.js";
@@ -814,7 +774,6 @@ import { tools as tunnels_managementTokenTools } from "./tunnels/managementToken
 import { tools as tunnels_tokenTools } from "./tunnels/token/tools.js";
 import { tools as tunnelsTools } from "./tunnels/tools.js";
 import { tools as turnstile_widgetsTools } from "./turnstile/widgets/tools.js";
-import { tools as urlInfoTools } from "./urlInfo/tools.js";
 import { tools as urlNormalizationTools } from "./urlNormalization/tools.js";
 import { tools as urlScanner_responsesTools } from "./urlScanner/responses/tools.js";
 import { tools as urlScanner_scansTools } from "./urlScanner/scans/tools.js";
@@ -840,7 +799,6 @@ import { tools as user_tokensTools } from "./user/tokens/tools.js";
 import { tools as userTools } from "./user/tools.js";
 import { tools as vectorize_metadataIndexTools } from "./vectorize/metadataIndex/tools.js";
 import { tools as vectorizeTools } from "./vectorize/tools.js";
-import { tools as verifyTools } from "./verify/tools.js";
 import { tools as waitingRooms_accountWaitingRoomsTools } from "./waitingRooms/accountWaitingRooms/tools.js";
 import { tools as waitingRooms_events_detailsTools } from "./waitingRooms/events/details/tools.js";
 import { tools as waitingRooms_eventsTools } from "./waitingRooms/events/tools.js";
@@ -1054,7 +1012,7 @@ import { tools as zeroTrust_riskScoringTools } from "./zeroTrust/riskScoring/too
 import { tools as zeroTrust_seatsTools } from "./zeroTrust/seats/tools.js";
 import { tools as zeroTrust_users_mfa_authenticatorsTools } from "./zeroTrust/users/mfa/authenticators/tools.js";
 import { tools as zeroTrust_users_passkeysTools } from "./zeroTrust/users/passkeys/tools.js";
-import { tools as zoneTools } from "./zone/tools.js";
+import { tools as zones_activationCheckTools } from "./zones/activationCheck/tools.js";
 import { tools as zones_aegisTools } from "./zones/aegis/tools.js";
 import { tools as zones_automaticPlatformOptimizationTools } from "./zones/automaticPlatformOptimization/tools.js";
 import { tools as zones_binaryAstTools } from "./zones/binaryAst/tools.js";
@@ -1163,10 +1121,6 @@ export const tools: readonly Tool[] = [
   ...alerting_policiesTools,
   ...alerting_policies_emailTools,
   ...alerting_silencesTools,
-  ...alertsTools,
-  ...alerts_clearTools,
-  ...alerts_refuteTools,
-  ...alerts_verifyTools,
   ...analytics_latencyTools,
   ...analytics_latency_colosTools,
   ...analytics_queryTools,
@@ -1222,8 +1176,6 @@ export const tools: readonly Tool[] = [
   ...brandProtection_matchesTools,
   ...brandProtection_queriesTools,
   ...brandProtection_trialTools,
-  ...brandsTools,
-  ...brands_patternsTools,
   ...browserRun_crawlTools,
   ...browserRun_devtools_browserTools,
   ...browserRun_devtools_browser_liveViewTools,
@@ -1247,11 +1199,12 @@ export const tools: readonly Tool[] = [
   ...builds_workersTools,
   ...cacheTools,
   ...cache_originCloudRegionsTools,
+  ...cache_originCloudRegions_bulkTools,
+  ...cache_originCloudRegions_regionsTools,
   ...cache_settings_regionalTieredCacheTools,
   ...cache_settings_reserveTools,
   ...cache_settings_smartTieredCacheTools,
   ...cache_settings_variantsTools,
-  ...clearTools,
   ...clientSideSecurity_connectionsTools,
   ...clientSideSecurity_cookiesTools,
   ...clientSideSecurity_policiesTools,
@@ -1261,44 +1214,6 @@ export const tools: readonly Tool[] = [
   ...cloudforceOne_binaryStorageTools,
   ...cloudforceOne_credentialMonitor_domainsTools,
   ...cloudforceOne_credentialMonitor_matchesTools,
-  ...cloudforceOne_eventsTools,
-  ...cloudforceOne_events_aggregateTools,
-  ...cloudforceOne_events_categoriesTools,
-  ...cloudforceOne_events_categories_catalogTools,
-  ...cloudforceOne_events_datasetTools,
-  ...cloudforceOne_events_dataset_copyTools,
-  ...cloudforceOne_events_dataset_eventsTools,
-  ...cloudforceOne_events_dataset_groupsTools,
-  ...cloudforceOne_events_dataset_groups_getTools,
-  ...cloudforceOne_events_dataset_groups_membersTools,
-  ...cloudforceOne_events_dataset_indicatorsTools,
-  ...cloudforceOne_events_dataset_indicators_bulkTools,
-  ...cloudforceOne_events_dataset_indicators_createTools,
-  ...cloudforceOne_events_dataset_indicators_getTools,
-  ...cloudforceOne_events_dataset_indicators_relationshipsTools,
-  ...cloudforceOne_events_dataset_indicators_tagsTools,
-  ...cloudforceOne_events_dataset_moveTools,
-  ...cloudforceOne_events_dataset_permissionsTools,
-  ...cloudforceOne_events_dataset_tags_indicatorsTools,
-  ...cloudforceOne_events_dataset_target_industriesTools,
-  ...cloudforceOne_events_datasets_populateTools,
-  ...cloudforceOne_events_deleteTools,
-  ...cloudforceOne_events_graphql_create_graphTools,
-  ...cloudforceOne_events_indicator_typesTools,
-  ...cloudforceOne_events_indicatorsTools,
-  ...cloudforceOne_events_queriesTools,
-  ...cloudforceOne_events_queries_getTools,
-  ...cloudforceOne_events_rawTools,
-  ...cloudforceOne_events_relate_createTools,
-  ...cloudforceOne_events_relationshipsTools,
-  ...cloudforceOne_events_relationships_createTools,
-  ...cloudforceOne_events_tagsTools,
-  ...cloudforceOne_events_tags_categoriesTools,
-  ...cloudforceOne_events_tags_categories_actorsTools,
-  ...cloudforceOne_events_tags_categories_createTools,
-  ...cloudforceOne_events_tags_relationshipsTools,
-  ...cloudforceOne_events_target_industries_catalogTools,
-  ...cloudforceOne_events_update_bulkTools,
   ...cloudforceOne_priorityIntelligenceTools,
   ...cloudforceOne_priorityIntelligence_constantsTools,
   ...cloudforceOne_priorityIntelligence_filtersTools,
@@ -1306,6 +1221,7 @@ export const tools: readonly Tool[] = [
   ...cloudforceOne_priorityIntelligence_interests_backtestsTools,
   ...cloudforceOne_priorityIntelligence_interests_evaluationsTools,
   ...cloudforceOne_priorityIntelligence_matchesTools,
+  ...cloudforceOne_priorityIntelligence_profileTools,
   ...cloudforceOne_priorityIntelligence_quotaTools,
   ...cloudforceOne_requestsTools,
   ...cloudforceOne_requests_assetsTools,
@@ -1327,17 +1243,35 @@ export const tools: readonly Tool[] = [
   ...cloudforceOne_rules_treeTools,
   ...cloudforceOne_scans_configTools,
   ...cloudforceOne_scans_resultsTools,
-  ...cloudforceOne_threatEventsTools,
-  ...cloudforceOne_threatEvents_attackersTools,
-  ...cloudforceOne_threatEvents_categoriesTools,
-  ...cloudforceOne_threatEvents_countriesTools,
-  ...cloudforceOne_threatEvents_datasetsTools,
-  ...cloudforceOne_threatEvents_eventTagsTools,
-  ...cloudforceOne_threatEvents_indicatorTypesTools,
-  ...cloudforceOne_threatEvents_rawTools,
-  ...cloudforceOne_threatEvents_relateTools,
-  ...cloudforceOne_threatEvents_tagsTools,
-  ...cloudforceOne_threatEvents_targetIndustriesTools,
+  ...cloudforceOne_threatIntelTools,
+  ...cloudforceOne_threatIntel_datasetsTools,
+  ...cloudforceOne_threatIntel_datasets_access_groupsTools,
+  ...cloudforceOne_threatIntel_datasets_access_groups_membersTools,
+  ...cloudforceOne_threatIntel_datasets_access_permissionsTools,
+  ...cloudforceOne_threatIntel_eventsTools,
+  ...cloudforceOne_threatIntel_events_attackersTools,
+  ...cloudforceOne_threatIntel_events_categoriesTools,
+  ...cloudforceOne_threatIntel_events_categories_catalogTools,
+  ...cloudforceOne_threatIntel_events_countriesTools,
+  ...cloudforceOne_threatIntel_events_legacyTools,
+  ...cloudforceOne_threatIntel_events_legacy_rawTools,
+  ...cloudforceOne_threatIntel_events_legacy_referencesTools,
+  ...cloudforceOne_threatIntel_events_legacy_tagsTools,
+  ...cloudforceOne_threatIntel_events_queriesTools,
+  ...cloudforceOne_threatIntel_events_rawTools,
+  ...cloudforceOne_threatIntel_events_relationshipsTools,
+  ...cloudforceOne_threatIntel_events_targetIndustriesTools,
+  ...cloudforceOne_threatIntel_events_targetIndustries_catalogTools,
+  ...cloudforceOne_threatIntel_events_targetIndustries_legacyTools,
+  ...cloudforceOne_threatIntel_indicatorsTools,
+  ...cloudforceOne_threatIntel_indicators_relationshipsTools,
+  ...cloudforceOne_threatIntel_indicators_tagsTools,
+  ...cloudforceOne_threatIntel_indicators_typesTools,
+  ...cloudforceOne_threatIntel_tagsTools,
+  ...cloudforceOne_threatIntel_tags_actorsTools,
+  ...cloudforceOne_threatIntel_tags_categoriesTools,
+  ...cloudforceOne_threatIntel_tags_indicatorsTools,
+  ...cloudforceOne_threatIntel_tags_relationshipsTools,
   ...cloudforceOne_threatSignalsTools,
   ...cloudforceOne_threatSignals_articlesTools,
   ...cloudforceOne_threatSignals_articles_skillsTools,
@@ -1395,11 +1329,11 @@ export const tools: readonly Tool[] = [
   ...dns_zoneTransfers_tsigsTools,
   ...dnsFirewallTools,
   ...dnsFirewall_reverseDnsTools,
-  ...domainInfoTools,
   ...durableObjects_namespacesTools,
   ...durableObjects_namespaces_objectsTools,
   ...emailAuth_dmarcReportsTools,
   ...emailAuth_spfTools,
+  ...emailDomainsTools,
   ...emailRoutingTools,
   ...emailRouting_addressesTools,
   ...emailRouting_dnsTools,
@@ -1470,6 +1404,7 @@ export const tools: readonly Tool[] = [
   ...intel_indicatorFeeds_downloadsTools,
   ...intel_indicatorFeeds_permissionsTools,
   ...intel_indicatorFeeds_providersTools,
+  ...intel_indicatorFeeds_uploadsTools,
   ...intel_ipListsTools,
   ...intel_ipsTools,
   ...intel_miscategorizationsTools,
@@ -1501,9 +1436,6 @@ export const tools: readonly Tool[] = [
   ...loadBalancers_previewsTools,
   ...loadBalancers_regionsTools,
   ...loadBalancers_searchesTools,
-  ...logoMatchesTools,
-  ...logoMatches_downloadTools,
-  ...logosTools,
   ...logpush_accountDatasets_fieldsTools,
   ...logpush_accountDatasets_jobsTools,
   ...logpush_accountJobsTools,
@@ -1569,8 +1501,6 @@ export const tools: readonly Tool[] = [
   ...managedDefense_vulnerabilityDiscovery_repositoriesTools,
   ...managedDefense_vulnerabilityDiscovery_scansTools,
   ...managedTransformsTools,
-  ...matchesTools,
-  ...matches_downloadTools,
   ...mcp_portalsTools,
   ...mcp_serversTools,
   ...media_usageTools,
@@ -1640,9 +1570,6 @@ export const tools: readonly Tool[] = [
   ...pipelines_streamsTools,
   ...precursorTools,
   ...previewsTools,
-  ...queriesTools,
-  ...queries_bulkTools,
-  ...queries_matchesTools,
   ...queuesTools,
   ...queues_consumersTools,
   ...queues_messagesTools,
@@ -1780,8 +1707,6 @@ export const tools: readonly Tool[] = [
   ...realtime_moq_relays_tokensTools,
   ...realtime_sfu_appsTools,
   ...realtime_turn_keysTools,
-  ...recentSubmissionsTools,
-  ...refuteTools,
   ...registrar_extensionsTools,
   ...registrar_registrationsTools,
   ...registrarSandbox_extensionsTools,
@@ -1805,14 +1730,11 @@ export const tools: readonly Tool[] = [
   ...rulesets_versions_byTagTools,
   ...rum_rulesTools,
   ...rum_siteInfoTools,
-  ...scanLogoTools,
-  ...scanPageTools,
   ...scim_groupsTools,
   ...scim_resourceTypesTools,
   ...scim_schemasTools,
   ...scim_serviceProviderConfigTools,
   ...scim_usersTools,
-  ...searchTools,
   ...secretsStore_quotaTools,
   ...secretsStore_secretsTools,
   ...secretsStore_storesTools,
@@ -1883,8 +1805,6 @@ export const tools: readonly Tool[] = [
   ...stream_videos_tokenTools,
   ...stream_watermarksTools,
   ...stream_webhooksTools,
-  ...submissionInfoTools,
-  ...submitTools,
   ...tags_accountResourcesTools,
   ...tags_keysTools,
   ...tags_resourcesTools,
@@ -1895,8 +1815,6 @@ export const tools: readonly Tool[] = [
   ...tenant_accountTypeTools,
   ...tenant_entitlementTools,
   ...tenantCustomNameserversTools,
-  ...totalQueriesTools,
-  ...trackedDomainsTools,
   ...tunnelTools,
   ...tunnelsTools,
   ...tunnels_configTools,
@@ -1905,7 +1823,6 @@ export const tools: readonly Tool[] = [
   ...tunnels_managementTokenTools,
   ...tunnels_tokenTools,
   ...turnstile_widgetsTools,
-  ...urlInfoTools,
   ...urlNormalizationTools,
   ...urlScanner_responsesTools,
   ...urlScanner_scansTools,
@@ -1931,7 +1848,6 @@ export const tools: readonly Tool[] = [
   ...user_tokens_permissionGroupsTools,
   ...vectorizeTools,
   ...vectorize_metadataIndexTools,
-  ...verifyTools,
   ...waitingRoomsTools,
   ...waitingRooms_accountWaitingRoomsTools,
   ...waitingRooms_eventsTools,
@@ -2145,8 +2061,8 @@ export const tools: readonly Tool[] = [
   ...zeroTrust_seatsTools,
   ...zeroTrust_users_mfa_authenticatorsTools,
   ...zeroTrust_users_passkeysTools,
-  ...zoneTools,
   ...zonesTools,
+  ...zones_activationCheckTools,
   ...zones_aegisTools,
   ...zones_automaticPlatformOptimizationTools,
   ...zones_binaryAstTools,

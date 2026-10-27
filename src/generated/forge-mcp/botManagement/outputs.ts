@@ -242,56 +242,6 @@ export const bot_management_bot_fight_mode_config_output: JsonSchema = {
 };
 
 /**
- * The schema of `bot-management_bot_management_response_body` in responses.
- */
-export const bot_management_bot_management_response_body_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/bot-management_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/bot-management_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/bot-management_bot_management_response_body_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `bot-management_bot_management_response_body_result` in
- * responses.
- */
-export const bot_management_bot_management_response_body_result_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/bot-management_bot_fight_mode_config"
-    },
-    {
-      "$ref": "#/$defs/bot-management_sbfm_definitely_config"
-    },
-    {
-      "$ref": "#/$defs/bot-management_sbfm_likely_config"
-    },
-    {
-      "$ref": "#/$defs/bot-management_bm_subscription_config"
-    }
-  ]
-};
-
-/**
  * The schema of `bot-management_bot_preference_sync_enabled` in responses.
  */
 export const bot_management_bot_preference_sync_enabled_output: JsonSchema = {

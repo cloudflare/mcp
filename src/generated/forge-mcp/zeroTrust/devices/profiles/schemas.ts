@@ -157,6 +157,11 @@ export const teams_devices_global_acceleration: JsonSchema = {
   "oneOf": [
     {
       "properties": {
+        "allow_manual_override": {
+          "default": true,
+          "description": "Whether WARP users may manually override the automatic Global Acceleration decision. Defaults to true when not provided.",
+          "type": "boolean"
+        },
         "api_endpoints": {
           "description": "IP:port entries for the API endpoints.",
           "items": {

@@ -835,6 +835,34 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "fedramp_level": {
+          "oneOf": [
+            {
+              "enum": [
+                "fedramp-medium",
+                "fedramp-high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fedramp_mode": {
+          "oneOf": [
+            {
+              "enum": [
+                "prefer",
+                "require"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "guardrails": {
           "oneOf": [
             {
@@ -1562,6 +1590,34 @@ export const tools: readonly Tool[] = [
                     "policies"
                   ],
                   "type": "object"
+                }
+              ]
+            },
+            "fedramp_level": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "fedramp-medium",
+                    "fedramp-high"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fedramp_mode": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "prefer",
+                    "require"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
                 }
               ]
             },
@@ -2327,6 +2383,34 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "fedramp_level": {
+          "oneOf": [
+            {
+              "enum": [
+                "fedramp-medium",
+                "fedramp-high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fedramp_mode": {
+          "oneOf": [
+            {
+              "enum": [
+                "prefer",
+                "require"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "guardrails": {
           "oneOf": [
             {
@@ -3057,6 +3141,34 @@ export const tools: readonly Tool[] = [
                 }
               ]
             },
+            "fedramp_level": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "fedramp-medium",
+                    "fedramp-high"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fedramp_mode": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "prefer",
+                    "require"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "guardrails": {
               "oneOf": [
                 {
@@ -3641,6 +3753,43 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
         "404": {
           "properties": {
             "errors": {
@@ -3808,6 +3957,34 @@ export const tools: readonly Tool[] = [
                 "policies"
               ],
               "type": "object"
+            }
+          ]
+        },
+        "fedramp_level": {
+          "oneOf": [
+            {
+              "enum": [
+                "fedramp-medium",
+                "fedramp-high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fedramp_mode": {
+          "oneOf": [
+            {
+              "enum": [
+                "prefer",
+                "require"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
             }
           ]
         },
@@ -4542,6 +4719,34 @@ export const tools: readonly Tool[] = [
                 }
               ]
             },
+            "fedramp_level": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "fedramp-medium",
+                    "fedramp-high"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fedramp_mode": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "prefer",
+                    "require"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "guardrails": {
               "oneOf": [
                 {
@@ -5126,6 +5331,43 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "path"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "success"
+          ],
+          "type": "object"
+        },
         "404": {
           "properties": {
             "errors": {
@@ -5402,6 +5644,34 @@ export const tools: readonly Tool[] = [
                       "policies"
                     ],
                     "type": "object"
+                  }
+                ]
+              },
+              "fedramp_level": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "fedramp-medium",
+                      "fedramp-high"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "fedramp_mode": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "prefer",
+                      "require"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
                   }
                 ]
               },
@@ -6150,6 +6420,34 @@ export const tools: readonly Tool[] = [
                       }
                     ]
                   },
+                  "fedramp_level": {
+                    "oneOf": [
+                      {
+                        "enum": [
+                          "fedramp-medium",
+                          "fedramp-high"
+                        ],
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "fedramp_mode": {
+                    "oneOf": [
+                      {
+                        "enum": [
+                          "prefer",
+                          "require"
+                        ],
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
                   "guardrails": {
                     "oneOf": [
                       {
@@ -6750,19 +7048,27 @@ export const tools: readonly Tool[] = [
             "errors": {
               "items": {
                 "properties": {
+                  "code": {
+                    "type": "number"
+                  },
                   "message": {
                     "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
                   }
                 },
                 "required": [
-                  "message"
+                  "code",
+                  "message",
+                  "path"
                 ],
                 "type": "object"
               },
               "type": "array"
-            },
-            "result": {
-              "type": "object"
             },
             "success": {
               "type": "boolean"
@@ -6770,7 +7076,6 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "errors",
-            "result",
             "success"
           ],
           "type": "object"
@@ -7614,6 +7919,34 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "fedramp_level": {
+          "oneOf": [
+            {
+              "enum": [
+                "fedramp-medium",
+                "fedramp-high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fedramp_mode": {
+          "oneOf": [
+            {
+              "enum": [
+                "prefer",
+                "require"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "guardrails": {
           "oneOf": [
             {
@@ -8341,6 +8674,34 @@ export const tools: readonly Tool[] = [
                     "policies"
                   ],
                   "type": "object"
+                }
+              ]
+            },
+            "fedramp_level": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "fedramp-medium",
+                    "fedramp-high"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fedramp_mode": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "prefer",
+                    "require"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
                 }
               ]
             },

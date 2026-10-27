@@ -483,6 +483,59 @@ export const abuse_reports_PortsProtocolError_output: JsonSchema = {
 };
 
 /**
+ * The schema of `abuse-reports_RateLimitedError` in responses.
+ */
+export const abuse_reports_RateLimitedError_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `abuse-reports_RateLimitedErrorResponse` in responses.
+ */
+export const abuse_reports_RateLimitedErrorResponse_output: JsonSchema = {
+  "properties": {
+    "err_code": {
+      "$ref": "#/$defs/abuse-reports_RateLimitedError"
+    },
+    "error_code": {
+      "$ref": "#/$defs/abuse-reports_RateLimitedError"
+    },
+    "msg": {
+      "type": "string"
+    },
+    "request": {
+      "$ref": "#/$defs/abuse-reports_RateLimitedErrorResponse_request"
+    },
+    "result": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "err_code",
+    "error_code",
+    "msg",
+    "request",
+    "result"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `abuse-reports_RateLimitedErrorResponse_request` in responses.
+ */
+export const abuse_reports_RateLimitedErrorResponse_request_output: JsonSchema = {
+  "properties": {
+    "act": {
+      "$ref": "#/$defs/abuse-reports_SubmissionReportType"
+    }
+  },
+  "required": [
+    "act"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `abuse-reports_RegistrarWhoIsFields` in responses.
  */
 export const abuse_reports_RegistrarWhoIsFields_output: JsonSchema = {

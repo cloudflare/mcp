@@ -19,12 +19,8 @@ import {
   smartshield_identifier_output,
   smartshield_interval_output,
   smartshield_name_output,
-  smartshield_response_collection_output,
   smartshield_result_info_output,
   smartshield_retries_output,
-  smartshield_single_hc_id_response_output,
-  smartshield_single_hc_id_response_result_output,
-  smartshield_single_hc_response_output,
   smartshield_status_output,
   smartshield_suspended_output,
   smartshield_tcp_config_output,
@@ -140,14 +136,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_healthchecks"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/smartshield_single_hc_response"
-            },
-            {
-              "$ref": "#/$defs/smartshield_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
         }
       },
       $defs: {
@@ -165,7 +154,6 @@ export const tools: readonly Tool[] = [
         "smartshield_messages": smartshield_messages_output,
         "smartshield_name": smartshield_name_output,
         "smartshield_retries": smartshield_retries_output,
-        "smartshield_single_hc_response": smartshield_single_hc_response_output,
         "smartshield_status": smartshield_status_output,
         "smartshield_suspended": smartshield_suspended_output,
         "smartshield_tcp_config": smartshield_tcp_config_output,
@@ -242,22 +230,13 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/smartshield_single_hc_id_response"
-            },
-            {
-              "$ref": "#/$defs/smartshield_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
         }
       },
       $defs: {
         "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
         "smartshield_identifier": smartshield_identifier_output,
         "smartshield_messages": smartshield_messages_output,
-        "smartshield_single_hc_id_response": smartshield_single_hc_id_response_output,
-        "smartshield_single_hc_id_response_result": smartshield_single_hc_id_response_result_output,
       },
     },
     request: (args) => ({
@@ -354,14 +333,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_healthchecks"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/smartshield_single_hc_response"
-            },
-            {
-              "$ref": "#/$defs/smartshield_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
         }
       },
       $defs: {
@@ -379,7 +351,6 @@ export const tools: readonly Tool[] = [
         "smartshield_messages": smartshield_messages_output,
         "smartshield_name": smartshield_name_output,
         "smartshield_retries": smartshield_retries_output,
-        "smartshield_single_hc_response": smartshield_single_hc_response_output,
         "smartshield_status": smartshield_status_output,
         "smartshield_suspended": smartshield_suspended_output,
         "smartshield_tcp_config": smartshield_tcp_config_output,
@@ -464,14 +435,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_healthchecks"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/smartshield_single_hc_response"
-            },
-            {
-              "$ref": "#/$defs/smartshield_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
         }
       },
       $defs: {
@@ -489,7 +453,6 @@ export const tools: readonly Tool[] = [
         "smartshield_messages": smartshield_messages_output,
         "smartshield_name": smartshield_name_output,
         "smartshield_retries": smartshield_retries_output,
-        "smartshield_single_hc_response": smartshield_single_hc_response_output,
         "smartshield_status": smartshield_status_output,
         "smartshield_suspended": smartshield_suspended_output,
         "smartshield_tcp_config": smartshield_tcp_config_output,
@@ -607,14 +570,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/smartshield_response_collection"
-            },
-            {
-              "$ref": "#/$defs/smartshield_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
         }
       },
       $defs: {
@@ -631,7 +587,6 @@ export const tools: readonly Tool[] = [
         "smartshield_interval": smartshield_interval_output,
         "smartshield_messages": smartshield_messages_output,
         "smartshield_name": smartshield_name_output,
-        "smartshield_response_collection": smartshield_response_collection_output,
         "smartshield_result_info": smartshield_result_info_output,
         "smartshield_retries": smartshield_retries_output,
         "smartshield_status": smartshield_status_output,
@@ -742,14 +697,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_healthchecks"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/smartshield_single_hc_response"
-            },
-            {
-              "$ref": "#/$defs/smartshield_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/smartshield_api-response-common-failure"
         }
       },
       $defs: {
@@ -767,7 +715,6 @@ export const tools: readonly Tool[] = [
         "smartshield_messages": smartshield_messages_output,
         "smartshield_name": smartshield_name_output,
         "smartshield_retries": smartshield_retries_output,
-        "smartshield_single_hc_response": smartshield_single_hc_response_output,
         "smartshield_status": smartshield_status_output,
         "smartshield_suspended": smartshield_suspended_output,
         "smartshield_tcp_config": smartshield_tcp_config_output,

@@ -189,7 +189,7 @@ export const one_IntegrationV2ListItem_output: JsonSchema = {
     },
     "use_cases": {
       "items": {
-        "$ref": "#/$defs/one_IntegrationV2ListItem_use_casesItem"
+        "type": "string"
       },
       "type": "array"
     }
@@ -232,25 +232,6 @@ export const one_IntegrationV2ListItem_auth_method_output: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `one_IntegrationV2ListItem_use_casesItem` in responses.
- */
-export const one_IntegrationV2ListItem_use_casesItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "is_enabled": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "id",
-    "is_enabled"
-  ],
-  "type": "object"
 };
 
 /**

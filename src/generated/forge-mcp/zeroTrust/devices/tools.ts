@@ -395,6 +395,9 @@ export const tools: readonly Tool[] = [
         "200": {
           "$ref": "#/$defs/teams-devices_physical_device"
         },
+        "409": {
+          "$ref": "#/$defs/teams-devices_v4_error_response"
+        },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"
         }

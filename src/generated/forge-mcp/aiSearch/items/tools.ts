@@ -72,6 +72,19 @@ export const tools: readonly Tool[] = [
                 ],
                 "type": "object"
               },
+              "media_end_ms": {
+                "type": "integer"
+              },
+              "media_start_ms": {
+                "type": "integer"
+              },
+              "source_media_type": {
+                "enum": [
+                  "audio",
+                  "video"
+                ],
+                "type": "string"
+              },
               "start_byte": {
                 "type": "number"
               },
@@ -184,6 +197,19 @@ export const tools: readonly Tool[] = [
                       "key"
                     ],
                     "type": "object"
+                  },
+                  "media_end_ms": {
+                    "type": "integer"
+                  },
+                  "media_start_ms": {
+                    "type": "integer"
+                  },
+                  "source_media_type": {
+                    "enum": [
+                      "audio",
+                      "video"
+                    ],
+                    "type": "string"
                   },
                   "start_byte": {
                     "type": "number"

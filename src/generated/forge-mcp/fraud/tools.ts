@@ -7,7 +7,6 @@ import {
   fraud_auth_criteria_output,
   fraud_authentication_settings_output,
   fraud_fraud_settings_output,
-  fraud_fraud_settings_response_body_output,
   fraud_messages_output,
   fraud_user_profiles_status_output,
   fraud_username_expressions_output,
@@ -71,14 +70,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/fraud_fraud_settings"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/fraud_fraud_settings_response_body"
-            },
-            {
-              "$ref": "#/$defs/fraud_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/fraud_api-response-common-failure"
         }
       },
       $defs: {
@@ -86,7 +78,6 @@ export const tools: readonly Tool[] = [
         "fraud_auth_criteria": fraud_auth_criteria_output,
         "fraud_authentication_settings": fraud_authentication_settings_output,
         "fraud_fraud_settings": fraud_fraud_settings_output,
-        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body_output,
         "fraud_messages": fraud_messages_output,
         "fraud_user_profiles_status": fraud_user_profiles_status_output,
         "fraud_username_expressions": fraud_username_expressions_output,
@@ -153,14 +144,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/fraud_fraud_settings"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/fraud_fraud_settings_response_body"
-            },
-            {
-              "$ref": "#/$defs/fraud_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/fraud_api-response-common-failure"
         }
       },
       $defs: {
@@ -168,7 +152,6 @@ export const tools: readonly Tool[] = [
         "fraud_auth_criteria": fraud_auth_criteria_output,
         "fraud_authentication_settings": fraud_authentication_settings_output,
         "fraud_fraud_settings": fraud_fraud_settings_output,
-        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body_output,
         "fraud_messages": fraud_messages_output,
         "fraud_user_profiles_status": fraud_user_profiles_status_output,
         "fraud_username_expressions": fraud_username_expressions_output,

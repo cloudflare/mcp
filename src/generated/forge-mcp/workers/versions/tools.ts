@@ -1207,7 +1207,7 @@ export const tools: readonly Tool[] = [
         "body": {
           "properties": {
             "actor_id": {
-              "description": "Identifies the exact Durable Object actor to profile. Must be specified together with namespace_id. The actor must currently be active and running the requested Worker version.",
+              "description": "Identifies the exact Durable Object actor to profile. Must be specified together with namespace_id. The actor must currently be active and running the requested version.",
               "type": "string"
             },
             "duration_ms": {

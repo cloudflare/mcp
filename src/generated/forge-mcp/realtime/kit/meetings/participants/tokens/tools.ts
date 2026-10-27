@@ -7,6 +7,7 @@ import {
   realtimekit_GenericErrorResponse_output,
   realtimekit_GenericSuccessResponse_output,
 } from "../../../outputs.js";
+import { realtimekit_ParticipantTokenValidity } from "../schemas.js";
 
 /**
  * The tools of `realtime.kit.meetings.participants.tokens`.
@@ -27,6 +28,9 @@ export const tools: readonly Tool[] = [
           "description": "The app identifier tag.",
           "type": "string"
         },
+        "body": {
+          "$ref": "#/$defs/realtimekit_ParticipantTokenValidity"
+        },
         "meeting_id": {
           "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
           "format": "uuid",
@@ -43,6 +47,9 @@ export const tools: readonly Tool[] = [
         "meeting_id",
         "participant_id"
       ],
+      $defs: {
+        "realtimekit_ParticipantTokenValidity": realtimekit_ParticipantTokenValidity,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -53,11 +60,21 @@ export const tools: readonly Tool[] = [
           "properties": {
             "data": {
               "properties": {
+                "expires_on": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "not_before": {
+                  "format": "date-time",
+                  "type": "string"
+                },
                 "token": {
                   "type": "string"
                 }
               },
               "required": [
+                "expires_on",
+                "not_before",
                 "token"
               ],
               "type": "object"
@@ -99,6 +116,151 @@ export const tools: readonly Tool[] = [
               "properties": {
                 "data": {
                   "properties": {
+                    "expires_on": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "not_before": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "expires_on",
+                    "not_before",
+                    "token"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "400": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        },
+        "500": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants/${pathParam(args, "participant_id")}/token`,
+      body: { value: args["body"], mediaType: "application/json" },
+    }),
+  },
+  {
+    name: "realtime_kit_meetings_participants_tokens_revoke",
+    title: "Revoke participant's authentication token",
+    description: "Revokes a previously issued participant authentication token without deleting the participant. Other tokens issued to the participant remain valid.\n\nThis method is beta.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "account_id": {
+          "description": "The account identifier tag.",
+          "type": "string"
+        },
+        "app_id": {
+          "description": "The app identifier tag.",
+          "type": "string"
+        },
+        "body": {
+          "properties": {
+            "token": {
+              "description": "The participant authentication token to revoke.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "token"
+          ],
+          "type": "object"
+        },
+        "meeting_id": {
+          "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
+          "format": "uuid",
+          "type": "string"
+        },
+        "participant_id": {
+          "description": "ID of the participant. You can fetch the participant ID using the add a participant API.",
+          "type": "string"
+        }
+      },
+      required: [
+        "account_id",
+        "app_id",
+        "meeting_id",
+        "participant_id",
+        "body"
+      ],
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "token"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Revoke participant's authentication token"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}/token",
+    extensions: {
+      "x-api-token-group": [
+        "Realtime Admin",
+        "Realtime"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+            },
+            {
+              "properties": {
+                "data": {
+                  "properties": {
                     "token": {
                       "type": "string"
                     }
@@ -116,6 +278,12 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "400": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        },
+        "403": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        },
         "500": {
           "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
@@ -128,6 +296,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/participants/${pathParam(args, "participant_id")}/token`,
+      body: { value: args["body"], mediaType: "application/json" },
     }),
   },
 ];

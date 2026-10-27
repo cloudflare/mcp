@@ -14,6 +14,7 @@ import {
   realtimekit_app_id,
 } from "../../schemas.js";
 import { realtimekit_Participant_output } from "./outputs.js";
+import { realtimekit_ParticipantTokenValidity } from "./schemas.js";
 
 /**
  * The tools of `realtime.kit.meetings.participants`.
@@ -66,6 +67,10 @@ export const tools: readonly Tool[] = [
               "default": "group_call_host",
               "description": "Name of the preset to apply to this participant.",
               "type": "string"
+            },
+            "token": {
+              "$ref": "#/$defs/realtimekit_ParticipantTokenValidity",
+              "description": "Validity window of the participant authentication token. The window is [not_before, expires_on) and cannot be longer than 100 days. Defaults to a token valid from now for 100 days."
             }
           },
           "required": [
@@ -86,6 +91,9 @@ export const tools: readonly Tool[] = [
         "meeting_id",
         "body"
       ],
+      $defs: {
+        "realtimekit_ParticipantTokenValidity": realtimekit_ParticipantTokenValidity,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -101,6 +109,14 @@ export const tools: readonly Tool[] = [
                 },
                 {
                   "properties": {
+                    "expires_on": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "not_before": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
                     "token": {
                       "type": "string"
                     }
@@ -152,6 +168,14 @@ export const tools: readonly Tool[] = [
                     },
                     {
                       "properties": {
+                        "expires_on": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "not_before": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
                         "token": {
                           "type": "string"
                         }
@@ -167,6 +191,9 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "400": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         },
         "500": {
           "$ref": "#/$defs/realtimekit_GenericErrorResponse"
@@ -641,6 +668,14 @@ export const tools: readonly Tool[] = [
                 },
                 {
                   "properties": {
+                    "expires_on": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "not_before": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
                     "token": {
                       "type": "string"
                     }
@@ -692,6 +727,14 @@ export const tools: readonly Tool[] = [
                     },
                     {
                       "properties": {
+                        "expires_on": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "not_before": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
                         "token": {
                           "type": "string"
                         }
@@ -813,6 +856,14 @@ export const tools: readonly Tool[] = [
                 },
                 {
                   "properties": {
+                    "expires_on": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "not_before": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
                     "token": {
                       "type": "string"
                     }
@@ -864,6 +915,14 @@ export const tools: readonly Tool[] = [
                     },
                     {
                       "properties": {
+                        "expires_on": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "not_before": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
                         "token": {
                           "type": "string"
                         }
