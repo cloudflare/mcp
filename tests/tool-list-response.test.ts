@@ -106,6 +106,18 @@ describe('direct tools/list fast path', () => {
     expect(response.status).toBe(400)
   })
 
+  it('leaves an SSE-only Accept to the SDK, which refuses it as before', async () => {
+    // Streamable HTTP requires a POST to accept both; the SDK answers 406 otherwise.
+    const response = await exports.default.fetch(
+      listRequest('?codemode=false', { id: 1 }, { Accept: 'text/event-stream' })
+    )
+
+    expect(response.status).toBe(406)
+    expect(await response.text()).toContain(
+      'must accept both application/json and text/event-stream'
+    )
+  })
+
   it('leaves Code Mode to the SDK', async () => {
     const { message } = await listTools('', { id: 1 })
     const names = (message.result as { tools: Array<{ name: string }> }).tools.map((t) => t.name)
