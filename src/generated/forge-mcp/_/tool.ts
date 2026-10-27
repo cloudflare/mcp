@@ -131,7 +131,7 @@ export function buildRequest(tool: Tool, args: Args, baseUrl: string): HttpReque
     throw new InvalidArguments(`Missing required arguments: ${missing.join(', ')}`);
   }
   const api = tool.request(args);
-  const url = new URL(baseUrl.replace(/\/+$/, '') + api.path);
+  const url = new URL(withoutTrailingSlashes(baseUrl) + api.path);
   for (const [name, value, explode] of api.query ?? []) {
     appendQuery(url.searchParams, name, value, explode);
   }
@@ -152,6 +152,18 @@ export function buildRequest(tool: Tool, args: Args, baseUrl: string): HttpReque
     headers: Object.fromEntries(headers),
     ...(body !== undefined && { body }),
   };
+}
+
+/**
+ * Returns `url` without the `/`s it ends with. A loop rather than a regular
+ * expression, which would take quadratic time on many `/`s.
+ */
+function withoutTrailingSlashes(url: string): string {
+  let end = url.length;
+  while (end > 0 && url[end - 1] === '/') {
+    end--;
+  }
+  return url.slice(0, end);
 }
 
 /** Appends a query parameter in the `form` style: `a=1&a=2` exploded, `a=1,2` not. */
