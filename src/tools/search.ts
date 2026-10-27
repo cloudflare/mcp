@@ -14,10 +14,10 @@ interface SearchExecutorEntrypoint {
 /**
  * Run sandboxed read-only JavaScript against the pre-resolved OpenAPI spec.
  *
- * The spec is embedded into a fresh isolate per call (dynamic-worker isolates
- * disallow eval, so code cannot be passed as data into a warm isolate). The
- * spec text itself is served from the in-isolate cache, so this avoids an R2
- * round-trip on every call.
+ * A fresh isolate runs each call (dynamic-worker isolates disallow eval, so
+ * code cannot be passed as data into a warm isolate). It gets the spec as a
+ * text module, from the in-isolate cache of what the forge tools service
+ * serves, so a call neither asks the service nor copies the spec.
  */
 async function runSearch(code: string): Promise<unknown> {
   const specJson = await getSpec()
@@ -28,10 +28,15 @@ async function runSearch(code: string): Promise<unknown> {
     globalOutbound: null,
     mainModule: 'worker.js',
     modules: {
+      // Its own text module, so the cached 27 MB string is handed over as is.
+      // Splicing it into the module source built a new string on every call:
+      // ~117 ms of main-isolate CPU per search, most of it garbage collection.
+      'spec.json.txt': { text: specJson },
       'worker.js': `
 import { WorkerEntrypoint } from "cloudflare:workers";
+import specText from "./spec.json.txt";
 
-const spec = ${specJson};
+const spec = JSON.parse(specText);
 
 export default class SearchExecutor extends WorkerEntrypoint {
   async evaluate() {
