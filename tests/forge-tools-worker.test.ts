@@ -302,12 +302,26 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
         )
       })
 
-      it('returns the whole body as structuredContent, even when the text is truncated', async () => {
+      it('returns a paginated list whole, even when the text is truncated', async () => {
         const result = await callModern('d1_list', {}, `${OUTPUT_URL}&truncateToolResult=true`)
 
         expect(result.result?.isError).toBeFalsy()
         expect(result.result?.structuredContent).toEqual(cfSuccess(DATABASES))
         expect(toolText(result)).toMatch(/--- TRUNCATED ---/)
+      })
+
+      it("returns the envelope's result when the output schema describes only the result", async () => {
+        const subdomain = cfSuccess({ subdomain: 'acme' })
+        server.use(
+          http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/subdomain`, () =>
+            HttpResponse.json(subdomain)
+          )
+        )
+
+        const result = await callModern('workers_subdomains_get', {})
+
+        expect(result.result?.structuredContent).toEqual({ subdomain: 'acme' })
+        expect(JSON.parse(toolText(result))).toEqual(subdomain)
       })
 
       it('leaves structuredContent out of an error', async () => {

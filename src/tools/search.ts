@@ -61,7 +61,7 @@ export default class SearchExecutor extends WorkerEntrypoint {
  * the `spec` types the sandboxed search code can use.
  */
 function searchToolDescription(products: string[]): string {
-  return `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline.
+  return `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline. A 2xx response schema describes \`result\` of what cloudflare.request() returns; a paginated list's \`result_info\` schema is in the response's \`x-result-info\`.
 
 Products: ${products.slice(0, 30).join(', ')}... (${products.length} total)
 

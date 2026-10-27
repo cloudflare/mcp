@@ -18,7 +18,8 @@ import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
 import type { ScopeChallenge } from '../scope-challenge'
-import type { CallPlan } from '../forge-tools/plan'
+import type { ToolCallPlan } from '../forge-tools/worker'
+import { payloadOf } from '../forge-tools/envelope'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
 
 /** The forge tools service, which holds the generated tools (`src/forge-tools/worker.ts`). */
@@ -39,7 +40,9 @@ function forgeTools() {
  *
  * With `outputSchema` (`&experimentalOutputSchema=true`), a 2026-07-28 request
  * lists each tool with its generated output schema, and a successful call
- * returns the whole response body as `structuredContent`, never truncated.
+ * returns the part of the response body the output schema describes as
+ * `structuredContent`, never truncated: the envelope's `result`, or the whole
+ * body when the schema declares `result`, as a paginated list's does.
  */
 export function registerForgeTools(
   server: McpServer,
@@ -78,7 +81,7 @@ export function registerForgeTools(
         const plan = (await forgeTools().plan(name, args, {
           baseUrl: env.CLOUDFLARE_API_BASE,
           ...(sessionAccountId && { sessionAccountId })
-        })) as CallPlan
+        })) as ToolCallPlan
         result = await callForgeTool(name, plan, props, formatResult, {
           connection,
           scopeChallenge,
@@ -96,7 +99,7 @@ export function registerForgeTools(
 
 async function callForgeTool(
   name: string,
-  plan: CallPlan,
+  plan: ToolCallPlan,
   props: AuthProps,
   formatResult: FormatToolResult,
   {
@@ -154,9 +157,10 @@ async function callForgeTool(
     plan.accountId ? [unknownAccountHint(props, plan.accountId)] : [],
     { connection, scopeChallenge, formatResult }
   )
-  return structured && json && !toolResult.isError
-    ? { ...toolResult, structuredContent: result }
-    : toolResult
+  if (!structured || !json || toolResult.isError) return toolResult
+  // What the output schema describes: the envelope's payload (src/forge-tools/envelope.ts).
+  const structuredContent = plan.payload ? payloadOf(result, plan.payload).payload : result
+  return { ...toolResult, structuredContent }
 }
 
 /**

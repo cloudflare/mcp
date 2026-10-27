@@ -160,6 +160,32 @@ describe('direct-tool response schema checks', () => {
     ])
   })
 
+  it('checks the result of a success body whose schema describes only the result', async () => {
+    let result: unknown = { subdomain: 'acme' }
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/subdomain`, () =>
+        HttpResponse.json(cfSuccess(result))
+      )
+    )
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+    vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    await forgeTool('workers_subdomains_get')
+    await settle()
+    expect(mismatches(writeSpy)).toHaveLength(0)
+
+    result = {}
+    await forgeTool('workers_subdomains_get')
+
+    await vi.waitFor(() => expect(mismatches(writeSpy)).toHaveLength(1))
+    expect(mismatches(writeSpy)[0].blobs?.slice(8, 12)).toEqual([
+      '200',
+      'required',
+      '#/components/schemas/workers_subdomain-2/required',
+      '/result/subdomain'
+    ])
+  })
+
   it('checks error responses against their own schema', async () => {
     const body = {
       success: false,

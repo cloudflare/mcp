@@ -39,7 +39,8 @@ interface OperationInfo {
   tags?: string[];
   parameters?: Array<{ name: string; in: string; required?: boolean; schema?: unknown; description?: string }>;
   requestBody?: { required?: boolean; content?: Record<string, { schema?: unknown }> };
-  responses?: Record<string, { description?: string; content?: Record<string, { schema?: unknown }> }>;
+  // A 2xx schema describes \`result\` of what cloudflare.request() returns; a paginated list's result_info schema is in x-result-info
+  responses?: Record<string, { description?: string; content?: Record<string, { schema?: unknown }>; "x-result-info"?: unknown }>;
 }
 
 interface PathItem {

@@ -20,7 +20,13 @@ import {
 } from '../generated/forge-mcp'
 import { cloudflareTool } from './cloudflare'
 import { planCall, type CallPlan, type PlanOptions } from './plan'
-import { findMismatch, type Mismatch, type TrimmedResponse } from '../response-schema-check'
+import {
+  findMismatch,
+  responseKeyFor,
+  type Mismatch,
+  type TrimmedResponse
+} from '../response-schema-check'
+import { declaresResult, payloadOf, type PayloadKind } from './envelope'
 import { concretePaths } from '../spec-processor'
 
 /** The generated tools with the Cloudflare policy, built once per isolate. */
@@ -29,6 +35,45 @@ const tools = generatedTools.map(cloudflareTool)
 let listing: string | undefined
 let listingWithOutput: string | undefined
 let byOperation: Map<string, (typeof tools)[number]> | undefined
+const payloadKinds = new Map<string, PayloadKind>()
+
+type ForgeTool = (typeof tools)[number]
+
+/**
+ * What a tool's success schema describes of Cloudflare's envelope
+ * (`./envelope`): the schema of response `key`, or with no key the output
+ * schema. Decided once per tool and key per isolate.
+ */
+function payloadKind(tool: ForgeTool, key?: string): PayloadKind {
+  const cacheKey = `${tool.name} ${key ?? 'output'}`
+  let kind = payloadKinds.get(cacheKey)
+  if (!kind) {
+    const schema = key ? tool.responses?.schemas[key] : tool.outputSchema
+    const defs = key ? tool.responses?.$defs : (tool.outputSchema?.$defs as Record<string, unknown>)
+    kind = declaresResult(schema, defs ?? {}) ? 'listing' : 'result'
+    payloadKinds.set(cacheKey, kind)
+  }
+  return kind
+}
+
+/**
+ * The part of a trimmed success response the schema of response `key`
+ * describes, with the trimmed arrays' locations moved to match, and where that
+ * part sits in the body.
+ */
+function checkedPayload(
+  tool: ForgeTool,
+  key: string,
+  response: TrimmedResponse
+): { response: TrimmedResponse; at: '' | '/result' } {
+  if (!key.startsWith('2')) return { response, at: '' }
+  const { payload, at } = payloadOf(response.body, payloadKind(tool, key))
+  if (!at) return { response: { ...response, body: payload }, at }
+  const trimmed = response.trimmed
+    .filter((location) => location === `#${at}` || location.startsWith(`#${at}/`))
+    .map((location) => `#${location.slice(at.length + 1)}`)
+  return { response: { ...response, body: payload, trimmed }, at }
+}
 
 /**
  * The generated tools by `METHOD template`. A tool on a merged
@@ -48,6 +93,14 @@ function toolsByOperation() {
   }
   return byOperation
 }
+
+/**
+ * A call plan, with, for a request to a tool that has an output schema, what
+ * of a successful response the output schema describes.
+ */
+export type ToolCallPlan =
+  | Exclude<CallPlan, { kind: 'request' }>
+  | (Extract<CallPlan, { kind: 'request' }> & { readonly payload?: PayloadKind })
 
 /** A direct-tool response to check against the generated response schemas. */
 export interface ResponseCheck extends TrimmedResponse {
@@ -78,11 +131,23 @@ export default class ForgeTools extends WorkerEntrypoint {
     return listing
   }
 
-  /** The request calling the tool `name` with `args` makes, or why it can't be made. */
-  plan(name: string, args: Args, options: PlanOptions): Promise<CallPlan> {
+  /**
+   * The request calling the tool `name` with `args` makes, or why it can't be
+   * made, and what of a successful response its output schema describes.
+   */
+  async plan(name: string, args: Args, options: PlanOptions): Promise<ToolCallPlan> {
     const tool = toolsByName(tools).get(name)
-    if (!tool) return Promise.resolve({ kind: 'unknown' })
-    return planCall(tool, args, options, buildRequest, (error) => error instanceof InvalidArguments)
+    if (!tool) return { kind: 'unknown' }
+    const plan = await planCall(
+      tool,
+      args,
+      options,
+      buildRequest,
+      (error) => error instanceof InvalidArguments
+    )
+    return plan.kind === 'request' && tool.outputSchema
+      ? { ...plan, payload: payloadKind(tool) }
+      : plan
   }
 
   /**
@@ -93,8 +158,18 @@ export default class ForgeTools extends WorkerEntrypoint {
   checkResponse(check: ResponseCheck): CheckedMismatch | null {
     const tool = toolsByOperation().get(`${check.method} ${check.pathTemplate}`)
     if (!tool?.responses) return null
-    const mismatch = findMismatch(tool.responses, check, tool.name)
-    return mismatch ? { forgeTool: tool.name, ...mismatch } : null
+    const key = responseKeyFor(tool.responses.schemas, check.status)
+    if (!key) return null
+    // A success schema describes the envelope's payload (./envelope).
+    const { response, at } = checkedPayload(tool, key, check)
+    const mismatch = findMismatch(tool.responses, response, tool.name)
+    if (!mismatch) return null
+    // Name each violation where it is in the response, not in the payload.
+    const errors = mismatch.errors.map((error) => ({
+      ...error,
+      instancePath: at + (error.instancePath === '/' ? '' : error.instancePath) || '/'
+    }))
+    return { forgeTool: tool.name, ...mismatch, errors }
   }
 
   override fetch(): Response {
