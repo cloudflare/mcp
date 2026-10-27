@@ -32,8 +32,6 @@ import {
   bill_subs_api_zone,
 } from "../../schemas.js";
 import {
-  bill_subs_api_api_response_single_output,
-  bill_subs_api_api_response_single_result_output,
   bill_subs_api_frequency_response_output,
   bill_subs_api_subscription_response_output,
 } from "./outputs.js";
@@ -232,33 +230,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/bill-subs-api_api-response-single"
-            },
-            {
-              "properties": {
-                "result": {
-                  "properties": {
-                    "subscription_id": {
-                      "$ref": "#/$defs/bill-subs-api_schemas-identifier"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_api-response-single_result": bill_subs_api_api_response_single_result_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
       },

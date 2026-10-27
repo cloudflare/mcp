@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  posture_api_api_response_common_output,
   posture_api_error_response_output,
   posture_api_messages_output,
 } from "../outputs.js";
@@ -71,10 +72,14 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_AssetSchemaDetail": posture_api_AssetSchemaDetail_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -185,11 +190,15 @@ export const tools: readonly Tool[] = [
         },
         "403": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_AssetSchemaSummary": posture_api_AssetSchemaSummary_output,
         "posture-api_AssetSchemaVendorGroup": posture_api_AssetSchemaVendorGroup_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },

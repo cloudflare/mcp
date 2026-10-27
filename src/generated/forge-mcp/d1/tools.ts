@@ -749,7 +749,7 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_undelete",
     title: "Undelete D1 Database",
-    description: "Restore a deleted D1 database. The database is restored with the name it had when it was deleted,\nunless `new_name` is provided. The restored database counts against the account's limits.\nUndeleting a database that is not deleted succeeds without changes, unless `new_name` differs from its current name which errors.\n\nOnce a database is undeleted, Time Travel (point-in-time recovery) cannot restore it to a bookmark or\ntimestamp at or before the undeletion. Only states after the undeletion can be restored.\n\nConfirm with the user before calling this tool. After undeleting, Time Travel cannot restore the D1 database to a point in time at or before the undeletion.",
+    description: "Restore a deleted D1 database. The database is restored with the name it had when it was deleted,\nunless `new_name` is provided. The restored database counts against the account's limits.\nUndeleting a database that is not deleted succeeds without changes, unless `new_name` differs from its current name which errors.\nA database can only be undeleted within 7 days (7 * 24 hours) of its deletion.\n\nOnce a database is undeleted, Time Travel (point-in-time recovery) cannot restore it to a bookmark or\ntimestamp at or before the undeletion. Only states after the undeletion can be restored.\n\nConfirm with the user before calling this tool. After undeleting, Time Travel cannot restore the D1 database to a point in time at or before the undeletion.",
     inputSchema: {
       type: "object",
       properties: {

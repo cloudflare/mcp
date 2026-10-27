@@ -355,8 +355,7 @@ export const bill_subs_api_subscription_v2: JsonSchema = {
       "description": "The rate plan applied to the subscription."
     },
     "zone": {
-      "$ref": "#/$defs/bill-subs-api_zone",
-      "description": "A simple zone object. May have null properties if not a zone subscription."
+      "$ref": "#/$defs/bill-subs-api_zone"
     }
   },
   "type": "object"

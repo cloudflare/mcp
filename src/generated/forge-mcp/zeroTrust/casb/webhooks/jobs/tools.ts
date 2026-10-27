@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  posture_api_api_response_common_output,
   posture_api_error_response_output,
   posture_api_messages_output,
 } from "../../outputs.js";
@@ -120,6 +121,9 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -129,6 +133,7 @@ export const tools: readonly Tool[] = [
         "posture-api_WebhookJobFailureReasonEnum": posture_api_WebhookJobFailureReasonEnum_output,
         "posture-api_WebhookJobParameters": posture_api_WebhookJobParameters_output,
         "posture-api_WebhookJobStatusEnum": posture_api_WebhookJobStatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },

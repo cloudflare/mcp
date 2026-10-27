@@ -182,6 +182,9 @@ export const teams_devices_global_acceleration_output: JsonSchema = {
   "oneOf": [
     {
       "properties": {
+        "allow_manual_override": {
+          "type": "boolean"
+        },
         "api_endpoints": {
           "items": {
             "type": "string"

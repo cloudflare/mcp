@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  posture_api_api_response_common_output,
   posture_api_error_response_output,
   posture_api_messages_output,
   posture_api_result_info_output,
@@ -91,6 +92,9 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -98,6 +102,7 @@ export const tools: readonly Tool[] = [
         "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
         "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
         "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -165,10 +170,14 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
         "posture-api_DeletePolicyResponse": posture_api_DeletePolicyResponse_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -239,6 +248,9 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -246,6 +258,7 @@ export const tools: readonly Tool[] = [
         "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
         "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
         "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -340,6 +353,9 @@ export const tools: readonly Tool[] = [
         },
         "403": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -347,6 +363,7 @@ export const tools: readonly Tool[] = [
         "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
         "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
         "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
         "posture-api_result-info": posture_api_result_info_output,
@@ -430,6 +447,9 @@ export const tools: readonly Tool[] = [
         },
         "404": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -437,6 +457,7 @@ export const tools: readonly Tool[] = [
         "posture-api_PolicyRemediationTypeResponse": posture_api_PolicyRemediationTypeResponse_output,
         "posture-api_PolicyResponse": posture_api_PolicyResponse_output,
         "posture-api_PolicyWebhookConfigResponse": posture_api_PolicyWebhookConfigResponse_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },

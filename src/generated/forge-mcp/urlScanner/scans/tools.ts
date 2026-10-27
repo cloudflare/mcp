@@ -293,199 +293,144 @@ export const tools: readonly Tool[] = [
             "country": {
               "description": "Country to geo egress from",
               "enum": [
-                "AF",
+                "AE",
                 "AL",
-                "DZ",
-                "AD",
-                "AO",
-                "AG",
-                "AR",
                 "AM",
-                "AU",
+                "AO",
+                "AR",
                 "AT",
+                "AU",
                 "AZ",
-                "BH",
-                "BD",
                 "BB",
-                "BY",
+                "BD",
                 "BE",
-                "BZ",
-                "BJ",
-                "BM",
-                "BT",
-                "BO",
-                "BA",
-                "BW",
-                "BR",
-                "BN",
-                "BG",
                 "BF",
-                "BI",
-                "KH",
-                "CM",
+                "BG",
+                "BH",
+                "BN",
+                "BO",
+                "BR",
+                "BT",
+                "BW",
+                "BY",
                 "CA",
-                "CV",
-                "KY",
-                "CF",
-                "TD",
-                "CL",
-                "CN",
-                "CO",
-                "KM",
-                "CG",
-                "CR",
+                "CD",
+                "CH",
                 "CI",
-                "HR",
-                "CU",
+                "CL",
+                "CM",
+                "CO",
+                "CR",
+                "CW",
                 "CY",
                 "CZ",
-                "CD",
-                "DK",
-                "DJ",
-                "DM",
-                "DO",
-                "EC",
-                "EG",
-                "SV",
-                "GQ",
-                "ER",
-                "EE",
-                "SZ",
-                "ET",
-                "FJ",
-                "FI",
-                "FR",
-                "GA",
-                "GE",
                 "DE",
+                "DJ",
+                "DK",
+                "DO",
+                "DZ",
+                "EC",
+                "EE",
+                "EG",
+                "ES",
+                "ET",
+                "FI",
+                "FJ",
+                "FR",
+                "GB",
+                "GD",
+                "GE",
                 "GH",
                 "GR",
-                "GL",
-                "GD",
                 "GT",
-                "GN",
-                "GW",
+                "GU",
                 "GY",
-                "HT",
+                "HK",
                 "HN",
+                "HR",
+                "HT",
                 "HU",
-                "IS",
-                "IN",
                 "ID",
-                "IR",
-                "IQ",
                 "IE",
                 "IL",
+                "IN",
+                "IQ",
+                "IS",
                 "IT",
                 "JM",
-                "JP",
                 "JO",
-                "KZ",
+                "JP",
                 "KE",
-                "KI",
-                "KW",
                 "KG",
+                "KH",
+                "KR",
+                "KW",
+                "KZ",
                 "LA",
-                "LV",
                 "LB",
-                "LS",
+                "LK",
                 "LR",
-                "LY",
-                "LI",
                 "LT",
                 "LU",
-                "MO",
-                "MG",
-                "MW",
-                "MY",
-                "MV",
-                "ML",
-                "MR",
-                "MU",
-                "MX",
-                "FM",
-                "MD",
-                "MC",
-                "MN",
-                "MS",
+                "LV",
                 "MA",
-                "MZ",
-                "MM",
-                "NA",
-                "NR",
-                "NP",
-                "NL",
-                "NZ",
-                "NI",
-                "NE",
-                "NG",
-                "KP",
+                "MD",
+                "MG",
                 "MK",
+                "MM",
+                "MN",
+                "MO",
+                "MT",
+                "MU",
+                "MV",
+                "MW",
+                "MX",
+                "MY",
+                "MZ",
+                "NA",
+                "NC",
+                "NG",
+                "NL",
                 "NO",
+                "NP",
+                "NZ",
                 "OM",
-                "PK",
-                "PS",
                 "PA",
-                "PG",
-                "PY",
                 "PE",
+                "PF",
                 "PH",
+                "PK",
                 "PL",
+                "PR",
+                "PS",
                 "PT",
+                "PY",
                 "QA",
+                "RE",
                 "RO",
+                "RS",
                 "RU",
                 "RW",
-                "SH",
-                "KN",
-                "LC",
-                "VC",
-                "WS",
-                "SM",
-                "ST",
                 "SA",
-                "SN",
-                "RS",
-                "SC",
-                "SL",
-                "SK",
-                "SI",
-                "SB",
-                "SO",
-                "ZA",
-                "KR",
-                "SS",
-                "ES",
-                "LK",
-                "SD",
-                "SR",
                 "SE",
-                "CH",
-                "SY",
-                "TW",
-                "TJ",
-                "TZ",
+                "SG",
+                "SI",
+                "SK",
+                "SN",
+                "SR",
                 "TH",
-                "BS",
-                "GM",
-                "TL",
-                "TG",
-                "TO",
-                "TT",
+                "TJ",
                 "TN",
                 "TR",
-                "TM",
-                "UG",
+                "TT",
+                "TW",
+                "TZ",
                 "UA",
-                "AE",
-                "GB",
+                "UG",
                 "US",
-                "UY",
                 "UZ",
-                "VU",
-                "VE",
                 "VN",
-                "YE",
+                "ZA",
                 "ZM",
                 "ZW"
               ],
@@ -4134,6 +4079,118 @@ export const tools: readonly Tool[] = [
                               ],
                               "type": "object"
                             },
+                            "personalAgentProtocol": {
+                              "properties": {
+                                "details": {
+                                  "type": "object"
+                                },
+                                "durationMs": {
+                                  "type": "number"
+                                },
+                                "evidence": {
+                                  "items": {
+                                    "properties": {
+                                      "action": {
+                                        "type": "string"
+                                      },
+                                      "finding": {
+                                        "properties": {
+                                          "outcome": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "outcome",
+                                          "summary"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "label": {
+                                        "type": "string"
+                                      },
+                                      "request": {
+                                        "properties": {
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "method": {
+                                            "type": "string"
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "method",
+                                          "url"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "response": {
+                                        "properties": {
+                                          "bodyPreview": {
+                                            "type": "string"
+                                          },
+                                          "bodySize": {
+                                            "type": "integer"
+                                          },
+                                          "headers": {
+                                            "type": "object"
+                                          },
+                                          "redirectedTo": {
+                                            "type": "string"
+                                          },
+                                          "status": {
+                                            "type": "integer"
+                                          },
+                                          "statusText": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "status",
+                                          "statusText"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "action",
+                                      "label"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "messageRef": {
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "params": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [
+                                    "code"
+                                  ],
+                                  "type": "object"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "status"
+                              ],
+                              "type": "object"
+                            },
                             "webMcp": {
                               "properties": {
                                 "details": {
@@ -4256,6 +4313,7 @@ export const tools: readonly Tool[] = [
                             "mcpServerCard",
                             "oauthDiscovery",
                             "oauthProtectedResource",
+                            "personalAgentProtocol",
                             "webMcp"
                           ],
                           "type": "object"
@@ -8670,6 +8728,118 @@ export const tools: readonly Tool[] = [
                                   ],
                                   "type": "object"
                                 },
+                                "personalAgentProtocol": {
+                                  "properties": {
+                                    "details": {
+                                      "type": "object"
+                                    },
+                                    "durationMs": {
+                                      "type": "number"
+                                    },
+                                    "evidence": {
+                                      "items": {
+                                        "properties": {
+                                          "action": {
+                                            "type": "string"
+                                          },
+                                          "finding": {
+                                            "properties": {
+                                              "outcome": {
+                                                "type": "string"
+                                              },
+                                              "summary": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "outcome",
+                                              "summary"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          "label": {
+                                            "type": "string"
+                                          },
+                                          "request": {
+                                            "properties": {
+                                              "headers": {
+                                                "type": "object"
+                                              },
+                                              "method": {
+                                                "type": "string"
+                                              },
+                                              "url": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "method",
+                                              "url"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          "response": {
+                                            "properties": {
+                                              "bodyPreview": {
+                                                "type": "string"
+                                              },
+                                              "bodySize": {
+                                                "type": "integer"
+                                              },
+                                              "headers": {
+                                                "type": "object"
+                                              },
+                                              "redirectedTo": {
+                                                "type": "string"
+                                              },
+                                              "status": {
+                                                "type": "integer"
+                                              },
+                                              "statusText": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "status",
+                                              "statusText"
+                                            ],
+                                            "type": "object"
+                                          }
+                                        },
+                                        "required": [
+                                          "action",
+                                          "label"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "type": "array"
+                                    },
+                                    "message": {
+                                      "type": "string"
+                                    },
+                                    "messageRef": {
+                                      "properties": {
+                                        "code": {
+                                          "type": "string"
+                                        },
+                                        "params": {
+                                          "type": "object"
+                                        }
+                                      },
+                                      "required": [
+                                        "code"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    "status": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "status"
+                                  ],
+                                  "type": "object"
+                                },
                                 "webMcp": {
                                   "properties": {
                                     "details": {
@@ -8792,6 +8962,7 @@ export const tools: readonly Tool[] = [
                                 "mcpServerCard",
                                 "oauthDiscovery",
                                 "oauthProtectedResource",
+                                "personalAgentProtocol",
                                 "webMcp"
                               ],
                               "type": "object"

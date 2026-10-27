@@ -20,33 +20,3 @@ export const dns_firewall_dns_firewall_reverse_dns_response_output: JsonSchema =
   ],
   "type": "object"
 };
-
-/**
- * The schema of `dns-firewall_dns_firewall_reverse_dns_response_alt` in
- * responses.
- */
-export const dns_firewall_dns_firewall_reverse_dns_response_alt_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};

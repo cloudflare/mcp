@@ -9,6 +9,7 @@ import {
   posture_api_ObservationEnum_output,
   posture_api_ProductEnum_output,
   posture_api_SeverityEnum_output,
+  posture_api_api_response_common_output,
   posture_api_error_response_output,
   posture_api_messages_output,
   posture_api_result_info_output,
@@ -106,6 +107,9 @@ export const tools: readonly Tool[] = [
         "422": {
           "$ref": "#/$defs/posture-api_error-response"
         },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        },
         "500": {
           "$ref": "#/$defs/posture-api_error-response"
         }
@@ -117,6 +121,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
@@ -178,11 +183,15 @@ export const tools: readonly Tool[] = [
         "409": {
           "$ref": "#/$defs/posture-api_error-response"
         },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        },
         "500": {
           "$ref": "#/$defs/posture-api_error-response"
         }
       },
       $defs: {
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -246,7 +255,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_BaseFindingType"
         },
         "400": null,
-        "404": null
+        "404": null,
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        }
       },
       $defs: {
         "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
@@ -256,6 +268,8 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     request: (args) => ({
@@ -424,6 +438,9 @@ export const tools: readonly Tool[] = [
         "400": null,
         "403": {
           "$ref": "#/$defs/posture-api_error-response"
+        },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
         }
       },
       $defs: {
@@ -434,6 +451,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
         "posture-api_result-info": posture_api_result_info_output,
@@ -536,6 +554,9 @@ export const tools: readonly Tool[] = [
         "422": {
           "$ref": "#/$defs/posture-api_error-response"
         },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        },
         "500": {
           "$ref": "#/$defs/posture-api_error-response"
         }
@@ -547,6 +568,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
@@ -617,6 +639,9 @@ export const tools: readonly Tool[] = [
         "403": {
           "$ref": "#/$defs/posture-api_error-response"
         },
+        "429": {
+          "$ref": "#/$defs/posture-api_api-response-common"
+        },
         "500": {
           "$ref": "#/$defs/posture-api_error-response"
         }
@@ -624,6 +649,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_FindingTypeValidationError": posture_api_FindingTypeValidationError_output,
         "posture-api_ValidateFindingTypeResult": posture_api_ValidateFindingTypeResult_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },

@@ -17,6 +17,80 @@ import { cache_settings_aegis_value } from "./schemas.js";
  */
 export const tools: readonly Tool[] = [
   {
+    name: "zones_aegis_delete",
+    title: "Delete aegis setting",
+    description: "Aegis provides dedicated egress IPs (from Cloudflare to your origin) for your layer 7 WAF and CDN services. The egress IPs are reserved exclusively for your account so that you can increase your origin security by only allowing traffic from a small list of IP addresses.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "zone_id": {
+          "description": "Identifier.",
+          "type": "string"
+        }
+      },
+      required: [
+        "zone_id"
+      ],
+    },
+    outputSchema: {
+      "$ref": "#/$defs/cache-settings_aegis",
+      $defs: {
+        "cache-settings_aegis": cache_settings_aegis_output,
+        "cache-settings_aegis_value": cache_settings_aegis_value_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete aegis setting"
+    },
+    method: "DELETE",
+    path: "/zones/{zone_id}/settings/aegis",
+    extensions: {
+      "x-api-token-group": [
+        "Zone Settings Write",
+        "Zone Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "#zone_settings:edit"
+        ],
+        "x-fern-enum": {
+          "#zone_settings:edit": {
+            "name": "zone_settings_edit"
+          }
+        }
+      },
+      "x-cfPlanAvailability": {
+        "business": false,
+        "enterprise": true,
+        "free": false,
+        "pro": false
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/cache-settings_aegis"
+        },
+        "4XX": {
+          "$ref": "#/$defs/cache-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "cache-settings_aegis": cache_settings_aegis_output,
+        "cache-settings_aegis_value": cache_settings_aegis_value_output,
+        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_messages": cache_settings_messages_output,
+      },
+    },
+    request: (args) => ({
+      path: `/zones/${pathParam(args, "zone_id")}/settings/aegis`,
+    }),
+  },
+  {
     name: "zones_aegis_edit",
     title: "Change aegis setting",
     description: "Aegis provides dedicated egress IPs (from Cloudflare to your origin) for your layer 7 WAF and CDN services. The egress IPs are reserved exclusively for your account so that you can increase your origin security by only allowing traffic from a small list of IP addresses.",

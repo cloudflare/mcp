@@ -24,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regional_services_prefix_bindings_create",
     title: "Create a DLS prefix binding",
-    description: "Create a DLS prefix binding",
+    description: "Bind a CIDR from a BYOIP prefix to a region.\n\nThis requires the **IP Prefixes Write** permission in addition to **DLS Write**, because the binding is created against a BYOIP prefix in Addressing.",
     inputSchema: {
       type: "object",
       properties: {
@@ -59,6 +59,12 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings",
+    extensions: {
+      "x-api-token-group": [
+        "DLS: Write",
+        "IP Prefixes: Write"
+      ]
+    },
     responses: {
       schemas: {
         "201": {
@@ -95,7 +101,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regional_services_prefix_bindings_delete",
     title: "Delete a DLS prefix binding",
-    description: "Delete a DLS prefix binding",
+    description: "Delete a BYOIP prefix binding.\n\nLike creating a binding, this requires **IP Prefixes Write** in addition to **DLS Write**.",
     inputSchema: {
       type: "object",
       properties: {
@@ -129,6 +135,12 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
+    extensions: {
+      "x-api-token-group": [
+        "DLS: Write",
+        "IP Prefixes: Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -161,7 +173,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regional_services_prefix_bindings_edit",
     title: "Update a DLS prefix binding",
-    description: "Update a DLS prefix binding",
+    description: "Update the region of an existing BYOIP prefix binding.\n\nLike creating a binding, this requires **IP Prefixes Write** in addition to **DLS Write**.",
     inputSchema: {
       type: "object",
       properties: {
@@ -201,6 +213,12 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
+    extensions: {
+      "x-api-token-group": [
+        "DLS: Write",
+        "IP Prefixes: Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -237,7 +255,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regional_services_prefix_bindings_get",
     title: "Get a DLS prefix binding",
-    description: "Get a DLS prefix binding",
+    description: "Retrieve a single BYOIP prefix binding by ID.",
     inputSchema: {
       type: "object",
       properties: {
@@ -270,6 +288,12 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
+    extensions: {
+      "x-api-token-group": [
+        "DLS: Read",
+        "DLS: Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -302,7 +326,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regional_services_prefix_bindings_list",
     title: "List DLS prefix bindings for an account",
-    description: "List DLS prefix bindings for an account",
+    description: "List the BYOIP prefix bindings configured for an account.",
     inputSchema: {
       type: "object",
       properties: {
@@ -353,6 +377,12 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/dls/regional_services/prefix_bindings",
+    extensions: {
+      "x-api-token-group": [
+        "DLS: Read",
+        "DLS: Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {

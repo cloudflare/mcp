@@ -116,6 +116,16 @@ export const tools: readonly Tool[] = [
             "entities": {
               "items": {
                 "properties": {
+                  "entityLocation": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
                   "entityName": {
                     "oneOf": [
                       {
@@ -134,6 +144,7 @@ export const tools: readonly Tool[] = [
                   }
                 },
                 "required": [
+                  "entityLocation",
                   "entityName",
                   "entityType",
                   "entityValue"
@@ -398,6 +409,16 @@ export const tools: readonly Tool[] = [
                 "entities": {
                   "items": {
                     "properties": {
+                      "entityLocation": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "entityName": {
                         "oneOf": [
                           {
@@ -416,6 +437,7 @@ export const tools: readonly Tool[] = [
                       }
                     },
                     "required": [
+                      "entityLocation",
                       "entityName",
                       "entityType",
                       "entityValue"
@@ -934,6 +956,16 @@ export const tools: readonly Tool[] = [
               "entities": {
                 "items": {
                   "properties": {
+                    "entityLocation": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
                     "entityName": {
                       "oneOf": [
                         {
@@ -952,6 +984,7 @@ export const tools: readonly Tool[] = [
                     }
                   },
                   "required": [
+                    "entityLocation",
                     "entityName",
                     "entityType",
                     "entityValue"
@@ -1217,6 +1250,16 @@ export const tools: readonly Tool[] = [
                   "entities": {
                     "items": {
                       "properties": {
+                        "entityLocation": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
                         "entityName": {
                           "oneOf": [
                             {
@@ -1235,6 +1278,7 @@ export const tools: readonly Tool[] = [
                         }
                       },
                       "required": [
+                        "entityLocation",
                         "entityName",
                         "entityType",
                         "entityValue"

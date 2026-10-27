@@ -228,6 +228,16 @@ export const tools: readonly Tool[] = [
                   }
                 ]
               },
+              "outageId": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "startDate": {
                 "format": "date-time",
                 "type": "string"
@@ -260,6 +270,7 @@ export const tools: readonly Tool[] = [
               "endDate",
               "locationDetails",
               "originDetails",
+              "outageId",
               "startDate",
               "status",
               "type",
@@ -418,6 +429,16 @@ export const tools: readonly Tool[] = [
                       }
                     ]
                   },
+                  "outageId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
                   "startDate": {
                     "format": "date-time",
                     "type": "string"
@@ -450,6 +471,7 @@ export const tools: readonly Tool[] = [
                   "endDate",
                   "locationDetails",
                   "originDetails",
+                  "outageId",
                   "startDate",
                   "status",
                   "type",
@@ -658,6 +680,16 @@ export const tools: readonly Tool[] = [
                 }
               ]
             },
+            "outageId": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "startDate": {
               "format": "date-time",
               "type": "string"
@@ -690,6 +722,7 @@ export const tools: readonly Tool[] = [
             "endDate",
             "locationDetails",
             "originDetails",
+            "outageId",
             "startDate",
             "status",
             "type",
@@ -845,6 +878,16 @@ export const tools: readonly Tool[] = [
                     }
                   ]
                 },
+                "outageId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
                 "startDate": {
                   "format": "date-time",
                   "type": "string"
@@ -877,6 +920,7 @@ export const tools: readonly Tool[] = [
                 "endDate",
                 "locationDetails",
                 "originDetails",
+                "outageId",
                 "startDate",
                 "status",
                 "type",

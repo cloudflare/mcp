@@ -8,6 +8,430 @@ import { type Tool, pathParam } from "../../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
+    name: "cloudforce_one_threat_signals_articles_aggregate_relevance",
+    title: "Count Threat Signals articles by relevance band",
+    description: "Beta. Counts the account's Threat Signals articles in each relevance band, for each active Priority Intelligence Requirement and across all of them. Uses the same PIRs as article relevance: active PIRs, including those the matcher paused; drafts and deleted PIRs are excluded. Articles not scored against a PIR are not counted for it. The combined counts place each article once, in the band of its best score, so they are not the sum of the per-PIR counts. All counts are read together and are exact.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "account_id": {
+          "type": "string"
+        },
+        "published_after": {
+          "description": "Include articles published at or after this ISO 8601 date-time with Z or a numeric UTC offset; normalized to UTC.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "published_before": {
+          "description": "Include articles published at or before this ISO 8601 date-time with Z or a numeric UTC offset; normalized to UTC.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      required: [
+        "account_id"
+      ],
+    },
+    outputSchema: {
+      "properties": {
+        "combined": {
+          "properties": {
+            "articles": {
+              "properties": {
+                "high": {
+                  "type": "integer"
+                },
+                "low": {
+                  "type": "integer"
+                },
+                "medium": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "high",
+                "low",
+                "medium"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "articles"
+          ],
+          "type": "object"
+        },
+        "priorities": {
+          "items": {
+            "properties": {
+              "articles": {
+                "properties": {
+                  "high": {
+                    "type": "integer"
+                  },
+                  "low": {
+                    "type": "integer"
+                  },
+                  "medium": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "high",
+                  "low",
+                  "medium"
+                ],
+                "type": "object"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            "required": [
+              "articles",
+              "id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "combined",
+        "priorities"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Count Threat Signals articles by relevance band"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/relevance/aggregate",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "combined": {
+              "properties": {
+                "articles": {
+                  "properties": {
+                    "high": {
+                      "type": "integer"
+                    },
+                    "low": {
+                      "type": "integer"
+                    },
+                    "medium": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "high",
+                    "low",
+                    "medium"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "articles"
+              ],
+              "type": "object"
+            },
+            "priorities": {
+              "items": {
+                "properties": {
+                  "articles": {
+                    "properties": {
+                      "high": {
+                        "type": "integer"
+                      },
+                      "low": {
+                        "type": "integer"
+                      },
+                      "medium": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "high",
+                      "low",
+                      "medium"
+                    ],
+                    "type": "object"
+                  },
+                  "id": {
+                    "format": "uuid",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "articles",
+                  "id"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "combined",
+            "priorities"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/relevance/aggregate`,
+      query: [
+        ["published_after", args["published_after"], true],
+        ["published_before", args["published_before"], true],
+      ],
+    }),
+  },
+  {
+    name: "cloudforce_one_threat_signals_articles_aggregate_severity",
+    title: "Count Threat Signals articles by severity band",
+    description: "Beta. Counts the account's Threat Signals articles in each intrinsic severity band. An article's band is the severity level nearest its severity, from informational to critical. Articles without a severity are not counted. Also counts, for each active Priority Intelligence Requirement, the articles scored against it. min_relevance counts only articles at or above a relevance band: overall, for any active PIR; per PIR, for that PIR, the same rule as the per-PIR relevance counts. pir_id counts for one active PIR only. Like the article severity field, severity is reported only while the account has an active Priority Intelligence Requirement, including one the matcher paused; otherwise every count is zero and priorities is empty. All counts are read together and are exact.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "account_id": {
+          "type": "string"
+        },
+        "min_relevance": {
+          "description": "Beta. Count only articles at or above this relevance band: in articles, for any active Priority Intelligence Requirement, as the article list's min_relevance does without pir_id; in each priority, for that PIR. Excludes articles that have not been scored against an active PIR.",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "type": "string"
+        },
+        "pir_id": {
+          "description": "Beta. Active Priority Intelligence Requirement to count for. articles then counts only articles scored against it, min_relevance applies to its score, and priorities lists only it. Returns a 400 error unless the PIR is active.",
+          "format": "uuid",
+          "type": "string"
+        },
+        "published_after": {
+          "description": "Include articles published at or after this ISO 8601 date-time with Z or a numeric UTC offset; normalized to UTC.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "published_before": {
+          "description": "Include articles published at or before this ISO 8601 date-time with Z or a numeric UTC offset; normalized to UTC.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      required: [
+        "account_id"
+      ],
+    },
+    outputSchema: {
+      "properties": {
+        "articles": {
+          "properties": {
+            "critical": {
+              "type": "integer"
+            },
+            "high": {
+              "type": "integer"
+            },
+            "informational": {
+              "type": "integer"
+            },
+            "low": {
+              "type": "integer"
+            },
+            "medium": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "critical",
+            "high",
+            "informational",
+            "low",
+            "medium"
+          ],
+          "type": "object"
+        },
+        "priorities": {
+          "items": {
+            "properties": {
+              "articles": {
+                "properties": {
+                  "critical": {
+                    "type": "integer"
+                  },
+                  "high": {
+                    "type": "integer"
+                  },
+                  "informational": {
+                    "type": "integer"
+                  },
+                  "low": {
+                    "type": "integer"
+                  },
+                  "medium": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "critical",
+                  "high",
+                  "informational",
+                  "low",
+                  "medium"
+                ],
+                "type": "object"
+              },
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            "required": [
+              "articles",
+              "id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "articles",
+        "priorities"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Count Threat Signals articles by severity band"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/severity/aggregate",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "articles": {
+              "properties": {
+                "critical": {
+                  "type": "integer"
+                },
+                "high": {
+                  "type": "integer"
+                },
+                "informational": {
+                  "type": "integer"
+                },
+                "low": {
+                  "type": "integer"
+                },
+                "medium": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "critical",
+                "high",
+                "informational",
+                "low",
+                "medium"
+              ],
+              "type": "object"
+            },
+            "priorities": {
+              "items": {
+                "properties": {
+                  "articles": {
+                    "properties": {
+                      "critical": {
+                        "type": "integer"
+                      },
+                      "high": {
+                        "type": "integer"
+                      },
+                      "informational": {
+                        "type": "integer"
+                      },
+                      "low": {
+                        "type": "integer"
+                      },
+                      "medium": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "critical",
+                      "high",
+                      "informational",
+                      "low",
+                      "medium"
+                    ],
+                    "type": "object"
+                  },
+                  "id": {
+                    "format": "uuid",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "articles",
+                  "id"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "articles",
+            "priorities"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/severity/aggregate`,
+      query: [
+        ["published_after", args["published_after"], true],
+        ["published_before", args["published_before"], true],
+        ["pir_id", args["pir_id"], true],
+        ["min_relevance", args["min_relevance"], true],
+      ],
+    }),
+  },
+  {
     name: "cloudforce_one_threat_signals_articles_bulk_mark_read",
     title: "Bulk update Threat Signals article read status",
     description: "Marks up to 50 Threat Signals articles as read or unread.",
@@ -94,7 +518,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforce_one_threat_signals_articles_get",
     title: "Get Threat Signals article",
-    description: "Retrieves a Threat Signals article with its summary, tags and indicator status.",
+    description: "Retrieves a Threat Signals article with its summary, tags, indicator status and relevance to the account's Priority Intelligence Requirements.",
     inputSchema: {
       type: "object",
       properties: {
@@ -223,6 +647,69 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "relevance": {
+          "oneOf": [
+            {
+              "properties": {
+                "band": {
+                  "enum": [
+                    "low",
+                    "medium",
+                    "high"
+                  ],
+                  "type": "string"
+                },
+                "pir_id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "pirs": {
+                  "items": {
+                    "properties": {
+                      "band": {
+                        "enum": [
+                          "low",
+                          "medium",
+                          "high"
+                        ],
+                        "type": "string"
+                      },
+                      "pir_id": {
+                        "format": "uuid",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "band",
+                      "pir_id"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "band",
+                "pir_id",
+                "pirs"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "severity": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "skill_version": {
           "oneOf": [
             {
@@ -330,6 +817,8 @@ export const tools: readonly Tool[] = [
         "published_at",
         "read",
         "read_at",
+        "relevance",
+        "severity",
         "source_count",
         "summary",
         "summary_r2_key",
@@ -466,6 +955,69 @@ export const tools: readonly Tool[] = [
                 }
               ]
             },
+            "relevance": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "band": {
+                      "enum": [
+                        "low",
+                        "medium",
+                        "high"
+                      ],
+                      "type": "string"
+                    },
+                    "pir_id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "pirs": {
+                      "items": {
+                        "properties": {
+                          "band": {
+                            "enum": [
+                              "low",
+                              "medium",
+                              "high"
+                            ],
+                            "type": "string"
+                          },
+                          "pir_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "band",
+                          "pir_id"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "band",
+                    "pir_id",
+                    "pirs"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "severity": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "skill_version": {
               "oneOf": [
                 {
@@ -573,6 +1125,8 @@ export const tools: readonly Tool[] = [
             "published_at",
             "read",
             "read_at",
+            "relevance",
+            "severity",
             "source_count",
             "summary",
             "summary_r2_key",
@@ -693,10 +1247,24 @@ export const tools: readonly Tool[] = [
           "description": "When true on the first page, count matching articles and return an exact total. Defaults to false; cursor pages do not recalculate totals.",
           "type": "boolean"
         },
+        "min_relevance": {
+          "description": "Beta. Return only articles at or above this relevance band for pir_id, or for any active PIR when pir_id is omitted. Excludes articles that have not been scored.",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "type": "string"
+        },
         "per_page": {
           "default": 20,
           "description": "Number of articles per cursor page, from 1 to 100. Defaults to 20.",
           "type": "integer"
+        },
+        "pir_id": {
+          "description": "Beta. Active Priority Intelligence Requirement to report, filter, and sort relevance by. Omit to use each article's most relevant active PIR. Returns a 400 error unless the PIR is active.",
+          "format": "uuid",
+          "type": "string"
         },
         "published_after": {
           "description": "Include articles published at or after this ISO 8601 date-time with Z or a numeric UTC offset; normalized to UTC.",
@@ -718,7 +1286,7 @@ export const tools: readonly Tool[] = [
         },
         "sort": {
           "default": "-fetched_at",
-          "description": "Sort by fetched_at, published_at, or title. Prefix the field with - for descending order; defaults to -fetched_at.",
+          "description": "Sort by fetched_at, published_at, title, or relevance (beta). Prefix the field with - for descending order; defaults to -fetched_at. -relevance lists the most relevant articles first, by pir_id or by each article's most relevant active PIR, with unscored articles last.",
           "type": "string"
         },
         "source_type": {
@@ -848,6 +1416,69 @@ export const tools: readonly Tool[] = [
                   }
                 ]
               },
+              "relevance": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "band": {
+                        "enum": [
+                          "low",
+                          "medium",
+                          "high"
+                        ],
+                        "type": "string"
+                      },
+                      "pir_id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "pirs": {
+                        "items": {
+                          "properties": {
+                            "band": {
+                              "enum": [
+                                "low",
+                                "medium",
+                                "high"
+                              ],
+                              "type": "string"
+                            },
+                            "pir_id": {
+                              "format": "uuid",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "band",
+                            "pir_id"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "band",
+                      "pir_id",
+                      "pirs"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "severity": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "summary": {
                 "oneOf": [
                   {
@@ -920,6 +1551,8 @@ export const tools: readonly Tool[] = [
               "published_at",
               "read",
               "read_at",
+              "relevance",
+              "severity",
               "summary",
               "tags",
               "title"
@@ -1060,6 +1693,69 @@ export const tools: readonly Tool[] = [
                       }
                     ]
                   },
+                  "relevance": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "band": {
+                            "enum": [
+                              "low",
+                              "medium",
+                              "high"
+                            ],
+                            "type": "string"
+                          },
+                          "pir_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "pirs": {
+                            "items": {
+                              "properties": {
+                                "band": {
+                                  "enum": [
+                                    "low",
+                                    "medium",
+                                    "high"
+                                  ],
+                                  "type": "string"
+                                },
+                                "pir_id": {
+                                  "format": "uuid",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "band",
+                                "pir_id"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "band",
+                          "pir_id",
+                          "pirs"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "severity": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
                   "summary": {
                     "oneOf": [
                       {
@@ -1132,6 +1828,8 @@ export const tools: readonly Tool[] = [
                   "published_at",
                   "read",
                   "read_at",
+                  "relevance",
+                  "severity",
                   "summary",
                   "tags",
                   "title"
@@ -1200,6 +1898,8 @@ export const tools: readonly Tool[] = [
         ["feed_category", args["feed_category"], true],
         ["source_type", args["source_type"], true],
         ["tag_applied_by", args["tag_applied_by"], true],
+        ["pir_id", args["pir_id"], true],
+        ["min_relevance", args["min_relevance"], true],
         ["sort", args["sort"], true],
       ],
     }),
@@ -1348,6 +2048,16 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "severity": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "skill_version": {
           "oneOf": [
             {
@@ -1455,6 +2165,7 @@ export const tools: readonly Tool[] = [
         "published_at",
         "read",
         "read_at",
+        "severity",
         "source_count",
         "summary",
         "summary_r2_key",
@@ -1590,6 +2301,16 @@ export const tools: readonly Tool[] = [
                 }
               ]
             },
+            "severity": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "skill_version": {
               "oneOf": [
                 {
@@ -1697,6 +2418,7 @@ export const tools: readonly Tool[] = [
             "published_at",
             "read",
             "read_at",
+            "severity",
             "source_count",
             "summary",
             "summary_r2_key",

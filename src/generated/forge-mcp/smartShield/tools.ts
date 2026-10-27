@@ -5,8 +5,12 @@ import { type Tool, pathParam } from "../_/tool.js";
 import {
   smartshield_api_response_common_failure_output,
   smartshield_messages_output,
+  smartshield_smart_shield_settings_cache_reserve_output,
   smartshield_smart_shield_settings_get_response_output,
+  smartshield_smart_shield_settings_patch_response_cache_reserve_output,
   smartshield_smart_shield_settings_patch_response_output,
+  smartshield_smart_shield_settings_patch_response_regional_tiered_cache_output,
+  smartshield_smart_shield_settings_patch_response_smart_routing_output,
   smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
   smartshield_smart_shield_settings_regional_tiered_cache_output,
   smartshield_smart_shield_settings_smart_routing_output,
@@ -43,6 +47,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/smartshield_smart_shield_settings_get_response",
       $defs: {
+        "smartshield_smart_shield_settings_cache_reserve": smartshield_smart_shield_settings_cache_reserve_output,
         "smartshield_smart_shield_settings_get_response": smartshield_smart_shield_settings_get_response_output,
         "smartshield_smart_shield_settings_regional_tiered_cache": smartshield_smart_shield_settings_regional_tiered_cache_output,
         "smartshield_smart_shield_settings_smart_routing": smartshield_smart_shield_settings_smart_routing_output,
@@ -100,6 +105,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
         "smartshield_messages": smartshield_messages_output,
+        "smartshield_smart_shield_settings_cache_reserve": smartshield_smart_shield_settings_cache_reserve_output,
         "smartshield_smart_shield_settings_get_response": smartshield_smart_shield_settings_get_response_output,
         "smartshield_smart_shield_settings_regional_tiered_cache": smartshield_smart_shield_settings_regional_tiered_cache_output,
         "smartshield_smart_shield_settings_smart_routing": smartshield_smart_shield_settings_smart_routing_output,
@@ -141,6 +147,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response",
       $defs: {
         "smartshield_smart_shield_settings_patch_response": smartshield_smart_shield_settings_patch_response_output,
+        "smartshield_smart_shield_settings_patch_response_cache_reserve": smartshield_smart_shield_settings_patch_response_cache_reserve_output,
+        "smartshield_smart_shield_settings_patch_response_regional_tiered_cache": smartshield_smart_shield_settings_patch_response_regional_tiered_cache_output,
+        "smartshield_smart_shield_settings_patch_response_smart_routing": smartshield_smart_shield_settings_patch_response_smart_routing_output,
         "smartshield_smart_shield_settings_patch_response_smart_tiered_cache": smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
       },
     },
@@ -198,6 +207,9 @@ export const tools: readonly Tool[] = [
         "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
         "smartshield_messages": smartshield_messages_output,
         "smartshield_smart_shield_settings_patch_response": smartshield_smart_shield_settings_patch_response_output,
+        "smartshield_smart_shield_settings_patch_response_cache_reserve": smartshield_smart_shield_settings_patch_response_cache_reserve_output,
+        "smartshield_smart_shield_settings_patch_response_regional_tiered_cache": smartshield_smart_shield_settings_patch_response_regional_tiered_cache_output,
+        "smartshield_smart_shield_settings_patch_response_smart_routing": smartshield_smart_shield_settings_patch_response_smart_routing_output,
         "smartshield_smart_shield_settings_patch_response_smart_tiered_cache": smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
       },
     },

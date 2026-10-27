@@ -133,7 +133,11 @@ export const realtimekit_GenericErrorResponse_error_output: JsonSchema = {
     "code": {
       "type": "number"
     },
+    "details": {},
     "message": {
+      "type": "string"
+    },
+    "reason": {
       "type": "string"
     }
   },

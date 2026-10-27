@@ -4,32 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `dns-firewall_api-response-common` in responses.
- */
-export const dns_firewall_api_response_common_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `dns-firewall_api-response-common-failure` in responses.
  */
 export const dns_firewall_api_response_common_failure_output: JsonSchema = {
@@ -158,95 +132,6 @@ export const dns_firewall_dns_firewall_ips_output: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dns-firewall_dns_firewall_response_collection` in responses.
- */
-export const dns_firewall_dns_firewall_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
-      },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/dns-firewall_dns_firewall_response_collection_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dns-firewall_dns_firewall_response_collection_result_info` in
- * responses.
- */
-export const dns_firewall_dns_firewall_response_collection_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-firewall_dns_firewall_single_response` in responses.
- */
-export const dns_firewall_dns_firewall_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
 };
 
 /**

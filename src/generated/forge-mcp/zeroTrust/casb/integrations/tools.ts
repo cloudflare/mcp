@@ -7,7 +7,6 @@ import {
   one_IntegrationV2Detail_output,
   one_IntegrationV2ListItem_auth_method_output,
   one_IntegrationV2ListItem_output,
-  one_IntegrationV2ListItem_use_casesItem_output,
   one_PaginatedIntegrationV2ListItemList_result_info_output,
 } from "./outputs.js";
 import {
@@ -264,7 +263,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "one_IntegrationV2ListItem": one_IntegrationV2ListItem_output,
         "one_IntegrationV2ListItem_auth_method": one_IntegrationV2ListItem_auth_method_output,
-        "one_IntegrationV2ListItem_use_casesItem": one_IntegrationV2ListItem_use_casesItem_output,
         "one_PaginatedIntegrationV2ListItemList_result_info": one_PaginatedIntegrationV2ListItemList_result_info_output,
       },
     },
@@ -304,7 +302,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "one_IntegrationV2ListItem": one_IntegrationV2ListItem_output,
         "one_IntegrationV2ListItem_auth_method": one_IntegrationV2ListItem_auth_method_output,
-        "one_IntegrationV2ListItem_use_casesItem": one_IntegrationV2ListItem_use_casesItem_output,
         "one_PaginatedIntegrationV2ListItemList_result_info": one_PaginatedIntegrationV2ListItemList_result_info_output,
       },
     },

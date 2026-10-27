@@ -14,8 +14,6 @@ import {
   bot_management_bm_cookie_enabled_output,
   bot_management_bm_subscription_config_output,
   bot_management_bot_fight_mode_config_output,
-  bot_management_bot_management_response_body_output,
-  bot_management_bot_management_response_body_result_output,
   bot_management_bot_preference_sync_enabled_output,
   bot_management_cf_robots_variant_output,
   bot_management_content_bots_protection_output,
@@ -184,14 +182,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/bot-management_bot_management_response_body"
-            },
-            {
-              "$ref": "#/$defs/bot-management_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/bot-management_api-response-common-failure"
         }
       },
       $defs: {
@@ -206,8 +197,6 @@ export const tools: readonly Tool[] = [
         "bot-management_bm_cookie_enabled": bot_management_bm_cookie_enabled_output,
         "bot-management_bm_subscription_config": bot_management_bm_subscription_config_output,
         "bot-management_bot_fight_mode_config": bot_management_bot_fight_mode_config_output,
-        "bot-management_bot_management_response_body": bot_management_bot_management_response_body_output,
-        "bot-management_bot_management_response_body_result": bot_management_bot_management_response_body_result_output,
         "bot-management_bot_preference_sync_enabled": bot_management_bot_preference_sync_enabled_output,
         "bot-management_cf_robots_variant": bot_management_cf_robots_variant_output,
         "bot-management_content_bots_protection": bot_management_content_bots_protection_output,
@@ -379,14 +368,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/bot-management_bot_management_response_body"
-            },
-            {
-              "$ref": "#/$defs/bot-management_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/bot-management_api-response-common-failure"
         }
       },
       $defs: {
@@ -401,8 +383,6 @@ export const tools: readonly Tool[] = [
         "bot-management_bm_cookie_enabled": bot_management_bm_cookie_enabled_output,
         "bot-management_bm_subscription_config": bot_management_bm_subscription_config_output,
         "bot-management_bot_fight_mode_config": bot_management_bot_fight_mode_config_output,
-        "bot-management_bot_management_response_body": bot_management_bot_management_response_body_output,
-        "bot-management_bot_management_response_body_result": bot_management_bot_management_response_body_result_output,
         "bot-management_bot_preference_sync_enabled": bot_management_bot_preference_sync_enabled_output,
         "bot-management_cf_robots_variant": bot_management_cf_robots_variant_output,
         "bot-management_content_bots_protection": bot_management_content_bots_protection_output,

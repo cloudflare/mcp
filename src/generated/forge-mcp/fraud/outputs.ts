@@ -92,35 +92,6 @@ export const fraud_fraud_settings_output: JsonSchema = {
 };
 
 /**
- * The schema of `fraud_fraud_settings_response_body` in responses.
- */
-export const fraud_fraud_settings_response_body_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/fraud_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/fraud_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/fraud_fraud_settings"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `fraud_messages` in responses.
  */
 export const fraud_messages_output: JsonSchema = {

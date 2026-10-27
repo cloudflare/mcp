@@ -30,21 +30,28 @@ export const secrets_store_identifier_output: JsonSchema = {
 };
 
 /**
- * The schema of `secrets-store_scopes` in responses.
+ * The schema of `secrets-store_inheritable_scopes` in responses.
  */
-export const secrets_store_scopes_output: JsonSchema = {
-  "items": {
-    "enum": [
-      "workers",
-      "ai_gateway",
-      "dex",
-      "access",
-      "containers",
-      "websearch"
-    ],
-    "type": "string"
-  },
-  "type": "array"
+export const secrets_store_inheritable_scopes_output: JsonSchema = {
+  "oneOf": [
+    {
+      "items": {
+        "enum": [
+          "workers",
+          "ai_gateway",
+          "dex",
+          "access",
+          "containers",
+          "websearch"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    {
+      "type": "null"
+    }
+  ]
 };
 
 /**
@@ -68,7 +75,7 @@ export const secrets_store_secretObject_output: JsonSchema = {
       "$ref": "#/$defs/secrets-store_secret_name"
     },
     "scopes": {
-      "$ref": "#/$defs/secrets-store_scopes"
+      "$ref": "#/$defs/secrets-store_inheritable_scopes"
     },
     "status": {
       "$ref": "#/$defs/secrets-store_SecretStatus"

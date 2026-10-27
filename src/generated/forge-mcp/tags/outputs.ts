@@ -177,6 +177,9 @@ export const resource_tagging_tagged_resource_object_output: JsonSchema = {
       "$ref": "#/$defs/resource-tagging_tagged_resource_object_ai_search_instance"
     },
     {
+      "$ref": "#/$defs/resource-tagging_tagged_resource_object_ai_search_namespace"
+    },
+    {
       "$ref": "#/$defs/resource-tagging_tagged_resource_object_alerting_policy"
     },
     {
@@ -554,6 +557,32 @@ export const resource_tagging_tagged_resource_object_ai_search_instance_output: 
         "type": {
           "enum": [
             "ai_search_instance"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "$ref": "#/$defs/resource-tagging_tagged_resource_object_account_level_base"
+    }
+  ]
+};
+
+/**
+ * The schema of `resource-tagging_tagged_resource_object_ai_search_namespace`
+ * in responses.
+ */
+export const resource_tagging_tagged_resource_object_ai_search_namespace_output: JsonSchema = {
+  "allOf": [
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "ai_search_namespace"
           ],
           "type": "string"
         }

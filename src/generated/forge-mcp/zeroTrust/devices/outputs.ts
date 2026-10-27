@@ -260,6 +260,9 @@ export const teams_devices_physical_device_output: JsonSchema = {
         }
       ]
     },
+    "multiuser": {
+      "type": "boolean"
+    },
     "name": {
       "type": "string"
     },

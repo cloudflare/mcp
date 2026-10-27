@@ -43,6 +43,12 @@ export const dls_coded_message_output: JsonSchema = {
     "code": {
       "type": "integer"
     },
+    "error_chain": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
     "message": {
       "type": "string"
     }
