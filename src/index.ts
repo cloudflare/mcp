@@ -14,6 +14,7 @@ import {
 import { processSpec, extractProducts } from './spec-processor'
 import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from './openapi'
 import { syncSkills } from './skills/sync'
+import { createEmaOptions, emaEnabled } from './auth/ema/provider-options'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
@@ -56,7 +57,10 @@ const oauthProvider = new OAuthProvider<Env>({
   // The consent page adds the rest; Minimal, the default, adds nothing until step-up asks.
   requiredScopes: [...REQUIRED_SCOPES],
   accessTokenTTL: 3600,
-  refreshTokenTTL: 2592000 // 30 days
+  refreshTokenTTL: 2592000, // 30 days
+  // Enterprise-Managed Authorization (ID-JAG via the jwt-bearer grant), for tenants registered at
+  // /ema. Advertised in metadata only where EMA_ENABLED is "true".
+  ...(emaEnabled(workerEnv) && { enterpriseManagedAuthorization: createEmaOptions(workerEnv) })
 })
 
 export default {

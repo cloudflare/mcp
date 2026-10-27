@@ -38,10 +38,24 @@ export const LEGACY_ACCOUNTS_PAGE_SIZE = 20
  */
 export const AUTH_PROPS_VERSION = 1
 
+/**
+ * Who an Enterprise-Managed Authorization token was issued to: the IdP subject behind an
+ * admin-provisioned account token (`src/auth/ema/`). Cloudflare's audit log shows only the token,
+ * so this is the only record of the person.
+ */
+export const EmaIdentitySchema = z.object({
+  issuer: z.string(),
+  subject: z.string(),
+  email: z.string().optional(),
+  clientId: z.string()
+})
+
 export const AccountAuthProps = z.object({
   type: z.literal('account_token'),
   accessToken: z.string(),
-  account: AccountSchema
+  account: AccountSchema,
+  // Present only on tokens minted from an ID-JAG.
+  ema: EmaIdentitySchema.optional()
 })
 
 export const UserAuthProps = z.object({
@@ -60,6 +74,7 @@ export const UserAuthProps = z.object({
 export const AuthProps = z.discriminatedUnion('type', [AccountAuthProps, UserAuthProps])
 
 export type AuthProps = z.infer<typeof AuthProps>
+export type EmaIdentity = z.infer<typeof EmaIdentitySchema>
 export type UserSchema = z.infer<typeof UserSchema>
 export type AccountSchema = z.infer<typeof AccountSchema>
 export type AccountsSchema = z.infer<typeof AccountsSchema>

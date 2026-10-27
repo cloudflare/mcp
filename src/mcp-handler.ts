@@ -14,7 +14,7 @@ import {
 } from '@modelcontextprotocol/server'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { createServer, type RequestContext, type ServerOptions } from './server'
-import { connectionFromAuth } from './api-permissions'
+import { connectionFromAuth, DIRECT_CONNECTION } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
 import { identifyClient, type ClientBehavior } from './clients'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
@@ -192,7 +192,10 @@ export async function handleAuthenticatedMcpRequest(
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)
-  const connection = connectionFromAuth(auth)
+  // An Enterprise-Managed Authorization token acts with an admin's account API token, so its
+  // permissions are that token's, not OAuth scopes, and it can't step up.
+  const connection =
+    props.type === 'account_token' && props.ema ? DIRECT_CONNECTION : connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.
   const issued = connection.kind === 'oauth' ? auth : undefined
   const scopeChallenge = new ScopeChallenge(issued)
