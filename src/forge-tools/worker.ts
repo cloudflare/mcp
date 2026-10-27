@@ -24,14 +24,17 @@ import { declaresResult, payloadOf, type PayloadKind } from './envelope'
 import { concretePaths } from '../spec-processor'
 import type { SpecArtifactName } from '../spec-release'
 import { SPEC_ARTIFACTS, isSpecArtifactName } from './spec'
+import { isolate } from '../lib/isolate'
 
 /** The generated tools with the Cloudflare policy, built once per isolate. */
 const tools = generatedTools.map(cloudflareTool)
 
-let listing: string | undefined
-let listingWithOutput: string | undefined
-let byOperation: Map<string, (typeof tools)[number]> | undefined
-const payloadKinds = new Map<string, PayloadKind>()
+/** `tools/list` as one JSON string, with and without output schemas. */
+const listing = isolate.lazy(() => JSON.stringify(listTools(tools)))
+const listingWithOutput = isolate.lazy(() =>
+  JSON.stringify(listTools(tools, { outputSchema: true }))
+)
+const payloadKinds = isolate.map<string, PayloadKind>()
 
 type ForgeTool = (typeof tools)[number]
 
@@ -41,15 +44,11 @@ type ForgeTool = (typeof tools)[number]
  * schema. Decided once per tool and key per isolate.
  */
 function payloadKind(tool: ForgeTool, key?: string): PayloadKind {
-  const cacheKey = `${tool.name} ${key ?? 'output'}`
-  let kind = payloadKinds.get(cacheKey)
-  if (!kind) {
+  return payloadKinds.getOrSet(`${tool.name} ${key ?? 'output'}`, () => {
     const schema = key ? tool.responses?.schemas[key] : tool.outputSchema
     const defs = key ? tool.responses?.$defs : (tool.outputSchema?.$defs as Record<string, unknown>)
-    kind = declaresResult(schema, defs ?? {}) ? 'listing' : 'result'
-    payloadKinds.set(cacheKey, kind)
-  }
-  return kind
+    return declaresResult(schema, defs ?? {}) ? 'listing' : 'result'
+  })
 }
 
 /**
@@ -77,18 +76,16 @@ function checkedPayload(
  * `processSpec` splits it into, which the endpoint tools (`?codemode=false`)
  * use; a route the spec lists on its own keeps its own tool.
  */
-function toolsByOperation() {
-  if (!byOperation) {
-    byOperation = new Map(tools.map((tool) => [`${tool.method} ${tool.path}`, tool]))
-    for (const tool of tools) {
-      for (const { path } of concretePaths(tool.path)) {
-        const key = `${tool.method} ${path}`
-        if (!byOperation.has(key)) byOperation.set(key, tool)
-      }
+const toolsByOperation = isolate.lazy(() => {
+  const byOperation = new Map(tools.map((tool) => [`${tool.method} ${tool.path}`, tool]))
+  for (const tool of tools) {
+    for (const { path } of concretePaths(tool.path)) {
+      const key = `${tool.method} ${path}`
+      if (!byOperation.has(key)) byOperation.set(key, tool)
     }
   }
   return byOperation
-}
+})
 
 /**
  * A call plan, with, for a request to a tool that has an output schema, what
@@ -119,12 +116,7 @@ export default class ForgeTools extends WorkerEntrypoint {
    * `outputSchema`, each tool carries its generated output schema.
    */
   listJson({ outputSchema = false }: { outputSchema?: boolean } = {}): string {
-    if (outputSchema) {
-      listingWithOutput ??= JSON.stringify(listTools(tools, { outputSchema: true }))
-      return listingWithOutput
-    }
-    listing ??= JSON.stringify(listTools(tools))
-    return listing
+    return outputSchema ? listingWithOutput() : listing()
   }
 
   /**
