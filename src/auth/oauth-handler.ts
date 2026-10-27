@@ -25,6 +25,7 @@ import { getCloudflareOAuthUser } from './cloudflare-identity'
 import { withRefreshAdmission } from './refresh-admission-gate'
 import { MetricsTracker, AuthUser } from '../metrics'
 import { SERVER_INFO } from '../constants'
+import { registerEmaAdminRoutes } from './ema/admin'
 
 import {
   AuthorizationError,
@@ -382,6 +383,9 @@ export function createAuthHandlers() {
       )
     }
   })
+
+  // Enterprise-Managed Authorization admin pages; 404 unless EMA_ENABLED is "true".
+  registerEmaAdminRoutes(app)
 
   return app
 }

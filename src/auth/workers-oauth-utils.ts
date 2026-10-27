@@ -86,7 +86,7 @@ export interface ApprovalDialogOptions {
 /**
  * Sanitizes HTML content to prevent XSS attacks
  */
-function sanitizeHtml(unsafe: string): string {
+export function sanitizeHtml(unsafe: string): string {
   return unsafe
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -956,6 +956,44 @@ export function renderErrorPage(
   return new Response(htmlContent, {
     status,
     headers: {
+      'Content-Security-Policy': "frame-ancestors 'none'",
+      'Content-Type': 'text/html; charset=utf-8',
+      'X-Frame-Options': 'DENY'
+    }
+  })
+}
+
+/**
+ * Render a page in the consent and error pages' chrome around trusted `bodyHtml`. Escape every
+ * interpolated value in `bodyHtml` with {@link sanitizeHtml}.
+ */
+export function renderStyledPage(
+  title: string,
+  bodyHtml: string,
+  { css = '', status = 200 }: { css?: string; status?: number } = {}
+): Response {
+  const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${sanitizeHtml(title)} | Cloudflare</title>
+  ${PAGE_FONT_LINKS}
+  <style>${PAGE_CHROME_CSS}
+${css}
+  </style>
+</head>
+<body>
+  ${PAGE_HEADER_HTML}
+  <main class="main">${bodyHtml}</main>
+  ${PAGE_FOOTER_HTML}
+</body>
+</html>
+`
+  return new Response(htmlContent, {
+    status,
+    headers: {
+      'Cache-Control': 'no-store',
       'Content-Security-Policy': "frame-ancestors 'none'",
       'Content-Type': 'text/html; charset=utf-8',
       'X-Frame-Options': 'DENY'

@@ -13,8 +13,9 @@ import {
   originValidationResponse
 } from '@modelcontextprotocol/server'
 import type { McpServer } from '@modelcontextprotocol/server'
+import { env as workerEnv } from 'cloudflare:workers'
 import { createServer, type RequestContext, type ServerOptions } from './server'
-import { connectionFromAuth } from './api-permissions'
+import { connectionFromAuth, DIRECT_CONNECTION } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
 import { identifyClient, type ClientBehavior } from './clients'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
@@ -27,10 +28,23 @@ const ALLOWED_MCP_HOSTNAMES = [
   'mcp.cloudflare.com'
 ]
 
+/**
+ * Extra browser Origin hostnames from `MCP_EXTRA_ALLOWED_ORIGINS`, comma-separated. Staging sets it
+ * to `xaa.dev` so Okta's Cross App Access playground can call `/mcp` from the browser. It comes from
+ * the deployment's configuration, never from the request.
+ */
+export function extraAllowedOrigins(value: string | undefined): string[] {
+  return (value ?? '')
+    .split(',')
+    .map((hostname) => hostname.trim().toLowerCase())
+    .filter(Boolean)
+}
+
 const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
   ...localhostAllowedOrigins(),
   'staging.mcp.cloudflare.com',
-  'mcp.cloudflare.com'
+  'mcp.cloudflare.com',
+  ...extraAllowedOrigins(workerEnv.MCP_EXTRA_ALLOWED_ORIGINS)
 ]
 
 /**
@@ -192,7 +206,10 @@ export async function handleAuthenticatedMcpRequest(
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)
-  const connection = connectionFromAuth(auth)
+  // An Enterprise-Managed Authorization token acts with an admin's account API token, so its
+  // permissions are that token's, not OAuth scopes, and it can't step up.
+  const connection =
+    props.type === 'account_token' && props.ema ? DIRECT_CONNECTION : connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.
   const issued = connection.kind === 'oauth' ? auth : undefined
   const scopeChallenge = new ScopeChallenge(issued)

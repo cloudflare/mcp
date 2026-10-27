@@ -49,6 +49,7 @@ cloudflare-mcp/
 │   │   ├── refresh-admission-gate.ts # Best-effort per-grant KV refresh admission
 │   │   ├── derived-oauth-scopes.ts # Canonical production OAuth scope API metadata
 │   │   ├── scopes.ts              # Consent templates and OAuth bootstrap scopes
+│   │   ├── ema/                   # Enterprise-Managed Authorization (ID-JAG): tenants, /ema admin pages, provider options
 │   │   └── workers-oauth-utils.ts # OAuth provider helpers
 ├── tests/                         # Vitest suite (top-level, mirrors src/)
 │   ├── setup/msw.ts               # Global MSW server, the only outbound fetch mock
@@ -147,7 +148,7 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - Each authenticated request creates an upstream handler whose factory closes over validated `AuthProps`, matching the repository's pre-migration explicit data flow.
 - The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request.
 - No MCP session ID, protocol transport state, replay store, Durable Object, or Node async-context bridge is used. This server publishes no change notifications, so both tool modes advertise `tools.listChanged: false`. For `subscriptions/listen`, the SDK acknowledges with an empty honored filter and, since it honours none of the requested types, ends the stream straight away with a `complete` result (SDK 2.2.0+). No SSE stream stays open.
-- Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
+- Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. `MCP_EXTRA_ALLOWED_ORIGINS` (comma-separated hostnames) adds Origins from configuration: staging allows `xaa.dev` for the Enterprise-Managed Authorization playground. Do not derive either trust list from the incoming request URL or headers.
 
 ### MCP Events
 
@@ -162,10 +163,12 @@ Code execution uses Cloudflare's Worker Loader API to dynamically create isolate
 
 ### Authentication
 
-Two credential paths produce the same Zod-validated `AuthProps` union:
+Three credential paths produce the same Zod-validated `AuthProps` union:
 
 - **OAuth mode** (default): `@cloudflare/workers-oauth-provider` validates its own access tokens and restores encrypted Cloudflare OAuth props. The upstream authorization-code and refresh flows use PKCE and remain separate from direct credential resolution.
 - **Direct Cloudflare credential mode**: after the provider's internal lookup misses, `resolveExternalToken` validates the bearer against the Cloudflare API and returns request-local props. Prefixes are owner hints: `cfat_` account tokens query only `/accounts`; `cfut_` user API tokens and `cfoat_` Cloudflare OAuth credentials query `/user` and `/accounts`; unprefixed legacy tokens retain response-based inference. Expected failures use the provider's `ExternalTokenError`, which generates RFC 6750/9728 `401`/`403` challenges and preserves retry guidance. Cloudflare refuses an expired or unknown credential with `403 9109: Invalid access token`, the same status and code as a missing permission, so the identity probe reads the message: a rejected credential becomes `401 invalid_token`, as the MCP authorization spec requires, and only a valid token that lacks access gets `403 insufficient_scope`.
+
+- **Enterprise-Managed Authorization** (preview, `EMA_ENABLED`, on in dev and staging): an account admin registers their IdP at `/ema` with an account API token. A client redeems an ID-JAG from that IdP at `/token` (jwt-bearer grant), and the provider mints an MCP token whose props are `account_token` props carrying the admin's token plus an `ema` identity (issuer, subject, email, client). Those tokens use the direct connection: no step-up, permissions are the account token's. See [docs/enterprise-managed-auth.md](docs/enterprise-managed-auth.md).
 
 Validated direct-credential identity is cached by token hash in `OAUTH_KV`. A valid provider-issued MCP token never reaches the external resolver. One that has expired or been revoked does, after the provider's lookup misses, and the resolver refuses it by shape (`userId:grantId:secret`, which no Cloudflare credential has) with `401 invalid_token`, without probing Cloudflare. Direct-credential identity probes don't retry a 429: the client gets `429 temporarily_unavailable` with Cloudflare's `Retry-After` at once, since retrying spent up to four calls per probe on a token Cloudflare had already rate-limited. The OAuth callback probe, which a person waits on while signing in, still retries.
 
