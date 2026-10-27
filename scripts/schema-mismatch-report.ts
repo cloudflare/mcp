@@ -4,22 +4,22 @@
  * `response_schema_mismatch` events the direct tools write to Analytics Engine
  * (layout in `src/metrics.ts`). This is the list to send each product team.
  *
- *   CLOUDFLARE_ACCOUNT_ID=… CLOUDFLARE_API_TOKEN=… \
- *     npx tsx scripts/schema-mismatch-report.ts [--env production|staging|dev]
- *       [--dataset name] [--days 7] [--product dns_records] [--server cloudflare-api]
- *       [--format markdown|json|sql] [--from-json result.json]
+ *   npx tsx scripts/schema-mismatch-report.ts [--env production|staging|dev]
+ *     [--dataset name] [--days 7] [--product dns_records] [--server cloudflare-api]
+ *     [--format markdown|json|sql] [--from-json result.json]
  *
- * The token needs Account Analytics Read on the account that owns the
- * `mcp-metrics-*` datasets. Read-only: it runs one SELECT. To run the query
- * with another client instead, print it with `--format sql`, run it, and
- * render its `FORMAT JSON` result with `--from-json`, e.g. with the cf CLI:
- *
- *   npx tsx scripts/schema-mismatch-report.ts --format sql > q.sql
- *   cf analytics_engine sql query --file q.sql > result.json
- *   npx tsx scripts/schema-mismatch-report.ts --from-json result.json
+ * Runs one read-only SELECT with the `cf` CLI (`cf analytics_engine sql
+ * query`), which needs Account Analytics Read on the account that owns the
+ * `mcp-metrics-*` datasets (`scripts/cloudflare-account.ts`). To run the query
+ * with another client, such as the Cloudflare MCP server, print it with
+ * `--format sql` and render its `FORMAT JSON` result with `--from-json`.
  */
-import { readFileSync } from 'node:fs'
-import { parseArgs } from 'node:util'
+import { execFile } from 'node:child_process'
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { parseArgs, promisify } from 'node:util'
+import { cfEnv } from './cloudflare-account'
 import { z } from 'zod'
 
 /** The repository whose releases publish the OpenAPI document (`OPENAPI_SPEC_URL`). */
@@ -114,17 +114,24 @@ if (args.format === 'json') {
   console.log(markdown(rows))
 }
 
+/** Run the query with the `cf` CLI and return its `FORMAT JSON` result. */
 async function runQuery(): Promise<string> {
-  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID
-  const token = process.env.CLOUDFLARE_API_TOKEN
-  if (!accountId || !token) fail('Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN')
-  const response = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${accountId}/analytics_engine/sql`,
-    { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: SQL }
-  )
-  const body = await response.text()
-  if (!response.ok) fail(`Analytics Engine SQL API returned ${response.status}: ${body}`)
-  return body
+  const dir = mkdtempSync(join(tmpdir(), 'schema-mismatches-'))
+  try {
+    const file = join(dir, 'query.sql')
+    writeFileSync(file, SQL)
+    const { stdout } = await promisify(execFile)(
+      'cf',
+      ['analytics_engine', 'sql', 'query', '--file', file],
+      { env: cfEnv(), maxBuffer: 64 * 1024 * 1024 }
+    )
+    return stdout
+  } catch (error) {
+    const stderr = (error as { stderr?: string }).stderr?.trim()
+    return fail(`cf analytics_engine sql query failed${stderr ? `: ${stderr}` : ''}`)
+  } finally {
+    rmSync(dir, { recursive: true })
+  }
 }
 
 function markdown(rows: Row[]): string {
