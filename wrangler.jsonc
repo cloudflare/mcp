@@ -120,6 +120,7 @@
 				"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.staging.cloudflare.com",
 				"MCP_RESOURCE": "https://staging.mcp.cloudflare.com/mcp",
 				"EMA_ENABLED": "true",
+				"MCP_EXTRA_ALLOWED_ORIGINS": "xaa.dev",
 				"OPENAPI_SPEC_URL": "https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json",
 				"RESPONSE_VALIDATION_SAMPLE_RATE": "1"
 			}

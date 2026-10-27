@@ -13,6 +13,7 @@ import {
   originValidationResponse
 } from '@modelcontextprotocol/server'
 import type { McpServer } from '@modelcontextprotocol/server'
+import { env as workerEnv } from 'cloudflare:workers'
 import { createServer, type RequestContext, type ServerOptions } from './server'
 import { connectionFromAuth, DIRECT_CONNECTION } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
@@ -27,10 +28,23 @@ const ALLOWED_MCP_HOSTNAMES = [
   'mcp.cloudflare.com'
 ]
 
+/**
+ * Extra browser Origin hostnames from `MCP_EXTRA_ALLOWED_ORIGINS`, comma-separated. Staging sets it
+ * to `xaa.dev` so Okta's Cross App Access playground can call `/mcp` from the browser. It comes from
+ * the deployment's configuration, never from the request.
+ */
+export function extraAllowedOrigins(value: string | undefined): string[] {
+  return (value ?? '')
+    .split(',')
+    .map((hostname) => hostname.trim().toLowerCase())
+    .filter(Boolean)
+}
+
 const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
   ...localhostAllowedOrigins(),
   'staging.mcp.cloudflare.com',
-  'mcp.cloudflare.com'
+  'mcp.cloudflare.com',
+  ...extraAllowedOrigins(workerEnv.MCP_EXTRA_ALLOWED_ORIGINS)
 ]
 
 /**

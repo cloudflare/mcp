@@ -29,7 +29,7 @@ Each issuance logs `ema_token_issued` with the account, issuer, subject, email, 
 
 ## Trying it with Okta's playground
 
-[xaa.dev](https://xaa.dev/developer/test-resource) can act as the IdP and the client. Register with issuer `https://idp.xaa.dev`, then register a custom resource there with this server's MCP URL, "Own auth server" with this server's origin as issuer, and the organization's client ID and secret. Anyone can sign in to the playground's IdP with any email, so use a read-only token, or set an email domain.
+[xaa.dev](https://xaa.dev/developer/test-resource) can act as the IdP and the client. Register with issuer `https://idp.xaa.dev`, then register a custom resource there with this server's MCP URL, "Own auth server" with this server's origin as issuer, and the organization's client ID and secret. The playground calls `/mcp` from the browser, so staging adds `xaa.dev` to the Origin allowlist with `MCP_EXTRA_ALLOWED_ORIGINS`. Anyone can sign in to the playground's IdP with any email, so use a read-only token, or set an email domain.
 
 ## Limits of this preview
 

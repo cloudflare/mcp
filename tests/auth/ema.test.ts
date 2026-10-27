@@ -290,3 +290,11 @@ describe('tenant selection', () => {
     expect(emailAllowed(tenant('a', [], ['acme.com']), undefined)).toBe(false)
   })
 })
+
+describe('extra allowed origins', () => {
+  it('parses the deployment list, trimmed and lowercased', async () => {
+    const { extraAllowedOrigins } = await import('../../src/mcp-handler')
+    expect(extraAllowedOrigins(undefined)).toEqual([])
+    expect(extraAllowedOrigins(' XAA.dev , example.com,')).toEqual(['xaa.dev', 'example.com'])
+  })
+})

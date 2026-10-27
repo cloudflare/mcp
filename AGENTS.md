@@ -148,7 +148,7 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - Each authenticated request creates an upstream handler whose factory closes over validated `AuthProps`, matching the repository's pre-migration explicit data flow.
 - The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request.
 - No MCP session ID, protocol transport state, replay store, Durable Object, or Node async-context bridge is used. This server publishes no change notifications, so both tool modes advertise `tools.listChanged: false`. For `subscriptions/listen`, the SDK acknowledges with an empty honored filter and, since it honours none of the requested types, ends the stream straight away with a `complete` result (SDK 2.2.0+). No SSE stream stays open.
-- Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
+- Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. `MCP_EXTRA_ALLOWED_ORIGINS` (comma-separated hostnames) adds Origins from configuration: staging allows `xaa.dev` for the Enterprise-Managed Authorization playground. Do not derive either trust list from the incoming request URL or headers.
 
 ### MCP Events
 
