@@ -61,6 +61,29 @@ describe('findOperation', () => {
     expect(findOperation(paths, 'GET', '/zones/abc/dns_records/')?.operation.summary).toBe('list')
     expect(findOperation(paths, 'POST', '/zones/abc/dns_records')).toBeUndefined()
   })
+
+  it('rejects an empty parameter segment and a different segment count', () => {
+    expect(findOperation(paths, 'GET', '/zones//dns_records')).toBeUndefined()
+    expect(findOperation(paths, 'GET', '/zones/abc/dns_records/r1')).toBeUndefined()
+  })
+
+  it('keeps the first of equally specific templates, as listed', () => {
+    const tied = {
+      '/a/{x}/c': { get: { summary: 'first' } },
+      '/a/b/{y}': { get: { summary: 'second' } }
+    }
+
+    expect(findOperation(tied, 'GET', '/a/b/c')?.operation.summary).toBe('first')
+  })
+
+  it('looks up a new paths object afresh', () => {
+    const updated = { ...paths, '/zones/{zone_id}/dns_records': { get: { summary: 'renamed' } } }
+
+    expect(findOperation(paths, 'GET', '/zones/abc/dns_records')?.operation.summary).toBe('list')
+    expect(findOperation(updated, 'GET', '/zones/abc/dns_records')?.operation.summary).toBe(
+      'renamed'
+    )
+  })
 })
 
 const DNS = ['DNS Read', 'DNS Write']
