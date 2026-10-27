@@ -38,7 +38,8 @@ describe('isolate cache', () => {
           $schema: 'https://json-schema.org/draft/2020-12/schema',
           type: 'object',
           properties: {}
-        }
+        },
+        _meta: { securitySchemes: [{ type: 'oauth2', scopes: ['user:read', 'account:read'] }] }
       }
     ])
   })

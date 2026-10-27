@@ -30,6 +30,12 @@ export const REQUIRED_SCOPES = [
   'account:read'
 ] as const satisfies readonly ScopeName[]
 
+/**
+ * The identity scopes every connection needs, without `offline_access`, which
+ * isn't a resource scope. Step-up challenges and tool security schemes name them.
+ */
+export const IDENTITY_SCOPES = REQUIRED_SCOPES.filter((scope) => scope !== 'offline_access')
+
 /** The built-in permission presets. */
 export type TemplateName = 'minimal' | 'read-only' | 'full-access'
 

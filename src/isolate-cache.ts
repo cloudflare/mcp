@@ -1,6 +1,7 @@
 import { env } from 'cloudflare:workers'
 import type { Tool } from '@modelcontextprotocol/server'
 import { MCP_TOOLS_KEY, type McpTool } from './openapi'
+import { OAUTH_TOOL_META } from './tools/security-schemes'
 import {
   SKILLS_MANIFEST_KEY,
   SkillsManifest,
@@ -99,7 +100,8 @@ const mcpTools = cached(async (): Promise<McpTools> => {
       name,
       ...(title ? { title } : {}),
       description,
-      inputSchema
+      inputSchema,
+      _meta: OAUTH_TOOL_META
     })),
     byName: new Map(tools.map((tool) => [tool.name, tool]))
   }

@@ -22,6 +22,7 @@ export interface McpToolResult {
         openWorldHint?: boolean
         destructiveHint?: boolean
       }
+      _meta?: Record<string, unknown>
     }>
   }
   error?: { code: number; message: string }
