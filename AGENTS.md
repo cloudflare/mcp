@@ -58,7 +58,8 @@ cloudflare-mcp/
 │   ├── worker.test.ts             # Real worker end to end via exports.default.fetch
 │   └── *.test.ts
 ├── scripts/
-│   ├── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket
+│   ├── cloudflare-account.ts      # The account scripts run cf against
+│   ├── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket (cf r2 objects put)
 │   ├── generate-tools.ts          # Regenerate src/generated/forge-mcp with forge
 │   ├── schema-mismatch-report.ts  # Response schema mismatches by product, for teams
 │   └── bench-response-validation.ts # Cost of response schema checks on the generated schemas
@@ -81,6 +82,13 @@ npm install    # Install dependencies
 
 Node 22+ required.
 
+## Cloudflare tooling: Wrangler for the Workers, `cf` for everything else
+
+- **Wrangler** builds, runs, tests and deploys the two Workers from `wrangler.jsonc` and `wrangler.forge-tools.jsonc`: `npm run dev`, `deploy*`, `types`, and the Vitest pool. Workers Builds deploys with `npm run deploy:prod` and `deploy:forge-tools:prod`. Keep these on Wrangler, and don't run `cf dev`, `cf build`, `cf deploy` or `cf migrate` here: in a project with a Wrangler configuration they write their own configuration or fail.
+- **Everything else** goes through the [`cf` CLI](https://developers.cloudflare.com/cf/) or the Cloudflare MCP server, not Wrangler: R2 objects, KV, Analytics Engine queries, Workers Builds triggers, looking up resources and any other Cloudflare API call. `npm run seed:*` uploads with `cf r2 objects put`, and `npm run report:schema-mismatches` queries with `cf analytics_engine sql query`. Both select the account in `scripts/cloudflare-account.ts`.
+- Find a command with `cf cli search "<task>"`, check it with `cf <command> --help` or `cf schema <command>`, and preview it with `--dry-run`. `cf` signs in with `cf auth login` and keeps its own credentials, or uses `CLOUDFLARE_API_TOKEN`. Docs: [index](https://developers.cloudflare.com/cf/llms.txt), [sign in and accounts](https://developers.cloudflare.com/cf/get-started/), [Wrangler to `cf`](https://developers.cloudflare.com/cf/wrangler/reference/), [`cf` with coding agents](https://developers.cloudflare.com/cf/agents/).
+- `cf` can't stream logs yet: use `npx wrangler tail <worker-name>`, e.g. `npx wrangler tail cloudflare-api-mcp` for production. Wrangler's OAuth sign-in has no R2 scope, so don't use `wrangler r2` either.
+
 ## Commands
 
 | Command                | What it does                                  |
@@ -98,8 +106,8 @@ Node 22+ required.
 | `npm run test`         | Run vitest test suite                         |
 | `npm run test:watch`   | Run vitest in watch mode                      |
 | `npm run check`        | Run all checks (format, lint, typecheck, test)|
-| `npm run seed:staging` | Seed OpenAPI spec to staging R2               |
-| `npm run seed:prod`    | Seed OpenAPI spec to production R2            |
+| `npm run seed:staging` | Seed OpenAPI spec to staging R2 (with `cf`)   |
+| `npm run seed:prod`    | Seed OpenAPI spec to production R2 (with `cf`) |
 | `npm run report:schema-mismatches` | Response schema mismatch report (see below) |
 
 ## Code standards
@@ -254,7 +262,7 @@ The direct tools (`?codemode=false`, with or without `experimentalForge`) check 
 - **Validation** (`src/response-schema-check.ts`, in the service): `@cfworker/json-schema` 2020-12, against the status's schema, then its class (`4XX`), then `default`; validators are compiled per tool and cached per isolate. A short-circuit pass finds the first violation; invalid bodies are validated again to count them. A check costs at most ~10 ms. `npx tsx scripts/bench-response-validation.ts [tool ...]` measures it.
 - **No customer data:** events and logs hold keywords, schema locations and instance paths only. Array indices and keys the schema doesn't declare become `*`; the validator's messages are never recorded.
 - **Recording:** one `response_schema_mismatch` Analytics Engine event per mismatching response (layout below), naming the generated tool and the spec release (`source.json`), and one `console.warn` line with up to five violations.
-- **Report:** `CLOUDFLARE_ACCOUNT_ID=… CLOUDFLARE_API_TOKEN=… npm run report:schema-mismatches -- [--env production] [--days 7] [--product dns_records]` groups mismatches by product → operation → violation, each row linked to its spec release. The token needs Account Analytics Read; `--format sql` prints the query and `--from-json` renders a result run elsewhere.
+- **Report:** `npm run report:schema-mismatches -- [--env production] [--days 7] [--product dns_records]` groups mismatches by product → operation → violation, each row linked to its spec release. It runs the query with `cf`, which needs Account Analytics Read; `--format sql` prints the query and `--from-json` renders a result run elsewhere, such as through the Cloudflare MCP server.
 
 ### Usage metrics (Analytics Engine)
 
