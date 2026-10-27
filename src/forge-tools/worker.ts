@@ -10,14 +10,7 @@
  * the main Worker reaches it through its `FORGE_TOOLS` service binding.
  */
 import { WorkerEntrypoint } from 'cloudflare:workers'
-import {
-  buildRequest,
-  InvalidArguments,
-  listTools,
-  tools as generatedTools,
-  toolsByName,
-  type Args
-} from '../generated/forge-mcp'
+import { listTools, tools as generatedTools, toolsByName, type Args } from '../generated/forge-mcp'
 import { cloudflareTool } from './cloudflare'
 import { planCall, type CallPlan, type PlanOptions } from './plan'
 import {
@@ -135,16 +128,10 @@ export default class ForgeTools extends WorkerEntrypoint {
    * The request calling the tool `name` with `args` makes, or why it can't be
    * made, and what of a successful response its output schema describes.
    */
-  async plan(name: string, args: Args, options: PlanOptions): Promise<ToolCallPlan> {
+  plan(name: string, args: Args, options: PlanOptions): ToolCallPlan {
     const tool = toolsByName(tools).get(name)
     if (!tool) return { kind: 'unknown' }
-    const plan = await planCall(
-      tool,
-      args,
-      options,
-      buildRequest,
-      (error) => error instanceof InvalidArguments
-    )
+    const plan = planCall(tool, args, options)
     return plan.kind === 'request' && tool.outputSchema
       ? { ...plan, payload: payloadKind(tool) }
       : plan

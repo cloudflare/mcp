@@ -2,7 +2,7 @@
 
 # MCP tools
 
-3033 tools in 1033 groups. `index.ts` exports them as `tools`, with the runtime in `_/tool.ts` that builds their requests; `_/server.ts` serves them on an `McpServer`.
+3033 tools in 1033 groups. `index.ts` exports them as `tools`, with the runtime in `_/tool.ts` that lists them and builds their requests.
 
 ## Methods without a tool
 

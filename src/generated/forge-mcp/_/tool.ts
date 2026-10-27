@@ -47,6 +47,17 @@ export type QueryParam = readonly [name: string, value: unknown, explode: boolea
 export type HeaderParam = readonly [name: string, value: unknown];
 
 /**
+ * An HTTP request as plain data, so it crosses RPC or `postMessage` as it is.
+ * `fetch(request.url, request)` sends it. Header names are lower case.
+ */
+export interface HttpRequest {
+  readonly method: string;
+  readonly url: string;
+  readonly headers: Readonly<Record<string, string>>;
+  readonly body?: string;
+}
+
+/**
  * The request a tool call makes, relative to the API's base URL. The path has
  * its parameters substituted and encoded; query and header values are
  * serialized by {@link buildRequest}, which leaves out those that are
@@ -112,8 +123,9 @@ export function pathParam(args: Args, key: string): string {
  * Returns the HTTP request that calling `tool` with `args` makes, at
  * `baseUrl`. Query parameters are serialized in OpenAPI's default `form`
  * style. Values are not validated against the schema; the API does that.
+ * Throws {@link InvalidArguments}.
  */
-export function buildRequest(tool: Tool, args: Args, baseUrl: string): Request {
+export function buildRequest(tool: Tool, args: Args, baseUrl: string): HttpRequest {
   const missing = (tool.inputSchema.required ?? []).filter((key) => args[key] === undefined);
   if (missing.length > 0) {
     throw new InvalidArguments(`Missing required arguments: ${missing.join(', ')}`);
@@ -129,12 +141,17 @@ export function buildRequest(tool: Tool, args: Args, baseUrl: string): Request {
       headers.set(name, Array.isArray(value) ? value.map((item) => scalar(name, item)).join(',') : scalar(name, value));
     }
   }
-  const init: RequestInit = { method: tool.method, headers };
+  let body: string | undefined;
   if (api.body && api.body.value !== undefined) {
     headers.set('Content-Type', api.body.mediaType);
-    init.body = JSON.stringify(api.body.value);
+    body = JSON.stringify(api.body.value);
   }
-  return new Request(url, init);
+  return {
+    method: tool.method,
+    url: url.href,
+    headers: Object.fromEntries(headers),
+    ...(body !== undefined && { body }),
+  };
 }
 
 /** Appends a query parameter in the `form` style: `a=1&a=2` exploded, `a=1,2` not. */
