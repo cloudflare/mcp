@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { withCachedJsonSchema } from '../lib/isolate-json-schema'
 import { env } from 'cloudflare:workers'
 import type { McpServer, Tool } from '@modelcontextprotocol/server'
 import { formatError } from '../utils/errors'
@@ -111,26 +112,35 @@ export async function runDocsTool(query: string) {
   }
 }
 
+// Built once per isolate rather than for every request's server.
+const DocsInputSchema = withCachedJsonSchema(
+  z.object({
+    query: z.string().describe('Cloudflare documentation search query')
+  })
+)
+
+const DocsOutputSchema = withCachedJsonSchema(
+  z.object({
+    results: z.array(
+      z.object({
+        similarity: z.number().describe('Similarity score from AI Search'),
+        id: z.string().describe('Source file ID'),
+        url: z.string().describe('Developer documentation URL'),
+        title: z.string().describe('Documentation page title'),
+        text: z.string().describe('Matching documentation chunk text')
+      })
+    )
+  })
+)
+
 export function registerDocsTool(server: McpServer) {
   server.registerTool(
     'docs',
     {
       title: 'Cloudflare Docs Search',
       description: docsToolDescription,
-      inputSchema: z.object({
-        query: z.string().describe('Cloudflare documentation search query')
-      }),
-      outputSchema: z.object({
-        results: z.array(
-          z.object({
-            similarity: z.number().describe('Similarity score from AI Search'),
-            id: z.string().describe('Source file ID'),
-            url: z.string().describe('Developer documentation URL'),
-            title: z.string().describe('Documentation page title'),
-            text: z.string().describe('Matching documentation chunk text')
-          })
-        )
-      }),
+      inputSchema: DocsInputSchema,
+      outputSchema: DocsOutputSchema,
       annotations: {
         title: 'Cloudflare Docs Search',
         readOnlyHint: false,

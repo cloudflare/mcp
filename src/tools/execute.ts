@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { withCachedJsonSchema } from '../lib/isolate-json-schema'
 import { env, exports, WorkerEntrypoint } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { CLOUDFLARE_TYPES } from '../constants'
@@ -319,6 +320,14 @@ async () => {
 const ACCOUNT_ID_PARAM_DESCRIPTION =
   'Cloudflare account ID to run against. Optional when the session is authorized for exactly one account, and for account-independent calls such as GET /accounts.'
 
+// Built once per isolate rather than for every request's server.
+const ExecuteInputSchema = withCachedJsonSchema(
+  z.object({
+    code: z.string().describe('JavaScript async arrow function to execute'),
+    account_id: z.string().optional().describe(ACCOUNT_ID_PARAM_DESCRIPTION)
+  })
+)
+
 /**
  * Register the `execute` tool: runs sandboxed JavaScript against the Cloudflare
  * API via `cloudflare.request()`.
@@ -345,10 +354,7 @@ export function registerExecuteTool(
     {
       title: 'Cloudflare API Code Executor',
       description: EXECUTE_TOOL_DESCRIPTION,
-      inputSchema: z.object({
-        code: z.string().describe('JavaScript async arrow function to execute'),
-        account_id: z.string().optional().describe(ACCOUNT_ID_PARAM_DESCRIPTION)
-      }),
+      inputSchema: ExecuteInputSchema,
       annotations: {
         title: 'Cloudflare API Code Executor',
         readOnlyHint: false,

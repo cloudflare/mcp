@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { withCachedJsonSchema } from '../lib/isolate-json-schema'
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { SPEC_TYPES } from '../openapi'
@@ -96,6 +97,13 @@ async () => {
 }`
 }
 
+// Built once per isolate rather than for every request's server.
+const SearchInputSchema = withCachedJsonSchema(
+  z.object({
+    code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec')
+  })
+)
+
 /**
  * Register the `search` tool: runs sandboxed JavaScript against the
  * pre-resolved OpenAPI spec (no network access). `formatResult` turns the
@@ -112,9 +120,7 @@ export async function registerSearchTool(
     {
       title: 'Cloudflare API Spec Search',
       description: searchToolDescription(products),
-      inputSchema: z.object({
-        code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec')
-      }),
+      inputSchema: SearchInputSchema,
       annotations: {
         title: 'Cloudflare API Spec Search',
         readOnlyHint: false,
