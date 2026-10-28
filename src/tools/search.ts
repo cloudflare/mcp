@@ -3,63 +3,19 @@ import { withCachedJsonSchema } from '../lib/isolate-json-schema'
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { SPEC_TYPES } from '../openapi'
-import { getProducts, getSpec } from '../isolate-cache'
+import { getProducts } from '../isolate-cache'
 import type { FormatToolResult } from '../truncate'
 import { formatError } from '../utils/errors'
 
-interface SearchExecutorEntrypoint {
-  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
-}
-
 /**
- * Run sandboxed read-only JavaScript against the pre-resolved OpenAPI spec.
- *
- * A fresh isolate runs each call (dynamic-worker isolates disallow eval, so
- * code cannot be passed as data into a warm isolate). It gets the spec as a
- * text module, from the in-isolate cache of what the forge tools service
- * serves, so a call neither asks the service nor copies the spec.
+ * Runs sandboxed read-only JavaScript against the pre-resolved OpenAPI spec.
+ * The forge tools service runs it, next to the spec it ships, so this Worker
+ * never holds the 27 MB spec.
  */
 async function runSearch(code: string): Promise<unknown> {
-  const specJson = await getSpec()
-  const workerId = `cloudflare-search-${crypto.randomUUID()}`
-
-  const worker = env.LOADER.get(workerId, () => ({
-    compatibilityDate: '2026-01-12',
-    globalOutbound: null,
-    mainModule: 'worker.js',
-    modules: {
-      // Its own text module, so the cached 27 MB string is handed over as is.
-      // Splicing it into the module source built a new string on every call:
-      // ~117 ms of main-isolate CPU per search, most of it garbage collection.
-      'spec.json.txt': { text: specJson },
-      'worker.js': `
-import { WorkerEntrypoint } from "cloudflare:workers";
-import specText from "./spec.json.txt";
-
-const spec = JSON.parse(specText);
-
-export default class SearchExecutor extends WorkerEntrypoint {
-  async evaluate() {
-    try {
-      const result = await (${code})();
-      return { result, err: undefined };
-    } catch (err) {
-      return { result: undefined, err: err.message, stack: err.stack };
-    }
-  }
-}
-      `
-    }
-  }))
-
-  const entrypoint = worker.getEntrypoint() as unknown as SearchExecutorEntrypoint
-  const response = await entrypoint.evaluate()
-
-  if (response.err) {
-    throw new Error(response.err)
-  }
-
-  return response.result
+  const outcome = await env.FORGE_TOOLS.search(code)
+  if (outcome.error !== undefined) throw new Error(outcome.error)
+  return outcome.result
 }
 
 /**

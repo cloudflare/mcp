@@ -354,7 +354,7 @@ describe('createServer with codemode=false', () => {
   })
 
   it('fails clearly when mcp-tools.json is unavailable', async () => {
-    await removeMcpTools({ '/user': { get: { summary: 'Get current user' } as OperationInfo } })
+    await removeMcpTools()
 
     await expect(createServer(bareUserProps, { codemode: false })).rejects.toThrow(
       'mcp-tools.json is not available'

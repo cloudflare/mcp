@@ -68,7 +68,9 @@ describe('automatic protocol negotiation', () => {
 
       const called = await client.callTool({
         name: 'search',
-        arguments: { code: 'async () => Object.keys(spec.paths)' }
+        arguments: {
+          code: `async () => Object.keys(spec.paths).filter((path) => path === '${SPEC_PATH}')`
+        }
       })
       expect(called.isError).toBeFalsy()
       expect(called.content[0]).toMatchObject({ type: 'text' })

@@ -435,33 +435,27 @@ describe('execute: account resolution', () => {
   })
 })
 
-describe('search: real SPEC_BUCKET', () => {
-  const SPEC_PATHS = {
-    '/accounts/{account_id}/workers/scripts': { get: { summary: 'List Workers' } }
-  }
-
+describe('search: the pinned spec, in the forge tools service', () => {
   // The API-token path resolves identity before any tool runs.
   beforeEach(() => mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] }))
 
-  it('evaluates code against the served spec', async () => {
-    await seedSpec(SPEC_PATHS)
-
+  it('evaluates code against the pinned spec', async () => {
     const result = await callTool(API_TOKEN, 'search', {
-      code: `async () => Object.keys(spec.paths)`
+      code: `async () => spec.paths['/accounts/{account_id}/workers/scripts'].get.summary`
     })
-    expect(toolText(result)).toContain('/accounts/{account_id}/workers/scripts')
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toContain('List Worker Scripts')
   })
 
-  it('errors when spec.json is unavailable', async () => {
+  it("returns the code's error as the tool's error", async () => {
     const result = await callTool(API_TOKEN, 'search', {
-      code: `async () => Object.keys(spec.paths)`
+      code: `async () => { throw new Error('no such product') }`
     })
-    expect(toolText(result)).toContain('spec.json is not available')
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain('no such product')
   })
 
   it('has no network access (globalOutbound is null for search)', async () => {
-    await seedSpec(SPEC_PATHS)
-
     const result = await callTool(API_TOKEN, 'search', {
       code: `async () => { await fetch("https://api.cloudflare.com/client/v4/user"); return "should not reach" }`
     })
