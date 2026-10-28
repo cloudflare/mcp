@@ -26,6 +26,8 @@ cloudflare-mcp/
 │   ├── spec-processor.ts          # OpenAPI spec $ref resolution & splitting merged paths
 │   ├── spec-release.ts            # The pinned spec release; builds its artifacts
 │   ├── truncate.ts                # Response truncation (~6K token limit)
+│   ├── lib/isolate.ts             # Isolate-lifetime caches: value, lazy, map, derived
+│   ├── isolate-cache.ts           # Spec artifacts, forge tool list and skills, cached per isolate
 │   ├── response-schema-check.ts   # Validates a body against generated response schemas; value-free violations
 │   ├── response-validation.ts     # checkResponse(): sampling, trimming, waitUntil, mismatch events
 │   ├── metrics.ts                 # Analytics Engine metrics (auth_user/tool_call)
@@ -248,6 +250,17 @@ How the challenge reaches the client depends on the client (`src/clients.ts`):
 ### Known MCP clients
 
 `src/clients.ts` lists the clients that need behavior other than the spec's, and how to recognise them: an exact Client ID Metadata Document URL (no I/O), or a registered client's redirect URI host (one KV read, through `OAUTH_PROVIDER.lookupClient`). Add an entry only for a client that deviates, with only the `ClientBehavior` fields that differ; every other client gets `SPEC_BEHAVIOR`. Identify the client lazily, only when the behavior is needed.
+
+### Isolate caching
+
+A warm isolate serves many requests, so anything that doesn't depend on the request is built once and reused. Use `isolate` from `src/lib/isolate.ts` rather than a module-level `let` or `Map`:
+
+- `isolate.value(load, { ttlMs })`: an async load shared by concurrent requests (one read from the forge tools service on a cold isolate, not one per request), reloaded after `ttlMs`. A failed load is not cached.
+- `isolate.lazy(build)`: a synchronous value built on first use.
+- `isolate.map({ maxEntries, maxSize, sizeOf })`: values by key, cleared when a cap would be passed, so a long-lived isolate can't grow without bound.
+- `isolate.derived(compute)`: a value computed from another cached object (an index, serialized bytes), keyed on that object's identity, so it is recomputed when the source reloads.
+
+Every cache registers itself; `isolate.resetAll()` returns a test to a cold isolate. One isolate serves every user, so never cache anything per request, per user or per credential this way.
 
 ### Response truncation
 
