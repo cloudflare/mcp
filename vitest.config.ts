@@ -1,4 +1,5 @@
 import { execFileSync } from 'node:child_process'
+import { readdirSync } from 'node:fs'
 import { cloudflareTest } from '@cloudflare/vitest-plugin'
 import { defineConfig } from 'vitest/config'
 
@@ -30,8 +31,15 @@ export default defineConfig({
         workers: [
           {
             name: 'cloudflare-api-mcp-forge-tools-dev',
-            modules: true,
-            scriptPath: `${FORGE_TOOLS_OUT}/worker.js`,
+            // worker.js, and the pinned spec artifacts as text modules
+            // (src/forge-tools/spec.ts), under the names the build gave them.
+            modulesRoot: FORGE_TOOLS_OUT,
+            modules: [
+              { type: 'ESModule', path: `${FORGE_TOOLS_OUT}/worker.js` },
+              ...readdirSync(FORGE_TOOLS_OUT)
+                .filter((file) => file.endsWith('.txt'))
+                .map((file) => ({ type: 'Text' as const, path: `${FORGE_TOOLS_OUT}/${file}` }))
+            ],
             compatibilityDate: '2026-06-17'
           }
         ]

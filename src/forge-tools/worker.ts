@@ -6,7 +6,8 @@
  * It holds no credentials and makes no requests. `listJson` returns the tools
  * as `tools/list` sends them, optionally with their output schemas; `plan` builds the request a call makes, which the
  * main Worker sends with the session's token; `checkResponse` checks a
- * response against the generated response schemas. It has no public route:
+ * response against the generated response schemas; `specArtifact` streams
+ * one of the pinned release's spec artifacts (`./spec`). It has no public route:
  * the main Worker reaches it through its `FORGE_TOOLS` service binding.
  */
 import { WorkerEntrypoint } from 'cloudflare:workers'
@@ -21,6 +22,8 @@ import {
 } from '../response-schema-check'
 import { declaresResult, payloadOf, type PayloadKind } from './envelope'
 import { concretePaths } from '../spec-processor'
+import type { SpecArtifactName } from '../spec-release'
+import { SPEC_ARTIFACTS, isSpecArtifactName } from './spec'
 
 /** The generated tools with the Cloudflare policy, built once per isolate. */
 const tools = generatedTools.map(cloudflareTool)
@@ -157,6 +160,15 @@ export default class ForgeTools extends WorkerEntrypoint {
       instancePath: at + (error.instancePath === '/' ? '' : error.instancePath) || '/'
     }))
     return { forgeTool: tool.name, ...mismatch, errors }
+  }
+
+  /**
+   * One of the pinned release's spec artifacts, as UTF-8 bytes. A stream, since
+   * `spec.json` is close to RPC's 32 MiB message limit and streams have none.
+   */
+  specArtifact(name: SpecArtifactName): ReadableStream<Uint8Array> {
+    if (!isSpecArtifactName(name)) throw new TypeError(`Unknown spec artifact: ${String(name)}`)
+    return new Blob([SPEC_ARTIFACTS[name]]).stream()
   }
 
   override fetch(): Response {
