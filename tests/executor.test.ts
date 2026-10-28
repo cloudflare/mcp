@@ -305,7 +305,7 @@ describe('execute: binary responses', () => {
     )
   }
 
-  it.each(['image/jpeg', 'application/octet-stream', 'application/pdf'])(
+  it.each(['image/jpeg', 'application/octet-stream', 'application/pdf', ''])(
     'returns %s as lossless bytes',
     async (type) => {
       serve(type)
@@ -330,6 +330,24 @@ describe('execute: binary responses', () => {
       first: 0xff,
       length: JPEG.length
     })
+  })
+
+  it('returns a UTF-8 KV value served as application/octet-stream as text', async () => {
+    const text = await runExecute(
+      `/accounts/${ACCOUNT_ID}/storage/kv/namespaces/ns/values/k`,
+      'hello, kv ✓',
+      {
+        headers: { 'Content-Type': 'application/octet-stream' }
+      }
+    )
+    expect(JSON.parse(text).result).toBe('hello, kv ✓')
+  })
+
+  it('returns an image as bytes even when they are valid UTF-8', async () => {
+    const text = await runExecute(`/accounts/${ACCOUNT_ID}/images/v1/i/blob`, 'GIF89a', {
+      headers: { 'Content-Type': 'image/gif' }
+    })
+    expect(JSON.parse(text).result).toEqual({ base64: btoa('GIF89a'), byteLength: 6 })
   })
 
   it.each(['text/csv', 'application/xml', 'application/x-ndjson', 'application/x-pem-file'])(
