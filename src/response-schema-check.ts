@@ -1,5 +1,6 @@
 import { dereference, validate, type OutputUnit, type Schema } from '@cfworker/json-schema'
 import type { ToolResponses } from './generated/forge-mcp'
+import { isolate } from './lib/isolate'
 
 /**
  * Validates a response body against a generated tool's response schemas
@@ -64,7 +65,7 @@ interface CompiledSchema {
   propertyNames: Set<string>
 }
 
-let compiled = new Map<string, CompiledSchema | null>()
+const compiled = isolate.map<string, CompiledSchema | null>({ maxEntries: MAX_VALIDATORS })
 
 /**
  * Validate a trimmed body against `responses`. Returns `undefined` when it
@@ -167,7 +168,6 @@ function compile(
 ): CompiledSchema | null {
   const hit = compiled.get(cacheKey)
   if (hit !== undefined) return hit
-  if (compiled.size >= MAX_VALIDATORS) compiled = new Map()
 
   let result: CompiledSchema | null = null
   try {
