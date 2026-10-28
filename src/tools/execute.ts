@@ -151,10 +151,93 @@ function apiError(method, path, response, details) {
   return error;
 }
 
+// The media type of a Content-Type header, lower-cased, without parameters.
+function mediaType(value) {
+  return (value || "").split(";", 1)[0].trim().toLowerCase();
+}
+
+// application/json or any application/*+json. Not NDJSON or JSON Lines, whose
+// bodies are lines of JSON rather than one value.
+function isJsonType(type) {
+  return /^application\\/(?:[\\w.-]+\\+)?json$/.test(type);
+}
+
+// Content read as text. An unlabelled response is text, as it always was, and
+// so is multipart (a Worker's script); anything else unknown is kept as bytes.
+const TEXT_TYPES = /^(?:text\\/|multipart\\/|message\\/)|^application\\/(?:xml|javascript|ecmascript|x-ndjson|jsonl|x-pem-file|x-www-form-urlencoded|graphql|sql|yaml|x-yaml|toml|csv)$|\\+xml$/;
+function isTextType(contentType) {
+  const type = mediaType(contentType);
+  return type === "" || TEXT_TYPES.test(type) || /;\\s*charset=/i.test(contentType || "");
+}
+
+// Bodies fetch sends as they are.
+function isRawBody(body) {
+  return typeof body === "string" || body instanceof ArrayBuffer || ArrayBuffer.isView(body) ||
+    body instanceof Blob || body instanceof FormData || body instanceof URLSearchParams ||
+    body instanceof ReadableStream;
+}
+
+function isJsonText(text) {
+  try {
+    JSON.parse(text);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// How cloudflare.request() sends a body. Objects, arrays, numbers and booleans
+// go as JSON. Strings, bytes, Blob, FormData, URLSearchParams and streams go as
+// they are, with contentType if given. The exception is a string sent as JSON
+// (a JSON contentType, or none): one that is already JSON goes as it is, and
+// any other is a JSON string value, such as Zaraz's "realtime".
+function encodeBody(body, contentType, rawBody) {
+  if (body === undefined || body === null) {
+    return { requestBody: undefined, requestType: contentType };
+  }
+  const asJson = !contentType || isJsonType(mediaType(contentType));
+  if (rawBody || (isRawBody(body) && !(typeof body === "string" && asJson))) {
+    // FormData needs fetch's own multipart header, which carries the boundary.
+    const withoutBoundary = body instanceof FormData && contentType && !/boundary=/i.test(contentType);
+    return { requestBody: body, requestType: withoutBoundary ? undefined : contentType };
+  }
+  const json = typeof body === "string" && isJsonText(body) ? body : JSON.stringify(body);
+  return { requestBody: json, requestType: contentType || "application/json" };
+}
+
+// The value the code returns, with bytes as { base64, byteLength } so they
+// survive being rendered as JSON. Values without bytes are returned unchanged.
+function encodeBytes(value, seen = new Set()) {
+  if (value instanceof ArrayBuffer) value = new Uint8Array(value);
+  if (ArrayBuffer.isView(value)) {
+    const bytes = new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
+    let binary = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    }
+    return { base64: btoa(binary), byteLength: bytes.byteLength };
+  }
+  if (value === null || typeof value !== "object" || seen.has(value)) return value;
+  const proto = Object.getPrototypeOf(value);
+  if (!Array.isArray(value) && proto !== Object.prototype && proto !== null) return value;
+  seen.add(value);
+  let copy;
+  for (const key of Object.keys(value)) {
+    const encoded = encodeBytes(value[key], seen);
+    if (encoded !== value[key]) {
+      copy ??= Array.isArray(value) ? [...value] : { ...value };
+      copy[key] = encoded;
+    }
+  }
+  return copy ?? value;
+}
+
 export default class CodeExecutor extends WorkerEntrypoint {
   async evaluate() {
     const cloudflare = {
       async request(options) {
+        // rawBody is no longer documented: the body's type decides how it is
+        // sent. It is still honoured for code written against older descriptions.
         const { method, path, query, body, contentType, rawBody } = options;
 
         const url = new URL(apiBase + path);
@@ -166,20 +249,8 @@ export default class CodeExecutor extends WorkerEntrypoint {
           }
         }
 
-        const headers = {};
-
-        if (contentType) {
-          headers["Content-Type"] = contentType;
-        } else if (body && !rawBody) {
-          headers["Content-Type"] = "application/json";
-        }
-
-        let requestBody;
-        if (rawBody) {
-          requestBody = body;
-        } else if (body) {
-          requestBody = JSON.stringify(body);
-        }
+        const { requestBody, requestType } = encodeBody(body, contentType, rawBody);
+        const headers = requestType ? { "Content-Type": requestType } : {};
 
         const response = await fetch(url.toString(), {
           method,
@@ -187,18 +258,21 @@ export default class CodeExecutor extends WorkerEntrypoint {
           body: requestBody,
         });
 
-        const responseContentType = (response.headers.get("content-type") || "")
-          .split(';', 1)[0].trim().toLowerCase();
-        const isJson = responseContentType === "application/json"
-          || responseContentType.endsWith("+json");
+        const responseType = mediaType(response.headers.get("content-type"));
 
-        // Handle non-JSON responses (e.g., KV values)
-        if (!isJson) {
-          const text = await response.text();
+        // Text comes back as a string, binary content (images, PDFs, archives,
+        // application/octet-stream) as a Uint8Array, so it isn't corrupted by
+        // decoding it as UTF-8.
+        if (!isJsonType(responseType)) {
           if (!response.ok) {
+            const text = await response.text();
             throw apiError(method, path, response, text.slice(0, 500));
           }
-          return { success: true, status: response.status, result: text };
+          const bytes = new Uint8Array(await response.arrayBuffer());
+          const result = isTextType(response.headers.get("content-type"))
+            ? new TextDecoder().decode(bytes)
+            : bytes;
+          return { success: true, status: response.status, result };
         }
 
         const data = await response.json();
@@ -251,7 +325,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
     try {
       const result = await (${code})();
-      return { ok: true, result };
+      return { ok: true, result: encodeBytes(result) };
     } catch (err) {
       return {
         ok: false,
@@ -308,13 +382,14 @@ When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DIS
 Your code must be an async arrow function that returns the result.
 A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help.
 
-Example: Worker with bindings (requires multipart/form-data):
+Example: Worker with bindings (a multipart/form-data upload):
 async () => {
-  const code = \`addEventListener('fetch', e => e.respondWith(MY_KV.get('key').then(v => new Response(v || 'none'))));\`;
-  const metadata = { body_part: "script", bindings: [{ type: "kv_namespace", name: "MY_KV", namespace_id: "your-kv-id" }] };
-  const b = \`--F\${Date.now()}\`;
-  const body = [\`--\${b}\`, 'Content-Disposition: form-data; name="metadata"', 'Content-Type: application/json', '', JSON.stringify(metadata), \`--\${b}\`, 'Content-Disposition: form-data; name="script"', 'Content-Type: application/javascript', '', code, \`--\${b}--\`].join("\\r\\n");
-  return cloudflare.request({ method: "PUT", path: \`/accounts/\${accountId}/workers/scripts/my-worker\`, body, contentType: \`multipart/form-data; boundary=\${b}\`, rawBody: true });
+  const code = \`export default { async fetch(request, env) { return new Response(await env.MY_KV.get('key') || 'none') } };\`;
+  const metadata = { main_module: "worker.js", bindings: [{ type: "kv_namespace", name: "MY_KV", namespace_id: "your-kv-id" }] };
+  const form = new FormData();
+  form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
+  form.append("worker.js", new Blob([code], { type: "application/javascript+module" }), "worker.js");
+  return cloudflare.request({ method: "PUT", path: \`/accounts/\${accountId}/workers/scripts/my-worker\`, body: form });
 }`
 
 const ACCOUNT_ID_PARAM_DESCRIPTION =
