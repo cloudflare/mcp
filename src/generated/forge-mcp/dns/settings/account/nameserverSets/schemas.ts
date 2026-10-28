@@ -26,6 +26,10 @@ export const dns_settings_nameserver_set_create: JsonSchema = {
       "default": 1,
       "description": "Selects the account-specific IP set that supplies the nameserver addresses. Nameserver sets with the same `ip_set` and `advanced` value may reuse addresses; otherwise, they use disjoint address groups."
     },
+    "name": {
+      "$ref": "#/$defs/dns-settings_nameserver-set-name",
+      "description": "Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set's nameservers or addresses."
+    },
     "nameservers": {
       "description": "Lists each nameserver and the number of addresses to allocate to it. Requires a unique name for each entry in the set.",
       "items": {
@@ -37,6 +41,7 @@ export const dns_settings_nameserver_set_create: JsonSchema = {
     }
   },
   "required": [
+    "name",
     "nameservers"
   ],
   "type": "object"
@@ -77,4 +82,26 @@ export const dns_settings_nameserver_set_ip_count: JsonSchema = {
 export const dns_settings_nameserver_set_ip_set: JsonSchema = {
   "description": "Selects the account-specific IP set that supplies the nameserver addresses. Nameserver sets with the same `ip_set` and `advanced` value may reuse addresses; otherwise, they use disjoint address groups.",
   "type": "integer"
+};
+
+/**
+ * The schema of `dns-settings_nameserver-set-name`.
+ */
+export const dns_settings_nameserver_set_name: JsonSchema = {
+  "description": "Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set's nameservers or addresses.",
+  "type": "string"
+};
+
+/**
+ * The schema of `dns-settings_nameserver-set-patch`.
+ */
+export const dns_settings_nameserver_set_patch: JsonSchema = {
+  "description": "Updates only the customer-defined name. All other fields are rejected, even if unchanged. An empty object or the current name succeeds without changing the set. A null name is invalid. Requires the account-scoped creation entitlements, including eligibility for the set's current IP set and the Advanced entitlement for an Advanced set.",
+  "properties": {
+    "name": {
+      "$ref": "#/$defs/dns-settings_nameserver-set-name",
+      "description": "Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set's nameservers or addresses."
+    }
+  },
+  "type": "object"
 };

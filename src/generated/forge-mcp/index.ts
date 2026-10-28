@@ -321,6 +321,7 @@ import { tools as emailSendingTools } from "./emailSending/tools.js";
 import { tools as fieldExtractorsTools } from "./fieldExtractors/tools.js";
 import { tools as firewall_accessRulesTools } from "./firewall/accessRules/tools.js";
 import { tools as firewall_lockdownsTools } from "./firewall/lockdowns/tools.js";
+import { tools as firewall_payloadLoggingTools } from "./firewall/payloadLogging/tools.js";
 import { tools as firewall_uaRulesTools } from "./firewall/uaRules/tools.js";
 import { tools as flagship_apps_definitionsTools } from "./flagship/apps/definitions/tools.js";
 import { tools as flagship_apps_evaluateTools } from "./flagship/apps/evaluate/tools.js";
@@ -1004,6 +1005,7 @@ import { tools as zeroTrust_identityProviders_scim_usersTools } from "./zeroTrus
 import { tools as zeroTrust_identityProvidersTools } from "./zeroTrust/identityProviders/tools.js";
 import { tools as zeroTrust_organization_dohTools } from "./zeroTrust/organization/doh/tools.js";
 import { tools as zeroTrust_organizationTools } from "./zeroTrust/organization/tools.js";
+import { tools as zeroTrust_organization_trustSettingsTools } from "./zeroTrust/organization/trustSettings/tools.js";
 import { tools as zeroTrust_riskScoring_behavioursTools } from "./zeroTrust/riskScoring/behaviours/tools.js";
 import { tools as zeroTrust_riskScoring_integrations_referencesTools } from "./zeroTrust/riskScoring/integrations/references/tools.js";
 import { tools as zeroTrust_riskScoring_integrationsTools } from "./zeroTrust/riskScoring/integrations/tools.js";
@@ -1370,6 +1372,7 @@ export const tools: readonly Tool[] = [
   ...fieldExtractorsTools,
   ...firewall_accessRulesTools,
   ...firewall_lockdownsTools,
+  ...firewall_payloadLoggingTools,
   ...firewall_uaRulesTools,
   ...flagship_appsTools,
   ...flagship_apps_definitionsTools,
@@ -2053,6 +2056,7 @@ export const tools: readonly Tool[] = [
   ...zeroTrust_identityProviders_scim_usersTools,
   ...zeroTrust_organizationTools,
   ...zeroTrust_organization_dohTools,
+  ...zeroTrust_organization_trustSettingsTools,
   ...zeroTrust_riskScoringTools,
   ...zeroTrust_riskScoring_behavioursTools,
   ...zeroTrust_riskScoring_integrationsTools,

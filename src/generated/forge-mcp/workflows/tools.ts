@@ -244,6 +244,21 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
+        "jurisdiction": {
+          "oneOf": [
+            {
+              "enum": [
+                "eu",
+                "fedramp",
+                "us"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "modified_on": {
           "format": "date-time",
           "type": "string"
@@ -355,6 +370,21 @@ export const tools: readonly Tool[] = [
                 "type": "number"
               },
               "type": "object"
+            },
+            "jurisdiction": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "eu",
+                    "fedramp",
+                    "us"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "modified_on": {
               "format": "date-time",
@@ -554,6 +584,21 @@ export const tools: readonly Tool[] = [
                 },
                 "type": "object"
               },
+              "jurisdiction": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "eu",
+                      "fedramp",
+                      "us"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "modified_on": {
                 "format": "date-time",
                 "type": "string"
@@ -704,6 +749,21 @@ export const tools: readonly Tool[] = [
                       "type": "number"
                     },
                     "type": "object"
+                  },
+                  "jurisdiction": {
+                    "oneOf": [
+                      {
+                        "enum": [
+                          "eu",
+                          "fedramp",
+                          "us"
+                        ],
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "modified_on": {
                     "format": "date-time",

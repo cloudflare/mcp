@@ -135,7 +135,7 @@ export const abuse_reports_MitigationAppeal: JsonSchema = {
  * The schema of `abuse-reports_MitigationAppealRequest`.
  */
 export const abuse_reports_MitigationAppealRequest: JsonSchema = {
-  "description": "Submit an appeal for a report. Provide either a list of mitigations to appeal, or an appeal type with its supporting details, but not both. When type is \"counter_notice\", the counter-notice details are required.",
+  "description": "Submit an appeal for a report. Provide either a list of mitigations to appeal, or an appeal type with its supporting details, but not both. When type is \"counter_notice\", the counter-notice details are required. A \"content_removed\" appeal takes an optional explanation instead and is accepted only while the report is in its Notice and Takedown notice period (`has_pending_notice` on the eligibility response). Reports that allow a single appeal (`max_appeals` of 1) never have a notice period and accept it whenever `appealable` is true.",
   "properties": {
     "appeals": {
       "description": "List of mitigations to appeal.",
@@ -147,6 +147,10 @@ export const abuse_reports_MitigationAppealRequest: JsonSchema = {
     "data": {
       "$ref": "#/$defs/abuse-reports_DMCACounterNotice",
       "description": "Counter-notice details supporting an appeal."
+    },
+    "explanation": {
+      "description": "Optional explanation for a \"content_removed\" appeal, such as how the content was removed. Not accepted for other appeal types.",
+      "type": "string"
     },
     "type": {
       "$ref": "#/$defs/abuse-reports_AppealType",

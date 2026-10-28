@@ -47,6 +47,9 @@ export const dns_settings_nameserver_set_advanced_response_output: JsonSchema = 
     "ip_set": {
       "$ref": "#/$defs/dns-settings_nameserver-set-ip-set"
     },
+    "name": {
+      "$ref": "#/$defs/dns-settings_nameserver-set-name"
+    },
     "nameservers": {
       "items": {
         "$ref": "#/$defs/dns-settings_nameserver-set-advanced-response-member"
@@ -60,6 +63,7 @@ export const dns_settings_nameserver_set_advanced_response_output: JsonSchema = 
     "created_on",
     "id",
     "ip_set",
+    "name",
     "advanced",
     "nameservers"
   ],
@@ -135,6 +139,13 @@ export const dns_settings_nameserver_set_ipv6_addresses_output: JsonSchema = {
 };
 
 /**
+ * The schema of `dns-settings_nameserver-set-name` in responses.
+ */
+export const dns_settings_nameserver_set_name_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `dns-settings_nameserver-set-response` in responses.
  */
 export const dns_settings_nameserver_set_response_output: JsonSchema = {
@@ -192,6 +203,9 @@ export const dns_settings_nameserver_set_standard_response_output: JsonSchema = 
     "ip_set": {
       "$ref": "#/$defs/dns-settings_nameserver-set-ip-set"
     },
+    "name": {
+      "$ref": "#/$defs/dns-settings_nameserver-set-name"
+    },
     "nameservers": {
       "items": {
         "$ref": "#/$defs/dns-settings_nameserver-set-response-member"
@@ -205,6 +219,7 @@ export const dns_settings_nameserver_set_standard_response_output: JsonSchema = 
     "created_on",
     "id",
     "ip_set",
+    "name",
     "advanced",
     "nameservers"
   ],

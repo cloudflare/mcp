@@ -255,6 +255,10 @@ export const access_base_policy_req: JsonSchema = {
       "$ref": "#/$defs/access_name-9",
       "description": "The name of the Access policy."
     },
+    "policy_resolution_account_id": {
+      "$ref": "#/$defs/access_policy_resolution_account_id",
+      "description": "The account ID used to resolve policy resources and identity for cross-account WARP authentication. The account must be trusted by the account that owns this policy."
+    },
     "require": {
       "$ref": "#/$defs/access_require-2",
       "default": [],
@@ -1026,6 +1030,14 @@ export const access_policy_req: JsonSchema = {
       "$ref": "#/$defs/access_base_policy_req"
     }
   ]
+};
+
+/**
+ * The schema of `access_policy_resolution_account_id`.
+ */
+export const access_policy_resolution_account_id: JsonSchema = {
+  "description": "The account ID used to resolve policy resources and identity for cross-account WARP authentication. The account must be trusted by the account that owns this policy.",
+  "type": "string"
 };
 
 /**
