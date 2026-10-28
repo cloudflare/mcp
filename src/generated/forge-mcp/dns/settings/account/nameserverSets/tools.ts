@@ -16,6 +16,7 @@ import {
   dns_settings_nameserver_set_ip_set_output,
   dns_settings_nameserver_set_ipv4_addresses_output,
   dns_settings_nameserver_set_ipv6_addresses_output,
+  dns_settings_nameserver_set_name_output,
   dns_settings_nameserver_set_response_member_output,
   dns_settings_nameserver_set_response_output,
   dns_settings_nameserver_set_standard_response_output,
@@ -26,6 +27,8 @@ import {
   dns_settings_nameserver_set_create_member,
   dns_settings_nameserver_set_ip_count,
   dns_settings_nameserver_set_ip_set,
+  dns_settings_nameserver_set_name,
+  dns_settings_nameserver_set_patch,
 } from "./schemas.js";
 
 /**
@@ -35,7 +38,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_create",
     title: "Create Custom Nameserver Set",
-    description: "Creates an immutable Custom Nameserver Set. To change a set, create a new one, move any zone assignments, and delete the old set.\n\nThis method is beta.",
+    description: "Creates a named Custom Nameserver Set. Only the customer-defined name can be changed later. To change nameservers or addresses, create a new set, move any zone assignments, and delete the old set.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
@@ -57,6 +60,7 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-create-member": dns_settings_nameserver_set_create_member,
         "dns-settings_nameserver-set-ip-count": dns_settings_nameserver_set_ip_count,
         "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name,
       },
     },
     outputSchema: {
@@ -70,6 +74,7 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
         "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
@@ -117,6 +122,7 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
         "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
@@ -212,6 +218,108 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
+    name: "dns_settings_account_nameserver_sets_edit",
+    title: "Update Custom Nameserver Set",
+    description: "Renames a Custom Nameserver Set owned by the account. Only name may be supplied; immutable and unknown fields are rejected even if unchanged. An empty object or the existing name is a successful no-op. Requires the account-scoped creation entitlements for the existing set.\n\nThis method is beta.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "account_id": {
+          "description": "Identifier.",
+          "type": "string"
+        },
+        "body": {
+          "$ref": "#/$defs/dns-settings_nameserver-set-patch"
+        },
+        "nameserver_set_id": {
+          "description": "Identifier for a nameserver set.",
+          "type": "string"
+        }
+      },
+      required: [
+        "account_id",
+        "nameserver_set_id",
+        "body"
+      ],
+      $defs: {
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name,
+        "dns-settings_nameserver-set-patch": dns_settings_nameserver_set_patch,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dns-settings_nameserver-set-response",
+      $defs: {
+        "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
+        "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
+        "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
+        "dns-settings_nameserver-set-advanced-response-member": dns_settings_nameserver_set_advanced_response_member_output,
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id_output,
+        "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
+        "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
+        "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
+        "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
+        "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Custom Nameserver Set"
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/dns_settings/nameserver_sets/{nameserver_set_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Account DNS Settings Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.custom-ns-set.update"
+        ],
+        "x-fern-enum": {
+          "com.cloudflare.api.account.custom-ns-set.update": {
+            "name": "com_cloudflare_api_account_custom_ns_set_update"
+          }
+        }
+      },
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-settings_nameserver-set-response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-settings_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_messages": dns_settings_messages_output,
+        "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
+        "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
+        "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
+        "dns-settings_nameserver-set-advanced-response-member": dns_settings_nameserver_set_advanced_response_member_output,
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id_output,
+        "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
+        "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
+        "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
+        "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
+        "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/dns_settings/nameserver_sets/${pathParam(args, "nameserver_set_id")}`,
+      body: { value: args["body"], mediaType: "application/json" },
+    }),
+  },
+  {
     name: "dns_settings_account_nameserver_sets_get",
     title: "Get Custom Nameserver Set",
     description: "Gets a Custom Nameserver Set owned by an account.\n\nThis method is beta.",
@@ -243,6 +351,7 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
         "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
@@ -294,6 +403,7 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
         "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
@@ -374,6 +484,7 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
         "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
@@ -456,6 +567,7 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ip-set": dns_settings_nameserver_set_ip_set_output,
         "dns-settings_nameserver-set-ipv4-addresses": dns_settings_nameserver_set_ipv4_addresses_output,
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
+        "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,

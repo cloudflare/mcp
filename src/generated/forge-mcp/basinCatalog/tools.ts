@@ -17,6 +17,10 @@ import {
   r2_data_catalog_maintenance_interval_output,
   r2_data_catalog_snapshot_expiration_config_output,
 } from "../outputs.js";
+import {
+  r2_data_catalog_catalog_activation_request,
+  r2_data_catalog_catalog_credential_request,
+} from "../schemas.js";
 
 /**
  * The tools of `basin_catalog`.
@@ -161,6 +165,9 @@ export const tools: readonly Tool[] = [
           "description": "Identifies the account.",
           "type": "string"
         },
+        "body": {
+          "$ref": "#/$defs/r2-data-catalog_catalog-activation-request"
+        },
         "bucket_name": {
           "description": "Specifies the R2 bucket name to enable as catalog.",
           "type": "string"
@@ -170,6 +177,10 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2-data-catalog_catalog-activation-request": r2_data_catalog_catalog_activation_request,
+        "r2-data-catalog_catalog-credential-request": r2_data_catalog_catalog_credential_request,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/r2-data-catalog_catalog-activation-response",
@@ -223,6 +234,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/enable`,
+      body: { value: args["body"], mediaType: "application/json" },
     }),
   },
   {

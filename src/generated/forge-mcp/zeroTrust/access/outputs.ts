@@ -869,6 +869,13 @@ export const access_okta_group_rule_okta_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_policy_resolution_account_id` in responses.
+ */
+export const access_policy_resolution_account_id_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `access_purpose_justification_prompt` in responses.
  */
 export const access_purpose_justification_prompt_output: JsonSchema = {

@@ -20,8 +20,15 @@ export const abuse_reports_AppealEligibility_output: JsonSchema = {
     "has_open_appeal": {
       "type": "boolean"
     },
+    "has_pending_notice": {
+      "type": "boolean"
+    },
     "max_appeals": {
       "type": "integer"
+    },
+    "notice_deadline": {
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -29,6 +36,7 @@ export const abuse_reports_AppealEligibility_output: JsonSchema = {
     "appealable",
     "has_appealable_mitigations",
     "has_open_appeal",
+    "has_pending_notice",
     "max_appeals"
   ],
   "type": "object"
