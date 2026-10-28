@@ -22,7 +22,7 @@ import { parseArgs, promisify } from 'node:util'
 import { cfEnv } from './cloudflare-account'
 import { z } from 'zod'
 
-/** The repository whose releases publish the OpenAPI document (`SPEC_URL` in `src/spec-release.ts`). */
+/** The repository whose releases publish the OpenAPI document (`SPEC_RELEASE` in `src/spec-release.ts`). */
 const SPEC_REPOSITORY = 'cloudflare/forge'
 
 const DATASETS = {

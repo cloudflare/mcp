@@ -4,8 +4,6 @@ import { cfEnv } from './cloudflare-account'
 import { writeFileSync, mkdtempSync, mkdirSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
-import { MCP_TOOLS_KEY } from '../src/openapi'
-import { SPEC_RELEASE, buildSpecArtifacts, downloadSpec } from '../src/spec-release'
 import { fetchSkills } from '../src/skills/sync'
 import { SKILLS_MANIFEST_KEY, skillFileKey } from '../src/skills/types'
 
@@ -38,34 +36,16 @@ if (!env || !['staging', 'production'].includes(env)) {
   process.exit(1)
 }
 
-// The pinned release (`src/generated/forge-mcp/source.json`). The uploaded
-// spec.json carries no release metadata, so the next ten-minute cron rewrites it
-// from the same release.
-console.log(`Fetching OpenAPI spec ${SPEC_RELEASE}...`)
-const artifacts = buildSpecArtifacts(await downloadSpec())
-const specJson = artifacts['spec.json']
-const productsJson = artifacts['products.json']
-const mcpToolsJson = artifacts[MCP_TOOLS_KEY]
-const productCount = (JSON.parse(productsJson) as unknown[]).length
-
-console.log(`Spec: ${(specJson.length / 1024 / 1024).toFixed(1)} MB, ${productCount} products`)
-
 const skills = await fetchSkills()
 const skillsManifestJson = JSON.stringify(skills.manifest)
 console.log(`Skills: ${skills.manifest.skills.length} skills, ${skills.blobs.size} files`)
 
 const tmp = mkdtempSync(join(tmpdir(), 'mcp-seed-'))
-const specPath = join(tmp, 'spec.json')
-const productsPath = join(tmp, 'products.json')
-const mcpToolsPath = join(tmp, MCP_TOOLS_KEY)
 const skillsManifestPath = join(tmp, 'skills-manifest.json')
 const skillFilesDir = join(tmp, 'skill-files')
 const bucket = `mcp-spec-${env}`
 
 try {
-  writeFileSync(specPath, specJson)
-  writeFileSync(productsPath, productsJson)
-  writeFileSync(mcpToolsPath, mcpToolsJson)
   writeFileSync(skillsManifestPath, skillsManifestJson)
   mkdirSync(skillFilesDir)
   const skillFiles = [...skills.blobs].map(([digest, bytes]) => {
@@ -84,15 +64,8 @@ try {
     })
   )
 
-  for (const [key, path] of [
-    ['spec.json', specPath],
-    ['products.json', productsPath],
-    [MCP_TOOLS_KEY, mcpToolsPath],
-    [SKILLS_MANIFEST_KEY, skillsManifestPath]
-  ] as const) {
-    console.log(`Uploading ${key} to ${bucket}...`)
-    await put(bucket, key, path, 'application/json')
-  }
+  console.log(`Uploading ${SKILLS_MANIFEST_KEY} to ${bucket}...`)
+  await put(bucket, SKILLS_MANIFEST_KEY, skillsManifestPath, 'application/json')
 
   console.log('Done!')
 } finally {

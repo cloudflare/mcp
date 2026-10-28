@@ -11,8 +11,7 @@ import {
   oauthMcpHandler,
   rejectInvalidMcpRequest
 } from './mcp-handler'
-import { syncSpec } from './spec-release'
-import { SKILLS_CRON, syncSkills } from './skills/sync'
+import { syncSkills } from './skills/sync'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
@@ -94,14 +93,12 @@ export default {
   },
 
   async scheduled(
-    controller: ScheduledController,
+    _controller: ScheduledController,
     env: Env,
     _ctx: ExecutionContext
   ): Promise<void> {
-    // Two crons (wrangler.jsonc). Every ten minutes R2 catches up with the
-    // pinned spec release, which costs one metadata read when it already has
-    // it. Every six hours the skills sync from cloudflare/skills.
-    if (controller.cron === SKILLS_CRON) await syncSkills(env.SPEC_BUCKET)
-    else await syncSpec(env.SPEC_BUCKET)
+    // Every six hours (`0 */6 * * *`), the skills sync from cloudflare/skills.
+    // The spec ships with the deploy, in the forge tools service.
+    await syncSkills(env.SPEC_BUCKET)
   }
 }

@@ -353,12 +353,11 @@ describe('createServer with codemode=false', () => {
     expect(docsTool.outputSchema).toBeDefined()
   })
 
-  it('fails clearly when mcp-tools.json has not been seeded', async () => {
-    await seedSpec({ '/user': { get: { summary: 'Get current user' } as OperationInfo } })
-    await removeMcpTools()
+  it('fails clearly when mcp-tools.json is unavailable', async () => {
+    await removeMcpTools({ '/user': { get: { summary: 'Get current user' } as OperationInfo } })
 
     await expect(createServer(bareUserProps, { codemode: false })).rejects.toThrow(
-      'mcp-tools.json not found in R2'
+      'mcp-tools.json is not available'
     )
   })
 
