@@ -30,6 +30,25 @@ const MIN_SLOT = 128
 /** Renders a tool's result value as the text content sent to the MCP client. */
 export type FormatToolResult = (content: unknown) => string
 
+/**
+ * Description of the `truncate` argument on `search` and `execute`. The tool
+ * metadata is shared by every connection, so it doesn't state the default,
+ * which `?truncateToolResult=false` can turn off.
+ */
+export const TRUNCATE_ARGUMENT_DESCRIPTION =
+  'Cap the result at ~6,000 tokens. Set to false only when the result goes straight to a file or pipe, not into the conversation: without the cap, a broad query can return megabytes.'
+
+/**
+ * The formatter for one tool call: capped unless `truncate` is `false`. An
+ * omitted `truncate` uses the connection's default.
+ */
+export function formatterFor(
+  truncate: boolean | undefined,
+  truncateByDefault: boolean
+): FormatToolResult {
+  return (truncate ?? truncateByDefault) ? truncateResponse : stringifyResponse
+}
+
 type Json = string | number | boolean | null | Json[] | { [key: string]: Json }
 
 /**

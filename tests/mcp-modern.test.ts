@@ -431,6 +431,47 @@ describe('tool result truncation', () => {
     expect(JSON.parse(text)).toEqual(ROWS)
   })
 
+  it('returns the whole execute result with truncate: false', async () => {
+    const text = await callToolText('execute', { code: ROWS_CODE, truncate: false })
+
+    expect(JSON.parse(text)).toEqual(ROWS)
+  })
+
+  it('returns the whole search result with truncate: false', async () => {
+    const text = await callToolText('search', { code: ROWS_CODE, truncate: false })
+
+    expect(JSON.parse(text)).toEqual(ROWS)
+  })
+
+  it('lets truncate: true override ?truncateToolResult=false', async () => {
+    const execute = await callToolText(
+      'execute',
+      { code: ROWS_CODE, truncate: true },
+      `${MCP_URL}?truncateToolResult=false`
+    )
+    const search = await callToolText(
+      'search',
+      { code: ROWS_CODE, truncate: true },
+      `${MCP_URL}?truncateToolResult=false`
+    )
+
+    expect(execute.length).toBeLessThanOrEqual(24_000)
+    expect(execute).toContain('--- TRUNCATED ---')
+    expect(search.length).toBeLessThanOrEqual(24_000)
+    expect(search).toContain('--- TRUNCATED ---')
+  })
+
+  it('offers the truncate argument on search and execute', async () => {
+    const response = await exports.default.fetch(modernMcpRequest(API_TOKEN, 'tools/list', {}))
+    const { result } = await parseMcpResult(response)
+
+    for (const name of ['search', 'execute']) {
+      expect(result?.tools?.find((tool) => tool.name === name)).toMatchObject({
+        inputSchema: { properties: { truncate: { type: 'boolean' } } }
+      })
+    }
+  })
+
   it('returns the whole endpoint tool response by default with ?codemode=false', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
