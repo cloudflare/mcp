@@ -23,7 +23,10 @@ export interface SpecArtifacts {
   readonly [MCP_TOOLS_KEY]: string
 }
 
-/** Builds the R2 objects from the raw OpenAPI document. */
+/** The name of a spec artifact. */
+export type SpecArtifactName = keyof SpecArtifacts
+
+/** Builds the spec artifacts from the raw OpenAPI document. */
 export function buildSpecArtifacts(rawSpec: Record<string, unknown>): SpecArtifacts {
   const processed = processSpec(rawSpec) as { paths: Record<string, Record<string, OperationInfo>> }
   return {

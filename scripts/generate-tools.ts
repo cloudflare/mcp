@@ -11,10 +11,16 @@
  * response that breaks a generated response schema names the spec it came
  * from (`--release` gives it for a local `--spec`). `--summary` writes the
  * tools added and removed as Markdown, for the pull request.
+ *
+ * The same release's spec artifacts go to `src/generated/spec` as text
+ * modules: `spec.json` for Code Mode's `search`, `products.json`, and
+ * `mcp-tools.json` for the endpoint tools. The forge tools service serves
+ * them, so every deploy carries the spec it was reviewed with.
  */
 import { execFileSync } from 'node:child_process'
 import {
   existsSync,
+  mkdirSync,
   mkdtempSync,
   readFileSync,
   readdirSync,
@@ -25,10 +31,12 @@ import {
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
+import { buildSpecArtifacts } from '../src/spec-release'
 
 const LATEST_RELEASE = 'https://api.github.com/repos/cloudflare/forge/releases/latest'
 const SPEC_ASSET = 'openapi.forge.json'
 const OUT = 'src/generated/forge-mcp'
+const SPEC_OUT = 'src/generated/spec'
 /** A drop in tools with permissions below this share of before warns in the summary. */
 const PERMISSIONS_DROP_WARNING = 0.95
 
@@ -63,6 +71,14 @@ try {
   rmSync(OUT, { recursive: true, force: true })
   renameSync(out, OUT)
   writeFileSync(join(OUT, 'source.json'), `${JSON.stringify({ release }, null, 2)}\n`)
+
+  mkdirSync(SPEC_OUT, { recursive: true })
+  const artifacts = buildSpecArtifacts(
+    JSON.parse(readFileSync(spec, 'utf8')) as Record<string, unknown>
+  )
+  for (const [name, text] of Object.entries(artifacts)) {
+    writeFileSync(join(SPEC_OUT, `${name}.txt`), asciiJson(text))
+  }
   const after = toolNames(OUT)
   const permissionsAfter = withPermissions(OUT)
 
@@ -78,6 +94,19 @@ try {
   }
 } finally {
   rmSync(tmp, { recursive: true, force: true })
+}
+
+/**
+ * Returns `json` with every character above U+007F escaped as `\uXXXX`. It is
+ * the same JSON, but V8 keeps an all-ASCII string at one byte per character:
+ * the 710 non-Latin-1 characters in `spec.json` would otherwise make its 26.7M
+ * characters a 53 MB two-byte string in every isolate that holds it.
+ */
+function asciiJson(json: string): string {
+  return json.replace(
+    /[\u0080-\uffff]/g,
+    (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`
+  )
 }
 
 /** The latest Forge release's tag and the download URL of its `openapi.forge.json`. */

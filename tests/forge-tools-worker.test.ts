@@ -91,6 +91,21 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     )
   })
 
+  it("streams the pinned release's spec artifacts", async () => {
+    const text = async (name: Parameters<typeof env.FORGE_TOOLS.specArtifact>[0]) =>
+      new Response(await env.FORGE_TOOLS.specArtifact(name)).text()
+
+    const spec = JSON.parse(await text('spec.json')) as {
+      paths: Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
+    }
+    expect(spec.paths['/accounts/{account_id}/d1/database'].get['x-api-token-group']).toContain(
+      'D1 Read'
+    )
+    expect(JSON.parse(await text('products.json'))).toContain('workers')
+    const mcpTools = JSON.parse(await text('mcp-tools.json')) as { name: string }[]
+    expect(mcpTools.length).toBeGreaterThan(1000)
+  })
+
   it("fills in the session's account and sends the token", async () => {
     let called: URL | undefined
     let auth: string | null = null
