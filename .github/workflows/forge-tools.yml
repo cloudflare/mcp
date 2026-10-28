@@ -1,10 +1,11 @@
 name: Forge tools
 
-# Every six hours, regenerates src/generated/forge-mcp, the direct tools served
-# at /mcp?codemode=false&experimentalForge=true, from the latest
+# Every six hours, regenerates src/generated/forge-mcp from the latest
 # openapi.forge.json Forge release with the forge commit that forge.json names.
-# When the generated code changes, it opens or updates one pull request; merging
-# it deploys through Workers Builds.
+# Its source.json pins the release the whole deployment serves: the forge
+# tools, and the spec Code Mode and the endpoint tools read from R2. When the
+# generated code changes, it opens or updates one pull request; merging it
+# deploys through Workers Builds, and the ten-minute cron syncs R2 to the pin.
 #
 # Pull requests opened with GITHUB_TOKEN don't start other workflows, so this
 # job runs the type check and tests itself before opening one.
@@ -24,7 +25,7 @@ concurrency:
 
 env:
   BRANCH: bot/forge-tools
-  TITLE: 'chore(forge): regenerate the forge MCP tools'
+  TITLE: 'chore(spec): update the OpenAPI spec and the forge MCP tools'
 
 jobs:
   generate:
@@ -100,7 +101,7 @@ jobs:
           git commit -q -m "$TITLE"
           git push -q --force origin "$BRANCH"
           {
-            echo "Regenerated from the latest \`openapi.forge.json\` with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?codemode=false&experimentalForge=true\`."
+            echo "Pins the latest \`openapi.forge.json\` and regenerates the forge MCP tools with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?codemode=false&experimentalForge=true\`, and within ten minutes Code Mode and the endpoint tools serve this spec too."
             echo
             cat "$RUNNER_TEMP/summary.md"
           } > "$RUNNER_TEMP/body.md"

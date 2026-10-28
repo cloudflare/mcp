@@ -29,6 +29,8 @@ import { parseArgs } from 'node:util'
 const LATEST_RELEASE = 'https://api.github.com/repos/cloudflare/forge/releases/latest'
 const SPEC_ASSET = 'openapi.forge.json'
 const OUT = 'src/generated/forge-mcp'
+/** A drop in tools with permissions below this share of before warns in the summary. */
+const PERMISSIONS_DROP_WARNING = 0.95
 
 const { values } = parseArgs({
   options: {
@@ -57,15 +59,23 @@ try {
   execFileSync(forge, [spec, '--target', 'mcp', '--out', out], { stdio: 'inherit' })
 
   const before = toolNames(OUT)
+  const permissionsBefore = withPermissions(OUT)
   rmSync(OUT, { recursive: true, force: true })
   renameSync(out, OUT)
   writeFileSync(join(OUT, 'source.json'), `${JSON.stringify({ release }, null, 2)}\n`)
   const after = toolNames(OUT)
+  const permissionsAfter = withPermissions(OUT)
 
   const added = [...after].filter((name) => !before.has(name)).sort()
   const removed = [...before].filter((name) => !after.has(name)).sort()
   console.log(`${after.size} tools: ${added.length} added, ${removed.length} removed`)
-  if (values.summary) writeFileSync(values.summary, summary(after.size, added, removed))
+  console.log(`Tools with permissions: ${permissionsBefore} -> ${permissionsAfter}`)
+  if (values.summary) {
+    writeFileSync(
+      values.summary,
+      summary(after.size, added, removed, { before: permissionsBefore, after: permissionsAfter })
+    )
+  }
 } finally {
   rmSync(tmp, { recursive: true, force: true })
 }
@@ -89,6 +99,19 @@ async function latestRelease(): Promise<{ tag: string; url: string }> {
   return { tag, url: asset.browser_download_url }
 }
 
+/** How many generated tools in `dir` list the permissions they accept. */
+function withPermissions(dir: string): number {
+  let count = 0
+  if (!existsSync(dir)) return count
+  for (const entry of readdirSync(dir, { recursive: true, withFileTypes: true })) {
+    if (entry.isFile() && entry.name === 'tools.ts') {
+      const source = readFileSync(join(entry.parentPath, entry.name), 'utf8')
+      count += source.match(/^ {6}"x-api-token-group": /gm)?.length ?? 0
+    }
+  }
+  return count
+}
+
 /** The names of the generated tools in `dir`, read from each `tools.ts`. */
 function toolNames(dir: string): Set<string> {
   const names = new Set<string>()
@@ -102,10 +125,22 @@ function toolNames(dir: string): Set<string> {
   return names
 }
 
-function summary(count: number, added: string[], removed: string[]): string {
+function summary(
+  count: number,
+  added: string[],
+  removed: string[],
+  permissions: { before: number; after: number }
+): string {
   const list = (names: string[]) => names.map((name) => `- \`${name}\``).join('\n')
+  // Refusal explanations and scope step-up read each tool's permissions, so a
+  // release that drops them breaks both. openapi@67443a2 dropped 90%.
+  const dropped = permissions.after < permissions.before * PERMISSIONS_DROP_WARNING
   return [
     `${count} tools: ${added.length} added, ${removed.length} removed.`,
+    `Tools with permissions (\`x-api-token-group\`): ${permissions.before} → ${permissions.after}.`,
+    dropped
+      ? "\n**Warning:** this release drops the permissions of many tools. Refusal explanations and scope step-up need them, in Code Mode too. Don't merge it until the spec is fixed."
+      : '',
     removed.length > 0
       ? `\n**Removed** (clients calling these will get "not found"):\n\n${list(removed)}`
       : '',

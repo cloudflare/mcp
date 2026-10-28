@@ -1,6 +1,6 @@
 import { env, waitUntil } from 'cloudflare:workers'
 import type { AuthProps } from './auth/types'
-import source from './generated/forge-mcp/source.json'
+import { SPEC_RELEASE } from './spec-release'
 import { recordResponseSchemaMismatch } from './metrics'
 import { trimForCheck, type MismatchError } from './response-schema-check'
 import { concretePaths, extractProduct } from './spec-processor'
@@ -76,7 +76,7 @@ async function run(check: ResponseCheck, sampleRate: number): Promise<void> {
       status: check.status,
       sampleInterval: 1 / sampleRate,
       // Ties the mismatch to the exact schema after the spec moves on.
-      specRelease: source.release,
+      specRelease: SPEC_RELEASE,
       ...summary
     }
     recordResponseSchemaMismatch(check.props, { ...event, first: clip(errors[0]) })

@@ -4,13 +4,10 @@ import { cfEnv } from './cloudflare-account'
 import { writeFileSync, mkdtempSync, mkdirSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
-import { processSpec, extractProducts } from '../src/spec-processor'
-import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from '../src/openapi'
+import { MCP_TOOLS_KEY } from '../src/openapi'
+import { SPEC_RELEASE, buildSpecArtifacts, downloadSpec } from '../src/spec-release'
 import { fetchSkills } from '../src/skills/sync'
 import { SKILLS_MANIFEST_KEY, skillFileKey } from '../src/skills/types'
-
-const OPENAPI_SPEC_URL =
-  'https://github.com/cloudflare/forge/releases/latest/download/openapi.forge.json'
 
 /** Skill files uploaded at once; `cf` uploads one object per call. */
 const UPLOAD_CONCURRENCY = 8
@@ -41,24 +38,17 @@ if (!env || !['staging', 'production'].includes(env)) {
   process.exit(1)
 }
 
-console.log(`Fetching OpenAPI spec from ${OPENAPI_SPEC_URL}...`)
-const response = await fetch(OPENAPI_SPEC_URL)
-if (!response.ok) {
-  throw new Error(`Failed to fetch spec: ${response.status}`)
-}
+// The pinned release (`src/generated/forge-mcp/source.json`). The uploaded
+// spec.json carries no release metadata, so the next ten-minute cron rewrites it
+// from the same release.
+console.log(`Fetching OpenAPI spec ${SPEC_RELEASE}...`)
+const artifacts = buildSpecArtifacts(await downloadSpec())
+const specJson = artifacts['spec.json']
+const productsJson = artifacts['products.json']
+const mcpToolsJson = artifacts[MCP_TOOLS_KEY]
+const productCount = (JSON.parse(productsJson) as unknown[]).length
 
-const rawSpec = (await response.json()) as Record<string, unknown>
-console.log('Processing spec, resolving $refs...')
-
-const processed = processSpec(rawSpec)
-const specJson = JSON.stringify(processed)
-
-const products = extractProducts(rawSpec)
-const productsJson = JSON.stringify(products)
-const paths = (processed as { paths: Record<string, Record<string, OperationInfo>> }).paths
-const mcpToolsJson = JSON.stringify(buildMcpTools(paths))
-
-console.log(`Spec: ${(specJson.length / 1024 / 1024).toFixed(1)} MB, ${products.length} products`)
+console.log(`Spec: ${(specJson.length / 1024 / 1024).toFixed(1)} MB, ${productCount} products`)
 
 const skills = await fetchSkills()
 const skillsManifestJson = JSON.stringify(skills.manifest)
