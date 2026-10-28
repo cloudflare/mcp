@@ -31,7 +31,19 @@ import {
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
-import { buildSpecArtifacts } from '../src/spec-release'
+import { buildMcpTools, type OperationInfo } from '../src/openapi'
+import { extractProducts, processSpec } from '../src/spec-processor'
+import type { SpecArtifactName } from '../src/spec-release'
+
+/** Builds the spec artifacts the forge tools service serves from the raw OpenAPI document. */
+function buildSpecArtifacts(rawSpec: Record<string, unknown>): Record<SpecArtifactName, string> {
+  const processed = processSpec(rawSpec) as { paths: Record<string, Record<string, OperationInfo>> }
+  return {
+    'spec.json': JSON.stringify(processed),
+    'products.json': JSON.stringify(extractProducts(rawSpec)),
+    'mcp-tools.json': JSON.stringify(buildMcpTools(processed.paths))
+  }
+}
 
 const LATEST_RELEASE = 'https://api.github.com/repos/cloudflare/forge/releases/latest'
 const SPEC_ASSET = 'openapi.forge.json'

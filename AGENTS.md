@@ -24,7 +24,7 @@ cloudflare-mcp/
 │   ├── events/                    # Stateless MCP Events mapping to ANS policies and Vega automations
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec $ref resolution & splitting merged paths
-│   ├── spec-release.ts            # The pinned spec release; builds its artifacts
+│   ├── spec-release.ts            # The pinned spec release and its artifact names
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── lib/isolate.ts             # Isolate-lifetime caches: value, lazy, map, derived
 │   ├── lib/isolate-json-schema.ts # Tool schemas converted to JSON Schema once per isolate
@@ -64,7 +64,7 @@ cloudflare-mcp/
 │   └── *.test.ts
 ├── scripts/
 │   ├── cloudflare-account.ts      # The account scripts run cf against
-│   ├── seed-r2.ts                 # Seed OpenAPI spec to R2 bucket (cf r2 objects put)
+│   ├── seed-r2.ts                 # Seed skills to R2 (cf r2 objects put)
 │   ├── generate-tools.ts          # Regenerate src/generated/forge-mcp with forge
 │   ├── schema-mismatch-report.ts  # Response schema mismatches by product, for teams
 │   └── bench-response-validation.ts # Cost of response schema checks on the generated schemas
