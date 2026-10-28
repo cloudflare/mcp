@@ -314,12 +314,12 @@ describe('MCP 2026-07-28 stateless handler', () => {
     })
   })
 
-  it('uses automatic stateless 2025 compatibility from createMcpHandler', async () => {
+  it('serves 2025-era requests statelessly, as one JSON response', async () => {
     const response = await exports.default.fetch(mcpToolListRequest(API_TOKEN))
     const body = await parseMcpResult(response)
 
     expect(response.status).toBe(200)
-    expect(response.headers.get('content-type')).toContain('text/event-stream')
+    expect(response.headers.get('content-type')).toContain('application/json')
     expect(response.headers.get('mcp-session-id')).toBeNull()
     expect(body.result?.tools?.map((tool) => tool.name)).toEqual([
       'docs',

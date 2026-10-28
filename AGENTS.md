@@ -152,6 +152,7 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - Each authenticated request creates an upstream handler whose factory closes over validated `AuthProps`, matching the repository's pre-migration explicit data flow.
 - The handler serves MCP `2026-07-28` and keeps the upstream default stateless 2025 compatibility path. Its factory creates a fresh `McpServer` for every request.
 - No MCP session ID, protocol transport state, replay store, Durable Object, or Node async-context bridge is used. This server publishes no change notifications, so both tool modes advertise `tools.listChanged: false`. For `subscriptions/listen`, the SDK acknowledges with an empty honored filter and, since it honours none of the requested types, ends the stream straight away with a `complete` result (SDK 2.2.0+). No SSE stream stays open.
+- Every 2025-era POST is answered as one JSON response (`serveLegacyAsJson`), not the SDK fallback's SSE stream. JSON keeps the status open for a step-up `403`, is compressed by Cloudflare's edge (which never compresses `text/event-stream`), and costs less CPU. The trade-off is that a long call sends no bytes until its result: Python SDK clients time out a silent response after 300 s, which an SSE keep-alive would have reset. 2026-07-28 requests keep the SDK's automatic shaping: JSON unless a notification streams first, and `subscriptions/listen` is always SSE.
 - Deployment-static Host and browser Origin allowlists cover localhost, staging, and production. Do not derive either trust list from the incoming request URL or headers.
 
 ### MCP Events
@@ -247,7 +248,7 @@ How the challenge reaches the client depends on the client (`src/clients.ts`):
 - Retrying has to be safe. An endpoint tool makes one request. In `execute`, the refusal must be what made the code fail, and every request the code sent must have been a GET/HEAD or refused (the sandbox wraps `fetch` before the code runs). Otherwise the tool error says why the code wasn't retried.
 - The sandbox reports the scope (`X-Cloudflare-MCP-Missing-Scope` from `GlobalOutbound`), so it is untrusted. The host accepts only catalog scopes the connection lacks. Code that lies can only trigger a challenge it could also get by calling the endpoint.
 - A connection that already holds an accepted scope is never challenged, so a wrong pick can't loop.
-- For OAuth connections, 2025-era POSTs are served as JSON (`enableJsonResponse`) rather than the SDK fallback's SSE, so the status is still open when the response becomes the `403`.
+- 2025-era POSTs are served as JSON (`enableJsonResponse`) rather than the SDK fallback's SSE, so the status is still open when the response becomes the `403`.
 
 ### Known MCP clients
 

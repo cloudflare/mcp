@@ -81,8 +81,6 @@ describe('direct tools/list fast path', () => {
 
       expect(fast.response.status).toBe(200)
       expect(fast.response.headers.get('Content-Type')).toBe('application/json')
-      // The SDK answers this request as SSE, so the two came from different paths.
-      expect(sdk.response.headers.get('Content-Type')).toContain('text/event-stream')
       expect(fast.message).toEqual(sdk.message)
       const tools = (fast.message.result as { tools: Array<{ name: string }> }).tools
       expect(tools.slice(0, 2).map((tool) => tool.name)).toEqual(['docs', 'whoami'])
