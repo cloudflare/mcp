@@ -42,6 +42,8 @@ export interface ServerOptions {
   /**
    * Cap each tool result at ~6,000 tokens. When `false`, results are returned
    * whole. Defaults to `true` in Code Mode and `false` for the direct tools.
+   * In Code Mode it is only the default: each `search` or `execute` call can
+   * override it with its `truncate` argument.
    */
   readonly truncateToolResult?: boolean
 }
@@ -87,9 +89,8 @@ export async function createServer(
   // Skills (io.modelcontextprotocol/skills) are served in both tool modes.
   registerSkills(server)
   if (events) registerEventMethods(server, events.env, props, events.bearer)
-  const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
-
   if (!codemode) {
+    const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
     if (experimentalForge) {
       registerForgeTools(server, props, formatResult, connection, scopeChallenge, {
         outputSchema: experimentalOutputSchema
@@ -104,8 +105,8 @@ export async function createServer(
   // metrics wrapper also mirrors tool.title into annotations.title.
   attachMetrics(server, props)
   registerDocsTool(server)
-  await registerSearchTool(server, formatResult)
-  registerExecuteTool(server, props, formatResult, connection, scopeChallenge)
+  await registerSearchTool(server, truncateToolResult)
+  registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
 
   return server

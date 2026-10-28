@@ -3,7 +3,7 @@ import { withCachedJsonSchema } from '../lib/isolate-json-schema'
 import { env, exports, WorkerEntrypoint } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { CLOUDFLARE_TYPES } from '../constants'
-import type { FormatToolResult } from '../truncate'
+import { formatterFor, TRUNCATE_ARGUMENT_DESCRIPTION } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { formatError } from '../utils/errors'
 import {
@@ -324,7 +324,8 @@ const ACCOUNT_ID_PARAM_DESCRIPTION =
 const ExecuteInputSchema = withCachedJsonSchema(
   z.object({
     code: z.string().describe('JavaScript async arrow function to execute'),
-    account_id: z.string().optional().describe(ACCOUNT_ID_PARAM_DESCRIPTION)
+    account_id: z.string().optional().describe(ACCOUNT_ID_PARAM_DESCRIPTION),
+    truncate: z.boolean().optional().describe(TRUNCATE_ARGUMENT_DESCRIPTION)
   })
 )
 
@@ -338,12 +339,13 @@ const ExecuteInputSchema = withCachedJsonSchema(
  * user tokens. An account token given another account's id is rejected by the
  * Cloudflare API, the same as any other account it can't access.
  *
- * `formatResult` turns the value the code returns into the tool's text output.
+ * The result is capped unless the call's `truncate` argument, or the
+ * connection's `truncateByDefault` when it is omitted, is `false`.
  */
 export function registerExecuteTool(
   server: McpServer,
   props: AuthProps,
-  formatResult: FormatToolResult,
+  truncateByDefault: boolean,
   connection: Connection,
   scopeChallenge: ScopeChallenge
 ): void {
@@ -362,7 +364,7 @@ export function registerExecuteTool(
         destructiveHint: true
       }
     },
-    async ({ code, account_id }) => {
+    async ({ code, account_id, truncate }) => {
       try {
         // Undefined accountId lets account-independent requests such as
         // GET /accounts run before the caller has selected an account; any
@@ -376,8 +378,10 @@ export function registerExecuteTool(
           missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE),
           connection
         )
-        if (execution.ok)
-          return { content: [{ type: 'text', text: formatResult(execution.result) }] }
+        if (execution.ok) {
+          const text = formatterFor(truncate, truncateByDefault)(execution.result)
+          return { content: [{ type: 'text', text }] }
+        }
 
         const failure = formatError(execution.message)
         const hint = account_id ? unknownAccountHint(props, account_id) : ''

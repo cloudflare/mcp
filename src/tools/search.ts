@@ -4,7 +4,7 @@ import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { SPEC_TYPES } from '../openapi'
 import { getProducts } from '../isolate-cache'
-import type { FormatToolResult } from '../truncate'
+import { formatterFor, TRUNCATE_ARGUMENT_DESCRIPTION } from '../truncate'
 import { formatError } from '../utils/errors'
 
 /**
@@ -61,18 +61,20 @@ async () => {
 // Built once per isolate rather than for every request's server.
 const SearchInputSchema = withCachedJsonSchema(
   z.object({
-    code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec')
+    code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec'),
+    truncate: z.boolean().optional().describe(TRUNCATE_ARGUMENT_DESCRIPTION)
   })
 )
 
 /**
  * Register the `search` tool: runs sandboxed JavaScript against the
- * pre-resolved OpenAPI spec (no network access). `formatResult` turns the
- * value the code returns into the tool's text output.
+ * pre-resolved OpenAPI spec (no network access). The result is capped unless
+ * the call's `truncate` argument, or the connection's `truncateByDefault`
+ * when it is omitted, is `false`.
  */
 export async function registerSearchTool(
   server: McpServer,
-  formatResult: FormatToolResult
+  truncateByDefault: boolean
 ): Promise<void> {
   const products = await getProducts()
 
@@ -89,10 +91,11 @@ export async function registerSearchTool(
         destructiveHint: false
       }
     },
-    async ({ code }) => {
+    async ({ code, truncate }) => {
       try {
         const result = await runSearch(code)
-        return { content: [{ type: 'text', text: formatResult(result) }] }
+        const text = formatterFor(truncate, truncateByDefault)(result)
+        return { content: [{ type: 'text', text }] }
       } catch (error) {
         return formatError(error)
       }

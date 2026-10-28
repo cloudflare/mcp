@@ -271,7 +271,11 @@ Every cache registers itself; `isolate.resetAll()` returns a test to a cold isol
 
 Responses capped at ~6,000 tokens (~24KB). `src/truncate.ts` shrinks oversized JSON structurally so it stays valid JSON: arrays keep whole items from the start and end with a `--- TRUNCATED --- N more items` element, long strings are clipped, and objects drop their largest values first, naming them in a `--- TRUNCATED ---` entry. Plain text is cut at the cap and followed by a notice with the original size.
 
-The cap is on by default in Code Mode and off for the direct tools (`?codemode=false`, with or without `experimentalForge`): `createServer` defaults `truncateToolResult` to `codemode`. Clients without code mode of their own use our Code Mode, where results go straight to the model. Clients with their own code mode use the direct tools and parse each result in their own code, so a capped result would lose data. An explicit `?truncateToolResult=` overrides either default; truncation is then on unless the value is exactly `false`. Code Mode clients that bound results themselves, for example by writing them to a file, pass `?truncateToolResult=false`.
+The cap is on by default in Code Mode and off for the direct tools (`?codemode=false`, with or without `experimentalForge`): `createServer` defaults `truncateToolResult` to `codemode`. Clients without code mode of their own use our Code Mode, where results go straight to the model. Clients with their own code mode use the direct tools and parse each result in their own code, so a capped result would lose data.
+
+In Code Mode, `search` and `execute` take an optional `truncate` boolean. `truncate: false` returns that call's result whole, for an agent writing it to a file or pipe rather than reading it; `truncate: true` caps it. An omitted `truncate` uses the connection's default. Its description doesn't state the default, because the tool metadata is the same for every connection. The direct tools take no such argument.
+
+`?truncateToolResult=` still sets the connection's default in either mode (on unless the value is exactly `false`), but it is no longer documented in the README. It stays because clients use it: ~60,000 `/mcp?truncateToolResult=false` requests in a sampled week of Workers Logs, and removing it would start truncating their results. `src/mcp-handler.ts` reads it next to `?codemode=false`.
 
 ### Response schema checks
 
