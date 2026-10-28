@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { getMcpTools, resetIsolateCache, setSpecArtifactSource } from '../src/isolate-cache'
+import { getMcpTools, setSpecArtifactSource } from '../src/isolate-cache'
+import { isolate } from '../src/lib/isolate'
 import { buildMcpTools, type OperationInfo } from '../src/openapi'
 import { clearSpec, seedSpec } from './helpers/spec'
 
@@ -52,7 +53,7 @@ describe('isolate cache', () => {
   })
 
   it('does not cache a failed load', async () => {
-    resetIsolateCache()
+    isolate.resetAll()
     await expect(getMcpTools()).rejects.toThrow('mcp-tools.json is not available')
 
     await seedSpec(PATHS)

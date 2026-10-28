@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
-import { resetIsolateCache } from '../../src/isolate-cache'
+import { isolate } from '../../src/lib/isolate'
 import { SKILLS_ARCHIVE_URL, syncSkills } from '../../src/skills/sync'
 import { server } from '../setup/msw'
 
@@ -112,5 +112,5 @@ export async function mockSkillsArchive(files: Record<string, string | Uint8Arra
 export async function seedSkills(files: Record<string, string | Uint8Array>): Promise<void> {
   await mockSkillsArchive(files)
   await syncSkills(env.SPEC_BUCKET)
-  resetIsolateCache()
+  isolate.resetAll()
 }
