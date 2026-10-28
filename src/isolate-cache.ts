@@ -12,9 +12,10 @@ import {
 } from './skills/types'
 
 /**
- * In-isolate cache for what the forge tools service serves (the pinned spec's
- * artifacts, `spec.json`, `products.json` and `mcp-tools.json`, and the tool
- * list) and the skills the scheduled handler writes to R2 (the manifest and
+ * In-isolate cache for what the forge tools service serves (two of the pinned
+ * spec's artifacts, `products.json` and `mcp-tools.json`, and the tool list;
+ * `search` runs in the service, so this Worker never loads `spec.json`) and the
+ * skills the scheduled handler writes to R2 (the manifest and
  * files).
  *
  * The MCP worker isolate stays warm across requests, so without this every
@@ -46,13 +47,6 @@ let specArtifactSource: SpecArtifactSource = serviceSource
 export function setSpecArtifactSource(source?: SpecArtifactSource): void {
   specArtifactSource = source ?? serviceSource
   isolate.resetAll()
-}
-
-const spec = artifact(() => specArtifactSource('spec.json'))
-
-/** The raw `spec.json` text, embedded into the search isolate. */
-export function getSpec(): Promise<string> {
-  return spec.get()
 }
 
 /**

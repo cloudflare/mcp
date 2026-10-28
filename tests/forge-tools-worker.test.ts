@@ -91,6 +91,17 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     )
   })
 
+  it('searches the pinned spec in a sandbox', async () => {
+    await expect(
+      env.FORGE_TOOLS.search(
+        `async () => spec.paths['/accounts/{account_id}/d1/database'].get.summary`
+      )
+    ).resolves.toEqual({ result: 'List D1 Databases' })
+    await expect(
+      env.FORGE_TOOLS.search(`async () => { throw new Error('nothing matched') }`)
+    ).resolves.toEqual({ error: 'nothing matched' })
+  })
+
   it("streams the pinned release's spec artifacts", async () => {
     const text = async (name: Parameters<typeof env.FORGE_TOOLS.specArtifact>[0]) =>
       new Response(await env.FORGE_TOOLS.specArtifact(name)).text()

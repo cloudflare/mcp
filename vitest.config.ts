@@ -40,7 +40,9 @@ export default defineConfig({
                 .filter((file) => file.endsWith('.txt'))
                 .map((file) => ({ type: 'Text' as const, path: `${FORGE_TOOLS_OUT}/${file}` }))
             ],
-            compatibilityDate: '2026-06-17'
+            compatibilityDate: '2026-06-17',
+            // Code Mode's search runs in a sandbox the service loads.
+            workerLoaders: { LOADER: {} }
           }
         ]
       }

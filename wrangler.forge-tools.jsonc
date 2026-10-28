@@ -1,8 +1,9 @@
 {
 	// The forge tools service (src/forge-tools/worker.ts): the generated direct
 	// tools served at /mcp?codemode=false&experimentalForge=true, which the main
-	// Worker (wrangler.jsonc) reaches over its FORGE_TOOLS service binding. It holds no credentials,
-	// makes no requests, and has no public route. Workers Builds deploys it with
+	// Worker (wrangler.jsonc) reaches over its FORGE_TOOLS service binding, and
+	// Code Mode's search, which runs in a LOADER sandbox next to the spec it
+	// ships. It holds no credentials, makes no requests, and has no public route. Workers Builds deploys it with
 	// the main Worker on every push to main. In a new environment, deploy it
 	// first, since the main Worker binds to it.
 	"$schema": "./node_modules/wrangler/config-schema.json",
@@ -12,6 +13,11 @@
 	"compatibility_date": "2026-06-17",
 	"workers_dev": false,
 	"preview_urls": false,
+	"worker_loaders": [
+		{
+			"binding": "LOADER"
+		}
+	],
 	"observability": {
 		"logs": {
 			"enabled": true
@@ -19,10 +25,20 @@
 	},
 	"env": {
 		"staging": {
-			"name": "cloudflare-api-mcp-forge-tools-staging"
+			"name": "cloudflare-api-mcp-forge-tools-staging",
+			"worker_loaders": [
+				{
+					"binding": "LOADER"
+				}
+			]
 		},
 		"production": {
-			"name": "cloudflare-api-mcp-forge-tools"
+			"name": "cloudflare-api-mcp-forge-tools",
+			"worker_loaders": [
+				{
+					"binding": "LOADER"
+				}
+			]
 		}
 	}
 }

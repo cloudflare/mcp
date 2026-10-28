@@ -3,7 +3,9 @@
  * (`src/generated/forge-mcp`) and serves them to the main Worker over RPC, so
  * isolates serving Code Mode never compile them.
  *
- * It holds no credentials and makes no requests. `listJson` returns the tools
+ * It holds no credentials and makes no requests. `search` runs Code Mode's
+ * search code against the pinned spec in a sandbox with no network access, so
+ * the spec stays in this Worker. `listJson` returns the tools
  * as `tools/list` sends them, optionally with their output schemas; `plan` builds the request a call makes, which the
  * main Worker sends with the session's token; `checkResponse` checks a
  * response against the generated response schemas; `specArtifact` streams
@@ -24,6 +26,7 @@ import { declaresResult, payloadOf, type PayloadKind } from './envelope'
 import { concretePaths } from '../spec-processor'
 import type { SpecArtifactName } from '../spec-release'
 import { SPEC_ARTIFACTS, isSpecArtifactName } from './spec'
+import { runSearch, type SearchOutcome } from './search'
 import { isolate } from '../lib/isolate'
 
 /** The generated tools with the Cloudflare policy, built once per isolate. */
@@ -152,6 +155,11 @@ export default class ForgeTools extends WorkerEntrypoint {
       instancePath: at + (error.instancePath === '/' ? '' : error.instancePath) || '/'
     }))
     return { forgeTool: tool.name, ...mismatch, errors }
+  }
+
+  /** Runs `code`, an async arrow function, against the pinned spec (`./search`). */
+  search(code: string): Promise<SearchOutcome> {
+    return runSearch(this.env.LOADER, code)
   }
 
   /**

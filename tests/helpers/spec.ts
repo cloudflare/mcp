@@ -21,22 +21,19 @@ function fixtureSource(artifacts: Partial<Record<SpecArtifactName, string>>): Sp
   }
 }
 
-/** Serve a spec (+ products and mcp-tools.json) built from `paths`. */
+/** Serve `products.json` and the `mcp-tools.json` built from `paths`. */
 export async function seedSpec(paths: SpecPaths, products: string[] = ['workers']): Promise<void> {
   setSpecArtifactSource(
     fixtureSource({
-      'spec.json': JSON.stringify({ paths }),
       'products.json': JSON.stringify(products),
       'mcp-tools.json': JSON.stringify(buildMcpTools(paths))
     })
   )
 }
 
-/** Serve a spec without `mcp-tools.json`. */
-export async function removeMcpTools(paths: SpecPaths = {}): Promise<void> {
-  setSpecArtifactSource(
-    fixtureSource({ 'spec.json': JSON.stringify({ paths }), 'products.json': '[]' })
-  )
+/** Serve the products but no `mcp-tools.json`. */
+export async function removeMcpTools(): Promise<void> {
+  setSpecArtifactSource(fixtureSource({ 'products.json': '[]' }))
 }
 
 /** Serve no spec (products stay an empty list), and wipe the bucket. Call in afterEach. */
