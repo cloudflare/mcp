@@ -11,9 +11,8 @@ import {
   oauthMcpHandler,
   rejectInvalidMcpRequest
 } from './mcp-handler'
-import { processSpec, extractProducts } from './spec-processor'
-import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from './openapi'
-import { syncSkills } from './skills/sync'
+import { syncSpec } from './spec-release'
+import { SKILLS_CRON, syncSkills } from './skills/sync'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
@@ -95,54 +94,14 @@ export default {
   },
 
   async scheduled(
-    _controller: ScheduledController,
+    controller: ScheduledController,
     env: Env,
     _ctx: ExecutionContext
   ): Promise<void> {
-    // Runs every six hours (`0 */6 * * *`). The jobs are independent: a failed
-    // skills download must not hold back the spec, or the reverse. Both run to
-    // completion before any failure is reported.
-    const results = await Promise.allSettled([syncSpec(env), syncSkills(env.SPEC_BUCKET)])
-    const failures = results.flatMap((result) =>
-      result.status === 'rejected' ? [result.reason as unknown] : []
-    )
-    if (failures.length === 1) throw failures[0]
-    if (failures.length > 1) throw new AggregateError(failures, 'Scheduled sync failed')
+    // Two crons (wrangler.jsonc). Every ten minutes R2 catches up with the
+    // pinned spec release, which costs one metadata read when it already has
+    // it. Every six hours the skills sync from cloudflare/skills.
+    if (controller.cron === SKILLS_CRON) await syncSkills(env.SPEC_BUCKET)
+    else await syncSpec(env.SPEC_BUCKET)
   }
-}
-
-/** Fetch the OpenAPI spec and write the spec-derived artifacts to R2. */
-async function syncSpec(env: Env): Promise<void> {
-  console.log('Fetching OpenAPI spec from:', env.OPENAPI_SPEC_URL)
-
-  const response = await fetch(env.OPENAPI_SPEC_URL)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch OpenAPI spec: ${response.status}`)
-  }
-
-  const rawSpec = (await response.json()) as Record<string, unknown>
-  console.log('Processing spec, resolving $refs...')
-
-  const processed = processSpec(rawSpec)
-  const specJson = JSON.stringify(processed)
-
-  const products = extractProducts(rawSpec)
-  const productsJson = JSON.stringify(products)
-  const paths = (processed as { paths: Record<string, Record<string, OperationInfo>> }).paths
-  const mcpToolsJson = JSON.stringify(buildMcpTools(paths))
-
-  console.log(`Writing spec to R2 (${(specJson.length / 1024).toFixed(0)} KB)`)
-  await Promise.all([
-    env.SPEC_BUCKET.put('spec.json', specJson, {
-      httpMetadata: { contentType: 'application/json' }
-    }),
-    env.SPEC_BUCKET.put('products.json', productsJson, {
-      httpMetadata: { contentType: 'application/json' }
-    }),
-    env.SPEC_BUCKET.put(MCP_TOOLS_KEY, mcpToolsJson, {
-      httpMetadata: { contentType: 'application/json' }
-    })
-  ])
-
-  console.log(`Spec updated successfully (${products.length} products)`)
 }

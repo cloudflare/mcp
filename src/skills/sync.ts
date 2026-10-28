@@ -9,6 +9,9 @@ import {
   type Skill
 } from './types'
 
+/** The cron that syncs the skills (`wrangler.jsonc`). Every other cron syncs the spec. */
+export const SKILLS_CRON = '0 */6 * * *'
+
 export const SKILLS_REPOSITORY = 'cloudflare/skills'
 
 /**
