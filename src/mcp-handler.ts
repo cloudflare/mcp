@@ -18,6 +18,8 @@ import { connectionFromAuth } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
 import { identifyClient, type ClientBehavior } from './clients'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
+import { cachedToolListResponse } from './tools/tool-list-response'
+import { getForgeToolList, getMcpTools } from './isolate-cache'
 
 export const MCP_ROUTE = '/mcp'
 
@@ -192,6 +194,14 @@ export async function handleAuthenticatedMcpRequest(
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)
+  const options = serverOptionsFromUrl(request.url)
+  if (!options.codemode) {
+    // 2025-era listings never carry output schemas, so both modes list the same tools.
+    const listed = await cachedToolListResponse(request, async () =>
+      options.experimentalForge ? getForgeToolList() : (await getMcpTools()).list
+    )
+    if (listed) return withCors(listed, request)
+  }
   const connection = connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.
   const issued = connection.kind === 'oauth' ? auth : undefined
@@ -210,10 +220,7 @@ export async function handleAuthenticatedMcpRequest(
 
   const response =
     issued && request.method === 'POST' && (await isLegacyRequest(request))
-      ? await serveLegacyAsJson(
-          request,
-          await createServer(props, serverOptionsFromUrl(request.url), context)
-        )
+      ? await serveLegacyAsJson(request, await createServer(props, options, context))
       : await createAuthenticatedHandler(props, context).fetch(request)
 
   const challenge = scopeChallenge.response
