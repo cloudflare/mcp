@@ -76,13 +76,31 @@ function createAuthenticatedHandler(props: AuthProps, context: RequestContext) {
 }
 
 // Handler options are intentionally omitted. The SDK defaults to:
-// - stateless 2025 compatibility, with a fresh server and no protocol session
-// - automatic JSON/SSE response shaping (ordinary requests here remain JSON)
+// - stateless 2025 compatibility, with a fresh server and no protocol session,
+//   though 2025-era POSTs never reach it: serveLegacyAsJson answers them
+// - automatic JSON/SSE response shaping for 2026-07-28 requests (JSON unless
+//   a notification has to stream before the result)
 
 /**
  * Serve a 2025-era POST as one JSON response, not the SSE stream the SDK's
- * stateless fallback opens before the tool runs. The status is then still
- * open when a tool asks for a step-up, so a `403` can replace the result.
+ * stateless fallback opens before the tool runs.
+ *
+ * - The status is still open when a tool asks for a step-up, so a `403` can
+ *   replace the result.
+ * - Cloudflare's edge compresses JSON (the direct `tools/list` goes from
+ *   3.7 MB to ~290 KB with brotli) but never `text/event-stream`.
+ * - There is no stream to build or frame per request.
+ *
+ * Nothing here streams: no tool sends progress or asks the client anything
+ * mid-call. The cost is the SSE keep-alive comment every 15 s: a long call
+ * now sends no bytes until its result. Cloudflare's edge kept a silent
+ * response open for 310 s in testing, so the limits are clients':
+ *
+ * - The TypeScript SDK times a request out after 60 s whatever the transport;
+ *   only progress notifications reset it, never SSE comments.
+ * - The Python SDK's httpx read timeout is 300 s between bytes. Keep-alives
+ *   reset it, so over SSE a call could outlast 300 s; as JSON it cannot.
+ * - A proxy with a shorter idle timeout cuts a silent response sooner.
  */
 async function serveLegacyAsJson(request: Request, server: McpServer): Promise<Response> {
   const transport = new WebStandardStreamableHTTPServerTransport({
@@ -219,7 +237,7 @@ export async function handleAuthenticatedMcpRequest(
   }
 
   const response =
-    issued && request.method === 'POST' && (await isLegacyRequest(request))
+    request.method === 'POST' && (await isLegacyRequest(request))
       ? await serveLegacyAsJson(request, await createServer(props, options, context))
       : await createAuthenticatedHandler(props, context).fetch(request)
 
