@@ -204,3 +204,92 @@ describe('endpoint tools explain a refused request', () => {
     expect(text).toContain('`dns.read` (DNS Read)')
   })
 })
+
+describe('a 403 about the resource or the account is not a refusal', () => {
+  // Cloudflare's answers, from production: Zaraz in realtime mode, and Images on an account without it.
+  const NOT_PREVIEW = cfError([{ code: 403, message: 'Forbidden: workflow is not preview' }])
+  const NO_IMAGES = cfError([
+    {
+      code: 5403,
+      message: 'The given account is not valid or is not authorized to access this service'
+    }
+  ])
+
+  function answerDnsRecords(body: object): void {
+    server.use(http.get(`${API_BASE}${DNS_PATH}`, () => HttpResponse.json(body, { status: 403 })))
+  }
+
+  async function executeResult(token: string, code: string) {
+    const body = await parseMcpResult(
+      await exports.default.fetch(
+        modernMcpRequest(
+          token,
+          'tools/call',
+          { name: 'execute', arguments: { code } },
+          { url: `${MCP_URL}?scopeChallenge=tool` }
+        )
+      )
+    )
+    return { text: body.result?.content?.[0]?.text ?? '', meta: body.result?._meta }
+  }
+
+  it('reports it as Cloudflare sent it, with no step-up, when a scope is missing', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    answerDnsRecords(NOT_PREVIEW)
+
+    const { text, meta } = await executeResult(token, GET_DNS)
+
+    expect(text).toContain(
+      `GET ${DNS_PATH} returned HTTP 403: 403: Forbidden: workflow is not preview`
+    )
+    expect(text).not.toContain('was not granted')
+    expect(meta).not.toHaveProperty('mcp/www_authenticate')
+  })
+
+  it('does not blame the role when the connection has the scope', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read', 'dns.read'])
+    answerDnsRecords(NO_IMAGES)
+
+    const { text } = await executeResult(token, GET_DNS)
+
+    expect(text).toContain('5403: The given account is not valid')
+    expect(text).not.toContain('reconnecting will not help')
+  })
+
+  it('still refuses when one of the errors is an authentication error', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    answerDnsRecords(
+      cfError([
+        { code: 5403, message: 'Not entitled' },
+        { code: 10000, message: 'Authentication error' }
+      ])
+    )
+
+    const { text, meta } = await executeResult(token, GET_DNS)
+
+    expect(text).toContain('`dns.read` (DNS Read)')
+    expect(meta?.['mcp/www_authenticate']).toHaveLength(1)
+  })
+
+  it('reports it as Cloudflare sent it from an endpoint tool', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    answerDnsRecords(NOT_PREVIEW)
+
+    const body = await parseMcpResult(
+      await exports.default.fetch(
+        modernMcpRequest(
+          token,
+          'tools/call',
+          { name: 'get_zones_dns_records', arguments: { zone_id: ZONE_ID } },
+          { url: `${MCP_URL}?codemode=false&scopeChallenge=tool` }
+        )
+      )
+    )
+    const text = body.result?.content?.[0]?.text ?? ''
+
+    expect(body.result?.isError).toBe(true)
+    expect(text).toContain('Forbidden: workflow is not preview')
+    expect(text).not.toContain('`dns.read`')
+    expect(body.result?._meta).not.toHaveProperty('mcp/www_authenticate')
+  })
+})
