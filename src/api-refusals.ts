@@ -9,6 +9,7 @@ import {
   type Connection
 } from './api-permissions'
 import { getMcpTools, type McpTools } from './isolate-cache'
+import { isolate } from './lib/isolate'
 
 /**
  * Header `GlobalOutbound` sets on a refused response so the `execute` sandbox
@@ -96,25 +97,24 @@ export function refusalFor(
 
 type PermissionPaths = Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
 
-let permissionPaths: { tools: McpTools; paths: PermissionPaths } | undefined
-
 /**
  * Every operation's accepted permissions by path template and method, taken
  * from the cached `mcp-tools.json` rather than `spec.json`: the tool catalog is
  * a few MB and already shared per isolate, while parsing the ~25 MB spec in
- * the request path could exhaust the isolate's memory.
+ * the request path could exhaust the isolate's memory. Built once per loaded
+ * catalog.
  */
-async function getPermissionPaths(): Promise<PermissionPaths> {
-  const tools = await getMcpTools()
-  if (permissionPaths?.tools !== tools) {
-    const paths: PermissionPaths = {}
-    for (const tool of tools.byName.values()) {
-      paths[tool.path] ??= {}
-      paths[tool.path][tool.method] = { 'x-api-token-group': tool.permissions }
-    }
-    permissionPaths = { tools, paths }
+const permissionPathsOf = isolate.derived((tools: McpTools): PermissionPaths => {
+  const paths: PermissionPaths = {}
+  for (const tool of tools.byName.values()) {
+    paths[tool.path] ??= {}
+    paths[tool.path][tool.method] = { 'x-api-token-group': tool.permissions }
   }
-  return permissionPaths.paths
+  return paths
+})
+
+async function getPermissionPaths(): Promise<PermissionPaths> {
+  return permissionPathsOf(await getMcpTools())
 }
 
 /** An empty list with `result_info` is a couple of hundred bytes; longer bodies aren't read. */

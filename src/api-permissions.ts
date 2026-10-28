@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { DERIVED_OAUTH_SCOPES } from './auth/derived-oauth-scopes'
+import { isolate } from './lib/isolate'
 
 /**
  * Which credential a request carries, as far as Cloudflare permissions go.
@@ -87,10 +88,43 @@ function scopesForPermission(permission: string): readonly string[] {
   return SCOPES_BY_PERMISSION.get(PERMISSION_ALIASES.get(permission) ?? permission) ?? []
 }
 
+/** One operation in {@link operationIndex}, its template split once. */
+interface IndexedOperation {
+  readonly template: string
+  readonly parts: readonly string[]
+  /** Whether each part is a `{param}`. */
+  readonly params: readonly boolean[]
+  readonly operation: unknown
+}
+
+/**
+ * The operations by lower-case method and segment count, each template split
+ * once. Built once per `paths` object: `execute` looks up every refused or
+ * possibly filtered response, and splitting ~3,000 templates per lookup made
+ * the proxy cost several milliseconds of CPU per request.
+ */
+const operationIndex = isolate.derived(
+  (paths: Record<string, Record<string, unknown>>): Map<string, IndexedOperation[]> => {
+    const index = new Map<string, IndexedOperation[]>()
+    for (const [template, item] of Object.entries(paths)) {
+      const parts = template.split('/')
+      const params = parts.map((part) => /^\{[^}]+\}$/.test(part))
+      for (const [verb, operation] of Object.entries(item)) {
+        const key = `${verb} ${parts.length}`
+        const bucket = index.get(key) ?? []
+        bucket.push({ template, parts, params, operation })
+        index.set(key, bucket)
+      }
+    }
+    return index
+  }
+)
+
 /**
  * Find the spec operation a request was sent to.
  *
- * @param paths - Operations by path template and lower-case method.
+ * @param paths - Operations by path template and lower-case method. Pass the
+ *   same object each time: the lookup index is built once per object.
  * @param method - The request method.
  * @param path - The request path below the API base, such as `/zones/abc/dns_records`.
  * @returns The template and operation that match with the most literal segments.
@@ -101,22 +135,19 @@ export function findOperation<Operation>(
   path: string
 ): { template: string; operation: Operation } | undefined {
   const segments = path.replace(/\/+$/, '').split('/')
-  const verb = method.toLowerCase()
-  let best: { template: string; operation: Operation; literals: number } | undefined
-  for (const [template, item] of Object.entries(paths)) {
-    const operation = item[verb]
-    if (!operation) continue
-    const parts = template.split('/')
-    if (parts.length !== segments.length) continue
+  const candidates = operationIndex(paths).get(`${method.toLowerCase()} ${segments.length}`) ?? []
+  let best: { entry: IndexedOperation; literals: number } | undefined
+  for (const entry of candidates) {
     let literals = 0
-    const matches = parts.every((part, index) => {
-      if (/^\{[^}]+\}$/.test(part)) return segments[index] !== ''
-      literals++
-      return part === segments[index]
-    })
-    if (matches && (!best || literals > best.literals)) best = { template, operation, literals }
+    let matches = true
+    for (let index = 0; index < entry.parts.length && matches; index++) {
+      if (entry.params[index]) matches = segments[index] !== ''
+      else if (entry.parts[index] === segments[index]) literals++
+      else matches = false
+    }
+    if (matches && (!best || literals > best.literals)) best = { entry, literals }
   }
-  return best && { template: best.template, operation: best.operation }
+  return best && { template: best.entry.template, operation: best.entry.operation as Operation }
 }
 
 const MAX_LISTED = 8
