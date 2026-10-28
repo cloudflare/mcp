@@ -293,3 +293,104 @@ describe('a 403 about the resource or the account is not a refusal', () => {
     expect(body.result?._meta).not.toHaveProperty('mcp/www_authenticate')
   })
 })
+
+describe('execute explains a GraphQL query refused for a missing analytics permission', () => {
+  // GraphQL answers 200. Cloudflare's errors, from a token without analytics permissions.
+  const ZONE_DENIED = {
+    data: null,
+    errors: [
+      {
+        message: `Actor 'com.cloudflare.api.token.x' does not have permission 'com.cloudflare.api.account.zone.analytics.read' for zone ${ZONE_ID}`
+      }
+    ]
+  }
+  const ACCOUNT_DENIED = { data: null, errors: [{ message: 'authorization denied' }] }
+  const QUERY = `async () => cloudflare.request({ method: "POST", path: "/graphql", body: { query: "{ viewer { zones { zoneTag } } }" } })`
+
+  function answerGraphql(body: object): void {
+    server.use(http.post(`${API_BASE}/graphql`, () => HttpResponse.json(body)))
+  }
+
+  async function executeResult(token: string, code: string) {
+    const body = await parseMcpResult(
+      await exports.default.fetch(
+        modernMcpRequest(
+          token,
+          'tools/call',
+          { name: 'execute', arguments: { code } },
+          { url: `${MCP_URL}?scopeChallenge=tool` }
+        )
+      )
+    )
+    return { text: body.result?.content?.[0]?.text ?? '', meta: body.result?._meta }
+  }
+
+  it('names the zone analytics scope and steps up for it', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    answerGraphql(ZONE_DENIED)
+
+    const { text, meta } = await executeResult(token, QUERY)
+
+    expect(text).toContain(
+      "does not have permission 'com.cloudflare.api.account.zone.analytics.read'"
+    )
+    expect(text).toContain('`analytics.read` (Analytics Read)')
+    expect(text).not.toContain('not offered for an automatic retry')
+    const challenges = meta?.['mcp/www_authenticate'] as string[]
+    expect(challenges).toHaveLength(1)
+    expect(challenges[0]).toContain('analytics.read')
+  })
+
+  it('names the account analytics permission an API token needs', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    answerGraphql(ACCOUNT_DENIED)
+
+    const text = toolText(await callTool('cfat_refused', 'execute', { code: QUERY }))
+
+    expect(text).toContain('GraphQL error: authorization denied')
+    expect(text).toContain('needs one of these permissions: Account Analytics Read')
+  })
+
+  it('does not step up when the connection already has the scope', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read', 'analytics.read'])
+    answerGraphql(ZONE_DENIED)
+
+    const { text, meta } = await executeResult(token, QUERY)
+
+    expect(text).toContain('already has `analytics.read` (Analytics Read)')
+    expect(meta).not.toHaveProperty('mcp/www_authenticate')
+  })
+
+  it('adds nothing to other GraphQL errors', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    answerGraphql({ data: null, errors: [{ message: 'unknown field "zonez"' }] })
+
+    const text = toolText(await callTool('cfat_refused', 'execute', { code: QUERY }))
+
+    expect(text).toContain('GraphQL error: unknown field "zonez"')
+    expect(text).not.toContain('permission')
+  })
+})
+
+describe('execute names an account in the path the session cannot use', () => {
+  const OTHER_ACCOUNT = '00000000000000000000000000000009'
+
+  it('names the token’s account when a refused path names another one', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(
+      http.get(`${API_BASE}/accounts/${OTHER_ACCOUNT}/workers/scripts`, () =>
+        HttpResponse.json(AUTHENTICATION_ERROR, { status: 403 })
+      )
+    )
+
+    const text = toolText(
+      await callTool('cfat_refused', 'execute', {
+        code: `async () => cloudflare.request({ method: "GET", path: "/accounts/${OTHER_ACCOUNT}/workers/scripts" })`
+      })
+    )
+
+    expect(text).toContain(`The request's account ${OTHER_ACCOUNT} is not this token's account`)
+    expect(text).toContain(`scoped to ${ACCOUNT_ID} (Acc)`)
+    expect(text).not.toContain('omit account_id')
+  })
+})

@@ -11,11 +11,12 @@ import {
   ACCOUNT_DISCOVERY_GUIDANCE,
   autoResolvedAccountId,
   missingAccountMessage,
-  unknownAccountHint
+  unknownAccountHint,
+  unknownPathAccountHint
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
-import { isCatalogScope } from '../api-permissions'
+import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 
@@ -31,6 +32,8 @@ const Evaluation = z.union([
     message: z.string(),
     // The OAuth scope GlobalOutbound said the failing request lacked.
     missingScope: z.string().optional(),
+    // The analytics permission a failed GraphQL query lacked, by dataset kind.
+    graphqlRefusal: z.enum(['zone', 'account']).optional(),
     // Whether every request the code sent was a read or was refused, so rerunning repeats no change.
     replaySafe: z.boolean()
   })
@@ -132,7 +135,10 @@ const sentRequests = [];
 const outboundFetch = globalThis.fetch.bind(globalThis);
 globalThis.fetch = async (input, init) => {
   const request = new Request(input, init);
-  const sent = { method: request.method.toUpperCase(), status: undefined };
+  const method = request.method.toUpperCase();
+  // The GraphQL Analytics API has no mutations, so its POSTs are reads too.
+  const read = method === "GET" || method === "HEAD" || /\\/graphql\\/?$/.test(new URL(request.url).pathname);
+  const sent = { read, status: undefined };
   sentRequests.push(sent);
   const response = await outboundFetch(request);
   sent.status = response.status;
@@ -240,6 +246,16 @@ function encodeBytes(value, seen = new Set()) {
   return copy ?? value;
 }
 
+// Which analytics permission a failed GraphQL query lacked. A zone dataset
+// names it ("does not have permission 'com.cloudflare.api.account.zone.analytics.read'
+// for zone ..."); an account dataset says only "authorization denied".
+function graphqlRefusal(errors) {
+  const messages = errors.map((e) => String(e.message || ""));
+  if (messages.some((m) => m.includes("'com.cloudflare.api.account.zone.analytics.read'"))) return "zone";
+  if (messages.some((m) => /^authorization denied$/i.test(m.trim()) || m.includes("'com.cloudflare.api.account.analytics.read'"))) return "account";
+  return undefined;
+}
+
 export default class CodeExecutor extends WorkerEntrypoint {
   async evaluate() {
     const cloudflare = {
@@ -293,7 +309,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
           // Complete failure: no data, only errors
           if (graphqlErrors.length > 0 && !hasData) {
             const msgs = graphqlErrors.map(e => e.message).join(", ");
-            throw new Error("GraphQL error: " + msgs);
+            const error = new Error("GraphQL error: " + msgs);
+            error.graphqlRefusal = graphqlRefusal(graphqlErrors);
+            throw error;
           }
 
           // Success or partial success
@@ -336,8 +354,8 @@ export default class CodeExecutor extends WorkerEntrypoint {
         ok: false,
         message: err instanceof Error ? err.message : String(err),
         missingScope: typeof err?.missingScope === "string" ? err.missingScope : undefined,
-        replaySafe: sentRequests.every(({ method, status }) =>
-          method === "GET" || method === "HEAD" || status === 401 || status === 403)
+        graphqlRefusal: err?.graphqlRefusal === "zone" || err?.graphqlRefusal === "account" ? err.graphqlRefusal : undefined,
+        replaySafe: sentRequests.every(({ read, status }) => read || status === 401 || status === 403)
       };
     }
   }
@@ -362,10 +380,31 @@ const UNSAFE_TO_REPLAY =
  * scope the connection lacks. Code that lies can only ask for a scope it could
  * also get challenged for by calling an endpoint that needs it.
  */
-function challengeableScope(execution: Execution, connection: Connection): string | undefined {
-  if (execution.ok || connection.kind !== 'oauth' || !execution.missingScope) return undefined
-  const scope = execution.missingScope
+function challengeableScope(
+  scope: string | undefined,
+  execution: Execution,
+  connection: Connection
+): string | undefined {
+  if (execution.ok || connection.kind !== 'oauth' || !scope) return undefined
   return isCatalogScope(scope) && !connection.scopes.includes(scope) ? scope : undefined
+}
+
+/** The GraphQL Analytics API, which the spec doesn't list. */
+const GRAPHQL_REQUEST = { method: 'POST', path: '/graphql' }
+
+/** The permission each kind of GraphQL dataset needs. */
+const GRAPHQL_PERMISSIONS = {
+  zone: ['Analytics Read'],
+  account: ['Account Analytics Read']
+} as const
+
+/**
+ * The account in the path of the refused request a failure names, such as
+ * `GET /accounts/<id>/workers/scripts returned HTTP 403`. The sandbox writes
+ * the message, so the account is only used to look up a hint.
+ */
+function refusedAccountId(message: string): string | undefined {
+  return /\/accounts\/([0-9a-f]{32})\b[^\n]* returned HTTP 40[13]\b/.exec(message)?.[1]
 }
 
 /**
@@ -464,9 +503,22 @@ export function registerExecuteTool(
         }
 
         const failure = formatError(execution.message)
-        const hint = account_id ? unknownAccountHint(props, account_id) : ''
+        const pathAccount = account_id ? undefined : refusedAccountId(execution.message)
+        const hint = account_id
+          ? unknownAccountHint(props, account_id)
+          : pathAccount
+            ? unknownPathAccountHint(props, pathAccount)
+            : ''
         if (hint) failure.content[0].text += `\n\n${hint}`
-        const scope = challengeableScope(execution, connection)
+        const graphql = execution.graphqlRefusal
+          ? authorize(connection, GRAPHQL_REQUEST, GRAPHQL_PERMISSIONS[execution.graphqlRefusal])
+          : undefined
+        if (graphql) failure.content[0].text += `\n\n${explainRefusal(403, graphql)}`
+        const scope = challengeableScope(
+          execution.missingScope ?? (graphql?.kind === 'missing' ? graphql.scope : undefined),
+          execution,
+          connection
+        )
         if (!scope) return failure
         if (!execution.replaySafe) {
           failure.content[0].text += `\n\n${UNSAFE_TO_REPLAY}`
