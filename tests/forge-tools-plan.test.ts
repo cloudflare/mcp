@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildRequest, InvalidArguments, tools } from '../src/generated/forge-mcp'
+import { tools } from '../src/generated/forge-mcp'
 import { cloudflareTool } from '../src/forge-tools/cloudflare'
 import { planCall, type PlanOptions } from '../src/forge-tools/plan'
 
@@ -9,13 +9,7 @@ const ACCOUNT = '00000000000000000000000000000001'
 function plan(name: string, args: Record<string, unknown>, options: Partial<PlanOptions> = {}) {
   const tool = tools.find((t) => t.name === name)
   if (!tool) throw new Error(`no generated tool ${name}`)
-  return planCall(
-    cloudflareTool(tool),
-    args,
-    { baseUrl: BASE, ...options },
-    buildRequest,
-    (error) => error instanceof InvalidArguments
-  )
+  return planCall(cloudflareTool(tool), args, { baseUrl: BASE, ...options })
 }
 
 describe('planning a generated tool call', () => {

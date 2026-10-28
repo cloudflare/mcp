@@ -23,6 +23,25 @@ export const reports_Error_output: JsonSchema = {
 };
 
 /**
+ * The schema of `reports_Message` in responses.
+ */
+export const reports_Message_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "type": "number"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `reports_PolicyErrorResponse` in responses.
  */
 export const reports_PolicyErrorResponse_output: JsonSchema = {
@@ -34,10 +53,21 @@ export const reports_PolicyErrorResponse_output: JsonSchema = {
       "type": "array"
     },
     "messages": {
-      "items": {},
+      "items": {
+        "$ref": "#/$defs/reports_Message"
+      },
       "type": "array"
     },
-    "result": {},
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "success": {
       "enum": [
         false

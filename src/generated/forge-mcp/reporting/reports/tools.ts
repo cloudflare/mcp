@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   reports_Error_output,
+  reports_Message_output,
   reports_PolicyErrorResponse_output,
 } from "../outputs.js";
 import {
@@ -129,6 +130,7 @@ export const tools: readonly Tool[] = [
         "reports_GetReportResponse_report": reports_GetReportResponse_report_output,
         "reports_GetReportResponse_report_settings": reports_GetReportResponse_report_settings_output,
         "reports_GetReportResponse_report_status": reports_GetReportResponse_report_status_output,
+        "reports_Message": reports_Message_output,
         "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
       },
     },
@@ -228,6 +230,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "reports_Error": reports_Error_output,
+        "reports_Message": reports_Message_output,
         "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
         "reports_ReportsListResponse_resultItem": reports_ReportsListResponse_resultItem_output,
         "reports_ReportsListResponse_resultItem_reason": reports_ReportsListResponse_resultItem_reason_output,

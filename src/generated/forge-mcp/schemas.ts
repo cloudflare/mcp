@@ -2186,6 +2186,20 @@ export const organizations_api_Profile: JsonSchema = {
 };
 
 /**
+ * The schema of `r2-data-catalog_catalog-activation-request`.
+ */
+export const r2_data_catalog_catalog_activation_request: JsonSchema = {
+  "description": "Contains the optional request to enable a catalog. Send an empty body\nto keep the defaults. If you include `credential`, the service checks\nthat the token can access the bucket, then stores it as the catalog's\nmaintenance credential, like the store credentials operation.\n",
+  "properties": {
+    "credential": {
+      "$ref": "#/$defs/r2-data-catalog_catalog-credential-request",
+      "description": "Contains request to store catalog credentials."
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `r2-data-catalog_catalog-credential-request`.
  */
 export const r2_data_catalog_catalog_credential_request: JsonSchema = {

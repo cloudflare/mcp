@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforce_one_threat_signals_articles_aggregate_relevance",
     title: "Count Threat Signals articles by relevance band",
-    description: "Beta. Counts the account's Threat Signals articles in each relevance band, for each active Priority Intelligence Requirement and across all of them. Uses the same PIRs as article relevance: active PIRs, including those the matcher paused; drafts and deleted PIRs are excluded. Articles not scored against a PIR are not counted for it. The combined counts place each article once, in the band of its best score, so they are not the sum of the per-PIR counts. All counts are read together and are exact.",
+    description: "Beta. Counts the account's Threat Signals articles in each relevance band, for each active Priority Intelligence Requirement and across all of them. Uses the same PIRs as article relevance: active PIRs, including those the matcher paused; drafts and deleted PIRs are excluded. Articles not scored against a PIR are not counted for it. The combined counts place each article once, in the band of its best score, so they are not the sum of the per-PIR counts. read counts only read or only unread articles. All counts are read together and are exact.",
     inputSchema: {
       type: "object",
       properties: {
@@ -26,6 +26,10 @@ export const tools: readonly Tool[] = [
           "description": "Include articles published at or before this ISO 8601 date-time with Z or a numeric UTC offset; normalized to UTC.",
           "format": "date-time",
           "type": "string"
+        },
+        "read": {
+          "description": "Filter by read state. Accepts true, false, 1, or 0; omit to include read and unread articles.",
+          "type": "boolean"
         }
       },
       required: [
@@ -200,13 +204,14 @@ export const tools: readonly Tool[] = [
       query: [
         ["published_after", args["published_after"], true],
         ["published_before", args["published_before"], true],
+        ["read", args["read"], true],
       ],
     }),
   },
   {
     name: "cloudforce_one_threat_signals_articles_aggregate_severity",
     title: "Count Threat Signals articles by severity band",
-    description: "Beta. Counts the account's Threat Signals articles in each intrinsic severity band. An article's band is the severity level nearest its severity, from informational to critical. Articles without a severity are not counted. Also counts, for each active Priority Intelligence Requirement, the articles scored against it. min_relevance counts only articles at or above a relevance band: overall, for any active PIR; per PIR, for that PIR, the same rule as the per-PIR relevance counts. pir_id counts for one active PIR only. Like the article severity field, severity is reported only while the account has an active Priority Intelligence Requirement, including one the matcher paused; otherwise every count is zero and priorities is empty. All counts are read together and are exact.",
+    description: "Beta. Counts the account's Threat Signals articles in each intrinsic severity band. An article's band is the one reported as its severity, from informational to critical. Articles without a severity are not counted. Also counts, for each active Priority Intelligence Requirement, the articles scored against it. min_relevance counts only articles at or above a relevance band: overall, for any active PIR; per PIR, for that PIR, the same rule as the per-PIR relevance counts. pir_id counts for one active PIR only. read counts only read or only unread articles, in both articles and priorities. Like the article severity field, severity is reported only while the account has an active Priority Intelligence Requirement, including one the matcher paused; otherwise every count is zero and priorities is empty. All counts are read together and are exact.",
     inputSchema: {
       type: "object",
       properties: {
@@ -236,6 +241,10 @@ export const tools: readonly Tool[] = [
           "description": "Include articles published at or before this ISO 8601 date-time with Z or a numeric UTC offset; normalized to UTC.",
           "format": "date-time",
           "type": "string"
+        },
+        "read": {
+          "description": "Filter by read state. Accepts true, false, 1, or 0; omit to include read and unread articles.",
+          "type": "boolean"
         }
       },
       required: [
@@ -426,6 +435,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["published_after", args["published_after"], true],
         ["published_before", args["published_before"], true],
+        ["read", args["read"], true],
         ["pir_id", args["pir_id"], true],
         ["min_relevance", args["min_relevance"], true],
       ],
@@ -703,7 +713,14 @@ export const tools: readonly Tool[] = [
         "severity": {
           "oneOf": [
             {
-              "type": "number"
+              "enum": [
+                "informational",
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ],
+              "type": "string"
             },
             {
               "type": "null"
@@ -1011,7 +1028,14 @@ export const tools: readonly Tool[] = [
             "severity": {
               "oneOf": [
                 {
-                  "type": "number"
+                  "enum": [
+                    "informational",
+                    "low",
+                    "medium",
+                    "high",
+                    "critical"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "null"
@@ -1472,7 +1496,14 @@ export const tools: readonly Tool[] = [
               "severity": {
                 "oneOf": [
                   {
-                    "type": "number"
+                    "enum": [
+                      "informational",
+                      "low",
+                      "medium",
+                      "high",
+                      "critical"
+                    ],
+                    "type": "string"
                   },
                   {
                     "type": "null"
@@ -1749,7 +1780,14 @@ export const tools: readonly Tool[] = [
                   "severity": {
                     "oneOf": [
                       {
-                        "type": "number"
+                        "enum": [
+                          "informational",
+                          "low",
+                          "medium",
+                          "high",
+                          "critical"
+                        ],
+                        "type": "string"
                       },
                       {
                         "type": "null"
@@ -2051,7 +2089,14 @@ export const tools: readonly Tool[] = [
         "severity": {
           "oneOf": [
             {
-              "type": "number"
+              "enum": [
+                "informational",
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ],
+              "type": "string"
             },
             {
               "type": "null"
@@ -2304,7 +2349,14 @@ export const tools: readonly Tool[] = [
             "severity": {
               "oneOf": [
                 {
-                  "type": "number"
+                  "enum": [
+                    "informational",
+                    "low",
+                    "medium",
+                    "high",
+                    "critical"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "null"

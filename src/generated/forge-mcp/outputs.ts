@@ -5739,6 +5739,9 @@ export const r2_data_catalog_catalog_output: JsonSchema = {
       "format": "uuid",
       "type": "string"
     },
+    "jurisdiction": {
+      "type": "string"
+    },
     "maintenance_config": {
       "oneOf": [
         {
@@ -7815,6 +7818,9 @@ export const tunnel_messages_output: JsonSchema = {
     "properties": {
       "code": {
         "type": "integer"
+      },
+      "context": {
+        "type": "object"
       },
       "message": {
         "type": "string"

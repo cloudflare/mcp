@@ -1379,6 +1379,9 @@ export const access_base_policy_resp_output: JsonSchema = {
     "name": {
       "$ref": "#/$defs/access_name-9"
     },
+    "policy_resolution_account_id": {
+      "$ref": "#/$defs/access_policy_resolution_account_id"
+    },
     "require": {
       "$ref": "#/$defs/access_require-2"
     },

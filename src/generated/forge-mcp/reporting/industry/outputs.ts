@@ -15,10 +15,21 @@ export const reports_AccountIndustryErrorResponse_output: JsonSchema = {
       "type": "array"
     },
     "messages": {
-      "items": {},
+      "items": {
+        "$ref": "#/$defs/reports_Message"
+      },
       "type": "array"
     },
-    "result": {},
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "success": {
       "enum": [
         false

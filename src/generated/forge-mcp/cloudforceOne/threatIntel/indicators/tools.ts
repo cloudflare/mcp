@@ -170,6 +170,157 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
+    name: "cloudforce_one_threat_intel_indicators_bulk_delete",
+    title: "Delete indicators in bulk",
+    description: "Deletes up to 200 indicators from a dataset. Pass the indicator UUIDs in `indicatorIds`; UUIDs that are not found are returned in `missingUUIDs`.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "account_id": {
+          "description": "Account ID.",
+          "type": "string"
+        },
+        "dataset_id": {
+          "description": "Dataset ID.",
+          "type": "string"
+        },
+        "indicator_ids": {
+          "description": "Indicator UUIDs to delete, 1-200 per request.",
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 200,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      required: [
+        "account_id",
+        "dataset_id",
+        "indicator_ids"
+      ],
+    },
+    outputSchema: {
+      "properties": {
+        "deletedCount": {
+          "type": "integer"
+        },
+        "missingUUIDs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "deletedCount"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete indicators in bulk"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "deletedCount": {
+              "type": "integer"
+            },
+            "missingUUIDs": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "deletedCount"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "404": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/${pathParam(args, "dataset_id")}/indicators`,
+      query: [
+        ["indicatorIds", args["indicator_ids"], true],
+      ],
+    }),
+  },
+  {
     name: "cloudforce_one_threat_intel_indicators_create",
     title: "Create an indicator",
     description: "Creates an indicator in a dataset. Set `autoCreateType` to create the indicator type if it doesn't exist.",

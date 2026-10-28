@@ -1,4 +1,10 @@
-import type { Args, Tool } from '../generated/forge-mcp'
+import {
+  buildRequest,
+  InvalidArguments,
+  type Args,
+  type HttpRequest,
+  type Tool
+} from '../generated/forge-mcp/_/tool'
 import { permissionsOf } from './cloudflare'
 
 const ACCOUNT_OR_ZONE_PREFIX = '/{account_or_zone}/{account_or_zone_id}'
@@ -21,32 +27,23 @@ export type CallPlan =
   | { readonly kind: 'invalid'; readonly message: string }
   /** The tool takes an account, the caller left it out, and the session has more than one. */
   | { readonly kind: 'needs_account' }
-  | {
+  | (HttpRequest & {
       readonly kind: 'request'
-      readonly method: string
-      readonly url: string
-      readonly headers: Readonly<Record<string, string>>
-      readonly body?: string
       /** The tool's path template, such as `/accounts/{account_id}/d1/database`. */
       readonly template: string
       /** The API token permissions the method accepts. */
       readonly permissions?: readonly string[]
       /** The account the request names, if any, for explaining a refusal. */
       readonly accountId?: string
-    }
+    })
 
 /**
  * Plans calling `tool` with `given`: fills in the session's account where the
  * tool takes one and the caller left it out, then builds the request with the
- * tool's generated code.
+ * tool's generated code. The request is plain data, so the plan crosses RPC
+ * as it is.
  */
-export async function planCall(
-  tool: Tool,
-  given: Args,
-  options: PlanOptions,
-  build: (tool: Tool, args: Args, baseUrl: string) => Request,
-  isInvalidArguments: (error: unknown) => boolean
-): Promise<CallPlan> {
+export function planCall(tool: Tool, given: Args, options: PlanOptions): CallPlan {
   const key = accountKey(tool, given)
   let args = given
   if (key && given[key] === undefined) {
@@ -54,22 +51,18 @@ export async function planCall(
     args = { ...given, [key]: options.sessionAccountId }
   }
 
-  let request: Request
+  let request: HttpRequest
   try {
-    request = build(tool, args, options.baseUrl)
+    request = buildRequest(tool, args, options.baseUrl)
   } catch (error) {
-    if (isInvalidArguments(error)) return { kind: 'invalid', message: (error as Error).message }
+    if (error instanceof InvalidArguments) return { kind: 'invalid', message: error.message }
     throw error
   }
-  const body = request.body ? await request.text() : undefined
   const permissions = permissionsOf(tool)
   const accountId = accountIdOf(args)
   return {
     kind: 'request',
-    method: request.method,
-    url: request.url,
-    headers: Object.fromEntries(request.headers),
-    ...(body !== undefined && { body }),
+    ...request,
     template: tool.path,
     ...(permissions && { permissions }),
     ...(accountId && { accountId })
