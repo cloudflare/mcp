@@ -77,7 +77,7 @@ try {
     JSON.parse(readFileSync(spec, 'utf8')) as Record<string, unknown>
   )
   for (const [name, text] of Object.entries(artifacts)) {
-    writeFileSync(join(SPEC_OUT, `${name}.txt`), text)
+    writeFileSync(join(SPEC_OUT, `${name}.txt`), asciiJson(text))
   }
   const after = toolNames(OUT)
   const permissionsAfter = withPermissions(OUT)
@@ -94,6 +94,19 @@ try {
   }
 } finally {
   rmSync(tmp, { recursive: true, force: true })
+}
+
+/**
+ * Returns `json` with every character above U+007F escaped as `\uXXXX`. It is
+ * the same JSON, but V8 keeps an all-ASCII string at one byte per character:
+ * the 710 non-Latin-1 characters in `spec.json` would otherwise make its 26.7M
+ * characters a 53 MB two-byte string in every isolate that holds it.
+ */
+function asciiJson(json: string): string {
+  return json.replace(
+    /[\u0080-\uffff]/g,
+    (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`
+  )
 }
 
 /** The latest Forge release's tag and the download URL of its `openapi.forge.json`. */
