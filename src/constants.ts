@@ -29,14 +29,21 @@ interface CloudflareRequestOptions {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   path: string;
   query?: Record<string, string | number | boolean | undefined>;
+  // Objects and arrays are sent as JSON. Bytes (Uint8Array, ArrayBuffer), Blob, FormData,
+  // URLSearchParams, streams, and strings with a non-JSON contentType are sent as they are. A string
+  // with a JSON contentType, or none, is sent as it is when it is already JSON, else as a JSON string.
   body?: unknown;
-  contentType?: string;  // Custom Content-Type header (defaults to application/json if body is present)
-  rawBody?: boolean;     // If true, sends body as-is without JSON.stringify
+  // Content-Type header. Defaults to application/json for JSON bodies. Leave it unset for FormData,
+  // whose multipart boundary fetch adds.
+  contentType?: string;
 }
 
 interface CloudflareResponse<T = unknown> {
   success: boolean;
   status: number;
+  // A JSON response's result. For any other response, its text, or a Uint8Array for binary content
+  // (images, PDFs, archives, application/octet-stream). Bytes in the value your code returns appear
+  // as { base64, byteLength }.
   result: T;
   errors: Array<{ code: number; message: string }>;
   messages: Array<{ code: number; message: string }>;
