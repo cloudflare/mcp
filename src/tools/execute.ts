@@ -162,12 +162,20 @@ function isJsonType(type) {
   return /^application\\/(?:[\\w.-]+\\+)?json$/.test(type);
 }
 
-// Content read as text. An unlabelled response is text, as it always was, and
-// so is multipart (a Worker's script); anything else unknown is kept as bytes.
-const TEXT_TYPES = /^(?:text\\/|multipart\\/|message\\/)|^application\\/(?:xml|javascript|ecmascript|x-ndjson|jsonl|x-pem-file|x-www-form-urlencoded|graphql|sql|yaml|x-yaml|toml|csv)$|\\+xml$/;
-function isTextType(contentType) {
-  const type = mediaType(contentType);
-  return type === "" || TEXT_TYPES.test(type) || /;\\s*charset=/i.test(contentType || "");
+// Media types that are always binary, returned as bytes even when they happen
+// to be valid UTF-8.
+const BINARY_TYPES = /^(?:image|audio|video|font)\\/|^application\\/(?:pdf|zip|gzip|x-gzip|x-tar|x-7z-compressed|wasm|vnd\\.tcpdump\\.pcap|vnd\\.google\\.protobuf|x-protobuf)$/;
+
+// A non-JSON response as text when it is valid UTF-8, else as bytes. KV values
+// and other application/octet-stream text stay strings; a JPEG never decodes,
+// so its bytes are kept instead of being replaced with U+FFFD.
+function decodeBody(bytes, type) {
+  if (BINARY_TYPES.test(type)) return bytes;
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  } catch {
+    return bytes;
+  }
 }
 
 // Bodies fetch sends as they are.
@@ -261,17 +269,14 @@ export default class CodeExecutor extends WorkerEntrypoint {
         const responseType = mediaType(response.headers.get("content-type"));
 
         // Text comes back as a string, binary content (images, PDFs, archives,
-        // application/octet-stream) as a Uint8Array, so it isn't corrupted by
-        // decoding it as UTF-8.
+        // anything that isn't valid UTF-8) as a Uint8Array, so it isn't
+        // corrupted by decoding it as UTF-8.
         if (!isJsonType(responseType)) {
           if (!response.ok) {
             const text = await response.text();
             throw apiError(method, path, response, text.slice(0, 500));
           }
-          const bytes = new Uint8Array(await response.arrayBuffer());
-          const result = isTextType(response.headers.get("content-type"))
-            ? new TextDecoder().decode(bytes)
-            : bytes;
+          const result = decodeBody(new Uint8Array(await response.arrayBuffer()), responseType);
           return { success: true, status: response.status, result };
         }
 

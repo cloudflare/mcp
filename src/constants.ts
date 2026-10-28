@@ -42,8 +42,8 @@ interface CloudflareResponse<T = unknown> {
   success: boolean;
   status: number;
   // A JSON response's result. For any other response, its text, or a Uint8Array for binary content
-  // (images, PDFs, archives, application/octet-stream). Bytes in the value your code returns appear
-  // as { base64, byteLength }.
+  // (images, PDFs, archives, and anything else that isn't valid UTF-8). Bytes in the value your code
+  // returns appear as { base64, byteLength }.
   result: T;
   errors: Array<{ code: number; message: string }>;
   messages: Array<{ code: number; message: string }>;
