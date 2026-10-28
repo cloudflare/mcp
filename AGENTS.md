@@ -27,6 +27,7 @@ cloudflare-mcp/
 │   ├── spec-release.ts            # The pinned spec release; builds its artifacts
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── lib/isolate.ts             # Isolate-lifetime caches: value, lazy, map, derived
+│   ├── lib/isolate-json-schema.ts # Tool schemas converted to JSON Schema once per isolate
 │   ├── isolate-cache.ts           # Spec artifacts, forge tool list and skills, cached per isolate
 │   ├── response-schema-check.ts   # Validates a body against generated response schemas; value-free violations
 │   ├── response-validation.ts     # checkResponse(): sampling, trimming, waitUntil, mismatch events
@@ -260,6 +261,8 @@ A warm isolate serves many requests, so anything that doesn't depend on the requ
 - `isolate.lazy(build)`: a synchronous value built on first use.
 - `isolate.map({ maxEntries, maxSize, sizeOf })`: values by key, cleared when a cap would be passed, so a long-lived isolate can't grow without bound.
 - `isolate.derived(compute)`: a value computed from another cached object (an index, serialized bytes), keyed on that object's identity, so it is recomputed when the source reloads.
+
+Tool and method schemas are module-level constants, not built per request; wrap a tool's zod schema in `withCachedJsonSchema` (`src/lib/isolate-json-schema.ts`) so the SDK's per-`tools/list` JSON Schema conversion runs once per isolate.
 
 Every cache registers itself; `isolate.resetAll()` returns a test to a cold isolate. One isolate serves every user, so never cache anything per request, per user or per credential this way.
 
