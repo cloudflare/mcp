@@ -59,7 +59,7 @@
 		}
 	],
 	"triggers": {
-		"crons": ["*/10 * * * *", "0 */6 * * *"]
+		"crons": ["0 */6 * * *"]
 	},
 	"dev": {
 		"port": 2529
@@ -111,7 +111,7 @@
 				}
 			],
 			"triggers": {
-				"crons": ["*/10 * * * *", "0 */6 * * *"]
+				"crons": ["0 */6 * * *"]
 			},
 			"vars": {
 				"CLOUDFLARE_API_BASE": "https://api.staging.cloudflare.com/client/v4",
@@ -166,7 +166,7 @@
 				}
 			],
 			"triggers": {
-				"crons": ["*/10 * * * *", "0 */6 * * *"]
+				"crons": ["0 */6 * * *"]
 			},
 			"vars": {
 				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",

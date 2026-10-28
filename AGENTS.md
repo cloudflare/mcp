@@ -24,7 +24,7 @@ cloudflare-mcp/
 │   ├── events/                    # Stateless MCP Events mapping to ANS policies and Vega automations
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec $ref resolution & splitting merged paths
-│   ├── spec-release.ts            # The pinned spec release; syncs its R2 artifacts
+│   ├── spec-release.ts            # The pinned spec release; builds its artifacts
 │   ├── truncate.ts                # Response truncation (~6K token limit)
 │   ├── response-schema-check.ts   # Validates a body against generated response schemas; value-free violations
 │   ├── response-validation.ts     # checkResponse(): sampling, trimming, waitUntil, mismatch events
@@ -108,8 +108,8 @@ Node 22+ required.
 | `npm run test`         | Run vitest test suite                         |
 | `npm run test:watch`   | Run vitest in watch mode                      |
 | `npm run check`        | Run all checks (format, lint, typecheck, test)|
-| `npm run seed:staging` | Seed OpenAPI spec to staging R2 (with `cf`)   |
-| `npm run seed:prod`    | Seed OpenAPI spec to production R2 (with `cf`) |
+| `npm run seed:staging` | Seed skills to staging R2 (with `cf`)         |
+| `npm run seed:prod`    | Seed skills to production R2 (with `cf`)      |
 | `npm run report:schema-mismatches` | Response schema mismatch report (see below) |
 
 ## Code standards
@@ -177,15 +177,15 @@ The consent page offers minimal, read-only and full-access templates. Minimal is
 
 ### OpenAPI spec processing
 
-- One pinned `cloudflare/forge` release (`openapi@<sha>`, `openapi.forge.json`) serves the whole deployment: `src/generated/forge-mcp/source.json` names it, and `src/spec-release.ts` reads it (`SPEC_RELEASE`, `SPEC_URL`). Never `releases/latest`: an upstream release once dropped 90% of `x-api-token-group`, which refusal explanations and step-up need. The forge tools workflow proposes a newer release in a pull request with the regenerated tools; reviewing and merging that is how the spec changes
-- A ten-minute cron (`*/10 * * * *`) runs `syncSpec`, which writes the pinned release's artifacts to R2 and records the release on `spec.json` (custom metadata `release`). When R2 already holds it the run is one `head`, so a merged pin is served within minutes. `spec.json` goes last, so a run that fails part way is redone. The six-hourly cron (`SKILLS_CRON`, `0 */6 * * *`) syncs only the skills
+- One pinned `cloudflare/forge` release (`openapi@<sha>`, `openapi.forge.json`) serves the whole deployment: `src/generated/forge-mcp/source.json` names it, and `src/spec-release.ts` reads it (`SPEC_RELEASE`). Never `releases/latest`: an upstream release once dropped 90% of `x-api-token-group`, which refusal explanations and step-up need. The forge tools workflow proposes a newer release in a pull request with the regenerated tools; reviewing and merging that is how the spec changes
+- The spec ships with the deploy: `scripts/generate-tools.ts` builds its artifacts (`buildSpecArtifacts`) from the same release as the forge tools and writes them to `src/generated/spec/` as text modules, which the forge tools service serves (`specArtifact`). Nothing fetches or syncs the spec at runtime, and the merge that bumps the pin changes Code Mode, the endpoint tools and the forge tools together. The six-hourly cron (`0 */6 * * *`) syncs only the skills
 - Forge merges operations that exist under both accounts and zones into `/{account_or_zone}/{account_or_zone_id}/…`; `processSpec` splits each back into its `/accounts/{account_id}/…` and `/zones/{zone_id}/…` paths, so Code Mode sees paths it can call as written and the endpoint tools fill in `account_id`. Since cloudflare/forge#59 (`openapi@fdbc7d9`), the document gives `account_or_zone` its `accounts`/`zones` enum; `cf` fills it from `--zone`
 - All `$ref` references resolved inline before storage
 - Each 2xx JSON response schema describes `result` of what `cloudflare.request()` returns (`resultResponses()`). `openapi.forge.json` leaves Cloudflare's envelope out of success schemas: a paginated list is `{ result, result_info }`, anything else is the result itself, or the whole body of an API without the envelope, which `cloudflare.request()` also returns as `result`. So a list's schema becomes its `result` (every declaration of it combined), and its `result_info` schema moves to the response's `x-result-info`. A schema with root fields other than the envelope's is left as it is. The direct tools read the same payload (see Envelope under Response schema checks)
 - Products and minimal operation metadata extracted
-- Stored in R2 bucket (`SPEC_BUCKET`) as `spec.json`, `products.json`, and `mcp-tools.json`, the direct-tool catalogue for `?codemode=false`
+- Three artifacts: `spec.json`, `products.json`, and `mcp-tools.json`, the direct-tool catalogue for `?codemode=false`
 - `mcp-tools.json` holds the final wire JSON Schemas (including the session-independent optional `account_id`) plus minimal request-routing metadata. Each isolate builds the `tools/list` payload from it once and serves it unchanged; `tools/call` lazily validates/dispatches only the requested operation with Zod. No per-endpoint SDK tools are registered
-- `src/isolate-cache.ts` caches all three artifacts for one hour in warm isolates. Concurrent requests on a cold isolate share one load, and a failed load is not cached. There is no fallback: a missing `mcp-tools.json` fails the request, so seed R2 (`npm run seed:staging` / `seed:prod`) before deploying a change to its key or shape
+- `src/isolate-cache.ts` reads the three artifacts from the forge tools service and caches them for one hour in warm isolates. Concurrent requests on a cold isolate share one load, and a failed load is not cached. Tests serve fixtures through `setSpecArtifactSource` (`tests/helpers/spec.ts`)
 
 ### Forge-generated direct tools (`?codemode=false&experimentalForge=true`, opt-in)
 
@@ -215,7 +215,7 @@ The server implements the MCP Skills extension (`io.modelcontextprotocol/skills`
 Cloudflare answers a missing OAuth scope, an endpoint OAuth can't reach (billing, API tokens), a missing role and a rejected credential all with `10000: Authentication error` or `9109: Unauthorized`, and with either `401` or `403` (Workers KV and D1 writes get `401` for a missing scope). Agents read that as a signed-out connection and ask users to reconnect, which usually changes nothing. So every 401/403 tool error names the method, path, status and Cloudflare's errors, and adds an explanation from `src/api-permissions.ts`. Every tool surface decides refusals with `refusalFor()` in `src/api-refusals.ts`, so they can't drift apart:
 
 - The connection kind comes from the provider's `ctx.auth`. A token the provider issued carries `clientId` and its granted `scope` (`oauth`). A directly resolved credential carries neither (`direct`).
-- The endpoint's accepted permissions come from the OpenAPI spec's `x-api-token-group`, which the scheduled handler copies into each `spec.json` operation (so `search` shows it) and each `mcp-tools.json` entry (`permissions`). OAuth scopes share those names (`DERIVED_OAUTH_SCOPES`), except a few that drifted (`/zones` uses the dashboard's `Zone Zone Read`, `Zone Zone Edit` and `Zone DNS Edit`; `Browser Rendering *` is the catalog's `Browser Run *`), which `PERMISSION_ALIASES` maps. Any one permission is enough. When one permission name is both an account and a zone scope (`access.read` and `zone-access.read`), only the variant matching the request path counts. The request path decides, not the template. Forge merges endpoints that exist for both into one `/{account_or_zone}/{account_or_zone_id}/...` template; `src/spec-processor.ts` and `src/forge-tools/plan.ts` split them back, and reading the request keeps the decision right without depending on that.
+- The endpoint's accepted permissions come from the OpenAPI spec's `x-api-token-group`, which spec processing copies into each `spec.json` operation (so `search` shows it) and each `mcp-tools.json` entry (`permissions`). OAuth scopes share those names (`DERIVED_OAUTH_SCOPES`), except a few that drifted (`/zones` uses the dashboard's `Zone Zone Read`, `Zone Zone Edit` and `Zone DNS Edit`; `Browser Rendering *` is the catalog's `Browser Run *`), which `PERMISSION_ALIASES` maps. Any one permission is enough. When one permission name is both an account and a zone scope (`access.read` and `zone-access.read`), only the variant matching the request path counts. The request path decides, not the template. Forge merges endpoints that exist for both into one `/{account_or_zone}/{account_or_zone_id}/...` template; `src/spec-processor.ts` and `src/forge-tools/plan.ts` split them back, and reading the request keeps the decision right without depending on that.
 - `authorize()` turns the endpoint's permissions and the connection's scopes into one decision: `granted`, `missing` (with the options and the one scope to ask for), `unreachable` (no OAuth scope covers it), `direct` or `unlisted`. The decision picks the explanation, for 401 and 403 alike. The connection lacks every scope the endpoint accepts: grant one. No OAuth scope exists for the endpoint: use an API token. For a direct credential: these are the permissions the token needs. The status matters only where the scopes can't decide: the spec lists no permissions, or the connection already holds an accepted scope (401: Cloudflare rejected the credential, reconnect; 403: usually the user's role, reconnecting won't help).
 - `execute`: `GlobalOutbound` passes every response through `reviewResponse()`, which sets the explanation in an `X-Cloudflare-MCP-Refusal-Hint` response header. The sandbox puts it in the error it throws, so it survives code that catches the error. `execute` matches the path against the cached `mcp-tools.json` templates, looked up only for refusals and successful JSON GETs from OAuth connections; parsing the ~25 MB `spec.json` there could exhaust the isolate's memory. Endpoint tools and forge tools build their result with `apiCallResult()` (`src/tools/api-call-result.ts`), using their own entry's permissions.
 
@@ -345,7 +345,7 @@ CI runs on every PR:
 
 All checks must pass before merge.
 
-Merging to `main` deploys, so a merged PR goes live straight away. Land what it depends on first. A new OAuth scope must be registered in Terraform and applied an hour before (see the [scope runbook](https://wiki.cfdata.org/spaces/EW/pages/1489255719)). A change to an R2 artifact's key or shape needs `npm run seed:prod` before the merge.
+Merging to `main` deploys, so a merged PR goes live straight away. Land what it depends on first. A new OAuth scope must be registered in Terraform and applied an hour before (see the [scope runbook](https://wiki.cfdata.org/spaces/EW/pages/1489255719)). A change to the skills' R2 keys or shape needs `npm run seed:prod` before the merge.
 
 ### Bonk (AI code review)
 

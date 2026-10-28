@@ -1,6 +1,7 @@
 import { env } from 'cloudflare:workers'
 import type { Tool } from '@modelcontextprotocol/server'
-import { MCP_TOOLS_KEY, type McpTool } from './openapi'
+import type { McpTool } from './openapi'
+import type { SpecArtifactName } from './spec-release'
 import {
   SKILLS_MANIFEST_KEY,
   SkillsManifest,
@@ -10,14 +11,15 @@ import {
 } from './skills/types'
 
 /**
- * In-isolate cache for the R2 artifacts the scheduled handler writes
- * (`spec.json`, `products.json`, `mcp-tools.json`, the skills manifest and files),
- * and for the forge tools service's tool list.
+ * In-isolate cache for what the forge tools service serves (the pinned spec's
+ * artifacts, `spec.json`, `products.json` and `mcp-tools.json`, and the tool
+ * list) and the skills the scheduled handler writes to R2 (the manifest and
+ * files).
  *
  * The MCP worker isolate stays warm across requests, so without this every
- * call re-read R2. The artifacts change at most every six hours, so a short TTL keeps a
- * warm isolate from serving stale data for long after an update while still
- * absorbing nearly all reads.
+ * call re-read them. The spec changes only with a deploy and the skills at
+ * most every six hours, so a short TTL keeps a warm isolate from serving stale
+ * data for long after an update while still absorbing nearly all reads.
  */
 
 const TTL_MS = 60 * 60 * 1000 // 1 hour
@@ -70,13 +72,25 @@ function cached<T>(load: () => Promise<T>) {
   }
 }
 
-async function required(key: string): Promise<R2ObjectBody> {
-  const object = await env.SPEC_BUCKET.get(key)
-  if (!object) throw new Error(`${key} not found in R2. Run the scheduled handler to populate it.`)
-  return object
+/** Reads one of the pinned spec's artifacts as text. */
+export type SpecArtifactSource = (name: SpecArtifactName) => Promise<string>
+
+/** The forge tools service, which ships the artifacts with the generated tools. */
+const serviceSource: SpecArtifactSource = async (name) =>
+  new Response(await env.FORGE_TOOLS.specArtifact(name)).text()
+
+let specArtifactSource: SpecArtifactSource = serviceSource
+
+/**
+ * Reads the spec artifacts from `source`, or from the forge tools service again
+ * without one, and empties the cache. For tests, which serve fixtures.
+ */
+export function setSpecArtifactSource(source?: SpecArtifactSource): void {
+  specArtifactSource = source ?? serviceSource
+  resetIsolateCache()
 }
 
-const spec = cached(async () => (await required('spec.json')).text())
+const spec = cached(() => specArtifactSource('spec.json'))
 
 /** The raw `spec.json` text, embedded into the search isolate. */
 export function getSpec(): Promise<string> {
@@ -93,7 +107,7 @@ export interface McpTools {
 }
 
 const mcpTools = cached(async (): Promise<McpTools> => {
-  const tools = (await (await required(MCP_TOOLS_KEY)).json()) as McpTool[]
+  const tools = JSON.parse(await specArtifactSource('mcp-tools.json')) as McpTool[]
   return {
     list: tools.map(({ name, title, description, inputSchema }) => ({
       name,
@@ -105,7 +119,7 @@ const mcpTools = cached(async (): Promise<McpTools> => {
   }
 })
 
-/** The direct tools, served exactly as the scheduled handler generated them. */
+/** The direct tools, served exactly as `mcp-tools.json` lists them. */
 export function getMcpTools(): Promise<McpTools> {
   return mcpTools.get()
 }
@@ -132,12 +146,11 @@ export function getForgeToolList({ outputSchema = false } = {}): Promise<Tool[]>
   return outputSchema ? forgeToolListWithOutput.get() : forgeToolList.get()
 }
 
-const products = cached(async (): Promise<string[]> => {
-  const object = await env.SPEC_BUCKET.get('products.json')
-  return object ? object.json() : []
-})
+const products = cached(
+  async (): Promise<string[]> => JSON.parse(await specArtifactSource('products.json')) as string[]
+)
 
-/** The product list backing the `search` tool description. Empty if unseeded. */
+/** The product list backing the `search` tool description. */
 export function getProducts(): Promise<string[]> {
   return products.get()
 }
@@ -202,7 +215,7 @@ export async function readSkillFile(file: SkillFile): Promise<Uint8Array> {
   return bytes
 }
 
-/** Drop cached artifacts. For tests that re-seed R2 between cases. */
+/** Drop cached artifacts. For tests that change their fixtures between cases. */
 export function resetIsolateCache(): void {
   spec.reset()
   products.reset()

@@ -443,7 +443,7 @@ describe('search: real SPEC_BUCKET', () => {
   // The API-token path resolves identity before any tool runs.
   beforeEach(() => mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] }))
 
-  it('evaluates code against the spec seeded in R2', async () => {
+  it('evaluates code against the served spec', async () => {
     await seedSpec(SPEC_PATHS)
 
     const result = await callTool(API_TOKEN, 'search', {
@@ -452,11 +452,11 @@ describe('search: real SPEC_BUCKET', () => {
     expect(toolText(result)).toContain('/accounts/{account_id}/workers/scripts')
   })
 
-  it('errors when spec.json is missing from R2', async () => {
+  it('errors when spec.json is unavailable', async () => {
     const result = await callTool(API_TOKEN, 'search', {
       code: `async () => Object.keys(spec.paths)`
     })
-    expect(toolText(result)).toContain('spec.json not found in R2')
+    expect(toolText(result)).toContain('spec.json is not available')
   })
 
   it('has no network access (globalOutbound is null for search)', async () => {

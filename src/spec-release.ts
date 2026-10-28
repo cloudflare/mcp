@@ -10,13 +10,10 @@ import { extractProducts, processSpec } from './spec-processor'
  */
 export const SPEC_RELEASE: string = source.release
 
-/** Where {@link SPEC_RELEASE}'s `openapi.forge.json` downloads from. */
-export const SPEC_URL = `https://github.com/cloudflare/forge/releases/download/${encodeURIComponent(SPEC_RELEASE)}/openapi.forge.json`
-
-/** The custom metadata key on `spec.json` that names the release it came from. */
-const RELEASE_METADATA = 'release'
-
-/** The R2 objects built from the spec, by key. */
+/**
+ * The artifacts built from the spec, by name. `scripts/generate-tools.ts`
+ * writes them to `src/generated/spec`, and the forge tools service serves them.
+ */
 export interface SpecArtifacts {
   readonly 'spec.json': string
   readonly 'products.json': string
@@ -34,40 +31,4 @@ export function buildSpecArtifacts(rawSpec: Record<string, unknown>): SpecArtifa
     'products.json': JSON.stringify(extractProducts(rawSpec)),
     [MCP_TOOLS_KEY]: JSON.stringify(buildMcpTools(processed.paths))
   }
-}
-
-/** Downloads {@link SPEC_RELEASE}'s raw OpenAPI document. */
-export async function downloadSpec(): Promise<Record<string, unknown>> {
-  const response = await fetch(SPEC_URL)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch OpenAPI spec ${SPEC_RELEASE}: ${response.status}`)
-  }
-  return (await response.json()) as Record<string, unknown>
-}
-
-/**
- * Makes R2 hold {@link SPEC_RELEASE}'s artifacts. It reads only `spec.json`'s
- * metadata when R2 already does, so it can run often and a merged pin is served
- * within minutes. `spec.json` is written last, with the release: a run that
- * fails part way leaves the old release named, and the next run writes all
- * three again.
- */
-export async function syncSpec(bucket: R2Bucket): Promise<void> {
-  const current = await bucket.head('spec.json')
-  if (current?.customMetadata?.[RELEASE_METADATA] === SPEC_RELEASE) return
-
-  console.log(`Syncing OpenAPI spec ${SPEC_RELEASE} from ${SPEC_URL}`)
-  const artifacts = buildSpecArtifacts(await downloadSpec())
-  const httpMetadata = { contentType: 'application/json' }
-  await Promise.all([
-    bucket.put('products.json', artifacts['products.json'], { httpMetadata }),
-    bucket.put(MCP_TOOLS_KEY, artifacts[MCP_TOOLS_KEY], { httpMetadata })
-  ])
-  await bucket.put('spec.json', artifacts['spec.json'], {
-    httpMetadata,
-    customMetadata: { [RELEASE_METADATA]: SPEC_RELEASE }
-  })
-  console.log(
-    `Spec ${SPEC_RELEASE} synced (${(artifacts['spec.json'].length / 1024).toFixed(0)} KB)`
-  )
 }
