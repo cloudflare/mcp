@@ -296,8 +296,11 @@ export function isRefusal(status: number): status is 401 | 403 {
  *
  * So the {@link authorize} decision picks the explanation. The status matters
  * only when it can't: when the spec lists no permissions, and when the
- * connection already holds an accepted scope (401: Cloudflare rejected the
- * credential itself; 403: something else, usually the user's role).
+ * connection already holds an accepted scope. Then a 403 is something other
+ * than the credential, usually the user's role. A 401 is ambiguous: the core
+ * API gateway sends it for a rejected credential, but the edge gateway, which
+ * serves KV, D1, Workers AI, Browser Rendering and Workflows, sends 401
+ * `10000` for every authorization failure too.
  *
  * @param status - The HTTP status, 401 or 403.
  * @param authorization - The decision for the request, from {@link authorize}.
@@ -333,7 +336,7 @@ export function explainRefusal(status: 401 | 403, authorization: Authorization):
     case 'granted': {
       const has = `This connection already has ${list(authorization.held.map(scopeLabel))}, which this endpoint accepts`
       return status === 401
-        ? `${has}, so Cloudflare rejected the credential itself. Reconnect to sign in again.`
+        ? `${has}. Cloudflare answers 401 both when it rejects the credential and, on routes such as Workers KV and D1, when it refuses the request for another reason: usually the user’s role on the account or zone, or a resource in an account this connection was not granted. Reconnect only if other requests fail with 401 too.`
         : `${has}, so reconnecting will not help. Cloudflare refused for another reason: usually the user’s role on the account or zone, or a resource in an account this connection was not granted.`
     }
   }

@@ -112,13 +112,13 @@ describe('execute', () => {
     expectChallenge(await executeModern(token, CREATE_KV), 'workers-kv-storage.write')
   })
 
-  it('keeps a 401 as a credential problem when the connection holds an accepted scope', async () => {
+  it('does not challenge a 401 when the connection holds an accepted scope', async () => {
     const token = await connectWithOAuth([...BASELINE, 'workers-kv-storage.write'])
     const response = await executeModern(token, CREATE_KV)
 
     expect(response.status).toBe(200)
     expect((await parseMcpResult(response)).result?.content?.[0]?.text).toContain(
-      'Reconnect to sign in again'
+      'Reconnect only if other requests fail with 401 too.'
     )
   })
 
