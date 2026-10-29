@@ -1,7 +1,10 @@
+import { z } from 'zod'
 import { describe, expect, it, vi } from 'vitest'
 import {
   MAX_EVENT_BYTES,
   alertEventDefinitions,
+  AlertPayload,
+  payloadSchemaFor,
   SubscribeParams,
   UnsubscribeParams,
   forwardAnsWebhook,
@@ -231,6 +234,11 @@ describe('ANS synchronous delivery bridge', () => {
         ]
       })
     ).toEqual([])
+  })
+
+  it('falls back to the generic alert payload for types without their own schema', () => {
+    expect(payloadSchemaFor('universal_ssl_event_type')).toBe(AlertPayload)
+    expect(() => z.toJSONSchema(payloadSchemaFor('universal_ssl_event_type'))).not.toThrow()
   })
 
   it('does not accept subscriptions to events without an implemented contract', async () => {
