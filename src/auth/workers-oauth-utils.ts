@@ -95,6 +95,91 @@ function sanitizeHtml(unsafe: string): string {
     .replace(/'/g, '&#039;')
 }
 
+/** A nonce for one response's inline script and styles: 128 random bits, base64. */
+function generateCspNonce(): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(16))
+  let binary = ''
+  for (const byte of bytes) binary += String.fromCharCode(byte)
+  return btoa(binary)
+}
+
+/** What a consent or error page puts inside the shared page chrome. */
+interface Page {
+  /** Plain text for the title bar; escaped here. */
+  readonly title: string
+  /** The page's CSS, after the shared chrome's. */
+  readonly css: string
+  /** The card's markup. Client-supplied values in it must already be escaped. */
+  readonly card: string
+  /** The page's script, if it has one. */
+  readonly script?: string
+  /** `'none'` for a page without a form. The consent page leaves it out: see `contentSecurityPolicy()`. */
+  readonly formAction?: "'none'"
+}
+
+/**
+ * Content-Security-Policy for the consent and error pages. They show client-supplied text, all of
+ * it escaped; this is the backstop for a value that ever isn't. Only the response's own inline
+ * script and styles run, nothing can frame the page, and a `<base>` can't rebase its links or
+ * its form.
+ *
+ * The consent page has no form-action. Chrome checks form-action against the redirect after a
+ * submission as well, so Continue needs Cloudflare's origin listed and Cancel the client's
+ * redirect origin. That origin belongs to the same client that supplies the page's text, so
+ * listing it would let an injected form post there too, and an IPv6 loopback redirect URI can't
+ * be listed at all. The form's only field is a handle bound to this browser.
+ */
+function contentSecurityPolicy(nonce: string, formAction: Page['formAction']): string {
+  const directives = [
+    "default-src 'none'",
+    `script-src 'nonce-${nonce}'`,
+    `style-src 'nonce-${nonce}' https://fonts.googleapis.com`,
+    'font-src https://fonts.gstatic.com',
+    "img-src 'self'",
+    "base-uri 'none'",
+    "frame-ancestors 'none'"
+  ]
+  if (formAction) directives.push(`form-action ${formAction}`)
+  return directives.join('; ')
+}
+
+/**
+ * Render a consent or error page. The nonce is generated here, put on the page's only `<style>`
+ * and `<script>`, and named in the Content-Security-Policy on the same response, so no inline code
+ * can run without it and no page has to remember it. `headers` is updated in place, so the consent
+ * page keeps `beginConsent()`'s binding cookie; the policy replaces its frame-ancestors-only one.
+ */
+function renderPage(
+  page: Page,
+  { headers = new Headers(), status = 200 }: { headers?: Headers; status?: number } = {}
+): Response {
+  const nonce = generateCspNonce()
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${sanitizeHtml(page.title)} | Cloudflare</title>
+  ${PAGE_FONT_LINKS}
+  <style nonce="${nonce}">${PAGE_CHROME_CSS}${page.css}</style>
+</head>
+<body>
+  ${PAGE_HEADER_HTML}
+  <main class="main">
+    <div class="card">${page.card}</div>
+  </main>
+  ${PAGE_FOOTER_HTML}
+  ${page.script === undefined ? '' : `<script nonce="${nonce}">${page.script}</script>`}
+</body>
+</html>
+`
+
+  headers.set('Content-Security-Policy', contentSecurityPolicy(nonce, page.formAction))
+  headers.set('Content-Type', 'text/html; charset=utf-8')
+  headers.set('X-Frame-Options', 'DENY')
+  return new Response(html, { status, headers })
+}
+
 /**
  * Render a URL as the browser parsed it, without credentials or a fragment.
  * The host keeps the default text colour and the scheme and path are dimmed,
@@ -446,15 +531,10 @@ export function renderApprovalDialog(request: Request, options: ApprovalDialogOp
           </div>`
       : ''
 
-  const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Authorize ${clientName} | Cloudflare</title>
-  ${PAGE_FONT_LINKS}
-  <style>${PAGE_CHROME_CSS}
+  return renderPage(
+    {
+      title: `Authorize ${consent.clientName}`,
+      css: `
     .card-header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--kumo-line); text-align: center; }
     /* Kumo Text variant="heading" size="lg" */
     .card-title { font-size: 20px; font-weight: 600; line-height: 1.4; }
@@ -618,13 +698,8 @@ ${ADVANCED_SCOPES_CSS}
       .actions .button { flex: 1 1 100%; }
       .actions .button-primary { order: -1; }
     }
-  </style>
-</head>
-<body>
-  ${PAGE_HEADER_HTML}
-
-  <main class="main">
-    <div class="card">
+  `,
+      card: `
       <div class="card-header">
         <h1 class="card-title">Authorize application</h1>
         <p class="card-subtitle">Grant access to Cloudflare API</p>
@@ -685,12 +760,8 @@ ${ADVANCED_SCOPES_CSS}
           </div>
         </form>
       </div>
-    </div>
-  </main>
-
-  ${PAGE_FOOTER_HTML}
-
-  <script>
+    `,
+      script: `
     (function() {
       const TEMPLATES = ${templateDataJson};
       const TEMPLATE_NAMES = ${templateNamesJson};
@@ -839,14 +910,10 @@ ${ADVANCED_SCOPES_SCRIPT}
       renderTemplates();
       applyTemplate(INITIAL_TEMPLATE);
     })();
-  </script>
-</body>
-</html>
-`
-
-  // beginConsent() headers: the browser binding cookie, frame-ancestors 'none', X-Frame-Options DENY
-  headers.set('Content-Type', 'text/html; charset=utf-8')
-  return new Response(htmlContent, { headers })
+  `
+    },
+    { headers }
+  )
 }
 
 /**
@@ -893,15 +960,10 @@ export function renderErrorPage(
   details?: string,
   status = 400
 ): Response {
-  const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${sanitizeHtml(title)} | Cloudflare</title>
-  ${PAGE_FONT_LINKS}
-  <style>${PAGE_CHROME_CSS}
+  return renderPage(
+    {
+      title,
+      css: `
     .main { align-items: center; }
     .card { max-width: 440px; padding: 2.5rem 2rem; text-align: center; }
     .error-icon {
@@ -929,12 +991,8 @@ export function renderErrorPage(
       text-align: left;
       word-break: break-word;
     }
-  </style>
-</head>
-<body>
-  ${PAGE_HEADER_HTML}
-  <main class="main">
-    <div class="card">
+  `,
+      card: `
       <div class="error-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/>
@@ -945,20 +1003,13 @@ export function renderErrorPage(
       <h1 class="card-title">${sanitizeHtml(title)}</h1>
       <p class="card-message">${sanitizeHtml(message)}</p>
       ${details ? `<div class="error-details">${sanitizeHtml(details)}</div>` : ''}
-      <a href="javascript:window.close()" class="button button-primary" onclick="window.close(); return false;"><span class="button-label">Close window</span></a>
-    </div>
-  </main>
-  ${PAGE_FOOTER_HTML}
-</body>
-</html>
-`
-
-  return new Response(htmlContent, {
-    status,
-    headers: {
-      'Content-Security-Policy': "frame-ancestors 'none'",
-      'Content-Type': 'text/html; charset=utf-8',
-      'X-Frame-Options': 'DENY'
-    }
-  })
+      <button type="button" class="button button-primary" id="closeWindow"><span class="button-label">Close window</span></button>
+    `,
+      script: `
+    document.getElementById('closeWindow').addEventListener('click', () => window.close());
+  `,
+      formAction: "'none'"
+    },
+    { status }
+  )
 }
