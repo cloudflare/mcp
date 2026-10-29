@@ -14,6 +14,7 @@ import { recordToolCall } from '../metrics'
 import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
+import { ATTENTION_TOOL, AttentionInputSchema, runAttentionTool } from '../apps/attention/tool'
 import { zodInputSchemaFromJson, type McpTool } from '../openapi'
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
@@ -39,7 +40,7 @@ export async function registerNonCodemodeTools(
   const tools = await getMcpTools()
 
   server.server.setRequestHandler('tools/list', () => ({
-    tools: [DOCS_TOOL, WHOAMI_TOOL, ...tools.list]
+    tools: [DOCS_TOOL, WHOAMI_TOOL, ATTENTION_TOOL, ...tools.list]
   }))
 
   server.server.setRequestHandler('tools/call', async (request) => {
@@ -55,6 +56,11 @@ export async function registerNonCodemodeTools(
       } else if (name === WHOAMI_TOOL.name) {
         const parsed = WhoamiInputSchema.safeParse(request.params.arguments ?? {})
         result = parsed.success ? runWhoamiTool(props) : validationError(name, parsed.error)
+      } else if (name === ATTENTION_TOOL.name) {
+        const parsed = AttentionInputSchema.safeParse(request.params.arguments ?? {})
+        result = parsed.success
+          ? await runAttentionTool(props, parsed.data)
+          : validationError(name, parsed.error)
       } else {
         const tool = tools.byName.get(name)
         if (!tool) {
