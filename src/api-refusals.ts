@@ -59,9 +59,41 @@ export function isEmptyList(body: unknown): boolean {
 }
 
 /**
+ * Cloudflare's error codes for a credential that may not do something:
+ * `10000: Authentication error`, which most products send for a missing
+ * permission or scope, and `9109: Unauthorized to access requested resource`.
+ */
+const AUTHORIZATION_ERROR_CODES = new Set([10000, 9109])
+
+/**
+ * Whether a 401 or 403 is Cloudflare refusing the credential.
+ *
+ * A 401 always is. A 403 is too, unless every error Cloudflare sent has a code
+ * other than {@link AUTHORIZATION_ERROR_CODES}: those answers are about the
+ * resource or the account, not the credential, such as Zaraz's
+ * `403: Forbidden: workflow is not preview` or Images' `5403` for an account
+ * without the subscription. A 403 with no errors, or with one that has no code
+ * (Workers' `No access to the specified resource.`), counts as a refusal.
+ */
+function refusesCredential(status: 401 | 403, body: unknown): boolean {
+  if (status === 401) return true
+  const errors =
+    body !== null && typeof body === 'object' && 'errors' in body && Array.isArray(body.errors)
+      ? body.errors
+      : []
+  if (errors.length === 0) return true
+  return errors.some((error: unknown) => {
+    const code =
+      error !== null && typeof error === 'object' && 'code' in error ? Number(error.code) : NaN
+    return !Number.isFinite(code) || AUTHORIZATION_ERROR_CODES.has(code)
+  })
+}
+
+/**
  * Decide whether a Cloudflare API answer refused the request.
  *
- * A 401 or 403 did. So did a `200` with an empty list for a GET the
+ * A 401 did, and a 403 that refused the credential rather than answering about
+ * the resource or the account (see {@link refusesCredential}). So did a `200` with an empty list for a GET the
  * connection holds no accepted scope for: Cloudflare filters some lists to what
  * the credential may see instead of refusing (see {@link emptyListProvesNothing}),
  * so it gets the same explanation and step-up as a 403.
@@ -82,6 +114,7 @@ export function refusalFor(
 ): Refusal | undefined {
   const scope = authorization.kind === 'missing' ? authorization.scope : undefined
   if (isRefusal(status)) {
+    if (!refusesCredential(status, body)) return undefined
     return { status, hint: explainRefusal(status, authorization), scope, filtered: false }
   }
   if (
@@ -150,11 +183,13 @@ function parseJson(text: string): unknown {
  * paths: look the endpoint up in `mcp-tools.json`, and report a refusal the
  * way the sandbox expects it.
  *
- * A 401 or 403 keeps its status and body and gains the explanation headers. A
+ * A 401, or a 403 that refused the credential, keeps its status and body and
+ * gains the explanation headers. Any other 403 is returned as it is. A
  * list emptied by permission becomes a 403 with {@link filteredListBody}. Any
  * other response is returned as it is. The catalog is read only for refusals
- * and for successful JSON GETs from OAuth connections, and a body only once the
- * connection is known to hold no scope the endpoint accepts.
+ * and for successful JSON GETs from OAuth connections. A 403's body is read to
+ * decide; a successful body only once the connection is known to hold no scope
+ * the endpoint accepts.
  *
  * @param response - Cloudflare's response.
  * @param connection - The credential that made the request.
@@ -183,25 +218,37 @@ export async function reviewResponse(
   )
 
   if (refused) {
-    const refusal = refusalFor(response.status, undefined, method, authorization, permissions)
-    return refusal ? withRefusalHeaders(response, response.body, refusal) : response
+    // A 403 says in its body whether it refused the credential; a 401 always did.
+    const text = response.status === 403 ? await response.text() : undefined
+    const body = text === undefined ? response.body : text
+    const refusal = refusalFor(
+      response.status,
+      text === undefined ? undefined : parseJson(text),
+      method,
+      authorization,
+      permissions
+    )
+    return refusal ? withRefusalHeaders(response, body, refusal) : withBody(response, body)
   }
   if (!emptyListProvesNothing(method, authorization, permissions)) return response
 
   const text = await response.text()
   const refusal = refusalFor(response.status, parseJson(text), method, authorization, permissions)
-  if (!refusal) {
-    return new Response(text, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers
-    })
-  }
+  if (!refusal) return withBody(response, text)
   const refused403 = new Response(null, {
     status: refusal.status,
     headers: { 'Content-Type': 'application/json' }
   })
   return withRefusalHeaders(refused403, JSON.stringify(filteredListBody()), refusal)
+}
+
+/** `response` with `body`, whose stream was read to decide. */
+function withBody(response: Response, body: BodyInit | null): Response {
+  return new Response(body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers
+  })
 }
 
 function withRefusalHeaders(response: Response, body: BodyInit | null, refusal: Refusal): Response {

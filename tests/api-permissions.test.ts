@@ -270,9 +270,10 @@ describe('explainRefusal', () => {
   })
 
   it('uses the status only where the scopes cannot decide', () => {
-    // Holds an accepted scope: 401 is a rejected credential, 403 is something else.
+    // Holds an accepted scope: a 401 may be a rejected credential or, from the
+    // edge gateway, any refusal; a 403 is something other than the credential.
     expect(explain(401, oauth('dns.read'), DNS)).toContain(
-      'Cloudflare rejected the credential itself. Reconnect to sign in again.'
+      'Reconnect only if other requests fail with 401 too.'
     )
     expect(explain(403, oauth('dns.read'), DNS)).toContain('reconnecting will not help')
     // No permissions in the spec.
