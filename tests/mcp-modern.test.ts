@@ -314,12 +314,12 @@ describe('MCP 2026-07-28 stateless handler', () => {
     })
   })
 
-  it('uses automatic stateless 2025 compatibility from createMcpHandler', async () => {
+  it('serves 2025-era requests statelessly, as one JSON response', async () => {
     const response = await exports.default.fetch(mcpToolListRequest(API_TOKEN))
     const body = await parseMcpResult(response)
 
     expect(response.status).toBe(200)
-    expect(response.headers.get('content-type')).toContain('text/event-stream')
+    expect(response.headers.get('content-type')).toContain('application/json')
     expect(response.headers.get('mcp-session-id')).toBeNull()
     expect(body.result?.tools?.map((tool) => tool.name)).toEqual([
       'docs',
@@ -392,14 +392,18 @@ describe('tool result truncation', () => {
     expect(rows.slice(0, -1)).toEqual(ROWS.slice(0, rows.length - 1))
   })
 
-  it('truncates an oversized endpoint tool response to valid JSON', async () => {
+  it('truncates an oversized endpoint tool response with ?codemode=false&truncateToolResult=true', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
         HttpResponse.json(cfSuccess(ROWS))
       )
     )
 
-    const text = await callToolText('get_accounts_workers_scripts', {}, `${MCP_URL}?codemode=false`)
+    const text = await callToolText(
+      'get_accounts_workers_scripts',
+      {},
+      `${MCP_URL}?codemode=false&truncateToolResult=true`
+    )
     const body = JSON.parse(text)
 
     expect(text.length).toBeLessThanOrEqual(24_000)
@@ -427,18 +431,55 @@ describe('tool result truncation', () => {
     expect(JSON.parse(text)).toEqual(ROWS)
   })
 
-  it('returns the whole endpoint tool response with ?codemode=false&truncateToolResult=false', async () => {
+  it('returns the whole execute result with truncate: false', async () => {
+    const text = await callToolText('execute', { code: ROWS_CODE, truncate: false })
+
+    expect(JSON.parse(text)).toEqual(ROWS)
+  })
+
+  it('returns the whole search result with truncate: false', async () => {
+    const text = await callToolText('search', { code: ROWS_CODE, truncate: false })
+
+    expect(JSON.parse(text)).toEqual(ROWS)
+  })
+
+  it('lets truncate: true override ?truncateToolResult=false', async () => {
+    const execute = await callToolText(
+      'execute',
+      { code: ROWS_CODE, truncate: true },
+      `${MCP_URL}?truncateToolResult=false`
+    )
+    const search = await callToolText(
+      'search',
+      { code: ROWS_CODE, truncate: true },
+      `${MCP_URL}?truncateToolResult=false`
+    )
+
+    expect(execute.length).toBeLessThanOrEqual(24_000)
+    expect(execute).toContain('--- TRUNCATED ---')
+    expect(search.length).toBeLessThanOrEqual(24_000)
+    expect(search).toContain('--- TRUNCATED ---')
+  })
+
+  it('offers the truncate argument on search and execute', async () => {
+    const response = await exports.default.fetch(modernMcpRequest(API_TOKEN, 'tools/list', {}))
+    const { result } = await parseMcpResult(response)
+
+    for (const name of ['search', 'execute']) {
+      expect(result?.tools?.find((tool) => tool.name === name)).toMatchObject({
+        inputSchema: { properties: { truncate: { type: 'boolean' } } }
+      })
+    }
+  })
+
+  it('returns the whole endpoint tool response by default with ?codemode=false', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
         HttpResponse.json(cfSuccess(ROWS))
       )
     )
 
-    const text = await callToolText(
-      'get_accounts_workers_scripts',
-      {},
-      `${MCP_URL}?codemode=false&truncateToolResult=false`
-    )
+    const text = await callToolText('get_accounts_workers_scripts', {}, `${MCP_URL}?codemode=false`)
 
     expect(JSON.parse(text)).toEqual(cfSuccess(ROWS))
   })

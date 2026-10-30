@@ -1,32 +1,43 @@
 import { env } from 'cloudflare:workers'
-import { resetIsolateCache } from '../../src/isolate-cache'
+import { setSpecArtifactSource, type SpecArtifactSource } from '../../src/isolate-cache'
 import { clearR2 } from './r2'
-import { MCP_TOOLS_KEY, buildMcpTools, type OperationInfo } from '../../src/openapi'
+import { buildMcpTools, type OperationInfo } from '../../src/openapi'
+import type { SpecArtifactName } from '../../src/spec-release'
 
 /**
- * Spec-bucket test fixtures. @cloudflare/vitest-plugin gives each test FILE a real,
- * shared R2 SPEC_BUCKET and the worker keeps an in-isolate spec cache, so tests
- * must seed before and wipe after each case to stay isolated.
+ * Spec fixtures. The worker reads the spec artifacts from the forge tools
+ * service, which ships the pinned release; tests serve small fixtures through
+ * `setSpecArtifactSource` instead, and must clear them after each case.
  */
 
 type SpecPaths = Record<string, Record<string, OperationInfo>>
 
-/** Seed the real SPEC_BUCKET with a spec (+ products) and reset the cache. */
+/** A source serving `artifacts`; a name it lacks fails as unavailable. */
+function fixtureSource(artifacts: Partial<Record<SpecArtifactName, string>>): SpecArtifactSource {
+  return async (name) => {
+    const text = artifacts[name]
+    if (text === undefined) throw new Error(`${name} is not available`)
+    return text
+  }
+}
+
+/** Serve `products.json` and the `mcp-tools.json` built from `paths`. */
 export async function seedSpec(paths: SpecPaths, products: string[] = ['workers']): Promise<void> {
-  await env.SPEC_BUCKET.put('spec.json', JSON.stringify({ paths }))
-  await env.SPEC_BUCKET.put('products.json', JSON.stringify(products))
-  await env.SPEC_BUCKET.put(MCP_TOOLS_KEY, JSON.stringify(buildMcpTools(paths)))
-  resetIsolateCache()
+  setSpecArtifactSource(
+    fixtureSource({
+      'products.json': JSON.stringify(products),
+      'mcp-tools.json': JSON.stringify(buildMcpTools(paths))
+    })
+  )
 }
 
-/** Remove `mcp-tools.json` to exercise an unseeded bucket. */
+/** Serve the products but no `mcp-tools.json`. */
 export async function removeMcpTools(): Promise<void> {
-  await env.SPEC_BUCKET.delete(MCP_TOOLS_KEY)
-  resetIsolateCache()
+  setSpecArtifactSource(fixtureSource({ 'products.json': '[]' }))
 }
 
-/** Wipe the spec bucket and the in-isolate spec cache. Call in afterEach. */
+/** Serve no spec (products stay an empty list), and wipe the bucket. Call in afterEach. */
 export async function clearSpec(): Promise<void> {
   await clearR2(env.SPEC_BUCKET)
-  resetIsolateCache()
+  setSpecArtifactSource(fixtureSource({ 'products.json': '[]' }))
 }

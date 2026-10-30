@@ -1,6 +1,8 @@
 import { env } from 'cloudflare:workers'
+import { isolate } from './lib/isolate'
 import type { Tool } from '@modelcontextprotocol/server'
-import { MCP_TOOLS_KEY, type McpTool } from './openapi'
+import type { McpTool } from './openapi'
+import type { SpecArtifactName } from './spec-release'
 import {
   SKILLS_MANIFEST_KEY,
   SkillsManifest,
@@ -10,76 +12,41 @@ import {
 } from './skills/types'
 
 /**
- * In-isolate cache for the R2 artifacts the scheduled handler writes
- * (`spec.json`, `products.json`, `mcp-tools.json`, the skills manifest and files).
+ * In-isolate cache for what the forge tools service serves (two of the pinned
+ * spec's artifacts, `products.json` and `mcp-tools.json`, and the tool list;
+ * `search` runs in the service, so this Worker never loads `spec.json`) and the
+ * skills the scheduled handler writes to R2 (the manifest and
+ * files).
  *
  * The MCP worker isolate stays warm across requests, so without this every
- * call re-read R2. The artifacts change at most every six hours, so a short TTL keeps a
- * warm isolate from serving stale data for long after an update while still
- * absorbing nearly all reads.
+ * call re-read them. The spec changes only with a deploy and the skills at
+ * most every six hours, so a short TTL keeps a warm isolate from serving stale
+ * data for long after an update while still absorbing nearly all reads.
  */
 
 const TTL_MS = 60 * 60 * 1000 // 1 hour
 
-/**
- * How long a request waits on a load another request started before loading
- * for itself. A load is I/O owned by the request that began it; if that
- * request is cancelled, the shared promise may never settle.
- */
-const SHARED_LOAD_WAIT_MS = 15_000
-
-/**
- * A once-per-isolate value with a TTL. Concurrent requests on a cold isolate
- * share one load instead of each parsing a multi-megabyte artifact, which
- * could exceed the isolate's memory. A failed load is not cached.
- */
-function cached<T>(load: () => Promise<T>) {
-  let entry: { promise: Promise<T>; expiresAt: number; settled: boolean } | undefined
-  const start = (now: number) => {
-    const promise = load()
-    const current = { promise, expiresAt: now + TTL_MS, settled: false }
-    entry = current
-    promise.then(
-      () => {
-        current.settled = true
-      },
-      () => {
-        if (entry === current) entry = undefined
-      }
-    )
-    return promise
-  }
-  return {
-    get(): Promise<T> {
-      const now = Date.now()
-      if (!entry || entry.expiresAt <= now) return start(now)
-      if (entry.settled) return entry.promise
-      const shared = entry.promise
-      let timer: ReturnType<typeof setTimeout> | undefined
-      const fallback = new Promise<T>((resolve, reject) => {
-        timer = setTimeout(() => load().then(resolve, reject), SHARED_LOAD_WAIT_MS)
-      })
-      return Promise.race([shared, fallback]).finally(() => {
-        if (timer !== undefined) clearTimeout(timer)
-      })
-    },
-    reset() {
-      entry = undefined
-    }
-  }
+/** An artifact loaded once per isolate and refreshed hourly. */
+function artifact<T>(load: () => Promise<T>) {
+  return isolate.value(load, { ttlMs: TTL_MS })
 }
 
-async function required(key: string): Promise<R2ObjectBody> {
-  const object = await env.SPEC_BUCKET.get(key)
-  if (!object) throw new Error(`${key} not found in R2. Run the scheduled handler to populate it.`)
-  return object
-}
+/** Reads one of the pinned spec's artifacts as text. */
+export type SpecArtifactSource = (name: SpecArtifactName) => Promise<string>
 
-const spec = cached(async () => (await required('spec.json')).text())
+/** The forge tools service, which ships the artifacts with the generated tools. */
+const serviceSource: SpecArtifactSource = async (name) =>
+  new Response(await env.FORGE_TOOLS.specArtifact(name)).text()
 
-/** The raw `spec.json` text, embedded into the search isolate. */
-export function getSpec(): Promise<string> {
-  return spec.get()
+let specArtifactSource: SpecArtifactSource = serviceSource
+
+/**
+ * Reads the spec artifacts from `source`, or from the forge tools service again
+ * without one, and empties the cache. For tests, which serve fixtures.
+ */
+export function setSpecArtifactSource(source?: SpecArtifactSource): void {
+  specArtifactSource = source ?? serviceSource
+  isolate.resetAll()
 }
 
 /**
@@ -91,8 +58,8 @@ export interface McpTools {
   byName: Map<string, McpTool>
 }
 
-const mcpTools = cached(async (): Promise<McpTools> => {
-  const tools = (await (await required(MCP_TOOLS_KEY)).json()) as McpTool[]
+const mcpTools = artifact(async (): Promise<McpTools> => {
+  const tools = JSON.parse(await specArtifactSource('mcp-tools.json')) as McpTool[]
   return {
     list: tools.map(({ name, title, description, inputSchema }) => ({
       name,
@@ -104,17 +71,38 @@ const mcpTools = cached(async (): Promise<McpTools> => {
   }
 })
 
-/** The direct tools, served exactly as the scheduled handler generated them. */
+/** The direct tools, served exactly as `mcp-tools.json` lists them. */
 export function getMcpTools(): Promise<McpTools> {
   return mcpTools.get()
 }
 
-const products = cached(async (): Promise<string[]> => {
-  const object = await env.SPEC_BUCKET.get('products.json')
-  return object ? object.json() : []
-})
+const forgeToolList = artifact(
+  async (): Promise<Tool[]> => JSON.parse(await env.FORGE_TOOLS.listJson()) as Tool[]
+)
 
-/** The product list backing the `search` tool description. Empty if unseeded. */
+const forgeToolListWithOutput = artifact(
+  async (): Promise<Tool[]> =>
+    JSON.parse(await env.FORGE_TOOLS.listJson({ outputSchema: true })) as Tool[]
+)
+
+/**
+ * The generated tools (`?codemode=false&experimentalForge=true`) as
+ * `tools/list` sends them, from the forge tools service. The service sends one
+ * JSON string, which is parsed here once per isolate: decoding ~3,000 nested
+ * objects over RPC costs every `tools/list` hundreds of milliseconds of CPU.
+ *
+ * @param outputSchema - Include each tool's generated output schema, a
+ *   separate listing that is loaded only when asked for.
+ */
+export function getForgeToolList({ outputSchema = false } = {}): Promise<Tool[]> {
+  return outputSchema ? forgeToolListWithOutput.get() : forgeToolList.get()
+}
+
+const products = artifact(
+  async (): Promise<string[]> => JSON.parse(await specArtifactSource('products.json')) as string[]
+)
+
+/** The product list backing the `search` tool description. */
 export function getProducts(): Promise<string[]> {
   return products.get()
 }
@@ -126,7 +114,7 @@ export interface SkillsIndex {
   readonly filesByUri: ReadonlyMap<string, SkillFile>
 }
 
-const skills = cached(async (): Promise<SkillsIndex> => {
+const skills = artifact(async (): Promise<SkillsIndex> => {
   const object = await env.SPEC_BUCKET.get(SKILLS_MANIFEST_KEY)
   const entries = object ? SkillsManifest.parse(await object.json()).skills : []
   return {
@@ -149,9 +137,10 @@ export function getSkills(): Promise<SkillsIndex> {
  * Skill file bytes by R2 key. Files are content-addressed and never change, so
  * they need no TTL; the cap only bounds memory. The whole catalog is a few MB.
  */
-const SKILL_FILE_CACHE_BYTES = 16 * 1024 * 1024
-let skillFileBytes = new Map<string, Uint8Array>()
-let skillFileCacheSize = 0
+const skillFileBytes = isolate.map<string, Uint8Array>({
+  maxSize: 16 * 1024 * 1024,
+  sizeOf: (bytes) => bytes.byteLength
+})
 
 /**
  * The bytes of one skill file, which always match `file.digest`.
@@ -169,22 +158,5 @@ export async function readSkillFile(file: SkillFile): Promise<Uint8Array> {
     skills.reset()
     throw new Error(`Skill file ${file.uri} is missing from R2; reload the skill entry`)
   }
-  const bytes = new Uint8Array(await object.arrayBuffer())
-  if (skillFileCacheSize + bytes.byteLength > SKILL_FILE_CACHE_BYTES) {
-    skillFileBytes = new Map()
-    skillFileCacheSize = 0
-  }
-  skillFileBytes.set(key, bytes)
-  skillFileCacheSize += bytes.byteLength
-  return bytes
-}
-
-/** Drop cached artifacts. For tests that re-seed R2 between cases. */
-export function resetIsolateCache(): void {
-  spec.reset()
-  products.reset()
-  mcpTools.reset()
-  skills.reset()
-  skillFileBytes = new Map()
-  skillFileCacheSize = 0
+  return skillFileBytes.set(key, new Uint8Array(await object.arrayBuffer()))
 }

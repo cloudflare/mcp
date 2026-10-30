@@ -18,6 +18,8 @@ import { connectionFromAuth } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
 import { identifyClient, type ClientBehavior } from './clients'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
+import { cachedToolListResponse } from './tools/tool-list-response'
+import { getForgeToolList, getMcpTools } from './isolate-cache'
 
 export const MCP_ROUTE = '/mcp'
 
@@ -34,14 +36,26 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
 ]
 
 /**
- * Read the server options from the MCP URL query string. Each option stays on
- * unless the client passes exactly `false`, e.g. `/mcp?codemode=false`.
+ * Read the server options from the MCP URL query string.
+ *
+ * - `codemode` stays on unless the client passes exactly `false`, e.g.
+ *   `/mcp?codemode=false`.
+ * - `experimentalForge` is off unless it is exactly `true`, e.g.
+ *   `/mcp?codemode=false&experimentalForge=true`.
+ * - `experimentalOutputSchema` is off unless it is exactly `true`. It applies
+ *   only with the two above, e.g.
+ *   `/mcp?codemode=false&experimentalForge=true&experimentalOutputSchema=true`.
+ * - Without `truncateToolResult`, `createServer` picks the default for the tool
+ *   mode. With it, truncation is on unless the value is exactly `false`.
  */
 function serverOptionsFromUrl(url: string): ServerOptions {
   const params = new URL(url).searchParams
+  const truncate = params.get('truncateToolResult')
   return {
     codemode: params.get('codemode') !== 'false',
-    truncateToolResult: params.get('truncateToolResult') !== 'false'
+    experimentalForge: params.get('experimentalForge') === 'true',
+    experimentalOutputSchema: params.get('experimentalOutputSchema') === 'true',
+    ...(truncate === null ? {} : { truncateToolResult: truncate !== 'false' })
   }
 }
 
@@ -62,13 +76,31 @@ function createAuthenticatedHandler(props: AuthProps, context: RequestContext) {
 }
 
 // Handler options are intentionally omitted. The SDK defaults to:
-// - stateless 2025 compatibility, with a fresh server and no protocol session
-// - automatic JSON/SSE response shaping (ordinary requests here remain JSON)
+// - stateless 2025 compatibility, with a fresh server and no protocol session,
+//   though 2025-era POSTs never reach it: serveLegacyAsJson answers them
+// - automatic JSON/SSE response shaping for 2026-07-28 requests (JSON unless
+//   a notification has to stream before the result)
 
 /**
  * Serve a 2025-era POST as one JSON response, not the SSE stream the SDK's
- * stateless fallback opens before the tool runs. The status is then still
- * open when a tool asks for a step-up, so a `403` can replace the result.
+ * stateless fallback opens before the tool runs.
+ *
+ * - The status is still open when a tool asks for a step-up, so a `403` can
+ *   replace the result.
+ * - Cloudflare's edge compresses JSON (the direct `tools/list` goes from
+ *   3.7 MB to ~290 KB with brotli) but never `text/event-stream`.
+ * - There is no stream to build or frame per request.
+ *
+ * Nothing here streams: no tool sends progress or asks the client anything
+ * mid-call. The cost is the SSE keep-alive comment every 15 s: a long call
+ * now sends no bytes until its result. Cloudflare's edge kept a silent
+ * response open for 310 s in testing, so the limits are clients':
+ *
+ * - The TypeScript SDK times a request out after 60 s whatever the transport;
+ *   only progress notifications reset it, never SSE comments.
+ * - The Python SDK's httpx read timeout is 300 s between bytes. Keep-alives
+ *   reset it, so over SSE a call could outlast 300 s; as JSON it cannot.
+ * - A proxy with a shorter idle timeout cuts a silent response sooner.
  */
 async function serveLegacyAsJson(request: Request, server: McpServer): Promise<Response> {
   const transport = new WebStandardStreamableHTTPServerTransport({
@@ -180,6 +212,14 @@ export async function handleAuthenticatedMcpRequest(
   if (rejected) return rejected
 
   const props = AuthPropsSchema.parse(rawProps)
+  const options = serverOptionsFromUrl(request.url)
+  if (!options.codemode) {
+    // 2025-era listings never carry output schemas, so both modes list the same tools.
+    const listed = await cachedToolListResponse(request, async () =>
+      options.experimentalForge ? getForgeToolList() : (await getMcpTools()).list
+    )
+    if (listed) return withCors(listed, request)
+  }
   const connection = connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.
   const issued = connection.kind === 'oauth' ? auth : undefined
@@ -197,11 +237,8 @@ export async function handleAuthenticatedMcpRequest(
   }
 
   const response =
-    issued && request.method === 'POST' && (await isLegacyRequest(request))
-      ? await serveLegacyAsJson(
-          request,
-          await createServer(props, serverOptionsFromUrl(request.url), context)
-        )
+    request.method === 'POST' && (await isLegacyRequest(request))
+      ? await serveLegacyAsJson(request, await createServer(props, options, context))
       : await createAuthenticatedHandler(props, context).fetch(request)
 
   const challenge = scopeChallenge.response

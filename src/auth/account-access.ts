@@ -84,3 +84,17 @@ export function unknownAccountHint(props: AuthProps, accountId: string): string 
   }
   return `account_id ${accountId} is not one of this session's accounts:\n${formatAccounts(accounts)}`
 }
+
+/**
+ * Hint for a refused request whose path names an account that isn't one of
+ * the session's known accounts, or `''` when it is (or the list isn't known).
+ */
+export function unknownPathAccountHint(props: AuthProps, accountId: string): string {
+  const accounts = knownAccounts(props)
+  if (!accounts || accounts.some((account) => account.id === accountId)) return ''
+
+  if (props.type === 'account_token') {
+    return `The request's account ${accountId} is not this token's account. This token is scoped to ${formatAccount(props.account)}; use \`accountId\` in the path.`
+  }
+  return `The request's account ${accountId} is not one of this session's accounts. Use one of these, or pass it as account_id and use \`accountId\` in the path:\n${formatAccounts(accounts)}`
+}

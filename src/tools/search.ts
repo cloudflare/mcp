@@ -1,59 +1,21 @@
 import { z } from 'zod'
+import { withCachedJsonSchema } from '../lib/isolate-json-schema'
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { SPEC_TYPES } from '../openapi'
-import { getProducts, getSpec } from '../isolate-cache'
-import type { FormatToolResult } from '../truncate'
+import { getProducts } from '../isolate-cache'
+import { formatterFor, TRUNCATE_ARGUMENT_DESCRIPTION } from '../truncate'
 import { formatError } from '../utils/errors'
 
-interface SearchExecutorEntrypoint {
-  evaluate(): Promise<{ result: unknown; err?: string; stack?: string }>
-}
-
 /**
- * Run sandboxed read-only JavaScript against the pre-resolved OpenAPI spec.
- *
- * The spec is embedded into a fresh isolate per call (dynamic-worker isolates
- * disallow eval, so code cannot be passed as data into a warm isolate). The
- * spec text itself is served from the in-isolate cache, so this avoids an R2
- * round-trip on every call.
+ * Runs sandboxed read-only JavaScript against the pre-resolved OpenAPI spec.
+ * The forge tools service runs it, next to the spec it ships, so this Worker
+ * never holds the 27 MB spec.
  */
 async function runSearch(code: string): Promise<unknown> {
-  const specJson = await getSpec()
-  const workerId = `cloudflare-search-${crypto.randomUUID()}`
-
-  const worker = env.LOADER.get(workerId, () => ({
-    compatibilityDate: '2026-01-12',
-    globalOutbound: null,
-    mainModule: 'worker.js',
-    modules: {
-      'worker.js': `
-import { WorkerEntrypoint } from "cloudflare:workers";
-
-const spec = ${specJson};
-
-export default class SearchExecutor extends WorkerEntrypoint {
-  async evaluate() {
-    try {
-      const result = await (${code})();
-      return { result, err: undefined };
-    } catch (err) {
-      return { result: undefined, err: err.message, stack: err.stack };
-    }
-  }
-}
-      `
-    }
-  }))
-
-  const entrypoint = worker.getEntrypoint() as unknown as SearchExecutorEntrypoint
-  const response = await entrypoint.evaluate()
-
-  if (response.err) {
-    throw new Error(response.err)
-  }
-
-  return response.result
+  const outcome = await env.FORGE_TOOLS.search(code)
+  if (outcome.error !== undefined) throw new Error(outcome.error)
+  return outcome.result
 }
 
 /**
@@ -61,7 +23,7 @@ export default class SearchExecutor extends WorkerEntrypoint {
  * the `spec` types the sandboxed search code can use.
  */
 function searchToolDescription(products: string[]): string {
-  return `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline.
+  return `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline. A 2xx response schema describes \`result\` of what cloudflare.request() returns; a paginated list's \`result_info\` schema is in the response's \`x-result-info\`.
 
 Products: ${products.slice(0, 30).join(', ')}... (${products.length} total)
 
@@ -96,14 +58,23 @@ async () => {
 }`
 }
 
+// Built once per isolate rather than for every request's server.
+const SearchInputSchema = withCachedJsonSchema(
+  z.object({
+    code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec'),
+    truncate: z.boolean().optional().describe(TRUNCATE_ARGUMENT_DESCRIPTION)
+  })
+)
+
 /**
  * Register the `search` tool: runs sandboxed JavaScript against the
- * pre-resolved OpenAPI spec (no network access). `formatResult` turns the
- * value the code returns into the tool's text output.
+ * pre-resolved OpenAPI spec (no network access). The result is capped unless
+ * the call's `truncate` argument, or the connection's `truncateByDefault`
+ * when it is omitted, is `false`.
  */
 export async function registerSearchTool(
   server: McpServer,
-  formatResult: FormatToolResult
+  truncateByDefault: boolean
 ): Promise<void> {
   const products = await getProducts()
 
@@ -112,9 +83,7 @@ export async function registerSearchTool(
     {
       title: 'Cloudflare API Spec Search',
       description: searchToolDescription(products),
-      inputSchema: z.object({
-        code: z.string().describe('JavaScript async arrow function to search the OpenAPI spec')
-      }),
+      inputSchema: SearchInputSchema,
       annotations: {
         title: 'Cloudflare API Spec Search',
         readOnlyHint: false,
@@ -122,10 +91,11 @@ export async function registerSearchTool(
         destructiveHint: false
       }
     },
-    async ({ code }) => {
+    async ({ code, truncate }) => {
       try {
         const result = await runSearch(code)
-        return { content: [{ type: 'text', text: formatResult(result) }] }
+        const text = formatterFor(truncate, truncateByDefault)(result)
+        return { content: [{ type: 'text', text }] }
       } catch (error) {
         return formatError(error)
       }

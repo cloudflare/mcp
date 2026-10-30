@@ -246,6 +246,165 @@ describe('execute: REST responses', () => {
   })
 })
 
+describe('execute: request bodies', () => {
+  const PATH = '/accounts/' + ACCOUNT_ID + '/body'
+
+  /** Run `request`, the options cloudflare.request() gets, and return what the API received. */
+  async function sent(request: string) {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    let received: { contentType: string | null; bytes: Uint8Array; form?: FormData } | undefined
+    server.use(
+      http.all(`${API_BASE}${PATH}`, async ({ request: req }) => {
+        const contentType = req.headers.get('content-type')
+        const form = contentType?.startsWith('multipart/form-data')
+          ? await req.clone().formData()
+          : undefined
+        received = { contentType, bytes: new Uint8Array(await req.arrayBuffer()), form }
+        return HttpResponse.json(cfSuccess({}))
+      })
+    )
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "POST", path: "${PATH}", ${request} })`
+    })
+    expect(result.result?.isError, toolText(result)).toBeFalsy()
+    if (!received) throw new Error('The API received no request')
+    return { ...received, text: new TextDecoder().decode(received.bytes) }
+  }
+
+  it.each([
+    ['an object', 'body: { name: "a" }', '{"name":"a"}'],
+    ['an array', 'body: [{ id: 1 }]', '[{"id":1}]'],
+    ['a number', 'body: 3', '3'],
+    ['a string that is already JSON', `body: JSON.stringify({ name: "a" })`, '{"name":"a"}'],
+    // Zaraz's publish and workflow endpoints take a bare JSON string.
+    ['any other string', 'body: "realtime"', '"realtime"']
+  ])('sends %s as JSON', async (_, request, expected) => {
+    const { contentType, text } = await sent(request)
+    expect(contentType).toBe('application/json')
+    expect(text).toBe(expected)
+  })
+
+  it('keeps an explicit JSON content type, such as merge-patch', async () => {
+    const { contentType, text } = await sent(
+      'body: { a: null }, contentType: "application/merge-patch+json"'
+    )
+    expect(contentType).toBe('application/merge-patch+json')
+    expect(text).toBe('{"a":null}')
+  })
+
+  it.each([
+    ['SQL as text/plain', 'text/plain', 'SELECT 1'],
+    ['NDJSON', 'application/x-ndjson', '{"id":"a"}\n{"id":"b"}'],
+    ['JSON Lines', 'application/jsonl', '{"id":"a"}'],
+    ['a script', 'application/javascript', 'export default {}']
+  ])('sends %s as it is', async (_, type, body) => {
+    const { contentType, text } = await sent(
+      `body: ${JSON.stringify(body)}, contentType: ${JSON.stringify(type)}`
+    )
+    expect(contentType).toBe(type)
+    expect(text).toBe(body)
+  })
+
+  it('sends bytes as they are', async () => {
+    const { contentType, bytes } = await sent(
+      'body: new Uint8Array([0, 255, 128, 10]), contentType: "application/octet-stream"'
+    )
+    expect(contentType).toBe('application/octet-stream')
+    expect([...bytes]).toEqual([0, 255, 128, 10])
+  })
+
+  it('sends FormData with its multipart boundary, even when the content type omits it', async () => {
+    const { contentType, form } = await sent(`body: (() => {
+      const form = new FormData();
+      form.append("metadata", new Blob(['{"main_module":"worker.js"}'], { type: "application/json" }));
+      form.append("worker.js", new Blob(["export default {}"], { type: "application/javascript+module" }), "worker.js");
+      return form;
+    })(), contentType: "multipart/form-data"`)
+    expect(contentType).toMatch(/^multipart\/form-data; boundary=/)
+    expect(await (form?.get('metadata') as Blob).text()).toBe('{"main_module":"worker.js"}')
+    expect(await (form?.get('worker.js') as Blob).text()).toBe('export default {}')
+  })
+
+  it('still sends a string as it is with rawBody, for code written against older descriptions', async () => {
+    const { contentType, text } = await sent('body: "plain value", rawBody: true')
+    expect(contentType).toBe('text/plain;charset=UTF-8')
+    expect(text).toBe('plain value')
+  })
+})
+
+describe('execute: binary responses', () => {
+  // A JPEG's first bytes: invalid UTF-8, so decoding them as text loses them (#322).
+  const JPEG = new Uint8Array([
+    0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x80, 0xfe
+  ])
+  const PATH = '/accounts/' + ACCOUNT_ID + '/r2/buckets/b/objects/photo.jpg'
+
+  function serve(type: string) {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(
+      http.get(
+        `${API_BASE}${PATH}`,
+        () => new HttpResponse(JPEG, { headers: { 'Content-Type': type } })
+      )
+    )
+  }
+
+  it.each(['image/jpeg', 'application/octet-stream', 'application/pdf', ''])(
+    'returns %s as lossless bytes',
+    async (type) => {
+      serve(type)
+      const result = await callTool(API_TOKEN, 'execute', {
+        code: `async () => cloudflare.request({ method: "GET", path: "${PATH}" })`
+      })
+      const { result: bytes } = JSON.parse(toolText(result))
+      expect(bytes).toEqual({ base64: btoa(String.fromCharCode(...JPEG)), byteLength: JPEG.length })
+    }
+  )
+
+  it('gives the code a Uint8Array it can use', async () => {
+    serve('image/jpeg')
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const { result } = await cloudflare.request({ method: "GET", path: "${PATH}" });
+        return { isBytes: result instanceof Uint8Array, first: result[0], length: result.length };
+      }`
+    })
+    expect(JSON.parse(toolText(result))).toEqual({
+      isBytes: true,
+      first: 0xff,
+      length: JPEG.length
+    })
+  })
+
+  it('returns a UTF-8 KV value served as application/octet-stream as text', async () => {
+    const text = await runExecute(
+      `/accounts/${ACCOUNT_ID}/storage/kv/namespaces/ns/values/k`,
+      'hello, kv ✓',
+      {
+        headers: { 'Content-Type': 'application/octet-stream' }
+      }
+    )
+    expect(JSON.parse(text).result).toBe('hello, kv ✓')
+  })
+
+  it('returns an image as bytes even when they are valid UTF-8', async () => {
+    const text = await runExecute(`/accounts/${ACCOUNT_ID}/images/v1/i/blob`, 'GIF89a', {
+      headers: { 'Content-Type': 'image/gif' }
+    })
+    expect(JSON.parse(text).result).toEqual({ base64: btoa('GIF89a'), byteLength: 6 })
+  })
+
+  it.each(['text/csv', 'application/xml', 'application/x-ndjson', 'application/x-pem-file'])(
+    'still returns %s as text',
+    async (type) => {
+      const text = await runExecute(`/accounts/${ACCOUNT_ID}/export`, 'a,b\n1,2', {
+        headers: { 'Content-Type': type }
+      })
+      expect(JSON.parse(text).result).toBe('a,b\n1,2')
+    }
+  )
+})
+
 describe('execute: retries', () => {
   it('resends the request body when the Cloudflare API rate-limits a write', async () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
@@ -479,33 +638,27 @@ describe('execute: account resolution', () => {
   })
 })
 
-describe('search: real SPEC_BUCKET', () => {
-  const SPEC_PATHS = {
-    '/accounts/{account_id}/workers/scripts': { get: { summary: 'List Workers' } }
-  }
-
+describe('search: the pinned spec, in the forge tools service', () => {
   // The API-token path resolves identity before any tool runs.
   beforeEach(() => mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] }))
 
-  it('evaluates code against the spec seeded in R2', async () => {
-    await seedSpec(SPEC_PATHS)
-
+  it('evaluates code against the pinned spec', async () => {
     const result = await callTool(API_TOKEN, 'search', {
-      code: `async () => Object.keys(spec.paths)`
+      code: `async () => spec.paths['/accounts/{account_id}/workers/scripts'].get.summary`
     })
-    expect(toolText(result)).toContain('/accounts/{account_id}/workers/scripts')
+    expect(result.result?.isError).toBeFalsy()
+    expect(toolText(result)).toContain('List Worker Scripts')
   })
 
-  it('errors when spec.json is missing from R2', async () => {
+  it("returns the code's error as the tool's error", async () => {
     const result = await callTool(API_TOKEN, 'search', {
-      code: `async () => Object.keys(spec.paths)`
+      code: `async () => { throw new Error('no such product') }`
     })
-    expect(toolText(result)).toContain('spec.json not found in R2')
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain('no such product')
   })
 
   it('has no network access (globalOutbound is null for search)', async () => {
-    await seedSpec(SPEC_PATHS)
-
     const result = await callTool(API_TOKEN, 'search', {
       code: `async () => { await fetch("https://api.cloudflare.com/client/v4/user"); return "should not reach" }`
     })

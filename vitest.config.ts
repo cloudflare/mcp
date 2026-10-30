@@ -1,5 +1,16 @@
+import { execFileSync } from 'node:child_process'
+import { readdirSync } from 'node:fs'
 import { cloudflareTest } from '@cloudflare/vitest-plugin'
 import { defineConfig } from 'vitest/config'
+
+// The forge tools service (wrangler.forge-tools.jsonc) runs next to the main
+// Worker as an auxiliary Worker, which has to be JavaScript, so build it first.
+const FORGE_TOOLS_OUT = '.wrangler/forge-tools-test'
+execFileSync(
+  './node_modules/.bin/wrangler',
+  ['deploy', '-c', 'wrangler.forge-tools.jsonc', '--dry-run', '--outdir', FORGE_TOOLS_OUT],
+  { stdio: 'ignore' }
+)
 
 export default defineConfig({
   plugins: [
@@ -12,8 +23,28 @@ export default defineConfig({
           MCP_COOKIE_ENCRYPTION_KEY: 'test-cookie-encryption-key-0000000000000000',
           CLOUDFLARE_CLIENT_ID: 'test-client-id',
           CLOUDFLARE_CLIENT_SECRET: 'test-client-secret',
-          MCP_RESOURCE: 'https://mcp.cloudflare.com/mcp'
-        }
+          MCP_RESOURCE: 'https://mcp.cloudflare.com/mcp',
+          // Response schema checks run in waitUntil and can outlive a test
+          // file; tests/response-validation-worker.test.ts turns them on.
+          RESPONSE_VALIDATION_SAMPLE_RATE: '0'
+        },
+        workers: [
+          {
+            name: 'cloudflare-api-mcp-forge-tools-dev',
+            // worker.js, and the pinned spec artifacts as text modules
+            // (src/forge-tools/spec.ts), under the names the build gave them.
+            modulesRoot: FORGE_TOOLS_OUT,
+            modules: [
+              { type: 'ESModule', path: `${FORGE_TOOLS_OUT}/worker.js` },
+              ...readdirSync(FORGE_TOOLS_OUT)
+                .filter((file) => file.endsWith('.txt'))
+                .map((file) => ({ type: 'Text' as const, path: `${FORGE_TOOLS_OUT}/${file}` }))
+            ],
+            compatibilityDate: '2026-06-17',
+            // Code Mode's search runs in a sandbox the service loads.
+            workerLoaders: { LOADER: {} }
+          }
+        ]
       }
     })
   ],

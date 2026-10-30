@@ -8,6 +8,19 @@ import type { EventEnvironment } from './state'
 
 const Meta = z.record(z.string(), z.unknown()).optional()
 
+// Built once per isolate: the server, and so these methods, are registered for every request.
+const ListParams = z
+  .object({
+    cursor: z
+      .string()
+      .regex(/^[1-9][0-9]{0,3}$/)
+      .optional(),
+    _meta: Meta
+  })
+  .strict()
+const SubscribeRequestParams = SubscribeParams.extend({ _meta: Meta })
+const UnsubscribeRequestParams = UnsubscribeParams.extend({ _meta: Meta })
+
 /** Error codes from the MCP Events draft (implementation-defined server range). */
 const NOT_FOUND = -32011
 const FORBIDDEN = -32012
@@ -59,44 +72,26 @@ export function registerEventMethods(
   // named value skips the excess-property check; the SDK merges it as-is.
   const capabilities = { ...server.server.getCapabilities(), events: { listChanged: false } }
   server.server.registerCapabilities(capabilities)
-  server.server.setRequestHandler(
-    'events/list',
-    {
-      params: z
-        .object({
-          cursor: z
-            .string()
-            .regex(/^[1-9][0-9]{0,3}$/)
-            .optional(),
-          _meta: Meta
-        })
-        .strict()
-    },
-    async (params) => {
-      const result = await operation(() => service.list(params.cursor))
-      console.log(
-        JSON.stringify({
-          event: 'mcp_events_list',
-          principal: props.type,
-          events: result.events.length,
-          nextCursor: 'nextCursor' in result
-        })
-      )
-      return result
-    }
-  )
+  server.server.setRequestHandler('events/list', { params: ListParams }, async (params) => {
+    const result = await operation(() => service.list(params.cursor))
+    console.log(
+      JSON.stringify({
+        event: 'mcp_events_list',
+        principal: props.type,
+        events: result.events.length,
+        nextCursor: 'nextCursor' in result
+      })
+    )
+    return result
+  })
   server.server.setRequestHandler(
     'events/subscribe',
-    {
-      params: SubscribeParams.extend({ _meta: Meta })
-    },
+    { params: SubscribeRequestParams },
     ({ _meta, ...params }) => operation(() => service.subscribe(params))
   )
   server.server.setRequestHandler(
     'events/unsubscribe',
-    {
-      params: UnsubscribeParams.extend({ _meta: Meta })
-    },
+    { params: UnsubscribeRequestParams },
     ({ _meta, ...params }) => operation(() => service.unsubscribe(params))
   )
 }

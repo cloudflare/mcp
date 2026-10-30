@@ -105,11 +105,11 @@
   },
   "access-population.read": {
     "category": "Cloudflare One / Zero Trust",
-    "name": "Access: Population Read"
+    "name": "Access: SCIM Population Read"
   },
   "access-population.write": {
     "category": "Cloudflare One / Zero Trust",
-    "name": "Access: Population Write"
+    "name": "Access: SCIM Population Write"
   },
   "access-saml-certificate.read": {
     "category": "Cloudflare One / Zero Trust",
@@ -182,6 +182,10 @@
   "account-api-gateway.write": {
     "category": "Account & Billing",
     "name": "Account API Gateway"
+  },
+  "account-api-tokens.write": {
+    "name": "Account API Tokens Write",
+    "category": "Account & Billing"
   },
   "account-custom-asset.read": {
     "category": "Account & Billing",
@@ -263,6 +267,14 @@
     "category": "App Security",
     "name": "Account Security Center Insights Write"
   },
+  "account-security-center-partner-integrations.read": {
+    "name": "Account Security Insights Partner Integrations Read",
+    "category": "App Security"
+  },
+  "account-security-center-partner-integrations.write": {
+    "name": "Account Security Insights Partner Integrations Write",
+    "category": "App Security"
+  },
   "account-settings.read": {
     "category": "Account & Billing",
     "name": "Account Settings Read"
@@ -314,6 +326,14 @@
   "agw.write": {
     "category": "AI & Machine Learning",
     "name": "Agents Gateway Write"
+  },
+  "ai-model.read": {
+    "category": "AI & Machine Learning",
+    "name": "Workers AI Custom Models Read"
+  },
+  "ai-model.write": {
+    "category": "AI & Machine Learning",
+    "name": "Workers AI Custom Models Write"
   },
   "ai-search.index": {
     "category": "AI & Machine Learning",
@@ -459,6 +479,14 @@
     "category": "Developer Platform",
     "name": "CF Agents Write"
   },
+  "cfspeed.read": {
+    "category": "Developer Platform",
+    "name": "Network Quality Read"
+  },
+  "cfspeed.write": {
+    "category": "Developer Platform",
+    "name": "Network Quality Write"
+  },
   "challenge-widgets.read": {
     "category": "App Security",
     "name": "Turnstile Sites Read"
@@ -558,6 +586,14 @@
   "custom-pages.write": {
     "category": "Rules & Configuration",
     "name": "Custom Pages Write"
+  },
+  "cws.read": {
+    "name": "Cloud Workload Security Read",
+    "category": "Cloudflare One / Zero Trust"
+  },
+  "cws.write": {
+    "name": "Cloud Workload Security Write",
+    "category": "Cloudflare One / Zero Trust"
   },
   "d1.metadata_read": {
     "category": "Developer Platform",
@@ -822,6 +858,22 @@
   "ip-prefix.write": {
     "category": "Network Services",
     "name": "IP Prefixes: Write"
+  },
+  "k2.consume": {
+    "category": "Developer Platform",
+    "name": "K2 Consume"
+  },
+  "k2.produce": {
+    "category": "Developer Platform",
+    "name": "K2 Produce"
+  },
+  "k2.read": {
+    "category": "Developer Platform",
+    "name": "K2 Config Read"
+  },
+  "k2.write": {
+    "category": "Developer Platform",
+    "name": "K2 Config Write"
   },
   "l4-ddos-managed-ruleset.read": {
     "category": "App Security",
@@ -1112,11 +1164,11 @@
     "name": "Allow Request Tracer Read"
   },
   "resource-library.read": {
-    "category": "Other",
+    "category": "Cloudflare One / Zero Trust",
     "name": "Resource Library Read"
   },
   "resource-library.write": {
-    "category": "Other",
+    "category": "Cloudflare One / Zero Trust",
     "name": "Resource Library Write"
   },
   "resource-sharing.read": {
@@ -1407,9 +1459,21 @@
     "category": "Developer Platform",
     "name": "Workers Routes Write"
   },
-  "workers-scripts.bind": {
+  "workers-scripts.admin": {
+    "name": "Workers Admin",
+    "category": "Developer Platform"
+  },
+  "workers-scripts.content_read": {
+    "name": "Workers Content Read-Only",
+    "category": "Developer Platform"
+  },
+  "workers-scripts.edit": {
     "category": "Developer Platform",
-    "name": "Workers Scripts Bind"
+    "name": "Workers Editor"
+  },
+  "workers-scripts.metadata_read": {
+    "category": "Developer Platform",
+    "name": "Workers Metadata Read-Only"
   },
   "workers-scripts.read": {
     "category": "Developer Platform",
@@ -1475,6 +1539,14 @@
     "category": "DNS & Zones",
     "name": "Zone DNS Settings Write"
   },
+  "zone-observability.read": {
+    "category": "Analytics & Logs",
+    "name": "Zone Observability Read"
+  },
+  "zone-observability.write": {
+    "category": "Analytics & Logs",
+    "name": "Zone Observability Write"
+  },
   "zone-security-center-insights.read": {
     "category": "App Security",
     "name": "Zone Security Center Insights Read"
@@ -1482,6 +1554,10 @@
   "zone-security-center-insights.write": {
     "category": "App Security",
     "name": "Zone Security Center Insights Write"
+  },
+  "zone-security-center-partner-assets.read": {
+    "name": "Zone Security Insights Partner Assets Read",
+    "category": "App Security"
   },
   "zone-settings.read": {
     "category": "DNS & Zones",

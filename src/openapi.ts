@@ -1,9 +1,6 @@
 import { z } from 'zod'
 import { NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE } from './auth/account-access'
 
-/** R2 key of the direct-tool catalogue the scheduled handler writes. */
-export const MCP_TOOLS_KEY = 'mcp-tools.json'
-
 /**
  * Minimal shape of an OpenAPI operation, as stored in our pre-processed spec.
  */
@@ -39,7 +36,8 @@ interface OperationInfo {
   tags?: string[];
   parameters?: Array<{ name: string; in: string; required?: boolean; schema?: unknown; description?: string }>;
   requestBody?: { required?: boolean; content?: Record<string, { schema?: unknown }> };
-  responses?: Record<string, { description?: string; content?: Record<string, { schema?: unknown }> }>;
+  // A 2xx schema describes \`result\` of what cloudflare.request() returns; a paginated list's result_info schema is in x-result-info
+  responses?: Record<string, { description?: string; content?: Record<string, { schema?: unknown }>; "x-result-info"?: unknown }>;
 }
 
 interface PathItem {
@@ -113,7 +111,7 @@ export function toolNameToTitle(name: string): string {
 
 const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const
 
-export type HttpMethod = (typeof HTTP_METHODS)[number]
+type HttpMethod = (typeof HTTP_METHODS)[number]
 
 export type JsonObjectSchema = {
   $schema?: string
@@ -188,10 +186,11 @@ function listNonCodemodeOperations(
 }
 
 /**
- * Build `mcp-tools.json` in the scheduled handler. This moves the full spec
- * walk, name de-duplication, descriptions, routing metadata and the final wire
- * JSON Schema (including the session-independent `account_id`) out of the
- * request path, so the Worker serves `tools/list` exactly as stored.
+ * Build `mcp-tools.json` when the tools are generated (`scripts/generate-tools.ts`).
+ * This keeps the spec walk, name de-duplication, descriptions, routing metadata
+ * and the final wire JSON Schema (including the session-independent
+ * `account_id`) out of the request path, so the Worker serves `tools/list`
+ * exactly as stored.
  */
 export function buildMcpTools(paths: Record<string, Record<string, OperationInfo>>): McpTool[] {
   return listNonCodemodeOperations(paths).map(
@@ -300,82 +299,4 @@ function buildJsonInputSchema(operation: OperationInfo, path: string): JsonObjec
     properties,
     ...(required.size > 0 ? { required: [...required] } : {})
   }
-}
-
-/**
- * Build a Zod input schema from OpenAPI operation parameters and requestBody.
- */
-export function buildInputSchema(
-  operation: OperationInfo,
-  path: string
-): Record<string, z.ZodTypeAny> {
-  const schema: Record<string, z.ZodTypeAny> = {}
-
-  // Extract path parameters from the path template
-  const pathParams = [...path.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
-
-  // Add path parameters
-  for (const paramName of pathParams) {
-    const paramSpec = operation.parameters?.find(
-      (p: { name: string; in: string }) => p.name === paramName && p.in === 'path'
-    )
-    const desc = paramSpec?.description || `Path parameter: ${paramName}`
-    schema[paramName] = z.string().describe(desc)
-  }
-
-  // Add query parameters
-  if (operation.parameters) {
-    for (const param of operation.parameters) {
-      if (param.in === 'query') {
-        const field = param.required
-          ? z.string().describe(param.description || param.name)
-          : z
-              .string()
-              .optional()
-              .describe(param.description || param.name)
-        schema[param.name] = field
-      }
-    }
-  }
-
-  // Add header parameters (e.g., If-Match for ETags)
-  if (operation.parameters) {
-    for (const param of operation.parameters) {
-      if (param.in === 'header') {
-        const headerKey = `header_${param.name.toLowerCase().replace(/-/g, '_')}`
-        const field = param.required
-          ? z
-              .string()
-              .describe(
-                `Header: ${param.name}${param.description ? ` — ${param.description}` : ''}`
-              )
-          : z
-              .string()
-              .optional()
-              .describe(
-                `Header: ${param.name}${param.description ? ` — ${param.description}` : ''}`
-              )
-        schema[headerKey] = field
-      }
-    }
-  }
-
-  // Add body and content_type params if requestBody exists
-  if (operation.requestBody) {
-    const contentTypes = operation.requestBody.content
-      ? Object.keys(operation.requestBody.content)
-      : []
-    const hasNonJson = contentTypes.some((ct) => !ct.includes('application/json'))
-
-    schema['body'] = z.string().optional().describe('Request body as string')
-
-    if (hasNonJson) {
-      schema['content_type'] = z
-        .string()
-        .optional()
-        .describe(`Content-Type header. Supported: ${contentTypes.join(', ')}`)
-    }
-  }
-
-  return schema
 }

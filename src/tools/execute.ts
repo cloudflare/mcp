@@ -1,8 +1,9 @@
 import { z } from 'zod'
+import { withCachedJsonSchema } from '../lib/isolate-json-schema'
 import { env, exports, WorkerEntrypoint } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { CLOUDFLARE_TYPES } from '../constants'
-import type { FormatToolResult } from '../truncate'
+import { formatterFor, TRUNCATE_ARGUMENT_DESCRIPTION } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { formatError } from '../utils/errors'
 import {
@@ -10,16 +11,13 @@ import {
   ACCOUNT_DISCOVERY_GUIDANCE,
   autoResolvedAccountId,
   missingAccountMessage,
-  unknownAccountHint
+  unknownAccountHint,
+  unknownPathAccountHint
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
-import { isCatalogScope } from '../api-permissions'
-import {
-  explainRefusedRequest,
-  MISSING_SCOPE_HEADER,
-  REFUSAL_HINT_HEADER
-} from '../api-refusal-hint'
+import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
+import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 
 interface CodeExecutorEntrypoint {
@@ -34,6 +32,8 @@ const Evaluation = z.union([
     message: z.string(),
     // The OAuth scope GlobalOutbound said the failing request lacked.
     missingScope: z.string().optional(),
+    // The analytics permission a failed GraphQL query lacked, by dataset kind.
+    graphqlRefusal: z.enum(['zone', 'account']).optional(),
     // Whether every request the code sent was a read or was refused, so rerunning repeats no change.
     replaySafe: z.boolean()
   })
@@ -85,24 +85,16 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
       caller: this.ctx.props.fetchWithRetryCaller
     })
 
-    // Cloudflare's 401/403 bodies don't say why. Attach an explanation the
+    // Cloudflare's 401/403 bodies don't say why, and some lists come back empty
+    // instead of refused. Report both as refusals with an explanation the
     // sandbox puts in the error it throws, so it survives the code catching it.
     const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
-    const refusal = await explainRefusedRequest(
-      response.status,
+    return reviewResponse(
+      response,
       this.ctx.props.connection,
       request.method,
       new URL(request.url).pathname.slice(basePath.length)
     )
-    if (!refusal) return response
-    const headers = new Headers(response.headers)
-    headers.set(REFUSAL_HINT_HEADER, encodeURIComponent(refusal.hint))
-    if (refusal.scope) headers.set(MISSING_SCOPE_HEADER, refusal.scope)
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers
-    })
   }
 }
 
@@ -154,7 +146,10 @@ const sentRequests = [];
 const outboundFetch = globalThis.fetch.bind(globalThis);
 globalThis.fetch = async (input, init) => {
   const request = new Request(input, init);
-  const sent = { method: request.method.toUpperCase(), status: undefined };
+  const method = request.method.toUpperCase();
+  // The GraphQL Analytics API has no mutations, so its POSTs are reads too.
+  const read = method === "GET" || method === "HEAD" || /\\/graphql\\/?$/.test(new URL(request.url).pathname);
+  const sent = { read, status: undefined };
   sentRequests.push(sent);
   const response = await outboundFetch(request);
   sent.status = response.status;
@@ -204,10 +199,111 @@ function formatApiErrors(errors, messages) {
   return Array.isArray(errors) && errors.length > 0 ? fallbackMessage : "";
 }
 
+// The media type of a Content-Type header, lower-cased, without parameters.
+function mediaType(value) {
+  return (value || "").split(";", 1)[0].trim().toLowerCase();
+}
+
+// application/json or any application/*+json. Not NDJSON or JSON Lines, whose
+// bodies are lines of JSON rather than one value.
+function isJsonType(type) {
+  return /^application\\/(?:[\\w.-]+\\+)?json$/.test(type);
+}
+
+// Media types that are always binary, returned as bytes even when they happen
+// to be valid UTF-8.
+const BINARY_TYPES = /^(?:image|audio|video|font)\\/|^application\\/(?:pdf|zip|gzip|x-gzip|x-tar|x-7z-compressed|wasm|vnd\\.tcpdump\\.pcap|vnd\\.google\\.protobuf|x-protobuf)$/;
+
+// A non-JSON response as text when it is valid UTF-8, else as bytes. KV values
+// and other application/octet-stream text stay strings; a JPEG never decodes,
+// so its bytes are kept instead of being replaced with U+FFFD.
+function decodeBody(bytes, type) {
+  if (BINARY_TYPES.test(type)) return bytes;
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  } catch {
+    return bytes;
+  }
+}
+
+// Bodies fetch sends as they are.
+function isRawBody(body) {
+  return typeof body === "string" || body instanceof ArrayBuffer || ArrayBuffer.isView(body) ||
+    body instanceof Blob || body instanceof FormData || body instanceof URLSearchParams ||
+    body instanceof ReadableStream;
+}
+
+function isJsonText(text) {
+  try {
+    JSON.parse(text);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// How cloudflare.request() sends a body. Objects, arrays, numbers and booleans
+// go as JSON. Strings, bytes, Blob, FormData, URLSearchParams and streams go as
+// they are, with contentType if given. The exception is a string sent as JSON
+// (a JSON contentType, or none): one that is already JSON goes as it is, and
+// any other is a JSON string value, such as Zaraz's "realtime".
+function encodeBody(body, contentType, rawBody) {
+  if (body === undefined || body === null) {
+    return { requestBody: undefined, requestType: contentType };
+  }
+  const asJson = !contentType || isJsonType(mediaType(contentType));
+  if (rawBody || (isRawBody(body) && !(typeof body === "string" && asJson))) {
+    // FormData needs fetch's own multipart header, which carries the boundary.
+    const withoutBoundary = body instanceof FormData && contentType && !/boundary=/i.test(contentType);
+    return { requestBody: body, requestType: withoutBoundary ? undefined : contentType };
+  }
+  const json = typeof body === "string" && isJsonText(body) ? body : JSON.stringify(body);
+  return { requestBody: json, requestType: contentType || "application/json" };
+}
+
+// The value the code returns, with bytes as { base64, byteLength } so they
+// survive being rendered as JSON. Values without bytes are returned unchanged.
+function encodeBytes(value, seen = new Set()) {
+  if (value instanceof ArrayBuffer) value = new Uint8Array(value);
+  if (ArrayBuffer.isView(value)) {
+    const bytes = new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
+    let binary = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    }
+    return { base64: btoa(binary), byteLength: bytes.byteLength };
+  }
+  if (value === null || typeof value !== "object" || seen.has(value)) return value;
+  const proto = Object.getPrototypeOf(value);
+  if (!Array.isArray(value) && proto !== Object.prototype && proto !== null) return value;
+  seen.add(value);
+  let copy;
+  for (const key of Object.keys(value)) {
+    const encoded = encodeBytes(value[key], seen);
+    if (encoded !== value[key]) {
+      copy ??= Array.isArray(value) ? [...value] : { ...value };
+      copy[key] = encoded;
+    }
+  }
+  return copy ?? value;
+}
+
+// Which analytics permission a failed GraphQL query lacked. A zone dataset
+// names it ("does not have permission 'com.cloudflare.api.account.zone.analytics.read'
+// for zone ..."); an account dataset says only "authorization denied".
+function graphqlRefusal(errors) {
+  const messages = errors.map((e) => String(e.message || ""));
+  if (messages.some((m) => m.includes("'com.cloudflare.api.account.zone.analytics.read'"))) return "zone";
+  if (messages.some((m) => /^authorization denied$/i.test(m.trim()) || m.includes("'com.cloudflare.api.account.analytics.read'"))) return "account";
+  return undefined;
+}
+
 export default class CodeExecutor extends WorkerEntrypoint {
   async evaluate() {
     const cloudflare = {
       async request(options) {
+        // rawBody is no longer documented: the body's type decides how it is
+        // sent. It is still honoured for code written against older descriptions.
         const { method, path, query, body, contentType, rawBody } = options;
 
         const url = new URL(apiBase + path);
@@ -219,20 +315,8 @@ export default class CodeExecutor extends WorkerEntrypoint {
           }
         }
 
-        const headers = {};
-
-        if (contentType) {
-          headers["Content-Type"] = contentType;
-        } else if (body && !rawBody) {
-          headers["Content-Type"] = "application/json";
-        }
-
-        let requestBody;
-        if (rawBody) {
-          requestBody = body;
-        } else if (body) {
-          requestBody = JSON.stringify(body);
-        }
+        const { requestBody, requestType } = encodeBody(body, contentType, rawBody);
+        const headers = requestType ? { "Content-Type": requestType } : {};
 
         const response = await fetch(url.toString(), {
           method,
@@ -240,18 +324,18 @@ export default class CodeExecutor extends WorkerEntrypoint {
           body: requestBody,
         });
 
-        const responseContentType = (response.headers.get("content-type") || "")
-          .split(';', 1)[0].trim().toLowerCase();
-        const isJson = responseContentType === "application/json"
-          || responseContentType.endsWith("+json");
+        const responseType = mediaType(response.headers.get("content-type"));
 
-        // Handle non-JSON responses (e.g., KV values)
-        if (!isJson) {
-          const text = await response.text();
+        // Text comes back as a string, binary content (images, PDFs, archives,
+        // anything that isn't valid UTF-8) as a Uint8Array, so it isn't
+        // corrupted by decoding it as UTF-8.
+        if (!isJsonType(responseType)) {
           if (!response.ok) {
+            const text = await response.text();
             throw apiError(method, path, response, text.slice(0, 500));
           }
-          return { success: true, status: response.status, result: text };
+          const result = decodeBody(new Uint8Array(await response.arrayBuffer()), responseType);
+          return { success: true, status: response.status, result };
         }
 
         const data = await response.json();
@@ -267,7 +351,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
           // Complete failure: no data, only errors
           if (graphqlErrors.length > 0 && !hasData) {
             const msgs = graphqlErrors.map(e => e.message).join(", ");
-            throw new Error("GraphQL error: " + msgs);
+            const error = new Error("GraphQL error: " + msgs);
+            error.graphqlRefusal = graphqlRefusal(graphqlErrors);
+            throw error;
           }
 
           // Success or partial success
@@ -302,14 +388,14 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
     try {
       const result = await (${code})();
-      return { ok: true, result };
+      return { ok: true, result: encodeBytes(result) };
     } catch (err) {
       return {
         ok: false,
         message: err instanceof Error ? err.message : String(err),
         missingScope: typeof err?.missingScope === "string" ? err.missingScope : undefined,
-        replaySafe: sentRequests.every(({ method, status }) =>
-          method === "GET" || method === "HEAD" || status === 401 || status === 403)
+        graphqlRefusal: err?.graphqlRefusal === "zone" || err?.graphqlRefusal === "account" ? err.graphqlRefusal : undefined,
+        replaySafe: sentRequests.every(({ read, status }) => read || status === 401 || status === 403)
       };
     }
   }
@@ -334,10 +420,31 @@ const UNSAFE_TO_REPLAY =
  * scope the connection lacks. Code that lies can only ask for a scope it could
  * also get challenged for by calling an endpoint that needs it.
  */
-function challengeableScope(execution: Execution, connection: Connection): string | undefined {
-  if (execution.ok || connection.kind !== 'oauth' || !execution.missingScope) return undefined
-  const scope = execution.missingScope
+function challengeableScope(
+  scope: string | undefined,
+  execution: Execution,
+  connection: Connection
+): string | undefined {
+  if (execution.ok || connection.kind !== 'oauth' || !scope) return undefined
   return isCatalogScope(scope) && !connection.scopes.includes(scope) ? scope : undefined
+}
+
+/** The GraphQL Analytics API, which the spec doesn't list. */
+const GRAPHQL_REQUEST = { method: 'POST', path: '/graphql' }
+
+/** The permission each kind of GraphQL dataset needs. */
+const GRAPHQL_PERMISSIONS = {
+  zone: ['Analytics Read'],
+  account: ['Account Analytics Read']
+} as const
+
+/**
+ * The account in the path of the refused request a failure names, such as
+ * `GET /accounts/<id>/workers/scripts returned HTTP 403`. The sandbox writes
+ * the message, so the account is only used to look up a hint.
+ */
+function refusedAccountId(message: string): string | undefined {
+  return /\/accounts\/([0-9a-f]{32})\b[^\n]* returned HTTP 40[13]\b/.exec(message)?.[1]
 }
 
 /**
@@ -359,17 +466,27 @@ When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DIS
 Your code must be an async arrow function that returns the result.
 A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help.
 
-Example: Worker with bindings (requires multipart/form-data):
+Example: Worker with bindings (a multipart/form-data upload):
 async () => {
-  const code = \`addEventListener('fetch', e => e.respondWith(MY_KV.get('key').then(v => new Response(v || 'none'))));\`;
-  const metadata = { body_part: "script", bindings: [{ type: "kv_namespace", name: "MY_KV", namespace_id: "your-kv-id" }] };
-  const b = \`--F\${Date.now()}\`;
-  const body = [\`--\${b}\`, 'Content-Disposition: form-data; name="metadata"', 'Content-Type: application/json', '', JSON.stringify(metadata), \`--\${b}\`, 'Content-Disposition: form-data; name="script"', 'Content-Type: application/javascript', '', code, \`--\${b}--\`].join("\\r\\n");
-  return cloudflare.request({ method: "PUT", path: \`/accounts/\${accountId}/workers/scripts/my-worker\`, body, contentType: \`multipart/form-data; boundary=\${b}\`, rawBody: true });
+  const code = \`export default { async fetch(request, env) { return new Response(await env.MY_KV.get('key') || 'none') } };\`;
+  const metadata = { main_module: "worker.js", bindings: [{ type: "kv_namespace", name: "MY_KV", namespace_id: "your-kv-id" }] };
+  const form = new FormData();
+  form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
+  form.append("worker.js", new Blob([code], { type: "application/javascript+module" }), "worker.js");
+  return cloudflare.request({ method: "PUT", path: \`/accounts/\${accountId}/workers/scripts/my-worker\`, body: form });
 }`
 
 const ACCOUNT_ID_PARAM_DESCRIPTION =
   'Cloudflare account ID to run against. Optional when the session is authorized for exactly one account, and for account-independent calls such as GET /accounts.'
+
+// Built once per isolate rather than for every request's server.
+const ExecuteInputSchema = withCachedJsonSchema(
+  z.object({
+    code: z.string().describe('JavaScript async arrow function to execute'),
+    account_id: z.string().optional().describe(ACCOUNT_ID_PARAM_DESCRIPTION),
+    truncate: z.boolean().optional().describe(TRUNCATE_ARGUMENT_DESCRIPTION)
+  })
+)
 
 /**
  * Register the `execute` tool: runs sandboxed JavaScript against the Cloudflare
@@ -381,12 +498,13 @@ const ACCOUNT_ID_PARAM_DESCRIPTION =
  * user tokens. An account token given another account's id is rejected by the
  * Cloudflare API, the same as any other account it can't access.
  *
- * `formatResult` turns the value the code returns into the tool's text output.
+ * The result is capped unless the call's `truncate` argument, or the
+ * connection's `truncateByDefault` when it is omitted, is `false`.
  */
 export function registerExecuteTool(
   server: McpServer,
   props: AuthProps,
-  formatResult: FormatToolResult,
+  truncateByDefault: boolean,
   connection: Connection,
   scopeChallenge: ScopeChallenge
 ): void {
@@ -397,10 +515,7 @@ export function registerExecuteTool(
     {
       title: 'Cloudflare API Code Executor',
       description: EXECUTE_TOOL_DESCRIPTION,
-      inputSchema: z.object({
-        code: z.string().describe('JavaScript async arrow function to execute'),
-        account_id: z.string().optional().describe(ACCOUNT_ID_PARAM_DESCRIPTION)
-      }),
+      inputSchema: ExecuteInputSchema,
       annotations: {
         title: 'Cloudflare API Code Executor',
         readOnlyHint: false,
@@ -408,7 +523,7 @@ export function registerExecuteTool(
         destructiveHint: true
       }
     },
-    async ({ code, account_id }) => {
+    async ({ code, account_id, truncate }) => {
       try {
         // Undefined accountId lets account-independent requests such as
         // GET /accounts run before the caller has selected an account; any
@@ -422,13 +537,28 @@ export function registerExecuteTool(
           missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE),
           connection
         )
-        if (execution.ok)
-          return { content: [{ type: 'text', text: formatResult(execution.result) }] }
+        if (execution.ok) {
+          const text = formatterFor(truncate, truncateByDefault)(execution.result)
+          return { content: [{ type: 'text', text }] }
+        }
 
         const failure = formatError(execution.message)
-        const hint = account_id ? unknownAccountHint(props, account_id) : ''
+        const pathAccount = account_id ? undefined : refusedAccountId(execution.message)
+        const hint = account_id
+          ? unknownAccountHint(props, account_id)
+          : pathAccount
+            ? unknownPathAccountHint(props, pathAccount)
+            : ''
         if (hint) failure.content[0].text += `\n\n${hint}`
-        const scope = challengeableScope(execution, connection)
+        const graphql = execution.graphqlRefusal
+          ? authorize(connection, GRAPHQL_REQUEST, GRAPHQL_PERMISSIONS[execution.graphqlRefusal])
+          : undefined
+        if (graphql) failure.content[0].text += `\n\n${explainRefusal(403, graphql)}`
+        const scope = challengeableScope(
+          execution.missingScope ?? (graphql?.kind === 'missing' ? graphql.scope : undefined),
+          execution,
+          connection
+        )
         if (!scope) return failure
         if (!execution.replaySafe) {
           failure.content[0].text += `\n\n${UNSAFE_TO_REPLAY}`

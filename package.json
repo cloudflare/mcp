@@ -4,13 +4,16 @@
   "description": "MCP server for the entire Cloudflare API using codemode",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev -c wrangler.jsonc -c wrangler.forge-tools.jsonc",
     "deploy": "wrangler deploy --env staging",
+    "deploy:forge-tools": "wrangler deploy -c wrangler.forge-tools.jsonc --env staging",
+    "deploy:forge-tools:prod": "wrangler deploy -c wrangler.forge-tools.jsonc --env production",
     "deploy:prod": "wrangler deploy --env production",
-    "types": "wrangler types --env-file .env_example",
+    "types": "wrangler types --env-file .env_example -c wrangler.jsonc -c wrangler.forge-tools.jsonc",
     "typecheck": "tsc --noEmit",
-    "lint": "oxlint src/",
+    "lint": "oxlint src/ --ignore-pattern 'src/generated/**'",
     "format": "oxfmt --write src/ tests/ scripts/ vitest.config.ts",
+    "generate:tools": "tsx scripts/generate-tools.ts",
     "format:check": "oxfmt --check src/ tests/ scripts/ vitest.config.ts",
     "test": "vitest run",
     "test:events": "vitest run tests/events-e2e.test.ts tests/ans-bridge.test.ts",
@@ -18,9 +21,11 @@
     "test:watch": "vitest",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "seed:staging": "tsx scripts/seed-r2.ts staging",
-    "seed:prod": "tsx scripts/seed-r2.ts production"
+    "seed:prod": "tsx scripts/seed-r2.ts production",
+    "report:schema-mismatches": "tsx scripts/schema-mismatch-report.ts"
   },
   "dependencies": {
+    "@cfworker/json-schema": "^4.1.1",
     "@cloudflare/workers-oauth-provider": "^1.2.3",
     "@modelcontextprotocol/server": "2.3.1",
     "hono": "^4.13.7",

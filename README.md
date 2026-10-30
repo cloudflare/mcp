@@ -76,19 +76,17 @@ When code mode is disabled:
 
 > **Note:** Disabling code mode significantly increases the token cost (~244k tokens vs ~1k tokens). Only disable it when necessary for composition with other code mode systems.
 
-### Disable Tool Result Truncation
+### Tool Result Truncation
 
-The server caps each tool result at ~6,000 tokens by default. Oversized JSON stays valid JSON: long lists keep their first items whole, long strings are clipped, and every cut is marked with `--- TRUNCATED ---`. Clients that bound results themselves can turn the cap off with the `?truncateToolResult=false` query parameter. Code mode clients are the main case. They parse each tool result as JSON and run more code on it before anything reaches the model, so they need the whole result. The parameter works with or without code mode and covers `search`, `execute`, and every endpoint tool.
+In code mode, the server caps each `search` and `execute` result at ~6,000 tokens, to avoid context overload. Oversized JSON stays valid JSON: long lists keep their first items whole, long strings are clipped, and every cut is marked with `--- TRUNCATED ---`. An agent that writes a result straight to a file or pipe, rather than reading it into the conversation, can pass `truncate: false` to that call to get the whole result.
 
-```
-https://mcp.cloudflare.com/mcp?codemode=false&truncateToolResult=false
-```
+> **Note:** Without the cap, a broad query can return megabytes. Only turn it off when the result doesn't go to the model.
 
-> **Note:** Without the cap, a broad query can return megabytes. Only turn it off when your client bounds what reaches the model.
+With code mode disabled, endpoint tools return whole results. The clients that disable it usually run code mode themselves: they call the endpoint tools from their own code and parse each result, so a capped result would lose data.
 
 ### Missing Permissions
 
-When Cloudflare refuses a call because the OAuth connection lacks a scope, the server asks the client to re-authorize with that scope added to the ones it already has. Claude and other clients that follow the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) get a `403 insufficient_scope` challenge. Codex and ChatGPT get it in the tool result, which is where they look for it. Either way, the tool error says which scope is missing.
+When Cloudflare refuses a call because the OAuth connection lacks a scope, the server asks the client to re-authorize with that scope added to the ones it already has. Claude and other clients that follow the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) get a `403 insufficient_scope` challenge. Codex and ChatGPT get it in the tool result, which is where they look for it. Either way, the tool error says which scope is missing. Some endpoints, such as `GET /zones`, don't refuse: they answer with an empty list when the scope is missing. An empty list from a read the connection holds no accepted scope for is refused the same way, so it isn't mistaken for an empty account.
 
 ## The Problem
 
@@ -125,7 +123,7 @@ The server also serves the [Cloudflare skills](https://github.com/cloudflare/ski
 
 ## Supported Products
 
-Workers, KV, R2, D1, Pages, DNS, Firewall, Load Balancers, Stream, Images, AI Gateway, Vectorize, Access, Gateway, and more. See the full [Cloudflare API schemas](https://github.com/cloudflare/api-schemas).
+Workers, KV, R2, D1, Pages, DNS, Firewall, Load Balancers, Stream, Images, AI Gateway, Vectorize, Access, Gateway, and more. The server ships the OpenAPI document from a pinned [Forge](https://github.com/cloudflare/forge) release (`openapi.forge.json`), updated by pull request.
 
 ## Usage
 

@@ -12,6 +12,8 @@ import {
   toolText
 } from './helpers/mcp'
 import { server } from './setup/msw'
+import { setSpecArtifactSource } from '../src/isolate-cache'
+import { buildMcpTools } from '../src/openapi'
 
 /**
  * Worker-seam tests for non-codemode mode (one MCP tool per OpenAPI endpoint),
@@ -81,9 +83,11 @@ afterEach(async () => {
 
 describe('non-codemode: account_id auto-resolution through real MCP validation', () => {
   it('serves the precomputed tool list with an optional account_id', async () => {
-    const artifact = JSON.parse(await (await env.SPEC_BUCKET.get('mcp-tools.json'))!.text())
+    const artifact = buildMcpTools(SPEC_PATHS)
     artifact[0].description = 'PRECOMPUTED ARTIFACT'
-    await env.SPEC_BUCKET.put('mcp-tools.json', JSON.stringify(artifact))
+    setSpecArtifactSource(async (name) =>
+      name === 'mcp-tools.json' ? JSON.stringify(artifact) : JSON.stringify({ paths: SPEC_PATHS })
+    )
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
 
     const tools = await listNonCodemodeTools(ACCOUNT_TOKEN)

@@ -195,6 +195,70 @@ describe('processSpec', () => {
     expect(item.post['x-api-token-group']).toBeUndefined()
     expect(item.put['x-api-token-group']).toBeUndefined()
   })
+
+  it("describes each 2xx schema as cloudflare.request()'s result, moving a list's result_info aside", () => {
+    const json = (schema: unknown) => ({ content: { 'application/json': { schema } } })
+    const zone = { type: 'object', properties: { id: { type: 'string' } } }
+    const info = { type: 'object', properties: { page: { type: 'number' } } }
+    const failure = { type: 'object', properties: { result: { type: 'null' }, errors: {} } }
+    const result = processSpec({
+      paths: {
+        '/zones': {
+          get: {
+            responses: {
+              '200': json({
+                allOf: [
+                  { type: 'object', properties: { result: { type: 'array', items: zone } } },
+                  { type: 'object', properties: { result_info: info } }
+                ]
+              }),
+              '4XX': json(failure)
+            }
+          }
+        },
+        '/zones/{zone_id}': { get: { responses: { '200': json(zone) } } },
+        '/accounts/{account_id}/items': {
+          get: { responses: { '201': json({ properties: { result: { type: 'string' } } }) } }
+        }
+      }
+    })
+
+    const list = (result.paths['/zones'] as Record<string, any>).get.responses
+    expect(list['200'].content['application/json'].schema).toEqual({ type: 'array', items: zone })
+    expect(list['200']['x-result-info']).toEqual(info)
+    expect(list['4XX'].content['application/json'].schema).toEqual(failure)
+    const single = (result.paths['/zones/{zone_id}'] as Record<string, any>).get.responses
+    expect(single['200'].content['application/json'].schema).toEqual(zone)
+    expect(single['200']).not.toHaveProperty('x-result-info')
+    const created = (result.paths['/accounts/{account_id}/items'] as Record<string, any>).get
+      .responses
+    expect(created['201'].content['application/json'].schema).toEqual({ type: 'string' })
+    expect(created['201']).not.toHaveProperty('x-result-info')
+  })
+
+  it('combines every declaration of result, and keeps a schema with other root fields', () => {
+    const json = (schema: unknown) => ({ content: { 'application/json': { schema } } })
+    const generic = { properties: { success: {}, errors: {}, result: { type: 'object' } } }
+    const own = { properties: { result: { properties: { rules: { type: 'array' } } } } }
+    const mixed = { properties: { id: { type: 'string' }, result: { type: 'object' } } }
+    const result = processSpec({
+      paths: {
+        '/accounts/{account_id}/rulesets': {
+          post: { responses: { '200': json({ allOf: [generic, own] }) } }
+        },
+        '/accounts/{account_id}/uploads': { post: { responses: { '200': json(mixed) } } }
+      }
+    })
+
+    const rulesets = (result.paths['/accounts/{account_id}/rulesets'] as Record<string, any>).post
+      .responses
+    expect(rulesets['200'].content['application/json'].schema).toEqual({
+      allOf: [{ type: 'object' }, { properties: { rules: { type: 'array' } } }]
+    })
+    const uploads = (result.paths['/accounts/{account_id}/uploads'] as Record<string, any>).post
+      .responses
+    expect(uploads['200'].content['application/json'].schema).toEqual(mixed)
+  })
 })
 
 describe('extractProducts', () => {
@@ -215,5 +279,69 @@ describe('extractProducts', () => {
 
   it('should return empty array for spec with no paths', () => {
     expect(extractProducts({})).toEqual([])
+  })
+})
+
+describe('Forge account-or-zone paths', () => {
+  const merged = {
+    paths: {
+      '/{account_or_zone}/{account_or_zone_id}/access/apps/{app_id}': {
+        get: {
+          summary: 'Get an Access application',
+          parameters: [
+            { name: 'account_or_zone', in: 'path', required: true, schema: { type: 'string' } },
+            { $ref: '#/components/parameters/account_or_zone_id' },
+            { name: 'app_id', in: 'path', required: true, schema: { type: 'string' } }
+          ]
+        }
+      }
+    },
+    components: {
+      parameters: {
+        account_or_zone_id: {
+          name: 'account_or_zone_id',
+          in: 'path',
+          required: true,
+          schema: { type: 'string', description: 'Identifier.' }
+        }
+      }
+    }
+  }
+
+  it('splits a merged path into its account and zone paths', () => {
+    const { paths } = processSpec(merged)
+
+    expect(Object.keys(paths)).toEqual([
+      '/accounts/{account_id}/access/apps/{app_id}',
+      '/zones/{zone_id}/access/apps/{app_id}'
+    ])
+    const names = (path: string) =>
+      (paths[path].get as { parameters: Array<{ name: string }> }).parameters.map((p) => p.name)
+    expect(names('/accounts/{account_id}/access/apps/{app_id}')).toEqual(['account_id', 'app_id'])
+    expect(names('/zones/{zone_id}/access/apps/{app_id}')).toEqual(['zone_id', 'app_id'])
+    expect(paths['/zones/{zone_id}/access/apps/{app_id}'].get).toMatchObject({
+      summary: 'Get an Access application',
+      tags: ['access']
+    })
+  })
+
+  it('keeps a concrete path the spec also lists on its own', () => {
+    const spec = structuredClone(merged) as typeof merged & {
+      paths: Record<string, Record<string, { summary: string }>>
+    }
+    spec.paths['/zones/{zone_id}/access/apps/{app_id}'] = { get: { summary: 'Zone-only entry' } }
+
+    const { paths } = processSpec(spec)
+
+    expect(paths['/zones/{zone_id}/access/apps/{app_id}'].get).toMatchObject({
+      summary: 'Zone-only entry'
+    })
+    expect(paths['/accounts/{account_id}/access/apps/{app_id}'].get).toMatchObject({
+      summary: 'Get an Access application'
+    })
+  })
+
+  it('counts products for both split paths', () => {
+    expect(extractProducts(merged)).toEqual(['access'])
   })
 })

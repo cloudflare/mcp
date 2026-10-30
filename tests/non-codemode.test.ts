@@ -5,10 +5,10 @@ import { InMemoryTransport, McpServer } from '@modelcontextprotocol/server'
 import { createServer } from '../src/server'
 import {
   ACCOUNT_ID_PARAM_DESCRIPTION,
-  buildInputSchema,
   buildMcpTools,
   pathToToolName,
-  toolNameToTitle
+  toolNameToTitle,
+  zodInputSchemaFromJson
 } from '../src/openapi'
 import type { OperationInfo } from '../src/openapi'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
@@ -115,7 +115,7 @@ describe('non-Code-Mode schema generation', () => {
     expect(name.endsWith('_')).toBe(false)
   })
 
-  it('precomputes the same wire JSON Schema emitted by the MCP SDK', async () => {
+  it('precomputes the wire JSON Schema the SDK emits for the Zod shape tools/call validates with', async () => {
     const path = '/zones/{zone_id}/dns_records/{record_id}'
     const operation: OperationInfo = {
       parameters: [
@@ -136,7 +136,7 @@ describe('non-Code-Mode schema generation', () => {
     const server = new McpServer({ name: 'schema-test', version: '1.0.0' })
     server.registerTool(
       precomputed.name,
-      { inputSchema: buildInputSchema(operation, path) },
+      { inputSchema: zodInputSchemaFromJson(precomputed.inputSchema) },
       async () => ({ content: [] })
     )
 
@@ -145,23 +145,24 @@ describe('non-Code-Mode schema generation', () => {
   })
 
   it('builds a representative path, query, header, body, and content-type contract', () => {
-    const schema = buildInputSchema(
-      {
-        parameters: [
-          { name: 'zone_id', in: 'path', required: true, description: 'Zone ID' },
-          { name: 'page', in: 'query', description: 'Page number' },
-          { name: 'type', in: 'query', required: true },
-          { name: 'If-Match', in: 'header', required: true, description: 'ETag' }
-        ],
-        requestBody: {
-          required: true,
-          content: { 'application/json': {}, 'text/plain': {} }
+    const [{ inputSchema }] = buildMcpTools({
+      '/zones/{zone_id}/dns_records/{record_id}': {
+        put: {
+          parameters: [
+            { name: 'zone_id', in: 'path', required: true, description: 'Zone ID' },
+            { name: 'page', in: 'query', description: 'Page number' },
+            { name: 'type', in: 'query', required: true },
+            { name: 'If-Match', in: 'header', required: true, description: 'ETag' }
+          ],
+          requestBody: {
+            required: true,
+            content: { 'application/json': {}, 'text/plain': {} }
+          }
         }
-      },
-      '/zones/{zone_id}/dns_records/{record_id}'
-    )
+      }
+    })
 
-    expect(Object.keys(schema)).toEqual([
+    expect(Object.keys(inputSchema.properties)).toEqual([
       'zone_id',
       'record_id',
       'page',
@@ -170,14 +171,11 @@ describe('non-Code-Mode schema generation', () => {
       'body',
       'content_type'
     ])
-    expect(schema.zone_id.description).toBe('Zone ID')
-    expect(schema.record_id.description).toBe('Path parameter: record_id')
-    expect(schema.page.isOptional()).toBe(true)
-    expect(schema.type.isOptional()).toBe(false)
-    expect(schema.header_if_match.isOptional()).toBe(false)
-    expect(schema.header_if_match.description).toContain('If-Match')
-    expect(schema.body.isOptional()).toBe(true)
-    expect(schema.content_type.description).toContain('text/plain')
+    expect(inputSchema.properties.zone_id.description).toBe('Zone ID')
+    expect(inputSchema.properties.record_id.description).toBe('Path parameter: record_id')
+    expect(inputSchema.properties.header_if_match.description).toContain('If-Match')
+    expect(inputSchema.properties.content_type.description).toContain('text/plain')
+    expect(inputSchema.required).toEqual(['zone_id', 'record_id', 'type', 'header_if_match'])
   })
 
   it.each([
@@ -187,7 +185,8 @@ describe('non-Code-Mode schema generation', () => {
   ] satisfies Array<[OperationInfo, string, string[]]>)(
     'handles minimal operation %#',
     (operation, path, keys) => {
-      expect(Object.keys(buildInputSchema(operation, path))).toEqual(keys)
+      const [{ inputSchema }] = buildMcpTools({ [path]: { post: operation } })
+      expect(Object.keys(inputSchema.properties)).toEqual(keys)
     }
   )
 
@@ -353,12 +352,11 @@ describe('createServer with codemode=false', () => {
     expect(docsTool.outputSchema).toBeDefined()
   })
 
-  it('fails clearly when mcp-tools.json has not been seeded', async () => {
-    await seedSpec({ '/user': { get: { summary: 'Get current user' } as OperationInfo } })
+  it('fails clearly when mcp-tools.json is unavailable', async () => {
     await removeMcpTools()
 
     await expect(createServer(bareUserProps, { codemode: false })).rejects.toThrow(
-      'mcp-tools.json not found in R2'
+      'mcp-tools.json is not available'
     )
   })
 
